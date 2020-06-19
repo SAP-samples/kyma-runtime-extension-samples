@@ -20,12 +20,12 @@ Running various samples require access to Kyma Runtime. There will be other requ
 
 Further resources for kyma:
 
-Twitter: [@kymaproject](https://twitter.com/kymaproject)
-Linkedin: [linkedin.kyma-project.io](http://linkedin.kyma-project.io)
-Youtube: [youtube.kyma-project.io](http://youtube.kyma-project.io)
-Slack: [slack.kyma-project.io](http://slack.kyma-project.io)
-Github: [github.com/kyma-project](http://github.com/kyma-project)
-Open SAP Course: [open.sap.com/courses/kyma1](https://open.sap.com/courses/kyma1)
+- Twitter: [@kymaproject](https://twitter.com/kymaproject)
+- Linkedin: [linkedin.kyma-project.io](http://linkedin.kyma-project.io)
+- Youtube: [youtube.kyma-project.io](http://youtube.kyma-project.io)
+- Slack: [slack.kyma-project.io](http://slack.kyma-project.io)
+- Github: [github.com/kyma-project](http://github.com/kyma-project)
+- Open SAP Course: [open.sap.com/courses/kyma1](https://open.sap.com/courses/kyma1)
 
 ## Known Issues
 
