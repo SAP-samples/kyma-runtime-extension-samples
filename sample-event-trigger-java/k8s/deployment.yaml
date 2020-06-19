@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sample-event-trigger-java
+  name: sample-event-trigger-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-event-trigger-java
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sample-event-trigger-java
+    spec:
+      containers:
+      - image: gabbi/sample-event-trigger-java:0.0.1 # change it to your image
+        name: sample-event-trigger-java
+        resources: {}
+        ports:
+          - containerPort: 8080
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sample-event-trigger-java
+  name: sample-event-trigger-java
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: sample-event-trigger-java
+  type: ClusterIP
+status:
+  loadBalancer: {}
