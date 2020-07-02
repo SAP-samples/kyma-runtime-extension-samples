@@ -1,0 +1,71 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: function-mssql-api
+spec:
+  deps: "{ \n  \"name\": \"dbtester\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+    {\n      \"mssql\": \"6.2.0\"\n  }\n}"
+  env:
+    - name: database
+      value: DemoDB
+    - name: server
+      value: mssql-deployment.dev.svc.cluster.local
+    - name: password
+      value: Yukon900
+    - name: user
+      value: sa
+  source: "const sql = require('mssql')\n\nconst config = {\n    user: process.env.user,\n
+    \   password: process.env.password,\n    server: process.env.server, \n    database:
+    process.env.database,\n}\n\nmodule.exports = { \n  main: async function (event,
+    context) {\n    try {\n      const method = event.extensions.request.method\n
+    \     const order_id = event.extensions.request.path.split(\"/\")[2];\n      const
+    pool = await sql.connect(config)\n      const request = new sql.Request()\n      \n
+    \     switch(method) {\n        case \"GET\":\n          if(order_id){\n            return
+    await getOrder(request, order_id);\n          }else{\n            return await
+    getOrders(request);\n          } \n        case \"POST\":\n          return await
+    addOrder(request, event.data);\n        case \"PUT\":\n          return await
+    editOrder(request, event.data);\n        case \"DELETE\":\n          return await
+    deleteOrder(request, order_id);\n        default:\n          event.extensions.response.status(500).json({\"message\":
+    \"Unhandled method was received\", \"error\": \"Unhandled method was received\"});\n
+    \     }\n    } catch (err) {\n        // ... error checks\n        console.log(\"ERROR
+    catch: \", err);\n        event.extensions.response.status(500).json({\"message\":
+    \"An error occurred during execution\", \"error\": err});\n    }\n    \n    sql.on('error',
+    err => {\n      // ... error handler\n      console.log(\"ERROR handler: \", error);\n
+    \     event.extensions.response.status(500).json({\"message\": \"Connection to
+    the database could not be established\", \"error\": err});\n    })\n  }\n}\n\nasync
+    function getOrders(request){\n  try{\n    let result = await request.query('select
+    * from Orders')\n    return result.recordsets[0];\n  }catch(err){\n    throw err;\n
+    \ }\n}\n\nasync function getOrder(request, order_id){\n  try{\n    let result
+    = await request.query(`select * from Orders where order_id = '${order_id}'`)\n
+    \   return result.recordsets[0];\n  }catch(err){\n    throw err;\n  }\n}\n\nasync
+    function addOrder(request, data){\n  try{\n    let result = await request.query(`insert
+    into Orders (order_id, description) values ('${data.order_id}', '${data.description}');
+    select * from Orders where order_id = '${data.order_id}'`);\n    return result.recordsets[0];\n
+    \ }catch(err){\n    throw err\n  }\n}\n\nasync function editOrder(request, data){\n
+    \ try{\n    let result = await request.query(`update Orders set description =
+    '${data.description}' where order_id = '${data.order_id}'; select * from Orders
+    where order_id = '${data.order_id}'`);\n    return result.rowsAffected;\n  }catch(err){\n
+    \   throw err\n  }\n}\n\nasync function deleteOrder(request, order_id){\n  try{\n
+    \   let result = await request.query(`delete from Orders where order_id = '${order_id}'`);\n
+    \   return result.rowsAffected;\n  }catch(err){\n    throw err\n  }\n}\n"
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: mssql-api-rule
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - path: /orders|/orders/.*
+      accessStrategies:
+        - config: {}
+          handler: noop
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+  service:
+    host: function-mssql-api
+    name: function-mssql-api
+    port: 80

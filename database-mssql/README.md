@@ -34,7 +34,7 @@ docker build -t {your-docker-account}/mssql -f docker/Dockerfile .
 docker push {your-docker-account}/mssql
 ```
 
-* Appy the deployment.
+* Apply the deployment.
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment.yaml
