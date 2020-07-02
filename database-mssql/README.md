@@ -19,7 +19,7 @@ This sample demonstrates:
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * `kubectl` is configured to `KUBECONFIG` downloaded from Kyma Runtime.
 
-## Deploying the application
+## Deploying the database
 
 * Create a new Namespace `dev`
 
