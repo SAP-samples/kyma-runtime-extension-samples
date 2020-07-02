@@ -41,6 +41,6 @@ kubectl -n dev apply -f ./k8s/deployment.yaml
 kubectl -n dev get function function-mssql-api
 ```
 
-* Using the API Rule
-https://function-mssql-api.<cluster-domain>/orders
-https://function-mssql-api.<cluster-domain>/orders/10000001
+* Example Usage of the API Rule
+  - https://function-mssql-api.`<cluster-domain>`/orders
+  - https://function-mssql-api.`<cluster-domain>`/orders/10000001
