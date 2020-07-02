@@ -15,6 +15,7 @@ Running various samples require access to Kyma Runtime. There will be other requ
 ## Samples
 
 - [Java Based microservice as an event trigger using cloudevents-sdk](./sample-event-trigger-java/README.md)
+- [Java Based extension with API exposed via Microgateway](./sample-extension-java/README.md)
 
 ## Resources
 
