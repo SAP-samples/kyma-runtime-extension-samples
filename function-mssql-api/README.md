@@ -42,5 +42,5 @@ kubectl -n dev get function function-mssql-api
 ```
 
 * Example Usage of the API Rule
-  - https://function-mssql-api.&lt;cluster-domain&gt;/orders
-  - https://function-mssql-api.&lt;cluster-domain&gt;/orders/10000001
+  - `https://function-mssql-api.<cluster-domain>/orders`
+  - `https://function-mssql-api.<cluster-domain>/orders/10000001`
