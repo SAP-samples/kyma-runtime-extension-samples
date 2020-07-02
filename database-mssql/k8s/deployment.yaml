@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mssql
+  labels:
+    component: mssql
+    app: skr-fs-app
+type: Opaque
+data:
+  #sa:Yukon900
+  username: c2E=
+  password: WXVrb245MDA=
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mssql-data
+  labels:
+    component: mssql
+    app: skr-fs-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql-deployment
+  labels:
+    component: mssql
+    app: skr-fs-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: mssql
+  template:
+    metadata:
+      labels:
+        component: mssql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mssql
+          image: jcawley5/mssql #change it to your image
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1433
+          env:
+            - name: MSSQL_PID
+              value: "Developer"
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mssql
+                  key: password
+          volumeMounts:
+            - name: mssqldb
+              mountPath: /var/opt/mssql
+      volumes:
+        - name: mssqldb
+          persistentVolumeClaim:
+            claimName: mssql-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql-deployment
+  labels:
+    component: mssql
+    app: skr-fs-app
+spec:
+  selector:
+    component: mssql
+  ports:
+    - protocol: TCP
+      port: 1433
+      targetPort: 1433
