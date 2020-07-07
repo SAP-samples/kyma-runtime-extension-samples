@@ -1,0 +1,72 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: fe-react-mssql
+data:
+  config.js: |-
+    window.Config = {
+      API_URL: "https://function-mssql-api.<cluster domain>",
+    };
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe-react-mssql
+  labels:
+    app: fe-react-mssql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fe-react-mssql
+  template:
+    metadata:
+      labels:
+        app: fe-react-mssql
+    spec:
+      containers:
+        - name: fe-react-mssql
+          image: jcawley5/fe-react-mssql
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /usr/share/nginx/html/config.js
+              subPath: config.js
+      volumes:
+        - name: config-volume
+          configMap:
+            name: fe-react-mssql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fe-react-mssql
+  labels:
+    app: fe-react-mssql
+spec:
+  ports:
+    - name: http
+      port: 80
+  selector:
+    app: fe-react-mssql
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: fe-react-mssql
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - path: /.*
+      accessStrategies:
+        - config: {}
+          handler: noop
+      methods:
+        - GET
+  service:
+    host: fe-react-mssql
+    name: fe-react-mssql
+    port: 80
