@@ -18,6 +18,7 @@ Running various samples require access to Kyma Runtime. There will be other requ
 - [Java Based extension with API exposed via Microgateway](./sample-extension-java/README.md)
 - [MSSQL Database](./database-mssql/README.md)
 - [Serverless Function MSSQL Database API](./function-mssql-api/README.md)
+- [React Frontend MSSQL](./frontend-react-mssql/README.md)
 
 ## Resources
 
