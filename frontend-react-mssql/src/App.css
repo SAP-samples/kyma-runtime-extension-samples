@@ -1,0 +1,33 @@
+.App {
+}
+
+.main {
+  margin: 10px;
+}
+
+.hideMsgStrip {
+  display: none !important;
+}
+
+.showMsgStrip {
+  display: block !important;
+}
+.centered {
+  position: fixed !important;
+  top: 50%;
+  left: 50%;
+}
+
+@font-face {
+  font-family: "72";
+  src: url("/fonts/72-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SAP-icons";
+  src: url("/icons/SAP-icons.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
