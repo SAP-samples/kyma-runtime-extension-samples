@@ -14,7 +14,7 @@ const OrderForm = (props) => {
         <Button name="cancel">Cancel</Button>,
       ]}
       onClose={props.onClose}
-      title={props.isEditMode ? "Edit Product" : "Add Product"}
+      title={props.isEditMode ? "Edit Order" : "Add Order"}
     >
       <FormGroup>
         <FormItem>
