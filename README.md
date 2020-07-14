@@ -19,6 +19,7 @@ Running various samples require access to Kyma Runtime. There will be other requ
 - [MSSQL Database](./database-mssql/README.md)
 - [Serverless Function MSSQL Database API](./function-mssql-api/README.md)
 - [React Frontend MSSQL](./frontend-react-mssql/README.md)
+- [UI5 Frontend MSSQL](./frontend-ui5-mssql/README.md)
 
 ## Resources
 
