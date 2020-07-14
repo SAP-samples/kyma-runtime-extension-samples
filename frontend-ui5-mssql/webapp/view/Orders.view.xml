@@ -1,0 +1,64 @@
+<mvc:View controllerName="kyma.sample.app.controller.Orders" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<Page id="page" title="{i18n>title}">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Image src="https://unpkg.com/fundamental-styles@0.10.0/dist/images/sap-logo.png" />
+					<Label text="{i18n>title}" />
+				</contentLeft>
+
+			</Bar>
+		</customHeader>
+		<content>
+			<MessageStrip text="{viewModel>/errorMsgTxt}" visible="{viewModel>/isMsgStripVisible}" type="Error" enableFormattedText="true" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"></MessageStrip>
+
+			<Table inset="true" items="{orders>/}" busy="{viewModel>/isBusy}">
+				<columns>
+					<Column>
+						<header>
+							<Label text="{i18n>orderid}"></Label>
+						</header>
+					</Column>
+					<Column>
+						<header>
+							<Label text="{i18n>description}"></Label>
+						</header>
+					</Column>
+					<Column>
+						<header>
+							<Label text="{i18n>created}"></Label>
+						</header>
+					</Column>
+					<Column>
+						<header>
+							<Label text="{i18n>actions}"></Label>
+						</header>
+					</Column>
+				</columns>
+				<headerToolbar>
+					<Toolbar>
+						<content>
+							<Title text="{i18n>orders}" />
+							<ToolbarSpacer></ToolbarSpacer>
+							<Button icon="sap-icon://add" press="onAddOrder" />
+						</content>
+					</Toolbar>
+				</headerToolbar>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{orders>order_id}" />
+							<Text text="{orders>description}" />
+							<Text text="{orders>created}" />
+							<HBox>
+								<Button icon="sap-icon://delete" press="onShowDeleteConfirm" />
+								<Button icon="sap-icon://edit" press="onShowEdit" />
+							</HBox>
+						</cells>
+					</ColumnListItem>
+				</items>
+
+			</Table>
+		</content>
+	</Page>
+</mvc:View>

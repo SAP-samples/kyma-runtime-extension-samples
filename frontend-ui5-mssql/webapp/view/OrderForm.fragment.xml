@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+    <Dialog>
+        <l:Grid defaultSpan="L12 M12 S12" width="auto">
+            <l:content>
+                <f:SimpleForm minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1" class="editableForm">
+                    <f:content>
+                        <Label text="{i18n>orderid}" />
+                        <Input value="{/order_id}" id="orderIdTxt" />
+                        <Label text="{i18n>description}" />
+                        <TextArea value="{/description}"></TextArea>
+                    </f:content>
+                </f:SimpleForm>
+            </l:content>
+        </l:Grid>
+        <buttons>
+            <Button text="{i18n>save}" press="saveOrderForm" />
+            <Button text="{i18n>cancel}" press="closeDialog" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
