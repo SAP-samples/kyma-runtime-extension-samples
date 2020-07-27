@@ -1,0 +1,53 @@
+<div class="fd-page spinnerContainer" aria-hidden="false" aria-label="Loading" *ngIf="loading">
+    <div class="fd-spinner">
+        <div></div>
+    </div>
+</div>
+<fd-panel-header>
+    <fd-panel-head *ngIf="customization">
+        <h2 fd-panel-title>{{ customization.name }} (Request ID: {{ customization.id }})</h2>
+    </fd-panel-head>
+    <fd-panel-head *ngIf="!customization">
+        <h2 fd-panel-title>Customization Request</h2>
+        <fd-panel-description>Please fill out the questionair to start the customization.</fd-panel-description>
+    </fd-panel-head>
+</fd-panel-header>
+<fd-panel-body *ngIf="customization">
+    <p style="white-space: pre-wrap;" [innerHTML]="customization.description"></p>
+    <p><span [ngStyle]="{'background-color':customization.color}">{{customization.color}}</span></p>
+    <p>Usage: {{customization.usage}}</p>
+</fd-panel-body>
+
+<fd-panel-body *ngIf="!customization">
+    <div fd-form-set>
+        <div fd-form-item>
+            <label fd-form-label for="name">Name:</label>
+            <input fd-form-control type="text" id="name" [(ngModel)]="name" placeholder="Color Name">
+        </div>
+        <div fd-form-item>
+            <label fd-form-label for="description">Description:</label>
+            <textarea fd-form-control id="description" [(ngModel)]="description"></textarea>
+        </div>
+        <div fd-form-item>
+            <label fd-form-label for="color">Color</label>
+            <input fd-form-control type="text" id="color" [value]="color" [style.background]="color" [(colorPicker)]="color" [cpPosition]="'bottom'" />
+        </div>
+        <div fd-form-item>
+            <label fd-form-label for="usage">
+                Usage:
+            </label>
+            <select fd-form-control id="usage" name="usage" [(ngModel)]="usage">
+                <option></option>
+                <option value="outdoor">Outdoor</option>
+                <option value="indoor">Indoor</option>
+            </select>
+        </div>
+
+        <div fd-form-item>
+            <button (click)="save()" class="fd-button--emphasized">Create</button>
+        </div>
+
+    </div>
+
+</fd-panel-body>
+
