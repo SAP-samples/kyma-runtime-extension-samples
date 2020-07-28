@@ -1,0 +1,10 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "qs": "^6.9.0",
+    "redis": "^2.8.0",
+    "uuid": "^3.3.2"
+  }
+}

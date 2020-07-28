@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customization-ui
+  labels:
+    app: customization-ui
+spec:
+  ports:
+  - name: http
+    port: 80
+  selector:
+    app: customization-ui
+
+   
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: customization-ui
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: customization-ui
+    spec:
+      containers:
+      - image: joekhybris/c4c-mashup-extension:latest
+        imagePullPolicy: Always
+        name: customization-ui
+        ports:
+        - name: http
+          containerPort: 80
+        env:
+        - name: CUSTOMIZATION_URL
+          value: 'https://get-customization-c4c-extension.c4f-demo4.cluster.extend.cx.cloud.sap/'
+        - name: CREATE_CUSTOMIZATION_URL
+          value: 'https://create-customization-c4c-extension.c4f-demo4.cluster.extend.cx.cloud.sap'
+
