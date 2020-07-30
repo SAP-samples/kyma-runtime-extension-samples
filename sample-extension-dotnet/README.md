@@ -2,6 +2,8 @@
 
 This sample demonstrates how to build and deploy a ASP.NET based microservice as an extension and expose the API in _SAP Cloud Platform Extension Factory, Kyma Runtime_.
 
+The application code is in the [sample-extension-dotnet](./sample-extension-dotnet) directory.
+
 ![extension](assets/extension.png)
 
 This sample demonstrates:
