@@ -61,7 +61,7 @@ kubectl -n dev apply -f ./k8s/deployment.yaml
 kubectl -n dev get po
 ```
 
-You should see the pod for deployment `sample-event-trigger-java` running.
+You should see the pod for deployment `sample-extension-java` running.
 
 ```shell script
 NAME                                     READY   STATUS    RESTARTS   AGE
