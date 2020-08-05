@@ -8,14 +8,14 @@ spec:
   env:
     - name: database
       value: DemoDB
-    - name: server
+    - name: host
       value: mssql-deployment.dev.svc.cluster.local
     - name: password
       value: Yukon900
     - name: user
       value: sa
   source: "const sql = require('mssql')\n\nconst config = {\n    user: process.env.user,\n
-    \   password: process.env.password,\n    server: process.env.server, \n    database:
+    \   password: process.env.password,\n    server: process.env.host, \n    database:
     process.env.database,\n}\n\nmodule.exports = { \n  main: async function (event,
     context) {\n    try {\n      const method = event.extensions.request.method\n
     \     const order_id = event.extensions.request.path.split(\"/\")[2];\n      const
