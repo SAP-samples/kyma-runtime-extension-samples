@@ -12,9 +12,9 @@ spec:
       value: mssql-deployment.dev.svc.cluster.local
     - name: password
       value: Yukon900
-    - name: user
+    - name: username
       value: sa
-  source: "const sql = require('mssql')\n\nconst config = {\n    user: process.env.user,\n
+  source: "const sql = require('mssql')\n\nconst config = {\n    user: process.env.username,\n
     \   password: process.env.password,\n    server: process.env.host, \n    database:
     process.env.database,\n}\n\nmodule.exports = { \n  main: async function (event,
     context) {\n    try {\n      const method = event.extensions.request.method\n
