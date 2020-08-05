@@ -1,7 +1,7 @@
 apiVersion: serverless.kyma-project.io/v1alpha1
 kind: Function
 metadata:
-  name: function-mssql-api
+  name: api-mssql-function
 spec:
   deps: "{ \n  \"name\": \"dbtester\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
     {\n      \"mssql\": \"6.2.0\"\n  }\n}"
@@ -52,7 +52,7 @@ spec:
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
-  name: function-mssql-api
+  name: api-mssql-function
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   rules:
@@ -66,6 +66,6 @@ spec:
         - PUT
         - DELETE
   service:
-    host: function-mssql-api
-    name: function-mssql-api
+    host: api-mssql-function
+    name: api-mssql-function
     port: 80
