@@ -1,3 +1,3 @@
 window.Config = {
-  API_URL: "https://function-mssql-api.<cluster domain>",
+  API_URL: "https://api-mssql-function.<cluster domain>",
 };
