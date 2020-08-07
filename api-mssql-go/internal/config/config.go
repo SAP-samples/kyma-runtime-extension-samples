@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/kelseyhightower/envconfig"
@@ -18,16 +19,20 @@ type Config struct {
 }
 
 //InitConfig initializes the AppConfig
-func InitConfig() {
+func initConfig() {
+	fmt.Println("initilizing configuration....")
 	appConfig = Config{}
 
 	err := envconfig.Process("myapp", &appConfig)
 	if err != nil {
-		log.Fatal("database connection parameters not defined....", err.Error())
+		log.Fatal("Please check the database connection parameters....", err.Error())
 	}
 }
 
 //AppConfig returns the current AppConfig
 func GetConfig() Config {
+	if appConfig == (Config{}) {
+		initConfig()
+	}
 	return appConfig
 }

@@ -1,6 +1,6 @@
 specVersion: "2.1"
 metadata:
-  name: kyma-sample-app
+  name: frontend-ui5-mssql
 type: application
 framework:
   name: OpenUI5
