@@ -1,7 +1,6 @@
 package db
 
 import (
-	"context"
 	"fmt"
 	"time"
 )
@@ -50,20 +49,15 @@ func DeleteOrder(order_id string) (RowsAffected, error) {
 
 func exec(tsql string, args ...interface{}) (RowsAffected, error) {
 
-	ctx := context.Background()
+	db := getConnection()
+
 	rowsAffectedResult := RowsAffected{}
 	rowsAffectedResult.RowsAffected = 0
-
-	// Check if database is alive.
-	err := db.PingContext(ctx)
-	if err != nil {
-		return rowsAffectedResult, err
-	}
 
 	fmt.Printf("Executing SQL: %s \n", tsql)
 	fmt.Printf("With args: %s \n", args...)
 
-	result, err := db.ExecContext(ctx, tsql, args...)
+	result, err := db.Exec(tsql, args...)
 	if err != nil {
 		return rowsAffectedResult, err
 	}
@@ -74,22 +68,18 @@ func exec(tsql string, args ...interface{}) (RowsAffected, error) {
 	return rowsAffectedResult, nil
 
 }
+
 func query(tsql string, args ...interface{}) ([]Order, error) {
+
+	db := getConnection()
+
 	order := Order{}
 	orders := []Order{}
 
-	ctx := context.Background()
-
-	// Check if database is alive.
-	err := db.PingContext(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	// Execute query
 	fmt.Printf("Executing SQL: %s \n", tsql)
 	fmt.Printf("With args: %s \n", args...)
-	rows, err := db.QueryContext(ctx, tsql, args...)
+
+	rows, err := db.Query(tsql, args...)
 
 	if err != nil {
 		fmt.Println("failed...")

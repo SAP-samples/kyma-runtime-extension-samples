@@ -2,11 +2,17 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 
 	"github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go/internal/db"
 )
+
+type order struct {
+	Orderid     string `json:"order_id"`
+	Description string `json:"description"`
+}
 
 func GetOrder(w http.ResponseWriter, r *http.Request) {
 
@@ -40,9 +46,14 @@ func GetOrders(w http.ResponseWriter, r *http.Request) {
 
 func EditOrder(w http.ResponseWriter, r *http.Request) {
 
-	order_id := r.FormValue("order_id")
-	description := r.FormValue("description")
-	rowsEffected, err := db.EditOrder(order_id, description)
+	var order order
+
+	fmt.Println("EditOrder")
+
+	defer r.Body.Close()
+	err := json.NewDecoder(r.Body).Decode(&order)
+
+	rowsEffected, err := db.EditOrder(order.Orderid, order.Description)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -56,9 +67,18 @@ func EditOrder(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddOrder(w http.ResponseWriter, r *http.Request) {
-	order_id := r.FormValue("order_id")
-	description := r.FormValue("description")
-	orders, err := db.AddOrder(order_id, description)
+
+	var order order
+
+	defer r.Body.Close()
+	err := json.NewDecoder(r.Body).Decode(&order)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	orders, err := db.AddOrder(order.Orderid, order.Description)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

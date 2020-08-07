@@ -1,7 +1,6 @@
 package db
 
 import (
-	"context"
 	"database/sql"
 	"fmt"
 	"log"
@@ -12,32 +11,38 @@ import (
 
 var db *sql.DB
 
-func init() {
-	config.InitConfig()
+//InitDatabase - sets database connection configuration
+func InitDatabase() {
+	var err error
+
+	connString := getConnString()
+
+	fmt.Printf("Setting connection to db with configuration: %s \n", connString)
+
+	db, err = sql.Open("sqlserver", connString)
+	if err != nil {
+		log.Fatal("Error opening connection: ", err.Error())
+	}
+}
+
+//gets configuration and returns appropiate connection string
+func getConnString() string {
+
 	config := config.GetConfig()
 
 	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s;",
 		config.Server, config.User, config.Password, config.Port, config.Database)
 
-	setConn(connString)
+	return connString
 }
 
-func setConn(connString string) {
-	var err error
+//will verify the connection is available or generate a new one
+func getConnection() *sql.DB {
 
-	db, err = sql.Open("sqlserver", connString)
+	err := db.Ping()
 	if err != nil {
-		log.Fatal("Error creating connection pool: ", err.Error())
+		log.Fatal("Could not ping db: ", err.Error())
 	}
-	ctx := context.Background()
-	err = db.PingContext(ctx)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	fmt.Printf("The database has successfully been connected!\n")
 
-}
-
-func GetConn() *sql.DB {
 	return db
 }
