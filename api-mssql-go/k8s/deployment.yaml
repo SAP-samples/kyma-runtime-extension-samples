@@ -1,3 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-mssql-go
+data:
+  database: DemoDB
+  server: mssql-deployment.dev.svc.cluster.local
+  port: "1433"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,11 +33,20 @@ spec:
               containerPort: 8080
           env:
             - name: MYAPP_DATABASE
-              value: DemoDB
+              valueFrom:
+                configMapKeyRef:
+                  name: api-mssql-go
+                  key: database
             - name: MYAPP_SERVER
-              value: mssql-deployment.dev.svc.cluster.local
+              valueFrom:
+                configMapKeyRef:
+                  name: api-mssql-go
+                  key: server
             - name: MYAPP_PORT
-              value: '1433'
+              valueFrom:
+                configMapKeyRef:
+                  name: api-mssql-go
+                  key: port
             - name: MYAPP_USER
               valueFrom:
                 secretKeyRef:
