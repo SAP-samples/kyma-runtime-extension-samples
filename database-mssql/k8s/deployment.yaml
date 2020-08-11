@@ -3,8 +3,7 @@ kind: Secret
 metadata:
   name: mssql
   labels:
-    component: mssql
-    app: skr-fs-app
+    app: mssql
 type: Opaque
 data:
   #sa:Yukon900
@@ -16,8 +15,7 @@ apiVersion: v1
 metadata:
   name: mssql-data
   labels:
-    component: mssql
-    app: skr-fs-app
+    app: mssql
 spec:
   accessModes:
     - ReadWriteOnce
@@ -30,8 +28,7 @@ kind: Deployment
 metadata:
   name: mssql-deployment
   labels:
-    component: mssql
-    app: skr-fs-app
+    app: mssql
 spec:
   replicas: 1
   selector:
@@ -72,11 +69,10 @@ kind: Service
 metadata:
   name: mssql-deployment
   labels:
-    component: mssql
-    app: skr-fs-app
+    app: mssql
 spec:
   selector:
-    component: mssql
+    app: mssql
   ports:
     - protocol: TCP
       port: 1433

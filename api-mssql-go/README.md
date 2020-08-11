@@ -33,11 +33,11 @@ This sample demonstrates:
 - Set the environment variables required for the database connection
 
 ```shell script
-export MYAPP_USER=sa
-export MYAPP_PASSWORD=Yukon900
-export MYAPP_DATABASE=DemoDB
-export MYAPP_SERVER=localhost
-export MYAPP_PORT=1433
+export MYAPP_user=sa
+export MYAPP_password=Yukon900
+export MYAPP_database=DemoDB
+export MYAPP_host=localhost
+export MYAPP_port=1433
 ```
 
 - Run the program
@@ -61,7 +61,7 @@ docker push {your-docker-account}/api-mssql-go
   docker run -p 8000:8000 -d {your-docker-account}/api-mssql-go:latest
 ```
 
-## Deploying the resources
+## Deploying the API - MSSQL running within Kyma cluster
 
 - Create a new Namespace `dev`
 
@@ -84,3 +84,45 @@ kubectl -n dev get deployment api-mssql-go
 - Example Usage of the API Rule
   - `https://api-mssql-go.<cluster-domain>/orders`
   - `https://api-mssql-go.<cluster-domain>/orders/10000001`
+
+
+## Deploying the API - MSSQL Service binding
+
+- Create a new Namespace `dev`
+
+```shell script
+kubectl create namespace dev
+```
+
+- Get the name of the service instance 
+
+```shell script
+kubectl -n dev get serviceinstances
+```
+
+Example
+
+| NAME                                  | CLASS                       | PLAN  | STATUS | AGE |
+| ------------------------------------- | --------------------------- | ----- | ------ | --- |
+| ***azure-sql-12-0-unkempt-entrance*** | ServiceClass/azure-sql-12-0 | basic | Ready  | 63m |
+
+
+- Within the deployment-servicebinding.yaml, adjust the name of the instanceRef property of the ServiceBinding to match  
+
+<pre>
+<code>
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: azure-sql
+spec:
+  instanceRef:
+    name:<b>azure-sql-12-0-unkempt-entrance</b>
+</code>
+</pre>
+
+- Apply the deployment.
+
+```shell script
+kubectl -n dev apply -f ./k8s/deployment-servicebinding.yaml
+```

@@ -1,9 +1,11 @@
 apiVersion: serverless.kyma-project.io/v1alpha1
 kind: Function
 metadata:
-  name: init-db
+  name: seed-db
+  labels:
+    app: seed-db
 spec:
-  deps: "{ \n  \"name\": \"init-db\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+  deps: "{ \n  \"name\": \"seed-db\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
     {\n      \"mssql\": \"6.2.0\"\n  }\n}"
   source: "const sql = require('mssql')\n\nconst config = {\n    user: process.env.username,\n
     \   password: process.env.password,\n    server: process.env.host, \n    database:
@@ -30,7 +32,9 @@ spec:
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
-  name: init-db
+  name: seed-db
+  labels:
+    app: seed-db
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   rules:
@@ -41,6 +45,6 @@ spec:
       methods:
         - GET
   service:
-    host: init-db
-    name: init-db
+    host: seed-db
+    name: seed-db
     port: 80

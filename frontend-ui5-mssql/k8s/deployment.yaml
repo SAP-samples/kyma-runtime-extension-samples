@@ -2,6 +2,8 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: fe-ui5-mssql
+  labels:
+    app: fe-ui5-mssql
 data:
   config.json: |-
     {

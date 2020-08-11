@@ -2,6 +2,8 @@ apiVersion: serverless.kyma-project.io/v1alpha1
 kind: Function
 metadata:
   name: api-mssql-function
+  labels:
+    app: api-mssql-function
 spec:
   deps: "{ \n  \"name\": \"dbtester\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
     {\n      \"mssql\": \"6.2.0\"\n  }\n}"
