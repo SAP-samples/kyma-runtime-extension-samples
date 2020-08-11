@@ -31,7 +31,7 @@ func getConnString() string {
 	config := config.GetConfig()
 
 	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s;",
-		config.Server, config.User, config.Password, config.Port, config.Database)
+		config.Server, config.Username, config.Password, config.Port, config.Database)
 
 	return connString
 }

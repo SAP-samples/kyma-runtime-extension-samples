@@ -3,19 +3,20 @@ package config
 import (
 	"fmt"
 	"log"
+	"os"
 
-	"github.com/kelseyhightower/envconfig"
+	"github.com/vrischmann/envconfig"
 )
 
 var appConfig Config
 
 //Config struct to hold the app config
 type Config struct {
-	Server   string
-	Port     string
-	User     string
-	Password string
-	Database string
+	Server   string `envconfig:"MYAPP_host"`
+	Port     string `envconfig:"MYAPP_port,default=1433"`
+	Username string `envconfig:"MYAPP_username"`
+	Password string `envconfig:"MYAPP_password"`
+	Database string `envconfig:"MYAPP_database"`
 }
 
 //InitConfig initializes the AppConfig
@@ -23,8 +24,11 @@ func initConfig() {
 	fmt.Println("initilizing configuration....")
 	appConfig = Config{}
 
-	err := envconfig.Process("myapp", &appConfig)
+	err := envconfig.Init(&appConfig)
 	if err != nil {
+		for _, pair := range os.Environ() {
+			fmt.Println(pair)
+		}
 		log.Fatal("Please check the database connection parameters....", err.Error())
 	}
 }

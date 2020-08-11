@@ -1,6 +1,6 @@
 # Overview
 
-This sample provisions a mssql database within Microsoft Azure using the Open Service Broker. This process generates a randomly named database, user and password. Once the provisioning if completed the database is configured with a sample table `Orders` populated with two rows of sample data. The generation of the table and data is handled within a lambda function `init-db` which is defined in `k8/deployment.yaml`.
+This sample provisions a mssql database within Microsoft Azure using the Open Service Broker. This process generates a randomly named database, user and password. Once the provisioning if completed the database is configured with a sample table `Orders` populated with two rows of sample data. The generation of the table and data is handled within a lambda function `seed-db` which is defined in `k8/deployment.yaml`.
 
 This sample demonstrates:
 
@@ -55,24 +55,24 @@ kubectl -n dev apply -f ./k8s/deployment.yaml
 - Verify the Function is up and running
 
 ```shell script
-kubectl -n dev get function init-db
+kubectl -n dev get function seed-db
 ```
 
 ## Binding the function to the MSSQL Database
 
 - Open the Kyma console and choose the namespace `dev`
 - Within the `dev` namespace choose `Development` -> `Functions`
-- Choose the function `init-db`
+- Choose the function `seed-db`
 - Choose the `Configuration` tab
 - Choose the option `Create Service Binding`
 - Choose the Service Instance for the Azure sql instance.
 - Choose `Create`
 
-## Call the api to initialize the MSSQL Database
+## Call the api to seed the MSSQL Database
 
 - Open the Kyma console and choose the namespace `dev`
 - Within the `dev` namespace choose `Configuration` -> `API Rules`
-- Choose the API Rule `init-db`
+- Choose the API Rule `seed-db`
 - Choose the Host value link. This should result in the response `database has been initialized....`
 - Remove the function/api rule deployment
 
