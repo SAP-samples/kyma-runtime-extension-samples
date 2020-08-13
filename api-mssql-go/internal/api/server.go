@@ -9,7 +9,7 @@ import (
 	"github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go/internal/db"
 )
 
-type order struct {
+type orderData struct {
 	Orderid     string `json:"order_id"`
 	Description string `json:"description"`
 }
@@ -46,7 +46,7 @@ func GetOrders(w http.ResponseWriter, r *http.Request) {
 
 func EditOrder(w http.ResponseWriter, r *http.Request) {
 
-	var order order
+	var order orderData
 
 	fmt.Println("EditOrder")
 
@@ -68,7 +68,7 @@ func EditOrder(w http.ResponseWriter, r *http.Request) {
 
 func AddOrder(w http.ResponseWriter, r *http.Request) {
 
-	var order order
+	var order orderData
 
 	defer r.Body.Close()
 	err := json.NewDecoder(r.Body).Decode(&order)
