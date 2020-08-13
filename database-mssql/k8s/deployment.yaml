@@ -33,11 +33,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      component: mssql
+      app: mssql
   template:
     metadata:
       labels:
-        component: mssql
+        app: mssql
     spec:
       terminationGracePeriodSeconds: 10
       containers:
