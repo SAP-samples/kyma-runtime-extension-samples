@@ -53,12 +53,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: username
-                  name: api-mssql-go
+                  name: mssql
             - name: MYAPP_password
               valueFrom:
                 secretKeyRef:
                   key: password
-                  name: api-mssql-go
+                  name: mssql
 ---
 apiVersion: v1
 kind: Service
