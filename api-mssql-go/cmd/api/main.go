@@ -19,6 +19,8 @@ func main() {
 	router.HandleFunc("/orders/{id}", api.EditOrder).Methods("PUT")
 	router.HandleFunc("/orders", api.AddOrder).Methods("POST")
 
+	router.HandleFunc("/orderCodeEvent", api.ConsumeOrderCode).Methods("POST")
+
 	db.InitDatabase()
 
 	log.Fatal(http.ListenAndServe(":8000", router))
