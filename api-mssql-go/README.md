@@ -33,7 +33,7 @@ This sample demonstrates:
 - Set the environment variables required for the database connection
 
 ```shell script
-export MYAPP_user=sa
+export MYAPP_username=sa
 export MYAPP_password=Yukon900
 export MYAPP_database=DemoDB
 export MYAPP_host=localhost
