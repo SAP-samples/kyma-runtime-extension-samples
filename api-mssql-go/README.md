@@ -147,9 +147,9 @@ kubectl -n dev apply -f ./k8s/deployment-servicebinding.yaml
 
 ## Deploying the Event Trigger
 
-The event trigger will work with either example.  It expects that either SAP Commerce Cloud or the Commerce Mock application has been connected and configure within the namespace.  You can find a blog detailing the Commerce Mock setup [here](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-commerce-mock-events-and-apis/)
+The event trigger will work with either sample.  It expects that either SAP Commerce Cloud or the Commerce Mock application has been connected and configure within the namespace.  You can find a blog detailing the Commerce Mock setup [here](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-commerce-mock-events-and-apis/)
 
-The trigger and code within the Golang application are setup for the order.created event.  Prior to deploying the trigger verify that value of the source matches the name of your mock application.  
+The trigger and code within the Golang application are setup for the order.created event.  Prior to deploying the trigger verify that value of the source matches the name of your application.  
 
 - Apply the deployment.
 
