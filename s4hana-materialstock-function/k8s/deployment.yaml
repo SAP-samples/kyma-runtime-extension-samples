@@ -1,0 +1,34 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: s4hana-materialstock
+  labels:
+    app: s4hana-materialstock
+spec:
+  deps: "{ \n  \"name\": \"material-stock\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+    {\n    \"@sap-cloud-sdk/core\": \"^1.24.1\",\n    \"@sap/cloud-sdk-vdm-material-stock-service\":
+    \"^1.19.2\"\n  }\n}"
+  source: "const vdm = require(\"@sap/cloud-sdk-vdm-material-stock-service\");\n\nconst
+    destConfig = {\n  \"url\": process.env.URL,\n  \"authentication\": process.env.Authentication,\n
+    \ \"username\": process.env.User,\n  \"password\": process.env.Password,\n}\n\nmodule.exports
+    = { \n  main: async function (event, context) {\n    const response = await getMaterialStock();\n
+    \   return response;\n  }\n}\n\nasync function getMaterialStock() {\n  return
+    vdm.MaterialStock.requestBuilder()\n      .getAll().execute(destConfig);\n}"
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: s4hana-materialstock
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - path: /.*
+      accessStrategies:
+        - config: {}
+          handler: noop
+      methods:
+        - GET
+  service:
+    host: s4hana-materialstock
+    name: s4hana-materialstock
+    port: 80
