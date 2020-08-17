@@ -47,7 +47,7 @@ spec:
           name: api-mssql-go
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 8000
 ---
 apiVersion: v1
 kind: Service
