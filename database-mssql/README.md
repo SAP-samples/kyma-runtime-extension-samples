@@ -34,7 +34,19 @@ docker build -t {your-docker-account}/mssql -f docker/Dockerfile .
 docker push {your-docker-account}/mssql
 ```
 
-- Apply the deployment.
+- Apply the Persistent Volume Claim.
+
+```shell script
+kubectl -n dev apply -f ./k8s/pvc.yaml
+```
+
+- Apply the Secret.
+
+```shell script
+kubectl -n dev apply -f ./k8s/secret.yaml
+```
+
+- Apply the Deployment.
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment.yaml
