@@ -87,10 +87,28 @@ docker push {your-docker-account}/api-mssql-go
 kubectl create namespace dev
 ```
 
+- Apply the Configmap.
+
+```shell script
+kubectl -n dev apply -f ./k8s/configmap.yaml
+```
+
+- Apply the Secret.
+
+```shell script
+kubectl -n dev apply -f ./k8s/secret.yaml
+```
+
 - Apply the deployment.
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment.yaml
+```
+
+- Apply the API Rule.
+
+```shell script
+kubectl -n dev apply -f ./k8s/apirule.yaml
 ```
 
 - Verify the deployment is up and running
