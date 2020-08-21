@@ -6,5 +6,5 @@ metadata:
     app: api-mssql-go
 data:
   database: DemoDB
-  host: mssql-deployment.dev.svc.cluster.local
+  host: mssql.dev.svc.cluster.local
   port: "1433"
