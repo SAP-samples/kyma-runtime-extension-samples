@@ -62,7 +62,7 @@ You should see the pod for deployment `mssql` running.
 
 ```shell script
 NAME                                     READY   STATUS    RESTARTS   AGE
-mssql-deployment-6df65c689d-nf9dk        2/2     Running   0          93s
+mssql-6df65c689d-nf9dk        2/2     Running   0          93s
 ```
 
 ## Running the docker image locally
