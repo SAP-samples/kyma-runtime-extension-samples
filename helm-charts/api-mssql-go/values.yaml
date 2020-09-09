@@ -1,0 +1,23 @@
+# Default values for database-mssql.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: jcawley5/api-mssql-go
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+configmap:
+  database: DemoDB
+  host: mssql.dev.svc.cluster.local
+  port: 1433
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  port: 80
+
+autoscaling:
+  enabled: false

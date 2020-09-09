@@ -1,0 +1,6 @@
+dependencies:
+- name: database-mssql
+  repository: file://../database-mssql
+  version: 0.1.0
+digest: sha256:602c8627567f4cd487dfc96a19aceb940e0825dc63dda50e2b80808f30149e48
+generated: "2020-09-09T17:01:19.086022-04:00"

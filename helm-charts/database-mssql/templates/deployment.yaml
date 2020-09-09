@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "database-mssql.fullname" . }}
+  labels:
+    {{- include "database-mssql.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "database-mssql.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "database-mssql.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 1433
+          env:
+            - name: MSSQL_PID
+              value: {{ .Values.image.env.MSSQL_PID | quote }}
+            - name: ACCEPT_EULA
+              value: {{ .Values.image.env.ACCEPT_EULA | quote }}
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "database-mssql.fullname" . }}
+                  key: password
+          volumeMounts:
+            - name: {{ include "database-mssql.fullname" . }}
+              mountPath: /var/opt/mssql
+      volumes:
+        - name: {{ include "database-mssql.fullname" . }}
+          persistentVolumeClaim:
+            claimName: {{ include "database-mssql.fullname" . }}
