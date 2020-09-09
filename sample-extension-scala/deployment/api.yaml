@@ -1,0 +1,10 @@
+apiVersion: gateway.kyma-project.io/v1alpha2
+kind: Api
+metadata:
+  name: my-scala-extension-dev
+spec:
+  authentication: []
+  hostname: my-scala-extension-dev
+  service:
+    name: my-scala-extension
+    port: 8080
