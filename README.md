@@ -44,7 +44,3 @@ The samples are provided on "as-is" basis. Currently there are no known issues f
 ## How to obtain support
 
 The samples are provided "as-is"; there is no guarantee that raised issues will be answered or addressed in future releases. For more information, please visit SAP Community and [ask a question](https://answers.sap.com/questions/ask.html), or contact your SAP contact to obtain support. In case you observe any defect in the product usage itself, kindly use the SAP Product Support channel and raise an incident adequately for the defects observed.
-
-## License
-
-Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](./LICENSE) file.
