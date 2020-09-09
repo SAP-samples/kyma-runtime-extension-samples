@@ -43,7 +43,7 @@ Within the `dev` Namespace:
 2. Choose **Add**.
 3. Choose the `api-access` plan.
 4. Choose the **Add Parameters** option and provide the communication arrangement JSON. For the material stock example, use the following snippet. Make sure to adjust the **systemName** parameter.  
--
+
 ```
 {
   "systemName": "{System Name}",
