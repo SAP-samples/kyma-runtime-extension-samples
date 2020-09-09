@@ -65,17 +65,15 @@ This sample demonstrates how to:
   kubectl create namespace dev
   ```
 
-2. Adjust the ConfigMap:
+2. Adjust the ConfigMap. Within the `/k8s/deployment.yaml` file, adjust the value of the **API_URL** parameter found in the ConfigMap to your API.
 
-  * Within the `/k8s/deployment.yaml` file, adjust the value of the **API_URL** parameter found in the ConfigMap to your API.
-
-  * Apply the Deployment:
+3. Apply the Deployment:
 
   ```shell script
   kubectl -n dev apply -f ./k8s/deployment.yaml
   ```
 
-3. Use the APIRule to open the application:
+4. Use the APIRule to open the application:
   ```
   https://fe-ui5-mssql.{cluster-domain}
   ```
