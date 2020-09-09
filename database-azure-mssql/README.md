@@ -1,80 +1,85 @@
 # Overview
 
-This sample provisions a mssql database within Microsoft Azure using the Open Service Broker. This process generates a randomly named database, user and password. Once the provisioning if completed the database is configured with a sample table `Orders` populated with two rows of sample data. The generation of the table and data is handled within a lambda function `seed-db` which is defined in `k8/deployment.yaml`.
+This sample provisions the MS SQL database within Microsoft Azure using the Open Service Broker. This process generates a randomly named database, user and password. Once the provisioning is completed, the database is configured with a sample `Orders` table populated with two rows of sample data. The generation of the table and data is handled within the `seed-db` lambda function which is defined in the `k8/deployment.yaml` file.
 
-This sample demonstrates:
+This sample demonstrates how to:
 
-- Creating a development namespace in Kyma Runtime.
-- Provisioning an Azure MSSQL database using the Open Service Broker
-- Deployment of a serverless function and api-rule
+- Create a development Namespace in the Kyma runtime.
+- Provision the Azure MS SQL database using the Open Service Broker.
+- Deploy a Serverless Function and an APIRule.
 
 ## Prerequisites
 
+<<<<<<< HEAD
 - SAP Cloud Platform, Kyma Runtime instance
+=======
+- SAP Cloud Platform, Kyma runtime instance
+>>>>>>> Review the README.md files
 - Microsoft Azure Account
-- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- `kubectl` is configured to `KUBECONFIG` downloaded from Kyma Runtime.
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
 
-## Provisioning the Open Service Broker
+## Steps
 
-- Create a new Namespace `dev`
+### Provisioning the Open Service Broker
+
+1. Create a new `dev` Namespace:
 
 ```shell script
 kubectl create namespace dev
 ```
 
-- Open the Kyma console and choose the namespace `dev`
-- Within the `dev` namespace choose `Service Management` -> `Catalog` -> `Add-Ons`
-- Choose the Azure Service Broker
-- Follow the steps to create the `azure-broker-data` secret noted in the `Documentation`
-- Within the Azure Service Broker Add-On choose the option `Add once`
-- Choose your desired `Minimum services stability` - the MSSQL is availabe in `Stable`
-- Set the `Azure Secret name` to `azure-broker-data`
-- Choose the option `Create`
+2. Open the Kyma Console and choose the `dev` Namespace.
+3. Within the `dev` Namespace, choose **Service Management** -> **Catalog** -> **Add-Ons**.
+4. Choose the `Azure Service Broker`.
+5. Follow the steps to create the `azure-broker-data` Secret noted in the `Documentation`.
+6. Within the Azure Service Broker Add-On, choose the **Add once** option.
+7. Choose your desired `Minimum services stability`. The MS SQL service is available in `Stable`.
+8. Set the `Azure Secret name` to `azure-broker-data`.
+9. Choose the **Create** option.
 
-## Provisioning the MSSQL Database
+## Provision the MS SQL database
 
-- Open the Kyma console and choose the namespace `dev`
-- Within the `dev` namespace choose `Service Management` -> `Catalog` -> `Services`
-- Choose the tile `Azure SQL Database 12.0`
-- Choose the following
+1. Open the Kyma Console and choose the `dev` Namespace.
+2. Within the `dev` Namespace, choose **Service Management** -> **Catalog** -> **Services**.
+3. Choose the `Azure SQL Database 12.0` tile.
+4. Choose the following:
   - Plan: Basic Tier
   - Connection Plan: Default
   - Location: Your desired location
   - Resource Group: The resource group to assign the database to
-- Choose `Create`
+5. Choose **Create**.
 
-## Deploying the function/api rule
+### Deploy the Function/APIRule
 
-- Apply the deployment.
+1. Apply the Deployment:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment.yaml
 ```
 
-- Verify the Function is up and running
+2. Verify that the Function is up and running:
 
 ```shell script
 kubectl -n dev get function seed-db
 ```
 
-## Binding the function to the MSSQL Database
+### Bind the Function to the MS SQL database
 
-- Open the Kyma console and choose the namespace `dev`
-- Within the `dev` namespace choose `Development` -> `Functions`
-- Choose the function `seed-db`
-- Choose the `Configuration` tab
-- Choose the option `Create Service Binding`
-- Choose the Service Instance for the Azure sql instance.
-- Choose `Create`
+1. Open the Kyma Console and choose the `dev` Namespace.
+2. Within the `dev` Namespace, choose **Development** -> **Functions**.
+3. Choose the `seed-db` Function.
+4. Choose the **Configuration** tab.
+5. Choose the **Create Service Binding** option.
+6. Choose the ServiceInstance for the Azure SQL.
+7. Choose **Create**.
 
-## Call the api to seed the MSSQL Database
+### Call the API to seed the MS SQL database
 
-- Open the Kyma console and choose the namespace `dev`
-- Within the `dev` namespace choose `Configuration` -> `API Rules`
-- Choose the API Rule `seed-db`
-- Choose the Host value link. This should result in the response `database has been initialized....`
-- Remove the function/api rule deployment
+1. Open the Kyma Console and choose the `dev` Namespace.
+2. Within the `dev` Namespace, choose **Configuration** -> **API Rules**.
+3. Choose the `seed-db` APIRule.
+4. Choose the Host value link. The expected response is `database has been initialized....`.
+5. Remove the Function/APIRule Deployment:
 
 ```shell script
 kubectl -n dev delete -f ./k8s/deployment.yaml

@@ -1,79 +1,81 @@
-# Overview
+## Overview
 
-This sample demonstrates how to build and deploy a Java based microservice as an event trigger in SAP Cloud Platform, Kyma Runtime using **cloudevents-sdk**.
+This sample demonstrates how to build and deploy a Java-based microservice as an Event Trigger in SAP Cloud Platform, Kyma runtime using **CloudEvents SDK**.
 
-It uses the cloudevents sdk to deserialize events.
-Kyma eventing dispatches the cloudevents v1, so the v1 library of [cloudevents sdk](https://github.com/cloudevents/sdk-java/blob/master/README_v1.md) is used.
+The sample uses the CloudEvents SDK to deserialize events. Kyma eventing dispatches the CloudEvents v1, so the v1 library of [CloudEvents SDK](https://github.com/cloudevents/sdk-java/blob/v1.0.0/README.md) is used.
 
-`order.created` event from SAP Commerce Cloud is used as an example trigger in this sample.
+The `order.created` event from SAP Commerce Cloud is used as an example of a trigger.
 
 ![java-event-trigger](assets/java-event-trigger.png)
 
-This sample demonstrates the following:
+This sample demonstrates how to:
 
-* Setting up development namespace in Kyma Runtime.
-* Configuring `kubectl` to use the Kyma Runtime `KUBECONFIG`
-* Setting up Event Triggers in Kyma.
-* Creating and deploying a Spring Boot Application to handle the event using **cloudevents-sdk** library.
-* Configuring the Spring Boot Application to use the event trigger.
-* Using `kubectl` to verify the state.
-* Observe the logs using `kubectl`
+* Set up the development Namespace in the Kyma runtime.
+* Configure `kubectl` to use the `KUBECONFIG` file downloaded from the Kyma runtime.
+* Set up Event Triggers in the Kyma runtime.
+* Create and deploy a Spring Boot application to handle the event using the **CloudEvents SDK** library.
+* Configure the Spring Boot application to use the Event Trigger.
+* Use `kubectl` to verify the state.
+* Observe the logs using `kubectl`.
 
 ## Prerequisites
 
-* SAP Cloud Platform, Kyma Runtime instance
+* SAP Cloud Platform, Kyma runtime instance
 * [Docker](https://www.docker.com/)
 * [make](https://www.gnu.org/software/make/)
 * [Gradle](https://gradle.org/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * [Java 11+](https://openjdk.java.net/projects/jdk/11/)
-* A commerce cloud system connected to the Kyma runtime. You can also use the mock. Refer to [this blog post](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-mock-applications/) to set up the mock commerce.
+* SAP Commerce Cloud system connected to the Kyma runtime. You can also use the mock. Refer to [this blog post](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-mock-applications/) to set up the commerce mock.
 
-## Kyma Configuration
+## Steps
 
-### Namespace
+### Configure Kyma
 
-* Create a new namespace `dev`
+1. Create a new `dev` Namespace:
 ![new-namepace](assets/new-namespace.png)
 
-### Namespace application binding
+2. Bind your application to the Namespace:
 
-* Navigate to Applications/Systems.
+  * Navigate to **Applications/Systems**:
   ![Go to Applications/Systems](assets/go-to-applications.png)
-* Select the commerce cloud system.
+
+  * Select the SAP Commerce Cloud system:
   ![select commerce cloud](assets/select-commece-application.png)
-* Create Binding with `dev` namespace.
+
+  * Create a Binding to the `dev` Namespace:
   ![create binding](assets/create-binding.png)
 
-### Service instance for Commerce Events
+3. Create a ServiceInstance for the Commerce Events:
 
-* Navigate to the namespace
+  * Navigate to your Namespace:
 ![navigate](assets/navigate-to-ns.png)
-* Navigate to Service catalog and select the bounded commerce cloud system.
+
+  * Navigate to the **Service Catalog** tab and select the bounded SAP Commerce Cloud system:
 ![catalog](assets/go-to-catalog.png)
-* Choose the `SAP Commerce Cloud - Events` as the Service Plan.
+
+  * Choose the `SAP Commerce Cloud - Events` as the ServicePlan:
 ![events service plan](./assets/choose-commerce-events-plan.png)
-* Create the instance.
+
+  * Create the ServiceInstance:
 ![add](assets/add-events.png)
 ![create instance](assets/create-instance.png)
 
-With the instance creation part, the events can be consumed by functions and microservices deployed in `dev` namespace.
+After creating the ServiceInstance, the events can be consumed by Functions and microservices deployed in the `dev` Namespace.
 
-## Application
+### Configure the application
 
-### Spring Boot Application
+Event Trigger is implemented as a Spring Boot application using gradle as a build tool.
 
-Event trigger is implemented as a Spring Boot application using gradle as a build tool.
-
-* The cloudevents library is added as a dependeny to [build.gradle](./build.gradle).
+* The CloudEvents library is added as a dependency to [build.gradle](./build.gradle).
 
 ```groovy
 implementation('io.cloudevents:cloudevents-api:1.3.0')
 ```
 
-* A [POJO](src/main/java/dev/kyma/samples/trigger/model/OrderCreated.java) is defined for the `order.created` event.
+* A Plain Old Java Object [(POJO)](src/main/java/dev/kyma/samples/trigger/model/OrderCreated.java) is defined for the `order.created` event.
 
-The POJO reflects the `order.created` event definition which can be accessed from the Service Catalog.
+The POJO reflects the `order.created` event definition which you can access from the Service Catalog.
 
 ![order-created](assets/order-created.png)
 
@@ -98,7 +100,7 @@ public class OrderCreated {
 }
 ```
 
-* The controller logic unmarshalls the event payload using the cloudevents sdk apis.
+* The controller logic unmarshalls the event payload using the CloudEvent SDK APIs.
 
 ```java
 @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -111,58 +113,56 @@ public class OrderCreated {
         System.out.println(cloudEvent.getAttributes());
         System.out.println(cloudEvent.getData());
 
-        //implement your business extension logic here
+        //Implement your business extension logic here
     }
 ```
 
-### Deploying the application
+### Deploy the application
 
-* Configure kubectl kubeconfig
+1. Configure the `KUBECONFIG` file:
 
-  * Download the KUBECONFIG
+  * Download the `KUBECONFIG` file for the Kyma runtime:
     ![download kubeconfig](assets/download-kubeconfig.png)
-  * Set kubectl to use KUBECONFIG
+
+  * Set `kubectl` to use the `KUBECONFIG` file:
 
     ```shell script
     export KUBECONFIG={path-to-kubeconfig}
     ```
 
-* Build the and push image to the docker repository.
-  
-```shell script
-DOCKER_ACCOUNT={your-docker-account} make push-image
-```
+2. Build and push the image to the Docker repository:
 
-* Update image name in the [Kubernetes Deployment](k8s/deployment.yaml).
+   ```shell script
+   DOCKER_ACCOUNT={your-docker-account} make push-image
+   ```
 
-* Deploy the application as a Kubernetes Service.
+3. Update the image name in the [Kubernetes Deployment](k8s/deployment.yaml). Refer to the standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
 
-These are standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
+4. Deploy the application as a Kubernetes Service.
 
-```shell script
-kubectl -n dev apply -f ./k8s/deployment.yaml
-```
+   ```shell script
+   kubectl -n dev apply -f ./k8s/deployment.yaml
+   ```
 
-* Verify the Pods are up and running
+5. Verify that the Pods are up and running:
 
-```shell script
-kubectl -n dev get po
-```
+   ```shell script
+   kubectl -n dev get po
+   ```
 
-You should see the pod for deployment `sample-event-trigger-java` running.
+The expected result shows that the Pod for the `sample-event-trigger-java` Deployment is running:
 
-```shell script
-NAME                                         READY   STATUS    RESTARTS   AGE
-default-broker-filter-766bb5bf5f-llnvk       2/2     Running   2          5h1m
-default-broker-ingress-55b8794cb4-62q48      2/2     Running   2          5h1m
-dev-gateway-554dc9bd4b-mvxtk                 2/2     Running   0          5h1m
-sample-event-trigger-java-68f8dfd98c-mnpdv   2/2     Running   0          15s          42s
-```
+    ```shell script
+    NAME                                         READY   STATUS    RESTARTS   AGE
+    default-broker-filter-766bb5bf5f-llnvk       2/2     Running   2          5h1m
+    default-broker-ingress-55b8794cb4-62q48      2/2     Running   2          5h1m
+    dev-gateway-554dc9bd4b-mvxtk                 2/2     Running   0          5h1m
+    sample-event-trigger-java-68f8dfd98c-mnpdv   2/2     Running   0          15s          42s
+    ```
 
-### Event Trigger Configuration
+### Configure the Event Trigger
 
-* Create the event trigger to receive `order.created` event from the source.
-The source is the connected SAP  Commerce Cloud System.
+1. Create the Event Trigger to receive the `order.created` event from the source. The source is the connected SAP Commerce Cloud system.
 
 ```yaml
 apiVersion: eventing.knative.dev/v1alpha1
@@ -187,7 +187,7 @@ spec:
 kubectl -n dev apply -f ./k8s/event-trigger.yaml
 ```
 
-* Verify trigger is correctly deployed
+2. Verify that the Trigger is correctly deployed:
 
 ```shell script
 kubectl -n dev get trigger
@@ -195,22 +195,23 @@ NAME                        READY   REASON   BROKER    SUBSCRIBER_URI           
 sample-event-trigger-java   True             default   http://sample-event-trigger-java.dev.svc.cluster.local/   13s
 ```
 
-### Trying it out
+### Try it out
 
-* Simulate the event from the SAP Solution. In my case, I use the mock to simulate `order.created` event.
+1. Simulate the event from the SAP Solution. For the purpose of this tutorial, use the mock to simulate the `order.created` event.
 
-  * Go to Remote APIs. It list all registered APIs and Events.
+  * Go to **Remote APIs**. It lists all registered APIs and Events.
     ![mock-remote](assets/mock-remote-apis.png)
+
   * Navigate to `SAP Commerce Cloud - Events` and send the `order.created` event.
     ![send-event](assets/mock-send-event.png)
 
-* Observe the logs using kubectl
+2. Observe the logs using kubectl:
 
-```shell script
-kubectl -n dev logs deploy/sample-event-trigger-java -c sample-event-trigger-java
-```
+    ```shell script
+    kubectl -n dev logs deploy/sample-event-trigger-java -c sample-event-trigger-java
+    ```
 
-You should see logs similiar to below:
+The expected logs look as follows:
 
 ```shell script
 2020-06-19 17:45:12.092  INFO 8 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
@@ -220,7 +221,7 @@ Optional[OrderCreated{orderCode='76272727'}]
 
 ### Cleanup
 
-Delete the resources created.
+Delete the created resources:
 
 ```shell script
 kubectl -n dev delete -f ./k8s/
