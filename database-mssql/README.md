@@ -1,72 +1,73 @@
 # Overview
 
-This sample provides a mssql database configured with a sample database `DemoDB` which contains one table `Orders` populated with two rows of sample data. The generation of the database, table and data is handled within `app/setup.sql`. The database user and password can also be configured within the `app/init-db.sh` which should match the configuration of the secret defined within the `k8s/ßdeployment.yaml`.
+This sample provides the MS SQL database configured with a sample `DemoDB` database which contains one `Orders` table populated with two rows of sample data. The `app/setup.sql` file handles the generation of the database, table, and data. Within the `app/init-db.sh` file, you can also configure the database user and password. They must match the configuration of the Secret defined within the `k8s/ßdeployment.yaml` file.
 
-This sample demonstrates:
+This sample demonstrates how to:
 
-- Creating a development namespace in Kyma Runtime.
-- Configuring and building a MSSQL database docker image
-- Deploying a MSSQL database in Kyma runtime which includes
-  - A secret containing the database user/password
-  - A PersistentVolumeClaim for the storage of the database data
-  - A deployment of the MSSQL image with the secret and PersistentVolumeClaim configuration
-  - A service to expose the database to other Kubernetes resources
+- Create a development Namespace in Kyma runtime.
+- Configure and build the MS SQL database Docker image.
+- Deploy the MS SQL database in Kyma runtime which includes:
+  - A Secret containing the database user and password.
+  - A PersistentVolumeClaim for the storage of the database data.
+  - A Deployment of the MS SQL image with the Secret and PersistentVolumeClaim configuration.
+  - A Service to expose the database to other Kubernetes resources.
 
 ## Prerequisites
 
-- SAP Cloud Platform, Kyma Runtime instance
+- SAP Cloud Platform, Kyma runtime instance
 - [Docker](https://www.docker.com/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- `kubectl` is configured to `KUBECONFIG` downloaded from Kyma Runtime.
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime.
 
-## Deploying the database
+## Deploy the database
 
-- Create a new Namespace `dev`
+1. Create a new `dev` Namespace:
 
 ```shell script
 kubectl create namespace dev
 ```
 
-- Build and push the image to your docker repository.
+2. Build and push the image to your Docker repository:
 
 ```shell script
 docker build -t {your-docker-account}/mssql -f docker/Dockerfile .
 docker push {your-docker-account}/mssql
 ```
 
-- Apply the Persistent Volume Claim.
+3. Apply the PersistentVolumeClaim:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/pvc.yaml
 ```
 
-- Apply the Secret.
+4. Apply the Secret:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/secret.yaml
 ```
 
-- Apply the Deployment.
+5. Apply the Deployment:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment.yaml
 ```
 
-- Verify the Pod is up and running
+6. Verify that the Pod is up and running:
 
 ```shell script
 kubectl -n dev get po
 ```
 
-You should see the pod for deployment `mssql` running.
+The expected result shows that the Pod for the `mssql` Deployment is running:
 
 ```shell script
 NAME                                     READY   STATUS    RESTARTS   AGE
 mssql-6df65c689d-nf9dk        2/2     Running   0          93s
 ```
 
-## Running the docker image locally
+## Run the Docker image locally
+
+To run the Docker image locally, run this command:
 
 ```shell script
-docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Yukon900' -p 1433:1433 -d <docker id>/mssql
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Yukon900' -p 1433:1433 -d {docker id}/mssql
 ```

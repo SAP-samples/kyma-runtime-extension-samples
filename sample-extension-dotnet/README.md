@@ -1,55 +1,56 @@
-# Overview
+## Overview
 
-This sample demonstrates how to build and deploy a ASP.NET based microservice as an extension and expose the API in _SAP Cloud Platform, Kyma Runtime_.
+This sample demonstrates how to build and deploy an ASP.NET-based microservice as an extension and expose the API in SAP Cloud Platform, Kyma runtime.
 
-The application code is in the [sample-extension-dotnet](./sample-extension-dotnet) directory.
+You can find the application code in the [sample-extension-dotnet](./sample-extension-dotnet) directory.
 
 ![extension](assets/extension.png)
 
-This sample demonstrates:
+This sample demonstrates how to:
 
-* Creating a development namespace in Kyma Runtime.
-* Creating and deploying a ASP.Net application in Kyma runtime.
-* Exposing the ASP.Net application via [APIRules](https://kyma-project.io/docs/components/api-gateway#custom-resource-api-rule).
-* Calling the APIs
+* Create a development Namespace in the Kyma runtime.
+* Create and deploy an ASP.NET application in the Kyma runtime.
+* Expose the ASP.NET application using [APIRules](https://kyma-project.io/docs/components/api-gateway#custom-resource-api-rule).
+* Call the APIs.
 
 ## Prerequisites
 
-* SAP Cloud Platform, Kyma Runtime instance
+* SAP Cloud Platform, Kyma runtime instance
 * [Docker](https://www.docker.com/)
 * [make](https://www.gnu.org/software/make/)
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* `kubectl` is configured to `KUBECONFIG` downloaded from Kyma Runtime.
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
 
-## Deploying the application
+## Steps
 
-* Create a new Namespace `dev`
+### Deploy the application
+
+1. Create a new `dev` Namespace:
 
 ```shell script
 kubectl create namespace dev
 ```
 
-* Build the and push image to the docker repository.
-  
+2. Build and push the image to the Docker repository:
+
 ```shell script
 DOCKER_ACCOUNT={your-docker-account} make push-image
 ```
 
-* Update image name in the [Kubernetes Deployment](k8s/deployment.yaml). These are standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
+3. Update the image name in the [Kubernetes Deployment](k8s/deployment.yaml). Refer to the standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
 
-* Deploy the application.
+4. Deploy the application:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment.yaml
 ```
 
-* Verify the Pods are up and running
+5. Verify that the Pods are up and running:
 
 ```shell script
 kubectl -n dev get po -l app=sample-extension-dotnet
 ```
 
-You should see the pod for deployment `sample-extension-dotnet` running.
+The expected result shows that the Pod for the `sample-extension-dotnet` Deployment is running:
 
 ```shell script
 kubectl -n dev get po -l app=sample-extension-dotnet
@@ -57,14 +58,9 @@ NAME                                       READY   STATUS    RESTARTS   AGE
 sample-extension-dotnet-774fbc5c7b-x44pd   2/2     Running   0          15s
 ```
 
-### Exposing the API
+### Expose the API
 
-Create an APIRule. In the APIRule, you specify the Kubernetes Service that is exposed.
-
-In the below snippet, service `sample-extension-dotnet` is expose. It is specified in `spec.service.name` field.
-The subdomain `sample-extension-dotnet` is specified in `spec.service.host` field.
-
-The APIs can be accessed on the URL <https://sample-extension-dotnet.{cluster domain}>.
+1. Create an APIRule. In the APIRule, specify the Kubernetes Service that is exposed:
 
 ```yaml
 apiVersion: gateway.kyma-project.io/v1alpha1
@@ -89,13 +85,25 @@ spec:
     port: 80
 ```  
 
+This sample snippet exposes the `sample-extension-dotnet` Service. The Service is specified in the **spec.service.name** field.
+The `sample-extension-dotnet` subdomain is specified in the **spec.service.host** field.
+
+
+2. Apply the APIRule:
+
 ```shell script
 kubectl -n dev apply -f ./k8s/api-rule.yaml
 ```
 
-### Trying it out
+3. Access the APIs through this URL:
 
-Make an HTTP call using curl
+```
+https://sample-extension-dotnet.{cluster domain}
+```
+
+### Try it out
+
+Make an HTTP call using curl:
 
 ```shell script
 curl https://sample-extension-dotnet.{cluster domain}
