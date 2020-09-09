@@ -1,4 +1,4 @@
-# Overview
+## Overview
 
 This sample provides the MS SQL database configured with a sample `DemoDB` database which contains one `Orders` table populated with two rows of sample data. The `app/setup.sql` file handles the generation of the database, table, and data. Within the `app/init-db.sh` file, you can also configure the database user and password. They must match the configuration of the Secret defined within the `k8s/ßdeployment.yaml` file.
 

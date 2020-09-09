@@ -1,4 +1,4 @@
-# Overview
+## Overview
 
 This sample provides a Golang API endpoint for communication with the MS SQL databases provided in the `database-mssql` and `database-azure-mssql` directories. You can also enable an Event Trigger for both examples.
 
