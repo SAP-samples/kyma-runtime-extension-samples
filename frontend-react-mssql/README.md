@@ -69,13 +69,13 @@ kubectl create namespace dev
 
   * Within the `/k8s/deployment.yaml` file, adjust the value of the **window.Config.API_URL** parameter found in the ConfigMap to your API.
 
-  * Apply the Deployment:
+3. Apply the Deployment:
 
   ```shell script
   kubectl -n dev apply -f ./k8s/deployment.yaml
   ```
 
-3. Use the APIRule to open the application:
+4. Use the APIRule to open the application:
 
   ```
   https://fe-react-mssql.{cluster-domain}
