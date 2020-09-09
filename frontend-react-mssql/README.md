@@ -1,4 +1,4 @@
-# Overview
+## Overview
 
 This sample provides a frontend UI configured with any of the sample `Order` APIs. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
