@@ -1,4 +1,4 @@
-# Overview
+## Overview
 
 This sample provides a Serverless Function configured to call the Material Stock API provided by S/4HANA using the SAP Cloud SDK. This function is exposed as an un-authenticated API.
 
