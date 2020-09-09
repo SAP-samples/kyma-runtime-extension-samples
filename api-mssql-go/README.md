@@ -1,38 +1,38 @@
 # Overview
 
-This sample provides an Golang API endpoint for communication to the mssql database provided in the samples `database-mssql` and `database-azure-mssql`.  An event trigger can also be enabled for either example.
+This sample provides a Golang API endpoint for communication with the MS SQL databases provided in the `database-mssql` and `database-azure-mssql` directories. You can also enable an Event Trigger for both examples.
 
-## database-mssql sample
+## MS SQL database example
 
-If using the `database-mssql` example the deployment.yaml should be used. This defines the deployment definition as well as an api rule to expose the function to the internet without authentication. The deployment also contains a config map and a secret containing the following parameters which may need to be changed if the default options of the `database-mssql` example were modified.
+For the `database-mssql` example, use the `deployment.yaml` file. It provides the Deployment definition as well as an APIRule to expose the Function without authentication. The Deployment also contains a ConfigMap and a Secret with the following parameters for the `database-mssql` example that you can configure to modify the default options:
 
-| Name     | Value                                  |
+| Parameter     | Value                                  |
 | -------- | -------------------------------------- |
-| database | DemoDB                                 |
-| host     | mssql-deployment.dev.svc.cluster.local |
-| password | Yukon900                               |
-| username | sa                                     |
-| port     | 1433                                   |
+| **database** | `DemoDB`                                 |
+| **host**     | `mssql-deployment.dev.svc.cluster.local` |
+| **password** | `Yukon900`                               |
+| **username** | `sa`                                     |
+| **port**     | `1433`                                   |
 
-This sample demonstrates:
+This sample demonstrates how to:
 
-- Creating a development namespace in Kyma Runtime.
-- Deployment of Kubernetes resources which include
-  - Deployment of API written in GO
-  - An API-Rule
+- Create a development Namespace in the Kyma runtime.
+- Deploy the following Kubernetes resources:
+  - API deployment written in GO
+  - API Rule
   - Service
   - Secret
-   
-## database-azure-mssql sample
 
-The deployment-servicebinding.yaml should be used if connecting to the `database-azure-mssql` example.  This defines the deployment definition as well as an api rule to expose the function to the internet without authentication, but also defines a ServiceBinding and ServiceBindingUsage which configured it to use the `database-azure-mssql` ServiceInstance.
+## Azure MS SQL database example
 
-This sample demonstrates:
+For the `database-azure-mssql` example, use the `deployment-servicebinding.yaml` file. It defines the Deployment definition as well as an APIRule to expose the Function without authentication. It also defines a ServiceBinding and ServiceBindingUsage that configure the Function to use the `database-azure-mssql` ServiceInstance.
 
-- Creating a development namespace in Kyma Runtime.
-- Deployment of Kubernetes resources which include
-  - Deployment of API written in GO
-  - API-Rule
+This sample demonstrates how to:
+
+- Create a development Namespace in the Kyma runtime.
+- Deploy the following Kubernetes resources:
+  - API deployment written in GO
+  - API Rule
   - Service
   - ServiceBinding
   - ServiceBindingUsage
@@ -40,15 +40,16 @@ This sample demonstrates:
 
 ## Prerequisites
 
-- SAP Cloud Platform, Kyma Runtime instance
+- SAP Cloud Platform, Kyma runtime instance
 - [Docker](https://www.docker.com/)
 - [Go](https://golang.org/doc/install)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- `kubectl` is configured to `KUBECONFIG` downloaded from Kyma Runtime.
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
 
-## Running the API Locally
+## Steps
 
-- Set the environment variables required for the database connection
+### Run the API locally
+
+1. Set the environment variables required to connect with the database:
 
 ```shell script
 export MYAPP_username=sa
@@ -58,95 +59,94 @@ export MYAPP_host=localhost
 export MYAPP_port=1433
 ```
 
-- Run the program
+2. Run the application:
 
 ```shell script
 go run ./cmd/api
 ```
 
-## Building the Docker Image
+### Build the Docker image
 
-- Build and push the image to your docker repository.
+1. Build and push the image to your Docker repository:
 
 ```shell script
 docker build -t {your-docker-account}/api-mssql-go -f docker/Dockerfile .
 docker push {your-docker-account}/api-mssql-go
 ```
 
-- To run the image locally
+2. To run the image locally, run:
 
 ```shell script
   docker run -p 8000:8000 -d {your-docker-account}/api-mssql-go:latest
 ```
 
-## Deploying the API - database-mssql sample
+### Deploy the API - MS SQL database example
 
-- Create a new Namespace `dev`
+1. Create a new `dev` Namespace:
 
 ```shell script
 kubectl create namespace dev
 ```
 
-- Apply the Configmap.
+2. Apply the ConfigMap:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/configmap.yaml
 ```
 
-- Apply the Secret.
+3. Apply the Secret:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/secret.yaml
 ```
 
-- Apply the deployment.
+4. Apply the Deployment:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment.yaml
 ```
 
-- Apply the API Rule.
+5. Apply the APIRule:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/apirule.yaml
 ```
 
-- Verify the deployment is up and running
+6. Verify that the Deployment is up and running:
 
 ```shell script
 kubectl -n dev get deployment api-mssql-go
 ```
 
-- Example Usage of the API Rule
-  - `https://api-mssql-go.<cluster-domain>/orders`
-  - `https://api-mssql-go.<cluster-domain>/orders/10000001`
+7. Use the APIRule:
+  - `https://api-mssql-go.{cluster-domain}/orders`
+  - `https://api-mssql-go.{cluster-domain}/orders/10000001`
 
 
-## Deploying the API - database-azure-mssql sample
+### Deploy the API - Azure MS SQL database example
 
-- Create a new Namespace `dev`
+1. Create a new `dev` Namespace:
 
 ```shell script
 kubectl create namespace dev
 ```
 
-- Get the name of the service instance 
+2. Get the name of the ServiceInstance:
 
 ```shell script
 kubectl -n dev get serviceinstances
 ```
 
-Example
+For example:
 
 | NAME                                  | CLASS                       | PLAN  | STATUS | AGE |
 | ------------------------------------- | --------------------------- | ----- | ------ | --- |
 | ***azure-sql-12-0-unkempt-entrance*** | ServiceClass/azure-sql-12-0 | basic | Ready  | 63m |
 
 
-- Within the deployment-servicebinding.yaml, adjust the name of the instanceRef property of the ServiceBinding to match  
+3. Within the `deployment-servicebinding.yaml`, adjust the name of the **instanceRef** property of the corresponding ServiceBinding:  
 
-<pre>
-<code>
+```yaml
 apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceBinding
 metadata:
@@ -154,25 +154,23 @@ metadata:
 spec:
   instanceRef:
     name:<b>azure-sql-12-0-unkempt-entrance</b>
-</code>
-</pre>
+```
 
-- Apply the deployment.
+4. Apply the Deployment:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment-servicebinding.yaml
 ```
 
-## Deploying the Event Trigger
+### Deploy the Event Trigger
 
-The event trigger will work with either sample.  It expects that either SAP Commerce Cloud or the Commerce Mock application has been connected and configure within the namespace.  You can find a blog detailing the Commerce Mock setup [here](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-commerce-mock-events-and-apis/)
+The Event Trigger works for both samples. It expects that either SAP Commerce Cloud or the Commerce Mock application is connected and configured within the Namespace. You can find a blog post with details on the Commerce Mock setup [here](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-commerce-mock-events-and-apis/).
 
-The trigger and code within the Golang application are setup for the order.created event.  Prior to deploying the trigger verify that value of the source matches the name of your application.  
+The trigger and code within the Golang application are set up for the `order.created` event. Before you deploy the trigger, verify that the value of the source matches the name of your application.  
 
-- Apply the deployment.
+1. Apply the Deployment:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/event-trigger.yaml
 ```
-- Within the mock app submit an order.created event - this will propulate the database with the submitted orderCode and a description that reads `order received from event`
-  
+2. Within the mock application, submit the `order.created` event. This populates the database with the submitted order code and the `order received from event` notification.
