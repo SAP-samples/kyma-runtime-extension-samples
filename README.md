@@ -24,6 +24,7 @@ Running various samples require access to Kyma Runtime. There will be other requ
 - [UI5 Frontend MSSQL](./frontend-ui5-mssql/README.md)
 - [C4C UI Extensibility](./c4c-customization/README.md)
 - [ASP.Net Based extension with API exposed via Microgateway](./sample-extension-dotnet/README.md)
+- [Call the Material Stock API provided by SAP S/4HANA using the SAP Cloud SDK](./s4hana-materialstock-function/README.md)
 
 ## Resources
 
