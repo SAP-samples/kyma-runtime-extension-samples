@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-mssql-go.fullname" . }}
+  labels:
+    {{- include "api-mssql-go.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "api-mssql-go.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "api-mssql-go.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: MYAPP_database
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "api-mssql-go.fullname" . }}
+                  key: database
+            - name: MYAPP_host
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "api-mssql-go.fullname" . }}
+                  key: host
+            - name: MYAPP_port
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "api-mssql-go.fullname" . }}
+                  key: port
+            - name: MYAPP_username
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: {{ .Release.Name }}-database-mssql
+            - name: MYAPP_password
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: {{ .Release.Name }}-database-mssql
