@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: my-scala-extension
+  name: my-scala-extension
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-scala-extension
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: my-scala-extension
+    spec:
+      containers:
+      - image: gabbi/my-scala-extension:0.0.1
+        name: my-scala-extension
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}
