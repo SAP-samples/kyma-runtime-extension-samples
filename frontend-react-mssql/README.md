@@ -65,9 +65,7 @@ This sample demonstrates how to:
 kubectl create namespace dev
 ```
 
-2. Adjust the ConfigMap.
-
-  * Within the `/k8s/deployment.yaml` file, adjust the value of the **window.Config.API_URL** parameter found in the ConfigMap to your API.
+2. Adjust the ConfigMap. Within the `/k8s/deployment.yaml` file, adjust the value of the **window.Config.API_URL** parameter found in the ConfigMap to your API.
 
 3. Apply the Deployment:
 
