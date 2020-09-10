@@ -21,3 +21,6 @@ service:
 
 autoscaling:
   enabled: false
+
+database-mssql:
+  nameOverride: "database-mssql"

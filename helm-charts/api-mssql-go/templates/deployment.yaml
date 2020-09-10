@@ -41,9 +41,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: username
-                  name: {{ .Release.Name }}-database-mssql
+                  name: {{ include "api-mssql-go.secretname" . }}
             - name: MYAPP_password
               valueFrom:
                 secretKeyRef:
                   key: password
-                  name: {{ .Release.Name }}-database-mssql
+                  name: {{ include "api-mssql-go.secretname" . }}
