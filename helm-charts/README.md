@@ -1,27 +1,15 @@
-This folder contains various helm chart examples that correspond to the examples found in this repository.  These can be used to deploy and manage Kubernetes resources.  Each chart contains a values.yaml which contains the configuration parameters of the chart.
+This directory contains various helm chart examples which can be used to deploy and manage Kubernetes resources.  Each chart contains a `values.yaml` which contains the configuration parameters of the chart.
 
 For more information see [helm](https://helm.sh/)
 
-List of examples
+## Prerequisites
 
+- SAP Cloud Platform Extension Factory, Kyma Runtime instance
+- [Helm](https://helm.sh/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- `kubectl` is configured to `KUBECONFIG` downloaded from Kyma Runtime.
 
-Example usages
-
-## helm template
-
-# Locally render template
-helm template mydbinstall ./database-mssql
-
-# Locally render template cli overrides
-helm template --set image.repository=mydockeruser/mssql mydbinstall ./database-mssql
-
-# Locally render template with overrides in myvalues.yaml
-helm template -f myvalues.yaml mydbinstall ./database-mssql
-
-
-
-## helm install
-helm install mydbinstall ./database-mssql -n helmtest
-
-## helm uninstall
-helm uninstall mydbinstall ./database-mssql -n helmtest
+## Samples
+- [UI5 Frontend MSSQL](./frontend-ui5-mssql/README.md)
+- [Golang MSSQL Database API](./api-mssql-go/README.md)
+- [MSSQL Database](./database-mssql/README.md)

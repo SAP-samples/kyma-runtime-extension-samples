@@ -1,0 +1,6 @@
+dependencies:
+- name: api-mssql-go
+  repository: file://../api-mssql-go
+  version: 0.1.0
+digest: sha256:4a9f485c658a3a9a1bef6efeaf06dc433e866ef0764dbace7a0555e3401b4be2
+generated: "2020-09-10T13:41:45.852531-04:00"

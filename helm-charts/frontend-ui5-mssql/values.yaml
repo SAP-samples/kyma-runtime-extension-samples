@@ -3,27 +3,18 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: jcawley5/mssql
+  repository: jcawley5/fe-ui5-mssql
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
-  env:
-    MSSQL_PID: "Developer"
-    ACCEPT_EULA: "Y"
-
-persistence:
-  claimName: mssql-data
-  accessModes:
-    - ReadWriteOnce
-  storage: 100Mi
-
-secret:
-  db:
-    user: sa
-    password: Yukon900
 
 nameOverride: ""
 fullnameOverride: ""
 
 service:
-  port: 1433
+  port: 80
+
+clusterDomain: "you must override this value"
+
+api-mssql-go:
+  nameOverride: "api-mssql-go"
