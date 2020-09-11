@@ -4,7 +4,7 @@ As a custom IAS tenant is used, it is required to log in using a private browsin
 
 ## Scenario abstract
 
-The demo requires C4C system integrated with Kyma or SAP Cloud Platform Extension Factory box. In case of the Kyma box, a Redis database is required. The C4C system must be connected to SAP Cloud Identity instance.
+The demo requires C4C system integrated with Kyma or SAP Cloud Platform box. In case of the Kyma box, a Redis database is required. The C4C system must be connected to SAP Cloud Identity instance.
 
 Part of this project are two lambda functions. Both functions are bound to Redis and C4C instances and exposed via HTTP. For authentication, the JWKS URL and Issuer of the SAP Cloud Identity tenant is required.
 
