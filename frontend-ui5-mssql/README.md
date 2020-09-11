@@ -1,20 +1,20 @@
 # Overview
 
-This sample provides a frontend sapui5 app which can be configured with any of the sample order apis.
+This sample provides a frontend sapui5 app which can be configured with any of the sample order APIs.
 
 This sample demonstrates:
 
 - Creating a development namespace in Kyma Runtime.
-- Configuring and building a sapui5 docker image
+- Configuring and building a SAPUI5 docker image
 - Deploying a the frontent in the Kyma runtime which includes
-  - A config map containg the url to the backend api
-  - A deployment of the frontent image with the config map mounted to a volumn
+  - A config map containg the url to the backend API
+  - A deployment of the frontend image with the config map mounted to a volume
   - A service to expose the UI to other Kubernetes resources
-  - An API to expose the frontend externally
+  - An API to expose the frontend application externally
 
 ## Prerequisites
 
-- SAP Cloud Platform Extension Factory, Kyma Runtime instance
+- SAP Cloud Platform, Kyma Runtime instance
 - [Docker](https://www.docker.com/)
 - [Node.js](https://nodejs.org/en/)
 - [UI5 Tooling](https://github.com/SAP/ui5-tooling)

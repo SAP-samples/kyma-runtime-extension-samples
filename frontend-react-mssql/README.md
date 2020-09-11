@@ -14,7 +14,7 @@ This sample demonstrates:
 
 ## Prerequisites
 
-- SAP Cloud Platform Extension Factory, Kyma Runtime instance
+- SAP Cloud Platform, Kyma Runtime instance
 - [Docker](https://www.docker.com/)
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/)

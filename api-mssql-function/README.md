@@ -16,7 +16,7 @@ This sample demonstrates:
 
 ## Prerequisites
 
-- SAP Cloud Platform Extension Factory, Kyma Runtime instance
+- SAP Cloud Platform, Kyma Runtime instance
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - `kubectl` is configured to `KUBECONFIG` downloaded from Kyma Runtime.
 

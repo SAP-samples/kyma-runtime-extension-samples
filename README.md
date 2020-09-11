@@ -1,10 +1,10 @@
 # Kyma Runtime Extension Samples
 
-This project contains sample applications for building extensions using lambdas and microservices on SAP Cloud Platform Extension Factory, Kyma Runtime.
+This project contains sample applications for building extensions using lambdas and microservices on SAP Cloud Platform, Kyma Runtime.
 
 The samples are implemented in multiple languages and demonstrates various Kyma features as well as use case scenarios.
 
-Devlopers should be able to refer to these samples and implement their own business scenarios. The samples will focus on features and capabilities of [SAP Cloud Platform Extension Factory, Kyma Runtime](https://blogs.sap.com/2020/05/12/get-a-fully-managed-runtime-based-on-kyma-and-kubernetes/).
+Devlopers should be able to refer to these samples and implement their own business scenarios. The samples will focus on features and capabilities of [SAP Cloud Platform , Kyma Runtime](https://blogs.sap.com/2020/05/12/get-a-fully-managed-runtime-based-on-kyma-and-kubernetes/).
 
 ![kyma-runtime](assets/kyma-runtime-cockpit.png)
 
