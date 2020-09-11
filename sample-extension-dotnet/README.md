@@ -15,7 +15,7 @@ This sample demonstrates:
 
 ## Prerequisites
 
-* SAP Cloud Platform Extension Factory, Kyma Runtime instance
+* SAP Cloud Platform, Kyma Runtime instance
 * [Docker](https://www.docker.com/)
 * [make](https://www.gnu.org/software/make/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
