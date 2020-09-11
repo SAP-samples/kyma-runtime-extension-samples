@@ -1,10 +1,10 @@
-# C4C Backend Extensibility
+# SAP Cloud for Customer Backend Extensibility
 
 As a custom IAS tenant is used, it is required to log in using a private browsing session not to interfere with the global SAP IAS tenant.
 
 ## Scenario abstract
 
-The demo requires C4C system integrated with Kyma or SAP Cloud Platform box. In case of the Kyma box, a Redis database is required. The C4C system must be connected to SAP Cloud Identity instance.
+The demo requires a SAP Cloud for Customer system integrated with SAP Cloud Platform, Kyma runtime. The SAP Cloud for Customer system must be connected to SAP Cloud Identity instance.
 
 Part of this project are two lambda functions. Both functions are bound to Redis and SAP Cloud for Customer instances and exposed via HTTP. For authentication, the JWKS URL and Issuer of the SAP Cloud Identity tenant is required.
 
