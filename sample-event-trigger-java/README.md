@@ -1,6 +1,6 @@
 # Overview
 
-This sample demonstrates how to build and deploy a Java based microservice as an event trigger in SAP Cloud Platform Extension Factory, Kyma Runtime using **cloudevents-sdk**.
+This sample demonstrates how to build and deploy a Java based microservice as an event trigger in SAP Cloud Platform, Kyma Runtime using **cloudevents-sdk**.
 
 It uses the cloudevents sdk to deserialize events.
 Kyma eventing dispatches the cloudevents v1, so the v1 library of [cloudevents sdk](https://github.com/cloudevents/sdk-java/blob/master/README_v1.md) is used.
