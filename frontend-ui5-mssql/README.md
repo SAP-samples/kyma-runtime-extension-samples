@@ -5,7 +5,7 @@ This sample provides a frontend SAPUI5 application that you can configure with a
 This sample demonstrates how to:
 
 - Create a development Namespace in the Kyma runtime.
-- Configure and build a SAPUI5 Docker image.
+- Configure and build an SAPUI5 Docker image.
 - Deploy the frontend in the Kyma runtime which includes:
   - A ConfigMap that contains the URL to the backend API.
   - A Deployment of the frontend image with the ConfigMap mounted to a volume.

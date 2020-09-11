@@ -4,7 +4,7 @@ As a custom IAS tenant is used, it is required to log in using a private browsin
 
 ## Scenario abstract
 
-The demo requires a SAP Cloud for Customer system integrated with SAP Cloud Platform, Kyma runtime. The SAP Cloud for Customer system must be connected to SAP Cloud Identity instance.
+The demo requires an SAP Cloud for Customer system integrated with SAP Cloud Platform, Kyma runtime. The SAP Cloud for Customer system must be connected to SAP Cloud Identity instance.
 
 Part of this project are two lambda functions. Both functions are bound to Redis and SAP Cloud for Customer instances and exposed via HTTP. For authentication, the JWKS URL and Issuer of the SAP Cloud Identity tenant is required.
 
