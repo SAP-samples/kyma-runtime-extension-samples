@@ -7,5 +7,5 @@ metadata:
 data:
   config.json: |-
     {
-      "API_URL": "https://api-mssql-function.<cluster domain>"
+      "API_URL": "http://localhost:8000/orders"
     }
