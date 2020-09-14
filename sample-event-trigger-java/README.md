@@ -117,9 +117,9 @@ public class OrderCreated {
     }
 ```
 
-### Deploy the application
+### Prepare for deployment
 
-1. Configure the `KUBECONFIG` file:
+* Configure the `KUBECONFIG` file:
 
   * Download the `KUBECONFIG` file for the Kyma runtime:
     ![download kubeconfig](assets/download-kubeconfig.png)
@@ -130,21 +130,29 @@ public class OrderCreated {
     export KUBECONFIG={path-to-kubeconfig}
     ```
 
-2. Build and push the image to the Docker repository:
+* Build and push the image to the Docker repository:
 
    ```shell script
    DOCKER_ACCOUNT={your-docker-account} make push-image
    ```
 
-3. Update the image name in the [Kubernetes Deployment](k8s/deployment.yaml). Refer to the standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
+* Update the image name in the [Kubernetes Deployment](k8s/deployment.yaml). Refer to the standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
 
-4. Deploy the application as a Kubernetes Service.
+### Kubernetes Deployment
+
+This section details out deploying the application and event trigger as standard Kubernetes resources.
+
+To deploy as Helm chart, please refer to [Helm Chart Deployment](#helm-chart-deployment)
+
+#### Deploy the application
+
+* Deploy the application as a Kubernetes Service.
 
    ```shell script
    kubectl -n dev apply -f ./k8s/deployment.yaml
    ```
 
-5. Verify that the Pods are up and running:
+* Verify that the Pods are up and running:
 
    ```shell script
    kubectl -n dev get po
@@ -152,17 +160,17 @@ public class OrderCreated {
 
 The expected result shows that the Pod for the `sample-event-trigger-java` Deployment is running:
 
-    ```shell script
-    NAME                                         READY   STATUS    RESTARTS   AGE
-    default-broker-filter-766bb5bf5f-llnvk       2/2     Running   2          5h1m
-    default-broker-ingress-55b8794cb4-62q48      2/2     Running   2          5h1m
-    dev-gateway-554dc9bd4b-mvxtk                 2/2     Running   0          5h1m
-    sample-event-trigger-java-68f8dfd98c-mnpdv   2/2     Running   0          15s          42s
-    ```
+```shell script
+  NAME                                         READY   STATUS    RESTARTS   AGE
+  default-broker-filter-766bb5bf5f-llnvk       2/2     Running   2          5h1m
+  default-broker-ingress-55b8794cb4-62q48      2/2     Running   2          5h1m
+  dev-gateway-554dc9bd4b-mvxtk                 2/2     Running   0          5h1m
+  sample-event-trigger-java-68f8dfd98c-mnpdv   2/2     Running   0          15s
+```
 
-### Configure the Event Trigger
+#### Configure the Event Trigger
 
-1. Create the Event Trigger to receive the `order.created` event from the source. The source is the connected SAP Commerce Cloud system.
+* Create the Event Trigger to receive the `order.created` event from the source. The source is the connected SAP Commerce Cloud system.
 
 ```yaml
 apiVersion: eventing.knative.dev/v1alpha1
@@ -187,7 +195,7 @@ spec:
 kubectl -n dev apply -f ./k8s/event-trigger.yaml
 ```
 
-2. Verify that the Trigger is correctly deployed:
+* Verify that the Trigger is correctly deployed:
 
 ```shell script
 kubectl -n dev get trigger
@@ -195,9 +203,35 @@ NAME                        READY   REASON   BROKER    SUBSCRIBER_URI           
 sample-event-trigger-java   True             default   http://sample-event-trigger-java.dev.svc.cluster.local/   13s
 ```
 
+### Helm Chart Deployment
+
+A Helm Chart definition is also available for developers to try out.
+
+#### Must Haves
+
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* [Helm3](https://helm.sh/docs/intro/install/)
+
+#### Helm install
+
+To install the helm chart in `dev` namespace, run
+
+ ```shell script
+helm install kymaapp ./helm/sample-event-trigger-java --set image.repository=gabbi/sample-event-trigger-java:0.0.1 --set trigger.source=mp-mock-commerce-2 --set trigger.eventType=order.created -n dev
+```
+
+To verify, the installed chart
+
+```shell script
+helm -n dev ls
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
+dev-gateway     dev             1               2020-09-14 17:34:58.607853163 +0000 UTC deployed        gateway-0.0.1
+kymaapp         dev             1               2020-09-14 20:20:03.464428 +0200 CEST   deployed        sample-event-trigger-java-0.1.0 1.16.0
+```
+
 ### Try it out
 
-1. Simulate the event from the SAP Solution. For the purpose of this tutorial, use the mock to simulate the `order.created` event.
+* Simulate the event from the SAP Solution. For the purpose of this tutorial, use the mock to simulate the `order.created` event.
 
   * Go to **Remote APIs**. It lists all registered APIs and Events.
     ![mock-remote](assets/mock-remote-apis.png)
@@ -205,7 +239,7 @@ sample-event-trigger-java   True             default   http://sample-event-trigg
   * Navigate to `SAP Commerce Cloud - Events` and send the `order.created` event.
     ![send-event](assets/mock-send-event.png)
 
-2. Observe the logs using kubectl:
+* Observe the logs using kubectl:
 
     ```shell script
     kubectl -n dev logs deploy/sample-event-trigger-java -c sample-event-trigger-java
@@ -225,4 +259,10 @@ Delete the created resources:
 
 ```shell script
 kubectl -n dev delete -f ./k8s/
+```
+
+or, for helm 
+
+```shell script
+helm del kymaapp -n dev
 ```
