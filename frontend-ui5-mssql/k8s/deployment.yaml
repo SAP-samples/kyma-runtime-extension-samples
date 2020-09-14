@@ -1,15 +1,3 @@
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: fe-ui5-mssql
-  labels:
-    app: fe-ui5-mssql
-data:
-  config.json: |-
-    {
-      "API_URL": "https://api-mssql-function.<cluster domain>"
-    }
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -41,34 +29,3 @@ spec:
         - name: config-volume
           configMap:
             name: fe-ui5-mssql
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: fe-ui5-mssql
-  labels:
-    app: fe-ui5-mssql
-spec:
-  ports:
-    - name: http
-      port: 80
-  selector:
-    app: fe-ui5-mssql
----
-apiVersion: gateway.kyma-project.io/v1alpha1
-kind: APIRule
-metadata:
-  name: fe-ui5-mssql
-spec:
-  gateway: kyma-gateway.kyma-system.svc.cluster.local
-  rules:
-    - path: /.*
-      accessStrategies:
-        - config: {}
-          handler: noop
-      methods:
-        - GET
-  service:
-    host: fe-ui5-mssql
-    name: fe-ui5-mssql
-    port: 80
