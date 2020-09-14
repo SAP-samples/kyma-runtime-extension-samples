@@ -1,4 +1,4 @@
-package kyma.gitops
+package kyma.samples.scala
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
@@ -6,6 +6,8 @@ import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
 import akka.util.ByteString
+import kyma.samples.scala.routes.OrdersRoutes
+import kyma.samples.scala.services.OrdersService
 
 import scala.concurrent.ExecutionContextExecutor
 
@@ -23,7 +25,7 @@ object WebServer {
             |""".stripMargin)))
     }
 
-    Http().bindAndHandle(route, "0.0.0.0", 8080)
+    Http().newServerAt("0.0.0.0", 8080).bindFlow(new OrdersRoutes(new OrdersService(system)).route)
     println("Server online at http://:8080/")
   }
 }
