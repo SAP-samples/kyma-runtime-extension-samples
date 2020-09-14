@@ -1,0 +1,23 @@
+replicaCount: 1
+
+image:
+  repository: gabbi/sample-event-trigger-java:0.0.1
+  pullPolicy: Always
+
+securityContext:
+  capabilities:
+   drop:
+   - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+trigger:
+  source: TBA
+  eventType: TBA
+
+resources: {}
