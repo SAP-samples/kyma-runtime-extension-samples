@@ -205,7 +205,7 @@ sample-event-trigger-java   True             default   http://sample-event-trigg
 
 ### Helm Chart Deployment
 
-A Helm Chart definition is also available for developers to try out.
+A [Helm Chart definition](../helm-charts/sample-event-trigger-java/README.md) is also available for developers to try out.
 
 #### Must Haves
 
@@ -217,7 +217,7 @@ A Helm Chart definition is also available for developers to try out.
 To install the helm chart in `dev` namespace, run
 
  ```shell script
-helm install kymaapp ./helm/sample-event-trigger-java --set image.repository=gabbi/sample-event-trigger-java:0.0.1 --set trigger.source=mp-mock-commerce-2 --set trigger.eventType=order.created -n dev
+helm install kymaapp ../helm-charts/sample-event-trigger-java --set image.repository=gabbi/sample-event-trigger-java:0.0.1 --set trigger.source=mp-mock-commerce-2 --set trigger.eventType=order.created -n dev
 ```
 
 To verify, the installed chart

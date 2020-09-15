@@ -26,7 +26,7 @@ To install the helm chart in `dev` namespace, run the following command.
 You can provide the various parameters in the install command as shown below.
 
 ```shell script
-helm install kymaapp ./sample-event-trigger-java --set image.repository=gabbi/sample-event-trigger-java:0.0.1 --set trigger.source=mp-mock-commerce-2 --set trigger.eventType=order.created -n dev
+helm install kymaapp . --set image.repository=gabbi/sample-event-trigger-java:0.0.1 --set trigger.source=mp-mock-commerce-2 --set trigger.eventType=order.created -n dev
 ```
 
 or,
@@ -34,7 +34,7 @@ or,
 provide a [values.yaml](sample-event-trigger-java/values.yaml) with parameters configured and run the command
 
 ```shell script
-helm install kymaapp ./sample-event-trigger-java -f values.yaml -n dev
+helm install kymaapp . -f values.yaml -n dev
 ```
 
 ### Cleanup
