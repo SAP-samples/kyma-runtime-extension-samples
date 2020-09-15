@@ -24,27 +24,27 @@ This sample demonstrates how to:
 
 ### Deploy the application
 
-1. Create a new `dev` Namespace:
+* Create a new `dev` Namespace:
 
 ```shell script
 kubectl create namespace dev
 ```
 
-2. Build and push the image to the Docker repository:
+* Build and push the image to the Docker repository:
 
 ```shell script
 DOCKER_ACCOUNT={your-docker-account} make push-image
 ```
 
-3. Update the image name in the [Kubernetes Deployment](k8s/deployment.yaml). Refer to the standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
+* Update the image name in the [Kubernetes Deployment](k8s/deployment.yaml). Refer to the standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
 
-4. Deploy the application:
+* Deploy the application:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment.yaml
 ```
 
-5. Verify that the Pods are up and running:
+* Verify that the Pods are up and running:
 
 ```shell script
 kubectl -n dev get po -l app=sample-extension-dotnet
@@ -88,16 +88,15 @@ spec:
 This sample snippet exposes the `sample-extension-dotnet` Service. The Service is specified in the **spec.service.name** field.
 The `sample-extension-dotnet` subdomain is specified in the **spec.service.host** field.
 
-
-2. Apply the APIRule:
+* Apply the APIRule:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/api-rule.yaml
 ```
 
-3. Access the APIs through this URL:
+* Access the APIs through this URL:
 
-```
+```shell script
 https://sample-extension-dotnet.{cluster domain}
 ```
 
