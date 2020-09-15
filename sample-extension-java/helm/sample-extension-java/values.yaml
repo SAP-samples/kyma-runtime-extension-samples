@@ -1,0 +1,18 @@
+replicaCount: 1
+
+image:
+  repository: gabbi/sample-extension-java:0.0.1
+  pullPolicy: IfNotPresent
+
+securityContext:
+  capabilities:
+   drop:
+   - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
