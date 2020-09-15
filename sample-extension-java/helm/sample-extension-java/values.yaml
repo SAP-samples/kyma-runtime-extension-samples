@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: gabbi/sample-extension-java:0.0.1
+  repository: gabbi/sample-extension-java:0.0.7
   pullPolicy: IfNotPresent
 
 securityContext:
@@ -16,3 +16,10 @@ service:
   port: 80
 
 resources: {}
+
+cluster:
+  domain: TBA
+
+db:
+  user: TBA
+  password: TBA
