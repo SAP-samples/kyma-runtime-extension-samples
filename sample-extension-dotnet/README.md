@@ -102,7 +102,7 @@ kubectl -n dev apply -f ./k8s/api-rule.yaml
 
 ### Helm Chart Deployment
 
-A Helm Chart definition is also available for developers to try out.
+A [Helm Chart definition](../helm-charts/sample-extension-dotnet/README.md) is also available for developers to try out.
 
 #### Must Haves
 
@@ -114,7 +114,7 @@ A Helm Chart definition is also available for developers to try out.
 To install the helm chart in `dev` namespace, run the following command. Change to use your image.
 
 ```shell script
-helm install kymaapp ./helm/sample-extension-dotnet --set image.repository=gabbi/sample-extension-dotnet:0.0.1 -n dev
+helm install kymaapp ../helm-charts/sample-extension-dotnet --set image.repository=gabbi/sample-extension-dotnet:0.0.1 -n dev
 ```
 
 To verify, the installed chart, run `helm -n dev ls`
