@@ -19,7 +19,7 @@ spec:
         app: sample-extension-java
     spec:
       containers:
-      - image: gabbi/sample-extension-java:0.0.1
+      - image: gabbi/sample-extension-java:0.0.7
         name: sample-extension-java
         ports:
           - containerPort: 8080
