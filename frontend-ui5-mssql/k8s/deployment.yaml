@@ -29,3 +29,16 @@ spec:
         - name: config-volume
           configMap:
             name: fe-ui5-mssql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fe-ui5-mssql
+  labels:
+    app: fe-ui5-mssql
+spec:
+  ports:
+    - name: http
+      port: 80
+  selector:
+    app: fe-ui5-mssql
