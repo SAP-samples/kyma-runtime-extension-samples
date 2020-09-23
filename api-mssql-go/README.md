@@ -6,8 +6,8 @@ This sample provides a Golang API endpoint for communication with the MS SQL dat
 
 For the `database-mssql` example, use the `deployment.yaml` file. It provides the Deployment definition as well as an APIRule to expose the Function without authentication. The Deployment also contains a ConfigMap and a Secret with the following parameters for the `database-mssql` example that you can configure to modify the default options:
 
-| Parameter     | Value                                  |
-| -------- | -------------------------------------- |
+| Parameter    | Value                                    |
+| ------------ | ---------------------------------------- |
 | **database** | `DemoDB`                                 |
 | **host**     | `mssql-deployment.dev.svc.cluster.local` |
 | **password** | `Yukon900`                               |
@@ -34,6 +34,7 @@ This sample demonstrates how to:
   - API deployment written in GO
   - API Rule
   - Service
+  - Trigger
   - ServiceBinding
   - ServiceBindingUsage
 
