@@ -5,7 +5,7 @@ This chart installs the example [frontend-ui5-mssql](../frontend-ui5-mssql/READM
 To install the chart you must set the property `clusterDomain` 
 To install the chart with the release name `myapp` in the namespace `default`:
 ```
-helm install  myapp frontend-ui5-mssql -n default --set clusterDomain="********.kyma.shoot.live.k8s-hana.ondemand.com"
+helm install  myapp . -n default --set clusterDomain="********.kyma.shoot.live.k8s-hana.ondemand.com"
 ```
 
 ## Uninstalling the Chart
@@ -16,7 +16,7 @@ helm delete  myapp -n default
 
 ## Update the Dependency
 ```
-helm dependency update frontend-ui5-mssql
+helm dependency update .
 ```
 
 ## Parameters
@@ -35,10 +35,10 @@ The following tables lists the available parameters of the chart and their defau
 You can specify your own `values.yaml`
 
 ```
-helm install myapp frontend-ui5-mssql -n default -f values.yaml
+helm install myapp . -n default -f values.yaml
 ```
 
 You can override values in the cli by specifying the value for example
 ```
-helm install myapp frontend-ui5-mssql -n default --set image.repository=mydockeruser/myimage
+helm install myapp . -n default --set image.repository=mydockeruser/myimage
 ```

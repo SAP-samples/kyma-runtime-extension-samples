@@ -4,7 +4,7 @@ This chart installs the example [api-mssql-go](../api-mssql-go/README.md) as wel
 ## Installing the Chart
 To install the chart with the release name `myapp` in the namespace `default`:
 ```
-helm install  myapp api-mssql-go -n default
+helm install  myapp . -n default
 ```
 
 ## Uninstalling the Chart
@@ -15,7 +15,7 @@ helm delete  myapp -n default
 
 ## Update the Dependency
 ```
-helm dependency update api-mssql-go
+helm dependency update .
 ```
 
 ## Parameters
@@ -36,10 +36,10 @@ The following tables lists the available parameters of the chart and their defau
 You can specify your own `values.yaml`
 
 ```
-helm install myapp api-mssql-go -n default -f values.yaml
+helm install myapp . -n default -f values.yaml
 ```
 
 You can override values in the cli by specifying the value for example
 ```
-helm install myapp api-mssql-go -n default --set image.repository=mydockeruser/myimage
+helm install myapp . -n default --set image.repository=mydockeruser/myimage
 ```
