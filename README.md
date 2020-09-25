@@ -2,7 +2,6 @@
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/kyma-runtime-extension-samples)](https://api.reuse.software/info/github.com/SAP-samples/kyma-runtime-extension-samples)
 
-
 This project contains sample applications for building extensions using lambdas and microservices on [SAP Cloud Platform, Kyma runtime](https://blogs.sap.com/2020/05/12/get-a-fully-managed-runtime-based-on-kyma-and-kubernetes/).
 
 The samples are implemented in multiple languages and demonstrate various Kyma runtime features and use case scenarios.
@@ -16,6 +15,8 @@ Running various samples requires access to the Kyma runtime. There are also othe
 
 ## Samples
 
+Jumpstart your Kyma journey by using these samples to build event and api based extensions in your favorite technology.
+
 - [Java-based microservice as an Event Trigger using CloudEvents SDK](./sample-event-trigger-java/README.md)
 - [Java-based extension with API exposed via Microgateway](./sample-extension-java/README.md)
 - [MS SQL database](./database-mssql/README.md)
@@ -27,6 +28,12 @@ Running various samples requires access to the Kyma runtime. There are also othe
 - [C4C UI extensibility](./c4c-customization/README.md)
 - [ASP.NET-based extension with API exposed via Microgateway](./sample-extension-dotnet/README.md)
 - [S/4HANA Nodejs SAP Cloud SDK Example](./s4hana-materialstock-function/README.md)
+- [Scala AKKA HTTP based extesnsion with API exposed via Microgateway](./sample-extension-scala/README.md)
+
+## Helm Charts
+
+It is also possible to deploy each sample as a helm chart and template your Kyma extenions.
+
 - [Helm Chart Examples](./helm-charts/README.md)
 
 ## Resources
