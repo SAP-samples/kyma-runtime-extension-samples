@@ -1,5 +1,8 @@
 # Kyma Runtime Extension Samples
 
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/kyma-runtime-extension-samples)](https://api.reuse.software/info/github.com/SAP-samples/kyma-runtime-extension-samples)
+
+
 This project contains sample applications for building extensions using lambdas and microservices on [SAP Cloud Platform, Kyma runtime](https://blogs.sap.com/2020/05/12/get-a-fully-managed-runtime-based-on-kyma-and-kubernetes/).
 
 The samples are implemented in multiple languages and demonstrate various Kyma runtime features and use case scenarios.
@@ -47,4 +50,4 @@ The samples are provided "as-is". There is no guarantee that raised issues will 
 
 ## License
 
-Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](./LICENSE) file.
+Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSES/Apache-2.0.txt) file.
