@@ -18,7 +18,7 @@ This sample demonstrates how to:
 * [make](https://www.gnu.org/software/make/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
 * [Java 11+](https://openjdk.java.net/projects/jdk/11/)
-* [sbt]()
+* [sbt](https://www.scala-sbt.org/)
 
 ## Application
 
@@ -60,7 +60,7 @@ kubectl -n dev apply -f ./k8s/deployment.yaml
 kubectl -n dev get po
 ```
 
-The expected result shows that the Pod for the `sample-extension-java` Deployment is running:
+The expected result shows that the Pod for the `sample-extension-scala` Deployment is running:
 
 ```shell script
 NAME                                     READY   STATUS    RESTARTS   AGE
@@ -124,8 +124,7 @@ To verify, the installed chart, run `helm -n dev ls`
 
 ```shell script
 NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
-dev-gateway     dev             1               2020-09-14 17:34:58.607853163 +0000 UTC deployed        gateway-0.0.1
-kymaapp         dev             1               2020-09-15 15:04:41.679339 +0200 CEST   deployed        sample-extension-java-0.1.0     1.16.0
+kymaapp         dev             1               2020-09-25 17:23:36.838647 +0200 CEST   deployed        sample-extension-scala-0.1.0    1.16.0
 ```
 
 ### Try it out
