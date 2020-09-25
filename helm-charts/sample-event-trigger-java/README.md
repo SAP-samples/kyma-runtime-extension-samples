@@ -31,7 +31,7 @@ helm install kymaapp . --set image.repository=gabbi/sample-event-trigger-java:0.
 
 or,
 
-provide a [values.yaml](sample-event-trigger-java/values.yaml) with parameters configured and run the command
+provide a [values.yaml](./values.yaml) with parameters configured and run the command
 
 ```shell script
 helm install kymaapp . -f values.yaml -n dev
