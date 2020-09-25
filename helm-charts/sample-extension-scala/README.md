@@ -1,17 +1,13 @@
 # Overview
 
-A Helm chart definition to deploy the sample java extension.
+A Helm chart definition to deploy the sample Scala AKKA-HTTP microservice as extension.
 
 ## Parameters
 
 | Parameter        | Description                                | Default Value                         |
 | ---------------- | ------------------------------------------ | ------------------------------------- |
-| image.repository | The docker image                           | gabbi/sample-extension-java:0.0.7     |
+| image.repository | The docker image                           | gabbi/sample-extension-scala:0.0.1    |
 | image.pullPolicy | The image pull policy                      | Always                                |
-| cluster.domain   | The domain of the Kyma cluster             | TBA                                   |
-| db.user          | Database username                          | TBA                                   |
-| db.password      | Database password                          | TBA                                   |
-
 
 ## To Deploy
 
@@ -28,12 +24,12 @@ To install the helm chart in `dev` namespace, run the following command.
 You can provide the various parameters in the install command as shown below. Change to use your image.
 
 ```shell script
-helm install kymaapp . --set image.repository=gabbi/sample-extension-java:0.0.7 --set db.user={db user} --set db.password={db password} --set cluster.domain={cluster domain} -n dev
+helm install kymaapp . --set image.repository=gabbi/sample-extension-scala:0.0.1 -n dev
 ```
 
 or,
 
-provide a [values.yaml](values.yaml) with parameters configured and run the command
+provide a [values.yaml](./values.yaml) with parameters configured and run the command
 
 ```shell script
 helm install kymaapp . -f values.yaml -n dev

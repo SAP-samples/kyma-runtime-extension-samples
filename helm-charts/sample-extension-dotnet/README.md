@@ -29,7 +29,7 @@ helm install kymaapp . --set image.repository=gabbi/sample-extension-dotnet:0.0.
 
 or,
 
-provide a [values.yaml](sample-extension-dotnet/values.yaml) with parameters configured and run the command
+provide a [values.yaml](values.yaml) with parameters configured and run the command
 
 ```shell script
 helm install kymaapp . -f values.yaml -n dev

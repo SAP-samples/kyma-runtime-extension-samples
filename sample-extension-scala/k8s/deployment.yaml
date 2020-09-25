@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sample-extension-scala
+  name: sample-extension-scala
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-extension-scala
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sample-extension-scala
+    spec:
+      containers:
+      - image: gabbi/sample-extension-scala:0.0.1
+        name: sample-extension-scala
+        resources: {}
+        ports:
+          - containerPort: 8080
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sample-extension-scala
+  name: sample-extension-scala
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: sample-extension-scala
+status:
+  loadBalancer: {}
