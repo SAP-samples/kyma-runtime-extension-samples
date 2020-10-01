@@ -65,12 +65,14 @@ This sample demonstrates how to:
   kubectl create namespace dev
   ```
 
-2. Adjust the ConfigMap. Within the `/k8s/deployment.yaml` file, adjust the value of the **API_URL** parameter found in the ConfigMap to your API.
+2. Within the project open the file `k8s/configmap.yaml` and adjust the `API_URL` by replacing `<cluster domain>` to the match the Kyma runtime cluster domain.
 
-3. Apply the Deployment:
+3. Apply the Resources:
 
   ```shell script
+  kubectl -n dev apply -f ./k8s/configmap.yaml
   kubectl -n dev apply -f ./k8s/deployment.yaml
+  kubectl -n dev apply -f ./k8s/apirule.yaml
   ```
 
 4. Use the APIRule to open the application:
