@@ -9,20 +9,27 @@ import (
 	_ "github.com/denisenkom/go-mssqldb"
 )
 
-var db *sql.DB
+// var db *sql.DB
+
+type Server struct {
+	db *sql.DB
+}
 
 //InitDatabase - sets database connection configuration
-func InitDatabase() {
+func InitDatabase() *Server {
 	var err error
 
 	connString := getConnString()
 
 	fmt.Printf("Setting connection to db with configuration: %s \n", connString)
 
-	db, err = sql.Open("sqlserver", connString)
+	server := &Server{}
+	server.db, err = sql.Open("sqlserver", connString)
 	if err != nil {
 		log.Fatal("Error opening connection: ", err.Error())
 	}
+
+	return server
 }
 
 //gets configuration and returns appropiate connection string
@@ -37,12 +44,10 @@ func getConnString() string {
 }
 
 //will verify the connection is available or generate a new one
-func getConnection() *sql.DB {
+func (s *Server) getConnection() {
 
-	err := db.Ping()
+	err := s.db.Ping()
 	if err != nil {
 		log.Fatal("Could not ping db: ", err.Error())
 	}
-
-	return db
 }

@@ -14,10 +14,20 @@ type orderData struct {
 	Description string `json:"description"`
 }
 
-func GetOrder(w http.ResponseWriter, r *http.Request) {
+type server struct {
+	db *db.Server
+}
+
+func InitAPIServer() *server {
+	server := &server{}
+	server.db = db.InitDatabase()
+	return server
+}
+
+func (s *server) GetOrder(w http.ResponseWriter, r *http.Request) {
 
 	order_id := strings.Split(r.URL.Path, "/")[2]
-	orders, err := db.GetOrder(order_id)
+	orders, err := s.db.GetOrder(order_id)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -30,8 +40,8 @@ func GetOrder(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-func GetOrders(w http.ResponseWriter, r *http.Request) {
-	orders, err := db.GetOrders()
+func (s *server) GetOrders(w http.ResponseWriter, r *http.Request) {
+	orders, err := s.db.GetOrders()
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -44,7 +54,7 @@ func GetOrders(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-func EditOrder(w http.ResponseWriter, r *http.Request) {
+func (s *server) EditOrder(w http.ResponseWriter, r *http.Request) {
 
 	var order orderData
 
@@ -53,7 +63,7 @@ func EditOrder(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	err := json.NewDecoder(r.Body).Decode(&order)
 
-	rowsEffected, err := db.EditOrder(order.Orderid, order.Description)
+	rowsEffected, err := s.db.EditOrder(order.Orderid, order.Description)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -66,7 +76,7 @@ func EditOrder(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-func AddOrder(w http.ResponseWriter, r *http.Request) {
+func (s *server) AddOrder(w http.ResponseWriter, r *http.Request) {
 
 	var order orderData
 
@@ -78,7 +88,7 @@ func AddOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	orders, err := db.AddOrder(order.Orderid, order.Description)
+	orders, err := s.db.AddOrder(order.Orderid, order.Description)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -91,9 +101,9 @@ func AddOrder(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-func DeleteOrder(w http.ResponseWriter, r *http.Request) {
+func (s *server) DeleteOrder(w http.ResponseWriter, r *http.Request) {
 	order_id := strings.Split(r.URL.Path, "/")[2]
-	rowsEffected, err := db.DeleteOrder(order_id)
+	rowsEffected, err := s.db.DeleteOrder(order_id)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

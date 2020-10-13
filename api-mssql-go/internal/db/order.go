@@ -16,40 +16,40 @@ type RowsAffected struct {
 	RowsAffected int64
 }
 
-func GetOrder(order_id string) ([]Order, error) {
+func (s *Server) GetOrder(order_id string) ([]Order, error) {
 	tsql := fmt.Sprintf("SELECT * FROM Orders WHERE order_id=@p1;")
-	return query(tsql, order_id)
+	return s.query(tsql, order_id)
 }
 
-func GetOrders() ([]Order, error) {
+func (s *Server) GetOrders() ([]Order, error) {
 	tsql := fmt.Sprintf("SELECT * FROM Orders;")
-	return query(tsql, nil)
+	return s.query(tsql, nil)
 }
 
-func AddOrder(order_id string, description string) ([]Order, error) {
+func (s *Server) AddOrder(order_id string, description string) ([]Order, error) {
 	tsql := fmt.Sprintf("INSERT INTO Orders(order_id, description) VALUES(@p1,@p2);")
-	_, err := exec(tsql, order_id, description)
+	_, err := s.exec(tsql, order_id, description)
 	if err != nil {
 		return nil, err
 	}
 
 	tsql = fmt.Sprintf("SELECT * FROM Orders WHERE order_id=@p1;")
-	return query(tsql, order_id, description)
+	return s.query(tsql, order_id, description)
 }
 
-func EditOrder(order_id string, description string) (RowsAffected, error) {
+func (s *Server) EditOrder(order_id string, description string) (RowsAffected, error) {
 	tsql := fmt.Sprintf("UPDATE Orders SET description=@p2 WHERE order_id=@p1")
-	return exec(tsql, order_id, description)
+	return s.exec(tsql, order_id, description)
 }
 
-func DeleteOrder(order_id string) (RowsAffected, error) {
+func (s *Server) DeleteOrder(order_id string) (RowsAffected, error) {
 	tsql := fmt.Sprintf("DELETE FROM Orders WHERE order_id=@p1")
-	return exec(tsql, order_id)
+	return s.exec(tsql, order_id)
 }
 
-func exec(tsql string, args ...interface{}) (RowsAffected, error) {
+func (s *Server) exec(tsql string, args ...interface{}) (RowsAffected, error) {
 
-	db := getConnection()
+	s.getConnection()
 
 	rowsAffectedResult := RowsAffected{}
 	rowsAffectedResult.RowsAffected = 0
@@ -57,7 +57,7 @@ func exec(tsql string, args ...interface{}) (RowsAffected, error) {
 	fmt.Printf("Executing SQL: %s \n", tsql)
 	fmt.Printf("With args: %s \n", args...)
 
-	result, err := db.Exec(tsql, args...)
+	result, err := s.db.Exec(tsql, args...)
 	if err != nil {
 		return rowsAffectedResult, err
 	}
@@ -69,9 +69,9 @@ func exec(tsql string, args ...interface{}) (RowsAffected, error) {
 
 }
 
-func query(tsql string, args ...interface{}) ([]Order, error) {
+func (s *Server) query(tsql string, args ...interface{}) ([]Order, error) {
 
-	db := getConnection()
+	s.getConnection()
 
 	order := Order{}
 	orders := []Order{}
@@ -79,7 +79,7 @@ func query(tsql string, args ...interface{}) ([]Order, error) {
 	fmt.Printf("Executing SQL: %s \n", tsql)
 	fmt.Printf("With args: %s \n", args...)
 
-	rows, err := db.Query(tsql, args...)
+	rows, err := s.db.Query(tsql, args...)
 
 	if err != nil {
 		fmt.Println("failed...")
