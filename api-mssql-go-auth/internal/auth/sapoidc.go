@@ -65,7 +65,8 @@ func InitOIDC() *oidcConfig {
 		oidcConfig.config.Endpoint.AuthStyle = oauth2.AuthStyleInParams
 	}
 
-	//NOTE: Using memory storage just for testing purposes
+	//See https://github.com/gorilla/sessions#store-implementations
+	log.Println("--------USING MEMORY STORAGE - THIS IS NOT RECOMMENDED!--------")
 	oidcConfig.store = memstore.NewMemStore([]byte(appconfig.CookieKey))
 
 	oidcConfig.store.Options = &sessions.Options{
