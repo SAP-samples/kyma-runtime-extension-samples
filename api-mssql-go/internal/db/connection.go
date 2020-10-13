@@ -21,7 +21,7 @@ func InitDatabase() *Server {
 
 	connString := getConnString()
 
-	fmt.Printf("Setting connection to db with configuration: %s \n", connString)
+	log.Printf("Setting connection to db with configuration: %s \n", connString)
 
 	server := &Server{}
 	server.db, err = sql.Open("sqlserver", connString)
