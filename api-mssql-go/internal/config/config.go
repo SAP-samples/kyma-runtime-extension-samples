@@ -21,7 +21,7 @@ type Config struct {
 
 //InitConfig initializes the AppConfig
 func initConfig() {
-	fmt.Println("initilizing configuration....")
+	fmt.Println("initilizing db configuration....")
 	appConfig = Config{}
 
 	err := envconfig.Init(&appConfig)
