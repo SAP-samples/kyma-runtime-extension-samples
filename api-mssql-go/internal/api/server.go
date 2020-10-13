@@ -2,7 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -57,8 +56,6 @@ func (s *server) GetOrders(w http.ResponseWriter, r *http.Request) {
 func (s *server) EditOrder(w http.ResponseWriter, r *http.Request) {
 
 	var order orderData
-
-	fmt.Println("EditOrder")
 
 	defer r.Body.Close()
 	err := json.NewDecoder(r.Body).Decode(&order)

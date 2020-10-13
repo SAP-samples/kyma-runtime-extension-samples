@@ -2,6 +2,7 @@ package db
 
 import (
 	"fmt"
+	"log"
 	"time"
 )
 
@@ -54,8 +55,8 @@ func (s *Server) exec(tsql string, args ...interface{}) (RowsAffected, error) {
 	rowsAffectedResult := RowsAffected{}
 	rowsAffectedResult.RowsAffected = 0
 
-	fmt.Printf("Executing SQL: %s \n", tsql)
-	fmt.Printf("With args: %s \n", args...)
+	log.Printf("Executing SQL: %s \n", tsql)
+	log.Printf("With args: %s \n", args...)
 
 	result, err := s.db.Exec(tsql, args...)
 	if err != nil {
@@ -76,13 +77,13 @@ func (s *Server) query(tsql string, args ...interface{}) ([]Order, error) {
 	order := Order{}
 	orders := []Order{}
 
-	fmt.Printf("Executing SQL: %s \n", tsql)
-	fmt.Printf("With args: %s \n", args...)
+	log.Printf("Executing SQL: %s \n", tsql)
+	log.Printf("With args: %s \n", args...)
 
 	rows, err := s.db.Query(tsql, args...)
 
 	if err != nil {
-		fmt.Println("failed...")
+		log.Println("failed...")
 		return nil, err
 	}
 

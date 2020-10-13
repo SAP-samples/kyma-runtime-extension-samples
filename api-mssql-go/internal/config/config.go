@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -21,13 +20,13 @@ type Config struct {
 
 //InitConfig initializes the AppConfig
 func initConfig() {
-	fmt.Println("initilizing db configuration....")
+	log.Println("initilizing db configuration....")
 	appConfig = Config{}
 
 	err := envconfig.Init(&appConfig)
 	if err != nil {
 		for _, pair := range os.Environ() {
-			fmt.Println(pair)
+			log.Println(pair)
 		}
 		log.Fatal("Please check the database connection parameters....", err.Error())
 	}
