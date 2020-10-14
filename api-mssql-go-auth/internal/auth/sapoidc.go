@@ -44,7 +44,11 @@ func InitOIDC() *oidcConfig {
 	var err error
 	oidcConfig.provider, err = oidc.NewProvider(ctx, appconfig.Issuer)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Issuer did not match trying: %s/oauth/token", appconfig.Issuer)
+		oidcConfig.provider, err = oidc.NewProvider(ctx, appconfig.Issuer+"/oauth/token")
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	oidcConfig.verifier = oidcConfig.provider.Verifier(&oidc.Config{

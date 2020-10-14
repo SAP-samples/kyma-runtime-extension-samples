@@ -12,11 +12,15 @@ COPY cmd               ./cmd
 COPY internal               ./internal
 
 RUN ls /app/
-RUN CGO_ENABLED=0 GOOS=linux go build -v -a -o api-mssql-go ./cmd/api
+RUN CGO_ENABLED=0 GOOS=linux go build -v -a -o api-mssql-go-auth ./cmd/api
+
+FROM alpine:3.8 as certs
+RUN apk add -U --no-cache ca-certificates
 
 FROM scratch
 WORKDIR /app
 COPY --from=builder /app/api-mssql-go-auth /app/
+COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 EXPOSE 8000
 ENTRYPOINT ["/app/api-mssql-go-auth"]
