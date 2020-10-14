@@ -33,6 +33,12 @@ cloud.google.com/go/storage v1.10.0/go.mod h1:FLPqc6j+Ki4BU591ie1oL6qBQGu2Bl/tZ9
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
+github.com/SAP-samples/kyma-runtime-extension-samples v0.0.0-20201013220326-55beb7918f7f h1:rqR/27hr8S3MMGh/RC/JMk7dLme2cp8lPK42dq84FRg=
+github.com/SAP-samples/kyma-runtime-extension-samples v0.0.0-20201014114346-dac453717cef h1:FQ97UyvTbKT+Z7bC5pXfG08PUtbsDMJ7ubB0i4HRgy4=
+github.com/SAP-samples/kyma-runtime-extension-samples v0.0.0-20201014114751-3f03334a2519 h1:mELrjNuha4QF8C8IgQ0+LiHb6AMgeHH8lTWNkm8nTxk=
+github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go v0.0.0-20201014114346-dac453717cef h1:XrlppyiopM5+eLTBjrmcRPiNEAXMBqt6ZMJjRqKJDNs=
+github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go v0.0.0-20201014114751-3f03334a2519 h1:unceAB5ny7w6Br87lKptIHmLVgLvpbWFqk3yrTf8QX4=
+github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go v0.0.0-20201014114751-3f03334a2519/go.mod h1:EwcJhjUJD7XEk0pej8RMrlEhT0bG1zGjckZQroGohic=
 github.com/bradfitz/gomemcache v0.0.0-20190913173617-a41fca850d0b h1:L/QXpzIa3pOvUGt1D1lA5KjYhPBAN/3iWdP7xeFS9F0=
 github.com/bradfitz/gomemcache v0.0.0-20190913173617-a41fca850d0b/go.mod h1:H0wQNHz2YrLsuXOZozoeDmnHXkNCRmMW0gwFWDfEZDA=
 github.com/bradleypeabody/gorilla-sessions-memcache v0.0.0-20181103040241-659414f458e1 h1:4QHxgr7hM4gVD8uOwrk8T1fjkKRLwaLjmTkU0ibhZKU=

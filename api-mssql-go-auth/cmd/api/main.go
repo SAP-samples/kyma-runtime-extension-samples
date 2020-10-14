@@ -6,9 +6,9 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go/internal/api"
+	"github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go/package/api"
 
-	"github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go/internal/auth"
+	"github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go-auth/internal/auth"
 )
 
 func main() {

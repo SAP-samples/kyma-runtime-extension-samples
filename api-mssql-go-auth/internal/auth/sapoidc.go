@@ -13,7 +13,7 @@ import (
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 
-	appconfig "github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go/internal/config"
+	appconfig "github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go-auth/internal/config"
 
 	mathrand "math/rand"
 
