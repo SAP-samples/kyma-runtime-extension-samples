@@ -1,6 +1,6 @@
 ## Overview
 
-This sample is an extension to the sample `api-mssql-go` providing a middleware to handle authentication, based on Open ID Connect, which can be configured using XSUAA or SAP IAS. Please refer to the [api-mssql-go](../api-mssql-go/README.md) for specifics. This example implentation is storing sessions using an in memory store which is meant for testing only. See [store-implementations](https://github.com/gorilla/sessions#store-implementations) for other options.
+This sample is an extension to the sample `api-mssql-go` providing a middleware to handle authentication, based on Open ID Connect, which can be configured using XSUAA or SAP IAS. Please refer to the [api-mssql-go](../api-mssql-go/README.md) for specifics. This example implementation is storing sessions using an in memory store which is meant for testing only. See [store-implementations](https://github.com/gorilla/sessions#store-implementations) for other options.
 
 
 This sample demonstrates how to:
