@@ -10,6 +10,7 @@ RUN go mod download
 
 COPY cmd               ./cmd
 COPY internal               ./internal
+COPY package               ./package
 
 RUN ls /app/
 RUN CGO_ENABLED=0 GOOS=linux go build -v -a -o api-mssql-go ./cmd/api
