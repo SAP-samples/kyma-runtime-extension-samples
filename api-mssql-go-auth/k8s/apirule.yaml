@@ -1,7 +1,7 @@
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
-  name: api-mssql-go
+  name: api-mssql-go-auth
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   rules:
@@ -20,7 +20,13 @@ spec:
           handler: noop
       methods:
         - GET
+    - path: /oauth/callback
+      accessStrategies:
+        - config: {}
+          handler: noop
+      methods:
+        - GET
   service:
-    host: api-mssql-go
-    name: api-mssql-go
+    host: api-mssql-go-auth
+    name: api-mssql-go-auth
     port: 80

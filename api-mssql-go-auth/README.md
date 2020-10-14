@@ -1,40 +1,17 @@
 ## Overview
 
-This sample provides an authenticated Golang API endpoint for communication with the MS SQL databases provided in the `database-mssql` and `database-azure-mssql` directories. Authentication can be configured using XSUAA or SAP IAS. It also supports the use of an Event Trigger.
+This sample is an extension to the sample `api-mssql-go` providing a middleware to handle authentication, based on Open ID Connect, which can be configured using XSUAA or SAP IAS. Please refer to the [api-mssql-go](../api-mssql-go/README.md) for specifics. This example implentation is storing sessions using an in memory store which is meant for testing only. See [store-implementations](https://github.com/gorilla/sessions#store-implementations) for other options.
 
-## MS SQL database example
-
-For the `database-mssql` example, use the `deployment.yaml` file. It provides the Deployment definition as well as an APIRule to expose the Function without authentication. The Deployment also contains a ConfigMap and a Secret with the following parameters for the `database-mssql` example that you can configure to modify the default options:
-
-| Parameter    | Value                                    |
-| ------------ | ---------------------------------------- |
-| **database** | `DemoDB`                                 |
-| **host**     | `mssql-deployment.dev.svc.cluster.local` |
-| **password** | `Yukon900`                               |
-| **username** | `sa`                                     |
-| **port**     | `1433`                                   |
 
 This sample demonstrates how to:
 
 - Create a development Namespace in the Kyma runtime.
+- Consume the SCP service XSUAA
 - Deploy the following Kubernetes resources:
   - API deployment written in GO
   - API Rule
   - Service
   - Secret
-
-## Azure MS SQL database example
-
-For the `database-azure-mssql` example, use the `deployment-servicebinding.yaml` file. It defines the Deployment definition as well as an APIRule to expose the Function without authentication. It also defines a ServiceBinding and ServiceBindingUsage that configure the Function to use the `database-azure-mssql` ServiceInstance.
-
-This sample demonstrates how to:
-
-- Create a development Namespace in the Kyma runtime.
-- Deploy the following Kubernetes resources:
-  - API deployment written in GO
-  - API Rule
-  - Service
-  - Trigger
   - ServiceBinding
   - ServiceBindingUsage
 
@@ -48,6 +25,37 @@ This sample demonstrates how to:
 
 ## Steps
 
+### Create XSUAA Service Instance
+
+1. Create a new `dev` Namespace:
+
+```shell script
+kubectl create namespace dev
+```
+
+2. Within the Kyma console open the namespace `dev`
+3. Choose `Service Management` -> `Catalog`.
+4. Choose the service `Authorization & Trust Management`
+5. Choose `Add`
+6. Choose the Plan `application`
+7. Choose `Add parameters` and provide the object after adjusting it to your needs.
+
+```json
+{
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://api-mssql-go-auth.<cluster domain>/oauth/callback",
+      "http://localhost:8000/oauth/callback"
+    ]
+  },
+  "xsappname": "go-sample-app-auth"
+}
+```
+<sup> For a complete list of parameters visit [Application Security Descriptor Configuration Syntax](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.04/en-US/6d3ed64092f748cbac691abc5fe52985.html) </sup>
+
+8. Once the instance is provisioned choose the option `Create Credentials`
+9. Under the `Credentials` tab choose the `Secret` which should display the instance secret in a dialog. Choose `Decode` to view the values. These will be needed if running the sample locally.
+
 ### Run the API locally
 
 1. Set the environment variables required to connect with the database:
@@ -60,35 +68,42 @@ export MYAPP_host=localhost
 export MYAPP_port=1433
 ```
 
-For the authencated application configured with XSUAA
+2. Set the environment variables required to connect with the XSUAA instance which can be found in the `Secret` generated with the service instance:
+
 ```shell script
-export IDP_clientid=
-export IDP_clientsecret=
-export IDP_url=
-export IDP_redirect_uri=http://localhost:3000/oauth/callback
+export IDP_clientid='<instance clientid>'
+export IDP_clientsecret=<instance clientsecret>
+export IDP_url=<instance url>
+export IDP_redirect_uri=http://localhost:8000/oauth/callback
 export IDP_token_endpoint_auth_method=client_secret_post
-export IDP_CookieKey=
+export IDP_CookieKey=<a random value used to encode the cookie>
 ```
 
-2. Run the application:
+1. Run the application:
 
 ```shell script
 go run ./cmd/api
 ```
+
+2. Accessible endpoints include
+   - http://localhost:8000/user
+   - http://localhost:8000/orders
 
 ### Build the Docker image
 
 1. Build and push the image to your Docker repository:
 
 ```shell script
-docker build -t {your-docker-account}/api-mssql-go -f docker/Dockerfile .
-docker push {your-docker-account}/api-mssql-go
+docker build -t {your-docker-account}/api-mssql-go-auth -f docker/Dockerfile .
+docker push {your-docker-account}/api-mssql-go-auth
 ```
 
-2. To run the image locally, run:
+1. To run the image locally either copy the env variables into a file, set them individually, or copy them from your environment:
 
 ```shell script
-  docker run -p 8000:8000 -d {your-docker-account}/api-mssql-go:latest
+  docker run -p 8000:8000 --env-file ./env.list -d jcawley5/api-mssql-go-auth:latest
+  OR
+  docker run -p 8000:8000 --env-file <(env | grep 'IDP\|MYAPP') -d jcawley5/api-mssql-go-auth:latest
 ```
 
 ### Deploy the API - MS SQL database example
@@ -99,7 +114,7 @@ docker push {your-docker-account}/api-mssql-go
 kubectl create namespace dev
 ```
 
-2. Apply the ConfigMap:
+2. Within `./k8s/configmap.yaml` adjust the redirect_url and then apply the ConfigMap:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/configmap.yaml
@@ -111,13 +126,25 @@ kubectl -n dev apply -f ./k8s/configmap.yaml
 kubectl -n dev apply -f ./k8s/secret.yaml
 ```
 
-4. Apply the Deployment:
+4. Get the name of the ServiceInstance:
+
+```shell script
+kubectl -n dev get serviceinstances
+```
+
+For example:
+
+| NAME                   | CLASS                     | PLAN        | STATUS | AGE |
+| ---------------------- | ------------------------- | ----------- | ------ | --- |
+| ***xsuaa-showy-yard*** | ClusterServiceClass/xsuaa | application | Ready  | 63m |
+
+5. Within `./k8s/deployment.yaml` adjust the value of `<Service Binding Name>` to the XSUAA service instance name and the apply the Deployment:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment.yaml
 ```
 
-5. Apply the APIRule:
+6. Apply the APIRule:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/apirule.yaml
@@ -126,15 +153,16 @@ kubectl -n dev apply -f ./k8s/apirule.yaml
 6. Verify that the Deployment is up and running:
 
 ```shell script
-kubectl -n dev get deployment api-mssql-go
+kubectl -n dev get deployment api-mssql-go-auth
 ```
 
 7. Use the APIRule:
-  - `https://api-mssql-go.{cluster-domain}/orders`
-  - `https://api-mssql-go.{cluster-domain}/orders/10000001`
+  - `https://api-mssql-go-auth.{cluster-domain}/orders`
+  - `https://api-mssql-go-auth.{cluster-domain}/orders/10000001`
+  - `https://api-mssql-go-auth.{cluster-domain}/user`
 
 
-### Deploy the API - Azure MS SQL database example
+### Deploy the API - XSUAA
 
 1. Create a new `dev` Namespace:
 
@@ -172,16 +200,3 @@ spec:
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment-servicebinding.yaml
 ```
-
-### Deploy the Event Trigger
-
-The Event Trigger works for both samples. It expects that either SAP Commerce Cloud or the Commerce Mock application is connected and configured within the Namespace. You can find a blog post with details on the Commerce Mock setup [here](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-commerce-mock-events-and-apis/).
-
-The trigger and code within the Golang application are set up for the `order.created` event. Before you deploy the trigger, verify that the value of the source matches the name of your application.  
-
-1. Apply the Deployment:
-
-```shell script
-kubectl -n dev apply -f ./k8s/event-trigger.yaml
-```
-2. Within the mock application, submit the `order.created` event. This populates the database with the submitted order code and the `order received from event` notification.

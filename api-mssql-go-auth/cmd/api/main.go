@@ -28,5 +28,5 @@ func main() {
 
 	router.HandleFunc("/orderCodeEvent", apiServer.ConsumeOrderCode).Methods("POST")
 
-	log.Fatal(http.ListenAndServe(":3000", router))
+	log.Fatal(http.ListenAndServe(":8000", router))
 }
