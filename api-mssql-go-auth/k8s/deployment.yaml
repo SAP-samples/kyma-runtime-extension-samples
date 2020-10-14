@@ -1,3 +1,29 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: xsuaa-binding
+  labels:
+    app: api-mssql-go
+spec:
+  instanceRef:
+    name: <Service Binding Name>
+---
+apiVersion: servicecatalog.kyma-project.io/v1alpha1
+kind: ServiceBindingUsage
+metadata:
+  name: xsuaa-binding
+  labels:
+    app: api-mssql-go
+spec:
+  serviceBindingRef:
+    name: xsuaa-binding
+  usedBy:
+    kind: deployment
+    name: api-mssql-go
+  parameters:
+    envPrefix:
+      name: "IDP_"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:

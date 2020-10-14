@@ -47,11 +47,9 @@ func InitOIDC() *oidcConfig {
 		log.Fatal(err)
 	}
 
-	oidcConfig1 := &oidc.Config{
+	oidcConfig.verifier = oidcConfig.provider.Verifier(&oidc.Config{
 		ClientID: appconfig.ClientID,
-	}
-
-	oidcConfig.verifier = oidcConfig.provider.Verifier(oidcConfig1)
+	})
 
 	oidcConfig.config = oauth2.Config{
 		ClientID:     appconfig.ClientID,
