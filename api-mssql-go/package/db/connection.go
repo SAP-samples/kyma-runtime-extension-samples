@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go/internal/config"
+	"github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go/package/config"
 	_ "github.com/denisenkom/go-mssqldb"
 )
 
