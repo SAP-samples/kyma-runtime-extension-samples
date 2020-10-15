@@ -6,7 +6,7 @@ metadata:
     app: api-mssql-go-auth
 spec:
   instanceRef:
-    name: <Service Binding Name>
+    name: <Service Instance Name>
 ---
 apiVersion: servicecatalog.kyma-project.io/v1alpha1
 kind: ServiceBindingUsage

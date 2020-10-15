@@ -138,7 +138,7 @@ For example:
 | ---------------------- | ------------------------- | ----------- | ------ | --- |
 | ***xsuaa-showy-yard*** | ClusterServiceClass/xsuaa | application | Ready  | 63m |
 
-5. Within `./k8s/deployment.yaml` adjust the value of `<Service Binding Name>` to the XSUAA service instance name and the apply the Deployment:
+1. Within `./k8s/deployment.yaml` adjust the value of `<Service Instance Name>` to the XSUAA service instance name and the apply the Deployment:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/deployment.yaml
