@@ -11,7 +11,7 @@ spec:
 apiVersion: servicecatalog.kyma-project.io/v1alpha1
 kind: ServiceBindingUsage
 metadata:
-  name: xsuaa-binding
+  name: xsuaa-binding-usage
   labels:
     app: api-mssql-go-auth
 spec:
