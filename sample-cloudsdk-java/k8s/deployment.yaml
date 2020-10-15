@@ -20,6 +20,7 @@ spec:
     spec:
       containers:
       - image: gabbi/sample-cloudsdk-java:0.0.1
+        imagePullPolicy: Always
         name: sample-cloudsdk-java
         resources: {}
         env:
