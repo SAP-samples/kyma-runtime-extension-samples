@@ -3,6 +3,7 @@ package auth
 import (
 	"encoding/gob"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -13,14 +14,21 @@ import (
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 
-	appconfig "github.com/SAP-samples/kyma-runtime-extension-samples/api-mssql-go-auth/internal/config"
-
 	mathrand "math/rand"
 
 	"github.com/quasoft/memstore"
 )
 
 const sessionName string = "sample-session"
+
+type InitConfig struct {
+	ClientID                   string
+	ClientSecret               string
+	Issuer                     string
+	RedirectURL                string
+	Token_endpoint_auth_method string
+	CookieKey                  string
+}
 
 type oidcConfig struct {
 	provider *oidc.Provider
@@ -35,41 +43,39 @@ type oidcResp struct {
 	IDTokenClaims *json.RawMessage
 }
 
-func InitOIDC() *oidcConfig {
+func InitOIDC(appConfig *InitConfig) *oidcConfig {
 
 	oidcConfig := &oidcConfig{}
-	appconfig := appconfig.GetConfig()
-
 	ctx := context.Background()
 	var err error
-	oidcConfig.provider, err = oidc.NewProvider(ctx, appconfig.Issuer)
+	oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.Issuer)
 	if err != nil {
-		log.Printf("Issuer did not match trying: %s/oauth/token", appconfig.Issuer)
-		oidcConfig.provider, err = oidc.NewProvider(ctx, appconfig.Issuer+"/oauth/token")
+		log.Printf("Issuer did not match trying: %s/oauth/token", appConfig.Issuer)
+		oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.Issuer+"/oauth/token")
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
 
 	oidcConfig.verifier = oidcConfig.provider.Verifier(&oidc.Config{
-		ClientID: appconfig.ClientID,
+		ClientID: appConfig.ClientID,
 	})
 
 	oidcConfig.config = oauth2.Config{
-		ClientID:     appconfig.ClientID,
-		ClientSecret: appconfig.ClientSecret,
+		ClientID:     appConfig.ClientID,
+		ClientSecret: appConfig.ClientSecret,
 		Endpoint:     oidcConfig.provider.Endpoint(),
-		RedirectURL:  appconfig.RedirectURL,
+		RedirectURL:  appConfig.RedirectURL,
 		Scopes:       []string{oidc.ScopeOpenID},
 	}
 
-	if appconfig.Token_endpoint_auth_method == "client_secret_post" {
+	if appConfig.Token_endpoint_auth_method == "client_secret_post" {
 		oidcConfig.config.Endpoint.AuthStyle = oauth2.AuthStyleInParams
 	}
 
 	//See https://github.com/gorilla/sessions#store-implementations
 	log.Println("--------USING MEMORY STORAGE - THIS IS NOT RECOMMENDED!--------")
-	oidcConfig.store = memstore.NewMemStore([]byte(appconfig.CookieKey))
+	oidcConfig.store = memstore.NewMemStore([]byte(appConfig.CookieKey))
 
 	oidcConfig.store.Options = &sessions.Options{
 		Path:     "/",
@@ -79,6 +85,8 @@ func InitOIDC() *oidcConfig {
 	}
 
 	gob.Register(&oidcResp{})
+
+	fmt.Printf("oidcConfig: %+v", oidcConfig)
 
 	return oidcConfig
 
