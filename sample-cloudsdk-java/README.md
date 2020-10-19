@@ -1,29 +1,30 @@
 # Overview
 
-This blog describes steps and configurations to build and deploy microservice based extensions on SAP Cloud Platform, Kyma runtime using SAP Cloud SKD for Java. 
+This sample describes the steps and configurations to build and deploy microservice-based extensions on SAP Cloud Platform, Kyma runtime using SAP Cloud SKD for Java.
 
-The microservice makes API calls to a S/4 System to do various read/write operations based on the extension logic. The microservice itself can be triggered via an event or an API call. In this example, we will trigger it via an API call by exposing it through Microgateway in Kyma runtime (API rules).
+The microservice makes API calls to an S/4 System to perform various read/write operations based on the extension logic. The microservice itself can be triggered with an event or an API call. In this example, we will trigger it with an API call by exposing it through Microgateway in Kyma runtime (APIRules).
 
-To set up, api-access, please refer to `api access` section in [this blog](https://blogs.sap.com/2020/09/30/use-sap-cloud-platform-kyma-runtime-to-extend-sap-marketing-cloud/).
+## Prerequisites
+
+Refer to [this blog post](https://blogs.sap.com/2020/09/30/use-sap-cloud-platform-kyma-runtime-to-extend-sap-marketing-cloud/) to learn how to set up API access.
 
 ![config](assets/s4hana-api-config.png)
 
-Post setup, we should be able to build a microservice that will call the S/4 System using `SAP Cloud SDK for Java`.
+Setting up API access allows you to build a microservice that will call the S/4 System using SAP Cloud SDK for Java.
 
 ![runtime](assets/s4hana-api-runtime.png)
 
 ## Steps
 
-* Generate the maven project.
+1. Generate the maven project.
 
     ```shell script
     mvn archetype:generate "-DarchetypeGroupId=com.sap.cloud.sdk.archetypes" "-DarchetypeArtifactId=scp-cf-spring" "-DarchetypeVersion=RELEASE"
     ```
 
-* Refer to [this documentation](https://sap.github.io/cloud-sdk/docs/java/features/odata/generate-typed-odata-v2-and-v4-client-for-java/) to perform code generation for the OData APIs.
-e.g. In this sample, I am generating the code for [SAP Marketing Cloud Campaign OData APIs](https://help.sap.com/viewer/0f9408e4921e4ba3bb4a7a1f75f837a7/1911.500/en-US/f2ae5a181b274befbb07183d2c4ac61a.html) using the [metadata file](application/edmx/campaigns.xml).
+2. [Generate a typed OData client for Java](https://sap.github.io/cloud-sdk/docs/java/features/odata/generate-typed-odata-v2-and-v4-client-for-java/). For the purpose of this sample, generate the code for [SAP Marketing Cloud Campaign OData APIs](https://help.sap.com/viewer/0f9408e4921e4ba3bb4a7a1f75f837a7/1911.500/en-US/f2ae5a181b274befbb07183d2c4ac61a.html) using the [metadata file](application/edmx/campaigns.xml).
 
-* Implement the code to make API calls using the generated services.
+3. Implement the code to make API calls using the generated services:
 
     ```java
     @RestController
@@ -31,7 +32,7 @@ e.g. In this sample, I am generating the code for [SAP Marketing Cloud Campaign 
     public class CampaignController {
         private final DefaultErpHttpDestination destination;
         private final DefaultCampaignsService campaignsService;
-    
+
         @Autowired
         public CampaignController(ApplicationConfig applicationConfig) {
             this.destination = DestinationAccessor
@@ -41,10 +42,10 @@ e.g. In this sample, I am generating the code for [SAP Marketing Cloud Campaign 
             this.campaignsService = new DefaultCampaignsService()
                     .withServicePath(applicationConfig.getServicePath());
         }
-    
+
         @RequestMapping(method = RequestMethod.GET)
         public List<Campaign> getCampaigns() {
-    
+
             return this.campaignsService
                     .getAllCampaign()
                     .top(2)
@@ -57,50 +58,56 @@ e.g. In this sample, I am generating the code for [SAP Marketing Cloud Campaign 
         }
     }
     ```
-* Build the image
+
+4. Build and push the image
 
     ```shell script
     DOCKER_ACCOUNT={your-docker-repo} make push-image
     ```
 
-* Service Instance and credentials for access
-    
-    Following the [blog](https://blogs.sap.com/2020/09/30/use-sap-cloud-platform-kyma-runtime-to-extend-sap-marketing-cloud/), you should be able to create a Service instance of plan type `api-access` for your S/4 System.
-    * Create the credentials if not already created.
-    ![service-instance-cred](assets/service-instance-cred.png)
-    * These credentials will be injected as environment variables to the microservcie when we will do the service binding.
+5. [Create a ServiceInstance](https://blogs.sap.com/2020/09/30/use-sap-cloud-platform-kyma-runtime-to-extend-sap-marketing-cloud/) of the `api-access` plan type for your S/4 System.
 
-* Deploy the application on the Kyma runtime
-    
-    Since cloudsdk relies on environment variable of the form `destinations:[{array of destinations}]`, we use a kubernetes deployment trick of referencing pre-defined variables such as `User`, `Password` and `url` to create such a variable. 
-    
-    These predefined will be injected automatically when we do a `Service Binding` with this deployment.  
-    
+    * Create credentials, if not already created.
+    ![service-instance-cred](assets/service-instance-cred.png)
+    * These credentials will be injected as environment variables to the microservice while creating a ServiceBinding.
+
+6. Deploy the application on the Kyma runtime.
+
+    * Since the Cloud SDK relies on an environment variable in the form of `destinations:[{ARRAY OF DESTINATIONS}]`, use a Kubernetes Deployment to reference pre-defined variables, such as **User**, **Password** and **url**, to create such a variable.
+
+    * These predefined variables will be injected automatically when performing a service binding with this Deployment.  
+
     ```yaml
     env:
-      - name: destinations
-        value: '[{name: "$(APPLICATION_TENANT_NAME)", url: "$(URL)", username: "$(User)", password: "$(Password)"}]'
+    - name: destinations
+      value: '[{name: "$(APPLICATION_TENANT_NAME)", url: "$(URL)", username: "$(User)", password: "$(Password)"}]'
     ```
-    You can refer to the full [deployment definition](k8s/deployment.yaml).
+
+    For reference, see the full [Deployment definition](k8s/deployment.yaml).
 
     ```shell script
-    kubectl -n {Namespace To Deploy} apply -f k8s/deployment.yaml
+    kubectl -n {NAMESPACE-TO-DEPLOY} apply -f k8s/deployment.yaml
     ```
 
-* Bind the deployment with the service instance. You can either reuse the existing credentials or create a new one. 
+7. Bind the Deployment with the ServiceInstance. You can either reuse the existing credentials or create new ones.
     ![bind](assets/bind-instance.png)
 
-* Verify the deployment is running fine by checking the logs.
+8. Verify that the Deployment is running by checking the logs:
 
     ```shell script
-    kubectl -n {Namespace To Deploy} logs -l app=sample-cloudsdk-java -c sample-cloudsdk-java
+    kubectl -n {NAMESPACE-TO-DEPLOY} logs -l app=sample-cloudsdk-java -c sample-cloudsdk-java
     ```
 
-* Expose the application via api-rule.
+9. Expose the application using an APIRule:
 
     ```shell script
-    kubectl -n {Namespace To Deploy} apply -f k8s/api-rule.yaml
+    kubectl -n {NAMESPACE-TO-DEPLOY} apply -f k8s/api-rule.yaml
     ```
+
 ## Test
 
-Call the API to get top 2 campaigns at <https://sample-cloudsdk-java.{cluster-domain}/campaigns>
+Call the API to get two top campaigns at this address:
+
+```shell-script
+ <https://sample-cloudsdk-java.{CLUSTER-DOMAIN}/campaigns>
+```
