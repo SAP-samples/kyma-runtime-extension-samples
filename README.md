@@ -30,6 +30,7 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [ASP.NET-based extension with API exposed via Microgateway](./sample-extension-dotnet/README.md)
 - [S/4HANA Nodejs SAP Cloud SDK Example](./s4hana-materialstock-function/README.md)
 - [Scala AKKA HTTP based extesnsion with API exposed via Microgateway](./sample-extension-scala/README.md)
+- [SAP Cloud SDK Java based extension with API exposed via Microgateway](./sample-cloudsdk-java/README.md)
 
 ## Helm Charts
 
