@@ -6,13 +6,19 @@ The microservice makes API calls to an S/4 System to perform various read/write 
 
 ## Prerequisites
 
-Refer to [this blog post](https://blogs.sap.com/2020/09/30/use-sap-cloud-platform-kyma-runtime-to-extend-sap-marketing-cloud/) to learn how to set up API access.
+* SAP Cloud Platform, Kyma runtime instance
+* [Docker](https://www.docker.com/)
+* [make](https://www.gnu.org/software/make/)
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
+* [maven](http://maven.apache.org/download.cgi)
+* Java 8+
+* Refer to [this blog post](https://blogs.sap.com/2020/09/30/use-sap-cloud-platform-kyma-runtime-to-extend-sap-marketing-cloud/) to learn how to set up API access for an S/4 System from Kyma runtime.
 
-![config](assets/s4hana-api-config.png)
+  ![config](assets/s4hana-api-config.png)
 
-Setting up API access allows you to build a microservice that will call the S/4 System using SAP Cloud SDK for Java.
+  Setting up API access allows you to build a microservice that will call the S/4 System using SAP Cloud SDK for Java.
 
-![runtime](assets/s4hana-api-runtime.png)
+  ![runtime](assets/s4hana-api-runtime.png)
 
 ## Steps
 
