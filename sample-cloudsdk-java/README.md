@@ -1,6 +1,6 @@
 # Overview
 
-This sample describes the steps and configurations to build and deploy microservice-based extensions on SAP Cloud Platform, Kyma runtime using SAP Cloud SKD for Java.
+This sample describes the steps and configurations to build and deploy microservice-based extensions on SAP Cloud Platform, Kyma runtime using SAP Cloud SDK for Java.
 
 The microservice makes API calls to an S/4 System to perform various read/write operations based on the extension logic. The microservice itself can be triggered with an event or an API call. In this example, we will trigger it with an API call by exposing it through Microgateway in Kyma runtime (APIRules).
 
