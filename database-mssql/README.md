@@ -69,5 +69,5 @@ mssql-6df65c689d-nf9dk        2/2     Running   0          93s
 To run the Docker image locally, run this command:
 
 ```shell script
-docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Yukon900' -p 1433:1433 -d {docker id}/mssql
+docker run -e ACCEPT_EULA=Y -e SA_PASSWORD=Yukon900 -p 1433:1433 -d {docker id}/mssql
 ```
