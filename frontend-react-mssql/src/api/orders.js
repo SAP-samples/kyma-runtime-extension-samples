@@ -27,10 +27,18 @@ async function sendRequest(path, opts = {}) {
 
   const response = await fetch(
     getAPIURL() + path,
-    Object.assign({ method: "POST", credentials: "same-origin" }, opts, { headers })
+    Object.assign({method: "POST", mode: "same-origin"}, opts, {
+      headers,
+    })
   );
 
+  console.log(response);
   const data = await response.json();
+
+  if (response.status === 302 && data.redirectUri) {
+    window.location = data.redirectUri;
+    return [];
+  }
 
   if (response.status !== 200 || data.error) {
     console.log(data.error);
