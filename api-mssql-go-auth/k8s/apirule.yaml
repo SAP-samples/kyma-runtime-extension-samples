@@ -1,11 +1,11 @@
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
-  name: api-mssql-go-auth
+  name: ui-auth-proxy
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   rules:
-    - path: /orders|/orders/.*
+    - path: /.*
       accessStrategies:
         - config: {}
           handler: noop
@@ -14,19 +14,9 @@ spec:
         - POST
         - PUT
         - DELETE
-    - path: /user
-      accessStrategies:
-        - config: {}
-          handler: noop
-      methods:
-        - GET
-    - path: /oauth/callback
-      accessStrategies:
-        - config: {}
-          handler: noop
-      methods:
-        - GET
+        - HEAD
+        - PATCH
   service:
-    host: api-mssql-go-auth
+    host: ui-auth-proxy
     name: api-mssql-go-auth
     port: 80

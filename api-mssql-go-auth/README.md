@@ -1,6 +1,8 @@
 ## Overview
 
-This sample is an extension to the sample `api-mssql-go` providing a middleware to handle authentication, based on Open ID Connect, which can be configured using XSUAA or SAP IAS. Please refer to the [api-mssql-go](../api-mssql-go/README.md) for specifics. This example implementation is storing sessions using an in memory store which is meant for testing only. See [store-implementations](https://github.com/gorilla/sessions#store-implementations) for other options.
+## THIS IS A WORK IN PROGRESS!
+
+This sample is an extension to the sample `api-mssql-go` providing a middleware to handle authentication, based on Open ID Connect, which can be configured using XSUAA or SAP IAS. It also provides a reverse proxy feature to serve a static UI. Please refer to the [api-mssql-go](../api-mssql-go/README.md) for specifics. This example implementation is storing sessions using an in memory store which is meant for testing only. See [store-implementations](https://github.com/gorilla/sessions#store-implementations) for other options.
 
 
 This sample demonstrates how to:
@@ -40,21 +42,22 @@ kubectl create namespace dev
 6. Choose the Plan `application`
 7. Choose `Add parameters` and provide the object after adjusting it to your needs.
 
+
 ```json
 {
   "oauth2-configuration": {
     "redirect-uris": [
-      "https://api-mssql-go-auth.<cluster domain>/oauth/callback",
+      "https://ui-auth-proxy.<cluster domain>/oauth/callback",
       "http://localhost:8000/oauth/callback"
     ]
   },
-  "xsappname": "go-sample-app-auth"
+  "xsappname": "ui-auth-proxy"
 }
 ```
 <sup> For a complete list of parameters visit [Application Security Descriptor Configuration Syntax](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.04/en-US/6d3ed64092f748cbac691abc5fe52985.html) </sup>
 
-8. Once the instance is provisioned choose the option `Create Credentials`
-9. Under the `Credentials` tab choose the `Secret` which should display the instance secret in a dialog. Choose `Decode` to view the values. These will be needed if running the sample locally.
+1. Once the instance is provisioned choose the option `Create Credentials`
+2. Under the `Credentials` tab choose the `Secret` which should display the instance secret in a dialog. Choose `Decode` to view the values. These will be needed if running the sample locally.
 
 ### Run the API locally
 
@@ -68,7 +71,13 @@ export MYAPP_host=localhost
 export MYAPP_port=1433
 ```
 
-2. Set the environment variables required to connect with the XSUAA instance which can be found in the `Secret` generated with the service instance:
+2. Optionally set the location of the UI which is providing the static sources
+  
+```shell script
+export MYAPP_reverse_proxy_target=<the url of the service>
+```
+
+3. Set the environment variables required to connect with the XSUAA instance which can be found in the `Secret` generated with the service instance:
 
 ```shell script
 export IDP_clientid='<instance clientid>'
@@ -79,13 +88,14 @@ export IDP_token_endpoint_auth_method=client_secret_post
 export IDP_CookieKey=<a random value used to encode the cookie>
 ```
 
-1. Run the application:
+4. Run the application:
 
 ```shell script
 go run ./cmd/api
 ```
 
-2. Accessible endpoints include
+5. Accessible endpoints include
+   - http://localhost:8000/
    - http://localhost:8000/user
    - http://localhost:8000/orders
 
@@ -157,6 +167,4 @@ kubectl -n dev get deployment api-mssql-go-auth
 ```
 
 7. Use the APIRule:
-  - `https://api-mssql-go-auth.{cluster-domain}/orders`
-  - `https://api-mssql-go-auth.{cluster-domain}/orders/10000001`
-  - `https://api-mssql-go-auth.{cluster-domain}/user`
+  - `https://ui-auth-proxy.{cluster-domain}`

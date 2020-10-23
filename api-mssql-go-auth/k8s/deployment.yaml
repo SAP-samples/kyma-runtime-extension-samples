@@ -69,6 +69,11 @@ spec:
                 configMapKeyRef:
                   name: api-mssql-go-auth
                   key: port
+            - name: MYAPP_reverse_proxy_target
+              valueFrom:
+                configMapKeyRef:
+                  name: api-mssql-go-auth
+                  key: reverse_proxy_target
             - name: MYAPP_username
               valueFrom:
                 secretKeyRef:

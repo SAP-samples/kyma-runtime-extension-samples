@@ -8,4 +8,6 @@ data:
   database: DemoDB
   host: mssql.dev.svc.cluster.local
   port: "1433"
-  redirect_uri: "https://api-mssql-go-auth.<cluster domain>/oauth/callback"
+  redirect_uri: "https://ui-auth-proxy.<cluster domain>/oauth/callback"
+  reverse_proxy_target: "http://fe-react-mssql.dev"
+

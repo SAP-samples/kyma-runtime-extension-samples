@@ -28,14 +28,16 @@ type InitConfig struct {
 	RedirectURL                string
 	Token_endpoint_auth_method string
 	CookieKey                  string
+	IsClientRedirect           bool
 }
 
 type oidcConfig struct {
-	provider *oidc.Provider
-	verifier *oidc.IDTokenVerifier
-	config   oauth2.Config
-	store    *memstore.MemStore
-	state    string
+	provider         *oidc.Provider
+	verifier         *oidc.IDTokenVerifier
+	config           oauth2.Config
+	store            *memstore.MemStore
+	state            string
+	isClientRedirect bool
 }
 
 type oidcResp struct {
@@ -68,6 +70,8 @@ func InitOIDC(appConfig *InitConfig) *oidcConfig {
 		RedirectURL:  appConfig.RedirectURL,
 		Scopes:       []string{oidc.ScopeOpenID},
 	}
+
+	oidcConfig.isClientRedirect = appConfig.IsClientRedirect
 
 	if appConfig.Token_endpoint_auth_method == "client_secret_post" {
 		oidcConfig.config.Endpoint.AuthStyle = oauth2.AuthStyleInParams
@@ -118,7 +122,7 @@ func (oc *oidcConfig) AuthHandler(next http.HandlerFunc) http.Handler {
 
 		if sessionInfo == nil {
 			log.Println("no session exists...")
-			session.Values["reqPath"] = r.URL.Path
+			session.Values["reqPath"] = "/" //r.URL.Path
 			err = session.Save(r, w)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -146,12 +150,25 @@ func (oc *oidcConfig) AuthHandler(next http.HandlerFunc) http.Handler {
 			next.ServeHTTP(w, r)
 		} else {
 			oc.state = genState()
-			http.Redirect(w, r, oc.config.AuthCodeURL(oc.state), http.StatusFound)
+
+			if oc.isClientRedirect {
+				m := map[string]string{
+					"redirectUri": oc.config.AuthCodeURL(oc.state),
+				}
+				w.Header().Add("Content-Type", "application/json")
+				w.WriteHeader(http.StatusFound)
+				_ = json.NewEncoder(w).Encode(m)
+			} else {
+				http.Redirect(w, r, oc.config.AuthCodeURL(oc.state), http.StatusTemporaryRedirect)
+			}
+
 		}
 	})
 }
 
 func (oc *oidcConfig) HandleCallback(w http.ResponseWriter, r *http.Request) {
+
+	log.Printf("state %v ... \n", oc.state)
 
 	ctx := context.WithValue(r.Context(), "state", oc.state)
 

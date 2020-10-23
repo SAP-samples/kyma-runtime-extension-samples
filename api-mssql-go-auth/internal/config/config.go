@@ -11,11 +11,12 @@ var appConfig Config
 
 //Config struct to hold the app config
 type Config struct {
-	Server   string `envconfig:"MYAPP_host"`
-	Port     string `envconfig:"MYAPP_port,default=1433"`
-	Username string `envconfig:"MYAPP_username"`
-	Password string `envconfig:"MYAPP_password"`
-	Database string `envconfig:"MYAPP_database"`
+	Server             string `envconfig:"MYAPP_host"`
+	Port               string `envconfig:"MYAPP_port,default=1433"`
+	Username           string `envconfig:"MYAPP_username"`
+	Password           string `envconfig:"MYAPP_password"`
+	Database           string `envconfig:"MYAPP_database"`
+	ReverseProxyTarget string `envconfig:"MYAPP_reverse_proxy_target,default=http://localhost:3000/"`
 
 	ClientID                   string `envconfig:"IDP_clientid"`
 	ClientSecret               string `envconfig:"IDP_clientsecret"`
@@ -23,6 +24,7 @@ type Config struct {
 	RedirectURL                string `envconfig:"IDP_redirect_uri"`
 	Token_endpoint_auth_method string `envconfig:"IDP_token_endpoint_auth_method,default=client_secret_basic"`
 	CookieKey                  string `envconfig:"IDP_CookieKey,default=thisisnotsecure"`
+	IsClientRedirect           bool   `envconfig:"IDP_is_client_redirect,default=true"`
 }
 
 //InitConfig initializes the AppConfig
