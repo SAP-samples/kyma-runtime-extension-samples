@@ -47,7 +47,6 @@ func main() {
 			"stripprefix": stripprefix,
 		}).Debug("Setting router for:")
 
-		//http.StripPrefix(path,
 		if protected {
 			router.PathPrefix(path).Handler(authOIDC.AuthHandler(serveFromProxy(target, path, stripprefix)))
 		} else {

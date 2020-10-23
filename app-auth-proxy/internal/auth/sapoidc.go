@@ -75,13 +75,6 @@ func InitOIDC(appConfig *InitConfig, store sessions.Store, sessionName string) *
 
 	oidcConfig.store = store
 
-	// oidcConfig.store.Options = &sessions.Options{
-	// 	Path:     "/",
-	// 	MaxAge:   60 * 15,
-	// 	HttpOnly: true,
-	// 	Secure:   false,
-	// }
-
 	gob.Register(&oidcResp{})
 
 	return oidcConfig

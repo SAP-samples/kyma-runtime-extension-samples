@@ -83,19 +83,25 @@ func initBaseConfig(file string) {
 
 //AppConfig returns the current AppConfig
 func GetConfig() AppConfig {
+
 	if reflect.DeepEqual(appConfig, AppConfig{}) {
 		initIDPConfig()
 		initBaseConfig(CONFIG_JSON)
 
 		if !appConfig.BaseConfig.Debug {
 			log.SetLevel(log.WarnLevel)
+		} else {
+			log.SetLevel(log.DebugLevel)
 		}
+
+		log.WithFields(log.Fields{
+			"BaseConfig": fmt.Sprintf("%+v", appConfig.BaseConfig),
+			"IDPConfig":  fmt.Sprintf("%+v", appConfig.IDPConfig),
+		}).Debug("Configuration set to:")
 	}
 
-	log.WithFields(log.Fields{
-		"BaseConfig": fmt.Sprintf("%+v", appConfig.BaseConfig),
-		"IDPConfig":  fmt.Sprintf("%+v", appConfig.IDPConfig),
-	}).Debug("Configuration set to:")
+	log.Println("appconfig.....")
+	log.Printf("%+v", appConfig.BaseConfig)
 
 	return appConfig
 }
