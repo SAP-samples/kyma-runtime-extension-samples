@@ -3,10 +3,11 @@ package auth
 import (
 	"encoding/gob"
 	"encoding/json"
-	"fmt"
-	"log"
+
 	"net/http"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 
 	oidc "github.com/coreos/go-oidc"
 	"github.com/gorilla/sessions"
@@ -15,11 +16,7 @@ import (
 	"golang.org/x/oauth2"
 
 	mathrand "math/rand"
-
-	"github.com/quasoft/memstore"
 )
-
-const sessionName string = "sample-session"
 
 type InitConfig struct {
 	ClientID                   string
@@ -28,16 +25,15 @@ type InitConfig struct {
 	RedirectURL                string
 	Token_endpoint_auth_method string
 	CookieKey                  string
-	IsClientRedirect           bool
 }
 
 type oidcConfig struct {
-	provider         *oidc.Provider
-	verifier         *oidc.IDTokenVerifier
-	config           oauth2.Config
-	store            *memstore.MemStore
-	state            string
-	isClientRedirect bool
+	provider    *oidc.Provider
+	verifier    *oidc.IDTokenVerifier
+	config      oauth2.Config
+	store       sessions.Store
+	state       string
+	sessionName string
 }
 
 type oidcResp struct {
@@ -45,19 +41,21 @@ type oidcResp struct {
 	IDTokenClaims *json.RawMessage
 }
 
-func InitOIDC(appConfig *InitConfig) *oidcConfig {
+func InitOIDC(appConfig *InitConfig, store sessions.Store, sessionName string) *oidcConfig {
 
 	oidcConfig := &oidcConfig{}
 	ctx := context.Background()
 	var err error
 	oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.Issuer)
 	if err != nil {
-		log.Printf("Issuer did not match trying: %s/oauth/token", appConfig.Issuer)
+		log.Info("Issuer did not match trying: %s/oauth/token", appConfig.Issuer)
 		oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.Issuer+"/oauth/token")
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
+
+	oidcConfig.sessionName = sessionName
 
 	oidcConfig.verifier = oidcConfig.provider.Verifier(&oidc.Config{
 		ClientID: appConfig.ClientID,
@@ -71,72 +69,56 @@ func InitOIDC(appConfig *InitConfig) *oidcConfig {
 		Scopes:       []string{oidc.ScopeOpenID},
 	}
 
-	oidcConfig.isClientRedirect = appConfig.IsClientRedirect
-
 	if appConfig.Token_endpoint_auth_method == "client_secret_post" {
 		oidcConfig.config.Endpoint.AuthStyle = oauth2.AuthStyleInParams
 	}
 
-	//See https://github.com/gorilla/sessions#store-implementations
-	log.Println("--------USING MEMORY STORAGE - THIS IS NOT RECOMMENDED!--------")
-	oidcConfig.store = memstore.NewMemStore([]byte(appConfig.CookieKey))
+	oidcConfig.store = store
 
-	oidcConfig.store.Options = &sessions.Options{
-		Path:     "/",
-		MaxAge:   60 * 15,
-		HttpOnly: true,
-		Secure:   false,
-	}
+	// oidcConfig.store.Options = &sessions.Options{
+	// 	Path:     "/",
+	// 	MaxAge:   60 * 15,
+	// 	HttpOnly: true,
+	// 	Secure:   false,
+	// }
 
 	gob.Register(&oidcResp{})
 
-	fmt.Printf("oidcConfig: %+v", oidcConfig)
-
 	return oidcConfig
 
-}
-
-func (oc *oidcConfig) GetUser(w http.ResponseWriter, r *http.Request) {
-	session, err := oc.store.Get(r, sessionName)
-
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	sessionInfo := getSessionInfo(session)
-
-	js, _ := json.Marshal(sessionInfo.IDTokenClaims)
-
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(js)
 }
 
 func (oc *oidcConfig) AuthHandler(next http.HandlerFunc) http.Handler {
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		session, err := oc.store.Get(r, sessionName)
+		session, err := oc.store.Get(r, oc.sessionName)
 		sessionInfo := getSessionInfo(session)
 		isAuthenticated := false
 
 		if sessionInfo == nil {
-			log.Println("no session exists...")
-			session.Values["reqPath"] = "/" //r.URL.Path
+			log.Info("no session exists...")
+			session.Values["reqPath"] = r.URL.Path
 			err = session.Save(r, w)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 		} else {
-			log.Printf("session exists for user %s and expires at %s \n", getEmail(sessionInfo.IDTokenClaims), sessionInfo.OAuth2Token.Expiry)
 			now := time.Now()
 			diff := sessionInfo.OAuth2Token.Expiry.Sub(now)
+
+			log.WithFields(log.Fields{
+				"user":                  getEmail(sessionInfo.IDTokenClaims),
+				"expires at":            sessionInfo.OAuth2Token.Expiry,
+				"expiration in seconds": diff.Seconds(),
+				"request path":          r.URL.Path,
+			}).Info("Session exists:")
+
 			if diff.Seconds() < 5 {
-				log.Printf("refreshing session - will expire in %v seconds... \n", diff.Seconds())
+				log.Info("Session Expired - will refresh")
 				isAuthenticated = false
 			} else {
-				log.Printf("session will expire in %v seconds... \n", diff.Seconds())
 				isAuthenticated = true
 			}
 		}
@@ -150,25 +132,17 @@ func (oc *oidcConfig) AuthHandler(next http.HandlerFunc) http.Handler {
 			next.ServeHTTP(w, r)
 		} else {
 			oc.state = genState()
-
-			if oc.isClientRedirect {
-				m := map[string]string{
-					"redirectUri": oc.config.AuthCodeURL(oc.state),
-				}
-				w.Header().Add("Content-Type", "application/json")
-				w.WriteHeader(http.StatusFound)
-				_ = json.NewEncoder(w).Encode(m)
-			} else {
-				http.Redirect(w, r, oc.config.AuthCodeURL(oc.state), http.StatusTemporaryRedirect)
-			}
-
+			http.Redirect(w, r, oc.config.AuthCodeURL(oc.state), http.StatusTemporaryRedirect)
 		}
 	})
 }
 
 func (oc *oidcConfig) HandleCallback(w http.ResponseWriter, r *http.Request) {
 
-	log.Printf("state %v ... \n", oc.state)
+	log.WithFields(log.Fields{
+		"state": oc.state,
+		"code":  r.URL.Query().Get("code"),
+	}).Info("HandleCallback:")
 
 	ctx := context.WithValue(r.Context(), "state", oc.state)
 
@@ -195,7 +169,7 @@ func (oc *oidcConfig) HandleCallback(w http.ResponseWriter, r *http.Request) {
 	}
 
 	resp := oidcResp{oauth2Token, new(json.RawMessage)}
-	session, _ := oc.store.Get(r, sessionName)
+	session, _ := oc.store.Get(r, oc.sessionName)
 	session.Values["OIDCResp"] = resp
 
 	if err := idToken.Claims(&resp.IDTokenClaims); err != nil {
@@ -211,6 +185,22 @@ func (oc *oidcConfig) HandleCallback(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, session.Values["reqPath"].(string), http.StatusSeeOther)
 
+}
+
+func (oc *oidcConfig) GetUser(w http.ResponseWriter, r *http.Request) {
+	session, err := oc.store.Get(r, oc.sessionName)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	sessionInfo := getSessionInfo(session)
+
+	js, _ := json.Marshal(sessionInfo.IDTokenClaims)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
 }
 
 func getEmail(claimsData *json.RawMessage) string {

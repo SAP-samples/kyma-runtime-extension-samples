@@ -1,0 +1,72 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: xsuaa-binding
+  labels:
+    app: app-auth-proxy
+spec:
+  instanceRef:
+    name: <Service Instance Name>
+---
+apiVersion: servicecatalog.kyma-project.io/v1alpha1
+kind: ServiceBindingUsage
+metadata:
+  name: xsuaa-binding-usage
+  labels:
+    app: app-auth-proxy
+spec:
+  serviceBindingRef:
+    name: xsuaa-binding
+  usedBy:
+    kind: deployment
+    name: app-auth-proxy
+  parameters:
+    envPrefix:
+      name: "IDP_"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-auth-proxy
+  labels:
+    app: app-auth-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-auth-proxy
+  template:
+    metadata:
+      labels:
+        app: app-auth-proxy
+    spec:
+      containers:
+        # replace the repository URL with your own repository
+        - image: jcawley5/app-auth-proxy:latest
+          imagePullPolicy: Always
+          name: app-auth-proxy
+          ports:
+            - name: http
+              containerPort: 8000
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: app-auth-proxy
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-auth-proxy
+  labels:
+    app: app-auth-proxy
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+      protocol: TCP
+  selector:
+    app: app-auth-proxy

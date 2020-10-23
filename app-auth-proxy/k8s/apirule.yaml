@@ -1,7 +1,7 @@
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
-  name: ui-auth-proxy
+  name: app-auth-proxy
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   rules:
@@ -17,6 +17,6 @@ spec:
         - HEAD
         - PATCH
   service:
-    host: ui-auth-proxy
-    name: api-mssql-go-auth
+    host: app-auth-proxy
+    name: app-auth-proxy
     port: 80

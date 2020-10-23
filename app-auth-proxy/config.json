@@ -1,0 +1,26 @@
+{
+    "routes": [{
+            "path": "/orders",
+            "priority": 1,
+            "protected": true,
+            "stripprefix": false,
+            "target": "http://api-mssql-go.dev"
+        },{
+            "path": "/",
+            "priority": 10,
+            "protected": true,
+            "stripprefix": false,
+            "target": "http://fe-react-mssql.dev"
+         }],
+    "token_endpoint_auth_method": "client_secret_post",
+    "redirect_uri": "http://localhost:8000/oauth/callback",
+    "debug": true,
+    "cookie":{
+        "session_name": "sample-session",
+        "max_age_seconds": 900,
+        "key": "asecurekeyvalue",
+        "httponly": true,
+        "secure": false,
+        "samesite": 0
+    }
+}
