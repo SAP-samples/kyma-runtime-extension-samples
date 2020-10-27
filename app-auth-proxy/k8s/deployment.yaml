@@ -1,7 +1,7 @@
 apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceBinding
 metadata:
-  name: xsuaa-binding
+  name: xsuaa-app-auth-proxy-bind
   labels:
     app: app-auth-proxy
 spec:
@@ -11,12 +11,12 @@ spec:
 apiVersion: servicecatalog.kyma-project.io/v1alpha1
 kind: ServiceBindingUsage
 metadata:
-  name: xsuaa-binding-usage
+  name: xsuaa-app-auth-proxy-bind-usage
   labels:
     app: app-auth-proxy
 spec:
   serviceBindingRef:
-    name: xsuaa-binding
+    name: xsuaa-app-auth-proxy-bind
   usedBy:
     kind: deployment
     name: app-auth-proxy
@@ -50,7 +50,7 @@ spec:
               containerPort: 8000
           volumeMounts:
             - name: config-volume
-              mountPath: /app/config.json
+              mountPath: /app/config
       volumes:
         - name: config-volume
           configMap:

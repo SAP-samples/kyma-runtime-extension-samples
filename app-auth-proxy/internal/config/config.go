@@ -4,14 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 	"reflect"
+	"runtime"
 
 	"github.com/vrischmann/envconfig"
 
 	log "github.com/sirupsen/logrus"
 )
 
-const CONFIG_JSON = "../../config.json"
+const CONFIG_JSON = "/config/config.json"
 
 var appConfig AppConfig
 
@@ -86,7 +88,8 @@ func GetConfig() *AppConfig {
 
 	if reflect.DeepEqual(appConfig, AppConfig{}) {
 		initIDPConfig()
-		initBaseConfig(CONFIG_JSON)
+		_, b, _, _ := runtime.Caller(0)
+		initBaseConfig(filepath.Join(filepath.Dir(b), "../.."+CONFIG_JSON))
 
 		if !appConfig.BaseConfig.Debug {
 			log.SetLevel(log.WarnLevel)
