@@ -1,7 +1,5 @@
 ## Overview
 
-## THIS IS A WORK IN PROGRESS!
-
 This sample provides a reverse proxy feature which includes a middleware to handle authentication. Authentication is based on Open ID Connect and can be configured using XSUAA or SAP IAS. This example implementation is storing sessions using an in memory store which is meant for testing only. See [store-implementations](https://github.com/gorilla/sessions#store-implementations) for other options.
 
 This sample demonstrates how to:
