@@ -67,7 +67,6 @@ kubectl create namespace dev
 export IDP_clientid='<instance clientid>'
 export IDP_clientsecret=<instance clientsecret>
 export IDP_url=<instance url>
-export IDP_token_endpoint_auth_method=client_secret_post
 ```
 
 2. Adjust the config.json which contains the following properties

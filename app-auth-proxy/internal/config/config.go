@@ -82,7 +82,7 @@ func initBaseConfig(file string) {
 }
 
 //AppConfig returns the current AppConfig
-func GetConfig() AppConfig {
+func GetConfig() *AppConfig {
 
 	if reflect.DeepEqual(appConfig, AppConfig{}) {
 		initIDPConfig()
@@ -103,5 +103,5 @@ func GetConfig() AppConfig {
 	log.Println("appconfig.....")
 	log.Printf("%+v", appConfig.BaseConfig)
 
-	return appConfig
+	return &appConfig
 }

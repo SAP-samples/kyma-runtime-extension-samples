@@ -27,7 +27,7 @@ type InitConfig struct {
 	CookieKey                  string
 }
 
-type oidcConfig struct {
+type OIDCConfig struct {
 	provider    *oidc.Provider
 	verifier    *oidc.IDTokenVerifier
 	config      oauth2.Config
@@ -41,9 +41,9 @@ type oidcResp struct {
 	IDTokenClaims *json.RawMessage
 }
 
-func InitOIDC(appConfig *InitConfig, store sessions.Store, sessionName string) *oidcConfig {
+func InitOIDC(appConfig *InitConfig, store sessions.Store, sessionName string) *OIDCConfig {
 
-	oidcConfig := &oidcConfig{}
+	oidcConfig := &OIDCConfig{}
 	ctx := context.Background()
 	var err error
 	oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.Issuer)
@@ -81,7 +81,7 @@ func InitOIDC(appConfig *InitConfig, store sessions.Store, sessionName string) *
 
 }
 
-func (oc *oidcConfig) AuthHandler(next http.HandlerFunc) http.Handler {
+func (oc *OIDCConfig) AuthHandler(next http.HandlerFunc) http.Handler {
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
@@ -130,7 +130,7 @@ func (oc *oidcConfig) AuthHandler(next http.HandlerFunc) http.Handler {
 	})
 }
 
-func (oc *oidcConfig) HandleCallback(w http.ResponseWriter, r *http.Request) {
+func (oc *OIDCConfig) HandleCallback(w http.ResponseWriter, r *http.Request) {
 
 	log.WithFields(log.Fields{
 		"state": oc.state,
@@ -180,7 +180,7 @@ func (oc *oidcConfig) HandleCallback(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (oc *oidcConfig) GetUser(w http.ResponseWriter, r *http.Request) {
+func (oc *OIDCConfig) GetUser(w http.ResponseWriter, r *http.Request) {
 	session, err := oc.store.Get(r, oc.sessionName)
 
 	if err != nil {
