@@ -6,7 +6,7 @@ metadata:
     app: api-mssql-go-auth
 data:
   config.json: |
-  {
+    {
       "routes": [{
               "path": "/orders",
               "priority": 1,
@@ -31,4 +31,4 @@ data:
           "secure": false,
           "samesite": 0
       }
-  }
+    }
