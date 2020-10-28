@@ -104,12 +104,12 @@ docker build -t {your-docker-account}/app-auth-proxy -f docker/Dockerfile .
 docker push {your-docker-account}/app-auth-proxy
 ```
 
-1. To run the image locally either copy the env variables into a file, set them individually, or copy them from your environment:
+1. To run the image locally adjust the config.json and either set the env variables individually, or copy them from your environment:
 
 ```shell script
-  docker run -p 8000:8000 --env-file ./env.list -d jcawley5/app-auth-proxy:latest
+  docker run -p 8000:8000 --env-file ./env.list --mount type=bind,source=$(pwd)/config/config.json,target=/app/config/config.json -d jcawley5/app-auth-proxy:latest
   OR
-  docker run -p 8000:8000 --env-file <(env | grep IDP) -d jcawley5/app-auth-proxy:latest
+  docker run -p 8000:8000 --env-file <(env | grep IDP) --mount type=bind,source=$(pwd)/config/config.json,target=/app/config/config.json -d jcawley5/app-auth-proxy:latest
 ```
 
 ### Deploy the APP
