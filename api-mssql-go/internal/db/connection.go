@@ -42,12 +42,3 @@ func getConnString() string {
 
 	return connString
 }
-
-//will verify the connection is available or generate a new one
-func (s *Server) getConnection() {
-
-	err := s.db.Ping()
-	if err != nil {
-		log.Fatal("Could not ping db: ", err.Error())
-	}
-}

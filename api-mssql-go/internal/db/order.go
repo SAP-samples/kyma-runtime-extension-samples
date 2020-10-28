@@ -50,8 +50,6 @@ func (s *Server) DeleteOrder(order_id string) (RowsAffected, error) {
 
 func (s *Server) exec(tsql string, args ...interface{}) (RowsAffected, error) {
 
-	s.getConnection()
-
 	rowsAffectedResult := RowsAffected{}
 	rowsAffectedResult.RowsAffected = 0
 
@@ -71,8 +69,6 @@ func (s *Server) exec(tsql string, args ...interface{}) (RowsAffected, error) {
 }
 
 func (s *Server) query(tsql string, args ...interface{}) ([]Order, error) {
-
-	s.getConnection()
 
 	order := Order{}
 	orders := []Order{}
