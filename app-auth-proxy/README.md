@@ -74,7 +74,7 @@ export IDP_url=<instance url>
 | routes.priority            | The priority of the path with 1 be the highest                     |                                                                     |
 | routes.protected           | If the auth middleware is required on the path                     |                                                                     |
 | routes.stripprefix         | If the of routes.path should be removed before the call is proxied |                                                                     |
-| routes.target              | The target of the proxied route                                    |                                                                     |
+| routes.target              | The target of the proxied route which can be a service url         |                                                                     |
 | token_endpoint_auth_method | The htttp method used to during authentication                     | For XSUAA use client_secret_post, for SAPIAS us client_secret_basic |
 | redirect_uri               | The registered redirect_uri to be called                           |                                                                     |
 | debug                      | Toggle debug on or off                                             |                                                                     |
