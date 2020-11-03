@@ -17,6 +17,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 
 Jumpstart your Kyma journey by using these samples to build event and api based extensions in your favorite technology.
 
+- [OIDC Middleware Reverse Proxy](./app-auth-proxy/README.md)
 - [Java-based microservice as an Event Trigger using CloudEvents SDK](./sample-event-trigger-java/README.md)
 - [Java-based extension with API exposed via Microgateway](./sample-extension-java/README.md)
 - [MS SQL database](./database-mssql/README.md)

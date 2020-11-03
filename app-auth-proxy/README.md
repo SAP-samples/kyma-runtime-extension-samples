@@ -1,6 +1,6 @@
 ## Overview
 
-This sample provides a reverse proxy feature which includes a middleware to handle authentication. Authentication is based on Open ID Connect and can be configured using XSUAA or SAP IAS. This example implementation is storing sessions using an in memory store which is meant for testing only. See [store-implementations](https://github.com/gorilla/sessions#store-implementations) for other options.
+This sample provides a reverse proxy feature which dispatches requests to other microservices running in Kyma. It includes a middleware to handle authentication which is based on Open ID Connect and can be configured using XSUAA or SAP IAS. This example implementation is storing sessions using an in memory store which is meant for testing only. See [store-implementations](https://github.com/gorilla/sessions#store-implementations) for other options.
 
 This sample demonstrates how to:
 
@@ -65,7 +65,10 @@ export IDP_clientsecret=<instance clientsecret>
 export IDP_url=<instance url>
 ```
 
-2. Adjust the config.json which contains the following properties
+2. Adjust the config.json which contains the following properties. The provided config.json is configured to use the examples
+   - [React frontend MS SQL](../frontend-react-mssql/README.md)
+     - Requires the configmap API_URL to point to `https://app-auth-proxy.<cluster domain>`
+   - [Golang MS SQL database API](../api-mssql-go/README.md)
 
 | Property                   | Description                                                        | Remarks                                                             |
 | -------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------- |
@@ -85,7 +88,7 @@ export IDP_url=<instance url>
 | cookie.secure              | If the cookie should only be used with https                       |                                                                     |
 | cookie.samesite            | If the cookie shouldn't be sent with cross-origin requests         |                                                                     |
 
-3. Run the application:
+1. Run the application:
 
 ```shell script
 go run ./cmd/proxy
