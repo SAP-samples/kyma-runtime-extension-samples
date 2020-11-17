@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: redis
+  labels:
+    app: redis
+type: Opaque
+data:    
+    quoted-redis-password: "ImtQcHBPWnAyaEMi"
+    redis-password: "a1BwcE9acDJoQw=="
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: redis
+  selector:
+    app: redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      # volumes:
+      # - name: host-sys
+      #   hostPath:
+      #     path: /sys
+      # initContainers:
+      # - name: disable-thp
+      #   image: busybox
+      #   volumeMounts:
+      #     - name: host-sys
+      #       mountPath: /host-sys
+      #   command: ["sh", "-c", "echo never >/host-sys/kernel/mm/transparent_hugepage/enabled"]
+      containers:
+      - name: redis
+        image: "bitnami/redis:latest"
+        imagePullPolicy: "Always"
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis
+              key: quoted-redis-password
+        ports:
+        - name: redis
+          containerPort: 6379
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        resources:
+          requests:
+            memory: 256Mi
