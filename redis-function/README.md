@@ -117,13 +117,6 @@ With the configuration steps completed, you can now test the scenario to validat
 
    ![Test the Scenario](./assets/test-scenario-2.png)
 
-7. With the Kyma console, choose **Configuration > `APIRules`** from the menu.
-
-8. Choose the **Host** entry for the **fe-ui5-mssql** `APIRule` to open the application in the browser. This should be similar to:
-   `https://fe-ui5-mssql.*******.kyma.shoot.live.k8s-hana.ondemand.com`
-
-9. You should now see the data received by the event as shown below:
-
 ### Review output in funciton Logs
 
 1. Open the Function `cache-order`
@@ -135,8 +128,8 @@ With the configuration steps completed, you can now test the scenario to validat
 
 ### Get output from the API-Rule function
 
-1. Open the menu option API Rule
-2. Choose the API Rule `get-order`. When first opened you will received the message
+1. With the Kyma console, choose **Configuration > `APIRules`** from the menu.
+2. Choose the **Host** entry for the **get-order** `APIRule` to open the application in the browser, When first opened you will received the message
 
    `{"error":"No orderCode received!"}`
 
