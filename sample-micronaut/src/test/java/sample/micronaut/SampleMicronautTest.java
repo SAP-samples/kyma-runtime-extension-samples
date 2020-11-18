@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
 
 @MicronautTest
 public class SampleMicronautTest {
@@ -18,4 +20,13 @@ public class SampleMicronautTest {
         Assertions.assertTrue(application.isRunning());
     }
 
+    @Test
+    void x() {
+        Map<String, String> map = new HashMap<>();
+        map.put("a", "b");
+        map.forEach((k,v) -> {
+            System.out.println(k);
+            System.out.println(v);
+        });
+    }
 }
