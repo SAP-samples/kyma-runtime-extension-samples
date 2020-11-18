@@ -18,85 +18,133 @@ This sample demonstrates how to:
 - [Provision Kyma](https://developers.sap.com/tutorials/cp-kyma-getting-started.html)
 - [Setup Mock Application](https://developers.sap.com/tutorials/cp-kyma-mocks.html)
 
-## Steps
+## Details
 
-### Create `dev` namespace
+### You will learn
 
-![Create Namespace](./assets/add-ns.png)
+- How to create a Namespace in the Kyma runtime
+- How to create Service Instances and bind them to a Servless Function
 
-### Bind Commerce Mock Application to `dev` Namespace
+[ACCORDION-BEGIN [Step 1: ](Clone the Git repository)]
+
+1. Go to the [kyma-runtime-extension-samples](https://github.com/SAP-samples/kyma-runtime-extension-samples) repository. This repository contains a collection of Kyma sample applications which will be used during the tutorial.
+
+2. Download the code by choosing the green **Code** button, and then choosing one of the options to download the code locally.
+
+   You can instead run the following command using your CLI at your desired folder location:
+
+   ```Shell/Bash
+   git clone https://github.com/SAP-samples/kyma-runtime-extension-samples
+   ```
+
+[ACCORDION-END]
+[ACCORDION-BEGIN [Step 2: ](Bind the Application to a Namespace)]
+
+In this step you will bind the Commerce Mock application to the dev namespace. This will allow the APIs and Events of the mock application to be used within the namespace.
+
+1. In the Kyma home workspace, choose **Integration > Applications/Systems**.
+2. Choose the **mp-commerce-mock** application by clicking on the name value shown in the list.
+3. Choose the option **Create Binding**.
+4. In the **namespace** select list choose the option **dev** and then choose **Create**.
 
 ![Bind Mock](./assets/bind-mock.png)
 
-### Create Service Instances
+[ACCORDION-END]
+[ACCORDION-BEGIN [Step 3: ](Create the Events Service Instances)]
 
-1. Open `dev` namespace
+In this step you will create service instances of the Events the Commerce Mock application exposes.
+
+1. In the Kyma home workspace, choose **Namespace**.
+2. Choose the `dev` namespace.
 
 ![Open Namespace](./assets/open-dev-ns.png)
 
-2. Open the Service Catalog
-3. Choose the tile `mp-commerce-mock`
+3. Within the **dev** namespace, choose **Service Managment > Catalog**.
+
+4. Choose the tile **mp-commerce-mock** to view the Service Class Plans of the application.
 
 ![Service Catalog](./assets/service-catalog.png)
 
-4. Choose Service Instance for Events
+5. Choose the Service Class Plan for **SAP Commerce Cloud - Events**
 
 ![Service Catalog](./assets/sc-enable-events.png)
 
-5. Add Service Instance for Events
+6. Choose **Add** the create a Service Instance of the **SAP Commerce Cloud - Events**
 
 ![Service Catalog](./assets/sc-add-events.png)
 
-6. Open the Service Catalog
-7. Choose the tile `mp-commerce-mock`
+[ACCORDION-END]
+[ACCORDION-BEGIN [Step 4: ](Create the API Service Instances)]
+
+In this step you will create service instances of the SAP Commerce Cloud - Commerce Webservices.
+
+1. In the **dev** namespace, choose **Service Managment > Catalog**.
+
+2. Choose the tile **mp-commerce-mock** to view the Service Class Plans of the application.
 
 ![Service Catalog](./assets/service-catalog.png)
 
-8. Choose Service Instance for OCC
+5. Choose the Service Class Plan for **SAP Commerce Cloud - Commerce Webservices**
 
 ![Service Catalog](./assets/sc-enable-occ.png)
 
-9. Add Service Instance for OCC
+6. Choose **Add** the create a Service Instance of the **SAP Commerce Cloud - Commerce Webservices**.
 
 ![Service Catalog](./assets/sc-add-occ.png)
 
-### Deploy Resources
+[ACCORDION-END]
+[ACCORDION-BEGIN [Step 5: ](Deploy Resources)]
 
-- /k8s/cache-order.yaml
-- /k8s/get-order.yaml
-- /k8s/redis-deployment.yaml
+In this step you will deploy a Redis database and two Serverless Functions.
+
+1. In the **dev** namespace, choose **Overview**.
+2. Choose **Deploy new resource**, using the **Browse** option choose the file **redis-function/k8s/cache-order.yaml** and choose **Deploy**.
+3. Repeat the steps to deploy the files **redis-function/k8s/get-order.yaml** and **redis-function/k8s/redis-deployment.yaml**.
 
 ![Deploy Resources](./assets/deploy-function.png)
 
-### Add Event
+[ACCORDION-END]
+[ACCORDION-BEGIN [Step 6: ](Add an Event Trigger to Function)]
 
-1. Open Function `cache-order`
-2. Choose the Configuration tab
-3. Choose Event Triggers
-4. Choose order.created event
-5. Choose Add
+In this step you will configure the function cache-order to be triggered when the order.create event is fired from the Commerce Mock application.
+
+1. In the **dev** namespace, choose **Development > Functions**.
+2. Choose the function **cache-order**.
+
+![Cache Order](./assets/open-function-oc.png)
+
+3. Choose the tab **Configuration**.
+
+![Cache Order](./assets/function-config-oc.png)
+
+4. In the **Configuration** scroll down and choose **Event Triggers**.
+5. Choose the event **order.created** and then choose **Add**
 
 ![Add Event](./assets/add-event.png)
 
-### Bind Service
+[ACCORDION-END]
+[ACCORDION-BEGIN [Step 7: ](Adding a Service Instance to a Function)]
 
-1. Open Function `cache-order`
-2. Choose Configuration
-3. Choose Create Service Binding
-4. Choose the Service instance created in the previous step
-5. Choose Create
+In this step you will add a service instance to the function cache-order which will allow it to easily call the related API.
+
+1. In the function **cache-order**, choose the tab **Configuration**.
+2. In the **Configuration** scroll down and choose **Create Service Binding**.
+3. Choose the Service instance created in the previous step from the drop down list. The name of your service instance will defer from what is shown in the screenshot.
+4. Choose **Create**.
 
 ![Bind Service](./assets/bind-service.png)
 
-### Adjust Code
+[ACCORDION-END]
+[ACCORDION-BEGIN [Step 8: ](Adjust the Function Code)]
 
-1. Choose the `Code` tab
-2. On line three replace the value `<REPLACE WITH GATEWAY_URL>` with the `GATEWAY_URL` found in the Environment Variables
-3. Choose `Save`
+1. In the function **cache-order** choose the `Code` tab.
+2. On line three, replace the value **<REPLACE WITH GATEWAY_URL>** with the **GATEWAY_URL** found in the Environment Variables. This value will defer from what is shown in the screenshot.
+3. Choose **Save**
 
 ![Adjust Code](./assets/adjust-function-oc.png)
 
-### Test the Event consumption
+[ACCORDION-END]
+[ACCORDION-BEGIN [Step 9: ](Test the Event consumption]
 
 With the configuration steps completed, you can now test the scenario to validate that it is working as intended.
 
@@ -117,18 +165,25 @@ With the configuration steps completed, you can now test the scenario to validat
 
    ![Test the Scenario](./assets/test-scenario-2.png)
 
-### Review output in funciton Logs
+[ACCORDION-END]
+[ACCORDION-BEGIN [Step 10: ](Review Output in Function Logs]
 
-1. Open the Function `cache-order`
-2. Expand the log view at the button of the function viewer
-3. Search for the value `orderCode`
-4. The output should be similar to:
+In this step we will view the logs outputted by the function to verify that the scenario is working.
+
+1. In the **dev** namespace, choose **Development > Functions**.
+2. Choose the function **cache-order**.
+3. Expand the **Log** view at the button of the function viewer
+4. Search for the value `orderCode`
+5. The output should be similar to:
 
 ![Funciton Log](./assets/function-log-event.png)
 
-### Get output from the API-Rule function
+[ACCORDION-END]
+[ACCORDION-BEGIN [Step 11: ](Get output from the API-Rule function]
 
-1. With the Kyma console, choose **Configuration > `APIRules`** from the menu.
+In this step we use the get-order function to perform a read request of the data cached in the Redis database.
+
+1. Choose **Configuration > `APIRules`** from the menu.
 2. Choose the **Host** entry for the **get-order** `APIRule` to open the application in the browser, When first opened you will received the message
 
    `{"error":"No orderCode received!"}`
