@@ -21,11 +21,19 @@ micronaut {
 }
 
 dependencies {
+    annotationProcessor("io.micronaut:micronaut-validation")
+    annotationProcessor("io.micronaut:micronaut-graal")
     implementation("io.micronaut:micronaut-validation")
     implementation("io.micronaut:micronaut-runtime")
     implementation("javax.annotation:javax.annotation-api")
     implementation("io.micronaut:micronaut-http-client")
     runtimeOnly("ch.qos.logback:logback-classic")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+    implementation("com.h2database:h2")
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+    compileOnly("org.graalvm.nativeimage:svm")
 }
 
 mainClassName = "sample.micronaut.Application"
