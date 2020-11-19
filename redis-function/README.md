@@ -2,7 +2,7 @@
 
 work in progress...
 
-This sample provides a Redis deployment and two serverless functions that interact with it. The function `cache-order` is set to subscribe to an `order.created` event provided by the commerce mock application. Once triggered, the function will perform an API call to obtain additional details regarding the order and then cache the information into Redis. The function `get-order`, exposed as an API, is used to then retrieve the order details from the Redis cache.
+This sample provides a Redis deployment and two serverless functions that interact with it. The function `cache-order` is set to subscribe to an `order.created` event provided by the Commerce mock application. Once triggered, the function will perform an API call to the Commerce mock to obtain additional details regarding the order and then cache the information into Redis. The function `get-order`, exposed as an API, is used to then retrieve the order details from the Redis cache.
 
 This sample demonstrates how to:
 
@@ -21,7 +21,7 @@ This sample demonstrates how to:
 ## Details
 
 ### You will learn
-
+ <!--- Marco: isn't this redundant with the above bullet list? --->
 - How to create a Namespace in the Kyma runtime
 - How to create Service Instances and bind them to a Servless Function
 
@@ -100,7 +100,8 @@ In this step you will deploy a Redis database and two Serverless Functions.
 1. In the **dev** namespace, choose **Overview**.
 2. Choose **Deploy new resource**, using the **Browse** option choose the file **redis-function/k8s/cache-order.yaml** and choose **Deploy**.
 3. Repeat the steps to deploy the files **redis-function/k8s/get-order.yaml** and **redis-function/k8s/redis-deployment.yaml**.
-
+ <!--- Marco: would it be better to let people copy-paste functions into the Console? Or maybe have the get-order-function deployed via YAML to have the API rule created and the other one created manually via the UI --->
+ 
 ![Deploy Resources](./assets/deploy-function.png)
 
 [ACCORDION-END]
@@ -138,7 +139,7 @@ In this step you will add a service instance to the function cache-order which w
 [ACCORDION-BEGIN [Step 8: ](Adjust the Function Code)]
 
 1. In the function **cache-order** choose the `Code` tab.
-2. On line three, replace the value **<REPLACE WITH GATEWAY_URL>** with the **GATEWAY_URL** found in the Environment Variables. This value will defer from what is shown in the screenshot.
+2. On line three, replace the value **<REPLACE WITH GATEWAY_URL>** with the **GATEWAY_URL** found in the Environment Variables below the function code. This value will defer from what is shown in the screenshot.
 3. Choose **Save**
 
 ![Adjust Code](./assets/adjust-function-oc.png)
