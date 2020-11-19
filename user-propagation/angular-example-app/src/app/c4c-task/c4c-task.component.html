@@ -1,0 +1,12 @@
+<h1>Create a C4C Task with the logged in user</h1>
+<div>
+    <label>Task Subject
+      <input #subject/>
+    </label>
+    <button (click)="add(subject.value); subject.value=''">
+      Create Task
+    </button>
+    <p></p>
+    <h2>Last created task:</h2>
+    <pre>{{createdTask | json}}</pre>
+  </div>

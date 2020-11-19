@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: kyma-identity-propagation-spa
+  name: kyma-identity-propagation-spa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kyma-identity-propagation-spa
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kyma-identity-propagation-spa
+    spec:
+      containers:
+      - image: gabbi/kyma-identity-propagation-spa:0.0.2
+        name: kyma-identity-propagation-spa
+        resources: {}
+        ports:
+        - containerPort: 80
+        env:
+        - name: HTTP_BIN_URL
+          value: "https://httpbin.{provide-kyma-cluster-domain}"
+        - name: OIDC_URL
+          value: "https://{provide-sap-cloud-identity-tenant-domain}/.well-known/openid-configuration"
+        - name: C4C_EXT_URL
+          value: "https://c4c-extension-with-user-context.{provide-kyma-cluster-domain}"
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: kyma-identity-propagation-spa
+  name: kyma-identity-propagation-spa
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: kyma-identity-propagation-spa
+status:
+  loadBalancer: {}
