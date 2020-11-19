@@ -1,0 +1,28 @@
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: httpbin
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  mutators:
+  - handler: noop  #forwards the headers from the gateway to microservice
+  rules:
+  - accessStrategies:
+    - config:
+        jwks_urls:
+        - https://{sap-cloud-identity-tenant}.ondemand.com/oauth2/certs
+        trusted_issuers:
+        - https://{sap-cloud-identity-tenant}.ondemand.com
+      handler: jwt
+    methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - HEAD
+    path: /.*
+  service:
+    host: httpbin
+    name: httpbin
+    port: 8000
