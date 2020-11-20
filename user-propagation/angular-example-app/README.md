@@ -22,13 +22,19 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Build Docker image
+
+```shell script
+VERSION={provide-version} DOCKER_ACCOUNT={provide-your-docker-account} make build-image
+```
+
 ## Run Docker image Locally
 
 ```shell script
 docker run \
   --env HTTP_BIN_URL="{HTTP BIN URL deployed on Kyma}" \
   --env OIDC_URL="{OIDC config URL}" \
-  -p 4200:80 gabbi/kyma-identity-propagation-spa:0.0.1
+  -p 4200:80 gabbi/kyma-identity-propagation-spa:0.0.3
 ```
 
 ## Further help
