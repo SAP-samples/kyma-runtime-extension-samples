@@ -44,7 +44,7 @@ Configure user propagation between C4C and Kyma runtime.
 
 You will end up creating a Destination Service in SAP Cloud Platform. It will be later on used by the microservice to do the token exchange.
 
-* Download the `Trust` certificate from your Subaccount --> Destinations --> Download Trust.
+* Download the `Trust` certificate from **Subaccount** --> **Destinations** --> **Download Trust**.
   ![download-trust](assets/download-trust.png)
 
 * Log on to your C4C system as an administrator. Go to **ADMINISTRATOR** --> **Common Tasks**. Choose **Configure OAuth 2.0 Identity Provider** and select **New OAuth2.0 Provider**.
