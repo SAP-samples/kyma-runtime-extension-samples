@@ -6,7 +6,9 @@ import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import sample.micronaut.dao.OrdersRepository;
-import sample.micronaut.domain.Order;
+import sample.micronaut.domain.command.CreateOrder;
+import sample.micronaut.domain.command.UpdateOrder;
+import sample.micronaut.domain.model.Order;
 
 import java.net.URI;
 import java.time.LocalDateTime;
@@ -28,19 +30,19 @@ public class OrdersController {
     }
 
     @Put("/{id}")
-    public HttpResponse<?> updateOrder(@PathVariable String id, @Body Order order) {
-        int numberOfEntitiesUpdated = ordersRepository.update(order);
+    public HttpResponse<?> updateOrder(@PathVariable Long id, @Body UpdateOrder order) {
+        int numberOfEntitiesUpdated = ordersRepository.update(order, id);
         return HttpResponse
                 .noContent()
-                .header(HttpHeaders.LOCATION, location(order).getPath());
+                .header(HttpHeaders.LOCATION, location(id).getPath());
     }
 
     @Post
-    public HttpResponse<Order> addOrder(@Body Order order) {
-        Order orderCreated = ordersRepository.save(order.getCreated() == null ? order.setCreated(LocalDateTime.now()) : order);
+    public HttpResponse<Order> addOrder(@Body CreateOrder order) {
+        Order orderCreated = ordersRepository.save(Order.to(order));
         return HttpResponse
                 .created(orderCreated)
-                .headers(headers -> headers.location(location(order)));
+                .headers(headers -> headers.location(location(orderCreated)));
     }
 
     @Get
@@ -54,7 +56,7 @@ public class OrdersController {
         return HttpResponse.noContent();
     }
 
-    protected URI location(String id) {
+    protected URI location(Long id) {
         return URI.create("/orders/" + id);
     }
 

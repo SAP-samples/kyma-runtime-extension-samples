@@ -1,6 +1,7 @@
 package sample.micronaut.dao;
 
-import sample.micronaut.domain.Order;
+import sample.micronaut.domain.command.UpdateOrder;
+import sample.micronaut.domain.model.Order;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -13,7 +14,7 @@ public interface OrdersRepository {
 
     List<Order> findAll();
 
-    int update(@NotNull Order order);
+    int update(UpdateOrder order, Long id);
 
     void deleteById(@NotNull String id);
 
