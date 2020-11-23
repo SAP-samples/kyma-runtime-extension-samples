@@ -1,7 +1,8 @@
 package sample.micronaut.dao;
 
 import io.micronaut.transaction.annotation.ReadOnly;
-import sample.micronaut.domain.Order;
+import sample.micronaut.domain.command.UpdateOrder;
+import sample.micronaut.domain.model.Order;
 
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
@@ -42,10 +43,10 @@ public class OrdersRepositoryImpl implements OrdersRepository {
 
     @Override
     @Transactional
-    public int update(@NotNull Order order) {
+    public int update(UpdateOrder order, Long orderId) {
         return entityManager.createQuery("UPDATE Order o set description = :description where orderId = :orderId")
                 .setParameter("description", order.getDescription())
-                .setParameter("orderId", order.getOrderId())
+                .setParameter("orderId", orderId)
                 .executeUpdate();
     }
 

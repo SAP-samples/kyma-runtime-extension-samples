@@ -1,11 +1,9 @@
-package sample.micronaut.domain;
+package sample.micronaut.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import sample.micronaut.domain.command.CreateOrder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,18 +14,19 @@ public class Order {
 
     @Id
     @JsonProperty("order_id")
-    private String orderId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long orderId;
 
     private String description;
 
     @Column(name = "created", columnDefinition = "TIMESTAMP")
     private LocalDateTime created;
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public Order setOrderId(String orderId) {
+    public Order setOrderId(Long orderId) {
         this.orderId = orderId;
         return this;
     }
@@ -68,5 +67,11 @@ public class Order {
         result = 31 * result + description.hashCode();
         result = 31 * result + created.hashCode();
         return result;
+    }
+
+    public static Order to(CreateOrder createOrder) {
+        return new Order()
+                .setDescription(createOrder.getDescription())
+                .setCreated(LocalDateTime.now());
     }
 }
