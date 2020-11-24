@@ -1,7 +1,9 @@
 package com.sap.kyma.sample.orders.controllers;
 
 import com.sap.kyma.sample.orders.dao.OrdersRepository;
-import com.sap.kyma.sample.orders.model.Order;
+import com.sap.kyma.sample.orders.domain.command.CreateOrder;
+import com.sap.kyma.sample.orders.domain.command.UpdateOrder;
+import com.sap.kyma.sample.orders.domain.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,22 +28,22 @@ public class OrdersController {
     }
 
     @PostMapping()
-    public Order addOrder(@RequestBody Order order) {
-        return repository.save(order.getCreated() == null ? order.setCreated(LocalDateTime.now()) : order);
+    public Order addOrder(@RequestBody CreateOrder order) {
+        return repository.save(Order.to(order));
     }
 
     @PutMapping(path = "/{id}")
-    public int updateOrder(@PathVariable String id, @RequestBody Order order) {
+    public int updateOrder(@PathVariable Long id, @RequestBody UpdateOrder order) {
         return repository.updateDescription(order.getDescription(), id);
     }
 
     @DeleteMapping(path = "/{id}")
-    public int deleteOrder(@PathVariable String id) {
+    public int deleteOrder(@PathVariable Long id) {
         return repository.deleteOrderById(id);
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Order> getOrder(@PathVariable String id) {
+    public Optional<Order> getOrder(@PathVariable Long id) {
         return repository.findById(id);
     }
 }

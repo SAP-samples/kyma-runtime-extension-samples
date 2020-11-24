@@ -1,6 +1,8 @@
 package com.sap.kyma.sample.orders;
 
-import com.sap.kyma.sample.orders.model.Order;
+import com.sap.kyma.sample.orders.domain.command.CreateOrder;
+import com.sap.kyma.sample.orders.domain.command.UpdateOrder;
+import com.sap.kyma.sample.orders.domain.model.Order;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -19,18 +21,17 @@ class OrdersApplicationTests {
 
     @Test
     public void shouldDoCRUDOperations() throws JSONException {
-        Order requestObj = new Order().setOrderId("1").setDescription("1");
-        assertThat(requestObj.getCreated()).isNull();
+        CreateOrder requestObj = new CreateOrder().setDescription("1");
 
         Order respObj = verifyCreate(requestObj);
 
-        verifyGetLis(respObj);
+        verifyGetList(respObj);
 
         verifyGet(respObj);
 
-        verifyPut(requestObj);
+        verifyPut(respObj);
 
-        verifyDelete(requestObj);
+        verifyDelete(respObj);
     }
 
     private void verifyDelete(Order requestObj) {
@@ -42,17 +43,17 @@ class OrdersApplicationTests {
     }
 
     private void verifyPut(Order requestObj) {
-        Order modified = requestObj.setDescription("2");
+        UpdateOrder modified = new UpdateOrder().setDescription("2");
         restTemplate.put(BASE_PATH + "/" + requestObj.getOrderId(), modified);
 
         Order[] ordersAfterPut = restTemplate.getForObject(BASE_PATH, Order[].class);
         assertThat(ordersAfterPut.length).isEqualTo(1);
         assertThat(ordersAfterPut[0].getDescription()).isEqualTo(modified.getDescription());
         assertThat(ordersAfterPut[0].getCreated()).isNotNull();
-        assertThat(ordersAfterPut[0].getOrderId()).isEqualTo(modified.getOrderId());
+        assertThat(ordersAfterPut[0].getOrderId()).isEqualTo(requestObj.getOrderId());
     }
 
-    private void verifyGetLis(Order respObj) {
+    private void verifyGetList(Order respObj) {
         Order[] orders = restTemplate.getForObject(BASE_PATH, Order[].class);
         assertThat(orders.length).isEqualTo(1);
         assertThat(orders[0]).isEqualTo(respObj);
@@ -64,26 +65,28 @@ class OrdersApplicationTests {
         assertThat(getObj).isEqualTo(respObj);
     }
 
-    private Order verifyCreate(Order order) throws JSONException {
+    private Order verifyCreate(CreateOrder order) throws JSONException {
         HttpEntity<String> requestBody = map(order);
         Order respObj = restTemplate.postForObject(BASE_PATH + "/", requestBody, Order.class);
         assertThat(respObj.getCreated()).isNotNull();
         assertThat(respObj.getDescription()).isEqualTo(order.getDescription());
-        assertThat(respObj.getOrderId()).isEqualTo(order.getOrderId());
+        assertThat(respObj.getOrderId()).isNotNull();
         return respObj;
     }
 
-    private HttpEntity<String> map(Order order) throws JSONException {
+    private HttpEntity<String> map(CreateOrder order) throws JSONException {
         JSONObject obj = new JSONObject();
-        obj.put("order_id", order.getOrderId());
         obj.put("description", order.getDescription());
-        if (order.getCreated() != null) {
-            obj.put("created", order.getCreated().toString());
-        }
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        return new HttpEntity<>(obj.toString(), headers);
+    }
 
+    private HttpEntity<String> map(UpdateOrder order) throws JSONException {
+        JSONObject obj = new JSONObject();
+        obj.put("description", order.getDescription());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
         return new HttpEntity<>(obj.toString(), headers);
     }
 
