@@ -1,0 +1,18 @@
+application:
+  name: sampleMicronaut
+datasources:
+  default:
+    url: ${JDBC_URL:`jdbc:postgresql://localhost:5432/kyma-sample`}
+    username: ${JDBC_USER:kyma-sample}
+    password: ${JDBC_PASSWORD:password}
+    driverClassName: ${JDBC_DRIVER:org.postgresql.Driver}
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true
+jackson:
+  serialization:
+    writeDatesAsTimestamps: false
