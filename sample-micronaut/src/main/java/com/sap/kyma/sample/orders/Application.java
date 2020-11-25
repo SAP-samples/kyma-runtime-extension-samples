@@ -1,4 +1,4 @@
-package sample.micronaut;
+package com.sap.kyma.sample.orders;
 
 import io.micronaut.runtime.Micronaut;
 

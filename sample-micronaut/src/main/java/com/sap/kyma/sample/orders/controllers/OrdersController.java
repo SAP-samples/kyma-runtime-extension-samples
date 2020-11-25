@@ -1,17 +1,16 @@
-package sample.micronaut.controllers;
+package com.sap.kyma.sample.orders.controllers;
 
+import com.sap.kyma.sample.orders.dao.OrdersRepository;
+import com.sap.kyma.sample.orders.domain.command.CreateOrder;
+import com.sap.kyma.sample.orders.domain.command.UpdateOrder;
+import com.sap.kyma.sample.orders.domain.model.Order;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
-import sample.micronaut.dao.OrdersRepository;
-import sample.micronaut.domain.command.CreateOrder;
-import sample.micronaut.domain.command.UpdateOrder;
-import sample.micronaut.domain.model.Order;
 
 import java.net.URI;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +24,7 @@ public class OrdersController {
     }
 
     @Get("/{id}")
-    public Optional<Order> getOrder(String id) {
+    public Optional<Order> getOrder(Long id) {
         return ordersRepository.findById(id);
     }
 
@@ -51,7 +50,7 @@ public class OrdersController {
     }
 
     @Delete("/{id}")
-    public HttpResponse<Void> delete(String id) {
+    public HttpResponse<Void> delete(Long id) {
         ordersRepository.deleteById(id);
         return HttpResponse.noContent();
     }

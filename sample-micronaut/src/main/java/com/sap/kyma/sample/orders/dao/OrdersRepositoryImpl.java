@@ -1,8 +1,8 @@
-package sample.micronaut.dao;
+package com.sap.kyma.sample.orders.dao;
 
+import com.sap.kyma.sample.orders.domain.command.UpdateOrder;
 import io.micronaut.transaction.annotation.ReadOnly;
-import sample.micronaut.domain.command.UpdateOrder;
-import sample.micronaut.domain.model.Order;
+import com.sap.kyma.sample.orders.domain.model.Order;
 
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
@@ -22,7 +22,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
 
     @Override
     @ReadOnly
-    public Optional<Order> findById(@NotNull String id) {
+    public Optional<Order> findById(@NotNull Long id) {
         return Optional.ofNullable(entityManager.find(Order.class, id));
     }
 
@@ -52,7 +52,7 @@ public class OrdersRepositoryImpl implements OrdersRepository {
 
     @Override
     @Transactional
-    public void deleteById(@NotNull String id) {
+    public void deleteById(@NotNull Long id) {
         findById(id).ifPresent(entityManager::remove);
     }
 }

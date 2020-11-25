@@ -1,7 +1,7 @@
-package sample.micronaut.domain.model;
+package com.sap.kyma.sample.orders.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import sample.micronaut.domain.command.CreateOrder;
+import com.sap.kyma.sample.orders.domain.command.CreateOrder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
