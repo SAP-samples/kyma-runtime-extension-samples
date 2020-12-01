@@ -5,6 +5,8 @@ import com.sap.kyma.sample.orders.domain.command.CreateOrder;
 import com.sap.kyma.sample.orders.domain.command.UpdateOrder;
 import com.sap.kyma.sample.orders.domain.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -43,7 +45,9 @@ public class OrdersController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Order> getOrder(@PathVariable Long id) {
-        return repository.findById(id);
+    public ResponseEntity<Order> getOrder(@PathVariable Long id) {
+        return repository.findById(id)
+                .map(o -> new ResponseEntity<>(o, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
