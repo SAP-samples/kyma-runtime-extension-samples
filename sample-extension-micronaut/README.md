@@ -4,7 +4,7 @@ This sample demonstrates how to build and deploy a Micronaut microservice as an 
 
 [Micronaut](https://micronaut.io/) enables creating native images using GraalVM for Java.
 
-![extension](./assets/extension.png)
+![extension](./assets/extension.svg)
 
 This sample demonstrates how to:
 
