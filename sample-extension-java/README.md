@@ -22,7 +22,7 @@ This sample demonstrates how to:
 
 ## Application
 
-The Spring Boot application implements a simple `Orders` API with CRUD operations. It comes bundled with a Swagger console to explore with the API. The Swagger console is used only for the demo purpose and is not recommended for the production usage.
+The Spring Boot application implements a simple `Orders` API with CRUD operations.
 
 ## Steps
 
@@ -45,12 +45,6 @@ DOCKER_ACCOUNT={your-docker-account} make push-image
 This section details out deploying the extension using standard Kubernetes resources.
 
 To deploy as Helm chart, please refer to [Helm Chart Deployment](#helm-chart-deployment)
-
-* Create a Secret that contains credentials to the database and a Kyma cluster domain. The Kyma cluster domain is used by Swagger UI for making API calls in this sample.
-
-```shell script
-kubectl -n dev create secret generic sample-extension-java --from-literal=username={database username} --from-literal=password={database access password} --from-literal=clusterDomain={cluster domain}
-```
 
 * Update the image name in the [Kubernetes Deployment](k8s/deployment.yaml). Refer to the standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
 
@@ -138,12 +132,4 @@ kymaapp         dev             1               2020-09-15 15:04:41.679339 +0200
 
 Access the APIs through this URL: <https://sample-extension-java.{cluster domain}/orders>
 
-Access the Swagger console through this URL: <https://sample-extension-java.{cluster domain}/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config>
-
 Try out various APIs.
-
-![swagger ui](./assets/swagger-ui.png)
-
-## Known Issues
-
-The HATEOAS links do not function properly as the API Gateway does not forward the hostname in the forwarded headers.

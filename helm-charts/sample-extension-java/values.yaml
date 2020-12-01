@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: gabbi/sample-extension-java:0.0.7
+  repository: gabbi/sample-extension-java:0.0.12
   pullPolicy: IfNotPresent
 
 securityContext:
@@ -17,9 +17,8 @@ service:
 
 resources: {}
 
-cluster:
-  domain: TBA
-
-db:
-  user: TBA
-  password: TBA
+jdbc:
+  url: "jdbc:h2:mem:testdb"
+  user: "sa"
+  password: "kyma4ever"
+  driver: "org.h2.Driver"

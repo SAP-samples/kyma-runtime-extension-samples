@@ -1,10 +1,11 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password: kyma4ever
+    url: ${JDBC_URL:`jdbc:h2:mem:testdb`}
+    driverClassName: ${JDBC_DRIVER:"org.h2.Driver"}
+    username: ${JDBC_USER:sa}
+    password: ${JDBC_PASSWORD:kyma4ever}
   jpa:
     show-sql: true
     hibernate:
-      dialect: org.hibernate.dialect.H2Dialect
+      dialect: ${org.hibernate.dialect.H2Dialect:DB_DIALECT}
+      ddl-auto: update

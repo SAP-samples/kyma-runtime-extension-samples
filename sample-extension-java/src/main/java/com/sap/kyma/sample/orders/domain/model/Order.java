@@ -14,7 +14,7 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME
 public class Order {
     @Id
     @JsonProperty("order_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
     private String description;

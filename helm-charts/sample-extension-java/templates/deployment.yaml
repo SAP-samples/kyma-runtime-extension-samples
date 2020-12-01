@@ -25,31 +25,7 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          env:
-          - name: SPRING_PROFILES_ACTIVE
-            value: cluster
-          - name: SPRING_DATASOURCE_URL
-            value: jdbc:h2:mem:testdb
-          - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
-            value: org.h2.Driver
-          - name: SPRING_DATASOURCE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: password
-                name: {{ include "sample-extension-java.fullname" . }}
-          - name: SPRING_DATASOURCE_USERNAME
-            valueFrom:
-              secretKeyRef:
-                key: username
-                name: {{ include "sample-extension-java.fullname" . }}
-          - name: APPLICATION_CLUSTER_DOMAIN
-            valueFrom:
-              secretKeyRef:
-                key: clusterDomain
-                name: {{ include "sample-extension-java.fullname" . }}
-          - name: APPLICATION_SUBDOMAIN
-            value: {{ .Chart.Name }}
-          - name: APPLICATION_IS_SECURE
-            value: "true"
-          - name: SERVER_FORWARD-HEADERS-STRATEGY
-            value: framework
+          envFrom:
+          - secretRef:
+              name: {{ include "sample-extension-java.fullname" . }}
+              optional: false
