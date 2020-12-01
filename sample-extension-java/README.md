@@ -2,7 +2,7 @@
 
 This sample demonstrates how to build and deploy a Java-based microservice as an extension and expose the API in SAP Cloud Platform, Kyma runtime.
 
-![extension](./assets/extension.png)
+![extension](./assets/extension.svg)
 
 This sample demonstrates how to:
 
