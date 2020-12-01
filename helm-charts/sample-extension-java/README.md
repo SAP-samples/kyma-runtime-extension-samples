@@ -8,10 +8,10 @@ A Helm chart definition to deploy the sample java extension.
 | ---------------- | ------------------------------------------ | ------------------------------------- |
 | image.repository | The docker image                           | gabbi/sample-extension-java:0.0.7     |
 | image.pullPolicy | The image pull policy                      | Always                                |
-| cluster.domain   | The domain of the Kyma cluster             | TBA                                   |
-| db.user          | Database username                          | TBA                                   |
-| db.password      | Database password                          | TBA                                   |
-
+| jdbc.url         | URL of Database to connect                 | jdbc:h2:mem:testdb                    |
+| jdbc.user        | Database username                          | sa                                    |
+| jdbc.password    | Database password                          | kyma4ever                             |
+| jdbc.driver      | JDBC Driver                                | org.h2.Driver                         |
 
 ## To Deploy
 
@@ -25,15 +25,15 @@ A Helm chart definition to deploy the sample java extension.
 
 To install the helm chart in `dev` namespace, run the following command.
 
-You can provide the various parameters in the install command as shown below. Change to use your image.
+You can provide the various parameters in the install command as shown below. Change to use your image. You can also override other parameters defined in [values.yaml](values.yaml)
 
 ```shell script
-helm install kymaapp . --set image.repository=gabbi/sample-extension-java:0.0.7 --set db.user={db user} --set db.password={db password} --set cluster.domain={cluster domain} -n dev
+helm -n dev install kymaapp . --set image.repository=gabbi/sample-extension-java:0.0.7 --set jdbc.user={db user} --set jdbc.password={db password}
 ```
 
 or,
 
-provide a [values.yaml](values.yaml) with parameters configured and run the command
+provide a customized [values.yaml](values.yaml) with parameters configured and run the command
 
 ```shell script
 helm install kymaapp . -f values.yaml -n dev

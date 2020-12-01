@@ -62,11 +62,6 @@ kubectl -n dev get po
 
 The expected result shows that the Pod for the `sample-extension-java` Deployment is running:
 
-```shell script
-NAME                                     READY   STATUS    RESTARTS   AGE
-sample-extension-java-6c7bd95746-vl2jc   2/2     Running   0          93s
-```
-
 #### Expose the API
 
 * Create an APIRule. In the APIRule, specify the Kubernetes Service that is exposed:
@@ -114,19 +109,13 @@ A [Helm Chart definition](../helm-charts/sample-extension-java/README.md) is als
 
 #### Helm install
 
-To install the helm chart in `dev` namespace, run the following command. Change to use your image.
+To install the helm chart in `dev` namespace, run the following command. Change to use your image. You can also override other parameters defined in [values.yaml](../helm-charts/sample-extension-java/values.yaml)
 
 ```shell script
-helm install kymaapp ../helm-charts/sample-extension-java --set image.repository=gabbi/sample-extension-java:0.0.7 --set db.user={db user} --set db.password={db password} --set cluster.domain={cluster domain} -n dev
+helm -n dev install kymaapp ../helm-charts/sample-extension-java --set image.repository=gabbi/sample-extension-java:0.0.7 --set jdbc.user={db user} --set jdbc.password={db password}
 ```
 
 To verify, the installed chart, run `helm -n dev ls`
-
-```shell script
-NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
-dev-gateway     dev             1               2020-09-14 17:34:58.607853163 +0000 UTC deployed        gateway-0.0.1
-kymaapp         dev             1               2020-09-15 15:04:41.679339 +0200 CEST   deployed        sample-extension-java-0.1.0     1.16.0
-```
 
 ### Try it out
 
