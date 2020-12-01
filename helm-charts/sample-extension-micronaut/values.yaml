@@ -1,0 +1,24 @@
+replicaCount: 1
+
+image:
+  repository: gabbi/sample-extension-micronaut:0.0.3
+  pullPolicy: IfNotPresent
+
+securityContext:
+  capabilities:
+   drop:
+   - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
+
+jdbc:
+  url: "jdbc:h2:mem:testdb"
+  user: "sa"
+  password: "kyma4ever"
+  driver: "org.h2.Driver"

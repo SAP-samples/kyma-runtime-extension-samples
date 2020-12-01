@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sample-extension-micronaut.fullname" . }}
+  labels:
+    {{- include "sample-extension-micronaut.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "sample-extension-micronaut.selectorLabels" . | nindent 4 }}
