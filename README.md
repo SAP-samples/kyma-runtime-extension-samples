@@ -33,6 +33,7 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [Scala AKKA HTTP based extesnsion with API exposed via Microgateway](./sample-extension-scala/README.md)
 - [SAP Cloud SDK Java based extension with API exposed via Microgateway](./sample-cloudsdk-java/README.md)
 - [Sample to extend SAP Cloud for Customer with user propagation](./user-propagation/README.md)
+- [Micronaut based extension with API exposed via Microgateway](./sample-extension-micronaut/README.md)
 
 ## Helm Charts
 

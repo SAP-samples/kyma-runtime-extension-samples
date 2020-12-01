@@ -1,6 +1,8 @@
 # Overview
 
-This sample demonstrates how to build and deploy a Micronaut-based microservice as an extension and expose the API in SAP Cloud Platform, Kyma runtime.
+This sample demonstrates how to build and deploy a Micronaut microservice as an extension and expose the API in SAP Cloud Platform, Kyma runtime.
+
+[Micronaut](https://micronaut.io/) enables creating native images using GraalVM for Java.
 
 ![extension](./assets/extension.png)
 
@@ -18,7 +20,7 @@ This sample demonstrates how to:
 * [make](https://www.gnu.org/software/make/)
 * [Gradle](https://gradle.org/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
-* [Java 11+](https://openjdk.java.net/projects/jdk/11/)
+* [Java 8+](https://openjdk.java.net/projects/jdk/11/)
 
 ## Application
 
@@ -61,11 +63,6 @@ kubectl -n dev get po
 ```
 
 The expected result shows that the Pod for the `sample-extension-micronaut` Deployment is running:
-
-```shell script
-NAME                                     READY   STATUS    RESTARTS   AGE
-sample-extension-micronaut-6c7bd95746-vl2jc   2/2     Running   0          93s
-```
 
 #### Expose the API
 
@@ -114,19 +111,13 @@ A [Helm Chart definition](../helm-charts/sample-extension-micronaut/README.md) i
 
 #### Helm install
 
-To install the helm chart in `dev` namespace, run the following command. Change to use your image.
+To install the helm chart in `dev` namespace, run the following command. Change to use your image. You can also override other parameters defined in [values.yaml](../helm-charts/sample-extension-micronaut/values.yaml)
 
 ```shell script
-helm install kymaapp ../helm-charts/sample-extension-micronaut --set image.repository=gabbi/sample-extension-micronaut:0.0.7 --set db.user={db user} --set db.password={db password} --set cluster.domain={cluster domain} -n dev
+helm -n dev install kymaapp ../helm-charts/sample-extension-micronaut --set image.repository=gabbi/sample-extension-micronaut:0.0.7 --set jdbc.user={db user} --set jdbc.password={db password}
 ```
 
 To verify, the installed chart, run `helm -n dev ls`
-
-```shell script
-NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
-dev-gateway     dev             1               2020-09-14 17:34:58.607853163 +0000 UTC deployed        gateway-0.0.1
-kymaapp         dev             1               2020-09-15 15:04:41.679339 +0200 CEST   deployed        sample-extension-micronaut-0.1.0     1.16.0
-```
 
 ### Try it out
 
