@@ -63,6 +63,12 @@ func serveFromProxy(target string, path string, stripprefix bool) http.HandlerFu
 		r.Header.Add("Referer", url.Host)
 		r.Host = url.Host
 		r.Header.Set("Host", url.Host)
+
+		token := r.Context().Value("token")
+
+		if token != nil {
+			r.Header.Set("Authorization", "Bearer "+token.(string))
+		}
 		//r.Header.Set("X-Forwarded-Host", r.Header.Get("Host"))
 
 		log.Printf("%+v\n", *r.URL)

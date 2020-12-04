@@ -122,7 +122,8 @@ func (oc *OIDCConfig) AuthHandler(next http.HandlerFunc) http.Handler {
 		}
 
 		if isAuthenticated {
-			next.ServeHTTP(w, r)
+			ctx := context.WithValue(r.Context(), "token", sessionInfo.OAuth2Token.AccessToken)
+			next.ServeHTTP(w, r.WithContext(ctx))
 		} else {
 			oc.state = genState()
 			http.Redirect(w, r, oc.config.AuthCodeURL(oc.state), http.StatusTemporaryRedirect)
