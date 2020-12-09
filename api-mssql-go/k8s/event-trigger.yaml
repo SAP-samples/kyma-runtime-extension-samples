@@ -10,8 +10,4 @@ spec:
       source: mp-commerce-mock # name of the application/system
       type: order.created # event type
   subscriber:
-    ref:
-      apiVersion: v1
-      kind: Service
-      name: api-mssql-go
-    uri: /orderCodeEvent
+    uri: http://api-mssql-go.dev.svc.cluster.local:80/orderCodeEvent 
