@@ -3,13 +3,13 @@
             "path": "/orders",
             "priority": 1,
             "protected": true,
-            "stripprefix": false,
+            "remove_from_path": "",
             "target": "http://api-mssql-go.dev"
         },{
             "path": "/",
             "priority": 10,
             "protected": true,
-            "stripprefix": false,
+            "remove_from_path": "",
             "target": "http://fe-react-mssql.dev"
          }],
     "token_endpoint_auth_method": "client_secret_post",

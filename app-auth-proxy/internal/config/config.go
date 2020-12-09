@@ -24,11 +24,11 @@ type AppConfig struct {
 
 type baseConfig struct {
 	Routes []struct {
-		Path        string `json:"path"`
-		Priority    int    `json:"priority"`
-		Protected   bool   `json:"protected"`
-		Stripprefix bool   `json:"stripprefix"`
-		Target      string `json:"target"`
+		Path           string `json:"path"`
+		Priority       int    `json:"priority"`
+		Protected      bool   `json:"protected"`
+		RemoveFromPath string `json:"remove_from_path"`
+		Target         string `json:"target"`
 	} `json:"routes"`
 	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method"`
 	RedirectURI             string `json:"redirect_uri"`

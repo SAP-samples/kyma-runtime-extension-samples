@@ -26,34 +26,34 @@ func SetRoutes(router *mux.Router, appconfig *appconfig.AppConfig, authOIDC *aut
 		path := appconfig.BaseConfig.Routes[i].Path
 		target := appconfig.BaseConfig.Routes[i].Target
 		protected := appconfig.BaseConfig.Routes[i].Protected
-		stripprefix := appconfig.BaseConfig.Routes[i].Stripprefix
+		removeFromPath := appconfig.BaseConfig.Routes[i].RemoveFromPath
 
 		log.WithFields(log.Fields{
-			"path":        path,
-			"target":      target,
-			"stripprefix": stripprefix,
+			"path":           path,
+			"target":         target,
+			"removeFromPath": removeFromPath,
 		}).Debug("Setting router for:")
 
 		if protected {
-			router.PathPrefix(path).Handler(authOIDC.AuthHandler(serveFromProxy(target, path, stripprefix)))
+			router.PathPrefix(path).Handler(authOIDC.AuthHandler(serveFromProxy(target, path, removeFromPath)))
 		} else {
-			router.PathPrefix(path).Handler(serveFromProxy(target, path, stripprefix))
+			router.PathPrefix(path).Handler(serveFromProxy(target, path, removeFromPath))
 		}
 
 	}
 }
 
-func serveFromProxy(target string, path string, stripprefix bool) http.HandlerFunc {
+func serveFromProxy(target string, path string, removeFromPath string) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		url, _ := url.Parse(target)
 
-		if stripprefix {
+		if len(removeFromPath) > 0 {
 			log.WithFields(log.Fields{
-				"path":        path,
-				"target":      target,
-				"stripprefix": stripprefix,
-			}).Debug("Striping prefix:")
-			r.URL.Path = strings.Replace(r.URL.Path, path, "", 1)
+				"path":           path,
+				"target":         target,
+				"removeFromPath": removeFromPath,
+			}).Debug("Removing from path:")
+			r.URL.Path = strings.Replace(r.URL.Path, removeFromPath, "", 1)
 		}
 
 		proxy := httputil.NewSingleHostReverseProxy(url)
