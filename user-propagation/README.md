@@ -8,7 +8,7 @@ The JWT token received in Kyma needs to be exchanged for an OAuth2 token that ca
 
 ## Flow
 
-![c4c-sso-kyma-identity-propagation](assets/sso-identity-propagation-flow-2.svg)
+![c4c-sso-kyma-identity-propagation](assets/identity-propagation-flow.svg)
 
 1. User signs in to C4C with a single ID and password (SSO).
 2. C4C redirects the user to IAS for authentication.
