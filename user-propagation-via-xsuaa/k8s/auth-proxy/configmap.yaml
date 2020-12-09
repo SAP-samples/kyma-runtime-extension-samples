@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-auth-proxy
+  labels:
+    app: app-auth-proxy
+data:
+  config.json: |
+    {
+      "routes": [{
+              "path": "/",
+              "priority": 5,
+              "protected": true,
+              "stripprefix": false,
+              "target": "http://kyma-identity-propagation-spa"
+          },{
+              "path": "/headers",
+              "priority": 1,
+              "protected": true,
+              "stripprefix": false,
+              "target": "http://httpbin:8000"
+          },{
+              "path": "/api/tasks",
+              "priority": 2,
+              "protected": true,
+              "stripprefix": false,
+              "target": "http://c4c-extension-with-user-context:8080"
+          }],
+      "token_endpoint_auth_method": "client_secret_post",
+      "redirect_uri": "https://auth-proxy.ed72781.kyma-stage.shoot.live.k8s-hana.ondemand.com/oauth/callback",
+      "debug": true,
+      "cookie":{
+          "session_name": "sample-session",
+          "max_age_seconds": 900,
+          "key": "asecurekeyvalue",
+          "httponly": true,
+          "secure": false,
+          "samesite": 0
+      }
+    }
