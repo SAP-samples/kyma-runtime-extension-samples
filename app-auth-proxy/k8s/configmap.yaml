@@ -23,7 +23,7 @@ data:
       "token_endpoint_auth_method": "client_secret_post",
       "redirect_uri": "https://app-auth-proxy.<cluster domain>/oauth/callback",
       "debug": true,
-      "redisstore": {
+      "redis_store": {
         "addr": "redis.test.svc.cluster.local:6379",
         "password": "kPppOZp2hC",
         "db": 0
