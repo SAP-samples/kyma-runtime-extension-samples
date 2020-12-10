@@ -37,7 +37,7 @@ type baseConfig struct {
 		Addr     string `json:"addr"`
 		Password string `json:"password"`
 		DB       int    `json:"db,default=0"`
-	} `json:"redisstore"`
+	} `json:"redis_store"`
 	Cookie struct {
 		SessionName   string `json:"session_name"`
 		MaxAgeSeconds int    `json:"max_age_seconds"`
