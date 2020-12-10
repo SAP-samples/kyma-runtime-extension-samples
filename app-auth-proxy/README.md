@@ -70,23 +70,25 @@ export IDP_url=<instance url>
      - Requires the configmap API_URL to point to `https://app-auth-proxy.<cluster domain>`
    - [Golang MS SQL database API](../api-mssql-go/README.md)
 
-| Property                   | Description                                                                         | Remarks                                                             |
-| -------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| routes                     | An array of routes to be proxied                                                    |                                                                     |
-| routes.path                | The incoming path                                                                   |                                                                     |
-| routes.priority            | The priority of the path with 1 be the highest                                      |                                                                     |
-| routes.protected           | If the auth middleware is required on the path                                      |                                                                     |
-| routes.remove_from_path    | If assigned, this value will be removed from routes.path before the call is proxied |                                                                     |
-| routes.target              | The target of the proxied route which can be a service url                          |                                                                     |
-| token_endpoint_auth_method | The htttp method used to during authentication                                      | For XSUAA use client_secret_post, for SAPIAS us client_secret_basic |
-| redirect_uri               | The registered redirect_uri to be called                                            |                                                                     |
-| debug                      | Toggle debug on or off                                                              |                                                                     |
-| cookie.session_name        | The name of the session cookie                                                      |                                                                     |
-| cookie.max_age_seconds     | The max age of the session cookie                                                   |                                                                     |
-| cookie.key                 | The key used to encrypt the session cookie                                          |                                                                     |
-| cookie.httponly            | If the cookie can be accessed with Javascript or only http                          |                                                                     |
-| cookie.secure              | If the cookie should only be used with https                                        |                                                                     |
-| cookie.samesite            | If the cookie shouldn't be sent with cross-origin requests                          |                                                                     |
+| Property                   | Description                                                                                                                         | Remarks                                                                    |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| routes                     | An array of routes to be proxied                                                                                                    |                                                                            |
+| routes.path                | The incoming path                                                                                                                   |                                                                            |
+| routes.priority            | The priority of the path with 1 be the highest                                                                                      |                                                                            |
+| routes.protected           | If the auth middleware is required on the path                                                                                      |                                                                            |
+| routes.remove_from_path    | If assigned, this value will be removed from routes.path before the call is proxied                                                 |                                                                            |
+| routes.target              | The target of the proxied route which can be a service url                                                                          |                                                                            |
+| token_endpoint_auth_method | The htttp method used to during authentication                                                                                      | For XSUAA use client_secret_post, for SAPIAS us client_secret_basic        |
+| redirect_uri               | The registered redirect_uri to be called                                                                                            |                                                                            |
+| debug                      | Toggle debug on or off                                                                                                              |                                                                            |
+| redisstore                 | When configure app will you redis to store the sessions, otherwise a memory store is used which should only be used for evaluation. |                                                                            |
+| redisstore.addr            | The service address of the Redis database                                                                                           | If this value is not set, memory storage will be used to store the session |
+| redisstore.password        | The password of the Redis database                                                                                                  |                                                                            |
+| redisstore.db              | The database index                                                                                                                  |                                                                            |
+| cookie.session_name        | The name of the session cookie                                                                                                      |                                                                            |
+| cookie.max_age_seconds     | The max age of the session cookie                                                                                                   |                                                                            |
+| cookie.key                 | The key used to encrypt the session cookie                                                                                          |                                                                            |
+| cookie.httponly            | If the cookie can be accessed with Javascript or only http                                                                          |                                                                            |
 
 1. Run the application:
 

@@ -48,7 +48,7 @@ func InitOIDC(appConfig *InitConfig, store sessions.Store, sessionName string) *
 	var err error
 	oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.Issuer)
 	if err != nil {
-		log.Info("Issuer did not match trying: %s/oauth/token", appConfig.Issuer)
+		log.Infof("Issuer did not match trying: %s/oauth/token", appConfig.Issuer)
 		oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.Issuer+"/oauth/token")
 		if err != nil {
 			log.Fatal(err)
@@ -90,7 +90,7 @@ func (oc *OIDCConfig) AuthHandler(next http.HandlerFunc) http.Handler {
 		isAuthenticated := false
 
 		if sessionInfo == nil {
-			log.Info("no session exists...")
+			log.Infof("no session exists or was found for request path: %s", r.URL.Path)
 			session.Values["reqPath"] = r.URL.Path
 			err = session.Save(r, w)
 			if err != nil {
