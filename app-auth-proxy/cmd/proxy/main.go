@@ -1,7 +1,11 @@
 package main
 
 import (
+	"context"
 	"net/http"
+
+	"github.com/go-redis/redis/v8"
+	"github.com/rbcervilla/redisstore/v8"
 
 	"github.com/quasoft/memstore"
 	log "github.com/sirupsen/logrus"
@@ -18,16 +22,46 @@ import (
 func main() {
 
 	appconfig := appconfig.GetConfig()
-
-	store := setMemStore(appconfig)
 	oidcConfig := setOIDCConfig(appconfig)
 	sessionName := appconfig.BaseConfig.Cookie.SessionName
-	authOIDC := auth.InitOIDC(oidcConfig, store, sessionName)
+
+	var authOIDC *auth.OIDCConfig
+	if len(appconfig.BaseConfig.RedisStore.Addr) > 0 {
+		store := setRedisStore(appconfig)
+		authOIDC = auth.InitOIDC(oidcConfig, store, sessionName)
+	} else {
+		store := setMemStore(appconfig)
+		authOIDC = auth.InitOIDC(oidcConfig, store, sessionName)
+	}
 
 	router := mux.NewRouter().StrictSlash(true)
 	proxy.SetRoutes(router, appconfig, authOIDC)
 
 	log.Fatal(http.ListenAndServe(":8000", router))
+}
+
+func setRedisStore(appconfig *appconfig.AppConfig) *redisstore.RedisStore {
+
+	log.Info("--------USING REDIS STORAGE--------")
+
+	client := redis.NewClient(&redis.Options{
+		Addr:     appconfig.BaseConfig.RedisStore.Addr,
+		Password: appconfig.BaseConfig.RedisStore.Password,
+		DB:       appconfig.BaseConfig.RedisStore.DB,
+	})
+
+	store, err := redisstore.NewRedisStore(context.Background(), client)
+	if err != nil {
+		log.Fatalf("failed to create redis store with address: %s, error: %s ", appconfig.BaseConfig.RedisStore.Addr, err)
+	}
+
+	store.Options(sessions.Options{
+		Path:     "/",
+		MaxAge:   appconfig.BaseConfig.Cookie.MaxAgeSeconds,
+		HttpOnly: appconfig.BaseConfig.Cookie.HttpOnly,
+	})
+
+	return store
 }
 
 //See https://github.com/gorilla/sessions#store-implementations
@@ -40,8 +74,6 @@ func setMemStore(appconfig *appconfig.AppConfig) *memstore.MemStore {
 		Path:     "/",
 		MaxAge:   appconfig.BaseConfig.Cookie.MaxAgeSeconds,
 		HttpOnly: appconfig.BaseConfig.Cookie.HttpOnly,
-		Secure:   appconfig.BaseConfig.Cookie.Secure,
-		SameSite: 0,
 	}
 
 	return store
