@@ -13,7 +13,7 @@
             "target": "http://fe-react-mssql.dev"
          }],
     "token_endpoint_auth_method": "client_secret_post",
-    "redirect_uri": "https://app-auth-proxy.a0e7f99.kyma.shoot.live.k8s-hana.ondemand.com/oauth/callback",
+    "redirect_uri": "https://app-auth-proxy.<cluster domain>/oauth/callback",
     "debug": true,
     "redisstore": {
         "addr": "redis.test.svc.cluster.local:6379",
