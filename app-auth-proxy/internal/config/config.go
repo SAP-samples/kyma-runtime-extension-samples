@@ -33,13 +33,16 @@ type baseConfig struct {
 	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method"`
 	RedirectURI             string `json:"redirect_uri"`
 	Debug                   bool   `json:"debug"`
-	Cookie                  struct {
+	RedisStore              struct {
+		Addr     string `json:"addr"`
+		Password string `json:"password"`
+		DB       int    `json:"db,default=0"`
+	} `json:"redisstore"`
+	Cookie struct {
 		SessionName   string `json:"session_name"`
 		MaxAgeSeconds int    `json:"max_age_seconds"`
 		Key           string `json:"key"`
 		HttpOnly      bool   `json:"httponly"`
-		Secure        bool   `json:"secure"`
-		SameSite      int    `json:"samesite"`
 	} `json:"cookie"`
 }
 
