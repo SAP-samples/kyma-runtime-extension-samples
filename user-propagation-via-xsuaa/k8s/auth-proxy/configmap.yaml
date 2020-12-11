@@ -11,30 +11,33 @@ data:
               "path": "/",
               "priority": 5,
               "protected": true,
-              "stripprefix": false,
+              "remove_from_path": "",
               "target": "http://kyma-identity-propagation-spa"
           },{
               "path": "/headers",
               "priority": 1,
               "protected": true,
-              "stripprefix": false,
+              "remove_from_path": "",
               "target": "http://httpbin:8000"
           },{
               "path": "/api/tasks",
               "priority": 2,
               "protected": true,
-              "stripprefix": false,
+              "remove_from_path": "/api",
               "target": "http://c4c-extension-with-user-context:8080"
           }],
       "token_endpoint_auth_method": "client_secret_post",
       "redirect_uri": "https://auth-proxy.ed72781.kyma-stage.shoot.live.k8s-hana.ondemand.com/oauth/callback",
       "debug": true,
+      "redis_store": {
+        "addr": "",
+        "password":"",
+        "db": 0
+    },
       "cookie":{
           "session_name": "sample-session",
           "max_age_seconds": 900,
           "key": "asecurekeyvalue",
-          "httponly": true,
-          "secure": false,
-          "samesite": 0
+          "httponly": true
       }
     }
