@@ -5,11 +5,11 @@
 ## Steps
 
 - Create Destination Service instance
-- Create trust between SCP and IAS
-- Create xsuaa instance
-- Deploy httpbin.
-- Deploy c4c-extension
-- Deploy auth proxy
+- Create Trust Between SCP and IAS
+- Create XSUAA instance
+- Deploy httpbin Application
+- Deploy c4c-extension Application
+- Deploy Auth Proxy Application
 
   ```shell script
   kubectl -n identity-propagation-via-xsuaa apply -f https://raw.githubusercontent.com/istio/istio/master/samples/httpbin/httpbin.yaml
@@ -22,7 +22,7 @@
 - [ ] The c4c-extension-with-user-context is not providing a proper response when a 401 occurs, UI receives 201 (login with uaa user to test)
 - [x] Can the login screen be configured to only allow IAS auth, may be a property in xsuaa instance config?
 
-## Create trust between SCP and IAS
+## Create Trust Between SCP and IAS
 
 <sup>Full details can be found at [help.sap.com](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/7c6aa87459764b179aeccadccd4f91f3.html#loio7c6aa87459764b179aeccadccd4f91f3) </sup>
 
@@ -33,7 +33,7 @@
 - In the IAS application choose **SAML 2.0 Configuration**. Choose the option **Browse** and provide the SAML Metadata file downloaded from SCP. Save the changes.
 - In the IAS application choose **Subject Name Identifier** and set the **basic attribute** to use the field which would map to the C4C user. Save the changes.
 
-## Create xsuaa instance
+## Create XSUAA Instance
 
 1. Within the Kyma console open the namespace `dev`
 2. Choose `Service Management` -> `Catalog`.
@@ -59,14 +59,14 @@ To specify use of only IAS authentication provide the **Origin Key** shown in th
 1. Once the instance is provisioned choose the option `Create Credentials`
 2. Under the `Credentials` tab choose the `Secret` which should display the instance secret in a dialog. Choose `Decode` to view the values. These will be needed if running the sample locally.
 
-## Deploy auth proxy
+## Deploy Auth Proxy Application
 
 The [auth proxy](../app-auth-proxy/README.md) provides serverside authentication using the OIDC configuration provided by xsuaa. Due to the trust setup between SCP and IAS, IAS can be used to authenticate and provide a user store.
 
 1. Within `./k8s/auth-proxy/configmap.yaml` adjust the **cluster-domain** value of the **redirect_uri** o match the domain of the Kyma runtime and then apply the ConfigMap:
 
 ```shell script
-kubectl -n dev apply -f ./k8s/configmap.yaml
+kubectl -n dev apply -f ./k8s/auth-proxy/configmap.yaml
 ```
 
 3. Get the name of the xsuaa ServiceInstance:
@@ -84,11 +84,11 @@ For example:
 4. Within `./k8s/auth-proxy/deployment.yaml` adjust the value of `<Service Instance Name>` to the XSUAA service instance name and the apply the Deployment:
 
 ```shell script
-kubectl -n dev apply -f ./k8s/deployment.yaml
+kubectl -n dev apply -f ./k8s/auth-proxy/deployment.yaml
 ```
 
 5. Apply the APIRule:
 
 ```shell script
-kubectl -n dev apply -f ./k8s/apirule.yaml
+kubectl -n dev apply -f ./k8s/auth-proxy/apirule.yaml
 ```
