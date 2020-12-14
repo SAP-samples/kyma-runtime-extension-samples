@@ -6,7 +6,7 @@ metadata:
     app: app-auth-proxy
 spec:
   instanceRef:
-    name: {provide instance name} #developer should update this
+    name: <Service Instance Name> #developer should update this
 ---
 apiVersion: servicecatalog.kyma-project.io/v1alpha1
 kind: ServiceBindingUsage
