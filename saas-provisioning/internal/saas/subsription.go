@@ -4,22 +4,23 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httputil"
+	"path"
 
 	appconfig "github.com/SAP-samples/kyma-runtime-extension-samples/saas-provisioning/internal/config"
 )
 
-func SubProvision(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("---- SubProvision ----")
+func Provision(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("---- provision ----")
 	dumpReq(r)
 
 	c := appconfig.GetConfig()
+	tenant := path.Base(r.URL.Path)
 
-	w.Write([]byte(c.TenantURL))
-	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(c.AppURL + "/" + tenant))
 }
 
-func SubDeprovision(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("---- SubDeprovision ----")
+func Deprovision(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("---- deprovision ----")
 	dumpReq(r)
 
 	w.WriteHeader(http.StatusOK)

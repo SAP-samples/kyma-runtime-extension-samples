@@ -11,13 +11,7 @@ var appConfig Config
 
 //Config struct to hold the app config
 type Config struct {
-	ClientID                   string `envconfig:"IDP_clientid"`
-	ClientSecret               string `envconfig:"IDP_clientsecret"`
-	Issuer                     string `envconfig:"IDP_url"`
-	RedirectURL                string `envconfig:"IDP_redirect_uri"`
-	Token_endpoint_auth_method string `envconfig:"IDP_token_endpoint_auth_method,default=client_secret_basic"`
-	CookieKey                  string `envconfig:"IDP_CookieKey,default=thisisnotsecure"`
-	TenantURL                  string `envconfig:"TenantURL"`
+	AppURL string `envconfig:"AppURL,default=http://localhost:8000"`
 }
 
 //InitConfig initializes the AppConfig
