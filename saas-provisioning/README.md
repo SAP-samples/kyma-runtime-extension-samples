@@ -18,11 +18,17 @@ kubectl create namespace saas
 ```json
 {
   "oauth2-configuration": {
-    "redirect-uris": [
-      "https://saas-provisioning-demo.<cluster domain>/oauth/callback"
-    ]
+    "redirect-uris": ["https://app-auth-proxy.<cluster domain>/oauth/callback"]
   },
   "scopes": [
+    {
+      "name": "$XSAPPNAME.Viewer",
+      "description": "Viewer"
+    },
+    {
+      "name": "$XSAPPNAME.Editor",
+      "description": "Editor"
+    },
     {
       "description": "With this scope set, the callbacks for tenant onboarding, offboarding and getDependencies can be called.",
       "grant-as-authority-to-apps": [
@@ -66,7 +72,17 @@ docker push <docker id>/saas-provisioning
 kubectl apply -f ./k8s/saas-provisioning/deployment.yaml -n saas
 ```
 
-Adjust Issuer and JWKS URI within apirule.yaml
+Adjust Issuer and JWKS URI within apirule.yaml, for example
+
+**TRIAL**
+
+- Issuer: https://sap-provisioning.authentication.us10.hana.ondemand.com/uaa/oauth/token
+- JWKS URI: http://sap-provisioning.localhost:8080/uaa/oauth/token
+
+**PRODUCTION**
+
+- Issuer: https://sap-provisioning.authentication.sap.hana.ondemand.com/token_keys
+- JWKS URI: http://sap-provisioning.localhost:8080/uaa/oauth/token
 
 ```shell script
 kubectl apply -f ./k8s/saas-provisioning/apirule.yaml -n saas
@@ -106,6 +122,58 @@ kubectl apply -f ./k8s/saas-provisioning/apirule.yaml -n saas
 kubectl -n saas apply -f https://raw.githubusercontent.com/istio/istio/master/samples/httpbin/httpbin.yaml
 ```
 
-App is not calling the callback url when authenticating
-
-subscribe failed in create callback. Parameters: rootSubscription: RootSubscription : { xsuaaAppId: saas-provisioning-demo!t13477, consumerTenant: a2388988-fb48-4ecb-800a-3ae08fe0fb21, subdomain: 1-16-17-upgrade2 }. Error description: Timestamp: Wed Dec 16 22:03:02 UTC 2020, correlationId: 16faed94-108b-466d-9eff-2fd208356d26, Details: Error manage callbacks: Application saas-provisioning-demo!t13477 for subscription did not return subscriptionUrl. CorrelationId: 16faed94-108b-466d-9eff-2fd208356d26
+```json
+{
+  "authorities": ["$ACCEPT_GRANTED_AUTHORITIES"],
+  "foreign-scope-references": ["$ACCEPT_GRANTED_SCOPES"],
+  "oauth2-configuration": {
+    "redirect-uris": ["https://app-auth-proxy.<cluster domain>/oauth/callback"]
+  },
+  "role-collections": [
+    {
+      "description": "My SaaS App Administrator",
+      "name": "saas-provisioning-demo_Administrator",
+      "role-template-references": [
+        "$XSAPPNAME.Administrator",
+        "$XSAPPNAME.User"
+      ]
+    },
+    {
+      "description": "My SaaS App User",
+      "name": "saas-provisioning-demo_User",
+      "role-template-references": ["$XSAPPNAME.User"]
+    }
+  ],
+  "role-templates": [
+    {
+      "description": "Administrator",
+      "name": "Administrator",
+      "scope-references": ["$XSAPPNAME.Administrator"]
+    },
+    {
+      "description": "User",
+      "name": "User",
+      "scope-references": ["$XSAPPNAME.User"]
+    }
+  ],
+  "scopes": [
+    {
+      "description": "With this scope set, the callbacks for tenant onboarding, offboarding and getDependencies can be called.",
+      "grant-as-authority-to-apps": [
+        "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+      ],
+      "name": "$XSAPPNAME.Callback"
+    },
+    {
+      "description": "Administrate the application",
+      "name": "$XSAPPNAME.Administrator"
+    },
+    {
+      "description": "Use the application",
+      "name": "$XSAPPNAME.User"
+    }
+  ],
+  "tenant-mode": "shared",
+  "xsappname": "saas-provisioning-demo"
+}
+```

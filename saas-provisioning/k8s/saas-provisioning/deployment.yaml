@@ -41,7 +41,7 @@ metadata:
   labels:
     app: saas-provisioning-demo
 data:
-  AppURL: https://saas-provisioning-demo.<cluster domain>/anything
+  AppURL: https://app-auth-proxy.<cluster domain>/anything
 ---
 apiVersion: v1
 kind: Service
