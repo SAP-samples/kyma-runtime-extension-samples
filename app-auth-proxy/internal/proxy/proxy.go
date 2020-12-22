@@ -16,7 +16,8 @@ import (
 
 func SetRoutes(router *mux.Router, appconfig *appconfig.AppConfig, authOIDC *auth.OIDCConfig) {
 	router.HandleFunc("/oauth/callback", authOIDC.HandleCallback)
-	router.Handle("/user", authOIDC.AuthHandler(http.HandlerFunc(authOIDC.GetUser))).Methods("GET")
+	router.Handle("/auth/user", authOIDC.AuthN_Handler(http.HandlerFunc(authOIDC.GetUser))).Methods("GET")
+	router.Handle("/auth/groups", authOIDC.AuthN_Handler(http.HandlerFunc(authOIDC.GetUserGroups))).Methods("GET")
 
 	sort.Slice(appconfig.BaseConfig.Routes, func(i, j int) bool {
 		return appconfig.BaseConfig.Routes[i].Priority < appconfig.BaseConfig.Routes[j].Priority
@@ -34,8 +35,10 @@ func SetRoutes(router *mux.Router, appconfig *appconfig.AppConfig, authOIDC *aut
 			"removeFromPath": removeFromPath,
 		}).Debug("Setting router for:")
 
+		group := appconfig.BaseConfig.Routes[i].HTTPMethodScopes
+
 		if protected {
-			router.PathPrefix(path).Handler(authOIDC.AuthHandler(serveFromProxy(target, path, removeFromPath)))
+			router.PathPrefix(path).Handler(authOIDC.AuthN_Handler(authOIDC.AuthZ_Handler(group, serveFromProxy(target, path, removeFromPath))))
 		} else {
 			router.PathPrefix(path).Handler(serveFromProxy(target, path, removeFromPath))
 		}
@@ -45,6 +48,7 @@ func SetRoutes(router *mux.Router, appconfig *appconfig.AppConfig, authOIDC *aut
 
 func serveFromProxy(target string, path string, removeFromPath string) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
 		url, _ := url.Parse(target)
 
 		if len(removeFromPath) > 0 {
@@ -67,11 +71,12 @@ func serveFromProxy(target string, path string, removeFromPath string) http.Hand
 		token := r.Context().Value("token")
 
 		if token != nil {
+			log.Debugf("Forwarding auth token: %s", token)
 			r.Header.Set("Authorization", "Bearer "+token.(string))
 		}
 		//r.Header.Set("X-Forwarded-Host", r.Header.Get("Host"))
 
-		log.Printf("%+v\n", *r.URL)
+		log.Debugf("Proxying path: %+v\n", *r.URL)
 
 		proxy.ServeHTTP(w, r)
 	})

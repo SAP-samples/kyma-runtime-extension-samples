@@ -3,6 +3,8 @@ package auth
 import (
 	"encoding/gob"
 	"encoding/json"
+	"io/ioutil"
+	"strings"
 
 	"net/http"
 	"time"
@@ -16,18 +18,21 @@ import (
 	"golang.org/x/oauth2"
 
 	mathrand "math/rand"
+
+	appconfig "github.com/SAP-samples/kyma-runtime-extension-samples/app-auth-proxy/internal/config"
 )
 
 type InitConfig struct {
 	ClientID                   string
 	ClientSecret               string
-	Issuer                     string
+	URL                        string
 	RedirectURL                string
 	Token_endpoint_auth_method string
 	CookieKey                  string
 }
 
 type OIDCConfig struct {
+	url         string
 	provider    *oidc.Provider
 	verifier    *oidc.IDTokenVerifier
 	config      oauth2.Config
@@ -41,15 +46,26 @@ type oidcResp struct {
 	IDTokenClaims *json.RawMessage
 }
 
+type groups struct {
+	Group []struct {
+		Value   string `json:"value"`
+		Display string `json:"display"`
+		Type    string `json:"type"`
+	} `json:"groups"`
+}
+
 func InitOIDC(appConfig *InitConfig, store sessions.Store, sessionName string) *OIDCConfig {
 
 	oidcConfig := &OIDCConfig{}
 	ctx := context.Background()
 	var err error
-	oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.Issuer)
+
+	oidcConfig.url = appConfig.URL
+
+	oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.URL)
 	if err != nil {
-		log.Infof("Issuer did not match trying: %s/oauth/token", appConfig.Issuer)
-		oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.Issuer+"/oauth/token")
+		log.Infof("Issuer/Provider URL did not match trying: %s/oauth/token", appConfig.URL)
+		oidcConfig.provider, err = oidc.NewProvider(ctx, appConfig.URL+"/oauth/token")
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -76,16 +92,21 @@ func InitOIDC(appConfig *InitConfig, store sessions.Store, sessionName string) *
 	oidcConfig.store = store
 
 	gob.Register(&oidcResp{})
+	gob.Register(&groups{})
 
 	return oidcConfig
 
 }
 
-func (oc *OIDCConfig) AuthHandler(next http.HandlerFunc) http.Handler {
+func (oc *OIDCConfig) AuthN_Handler(next http.Handler) http.Handler {
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		session, err := oc.store.Get(r, oc.sessionName)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 		sessionInfo := getSessionInfo(session)
 		isAuthenticated := false
 
@@ -172,6 +193,9 @@ func (oc *OIDCConfig) HandleCallback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	userid := getUserId(resp.IDTokenClaims)
+	oc.setUserGroups(userid, oauth2Token.AccessToken, session)
+
 	err = session.Save(r, w)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -180,6 +204,122 @@ func (oc *OIDCConfig) HandleCallback(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, session.Values["reqPath"].(string), http.StatusSeeOther)
 
+}
+
+//methodScope [{HTTPMethod:* Scope:*}]
+func (oc *OIDCConfig) AuthZ_Handler(methodScopes appconfig.MethodScopes, next http.Handler) http.Handler {
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		httpMethod := r.Method
+		isAuthorized := false
+
+		log.Debugf("Checking HTTPMethod %s against scopes: %+v\n", httpMethod, methodScopes)
+
+		//check if methodScopes have been defined
+		if len(methodScopes) == 0 {
+			log.Debugf("Authorized request - no restrictions are defined")
+			isAuthorized = true
+		}
+
+		//check the scopes assigned to the httpMethod
+		var scopesForMethod []string
+		for _, value := range methodScopes {
+			if value.HTTPMethod == "*" && value.Scope == "*" {
+				log.Debugf("Authorized request - no restrictions are defined")
+				isAuthorized = true
+				break
+			}
+			if httpMethod == strings.ToUpper(value.HTTPMethod) || value.HTTPMethod == "*" {
+				log.Debugf("For HTTPMethod: %s found scope: %+v\n", r.Method, value.Scope)
+				scopesForMethod = append(scopesForMethod, value.Scope)
+			}
+		}
+
+		if !isAuthorized {
+			//get the user session
+			session, err := oc.store.Get(r, oc.sessionName)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			//get the user groups which contains the scopes
+			sessionGroups := getSessionGroups(session)
+
+			//iterate the user groups, remove the app name and compare to the scopesForMethod
+			var userScope string
+
+		doneSearching:
+			for _, value := range sessionGroups.Group {
+				userScope = value.Display[strings.LastIndex(value.Display, ".")+1:]
+				for _, methodScope := range scopesForMethod {
+					if methodScope == userScope {
+						log.Debugf("Authorized request - Found match on userScope: %s", userScope)
+						isAuthorized = true
+						break doneSearching
+					}
+				}
+			}
+		}
+
+		if isAuthorized {
+			next.ServeHTTP(w, r)
+		} else {
+			log.Debugf("No matching scopes for user - Unauthorized user")
+			http.Error(w, "Unauthorized.", http.StatusUnauthorized)
+		}
+	})
+
+}
+
+func (oc *OIDCConfig) setUserGroups(userID string, token string, session *sessions.Session) {
+	userURL := oc.url + "/Users/" + userID
+
+	req, err := http.NewRequest("GET", userURL, nil)
+	if err != nil {
+		log.Warnf("No groups were determined for user %s", userID)
+		return
+	}
+
+	req.Header.Set("Authorization", "Bearer "+token)
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Warnf("No groups were determined for user %s", userID)
+		return
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+
+	groups := &groups{}
+	json.Unmarshal(body, &groups)
+
+	session.Values["Groups"] = groups
+
+	log.Debugf("Groups for user id: %s: %s", userID, groups)
+}
+
+func (oc *OIDCConfig) GetUserGroups(w http.ResponseWriter, r *http.Request) {
+
+	session, err := oc.store.Get(r, oc.sessionName)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	sessionGroupInfo := getSessionGroups(session)
+
+	if sessionGroupInfo == nil {
+		w.Write([]byte("Could not find any groups for user"))
+		return
+	}
+
+	js, _ := json.Marshal(sessionGroupInfo.Group)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
 }
 
 func (oc *OIDCConfig) GetUser(w http.ResponseWriter, r *http.Request) {
@@ -192,8 +332,12 @@ func (oc *OIDCConfig) GetUser(w http.ResponseWriter, r *http.Request) {
 
 	sessionInfo := getSessionInfo(session)
 
-	js, _ := json.Marshal(sessionInfo.IDTokenClaims)
+	if sessionInfo == nil {
+		w.Write([]byte("Could not find any session information"))
+		return
+	}
 
+	js, _ := json.Marshal(sessionInfo.IDTokenClaims)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(js)
 }
@@ -215,6 +359,30 @@ func getEmail(claimsData *json.RawMessage) string {
 	} else {
 		return mail.Mail
 	}
+}
+
+func getUserId(claimsData *json.RawMessage) string {
+	var user struct {
+		ID string `json:"user_id"`
+	}
+
+	err := json.Unmarshal(*claimsData, &user)
+
+	if err != nil {
+		return "no user found"
+	}
+
+	return user.ID
+}
+
+func getSessionGroups(s *sessions.Session) *groups {
+	val := s.Values["Groups"]
+	var sessionInfo = &groups{}
+	sessionInfo, ok := val.(*groups)
+	if !ok {
+		return nil
+	}
+	return sessionInfo
 }
 
 func getSessionInfo(s *sessions.Session) *oidcResp {

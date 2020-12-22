@@ -1,28 +1,45 @@
 {
     "routes": [{
-            "path": "/orders",
+            "path": "/headers",
             "priority": 1,
             "protected": true,
             "remove_from_path": "",
-            "target": "http://api-mssql-go.dev"
+            "target": "https://httpbin.org"
+        },{
+            "path": "/anything",
+            "priority": 2,
+            "protected": true,
+            "remove_from_path": "",
+            "target": "https://httpbin.org",
+            "http_method_scopes": [{
+                "http_method": "*",
+                "scope": "*"
+            }]
         },{
             "path": "/",
             "priority": 10,
             "protected": true,
             "remove_from_path": "",
-            "target": "http://fe-react-mssql.dev"
+            "target": "https://httpbin.org",
+            "http_method_scopes": [{
+                "http_method": "GET",
+                "scope": "runtimeDeveloper"
+            },{
+                "http_method": "POST",
+                "scope": "runtimeNamespaceAdmin"
+            }]
          }],
     "token_endpoint_auth_method": "client_secret_post",
-    "redirect_uri": "https://app-auth-proxy.<cluster domain>/oauth/callback",
+    "redirect_uri": "http://localhost:8000/oauth/callback",
     "debug": true,
     "redis_store": {
-        "addr": "redis.test.svc.cluster.local:6379",
-        "password":"kPppOZp2hC",
+        "addr": "",
+        "password":"",
         "db": 0
     },
     "cookie":{
         "session_name": "sample-session",
-        "max_age_seconds": 0,
+        "max_age_seconds": 900,
         "key": "asecurekeyvalue",
         "httponly": true
     }

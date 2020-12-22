@@ -22,13 +22,19 @@ type AppConfig struct {
 	BaseConfig baseConfig
 }
 
+type MethodScopes []struct {
+	HTTPMethod string `json:"http_method"`
+	Scope      string `json:"scope"`
+}
+
 type baseConfig struct {
 	Routes []struct {
-		Path           string `json:"path"`
-		Priority       int    `json:"priority"`
-		Protected      bool   `json:"protected"`
-		RemoveFromPath string `json:"remove_from_path"`
-		Target         string `json:"target"`
+		Path             string       `json:"path"`
+		Priority         int          `json:"priority"`
+		Protected        bool         `json:"protected"`
+		RemoveFromPath   string       `json:"remove_from_path"`
+		Target           string       `json:"target"`
+		HTTPMethodScopes MethodScopes `json:"http_method_scopes,default={*;*}"`
 	} `json:"routes"`
 	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method"`
 	RedirectURI             string `json:"redirect_uri"`
@@ -49,7 +55,7 @@ type baseConfig struct {
 type idpConfig struct {
 	ClientID                   string `envconfig:"IDP_clientid"`
 	ClientSecret               string `envconfig:"IDP_clientsecret"`
-	Issuer                     string `envconfig:"IDP_url"`
+	URL                        string `envconfig:"IDP_url"`
 	Token_endpoint_auth_method string `envconfig:"IDP_token_endpoint_auth_method,default=client_secret_basic"`
 }
 

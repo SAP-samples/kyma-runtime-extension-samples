@@ -84,7 +84,7 @@ func setOIDCConfig(appconfig *appconfig.AppConfig) *auth.InitConfig {
 	oidcConfig := &auth.InitConfig{}
 	oidcConfig.ClientID = appconfig.IDPConfig.ClientID
 	oidcConfig.ClientSecret = appconfig.IDPConfig.ClientSecret
-	oidcConfig.Issuer = appconfig.IDPConfig.Issuer
+	oidcConfig.URL = appconfig.IDPConfig.URL
 	oidcConfig.RedirectURL = appconfig.BaseConfig.RedirectURI
 	oidcConfig.Token_endpoint_auth_method = appconfig.BaseConfig.TokenEndpointAuthMethod
 

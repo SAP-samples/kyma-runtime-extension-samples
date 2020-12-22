@@ -12,20 +12,28 @@ data:
               "priority": 1,
               "protected": true,
               "remove_from_path": "",
-              "target": "http://api-mssql-go.dev"
+              "target": "http://api-mssql-go.dev",
+              "http_method_scopes": [{
+                "http_method": "*",
+                "scope": "*"
+            }]
           },{
               "path": "/",
               "priority": 10,
               "protected": true,
               "remove_from_path": "",
-              "target": "http://fe-react-mssql.dev"
+              "target": "http://fe-react-mssql.dev",
+              "http_method_scopes": [{
+                "http_method": "*",
+                "scope": "*"
+            }]
           }],
       "token_endpoint_auth_method": "client_secret_post",
       "redirect_uri": "https://app-auth-proxy.<cluster domain>/oauth/callback",
       "debug": true,
       "redis_store": {
-        "addr": "redis.test.svc.cluster.local:6379",
-        "password": "kPppOZp2hC",
+        "addr": "",
+        "password": "",
         "db": 0
       },
       "cookie":{
