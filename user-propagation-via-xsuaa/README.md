@@ -43,10 +43,6 @@ The JWT token received in Kyma needs to be exchanged for an OAuth2 token that ca
 - Deploy Angular Frontend App
 - Deploy Auth Proxy Application
 
-## To DO
-
-- [ ] The c4c-extension-with-user-context is not providing a proper response when a 401 occurs, UI receives 201 (login with uaa user to test)
-
 ## Configuration
 
 ### C4C Single sign-on
