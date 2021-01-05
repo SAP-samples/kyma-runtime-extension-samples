@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-auth-proxy
+  labels:
+    app: app-auth-proxy
+data:
+  config.json: |
+    {
+      "routes": [{
+              "path": "/",
+              "priority": 5,
+              "protected": true,
+              "remove_from_path": "",
+              "target": "http://kyma-identity-propagation-spa",
+              "http_method_scopes": [{
+                "http_method": "*",
+                "scope": "*"
+            }]
+          },{
+              "path": "/headers",
+              "priority": 1,
+              "protected": true,
+              "remove_from_path": "",
+              "target": "http://httpbin:8000",
+              "http_method_scopes": [{
+                "http_method": "*",
+                "scope": "*"
+            }]
+          },{
+              "path": "/tasks",
+              "priority": 2,
+              "protected": true,
+              "remove_from_path": "",
+              "target": "http://c4c-extension-with-user-context:8080",
+              "http_method_scopes": [{
+                "http_method": "*",
+                "scope": "*"
+            }]
+          }],
+      "token_endpoint_auth_method": "client_secret_post",
+      "redirect_uri": "https://c4c-user-prop-xsuaa.<cluster domain>/oauth/callback",
+      "debug": true,
+      "redis_store": {
+        "addr": "",
+        "password":"",
+        "db": 0
+    },
+      "cookie":{
+          "session_name": "sample-session",
+          "max_age_seconds": 900,
+          "key": "asecurekeyvalue",
+          "httponly": true
+      }
+    }
