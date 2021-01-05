@@ -11,7 +11,6 @@ import { HeadersResp } from './header';
 })
 export class HeadersService {
 
-  httpBinUrl = environment.httpBinUrl;
   httpOptions = {
     headers: null
   };
@@ -27,8 +26,8 @@ export class HeadersService {
     };
   }
   getHeaders(): Observable<HeadersResp> {
-    console.log('Get Headers');
-    const url = `${this.httpBinUrl}/headers`
+    console.log('Get Headers...');
+    const url = '/headers';
     return this.http.get<HeadersResp>(url, this.getHttpOptions())
       .pipe(
         tap(_ => console.log('fetched headers')),

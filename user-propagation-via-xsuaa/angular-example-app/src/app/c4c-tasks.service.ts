@@ -9,7 +9,6 @@ import { catchError, map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class C4cTasksService {
-  c4cTasksUrl = environment.c4cExtensionUrl;
   constructor(private http: HttpClient) {}
 
   getHttpOptions() {
@@ -23,7 +22,7 @@ export class C4cTasksService {
   createTask(subject:string): Observable<TaskResponse> {
     console.log(`Create task with subject ${subject}`);
     const taskRequest:Task = {subject:subject}
-    const url = `${this.c4cTasksUrl}/tasks`;
+    const url = '/tasks';
     return this.http.post<TaskResponse>(url, taskRequest, this.getHttpOptions()).pipe(
         tap(resp => console.log(`created Task ${JSON.stringify(resp)}`)),
         catchError(this.handleError<TaskResponse>('created tasks'))

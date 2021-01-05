@@ -19,17 +19,11 @@ spec:
     spec:
       containers:
       - image: jcawley5/kyma-identity-propagation-spa:latest
+        imagePullPolicy: Always
         name: kyma-identity-propagation-spa
         resources: {}
         ports:
         - containerPort: 80
-        env:
-        - name: HTTP_BIN_URL
-          value: "{url of auth-proxy exposed via api rule}"
-        - name: OIDC_URL
-          value: "{to be removed}"
-        - name: C4C_EXT_URL
-          value: "{url of auth-proxy exposed via api rule}/api"
 status: {}
 ---
 apiVersion: v1

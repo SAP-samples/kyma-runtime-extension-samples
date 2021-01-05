@@ -1,7 +1,7 @@
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
-  name: app-auth-proxy
+  name: c4c-user-prop-xsuaa
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   rules:
@@ -17,6 +17,6 @@ spec:
         - HEAD
         - PATCH
   service:
-    host: auth-proxy
+    host: c4c-user-prop-xsuaa
     name: app-auth-proxy
     port: 80
