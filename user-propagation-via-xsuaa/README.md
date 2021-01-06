@@ -8,7 +8,7 @@ The JWT token received in Kyma needs to be exchanged for an OAuth2 token that ca
 
 ## Flow
 
-![c4c-sso-kyma-identity-propagation](assets/sso-identity-propagation-flow-2.svg)
+![Flow](assets/identity-propagation-via-xsuaa.svg)
 
 1. User signs in to C4C with a single ID and password (SSO).
 2. C4C redirects the user to IAS for authentication.
@@ -19,10 +19,6 @@ The JWT token received in Kyma needs to be exchanged for an OAuth2 token that ca
 7. The user creates a task on the Frontend App.
 8. The Microservice/Function API receives the user's Token and does the token exchange via the Destination Service. The Destination Service calls C4C and performs the OAuth2 SAML bearer assertion flow.
 9. Microservice/Function makes a call to C4C with the OAuth2 token it got from the Destination Service.
-
-> **NOTE:** The flow does not use Application Gateway when calling C4C from the Kyma runtime. Instead, it calls the APIs directly.
-
-![Flow](assets/identity-propagation-via-xsuaa.svg)
 
 ## Prerequisites
 
