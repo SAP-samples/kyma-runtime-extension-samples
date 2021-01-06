@@ -8,17 +8,18 @@ The JWT token received in Kyma needs to be exchanged for an OAuth2 token that ca
 
 ## Flow
 
-![Flow](assets/identity-propagation-via-xsuaa.svg)
+![Flow](assets/identity-propagation-via-xsuaa-2.svg)
 
 1. User signs in to C4C with a single ID and password (SSO).
 2. C4C redirects the user to IAS for authentication.
 3. User signs in to IAS.
 4. User is signed in to C4C with SAML bearer assertion.
-5. User accesses the Frontend App. The frontend can be a mesh inside C4C or a standalone app hosted on Kyma or somewhere else. The frontend redirects the user to IAS for automatic login. Along with the autologin request, the frontend receives the bearer token.
-6. The Frontend App makes an API call to the HTTP Bin app to display the headers.
-7. The user creates a task on the Frontend App.
-8. The Microservice/Function API receives the user's Token and does the token exchange via the Destination Service. The Destination Service calls C4C and performs the OAuth2 SAML bearer assertion flow.
-9. Microservice/Function makes a call to C4C with the OAuth2 token it got from the Destination Service.
+5. User accesses the Frontend App and is redirected by the App Proxy to authenticate against XSUAA which creates a session for the user containing the bearer token.
+6. After authentication the user is redirected to the frontend.
+7. The Frontend App makes an API call to the HTTP Bin app to display the headers.
+8. The user creates a task on the Frontend App.
+9. The Microservice/Function API receives the user's Token and does the token exchange via the Destination Service. The Destination Service calls C4C and performs the OAuth2 SAML bearer assertion flow.
+10. Microservice/Function makes a call to C4C with the OAuth2 token it got from the Destination Service.
 
 ## Prerequisites
 
