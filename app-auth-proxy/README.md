@@ -57,7 +57,7 @@ kubectl create namespace dev
 
 ### Run the API locally
 
-1. Set the environment variables required to connect with the XSUAA instance which can be found in the `Secret` generated with the service instance:
+1. Optionally set the environment variables required to connect with the XSUAA instance which can be found in the `Secret` generated with the service instance:
 
 ```shell script
 export IDP_clientid='<instance clientid>'
@@ -81,7 +81,11 @@ export IDP_url=<instance url>
 | routes.http_method_scopes             | An array containing HTTP methods and thier associated user scopes                                                                   | For no restrictions this can be obmitted or assigned: http\-method: "\*", "scope": "\*" |
 | routes.http_method_scopes.http_method | An HTTP methods for example GET                                                                                                     |                                                                                         |
 | routes.http_method_scopes.scope       | A scope which is allowed the call the given http_method on the route path                                                           | Do not include the application name, for example using Kyma scopes - runtimeDeveloper   |
-| token_endpoint_auth_method            | The htttp method used to during authentication                                                                                      | For XSUAA use client_secret_post, for SAPIAS us client_secret_basic                     |
+| idp_config                            | Optionally set IDP config if not using a service binding                                                                            |                                                                                         |
+| idp_config.url                        | The IDP url                                                                                                                         | If this value is not set, the environment variables will be used                        |
+| idp_config.clientsecret               | The IDP client secret                                                                                                               |                                                                                         |
+| idp_config.clientid                   | The IDP client ID                                                                                                                   |                                                                                         |
+| idp_config.token_endpoint_auth_method | The htttp method used to during authentication                                                                                      | For XSUAA use client_secret_post, for SAPIAS us client_secret_basic                     |
 | redirect_uri                          | The registered redirect_uri to be called                                                                                            |                                                                                         |
 | debug                                 | Toggle debug on or off                                                                                                              |                                                                                         |
 | redis_store                           | When configure app will you redis to store the sessions, otherwise a memory store is used which should only be used for evaluation. |                                                                                         |

@@ -29,8 +29,12 @@
                 "scope": "runtimeNamespaceAdmin"
             }]
          }],
-    "token_endpoint_auth_method": "client_secret_post",
     "redirect_uri": "http://localhost:8000/oauth/callback",
+    "idp_config": {
+        "url": "https://jc-test.authentication.sap.hana.ondemand.com",
+        "clientsecret": "d6HfVB6pCKWFI3rNXbOLS8MXwwVabN",
+        "clientid": "sb-saas-provisioning-demo!t13477"
+    },
     "debug": true,
     "redis_store": {
         "addr": "",
@@ -44,3 +48,5 @@
         "httponly": true
     }
 }
+
+

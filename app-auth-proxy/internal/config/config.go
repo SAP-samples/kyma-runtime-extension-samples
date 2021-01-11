@@ -15,19 +15,13 @@ import (
 
 const CONFIG_JSON = "/config/config.json"
 
-var appConfig AppConfig
+var appConfig Config
 
-type AppConfig struct {
-	IDPConfig  idpConfig
-	BaseConfig baseConfig
-}
+// type AppConfig struct {
+// 	BaseConfig baseConfig
+// }
 
-type MethodScopes []struct {
-	HTTPMethod string `json:"http_method"`
-	Scope      string `json:"scope"`
-}
-
-type baseConfig struct {
+type Config struct {
 	Routes []struct {
 		Path             string       `json:"path"`
 		Priority         int          `json:"priority"`
@@ -36,10 +30,10 @@ type baseConfig struct {
 		Target           string       `json:"target"`
 		HTTPMethodScopes MethodScopes `json:"http_method_scopes,default={*;*}"`
 	} `json:"routes"`
-	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method"`
-	RedirectURI             string `json:"redirect_uri"`
-	Debug                   bool   `json:"debug"`
-	RedisStore              struct {
+	IDPConfig   IDPConfig `json:"idp_config"`
+	RedirectURI string    `json:"redirect_uri"`
+	Debug       bool      `json:"debug"`
+	RedisStore  struct {
 		Addr     string `json:"addr"`
 		Password string `json:"password"`
 		DB       int    `json:"db,default=0"`
@@ -52,16 +46,28 @@ type baseConfig struct {
 	} `json:"cookie"`
 }
 
-type idpConfig struct {
-	ClientID                   string `envconfig:"IDP_clientid"`
-	ClientSecret               string `envconfig:"IDP_clientsecret"`
-	URL                        string `envconfig:"IDP_url"`
-	Token_endpoint_auth_method string `envconfig:"IDP_token_endpoint_auth_method,default=client_secret_basic"`
+type IDPConfig struct {
+	ClientID                string `json:"clientid""`
+	ClientSecret            string `json:"clientsecret"`
+	URL                     string `json:"url"`
+	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method,default=client_secret_basic"`
+}
+
+type IDPConfigEnv struct {
+	ClientID                string `envconfig:"IDP_clientid"`
+	ClientSecret            string `envconfig:"IDP_clientsecret"`
+	URL                     string `envconfig:"IDP_url"`
+	TokenEndpointAuthMethod string `envconfig:"IDP_token_endpoint_auth_method,default=client_secret_basic"`
+}
+
+type MethodScopes []struct {
+	HTTPMethod string `json:"http_method"`
+	Scope      string `json:"scope"`
 }
 
 //InitConfig initializes the AppConfig
-func initIDPConfig() {
-	idpConfig := idpConfig{}
+func initIDPConfigFromEnv() {
+	idpConfig := IDPConfigEnv{}
 
 	err := envconfig.Init(&idpConfig)
 	if err != nil {
@@ -71,12 +77,15 @@ func initIDPConfig() {
 		log.Fatal("Please check the configuration parameters....", err.Error())
 	}
 
-	appConfig.IDPConfig = idpConfig
+	appConfig.IDPConfig.URL = idpConfig.URL
+	appConfig.IDPConfig.ClientID = idpConfig.ClientID
+	appConfig.IDPConfig.ClientSecret = idpConfig.ClientSecret
+	appConfig.IDPConfig.TokenEndpointAuthMethod = idpConfig.TokenEndpointAuthMethod
 }
 
 func initBaseConfig(file string) {
 
-	baseConfig := baseConfig{}
+	config := Config{}
 
 	configFile, err := os.Open(file)
 	defer configFile.Close()
@@ -84,36 +93,37 @@ func initBaseConfig(file string) {
 		log.Fatal("Please check the config.json parameters....", err.Error())
 	}
 	jsonParser := json.NewDecoder(configFile)
-	err = jsonParser.Decode(&baseConfig)
+	err = jsonParser.Decode(&config)
 	if err != nil {
 		log.Fatal("Could not decode config.json ....", err.Error())
 	}
 
-	appConfig.BaseConfig = baseConfig
+	appConfig = config
 }
 
 //AppConfig returns the current AppConfig
-func GetConfig() *AppConfig {
+func GetConfig() *Config {
 
-	if reflect.DeepEqual(appConfig, AppConfig{}) {
-		initIDPConfig()
+	if reflect.DeepEqual(appConfig, Config{}) {
 		_, b, _, _ := runtime.Caller(0)
 		initBaseConfig(filepath.Join(filepath.Dir(b), "../.."+CONFIG_JSON))
 
-		if !appConfig.BaseConfig.Debug {
+		if !appConfig.Debug {
 			log.SetLevel(log.WarnLevel)
 		} else {
 			log.SetLevel(log.DebugLevel)
 		}
 
 		log.WithFields(log.Fields{
-			"BaseConfig": fmt.Sprintf("%+v", appConfig.BaseConfig),
-			"IDPConfig":  fmt.Sprintf("%+v", appConfig.IDPConfig),
+			"Config": fmt.Sprintf("%+v", appConfig),
 		}).Debug("Configuration set to:")
-	}
 
-	log.Println("appconfig.....")
-	log.Printf("%+v", appConfig.BaseConfig)
+		if len(appConfig.IDPConfig.URL) == 0 {
+			log.Debug("setting IDP from env")
+			initIDPConfigFromEnv()
+		}
+
+	}
 
 	return &appConfig
 }
