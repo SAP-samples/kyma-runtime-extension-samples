@@ -1,10 +1,11 @@
 package config
 
 import (
-	"log"
 	"os"
 
 	"github.com/vrischmann/envconfig"
+
+	log "github.com/sirupsen/logrus"
 )
 
 var appConfig Config
@@ -22,9 +23,9 @@ func initConfig() {
 	err := envconfig.Init(&appConfig)
 	if err != nil {
 		for _, pair := range os.Environ() {
-			log.Println(pair)
+			log.Infoln(pair)
 		}
-		log.Fatal("Please check the configuration parameters....", err.Error())
+		log.Error("Please check the configuration parameters....", err.Error())
 	}
 }
 

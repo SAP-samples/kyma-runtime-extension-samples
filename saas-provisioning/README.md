@@ -177,3 +177,6 @@ kubectl -n saas apply -f https://raw.githubusercontent.com/istio/istio/master/sa
   "xsappname": "saas-provisioning-demo"
 }
 ```
+
+HELP
+https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/ff540477f5404e3da2a8ce23dcee602a.html
