@@ -214,7 +214,7 @@ func (oc *OIDCConfig) AuthZ_Handler(methodScopes appconfig.MethodScopes, next ht
 		httpMethod := r.Method
 		isAuthorized := false
 
-		log.Debugf("Checking HTTPMethod %s against scopes: %+v\n", httpMethod, methodScopes)
+		log.Debugf("Checking HTTPMethod %s against scopes: %+v", httpMethod, methodScopes)
 
 		//check if methodScopes have been defined
 		if len(methodScopes) == 0 {
@@ -236,7 +236,7 @@ func (oc *OIDCConfig) AuthZ_Handler(methodScopes appconfig.MethodScopes, next ht
 				break
 			}
 			if httpMethod == strings.ToUpper(value.HTTPMethod) || value.HTTPMethod == "*" {
-				log.Debugf("For HTTPMethod: %s found scope: %+v\n", r.Method, value.Scope)
+				log.Debugf("For HTTPMethod: %s found scope: %+v", r.Method, value.Scope)
 				scopesForMethod = append(scopesForMethod, value.Scope)
 			}
 		}
