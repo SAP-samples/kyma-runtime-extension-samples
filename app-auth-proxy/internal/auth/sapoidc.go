@@ -230,6 +230,11 @@ func (oc *OIDCConfig) AuthZ_Handler(methodScopes appconfig.MethodScopes, next ht
 				isAuthorized = true
 				break
 			}
+			if httpMethod == strings.ToUpper(value.HTTPMethod) && value.HTTPMethod == "*" {
+				log.Debugf("Authorized request - no restrictions are defined for httpMethod %s", httpMethod)
+				isAuthorized = true
+				break
+			}
 			if httpMethod == strings.ToUpper(value.HTTPMethod) || value.HTTPMethod == "*" {
 				log.Debugf("For HTTPMethod: %s found scope: %+v\n", r.Method, value.Scope)
 				scopesForMethod = append(scopesForMethod, value.Scope)
