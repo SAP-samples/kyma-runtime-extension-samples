@@ -21,6 +21,7 @@ FROM scratch
 WORKDIR /app
 COPY --from=builder /app/saas-provioning  /app/
 COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY resources               /app/resources
 
 EXPOSE 8000
 ENTRYPOINT ["/app/saas-provioning"]

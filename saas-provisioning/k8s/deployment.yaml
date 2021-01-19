@@ -1,4 +1,3 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,33 +14,22 @@ spec:
       labels:
         app: saas-provisioning-demo
     spec:
+      serviceAccountName: "saas-demo-service-account"
       containers:
-        # replace the repository URL with your own repository
-        - image: jcawley5/saas-provisioning-demo:latest
+        - image: 'jcawley5/saas-provisioning-demo:latest'
           imagePullPolicy: Always
           name: saas-provisioning-demo
           ports:
             - name: http
               containerPort: 8000
-          env:
-            - name: AppURL
-              valueFrom:
-                configMapKeyRef:
-                  name: saas-provisioning-demo
-                  key: AppURL
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config
       volumes:
         - name: config-volume
           configMap:
             name: saas-provisioning-demo
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: saas-provisioning-demo
-  labels:
-    app: saas-provisioning-demo
-data:
-  AppURL: https://app-auth-proxy.<cluster domain>/anything
+
 ---
 apiVersion: v1
 kind: Service
