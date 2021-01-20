@@ -324,9 +324,12 @@ func (c *Config) createConfigMap_AppAuthProxy() (map[string]string, error) {
 	data.IDPConfig.ClientSecret = c.RequestInfo.AdditionalInformation.ClientSecret
 	data.IDPConfig.ClientID = c.RequestInfo.AdditionalInformation.ClientID
 
+	var targetPath string
 	for i, s := range data.Routes {
 		if len(s.K8Config.Image) != 0 {
-			data.Routes[i].Target = s.Target + "-" + c.Tenant + "." + c.AppConfig.Namespace
+			targetPath = s.Target + "-" + c.Tenant + "." + c.AppConfig.Namespace
+			log.Infof("Setting route Target %s to new value of %s", data.Routes[i].Target, targetPath)
+			data.Routes[i].Target = targetPath
 		}
 	}
 

@@ -35,6 +35,8 @@ kubectl apply -f ./k8s/service-account.yaml -n saas
 
 ### Create XSUAA Service Instance
 
+<sub>https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.03/en-US/3bfb120045694e21bfadb1344a693d1f.html</sub>
+
 1. Within the Kyma console open the namespace **saas**.
 2. Choose **Service Management** -> **Catalog**.
 3. Choose the service **Authorization & Trust Management**.
@@ -43,47 +45,48 @@ kubectl apply -f ./k8s/service-account.yaml -n saas
 6. Choose **Add parameters** and provide the object after adjusting it to your needs.
 7. After the instance is created, choose the **Credentials** tab and choose the option **Create Credentials**.
 
-Using tenant-mode external will provide the On-Subscription Endpoint of Saas application the tokenurl, clientsecret, and clientid of the subaccount of the subscribe. This information is then used to registered a dedicated App-auth-proxy for the consumer. More information can be found at:
-
-<sub>https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.03/en-US/6d3ed64092f748cbac691abc5fe52985.html#loio6d3ed64092f748cbac691abc5fe52985__section_myf_zzy_2bb</sub>
-
-<sub>https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/ff540477f5404e3da2a8ce23dcee602a.html</sub>
-
 ```json
 {
-  "authorities": ["$ACCEPT_GRANTED_AUTHORITIES"],
-  "foreign-scope-references": ["$ACCEPT_GRANTED_SCOPES"],
+  "xsappname": "saas-provisioning-demo-app",
   "oauth2-configuration": {
     "redirect-uris": [
       "https://*.c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.com/oauth/callback"
     ]
   },
-  "role-templates": [
-    {
-      "description": "User Role Template",
-      "name": "SAASUserTemplate",
-      "scope-references": ["$XSAPPNAME.User"]
-    }
-  ],
+  "tenant-mode": "shared",
   "scopes": [
     {
+      "name": "$XSAPPNAME.Callback",
       "description": "With this scope set, the callbacks for tenant onboarding, offboarding and getDependencies can be called.",
       "grant-as-authority-to-apps": [
         "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
-      ],
-      "name": "$XSAPPNAME.Callback"
+      ]
     },
     {
-      "description": "User of the application",
-      "name": "$XSAPPNAME.User"
+      "name": "$XSAPPNAME.User",
+      "description": "Use the application"
     }
   ],
-  "tenant-mode": "external",
-  "xsappname": "saas-provisioning-demo-app"
+  "role-templates": [
+    {
+      "name": "User",
+      "description": "User",
+      "scope-references": ["$XSAPPNAME.User"]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "saas-provisioning-demo-app-User",
+      "description": "My SaaS App User",
+      "role-template-references": ["$XSAPPNAME.User"]
+    }
+  ]
 }
 ```
 
 ### Create SAAS Provioning Instance
+
+<sub>https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/ff540477f5404e3da2a8ce23dcee602a.html</sub>
 
 1. Choose **Service Management** -> **Catalog**.
 2. Choose the service **SaaS Provisioning**
