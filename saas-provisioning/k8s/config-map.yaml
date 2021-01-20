@@ -7,7 +7,7 @@ metadata:
 data:
   config.json: |
     {
-        "domain": "a0e7f99.kyma.shoot.live.k8s-hana.ondemand.com",
+        "domain": "*****.kyma.shoot.live.k8s-hana.ondemand.com",
         "appname":"saas-demo",
         "namespace": "saas",
         "debug": true,

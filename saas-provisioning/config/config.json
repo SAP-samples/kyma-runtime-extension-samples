@@ -1,5 +1,5 @@
 {
-    "domain": "c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.com",
+    "domain": "*******.kyma-stage.shoot.live.k8s-hana.ondemand.com",
     "appname":"saas-demo",
     "namespace": "saas",
     "debug": true,

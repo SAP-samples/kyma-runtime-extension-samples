@@ -136,10 +136,16 @@ kubectl apply -f ./k8s/service-binding.yaml -n saas
 
 ### Access to the App
 
-1. You may have to log out/in for the role assignment to work.
+1. You may have to log out/in for the role assignment to take place.
 2. Choose the menu option Subscriptions
 3. Find and open the **Kyma SAAS Provisioning Demo** tile
 4. Choose the **Go to Application** link.
+5. The app will have the following endpoints
+
+   https://saas-demo-<tenant id>.<cluster domain>/
+   https://saas-demo-<tenant id>.<cluster domain>/headers
+   https://saas-demo-<tenant id>.<cluster domain>/auth/user
+   https://saas-demo-<tenant id>.<cluster domain>/auth/groups
 
 ### Run the Sample Locally
 
