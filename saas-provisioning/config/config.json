@@ -14,7 +14,7 @@
             "target": "http://nginx",
             "http_method_scopes": [{
                 "http_method": "GET",
-                "scope": "User"
+                "scope": "$XSAPPNAME.User"
             }],
             "k8config":{
                 "image": "nginx",
@@ -49,7 +49,8 @@
     "idp_config": {
         "url": "",
         "clientsecret": "",
-        "clientid": ""
+        "clientid": "",
+        "xsappname": ""
     },
     "debug": true,
     "redis_store": {

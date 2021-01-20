@@ -26,19 +26,37 @@ var appConfig AppConfig
 var kubeConfig Kubeconfig
 
 //InitConfig initializes the AppConfig
-func initEnvConfig() {
-	log.Info("initilizing configuration....")
+func initK8sEnvConfig() {
+	log.Info("initilizing K8 Env configuration....")
 
 	err := envconfig.Init(&kubeConfig)
 	if err != nil {
 		for _, pair := range os.Environ() {
 			log.Infoln(pair)
 		}
-		log.Warn("Please check the configuration parameters....", err.Error())
+		log.Fatal("Please check the configuration parameters....", err.Error())
 	}
 }
 
+func initIDPEnvConifg() {
+	log.Info("initilizing IDP configuration....")
+
+	idpConfig := IDPConfig{}
+
+	err := envconfig.Init(&idpConfig)
+	if err != nil {
+		for _, pair := range os.Environ() {
+			log.Infoln(pair)
+		}
+		log.Fatal("Please check the IDP configuration parameters....", err.Error())
+	}
+
+	appConfig.AppAuthProxy.IDPConfig = idpConfig
+}
+
 func initConfig(file string) {
+
+	log.Info("initilizing configuration....")
 
 	configFile, err := os.Open(file)
 	defer configFile.Close()
@@ -68,7 +86,7 @@ func GetConfig() *AppConfig {
 			log.SetLevel(log.DebugLevel)
 		}
 
-		initEnvConfig()
+		initIDPEnvConifg()
 		setK8Config()
 
 	}
@@ -81,7 +99,8 @@ func setK8Config() {
 	var err error
 	appConfig.K8Config.ClusterConfig, err = rest.InClusterConfig()
 	if err != nil {
-		log.Infof("No incluster config found, will try loading kubeconfig, %s", err.Error())
+		log.Infof("No incluster config found, will try loading kubeconfig from environment, %s", err.Error())
+		initK8sEnvConfig()
 		// use the current context in kubeconfig
 		log.Infof("trying to load kubeconfig from %s", kubeConfig.Path)
 		appConfig.K8Config.ClusterConfig, err = clientcmd.BuildConfigFromFlags("", kubeConfig.Path)
@@ -98,12 +117,12 @@ func setK8Config() {
 	s := k8runtime.NewScheme()
 	err = apigatewayv1alpha1.AddToScheme(s)
 	if err != nil {
-		log.Error(err)
+		log.Fatal(err)
 	}
 
 	appConfig.K8Config.APIRuleClientset, err = client.New(appConfig.K8Config.ClusterConfig, client.Options{Scheme: s})
 	if err != nil {
-		log.Error(err)
+		log.Fatal(err)
 	}
 
 }

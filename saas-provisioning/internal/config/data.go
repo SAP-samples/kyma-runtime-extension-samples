@@ -48,10 +48,12 @@ type K8Config struct {
 }
 
 type IDPConfig struct {
-	ClientID                string `json:"clientid""`
-	ClientSecret            string `json:"clientsecret"`
-	URL                     string `json:"url"`
-	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method,default=client_secret_basic"`
+	ClientID                string `envconfig:"IDP_clientid"`
+	ClientSecret            string `envconfig:"IDP_clientsecret"`
+	URL                     string `envconfig:"IDP_url"`
+	IdentityZone            string `envconfig:"IDP_identityzone"`
+	TokenEndpointAuthMethod string `envconfig:"IDP_token_endpoint_auth_method,default=client_secret_basic"`
+	XSAppName               string `envconfig:"-"`
 }
 
 type MethodScopes struct {

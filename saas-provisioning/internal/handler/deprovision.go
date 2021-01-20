@@ -45,7 +45,7 @@ func (c *Config) deleteAppAuthProxy() error {
 		log.Error(err)
 	}
 
-	err = c.deleteAPIRule(name)
+	err = c.deleteAPIRule(name, uint32(80))
 	if err != nil {
 		log.Error(err)
 	}
@@ -143,10 +143,10 @@ func (c *Config) deleteService(name string) error {
 	return nil
 }
 
-func (c *Config) deleteAPIRule(name string) error {
+func (c *Config) deleteAPIRule(name string, port uint32) error {
 	log.Info("Deleting APIRule...")
 
-	apiRule := getAPIRule(name, c.AppConfig.Namespace)
+	apiRule := getAPIRule(name, c.AppConfig.Namespace, port)
 	err := c.AppConfig.K8Config.APIRuleClientset.Delete(context.TODO(), apiRule)
 
 	if err != nil {

@@ -7,7 +7,7 @@ metadata:
 data:
   config.json: |
     {
-        "domain": "c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.com",
+        "domain": "a0e7f99.kyma.shoot.live.k8s-hana.ondemand.com",
         "appname":"saas-demo",
         "namespace": "saas",
         "debug": true,
@@ -22,7 +22,7 @@ data:
                 "target": "http://nginx",
                 "http_method_scopes": [{
                     "http_method": "GET",
-                    "scope": "User"
+                    "scope": "$XSAPPNAME.User"
                 }],
                 "k8config":{
                     "image": "nginx",
@@ -50,7 +50,7 @@ data:
                 "target": "https://httpbin.org/",
                 "http_method_scopes": [{
                     "http_method": "GET",
-                    "scope": "User"
+                    "scope": "$XSAPPNAME.User"
                 }]
             }],
         "redirect_uri": "",

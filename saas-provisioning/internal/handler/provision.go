@@ -21,9 +21,12 @@ import (
 	"encoding/json"
 
 	"github.com/google/uuid"
+	"github.com/jinzhu/copier"
 	apigatewayv1alpha1 "github.com/kyma-incubator/api-gateway/api/v1alpha1"
 	rulev1alpha1 "github.com/ory/oathkeeper-maester/api/v1alpha1"
 	log "github.com/sirupsen/logrus"
+
+	appconfig "github.com/SAP-samples/kyma-runtime-extension-samples/saas-provisioning/internal/config"
 )
 
 func (c *Config) ProvisionTenent() error {
@@ -156,7 +159,11 @@ func (c *Config) createAppAuthProxy() error {
 	name := c.AppConfig.AppName + "-" + c.Tenant
 
 	var err error
-	data, err := c.createConfigMap_AppAuthProxy()
+	data, err := c.generateAppAuthProxyConfigMap()
+	if err != nil {
+		log.Error(err)
+	}
+
 	err = c.createConfigMap(name, data)
 	if err != nil {
 		log.Error(err)
@@ -187,7 +194,7 @@ func (c *Config) createAppAuthProxy() error {
 		log.Error(err)
 	}
 
-	err = c.createAPIRule(name)
+	err = c.createAPIRule(name, uint32(80))
 	if err != nil {
 		log.Error(err)
 	}
@@ -291,12 +298,13 @@ func (c *Config) createConfigMap(name string, data map[string]string) error {
 	return nil
 }
 
-func (c *Config) createAPIRule(name string) error {
+func (c *Config) createAPIRule(name string, port uint32) error {
 
-	log.Info("Creating APIRule...")
+	log.Infof("Creating APIRule: %s", name)
 
-	apiRule := getAPIRule(name, c.AppConfig.Namespace)
+	apiRule := getAPIRule(name, c.AppConfig.Namespace, port)
 
+	log.Infof("apiRule: %+v", apiRule)
 	err := c.AppConfig.K8Config.APIRuleClientset.Create(context.TODO(), apiRule)
 
 	if err != nil {
@@ -310,22 +318,29 @@ func (c *Config) createAPIRule(name string) error {
 
 func int32Ptr(i int32) *int32 { return &i }
 
-func (c *Config) createConfigMap_AppAuthProxy() (map[string]string, error) {
+func (c *Config) generateAppAuthProxyConfigMap() (map[string]string, error) {
 
-	data := c.AppConfig.AppAuthProxy
-	data.Routes = c.AppConfig.AppAuthProxy.Routes
+	data := appconfig.AppAuthProxy{}
+	log.Debugf("Data: %+v", data)
+
+	copier.CopyWithOption(&data, c.AppConfig.AppAuthProxy, copier.Option{IgnoreEmpty: true, DeepCopy: true})
+	log.Debugf("Data After Copy: %+v", data)
 
 	cmData := make(map[string]string)
 
 	data.Cookie.Key = uuid.New().String()
 
+	//change the identity zone to the subscribers
+	subaccountIDP_URL := strings.Replace(c.AppConfig.AppAuthProxy.IDPConfig.URL, c.AppConfig.AppAuthProxy.IDPConfig.IdentityZone, c.RequestInfo.SubscribedSubdomain, 1)
+
+	data.IDPConfig.URL = subaccountIDP_URL
 	data.RedirectURI = "https://" + c.AppConfig.AppName + "-" + c.Tenant + "." + c.AppConfig.Domain + "/oauth/callback"
-	data.IDPConfig.URL = c.RequestInfo.AdditionalInformation.TokenURL
-	data.IDPConfig.ClientSecret = c.RequestInfo.AdditionalInformation.ClientSecret
-	data.IDPConfig.ClientID = c.RequestInfo.AdditionalInformation.ClientID
+	data.IDPConfig.ClientSecret = c.AppConfig.AppAuthProxy.IDPConfig.ClientSecret
+	data.IDPConfig.ClientID = c.AppConfig.AppAuthProxy.IDPConfig.ClientID
+	data.IDPConfig.XSAppName = c.RequestInfo.SubscriptionAppID
 
 	var targetPath string
-	for i, s := range data.Routes {
+	for i, s := range c.AppConfig.AppAuthProxy.Routes {
 		if len(s.K8Config.Image) != 0 {
 			targetPath = s.Target + "-" + c.Tenant + "." + c.AppConfig.Namespace
 			log.Infof("Setting route Target %s to new value of %s", data.Routes[i].Target, targetPath)
@@ -354,9 +369,8 @@ func encodeToBase64(v interface{}) (string, error) {
 	return buf.String(), nil
 }
 
-func getAPIRule(name string, namespace string) *apigatewayv1alpha1.APIRule {
+func getAPIRule(name string, namespace string, port uint32) *apigatewayv1alpha1.APIRule {
 	gateway := "kyma-gateway.kyma-system.svc.cluster.local"
-	port := uint32(80)
 
 	lbs := map[string]string{"app": name}
 
