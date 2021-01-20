@@ -256,14 +256,11 @@ func (oc *OIDCConfig) AuthZ_Handler(methodScopes appconfig.MethodScopes, next ht
 			sessionGroups := getSessionGroups(session)
 
 			//iterate the user groups, remove the app name and compare to the scopesForMethod
-			var userScope string
-
 		doneSearching:
 			for _, value := range sessionGroups.Group {
-				userScope = value.Display[strings.LastIndex(value.Display, ".")+1:]
 				for _, methodScope := range scopesForMethod {
-					if methodScope == userScope {
-						log.Debugf("Authorized request - Found match on userScope: %s", userScope)
+					if methodScope == value.Display {
+						log.Debugf("Authorized request - Found match on: %s", value.Display)
 						isAuthorized = true
 						break doneSearching
 					}
