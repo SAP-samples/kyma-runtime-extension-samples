@@ -63,6 +63,7 @@ kubectl create namespace dev
 export IDP_clientid='<instance clientid>'
 export IDP_clientsecret=<instance clientsecret>
 export IDP_url=<instance url>
+export IDP_xsappname=<xsappname>
 ```
 
 2. Adjust the config.json which contains the following properties. The provided config.json is configured to use the examples
