@@ -29,6 +29,7 @@ type InitConfig struct {
 	RedirectURL                string
 	Token_endpoint_auth_method string
 	CookieKey                  string
+	XSAppName                  string
 }
 
 type OIDCConfig struct {
@@ -39,6 +40,7 @@ type OIDCConfig struct {
 	store       sessions.Store
 	state       string
 	sessionName string
+	xsappname   string
 }
 
 type oidcResp struct {
@@ -72,6 +74,7 @@ func InitOIDC(appConfig *InitConfig, store sessions.Store, sessionName string) *
 	}
 
 	oidcConfig.sessionName = sessionName
+	oidcConfig.xsappname = appConfig.XSAppName
 
 	oidcConfig.verifier = oidcConfig.provider.Verifier(&oidc.Config{
 		ClientID: appConfig.ClientID,
@@ -214,8 +217,6 @@ func (oc *OIDCConfig) AuthZ_Handler(methodScopes appconfig.MethodScopes, next ht
 		httpMethod := r.Method
 		isAuthorized := false
 
-		log.Debugf("Checking HTTPMethod %s against scopes: %+v", httpMethod, methodScopes)
-
 		//check if methodScopes have been defined
 		if len(methodScopes) == 0 {
 			log.Debugf("Authorized request - no restrictions are defined")
@@ -224,20 +225,22 @@ func (oc *OIDCConfig) AuthZ_Handler(methodScopes appconfig.MethodScopes, next ht
 
 		//check the scopes assigned to the httpMethod
 		var scopesForMethod []string
+		var scopeWAppName string
 		for _, value := range methodScopes {
 			if value.HTTPMethod == "*" && value.Scope == "*" {
 				log.Debugf("Authorized request - no restrictions are defined")
 				isAuthorized = true
 				break
 			}
-			if httpMethod == strings.ToUpper(value.HTTPMethod) && value.HTTPMethod == "*" {
+			if httpMethod == strings.ToUpper(value.HTTPMethod) && value.Scope == "*" {
 				log.Debugf("Authorized request - no restrictions are defined for httpMethod %s", httpMethod)
 				isAuthorized = true
 				break
 			}
 			if httpMethod == strings.ToUpper(value.HTTPMethod) || value.HTTPMethod == "*" {
-				log.Debugf("For HTTPMethod: %s found scope: %+v", r.Method, value.Scope)
-				scopesForMethod = append(scopesForMethod, value.Scope)
+				scopeWAppName = strings.Replace(value.Scope, "$XSAPPNAME", oc.xsappname, 1)
+				log.Debugf("HTTPMethod: %s requires scope: %+v", r.Method, scopeWAppName)
+				scopesForMethod = append(scopesForMethod, scopeWAppName)
 			}
 		}
 

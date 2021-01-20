@@ -51,6 +51,7 @@ type IDPConfig struct {
 	ClientSecret            string `json:"clientsecret"`
 	URL                     string `json:"url"`
 	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method,default=client_secret_basic"`
+	XSAppName               string `json:"xsappname"`
 }
 
 type IDPConfigEnv struct {
@@ -58,6 +59,7 @@ type IDPConfigEnv struct {
 	ClientSecret            string `envconfig:"IDP_clientsecret"`
 	URL                     string `envconfig:"IDP_url"`
 	TokenEndpointAuthMethod string `envconfig:"IDP_token_endpoint_auth_method,default=client_secret_basic"`
+	XSAppName               string `json:"IDP_xsappname"`
 }
 
 type MethodScopes []struct {

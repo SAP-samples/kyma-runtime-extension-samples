@@ -23,17 +23,18 @@
             "target": "https://httpbin.org",
             "http_method_scopes": [{
                 "http_method": "GET",
-                "scope": "runtimeDeveloper"
+                "scope": "$XSAPPNAME.runtimeDeveloper"
             },{
                 "http_method": "POST",
-                "scope": "runtimeNamespaceAdmin"
+                "scope": "$XSAPPNAME.runtimeNamespaceAdmin"
             }]
          }],
     "redirect_uri": "http://localhost:8000/oauth/callback",
     "idp_config": {
-        "url": "https://jc-test.authentication.sap.hana.ondemand.com",
-        "clientsecret": "d6HfVB6pCKWFI3rNXbOLS8MXwwVabN",
-        "clientid": "sb-saas-provisioning-demo!t13477"
+        "url": "",
+        "clientsecret": "",
+        "clientid": "",
+        "xsappname": ""
     },
     "debug": true,
     "redis_store": {
