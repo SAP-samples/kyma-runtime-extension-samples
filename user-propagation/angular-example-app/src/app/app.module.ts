@@ -52,8 +52,8 @@ export class AppModule {
 
         const config: OpenIdConfiguration = {
             stsServer: configResult.customConfig.stsServer,
-            redirect_url: window.location.origin,
-            client_id: 'sb-c4ctest!t13041',
+            redirect_url: window.location.origin + '/',
+            client_id: 'T000000',
             scope: 'openid',
             response_type: 'id_token',
             log_console_debug_active: true,
