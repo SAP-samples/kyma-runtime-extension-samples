@@ -121,11 +121,7 @@ kubectl apply -f ./k8s/service-binding.yaml -n saas
 
 ### Subscribe to the App
 
-<<<<<<< HEAD
 1. Create another subaccount using the same provider and region as the Kyma runtime containing the SAAS application and open it
-=======
-1. Create another subaccount and open it
->>>>>>> saas
 2. Choose the Subscriptions menu option
 3. Find and open the **Kyma SAAS Provisioning Demo** tile
 4. Choose Subscribe
@@ -147,8 +143,11 @@ kubectl apply -f ./k8s/service-binding.yaml -n saas
 5. The app will have the following endpoints
 
    https://saas-demo-<tenant id>.<cluster domain>/
+
    https://saas-demo-<tenant id>.<cluster domain>/headers
+
    https://saas-demo-<tenant id>.<cluster domain>/auth/user
+
    https://saas-demo-<tenant id>.<cluster domain>/auth/groups
 
 ### Run the Sample Locally
