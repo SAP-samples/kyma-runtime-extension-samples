@@ -1,0 +1,22 @@
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: saas-provisioning-demo
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - path: /.*
+      accessStrategies:
+        - config: 
+            jwks_urls:
+            - https://sap-provisioning.authentication.sap.hana.ondemand.com/token_keys
+            trusted_issuers:
+            - http://sap-provisioning.localhost:8080/uaa/oauth/token
+          handler: jwt
+      methods:
+        - PUT
+        - DELETE
+  service:
+    host: saas-provisioning-demo
+    name: saas-provisioning-demo
+    port: 80

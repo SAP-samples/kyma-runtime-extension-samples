@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  httpBinUrl: window["env"]["httpBinUrl"] || "default",
-  oidcUrl: window["env"]["oidcUrl"] || "default",
-  c4cExtensionUrl: window["env"]["c4cExtensionUrl"] || "default",
+  httpBinUrl: "https://httpbin.ed72781.kyma-stage.shoot.live.k8s-hana.ondemand.com",
+  oidcUrl: "https://gaurav-10.authentication.sap.hana.ondemand.com/.well-known/openid-configuration",
+  c4cExtensionUrl: "http://localhost:3000/https://c4c-extension-with-user-context.ed72781.kyma-stage.shoot.live.k8s-hana.ondemand.com",
 };
 
 /*

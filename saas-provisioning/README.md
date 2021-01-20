@@ -121,7 +121,11 @@ kubectl apply -f ./k8s/service-binding.yaml -n saas
 
 ### Subscribe to the App
 
+<<<<<<< HEAD
 1. Create another subaccount using the same provider and region as the Kyma runtime containing the SAAS application and open it
+=======
+1. Create another subaccount and open it
+>>>>>>> saas
 2. Choose the Subscriptions menu option
 3. Find and open the **Kyma SAAS Provisioning Demo** tile
 4. Choose Subscribe
