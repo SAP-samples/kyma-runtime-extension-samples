@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"path"
-	"reflect"
 	"runtime"
 	"strings"
 
@@ -76,9 +75,9 @@ func (c *Config) createRouteResource() error {
 			var cmName string
 
 			if len(s.K8Config.Volumes) > 0 {
-				for i, s := range s.K8Config.Volumes {
-					cmName = s.ConfigMap.Name + "-" + c.Tenant + "-" + fmt.Sprint(i)
-					v.Name = s.Name
+				for i, volItem := range s.K8Config.Volumes {
+					cmName = volItem.ConfigMap.Name + "-" + c.Tenant + "-" + fmt.Sprint(i)
+					v.Name = volItem.Name
 					v.VolumeSource = apiv1.VolumeSource{
 						ConfigMap: &apiv1.ConfigMapVolumeSource{
 							LocalObjectReference: apiv1.LocalObjectReference{
@@ -89,22 +88,16 @@ func (c *Config) createRouteResource() error {
 					volumes = append(volumes, v)
 
 					_, rcpath, _, _ := runtime.Caller(1)
-					filePath := path.Join(path.Dir(rcpath), s.ConfigMap.FilePath)
+					filePath := path.Join(path.Dir(rcpath), volItem.ConfigMap.FilePath)
 					fileData, err := ioutil.ReadFile(filePath)
 					if err == nil {
-						//call the FunctionProcessor to process the config map creation otherwise just create it
-						//CustomMethodProcessor must be exported!
-						if s.ConfigMap.CustomMethodProcessor != "" {
-							cmMethProcess := reflect.ValueOf(c).MethodByName(s.ConfigMap.CustomMethodProcessor)
-							inputs := make([]reflect.Value, 3)
-							inputs[0] = reflect.ValueOf(fileData)
-							inputs[1] = reflect.ValueOf(s.ConfigMap.FileKey)
-							inputs[2] = reflect.ValueOf(cmName)
-							cmMethProcess.Call(inputs)
+						//create the cm for the nginx image which is mounted as the index.html
+						if volItem.Name == "nginx-index" {
+							c.ProcessTemplateForNginxCM(fileData, volItem.ConfigMap.FileKey, cmName)
 						} else {
 							data := string(fileData)
 							cmData := make(map[string]string)
-							cmData[s.ConfigMap.FileKey] = data
+							cmData[volItem.ConfigMap.FileKey] = data
 							c.createConfigMap(cmName, cmData)
 						}
 					} else {
@@ -130,7 +123,7 @@ func (c *Config) createRouteResource() error {
 	return err
 }
 
-func (c *Config) ProcessTemplateForCM(fileData []byte, fileKey string, cmName string) {
+func (c *Config) ProcessTemplateForNginxCM(fileData []byte, fileKey string, cmName string) {
 
 	data := string(fileData)
 
@@ -141,6 +134,8 @@ func (c *Config) ProcessTemplateForCM(fileData []byte, fileKey string, cmName st
 		log.Error(err)
 		return
 	}
+
+	log.Printf("Request data: %+v", c.RequestInfo)
 
 	var tmpData bytes.Buffer
 	tmpl.Execute(&tmpData, c.RequestInfo)
@@ -170,14 +165,14 @@ func (c *Config) createAppAuthProxy() error {
 	}
 
 	volumeMount := []apiv1.VolumeMount{
-		apiv1.VolumeMount{
+		{
 			Name:      "config-volume",
 			MountPath: "/app/config",
 		},
 	}
 
 	volume := []apiv1.Volume{
-		apiv1.Volume{
+		{
 			Name:         "config-volume",
 			VolumeSource: apiv1.VolumeSource{ConfigMap: &apiv1.ConfigMapVolumeSource{LocalObjectReference: apiv1.LocalObjectReference{Name: name}}},
 		},
@@ -321,10 +316,8 @@ func int32Ptr(i int32) *int32 { return &i }
 func (c *Config) generateAppAuthProxyConfigMap() (map[string]string, error) {
 
 	data := appconfig.AppAuthProxy{}
-	log.Debugf("Data: %+v", data)
 
 	copier.CopyWithOption(&data, c.AppConfig.AppAuthProxy, copier.Option{IgnoreEmpty: true, DeepCopy: true})
-	log.Debugf("Data After Copy: %+v", data)
 
 	cmData := make(map[string]string)
 

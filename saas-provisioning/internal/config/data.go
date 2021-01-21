@@ -87,9 +87,8 @@ type VolumeMount struct {
 type Volume struct {
 	Name      string `json:"name"`
 	ConfigMap struct {
-		Name                  string `json:"name"`
-		FilePath              string `json:"filePath"`
-		FileKey               string `json:"fileKey"`
-		CustomMethodProcessor string `json:"customMethodProcessor"`
+		Name     string `json:"name"`
+		FilePath string `json:"filePath"`
+		FileKey  string `json:"fileKey"`
 	} `json:"configMap"`
 }

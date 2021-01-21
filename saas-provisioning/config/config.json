@@ -1,5 +1,5 @@
 {
-    "domain": "*******.kyma-stage.shoot.live.k8s-hana.ondemand.com",
+    "domain": "*****.kyma.shoot.live.k8s-hana.ondemand.com",
     "appname":"saas-demo",
     "namespace": "saas",
     "debug": true,
@@ -29,8 +29,7 @@
                     "configMap":{
                         "name": "nginx",
                         "filePath": "../../resources/nginx-index.html",
-                        "fileKey": "index.html",
-                        "customMethodProcessor": "ProcessTemplateForCM"
+                        "fileKey": "index.html"
                     }
                 }]
             }

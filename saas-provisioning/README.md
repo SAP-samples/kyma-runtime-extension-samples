@@ -1,3 +1,13 @@
+## SAAS Provisioning Sample
+
+This sample demostrates how the SAP SAAS Provisioning service can be used to develop a mulitenant application in the Kyma runtime. When a user subscribes the sample app will generate a number of dedicated k8s resources, with their tenent id appended to the name, for the subscribers subaccount which include:
+
+- A configured deployment based on a generate config map of the [App Auth Proxy](../app-auth-proxy) to authenticate and authorize the user.
+- An API rule to access the application pointing the the app-auth-proxy.
+- A configured deployment based on a generate config map of nginx which outputs information regarding the subscriber.
+- An external path to https://httpbin.org/ which will output the headers.
+- The related services
+
 ### Create a new `saas` Namespace:
 
 ```shell script
@@ -5,6 +15,8 @@ kubectl create namespace saas
 ```
 
 ### Create XSUAA Service Instance
+
+The XSUAA Service Instance defines how subscribers will authenticate to the sample application. The sample app uses the [App Auth Proxy](../app-auth-proxy)
 
 <sub>https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.03/en-US/3bfb120045694e21bfadb1344a693d1f.html</sub>
 
@@ -87,19 +99,25 @@ When a consumer subscribes to the app the Saas Provisioning Service will submit 
 
 Deploy the the resources found in the directory **K8s** into the `saas` namespace
 
+The apirule validates the requests coming from the SAAS Provisioning service and forwards it to the sample app.
+
 ```shell script
 kubectl apply -f ./k8s/apirule.yaml -n saas
 ```
 
-For the config-map adjust at a minimun the value of **domain** to match the domain of your Kyma runtime
+The config-map contains the struture needed to define the subscribers app. At a minimun you will have to adjust the value of **domain** to match the domain of your Kyma runtime
 
 ```shell script
 kubectl apply -f ./k8s/config-map.yaml -n saas
 ```
 
+The sample app deployment
+
 ```shell script
 kubectl apply -f ./k8s/deployment.yaml -n saas
 ```
+
+The service account used by the sample app to generate k8s resources
 
 ```shell script
 kubectl apply -f ./k8s/service-account.yaml -n saas
@@ -171,4 +189,24 @@ kubectl apply -f ./k8s/service-binding.yaml -n saas
 
 ```bash
 go run .
+```
+
+Send a PUT or DELETE request to `http://localhost:8000/callback/v1.0/tenants/<a tentant id>` containing
+
+**Header**
+Authorization: Bearer < valid jwt containing the saas-provisioning-demo-app\*\*\*\*Callback scope for the app >
+
+**Body**: with valid values
+
+```json
+{
+  "subscriptionAppName": "",
+  "subscriptionAppId": "",
+  "subscribedSubaccountId": "",
+  "subscribedTenantId": "",
+  "subscribedSubdomain": "",
+  "globalAccountGUID": "",
+  "subscribedLicenseType": "",
+  "userId": ""
+}
 ```
