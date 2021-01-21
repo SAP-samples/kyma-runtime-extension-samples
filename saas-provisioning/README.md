@@ -2,7 +2,7 @@
 
 This sample demostrates how the SAP SAAS Provisioning service can be used to develop a mulitenant application in the Kyma runtime. When a user subscribes the sample app will generate a number of dedicated k8s resources, with their tenent id appended to the name, for the subscribers subaccount which include:
 
-- A configured deployment based on a generate config map of the [App Auth Proxy](../app-auth-proxy) to authenticate and authorize the user.
+- A configured deployment based on a generate config map of the [App Auth Proxy](../app-auth-proxy/README.md) to authenticate and authorize the user.
 - An API rule to access the application pointing the the app-auth-proxy.
 - A configured deployment based on a generate config map of nginx which outputs information regarding the subscriber.
 - An external path to https://httpbin.org/ which will output the headers.
