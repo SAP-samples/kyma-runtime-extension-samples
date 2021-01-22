@@ -74,7 +74,6 @@ The XSUAA Service Instance defines how subscribers will authenticate to the samp
 3. Choose **Add**
 4. Choose the Plan **application**
 5. Choose **Add parameters** and provide the object after adjusting the **<cluster domain>** value of the onSubscription property.
-6. After the instance is created, choose the **Credentials** tab and choose the option **Create Credentials**.
 
 ```json
 {
@@ -125,7 +124,7 @@ kubectl apply -f ./k8s/service-account.yaml -n saas
 
 ### Bind XSUAA Service Instance to the App
 
-1. Bind the XSUAA Service Instance to the the App using the prefix "IDP\_" in the UI or determine the name by running
+1. Bind the XSUAA Service Instance by first determine the instance name by running
 
 ```shell script
 kubectl -n saas get serviceinstances
@@ -147,7 +146,7 @@ kubectl apply -f ./k8s/service-binding.yaml -n saas
 ### Configure Access to the App
 
 1. When the subscription completes...
-2. Choose **Security -> Trust Configuration** from the main menu.
+2. Choose **Security -> Trust Configuration** from the subaccount main menu.
 3. Choose **SAP ID Service**
 4. Provide your email address and choose **Show Assignments**
 5. Choose **Assign Role Collection** and choose **saas-provisioning-demo-app-User**
@@ -158,7 +157,8 @@ kubectl apply -f ./k8s/service-binding.yaml -n saas
 2. Choose the menu option Subscriptions
 3. Find and open the **Kyma SAAS Provisioning Demo** tile
 4. Choose the **Go to Application** link.
-5. The app will have the following endpoints
+5. The sample will display
+6. The app will have the following endpoints
 
    https://saas-demo-<tenant id>.<cluster domain>/
 

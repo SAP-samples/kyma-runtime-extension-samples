@@ -125,6 +125,8 @@ func (c *Config) createRouteResource() error {
 
 func (c *Config) ProcessTemplateForNginxCM(fileData []byte, fileKey string, cmName string) {
 
+	log.Debug("ProcessTemplateForNginxCM: for config map: %s", cmName)
+
 	data := string(fileData)
 
 	tmpl := template.New("cm")
