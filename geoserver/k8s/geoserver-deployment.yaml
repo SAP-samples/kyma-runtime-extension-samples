@@ -77,6 +77,8 @@ spec:
     - HEAD
     path: /.*
   service:
-    host: geoserver.c-0cb9a11.kyma.shoot.live.k8s-hana.ondemand.com
+    #virtual host nam should be unique for the whole cluster
+    #maybe include namespace in the virtual host name
+    host: geoserver
     name: geoserver
     port: 8080

@@ -10,4 +10,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 900Mi
+      #just for configuration XML files
+      storage: 300Mi

@@ -4,7 +4,7 @@ This chart installs the example [GeoServer](../geoserver/README.md)
 ## Installing the Chart
 To install the chart with the release name `mygeoserver` in the namespace `geo2`:
 ```
-helm install mygeoserver1 . -n geo2 --set clusterUrl=$(kubectl config get-clusters | tail -1)
+helm install mygeoserver1 . -n geo2
 ```
 
 You could then open a web browser at the url https://`mygeoserver1-geo2`.your-cluster-url

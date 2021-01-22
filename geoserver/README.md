@@ -2,6 +2,8 @@
 
 This sample provides a [GeoServer](https://www.geoserver.org) instance with the plugin for SAP HANA Connectivity. Geoserver exposes in a variety of formats spatial data hosted in SAP HANA.
 
+The docker image used is available [here](https://github.com/remi-sap/geoserver4hana/blob/master/Dockerfile). 
+
 ## Prerequisites
 
 - SAP Cloud Platform, Kyma runtime instance
@@ -25,6 +27,7 @@ kubectl create namespace geo
 ```shell script
 kubectl -n geo apply -f ./k8s/geoserver-storage.yaml
 ```
+This filesystem will be mounted as the data directory, and will contain configuration files including credentials and connection details.
 
 3. Apply the Deployment:
 

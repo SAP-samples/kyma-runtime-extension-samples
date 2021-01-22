@@ -14,5 +14,3 @@ persistence:
   accessModes:
     - ReadWriteOnce
   storage: 100Mi
-
-clusterUrl: "<cluster id >.kyma.shoot.live.k8s-hana.ondemand.com"
