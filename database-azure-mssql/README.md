@@ -10,7 +10,7 @@ This sample demonstrates how to:
 
 ## Prerequisites
 
-- SAP Cloud Platform, Kyma runtime instance
+- SAP BTP, Kyma runtime instance
 - Microsoft Azure Account
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
 
