@@ -1,8 +1,8 @@
 # Overview
 
-This sample demonstrates how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) using SAP Cloud Platform, Kyma runtime.
+This sample demonstrates how a user propagation flow can be achieved when extending SAP Cloud for Customer (C4C) using SAP BTP, Kyma runtime.
 
-It uses SAP Cloud Platform Identity Authentication Service (IAS) as an external identity provider with user federation. However, any external identity provider would also work as long as it supports SAML 2.0.
+It uses Identity Authentication service (IAS) of SAP Cloud Identity Services as an external identity provider with user federation. However, any external identity provider would also work as long as it supports SAML 2.0.
 
 The JWT token received in Kyma needs to be exchanged for an OAuth2 token that can be authenticated by SAP Cloud for Customer. For this purpose, the [Destination Service](https://help.sap.com/viewer/cca91383641e40ffbe03bdc78f00f681/Cloud/en-US/7e306250e08340f89d6c103e28840f30.html) is used.
 
@@ -25,10 +25,10 @@ The JWT token received in Kyma needs to be exchanged for an OAuth2 token that ca
 
 ## Prerequisites
 
-* SAP Cloud Platform, Kyma runtime instance
+* SAP BTP, Kyma runtime instance
 * SAP Cloud for Customer tenant
-* SAP Cloud Platform Identity Authentication Service tenant
-* OAuth 2.0-based authentication between IAS, SAP Cloud Platform, and C4C requires the same user ID to exist in both IAS and C4C.
+* Identity Authentication service tenant
+* OAuth 2.0-based authentication between IAS, SAP Extension Suite, and C4C requires the same user ID to exist in both IAS and C4C.
 
 ## Configuration
 
@@ -42,7 +42,7 @@ Configure user propagation between C4C and Kyma runtime.
 
 [This blog](https://blogs.sap.com/2017/11/14/configuring-oauth-2.0-between-sap-hybris-cloud-for-customer-and-sap-cloud-platform/) was used as a reference. It was written for Neo, but some steps are also applicable for Kyma runtime.
 
-You will end up creating a Destination Service in SAP Cloud Platform. It will be later on used by the microservice to do the token exchange.
+You will end up creating a SAP Destination service. It will be later on used by the microservice to do the token exchange.
 
 * Download the `Trust` certificate from **Subaccount** --> **Destinations** --> **Download Trust**.
   ![download-trust](assets/download-trust.png)
@@ -61,7 +61,7 @@ You will end up creating a Destination Service in SAP Cloud Platform. It will be
 * Register an Oauth2 Client in C4C.
   ![register-oauth-client](assets/register-oauth-client.png)
 
-* Create a destination in SAP Cloud Platform. Under your subaccount, go to **Connectivity** --> **Destinations**.
+* Create a SAP Destination service. Under your subaccount, go to **Connectivity** --> **Destinations**.
   ![http-destination](assets/http-destination.png)
 
   Configure these additional properties:
@@ -120,7 +120,7 @@ The second microservice is the one that implements the extension logic and where
 
 * Deploy the extension with user propagation.
 
-  * Update `DESTINATION_NAME` in [`deployment.yaml`](c4c-extension-with-user-context/k8s/deployment.yaml) with the name of the destination created in SAP Cloud Platform.
+  * Update `DESTINATION_NAME` in [`deployment.yaml`](c4c-extension-with-user-context/k8s/deployment.yaml) with the name of the destination created in SAP Extension Suite.
 
   * Deploy the extension.
 
