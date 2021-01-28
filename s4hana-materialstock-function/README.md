@@ -10,7 +10,7 @@ This sample demonstrates how to:
 
 ## Prerequisites
 
-- SAP Cloud Platform, Kyma runtime instance
+- SAP BTP, Kyma runtime instance
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
 - S/4HANA System
 
@@ -18,8 +18,8 @@ This sample demonstrates how to:
 
 ### Configure the System Connectivity
 
-1. [Register an SAP S/4HANA Cloud System in an SAP Cloud Platform Global Account](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/28171b629f3549af8c1d66d7c8de5e18.html).
-2. [Configure the Entitlements for the SAP Cloud Platform Subaccount](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/65ad330d11ac49a196948aa8db6470fb.html).
+1. [Register an SAP S/4HANA Cloud System in an SAP BTP global account](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/28171b629f3549af8c1d66d7c8de5e18.html).
+2. [Configure the Entitlements for the SAP BTP subaccount](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/65ad330d11ac49a196948aa8db6470fb.html).
 
 ### Deploy the Function
 
