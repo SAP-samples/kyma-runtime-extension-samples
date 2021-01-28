@@ -24,7 +24,6 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [MS SQL database](./database-mssql/README.md)
 - [Azure MS SQL database](./database-azure-mssql/README.md)
 - [Golang MS SQL database API](./api-mssql-go/README.md)
-- [OIDC Protected Golang MS SQL database API](./api-mssql-go-auth/README.md)
 - [Serverless Function MS SQL database API](./api-mssql-function/README.md)
 - [React frontend MS SQL](./frontend-react-mssql/README.md)
 - [UI5 frontend MS SQL](./frontend-ui5-mssql/README.md)
@@ -34,6 +33,7 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [Scala AKKA HTTP based extesnsion with API exposed via Microgateway](./sample-extension-scala/README.md)
 - [SAP Cloud SDK Java based extension with API exposed via Microgateway](./sample-cloudsdk-java/README.md)
 - [Sample to extend SAP Cloud for Customer with user propagation](./user-propagation/README.md)
+- [Sample to extend SAP Cloud for Customer with user propagation via xsuaa](./user-propagation/README.md)
 - [Micronaut based extension with API exposed via Microgateway](./sample-extension-micronaut/README.md)
 
 ## Helm Charts
