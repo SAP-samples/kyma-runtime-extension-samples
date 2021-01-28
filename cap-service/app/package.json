@@ -1,0 +1,54 @@
+{
+  "name": "faq",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/audit-logging": "^3.2.0",
+    "@sap/cds": "^4.4.5",
+    "@sap/hana-client": "^2.4.177",
+    "@sap/xsenv": "^3.1.0",
+    "@sap/xssec": "^3.0.10",
+    "express": "^4.17.1",
+    "passport": "^0.4.1"
+  },
+  "devDependencies": {
+    "sqlite3": "^5.0.0"
+  },
+  "scripts": {
+    "start": "npx cds run",
+    "debug": "npx --node-arg=--inspect cds run",
+    "deploy:cf": "mbt build && cf deploy mta_archives/faq_1.0.0.mtar -f"
+  },
+  "cds": {
+    "uaa": {
+      "strategy": "mock",
+      "users": {
+        "alice": {
+          "roles": [
+            "admin"
+          ]
+        },
+        "scott": {
+          "roles": [
+            "user"
+          ]
+        }
+      },
+      "[production]": {
+        "kind": "xsuaa"
+      }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    },
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "model": "*"
+      }
+    }
+  }
+}
