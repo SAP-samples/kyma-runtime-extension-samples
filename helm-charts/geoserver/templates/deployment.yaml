@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geoserver
+  labels:
+    app: geoserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: geoserver
+  template:
+    metadata:
+      labels:
+        app: geoserver
+        version: v1
+    spec:
+      containers:
+        - name: geoserver
+          image: remiremi/geoserver4hana
+          #imagePullPolicy: Always
+          #imagePullPolicy: IfNotPresent
+          #Always because I updated the image and the new version was not pulled
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - mountPath: /geoserver/data_dir
+              name: geoserver-datadir
+          env:
+            #Not sure CSRF protection is working. Deactivated in docker image
+            - name: GEOSERVER_CSRF_WHITELIST
+              value: "*.kyma.shoot.live.k8s-hana.ondemand.com,*.svc.cluster.local"
+          resources:
+            limits:
+              memory: 800Mi
+            requests:
+              memory: 700Mi
+      volumes:
+        - name: geoserver-datadir
+          persistentVolumeClaim:
+            claimName: geoserver-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: geoserver
+  labels:
+    app: geoserver
+spec:
+  #clusterIP: None
+  ports:
+  - name: http
+    targetPort: 8080
+    protocol: TCP
+    port: 8080
+  selector:
+    app: geoserver
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: geoserver
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+  - accessStrategies:
+    - config: {}
+      handler: allow
+    methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - HEAD
+    path: /.*
+  service:
+    host: {{.Release.Name}}-{{.Release.Namespace}}
+    name: geoserver
+    port: 8080
