@@ -1,0 +1,14 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: geoserver-pv-claim
+  labels:
+    app: geoserver
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      #just for configuration XML files
+      storage: 300Mi
