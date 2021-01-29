@@ -101,6 +101,8 @@ kubectl -n dev apply -f ./k8s/apirule.yaml
 https://cap-service.{cluster-domain}
 ```
 
-```
+### Examples with HANA DB
 
-```
+https://www.youtube.com/watch?v=kwKr4JbscvY
+
+https://sap-samples.github.io/cloud-cap-risk-management/Kyma/#add-sap-hana-cloud
