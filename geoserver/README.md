@@ -25,28 +25,28 @@ kubectl create namespace geo
 2. Apply the PersistentVolumeClaim:
 
 ```shell script
-kubectl -n geo apply -f ./k8s/geoserver-storage.yaml
+kubectl apply -f ./k8s/geoserver-storage.yaml -n geo
 ```
 This filesystem will be mounted as the data directory, and will contain configuration files including credentials and connection details.
 
 3. Apply the Deployment:
 
-Open [geoserver-deployments](./k8s/geoserver-deployments.yaml) and edit service.host at the bottom of the file to match your cluster url
+Optionaly, you could edit [geoserver-deployments](./k8s/geoserver-deployments.yaml) to customize the service URL.
 
 ```shell script
-kubectl -n geo apply -f ./k8s/geoserver-deployment.yaml
+kubectl apply -f ./k8s/geoserver-deployment.yaml -n geo
 ```
 
 4. Verify that the Pod ad service is up and running:
 
 ```shell script
-kubectl -n geo get pods,svc
+kubectl get pods,svc -n geo
 ```
 
 The expected result shows that the Pod for the `geoserver` Deployment is running:
 
 ```shell script
-% kubectl -n geo get pods,svc
+% kubectl get pods,svc -n geo
 NAME                             READY   STATUS    RESTARTS   AGE
 pod/geoserver-7b5f774c78-lh72w   2/2     Running   0          5h9m
 
@@ -54,7 +54,31 @@ NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 service/geoserver   ClusterIP   100.67.44.241   <none>        8080/TCP   5h9m
 ```
 
-Now you could open a web browser to the url you've specified in the deployment yaml file.
+5. Initial configuration 
+
+Now you could open a web browser to the url https://`<virtual host>.<cluster address>` where
+ * `<virtual host>` is geoserver or the value set in the section service.host of the deployment yaml file
+ * `<cluster address>` is the cluster id and domain name of the kyma console. For instance c-a1b2c3.kyma.shoot.live.k8s-hana.ondemand.com
+
+If you have a web browser opened to the kyma dashboard, you could navigate in the namespace, then in the service section.
+![screenshot](./img/serviceurl.png)
+
+This should take you to the root of the web server.
+![screenshot](./img/rooturl.png)
+
+Just click on /geoserver to enter the webapp!
+
+Remember, the default credentials are admin/geoserver, *and you should change them right away !*
+
+Before adding connections to SAP HANA, you must create a default workspace.
+![screenshot](./img/workspace.png)
+And make sure you tick the option *Default Workspace*
+![screenshot](./img/workspace2.png)
+
+Since the jdbc drivers are pre-installed in the docker image, you can directly define connections to SAP HANA, you could either follow instructions from:
+- [a blog post](https://blogs.sap.com/2019/11/26/open-source-gis-with-sap-hana/)
+- [the documentation](https://docs.geoserver.org/latest/en/user/community/hana/index.html)
+
 
 ## Run the Docker image locally
 
