@@ -72,6 +72,7 @@ Remember, the default credentials are admin/geoserver, *and you should change th
 
 Before adding connections to SAP HANA, you must create a default workspace.
 ![screenshot](./img/workspace.png)
+
 And make sure you tick the option *Default Workspace*
 ![screenshot](./img/workspace2.png)
 
