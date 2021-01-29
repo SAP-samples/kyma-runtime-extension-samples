@@ -1,6 +1,6 @@
 ## Overview
 
-This sample provides a [GeoServer](https://www.geoserver.org) instance with the plugin for SAP HANA Connectivity. Geoserver exposes in a variety of formats spatial data hosted in SAP HANA.
+This sample provides a [GeoServer](https://www.geoserver.org/blog) instance with the plugin for SAP HANA Connectivity. Geoserver exposes in a variety of formats spatial data hosted in SAP HANA.
 
 The docker image used is available [here](https://github.com/remi-sap/geoserver4hana/blob/master/Dockerfile). 
 
@@ -54,7 +54,7 @@ NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 service/geoserver   ClusterIP   100.67.44.241   <none>        8080/TCP   5h9m
 ```
 
-5. Initial configuration 
+## Initial Configuration 
 
 Now you could open a web browser to the url https://`<virtual host>.<cluster address>` where
  * `<virtual host>` is geoserver or the value set in the section service.host of the deployment yaml file
