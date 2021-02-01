@@ -11,11 +11,11 @@ spec:
       app: cap-service 
   template:
     metadata:
-      labels: # labels to selec  t/identify the deployment
+      labels: # labels to select/identify the deployment
         app: cap-service  
     spec:     # pod spec                  
       containers: 
-      - image: jcawley5/cap-service:1.0 # image we pushed
+      - image: jcawley5/cap-service:latest # image we pushed
         name: cap-service  
         imagePullPolicy: Always
         ports:
