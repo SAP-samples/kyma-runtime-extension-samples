@@ -15,7 +15,7 @@ spec:
         app: cap-service  
     spec:     # pod spec                  
       containers: 
-      - image: jcawley5/cap-service:1.0 # image we pushed
+      - image: jcawley5/cap-service:latest # image we pushed
         name: cap-service  
         imagePullPolicy: Always
         ports:
