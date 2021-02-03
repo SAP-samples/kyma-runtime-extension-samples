@@ -1,4 +1,4 @@
-# use a Node version wich is new enough
+# Use the Node version that matches the version you have installed locally
 FROM node:12.18.1
 # Create app directory, in which the CAP service is built
 WORKDIR /usr/src/app
