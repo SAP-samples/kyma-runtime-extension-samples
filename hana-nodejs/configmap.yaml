@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hanadb-nodejs
+  labels:
+    app: hanadb-nodejs
+data:
+  host: "*******.hana.trial-us10.hanacloud.ondemand.com"
+  port: "443"
