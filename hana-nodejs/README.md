@@ -43,7 +43,7 @@ docker push {docker id}/hanadb-nodejs
 To run the image locally
 
 ```Shell/Bash
-docker run -e HDB_HOST=\*\*\*\*\*.hana.trial-us10.hanacloud.ondemand.com -e HDB_PORT=443 -e NODE_ENV=production -p 3000:3000 -d {docker id}/hanadb-nodejs
+docker run -e HDB_HOST=*******.hana.trial-us10.hanacloud.ondemand.com -e HDB_PORT=443 -e NODE_ENV=production -p 3000:3000 -d {docker id}/hanadb-nodejs
 ```
 
 ### Deploy the application
