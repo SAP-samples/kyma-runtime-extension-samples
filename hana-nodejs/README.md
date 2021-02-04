@@ -4,7 +4,7 @@ Create a SAP HANA Cloud instance as describe in the first tutorial and complete 
 
 - [hana-clients-choose-hana-instance](https://developers.sap.com/tutorials/hana-clients-choose-hana-instance.html)
 - [hana-clients-install](https://developers.sap.com/tutorials/hana-clients-install.html)
-- [hana-clients-hdbsql.](https://developers.sap.com/tutorials/hana-clients-hdbsql.html)
+- [hana-clients-hdbsql](https://developers.sap.com/tutorials/hana-clients-hdbsql.html)
 
 ## Run the app locally
 
