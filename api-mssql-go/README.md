@@ -6,13 +6,13 @@ This sample provides a Golang API endpoint for communication with the MS SQL dat
 
 For the `database-mssql` example, use the `deployment.yaml` file. It provides the Deployment definition as well as an APIRule to expose the Function without authentication. The Deployment also contains a ConfigMap and a Secret with the following parameters for the `database-mssql` example that you can configure to modify the default options:
 
-| Parameter    | Value                                    |
-| ------------ | ---------------------------------------- |
-| **database** | `DemoDB`                                 |
-| **host**     | `mssql-deployment.dev.svc.cluster.local` |
-| **password** | `Yukon900`                               |
-| **username** | `sa`                                     |
-| **port**     | `1433`                                   |
+| Parameter    | Value                         |
+| ------------ | ----------------------------- |
+| **database** | `DemoDB`                      |
+| **host**     | `mssql.dev.svc.cluster.local` |
+| **password** | `Yukon900`                    |
+| **username** | `sa`                          |
+| **port**     | `1433`                        |
 
 This sample demonstrates how to:
 
@@ -37,7 +37,6 @@ This sample demonstrates how to:
   - Trigger
   - ServiceBinding
   - ServiceBindingUsage
-
 
 ## Prerequisites
 
@@ -120,9 +119,9 @@ kubectl -n dev get deployment api-mssql-go
 ```
 
 7. Use the APIRule:
-  - `https://api-mssql-go.{cluster-domain}/orders`
-  - `https://api-mssql-go.{cluster-domain}/orders/10000001`
 
+- `https://api-mssql-go.{cluster-domain}/orders`
+- `https://api-mssql-go.{cluster-domain}/orders/10000001`
 
 ### Deploy the API - Azure MS SQL database example
 
@@ -142,10 +141,9 @@ For example:
 
 | NAME                                  | CLASS                       | PLAN  | STATUS | AGE |
 | ------------------------------------- | --------------------------- | ----- | ------ | --- |
-| ***azure-sql-12-0-unkempt-entrance*** | ServiceClass/azure-sql-12-0 | basic | Ready  | 63m |
+| **_azure-sql-12-0-unkempt-entrance_** | ServiceClass/azure-sql-12-0 | basic | Ready  | 63m |
 
-
-3. Within the `deployment-servicebinding.yaml`, adjust the name of the **instanceRef** property of the corresponding ServiceBinding:  
+3. Within the `deployment-servicebinding.yaml`, adjust the name of the **instanceRef** property of the corresponding ServiceBinding:
 
 ```yaml
 apiVersion: servicecatalog.k8s.io/v1beta1
@@ -153,8 +151,7 @@ kind: ServiceBinding
 metadata:
   name: azure-sql
 spec:
-  instanceRef:
-    name:<b>azure-sql-12-0-unkempt-entrance</b>
+  instanceRef: name:<b>azure-sql-12-0-unkempt-entrance</b>
 ```
 
 4. Apply the Deployment:
@@ -167,11 +164,12 @@ kubectl -n dev apply -f ./k8s/deployment-servicebinding.yaml
 
 The Event Trigger works for both samples. It expects that either SAP Commerce Cloud or the Commerce Mock application is connected and configured within the Namespace. You can find a blog post with details on the Commerce Mock setup [here](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-commerce-mock-events-and-apis/).
 
-The trigger and code within the Golang application are set up for the `order.created` event. Before you deploy the trigger, verify that the value of the source matches the name of your application.  
+The trigger and code within the Golang application are set up for the `order.created` event. Before you deploy the trigger, verify that the value of the source matches the name of your application.
 
 1. Apply the Deployment:
 
 ```shell script
 kubectl -n dev apply -f ./k8s/event-trigger.yaml
 ```
+
 2. Within the mock application, submit the `order.created` event. This populates the database with the submitted order code and the `order received from event` notification.

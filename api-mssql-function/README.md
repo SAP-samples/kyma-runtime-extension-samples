@@ -2,14 +2,14 @@
 
 This sample provides a Serverless Function configured as an API endpoint for communication with the MS SQL database that you can find in the `database-mssql` folder. You can also configure the API endpoint to use the database example provided in the `database-azure-mssql` folder. The `deployment.yaml` defines the Function definition as well as an APIRule to expose the Function without authentication. The Deployment contains the following parameters for the `database-mssql` example that you can configure to modify the default options:
 
-| Parameter     | Value                                  |
-| -------- | -------------------------------------- |
-| **database** | `DemoDB`                                 |
-| **host**     | `mssql-deployment.dev.svc.cluster.local` |
-| **password** | `Yukon900`                               |
-| **username** | `sa`                                     |
+| Parameter    | Value                         |
+| ------------ | ----------------------------- |
+| **database** | `DemoDB`                      |
+| **host**     | `mssql.dev.svc.cluster.local` |
+| **password** | `Yukon900`                    |
+| **username** | `sa`                          |
 
->**Note:** If you use the `database-azure-mssql` example, remove the parameters provided by the Function and use the ServiceInstance instead.
+> **Note:** If you use the `database-azure-mssql` example, remove the parameters provided by the Function and use the ServiceInstance instead.
 
 This sample demonstrates how to:
 
@@ -44,5 +44,6 @@ kubectl -n dev get function api-mssql-function
 ```
 
 4. Use the APIRule:
-  - `https://api-mssql-function.{cluster-domain}/orders`
-  - `https://api-mssql-function.{cluster-domain}/orders/10000001`
+
+- `https://api-mssql-function.{cluster-domain}/orders`
+- `https://api-mssql-function.{cluster-domain}/orders/10000001`

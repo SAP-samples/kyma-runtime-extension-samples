@@ -11,7 +11,7 @@ spec:
     - name: database
       value: DemoDB
     - name: host
-      value: mssql-deployment.dev.svc.cluster.local
+      value: mssql.dev.svc.cluster.local
     - name: password
       value: Yukon900
     - name: username
