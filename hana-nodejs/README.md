@@ -1,6 +1,6 @@
 ## Set SAP HANA Cloud instance
 
-Create a SAP HANA Cloud instance as describe in the first tutorials and complete the other two.
+Create a SAP HANA Cloud instance as describe in the first tutorial and complete the other two.
 
 - [hana-clients-choose-hana-instance](https://developers.sap.com/tutorials/hana-clients-choose-hana-instance.html)
 - [hana-clients-install](https://developers.sap.com/tutorials/hana-clients-install.html)
