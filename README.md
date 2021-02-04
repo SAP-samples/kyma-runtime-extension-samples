@@ -19,6 +19,7 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 
 - [App Reverse Proxy with OIDC Authentication Middleware](./app-auth-proxy/README.md)
 - [SAAS Provisioning Sample](./saas-provisioning/README.md)
+- [HANA Cloud NodeJS API](./hana-nodejs/README.md)
 - [Java-based microservice as an Event Trigger using CloudEvents SDK](./sample-event-trigger-java/README.md)
 - [Java-based extension with API exposed via Microgateway](./sample-extension-java/README.md)
 - [MS SQL database](./database-mssql/README.md)
