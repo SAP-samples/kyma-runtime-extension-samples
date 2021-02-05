@@ -74,3 +74,12 @@ kubectl -n dev apply -f ./k8s/configmap.yaml
 1. Use the APIRule to open the application:
 
 https://hanadb-nodejs.{cluster-domain}
+
+### Other Information
+
+If you would like to set the HANA Cloud firewall to limit IP Addresses, the following query can be ran to determine the callers IPs.
+
+```shell script
+select * from M_CONNECTIONS
+where user_name LIKE 'USER1'
+```
