@@ -1,3 +1,12 @@
+This sample demostrates how SAP HANA Cloud can be utilized within the Kyma runtime.
+
+## Prerequisites
+
+- SAP BTP, Kyma runtime instance
+- [Docker](https://www.docker.com/)
+- [Node.js](https://nodejs.org/en/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime.
+
 ## Set SAP HANA Cloud instance
 
 Create a SAP HANA Cloud instance as describe in the first tutorial and complete the other two.
