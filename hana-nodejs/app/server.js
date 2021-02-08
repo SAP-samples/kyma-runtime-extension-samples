@@ -8,8 +8,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 var config = {
     serverNode: process.env.HDB_HOST + ":" + process.env.HDB_PORT,
-    UID: 'USER1',
-    PWD: 'Password1'
+    UID: process.env.HDB_USER,
+    PWD: process.env.HDB_PASSWORD
 };
 
 app.get('/', function (req, res) {

@@ -32,6 +32,16 @@ spec:
               configMapKeyRef:
                 name: hanadb-nodejs
                 key: port
+          - name: HDB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: hanadb-nodejs
+                key: password
+          - name: HDB_USER
+            valueFrom:
+              secretKeyRef:
+                name: hanadb-nodejs
+                key: user
           - name: NODE_ENV
             value: production
 ---

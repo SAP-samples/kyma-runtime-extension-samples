@@ -30,6 +30,8 @@ npm install
 ```Shell/Bash
 export HDB_HOST=**********.hana.trial-us10.hanacloud.ondemand.com
 export HDB_PORT=443
+export HDB_USER=USER1
+export HDB_PASSWORD=Password1
 ```
 
 ### Start the app
@@ -52,7 +54,7 @@ docker push {docker id}/hanadb-nodejs
 To run the image locally
 
 ```Shell/Bash
-docker run -e HDB_HOST=*******.hana.trial-us10.hanacloud.ondemand.com -e HDB_PORT=443 -e NODE_ENV=production -p 3000:3000 -d {docker id}/hanadb-nodejs
+docker run -e HDB_HOST=*******.hana.trial-us10.hanacloud.ondemand.com -e HDB_PORT=443 -e NODE_ENV=production -e HDB_USER=USER1 -e HDB_PASSWORD=Password1 -p 3000:3000 -d {docker id}/hanadb-nodejs
 ```
 
 ### Deploy the application
@@ -69,6 +71,7 @@ kubectl create namespace dev
 kubectl -n dev apply -f ./k8s/deployment.yaml
 kubectl -n dev apply -f ./k8s/apirule.yaml
 kubectl -n dev apply -f ./k8s/configmap.yaml
+kubectl -n dev apply -f ./k8s/secret.yaml
 ```
 
 1. Use the APIRule to open the application:
