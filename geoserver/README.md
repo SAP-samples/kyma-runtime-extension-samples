@@ -6,7 +6,7 @@ The docker image used is available [here](./docker/Dockerfile).
 
 ## Prerequisites
 
-- SAP Cloud Platform, Kyma runtime instance
+- SAP BTP, Kyma runtime instance
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime.
 - A HANA Cloud instance
 
