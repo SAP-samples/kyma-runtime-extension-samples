@@ -1,0 +1,14 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: orders-list-api
+spec:
+  deps: "{ \n  \"name\": \"orders-list-api\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+    {\n  }\n}"
+  runtime: nodejs12
+  source: |
+    module.exports = { main: function (event, context) {
+        const {response, request: {headers}} = event.extensions;
+        response.setHeader("Content-Type", "application/json");
+        return `[{"orderid": "00000001", "description": "First sample order", "amount": "100.00"},{"orderid": "00000002", "description": "Second sample order", "amount": "102.00"},{"orderid": "00000003", "description": "Third sample order", "amount": "402.00"}]`;
+    } }
