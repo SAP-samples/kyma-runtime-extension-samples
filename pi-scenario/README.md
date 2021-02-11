@@ -1,4 +1,4 @@
-This sample demostrates how Integration and the Kyma runtime can interact with each other. Two samples are provided, one where Integration calls Kyma and one where Kyma calls Integration.
+This sample demostrates how Process Integration and the Kyma runtime can interact with each other. Two samples are provided, one where Integration calls Kyma and one where Kyma calls Integration.
 
 ### Prerequistes
 
