@@ -99,6 +99,18 @@ kubectl -n dev apply -f ./k8s/call-kyma-api/apirule.yaml
 
 ## Integration Setup
 
+### Add Kyma Root Certificate
+
+To setup trust between Integration and the Kyma runtime, the root certificate of Kyma will need to be added into the Integration tenant.
+
+1. Navigate to [dst-root-ca-x3](https://www.identrust.com/dst-root-ca-x3)
+2. Copy and Paste the DST Root certificate into a text file on your computer, saving it as `kyma.cer`.
+3. Within the Integration tenant choose the menu option `Monitor`.
+4. Choose the `Keystore` tile.
+5. Choose `Add` -> `Certificate`
+6. Choose `Browse` and select the save root certificate `kyma.cer`, do not provide an Alias
+7. Choose `Add` and Confirm Cert
+
 ### Configure the Kyma API OAuth Credential
 
 1. Within the Integration tenant choose the menu option `Monitor`.
