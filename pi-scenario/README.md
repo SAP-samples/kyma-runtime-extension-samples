@@ -118,7 +118,7 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 3. Choose the `Create` drop down and choose `OAuth2 Client Credentials` and provide the values:
    1. Name: kyma
    2. Grant type: Client Credentials
-   3. Token Service URL: https://oauth2.<kyma cluster>/oauth2/token
+   3. Token Service URL: `https://oauth2.<kyma cluster>/oauth2/token`
    4. Client ID: the value from the kyma oauth client
    5. Client Secret: the value from the kyma oauth client
    6. Client Authentication: Send as Request Header
@@ -134,7 +134,7 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 7. Within `Kyma Samples`, choose the Artifacts tab.
 8. Choose the `call-kyma-api` artifact to open it.
 9. Choose the `Configure` option and provide following values:
-   1. Address: https://cpi-api-read-oauth.<kyma cluster>
+   1. Address: `https://cpi-api-read-oauth.<kyma cluster>`
    2. Credential Name: kyma
 10. Save the changes.
 
