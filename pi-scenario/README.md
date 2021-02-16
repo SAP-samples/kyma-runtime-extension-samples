@@ -173,19 +173,23 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 #### Test the Scenario
 
 6. These steps can be done with a tool such as Postman or using Curl as shown here.
-7. Run the following command to set the values into environment variables:
+7. Grab the Integration Flow's URL by performing the following steps:
+    1. Within the Integration tenant choose the menu option `Monitor`.
+    2. Go to `Manage Integration Content` -> `Started` Tile
+    3. Verify that 'call-kyma-api' Integration Flow is in the started state. Copy the URL (https://`<tenant url>`/http/kyma/api) from the `Endpoints` tab.
+8. Run the following command to set the values into environment variables:
 
    ```shell script
-   export INTEGRATION_FLOW_URL='<integration-flow tokenurl>'
+   export INTEGRATION_FLOW_URL='<integration-flow deployed iflow url>'
    export CLIENT_ID='<integration-flow client id>'
    export CLIENT_SECRET='<integration-flow client secret>'
    export ENCODED_CREDENTIALS=$(echo -n "$CLIENT_ID:$CLIENT_SECRET" | base64)
    ```
 
-8. Send the request to validate the scenario:
+9. Send the request to validate the scenario:
 
    ```shell script
-   curl -X POST $INTEGRATION_FLOW_URL -H "Authorization: Basic $ENCODED_CREDENTIALS" -H "Content-Type: application/x-www-form-urlencoded"  --data-urlencode "grant_type=client_credentials"
+   curl $INTEGRATION_FLOW_URL -H "Authorization: Basic $ENCODED_CREDENTIALS" -H "Content-Type: application/json"
    ```
 
    A succesfully call should respond with
