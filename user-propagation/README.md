@@ -65,8 +65,8 @@ You will end up creating a Destination Service in SAP Cloud Platform. It will be
   ![http-destination](assets/http-destination.png)
 
   Configure these additional properties:
-  `authnContextClassRef` : `urn:none`
-  `scope`                : `UIWC:CC_HOME`
+  `scope`                      : `UIWC:CC_HOME`
+  `x_user_token.jwks_uri`      : `Provide URI of the JSON web key set`
 
 ### Identifier used by the Destination Service to get the token
 
