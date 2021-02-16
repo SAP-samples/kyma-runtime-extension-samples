@@ -1,4 +1,4 @@
-This sample demostrates how Process Integration and the Kyma runtime can interact with each other. Two samples are provided, one where Integration calls Kyma and one where Kyma calls Integration.
+This sample details two use cases; the first showing how a call originating from Process Integration can call the Kyma Runtime and the second showing how a call originating from Kyma can call Process Integration.
 
 ### Prerequistes
 
@@ -174,9 +174,9 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 
 6. These steps can be done with a tool such as Postman or using Curl as shown here.
 7. Grab the Integration Flow's URL by performing the following steps:
-    1. Within the Integration tenant choose the menu option `Monitor`.
-    2. Go to `Manage Integration Content` -> `Started` Tile
-    3. Verify that 'call-kyma-api' Integration Flow is in the started state. Copy the URL (https://`<tenant url>`/http/kyma/api) from the `Endpoints` tab.
+   1. Within the Integration tenant choose the menu option `Monitor`.
+   2. Go to `Manage Integration Content` -> `Started` Tile
+   3. Verify that 'call-kyma-api' Integration Flow is in the started state. Copy the URL (https://`<tenant url>`/http/kyma/api) from the `Endpoints` tab.
 8. Run the following command to set the values into environment variables:
 
    ```shell script
