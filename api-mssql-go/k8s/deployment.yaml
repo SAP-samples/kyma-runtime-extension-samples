@@ -15,8 +15,7 @@ spec:
         app: api-mssql-go
     spec:
       containers:
-        # replace the repository URL with your own repository
-        - image: jcawley5/api-mssql-go:latest
+        - image: jcawley5/api-mssql-go:latest #change it to your image
           imagePullPolicy: Always
           name: api-mssql-go
           ports:
