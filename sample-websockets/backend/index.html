@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kyma WebSocket example</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css"
+          rel="stylesheet">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Kyma WebSocket example</h1>
+    <hr>
+    WebSocket status : <span id="message"></span>
+    <hr>
+    <h3>Events received</h3>
+    <table id="eventsTable">
+    </table>
+</div>
+<script>
+    var host = window.location.host;
+    var ws = new WebSocket('wss://'+host+'/ws');
+    var $message = $('#message');
+
+    ws.onopen = function(){
+      $message.attr("class", 'label label-success');
+      $message.text('open');
+    };
+    ws.onmessage = function(ev){
+      $message.attr("class", 'label label-info');
+      $message.hide();
+      $message.fadeIn("slow");
+      $message.text('received message');
+
+      var json = JSON.parse(ev.data);
+      var table = document.getElementById("eventsTable");
+      var row = table.insertRow(0);
+      var cel1 = row.insertCell(0);
+      cell1.innerHTML = json;
+    };
+    ws.onclose = function(ev){
+      $message.attr("class", 'label label-important');
+      $message.text('closed');
+    };
+    ws.onerror = function(ev){
+      $message.attr("class", 'label label-warning');
+      $message.text('error occurred');
+    };
+</script>
+</body>
+</html>

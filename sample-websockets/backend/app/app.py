@@ -9,6 +9,14 @@ from tornado import web
 wscs = []
 
 
+class IndexHandler(web.RequestHandler):
+    def data_received(self, chunk: bytes) -> Optional[Awaitable[None]]:
+        pass
+
+    def get(self):
+        self.render("index.html")
+
+
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
     def data_received(self, chunk: bytes) -> Optional[Awaitable[None]]:
         pass
@@ -44,6 +52,7 @@ class ApiHandler(web.RequestHandler):
 
 
 application = tornado.web.Application([
+    (r"/", IndexHandler),
     (r"/ws", WebSocketHandler),
     (r"/events", ApiHandler)
 ])

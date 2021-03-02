@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: websocket-backend
+  name: websocket-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: websocket-backend
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: websocket-backend
+    spec:
+      containers:
+      - image: gabbi/sample-kyma-websocket-backend:0.0.1
+        name: sample-kyma-websocket-backend
+        resources: {}
+        ports:
+        - containerPort: 8888
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: websocket-backend
+  name: websocket-backend
+spec:
+  ports:
+  - port: 8888
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    app: websocket-backend
+status:
+  loadBalancer: {}
+---
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Trigger
+metadata:
+  labels:
+    eventing.knative.dev/broker: default
+  name: websocket-backend
+spec:
+  broker: default
+  filter:
+    attributes:
+      eventtypeversion: v1
+      source: mp-gaurav-mock-commerce
+      type: order.created
+  subscriber:
+    uri: http://websocket-backend.dev.svc.cluster.local:8888/events
+status: {}
+---
