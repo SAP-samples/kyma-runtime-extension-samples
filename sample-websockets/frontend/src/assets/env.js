@@ -2,8 +2,8 @@
   window["env"] = window["env"] || {};
 
   // Environment variables
-  window["env"]["issuer"] = "https://kyma-quest.eu.auth0.com/";
-  window["env"]["clientId"] = "5qXkgnXJT36rDyibq4FzBIT9TfGx2oCD";
-  window["env"]["backendApiUrl"] = "https://tornado-allow.ed72781.kyma-stage.shoot.live.k8s-hana.ondemand.com/ws";
-  window["env"]["backendWsUrl"] = "wss://tornado-allow.ed72781.kyma-stage.shoot.live.k8s-hana.ondemand.com/ws";
+  window["env"]["issuer"] = "https://issuer/";
+  window["env"]["clientId"] = "provide-client-id";
+  window["env"]["backendApiUrl"] = "https://backend.api.url"
+  window["env"]["backendWsUrl"] = "wss://backend.websocket.url";
 })(this);
