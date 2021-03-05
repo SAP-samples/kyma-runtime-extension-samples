@@ -28,11 +28,11 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         print("New client connected")
         if self not in wscs:
             wscs.append(self)
-        self.write_message("You are connected")
+        # self.write_message("You are connected")
 
     def on_message(self, message):
-        print("message received")
-        self.write_message("from server--" + message)
+        print("message received: " + message)
+        # self.write_message("from server--" + message)
 
     def on_close(self) -> None:
         if self in wscs:
