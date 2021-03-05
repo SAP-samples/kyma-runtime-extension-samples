@@ -13,8 +13,7 @@
     WebSocket status : <span id="message"></span>
     <hr>
     <h3>Events received</h3>
-    <table id="eventsTable">
-    </table>
+    <ul id="events"></ul>
 </div>
 <script>
     var host = window.location.host;
@@ -32,10 +31,10 @@
       $message.text('received message');
 
       var json = JSON.parse(ev.data);
-      var table = document.getElementById("eventsTable");
-      var row = table.insertRow(0);
-      var cel1 = row.insertCell(0);
-      cell1.innerHTML = json;
+      var ul = document.getElementById("events");
+      var li = document.createElement("li");
+      li.appendChild(document.createTextNode(JSON.stringify(json)));
+      ul.appendChild(li);
     };
     ws.onclose = function(ev){
       $message.attr("class", 'label label-important');
