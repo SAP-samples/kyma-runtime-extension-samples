@@ -106,7 +106,8 @@ go run ./cmd/proxy
 
 5. Accessible endpoints include
    - http://localhost:8000/
-   -
+   - http://localhost:8000/auth/user
+   - http://localhost:8000/auth/groups
 
 ### Build the Docker image
 
