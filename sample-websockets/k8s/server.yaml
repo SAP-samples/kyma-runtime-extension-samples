@@ -3,23 +3,23 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: websocket-backend
-  name: websocket-backend
+    app: websocket-server
+  name: websocket-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: websocket-backend
+      app: websocket-server
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: websocket-backend
+        app: websocket-server
     spec:
       containers:
-      - image: gabbi/sample-kyma-websocket-backend:0.0.1
-        name: sample-kyma-websocket-backend
+      - image: gabbi/sample-kyma-websocket-server:0.0.1
+        name: sample-kyma-websocket-server
         resources: {}
         ports:
         - containerPort: 8888
@@ -30,15 +30,15 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: websocket-backend
-  name: websocket-backend
+    app: websocket-server
+  name: websocket-server
 spec:
   ports:
   - port: 8888
     protocol: TCP
     targetPort: 8888
   selector:
-    app: websocket-backend
+    app: websocket-server
 status:
   loadBalancer: {}
 ---
@@ -47,7 +47,7 @@ kind: Trigger
 metadata:
   labels:
     eventing.knative.dev/broker: default
-  name: websocket-backend
+  name: websocket-server
 spec:
   broker: default
   filter:
@@ -56,6 +56,29 @@ spec:
       source: mp-gaurav-mock-commerce
       type: order.created
   subscriber:
-    uri: http://websocket-backend.dev.svc.cluster.local:8888/events
+    uri: http://websocket-server.dev.svc.cluster.local:8888/events
 status: {}
 ---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: websocket-backend
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+  - accessStrategies:
+    - config: {}
+      handler: noop
+    methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - HEAD
+    path: /.*
+  service:
+    host: websocket-backend
+    name: websocket-backend
+    port: 8888
+status: {}
