@@ -37,6 +37,7 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [Sample to extend SAP Cloud for Customer with user propagation via xsuaa](./user-propagation/README.md)
 - [Micronaut based extension with API exposed via Microgateway](./sample-extension-micronaut/README.md)
 - [GeoServer for a geospatial middleware over HANA Cloud](./geoserver/README.md)
+- [Sample deploying a websocket based extension on Kyma](./sample-websockets/README.md)
 
 ## Helm Charts
 
