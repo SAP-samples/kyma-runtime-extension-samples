@@ -41,10 +41,15 @@ Kyma supports the upgrade of the HTTP connection to websocket connection out-of-
 kubectl -n {provide-namespace} apply -f k8s/server.yaml
 ```
 
-The YAML definition contains
+The YAML definition contains:
 
-* K8s deployment and service which provides a backend implementation for websocket in python and a HTML file for quick testing.
+* K8s deployment and service which provides a [backend implementation](server/app/app.py) for websocket in python and a HTML file for quick testing.
 * A event trigger to receive `order.created` event on `/events` endpoint.
 * An API Rule to expose the service over internet.
+* Simply access the API rule and send the events from you connected SAP Commerce Cloud system.
 
 It is also possible to secure the exposed endpoing with JWT or OAuth2.
+
+## Demo
+
+![demo](assets/demo.gif)
