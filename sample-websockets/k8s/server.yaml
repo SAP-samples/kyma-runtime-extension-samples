@@ -18,7 +18,7 @@ spec:
         app: websocket-server
     spec:
       containers:
-      - image: gabbi/sample-kyma-websocket-server:0.0.1
+      - image: gabbi/sample-kyma-websocket-server:0.0.4
         name: sample-kyma-websocket-server
         resources: {}
         ports:
@@ -62,7 +62,7 @@ status: {}
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
-  name: websocket-backend
+  name: websocket-server
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   rules:
@@ -78,7 +78,7 @@ spec:
     - HEAD
     path: /.*
   service:
-    host: websocket-backend
-    name: websocket-backend
+    host: websocket-server
+    name: websocket-server
     port: 8888
 status: {}
