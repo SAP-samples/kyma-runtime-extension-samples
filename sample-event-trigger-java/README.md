@@ -20,7 +20,7 @@ This sample demonstrates how to:
 
 ## Prerequisites
 
-* SAP Cloud Platform, Kyma runtime instance
+* SAP BTP, Kyma runtime instance
 * [Docker](https://www.docker.com/)
 * [make](https://www.gnu.org/software/make/)
 * [Gradle](https://gradle.org/)
