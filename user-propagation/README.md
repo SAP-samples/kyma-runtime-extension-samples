@@ -160,7 +160,9 @@ It makes another call to create a C4C task for the logged-in user.
 
 Follow these steps:
 
-* Update the [deployment file](k8s/angular-app.yaml). Provide values for `HTTP_BIN`, `OIDC_URL`, and `C4C_EXT_URL`.
+* Update the [deployment file](k8s/angular-app.yaml). Provide values for `HTTP_BIN`, `OIDC_URL`, `OIDC_CLIENT_ID` and `C4C_EXT_URL`.
+
+  * `OIDC_CLIENT_ID` is the Client Id for the registered application in SAP Cloud Platform Identity Authentication Service tenant.
 
 * Deploy the app:
 

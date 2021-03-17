@@ -18,7 +18,7 @@ spec:
         app: kyma-identity-propagation-spa
     spec:
       containers:
-      - image: gabbi/kyma-identity-propagation-spa:0.0.3
+      - image: gabbi/kyma-identity-propagation-spa:0.0.4
         name: kyma-identity-propagation-spa
         resources: {}
         ports:
@@ -30,6 +30,8 @@ spec:
           value: "https://{provide-sap-cloud-identity-tenant-domain}/.well-known/openid-configuration"
         - name: C4C_EXT_URL
           value: "https://c4c-extension-with-user-context.{provide-kyma-cluster-domain}"
+        - name: OIDC_CLIENT_ID
+          value: "{provide-oidc-client-id}"
 status: {}
 ---
 apiVersion: v1

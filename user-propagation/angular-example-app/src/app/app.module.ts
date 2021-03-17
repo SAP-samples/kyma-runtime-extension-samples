@@ -53,7 +53,7 @@ export class AppModule {
         const config: OpenIdConfiguration = {
             stsServer: configResult.customConfig.stsServer,
             redirect_url: window.location.origin + '/',
-            client_id: 'T000000',
+            client_id: environment.oidcClientId,
             scope: 'openid',
             response_type: 'id_token',
             log_console_debug_active: true,
