@@ -1,0 +1,16 @@
+{
+  "generator-easy-ui5": {
+    "projectname": "userprop",
+    "namespace": "com.sample",
+    "platform": "Static webserver",
+    "viewtype": "XML",
+    "viewname": "main",
+    "ui5libs": "Local resources (OpenUI5)",
+    "newdir": false,
+    "namespaceURI": "com/sample",
+    "uimodules": [
+      "uimodule"
+    ],
+    "setupCompleted": true
+  }
+}

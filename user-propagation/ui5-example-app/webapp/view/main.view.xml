@@ -1,0 +1,22 @@
+ <mvc:View controllerName="com.sample.userprop.controller.main"
+  displayBlock="true"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc">
+  <App id="idAppControl" >
+    <pages>
+      <Page title="{i18n>title}: {user>/mail}">
+        <content>
+          <HBox class="sapUiSmallMargin">
+            <Label text="{i18n>subject}" class="sapUiSmallMarginTop sapUiSmallMarginEnd" />
+            <Input
+              type="Text"
+              id="subjectInput"
+              class="sapUiSmallMarginBottom"/>
+            <Button text="{i18n>createTask}" press="createTask" />
+          </HBox>
+          <Text class="sapUiSmallMargin" id="taskResult" />
+        </content>
+      </Page>
+    </pages>
+  </App>
+</mvc:View>
