@@ -26,7 +26,7 @@ sap.ui.define(
       sendRequest: async function (path, opts = {}) {
         const headers = Object.assign({}, opts.headers || {}, {
           "Content-type": "application/json; charset=UTF-8",
-          authorization: "bearer " + this.getIdTokenFromURL(),
+          authorization: "bearer " + this.getIdToken(),
         });
 
         console.log(headers);
@@ -53,9 +53,9 @@ sap.ui.define(
         return oModel.getProperty("/apiUrl");
       },
 
-      getIdTokenFromURL: function () {
-        var hash = location.hash;
-        return hash.split("&")[0].split("=")[1];
+      getIdToken: function () {
+        var oModel = this.getModel("user");
+        return oModel.getProperty("/id_token");
       },
     });
   }

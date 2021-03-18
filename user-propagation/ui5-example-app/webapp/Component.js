@@ -49,7 +49,6 @@ sap.ui.define(
       authHandler: function () {
         var oModel = this.getModel("config");
         var settings = oModel.getProperty("/");
-        console.log(settings);
 
         this.mgr = new Oidc.UserManager(settings);
 
@@ -78,9 +77,8 @@ sap.ui.define(
         this.mgr
           .signinRedirectCallback()
           .then(function (response) {
-            var signinResponse = response;
-            userMdl.setData(signinResponse.profile);
-            console.log(userMdl);
+            response.profile.id_token = response.id_token;
+            userMdl.setData(response.profile);
             me.setModel(userMdl, "user");
           })
           .catch(function (err) {
