@@ -9,4 +9,3 @@ deployer/resources/
 Makefile*
 mta-*
 approuter/*/webapp/
-user-propagation/ui5-example-app/webapp/config.json
