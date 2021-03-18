@@ -25,10 +25,10 @@ The JWT token received in Kyma needs to be exchanged for an OAuth2 token that ca
 
 ## Prerequisites
 
-* SAP Cloud Platform, Kyma runtime instance
-* SAP Cloud for Customer tenant
-* SAP Cloud Platform Identity Authentication Service tenant
-* OAuth 2.0-based authentication between IAS, SAP Cloud Platform, and C4C requires the same user ID to exist in both IAS and C4C.
+- SAP Cloud Platform, Kyma runtime instance
+- SAP Cloud for Customer tenant
+- SAP Cloud Platform Identity Authentication Service tenant
+- OAuth 2.0-based authentication between IAS, SAP Cloud Platform, and C4C requires the same user ID to exist in both IAS and C4C.
 
 ## Configuration
 
@@ -44,29 +44,29 @@ Configure user propagation between C4C and Kyma runtime.
 
 You will end up creating a Destination Service in SAP Cloud Platform. It will be later on used by the microservice to do the token exchange.
 
-* Download the `Trust` certificate from **Subaccount** --> **Destinations** --> **Download Trust**.
+- Download the `Trust` certificate from **Subaccount** --> **Destinations** --> **Download Trust**.
   ![download-trust](assets/download-trust.png)
 
-* Log on to your C4C system as an administrator. Go to **ADMINISTRATOR** --> **Common Tasks**. Choose **Configure OAuth 2.0 Identity Provider** and select **New OAuth2.0 Provider**.
+- Log on to your C4C system as an administrator. Go to **ADMINISTRATOR** --> **Common Tasks**. Choose **Configure OAuth 2.0 Identity Provider** and select **New OAuth2.0 Provider**.
 
-  * Get the issuing entity name from the certificate. You can use OpenSSL to view certificate details.
+  - Get the issuing entity name from the certificate. You can use OpenSSL to view certificate details.
 
     ```shell script
     openssl x509 -in {cert path} -text -noout
     ```
 
-  * Upload the certificate.
-  ![new-oauth2-provider](assets/new-oauth2-provider.png)
+  - Upload the certificate.
+    ![new-oauth2-provider](assets/new-oauth2-provider.png)
 
-* Register an Oauth2 Client in C4C.
+- Register an Oauth2 Client in C4C.
   ![register-oauth-client](assets/register-oauth-client.png)
 
-* Create a destination in SAP Cloud Platform. Under your subaccount, go to **Connectivity** --> **Destinations**.
+- Create a destination in SAP Cloud Platform. Under your subaccount, go to **Connectivity** --> **Destinations**.
   ![http-destination](assets/http-destination.png)
 
   Configure these additional properties:
-  `scope`                      : `UIWC:CC_HOME`
-  `x_user_token.jwks_uri`      : `Provide URI of the JSON web key set`
+  `scope` : `UIWC:CC_HOME`
+  `x_user_token.jwks_uri` : `Provide URI of the JSON web key set`
 
 ### Identifier used by the Destination Service to get the token
 
@@ -83,17 +83,17 @@ httpbin is a service that returns all the request headers to the `/headers` endp
 
 It is used for demonstrating and verifying that the token is forwarded from the API Gateway to the microservice.
 
-* Deploy httpbin.
+- Deploy httpbin.
 
-    ```shell script
-    kubectl -n identity-propagation apply -f https://raw.githubusercontent.com/istio/istio/master/samples/httpbin/httpbin.yaml
-    ```
+  ```shell script
+  kubectl -n identity-propagation apply -f https://raw.githubusercontent.com/istio/istio/master/samples/httpbin/httpbin.yaml
+  ```
 
-* Expose it with an [API rule](k8s/apirule-httpbin.yaml). The API rule is configured to forward headers, such as `Bearer Token`, to the microservice.
+- Expose it with an [API rule](k8s/apirule-httpbin.yaml). The API rule is configured to forward headers, such as `Bearer Token`, to the microservice.
 
-  * Update `jwks_urls` and `trusted_issuers` with the IAS tenant.
+  - Update `jwks_urls` and `trusted_issuers` with the IAS tenant.
 
-  * Deploy the API rule.
+  - Deploy the API rule.
 
     ```shell script
     kubectl -n identity-propagation apply -f k8s/apirule-httpbin.yaml
@@ -103,39 +103,39 @@ It is used for demonstrating and verifying that the token is forwarded from the 
 
 The second microservice is the one that implements the extension logic and where the user propagation happens.
 
-* It receives the JWT token that is forwarded from the API Gateway.
-* The token is used to do a token exchange via the Destination Service.
-* A call is made to C4C to create a task with the exchanged token that contains the user context.
-* The task is created with the logged-in user as the processor, not a static user.
+- It receives the JWT token that is forwarded from the API Gateway.
+- The token is used to do a token exchange via the Destination Service.
+- A call is made to C4C to create a task with the exchanged token that contains the user context.
+- The task is created with the logged-in user as the processor, not a static user.
 
 #### Setup
 
-* Create a Destination Service instance in the Kyma Service Catalog. This will be used to get the credentials to make the call to the Destination Service.
+- Create a Destination Service instance in the Kyma Service Catalog. This will be used to get the credentials to make the call to the Destination Service.
 
-    ![create instance](assets/create-destination-instance.png)
+  ![create instance](assets/create-destination-instance.png)
 
-* Create credentials for the instance.
+- Create credentials for the instance.
 
-    ![kyma destination service instance](assets/destination-service-kyma-instance.png)
+  ![kyma destination service instance](assets/destination-service-kyma-instance.png)
 
-* Deploy the extension with user propagation.
+- Deploy the extension with user propagation.
 
-  * Update `DESTINATION_NAME` in [`deployment.yaml`](c4c-extension-with-user-context/k8s/deployment.yaml) with the name of the destination created in SAP Cloud Platform.
+  - Update `DESTINATION_NAME` in [`deployment.yaml`](c4c-extension-with-user-context/k8s/deployment.yaml) with the name of the destination created in SAP Cloud Platform.
 
-  * Deploy the extension.
+  - Deploy the extension.
 
     ```shell script
       kubectl apply -f c4c-extension-with-user-context/k8s/deployment.yaml
     ```
 
-* Bind the extension to the Destination Service instance.
-![bind instance](assets/bind-application.png)
+- Bind the extension to the Destination Service instance.
+  ![bind instance](assets/bind-application.png)
 
-* Expose it with an [API rule](c4c-extension-with-user-context/k8s/api-rule.yaml). Similarly to `httpbin`, the API rule is configured to forward headers, such as `Bearer Token`, to the microservice.
+- Expose it with an [API rule](c4c-extension-with-user-context/k8s/api-rule.yaml). Similarly to `httpbin`, the API rule is configured to forward headers, such as `Bearer Token`, to the microservice.
 
-  * Update `jwks_urls` and `trusted_issuers` with the `SAP Cloud Identity` tenant.
+  - Update `jwks_urls` and `trusted_issuers` with the `SAP Cloud Identity` tenant.
 
-  * Deploy the API rule.
+  - Deploy the API rule.
 
     ```shell script
       kubectl -n identity-propagation apply -f c4c-extension-with-user-context/k8s/apirule.yaml
@@ -160,27 +160,84 @@ It makes another call to create a C4C task for the logged-in user.
 
 Follow these steps:
 
-* Update the [deployment file](k8s/angular-app.yaml). Provide values for `HTTP_BIN`, `OIDC_URL`, `OIDC_CLIENT_ID` and `C4C_EXT_URL`.
+- Update the [deployment file](k8s/angular-app.yaml). Provide values for `HTTP_BIN`, `OIDC_URL`, `OIDC_CLIENT_ID` and `C4C_EXT_URL`.
 
-  * `OIDC_CLIENT_ID` is the Client Id for the registered application in SAP Cloud Platform Identity Authentication Service tenant.
+  - `OIDC_CLIENT_ID` is the Client Id for the registered application in SAP Cloud Platform Identity Authentication Service tenant.
 
-* Deploy the app:
+- Deploy the app:
 
   ```shell script
   kubectl -n identity-propagation apply -f k8s/angular-app.yaml
   ```
 
-* Expose the app using an API Rule:
+- Expose the app using an API Rule:
 
   ```shell script
   kubectl -n identity-propagation apply -f k8s/apirule-angular-app.yaml
   ```
 
-* Access the app at `https://sample-angular-app.{kyma-cluster-domain}`.`
+- Access the app at `https://sample-angular-app.{kyma-cluster-domain}`.`
+
+## UI5 App
+
+- Modify the config.json to match your configuration
+
+### Running locally
+
+- To run locally, within the folder `ui5-example-app` run the commands to install, build the dependencies, and start the application
+
+  ```shell script
+  npm install
+  ```
+
+  ```shell script
+  npm run build-all
+  ```
+
+  ```shell script
+  npm run start
+  ```
+
+- App will be available at `http://localhost:8080/index.html`
+
+### Docker
+
+- To build and push the docker image run the following commands from the folder `ui5-example-app`
+
+```shell script
+docker build -t {your-docker-account}/kyma-identity-propagation-ui5 -f Dockerfile .
+docker push {your-docker-account}/kyma-identity-propagation-ui5
+```
+
+- To run the image locally, adjust the values of the parameters in the `webapp/config.js` file and mount it into the image:
+
+```
+docker run --mount type=bind,source=$(pwd)/webapp/config.json,target=/usr/share/nginx/html/config.json -p 8080:80 -d {your-docker-account}/kyma-identity-propagation-ui5:latest
+```
+
+- App will be available at `http://localhost:8080/`
+
+### Deploying to Kyma
+
+- Create the configmap from the file `ui5-example-app/webapp/config.json`
+
+```shell script
+kubectl create configmap kyma-identity-propagation-ui5 --from-file=webapp/config.json -n identity-propagation
+```
+
+- Apply the deployment and the apirule found in the `k8s` folder
+
+```shell script
+kubectl apply -f ui5-app.yaml -n identity-propagation
+```
+
+```shell script
+kubectl apply -f apirule-ui5-app.yaml -n identity-propagation
+```
 
 ## Takeaways
 
-* It is possible to build in the Kyma runtime the extensions and flows that require user propagation. This feature has been requested by various customers.
-* Although the sample is built for SAP Cloud for Customer, a similar approach can be applied to other SAP Solutions, such as SuccessFactors.
-* The approach requires an extension to build the logic required to fetch the token.
-* The flow does not make the call via Application Gateway but directly calls the SAP Cloud For Customer APIs with the token it got from the Destination Service.
+- It is possible to build in the Kyma runtime the extensions and flows that require user propagation. This feature has been requested by various customers.
+- Although the sample is built for SAP Cloud for Customer, a similar approach can be applied to other SAP Solutions, such as SuccessFactors.
+- The approach requires an extension to build the logic required to fetch the token.
+- The flow does not make the call via Application Gateway but directly calls the SAP Cloud For Customer APIs with the token it got from the Destination Service.

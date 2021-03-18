@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kyma-identity-propagation-ui5
+  name: kyma-identity-propagation-ui5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kyma-identity-propagation-ui5
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: kyma-identity-propagation-ui5
+    spec:
+      containers:
+      - image: jcawley5/kyma-identity-propagation-ui5
+        name: kyma-identity-propagation-ui5
+        resources: {}
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: config-volume
+            mountPath: /usr/share/nginx/html/config.json
+            subPath: config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: kyma-identity-propagation-ui5
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kyma-identity-propagation-ui5
+  name: kyma-identity-propagation-ui5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: kyma-identity-propagation-ui5
+status:
+  loadBalancer: {}
