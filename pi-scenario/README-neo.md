@@ -49,35 +49,20 @@ Choose `Cloud To On-Premise`
 kubectl create namespace dev
 ```
 
-### Calling Integration From Kyma Setup
+### Calling Integration From Kyma Setup - NEO
 
 1. Apply the Resources:
 
 ```shell script
-kubectl -n dev apply -f ./k8s/cpi-scc-httpbin/function.yaml
-kubectl -n dev apply -f ./k8s/cpi-scc-httpbin/apirule.yaml
+kubectl -n dev apply -f ./k8s/cpi-scc-httpbin/function-neo.yaml
+kubectl -n dev apply -f ./k8s/cpi-scc-httpbin/apirule-neo.yaml
 ```
 
-2. Within the `dev` namespace choose the menu option `Service Management` -> `Catalog`
-3. Choose `Process Integration Runtime` service
-4. Choose `Add`
-5. Choose the plan `integration-flow`
-6. Choose `Add parameters` and provide the role
-
-```
-{
-    "roles":[
-    "ESBMessaging.send"
-    ]
-}
-```
-
-8. Choose `Create`.
-9. Choose the menu option `Workloads` -> `Functions`.
-10. Open the `cpi-scc-httpbin` function.
-11. Under `Environment Variables` alter the `cpi_url` value to include your Integration tenant url.
-12. Choose the `Configuration` tab and bind the integration-flow service instance to the function.
-13. Save the Changes.
+2. Within the `dev` namespace choose the menu option `Workloads` -> `Functions`.
+3. Open the `cpi-scc-httpbin-neo` function.
+4. Under `Environment Variables` alter the `cpi_url` value to include your Integration tenant url.
+5. Under `Environment Variables`
+6. Save the Changes.
 
 ### Calling Kyma From Integration Setup
 
@@ -181,9 +166,9 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 
    ```shell script
    export INTEGRATION_FLOW_URL='<integration-flow deployed iflow url>'
-   export CLIENT_ID='<integration-flow client id>'
-   export CLIENT_SECRET='<integration-flow client secret>'
-   export ENCODED_CREDENTIALS=$(echo -n "$CLIENT_ID:$CLIENT_SECRET" | base64)
+   export USER='<your btp user>'
+   export PASSWORD='<your btp password>'
+   export ENCODED_CREDENTIALS=$(echo -n "$USER:$PASSWORD" | base64)
    ```
 
 9. Send the request to validate the scenario:
