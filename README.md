@@ -54,7 +54,6 @@ For further resources, go to:
 - Youtube: [youtube.kyma-project.io](http://youtube.kyma-project.io)
 - Slack: [slack.kyma-project.io](http://slack.kyma-project.io)
 - GitHub: [github.com/kyma-project](http://github.com/kyma-project)
-- Open SAP course: [open.sap.com/courses/kyma1](https://open.sap.com/courses/kyma1)
 
 ## Known issues
 
