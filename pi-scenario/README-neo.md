@@ -114,14 +114,14 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 
 ### Configure the Integration Artifacts
 
-5. Within the Integration tenant choose the menu option `Design`.
-6. Choose the `Import` option and import the `Kyma Samples.zip` found in the cpi folder.
-7. Within `Kyma Samples`, choose the Artifacts tab.
-8. Choose the `call-kyma-api` artifact to open it.
-9. Choose the `Configure` option and provide following values:
+1. Within the Integration tenant choose the menu option `Design`.
+2. Choose the `Import` option and import the `Kyma Samples.zip` found in the cpi folder.
+3. Within `Kyma Samples`, choose the Artifacts tab.
+4. Choose the `call-kyma-api` artifact to open it.
+5. Choose the `Configure` option and provide following values:
    1. Address: `https://cpi-api-read-oauth.<kyma cluster>`
    2. Credential Name: kyma
-10. Save the changes.
+6. Save the changes.
 
 ## Testing the Scenarios
 
@@ -129,7 +129,7 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 
 1. Open the `dev` namespace within the Kyma console.
 2. Choose the menu option `Discovery and Network` -> `API Rules`
-3. Choose the `Host` option for the `cpi-scc-httpbin` entry.
+3. Choose the `Host` option for the `cpi-scc-httpbin-neo` entry.
 4. A successful response should contain a json structure containing the data submitted in the request
 
 ```

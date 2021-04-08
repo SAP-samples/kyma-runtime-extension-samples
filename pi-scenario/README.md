@@ -2,7 +2,7 @@ This sample details two use cases; the first showing how a call originating from
 
 ### Prerequistes
 
-- [Integration Tenant](https://developers.sap.com/tutorials/cp-starter-integration-cpi-onboard-subscribe.html)
+- [Integration Tenant](https://developers.sap.com/tutorials/cp-starter-isuite-onboard-subscribe.html)
 - [Kyma Runtime](https://developers.sap.com/tutorials/cp-kyma-getting-started.html)
 - [Cloud Connector](https://tools.hana.ondemand.com/#cloud)
 - [Cloud Connector Connected to BTP Subaccount](https://help.sap.com/viewer/cca91383641e40ffbe03bdc78f00f681/Cloud/en-US/ec68ee242c3d4c7797fc53bb65abcd71.html)
