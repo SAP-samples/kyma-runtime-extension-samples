@@ -1,8 +1,8 @@
-This sample details two use cases; the first showing how a call originating from Process Integration can call the Kyma Runtime and the second showing how a call originating from Kyma can call Process Integration.
+This sample details two use cases; the first showing how a call originating from Process Integration can call the Kyma Runtime and the second showing how a call originating from Kyma can call Process Integration. This scenario is intended for PI running in the NEO environment.
 
 ### Prerequistes
 
-- [Integration Tenant](https://developers.sap.com/tutorials/cp-starter-integration-cpi-onboard-subscribe.html)
+- [Integration Tenant](https://help.sap.com/viewer/368c481cd6954bdfa5d0435479fd4eaf/Cloud/en-US/e7b1eaa2246641b3a6188233cf219ab8.html)
 - [Kyma Runtime](https://developers.sap.com/tutorials/cp-kyma-getting-started.html)
 - [Cloud Connector](https://tools.hana.ondemand.com/#cloud)
 - [Cloud Connector Connected to BTP Subaccount](https://help.sap.com/viewer/cca91383641e40ffbe03bdc78f00f681/Cloud/en-US/ec68ee242c3d4c7797fc53bb65abcd71.html)
@@ -49,7 +49,7 @@ Choose `Cloud To On-Premise`
 kubectl create namespace dev
 ```
 
-### Calling Integration From Kyma Setup - NEO
+### Calling Integration From Kyma Setup
 
 1. Apply the Resources:
 
@@ -61,7 +61,7 @@ kubectl -n dev apply -f ./k8s/cpi-scc-httpbin/apirule-neo.yaml
 2. Within the `dev` namespace choose the menu option `Workloads` -> `Functions`.
 3. Open the `cpi-scc-httpbin-neo` function.
 4. Under `Environment Variables` alter the `cpi_url` value to include your Integration tenant url.
-5. Under `Environment Variables`
+5. Under `Environment Variables` alter the `user` and `password` values using a user that has the role `ESBMessaging.send`
 6. Save the Changes.
 
 ### Calling Kyma From Integration Setup
@@ -147,22 +147,14 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 
 ### Calling Kyma From Integration Setup
 
-#### Get the Oauth Credentials
-
-1. Open the `dev` namespace within the Kyma console.
-2. Choose the menu option `Service Management` -> `Instances`.
-3. Choose the service instance created for the `integration-flow` plan.
-4. Choose the `Credentials` tab and choose a link value under `Secret` to open the secret.
-5. Choose the `decode` option to view the secret contents. The values `clientid`, `clientsecret` and `tokenurl` will be needed.
-
 #### Test the Scenario
 
-6. These steps can be done with a tool such as Postman or using Curl as shown here.
-7. Grab the Integration Flow's URL by performing the following steps:
+1. These steps can be done with a tool such as Postman or using Curl as shown here.
+2. Grab the Integration Flow's URL by performing the following steps:
    1. Within the Integration tenant choose the menu option `Monitor`.
    2. Go to `Manage Integration Content` -> `Started` Tile
    3. Verify that 'call-kyma-api' Integration Flow is in the started state. Copy the URL (https://`<tenant url>`/http/kyma/api) from the `Endpoints` tab.
-8. Run the following command to set the values into environment variables:
+3. Run the following command to set the values into environment variables using a user that has the role `ESBMessaging.send`:
 
    ```shell script
    export INTEGRATION_FLOW_URL='<integration-flow deployed iflow url>'
@@ -171,7 +163,7 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
    export ENCODED_CREDENTIALS=$(echo -n "$USER:$PASSWORD" | base64)
    ```
 
-9. Send the request to validate the scenario:
+4. Send the request to validate the scenario:
 
    ```shell script
    curl $INTEGRATION_FLOW_URL -H "Authorization: Basic $ENCODED_CREDENTIALS" -H "Content-Type: application/json"
