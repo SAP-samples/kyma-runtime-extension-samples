@@ -38,6 +38,8 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [Micronaut based extension with API exposed via Microgateway](./sample-extension-micronaut/README.md)
 - [GeoServer for a geospatial middleware over HANA Cloud](./geoserver/README.md)
 - [Sample deploying a websocket based extension on Kyma](./sample-websockets/README.md)
+- [Cloud Integration Multi-cloud](./pi-sceanrio/README.md)
+- [Cloud Integration Neo](./pi-sceanrio/README-neo.md)
 
 ## Helm Charts
 
