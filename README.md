@@ -1,4 +1,4 @@
-# Kyma Runtime Extension Samples
+# SAP BTP, Kyma Runtime Extension Samples
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/kyma-runtime-extension-samples)](https://api.reuse.software/info/github.com/SAP-samples/kyma-runtime-extension-samples)
 
