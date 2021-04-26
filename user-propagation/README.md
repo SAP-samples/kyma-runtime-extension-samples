@@ -6,6 +6,8 @@ It uses SAP Cloud Platform Identity Authentication Service (IAS) as an external 
 
 The JWT token received in Kyma needs to be exchanged for an OAuth2 token that can be authenticated by SAP Cloud for Customer. For this purpose, the [Destination Service](https://help.sap.com/viewer/cca91383641e40ffbe03bdc78f00f681/Cloud/en-US/7e306250e08340f89d6c103e28840f30.html) is used.
 
+Trust is established between SAP Cloud for Customer and Destination Service. This enables to make an [API call](https://api.sap.com/api/SAP_CP_CF_Connectivity_Destination/resource) to the destination service passing the JWT token. Destination Service poat token validation responds along with other details an opaque OAuth2 token for the logged-in user. This OAuth2 token is then used to make calls the SAP Cloud for Customer ODATA APIs.
+
 ## Flow
 
 ![c4c-sso-kyma-identity-propagation](assets/identity-propagation-flow.svg)
@@ -19,7 +21,7 @@ The JWT token received in Kyma needs to be exchanged for an OAuth2 token that ca
 7. Kyma API Gateway verifies the token with IAS.
 8. API Gateway forwards calls to a Function/microservice along with the bearer token. Token forwarding is made possible by adding an attribute to the Kyma API rule.
 9. Microservice/Function does the token exchange via the Destination Service. The Destination Service calls C4C and performs the OAuth2 SAML bearer assertion flow.
-10. Microservice/Function makes a call to C4C with the OAuth2 token it got from the Destination Service.
+10. Microservice/Function makes a call to C4C with the OAuth2 token it got from the Destination Service preserving the identity of the logged-in user.
 
 > **NOTE:** The flow does not use Application Gateway when calling C4C from the Kyma runtime. Instead, it calls the APIs directly.
 
@@ -104,7 +106,7 @@ It is used for demonstrating and verifying that the token is forwarded from the 
 The second microservice is the one that implements the extension logic and where the user propagation happens.
 
 - It receives the JWT token that is forwarded from the API Gateway.
-- The token is used to do a token exchange via the Destination Service.
+- The token is used to do a token exchange by making API Call to the Destination Service.
 - A call is made to C4C to create a task with the exchanged token that contains the user context.
 - The task is created with the logged-in user as the processor, not a static user.
 
@@ -179,6 +181,8 @@ Follow these steps:
 - Access the app at `https://sample-angular-app.{kyma-cluster-domain}`.`
 
 ## UI5 App
+
+It is another sample app in case you want to try out the example with UI5 instead of angular. The flow remains the same.
 
 - Modify the config.json to match your configuration
 
