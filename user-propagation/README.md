@@ -1,10 +1,12 @@
 # Overview
 
-This sample demonstrates how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) using SAP Cloud Platform, Kyma runtime.
+This sample provides details on how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) using SAP Cloud Platform, Kyma runtime. A similar configuration is applicable when extending other SAP Solutions such as S4.
 
-It uses SAP Cloud Platform Identity Authentication Service (IAS) as an external identity provider with user federation. However, any external identity provider would also work as long as it supports SAML 2.0.
+The flow uses SAP Cloud Platform Identity Authentication Service (IAS) as an external identity provider with user federation. However, any external identity provider would also work as long as it supports SAML 2.0.
 
-The JWT token received in Kyma needs to be exchanged for an OAuth2 token that can be authenticated by SAP Cloud for Customer. For this purpose, the [Destination Service](https://help.sap.com/viewer/cca91383641e40ffbe03bdc78f00f681/Cloud/en-US/7e306250e08340f89d6c103e28840f30.html) is used.
+The user propagation relies on the exchange of the JWT token received in Kyma for an OAuth2 token that can be authenticated by SAP Cloud for Customer. For this, the [Destination Service](https://help.sap.com/viewer/cca91383641e40ffbe03bdc78f00f681/Cloud/en-US/7e306250e08340f89d6c103e28840f30.html) is used.
+
+Trust is established between SAP Cloud for Customer and Destination Service. The extension deployed in Kyma runtime makes an [API call](https://api.sap.com/api/SAP_CP_CF_Connectivity_Destination/resource) to the destination service passing the JWT token. Destination Service after validating the token responds along with other details an opaque OAuth2 token for the logged-in user. This OAuth2 token is then used to make calls to the SAP Cloud for Customer ODATA APIs.
 
 ## Flow
 
@@ -17,9 +19,9 @@ The JWT token received in Kyma needs to be exchanged for an OAuth2 token that ca
 5. User accesses the frontend. The frontend can be a mesh inside C4C or a standalone app hosted on Kyma or somewhere else. The frontend redirects the user to IAS for automatic login. Along with the autologin request, the frontend receives the bearer token.
 6. The frontend makes an API call to Kyma with the bearer token.
 7. Kyma API Gateway verifies the token with IAS.
-8. API Gateway forwards calls to a Function/microservice along with the bearer token. Token forwarding is made possible by adding an attribute to the Kyma API rule.
+8. API Gateway forwards calls to a Function/microservice along with the bearer token. **Token forwarding is made possible by adding an attribute to the Kyma API rule.**
 9. Microservice/Function does the token exchange via the Destination Service. The Destination Service calls C4C and performs the OAuth2 SAML bearer assertion flow.
-10. Microservice/Function makes a call to C4C with the OAuth2 token it got from the Destination Service.
+10. Microservice/Function makes a call to C4C with the OAuth2 token it got from the Destination Service, preserving the logged-in user's identity.
 
 > **NOTE:** The flow does not use Application Gateway when calling C4C from the Kyma runtime. Instead, it calls the APIs directly.
 
@@ -90,6 +92,7 @@ It is used for demonstrating and verifying that the token is forwarded from the 
   ```
 
 - Expose it with an [API rule](k8s/apirule-httpbin.yaml). The API rule is configured to forward headers, such as `Bearer Token`, to the microservice.
+  [api-rule-forward-headers](assets/apirule-forward-headers.png)
 
   - Update `jwks_urls` and `trusted_issuers` with the IAS tenant.
 
@@ -104,7 +107,7 @@ It is used for demonstrating and verifying that the token is forwarded from the 
 The second microservice is the one that implements the extension logic and where the user propagation happens.
 
 - It receives the JWT token that is forwarded from the API Gateway.
-- The token is used to do a token exchange via the Destination Service.
+- The token is used to do a token exchange by making API Call to the Destination Service.
 - A call is made to C4C to create a task with the exchanged token that contains the user context.
 - The task is created with the logged-in user as the processor, not a static user.
 
@@ -156,7 +159,7 @@ It makes another call to create a C4C task for the logged-in user.
 
 ![angular create c4c task](assets/create-task.png)
 
-#### Set up and access the app
+#### Set up the angular app
 
 Follow these steps:
 
@@ -178,11 +181,13 @@ Follow these steps:
 
 - Access the app at `https://sample-angular-app.{kyma-cluster-domain}`.`
 
-## UI5 App
+### UI5 App
+
+It is another sample app in case you want to try out the example with UI5 instead of angular. The flow remains the same.
 
 - Modify the config.json to match your configuration
 
-### Running locally
+**Running locally**
 
 - To run locally, within the folder `ui5-example-app` run the commands to install, build the dependencies, and start the application
 
@@ -200,7 +205,7 @@ Follow these steps:
 
 - App will be available at `http://localhost:8080/index.html`
 
-### Docker
+**Docker**
 
 - To build and push the docker image run the following commands from the folder `ui5-example-app`
 
@@ -217,7 +222,7 @@ docker run --mount type=bind,source=$(pwd)/webapp/config.json,target=/usr/share/
 
 - App will be available at `http://localhost:8080/`
 
-### Deploying to Kyma
+**Deploying to Kyma**
 
 - Create the configmap from the file `ui5-example-app/webapp/config.json`
 
