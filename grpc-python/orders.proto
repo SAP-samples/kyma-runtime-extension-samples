@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package orders;
+
+// The order service definition.
+service Order {
+  rpc RecordOrder (OrderRequest) returns (OrderReply) {}
+  rpc GetOrders (OrderRequest) returns (stream OrderReply) {}
+}
+
+// The request message containing the user's name.
+message OrderRequest {
+  string name = 1;
+  int32 id = 2;
+}
+
+// The response message containing the greetings
+message OrderReply {
+    string name = 1;
+    int32 id = 2;
+    string date = 3;
+
+}
