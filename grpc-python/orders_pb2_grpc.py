@@ -15,10 +15,10 @@ class OrderStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.RecordOrder = channel.unary_unary(
-                '/orders.Order/RecordOrder',
+        self.RecordOrders = channel.stream_unary(
+                '/orders.Order/RecordOrders',
                 request_serializer=orders__pb2.OrderRequest.SerializeToString,
-                response_deserializer=orders__pb2.OrderReply.FromString,
+                response_deserializer=orders__pb2.OrderSummary.FromString,
                 )
         self.GetOrders = channel.unary_stream(
                 '/orders.Order/GetOrders',
@@ -31,7 +31,7 @@ class OrderServicer(object):
     """The order service definition.
     """
 
-    def RecordOrder(self, request, context):
+    def RecordOrders(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -46,10 +46,10 @@ class OrderServicer(object):
 
 def add_OrderServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'RecordOrder': grpc.unary_unary_rpc_method_handler(
-                    servicer.RecordOrder,
+            'RecordOrders': grpc.stream_unary_rpc_method_handler(
+                    servicer.RecordOrders,
                     request_deserializer=orders__pb2.OrderRequest.FromString,
-                    response_serializer=orders__pb2.OrderReply.SerializeToString,
+                    response_serializer=orders__pb2.OrderSummary.SerializeToString,
             ),
             'GetOrders': grpc.unary_stream_rpc_method_handler(
                     servicer.GetOrders,
@@ -68,7 +68,7 @@ class Order(object):
     """
 
     @staticmethod
-    def RecordOrder(request,
+    def RecordOrders(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -78,9 +78,9 @@ class Order(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/orders.Order/RecordOrder',
+        return grpc.experimental.stream_unary(request_iterator, target, '/orders.Order/RecordOrders',
             orders__pb2.OrderRequest.SerializeToString,
-            orders__pb2.OrderReply.FromString,
+            orders__pb2.OrderSummary.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -4,7 +4,7 @@ package orders;
 
 // The order service definition.
 service Order {
-  rpc RecordOrder (OrderRequest) returns (OrderReply) {}
+  rpc RecordOrders (stream OrderRequest) returns (OrderSummary) {}
   rpc GetOrders (OrderRequest) returns (stream OrderReply) {}
 }
 
@@ -20,4 +20,9 @@ message OrderReply {
     double amount = 2;
     double cost = 3;
     string date = 4;
+}
+
+message OrderSummary {
+  int32 created = 1;
+  double elapsed_time = 2;
 }

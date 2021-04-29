@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0corders.proto\x12\x06orders\".\n\x0cOrderRequest\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x01\"H\n\nOrderReply\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x01\x12\x0c\n\x04\x63ost\x18\x03 \x01(\x01\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\t2}\n\x05Order\x12\x39\n\x0bRecordOrder\x12\x14.orders.OrderRequest\x1a\x12.orders.OrderReply\"\x00\x12\x39\n\tGetOrders\x12\x14.orders.OrderRequest\x1a\x12.orders.OrderReply\"\x00\x30\x01\x62\x06proto3'
+  serialized_pb=b'\n\x0corders.proto\x12\x06orders\".\n\x0cOrderRequest\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x01\"H\n\nOrderReply\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x01\x12\x0c\n\x04\x63ost\x18\x03 \x01(\x01\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\t\"5\n\x0cOrderSummary\x12\x0f\n\x07\x63reated\x18\x01 \x01(\x05\x12\x14\n\x0c\x65lapsed_time\x18\x02 \x01(\x01\x32\x82\x01\n\x05Order\x12>\n\x0cRecordOrders\x12\x14.orders.OrderRequest\x1a\x14.orders.OrderSummary\"\x00(\x01\x12\x39\n\tGetOrders\x12\x14.orders.OrderRequest\x1a\x12.orders.OrderReply\"\x00\x30\x01\x62\x06proto3'
 )
 
 
@@ -116,8 +116,48 @@ _ORDERREPLY = _descriptor.Descriptor(
   serialized_end=144,
 )
 
+
+_ORDERSUMMARY = _descriptor.Descriptor(
+  name='OrderSummary',
+  full_name='orders.OrderSummary',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='created', full_name='orders.OrderSummary.created', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='elapsed_time', full_name='orders.OrderSummary.elapsed_time', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=146,
+  serialized_end=199,
+)
+
 DESCRIPTOR.message_types_by_name['OrderRequest'] = _ORDERREQUEST
 DESCRIPTOR.message_types_by_name['OrderReply'] = _ORDERREPLY
+DESCRIPTOR.message_types_by_name['OrderSummary'] = _ORDERSUMMARY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 OrderRequest = _reflection.GeneratedProtocolMessageType('OrderRequest', (_message.Message,), {
@@ -134,6 +174,13 @@ OrderReply = _reflection.GeneratedProtocolMessageType('OrderReply', (_message.Me
   })
 _sym_db.RegisterMessage(OrderReply)
 
+OrderSummary = _reflection.GeneratedProtocolMessageType('OrderSummary', (_message.Message,), {
+  'DESCRIPTOR' : _ORDERSUMMARY,
+  '__module__' : 'orders_pb2'
+  # @@protoc_insertion_point(class_scope:orders.OrderSummary)
+  })
+_sym_db.RegisterMessage(OrderSummary)
+
 
 
 _ORDER = _descriptor.ServiceDescriptor(
@@ -143,16 +190,16 @@ _ORDER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=146,
-  serialized_end=271,
+  serialized_start=202,
+  serialized_end=332,
   methods=[
   _descriptor.MethodDescriptor(
-    name='RecordOrder',
-    full_name='orders.Order.RecordOrder',
+    name='RecordOrders',
+    full_name='orders.Order.RecordOrders',
     index=0,
     containing_service=None,
     input_type=_ORDERREQUEST,
-    output_type=_ORDERREPLY,
+    output_type=_ORDERSUMMARY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

@@ -37,7 +37,7 @@ class AuthGateway(grpc.AuthMetadataPlugin):
         callback(((os.environ.get("_GRPC_TOKEN_"), signature),), None)
 
 
-def id_generator(size=3, chars=string.ascii_uppercase):
+def symbol_generator(size=3, chars=string.ascii_uppercase):
     return ''.join(random.choice(chars) for _ in range(size))
 
 
@@ -49,20 +49,20 @@ def get_orders(stub):
               (order.amount, order.symbol, order.date, order.cost))
 
 
-def generate_order(stub):
-    i = 1
-    while i < 6:
-        record_order(stub, id_generator(), random.randrange(1000))
-        i += 1
-
-
-def record_order(stub, symbol, amount):
+def generate_order():
     order = orders_pb2.OrderRequest()
-    order.symbol = symbol
-    order.amount = amount
-    orderResult = stub.RecordOrder(order)
-    print("Ordered %s of: %s at: %s for %s" %
-          (orderResult.amount, orderResult.symbol, orderResult.date, orderResult.cost))
+
+    for _ in range(0, 20):
+        order.symbol = symbol_generator()
+        order.amount = random.randrange(1000)
+        yield order
+
+
+def record_orders(stub):
+    iterator = generate_order()
+    orderSummary = stub.RecordOrders(iterator)
+    print("Created %s orders in %s seconds" %
+          (orderSummary.created, orderSummary.elapsed_time))
 
 
 def run():
@@ -86,7 +86,7 @@ def run():
 
     stub = orders_pb2_grpc.OrderStub(channel)
     print("-------------- RecordOrder--------------")
-    generate_order(stub)
+    record_orders(stub)
     print("-------------- GetOrders --------------")
     get_orders(stub)
     channel.close()

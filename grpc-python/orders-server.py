@@ -54,6 +54,26 @@ class OrderServicer(orders_pb2_grpc.OrderServicer):
 
         return order
 
+    def RecordOrders(self, request_iterator, context):
+
+        start_time = time.time()
+        count = 0
+
+        for ord in request_iterator:
+            order = orders_pb2.OrderReply()
+            now = datetime.now()
+            count += 1
+            order.symbol = ord.symbol
+            order.amount = ord.amount
+            order.date = now.strftime("%m/%d/%Y, %H:%M:%S")
+            order.cost = random.uniform(1, 100)
+            orderlist.append(order)
+
+        elapsed_time = time.time() - start_time
+        return orders_pb2.OrderSummary(
+            created=count, elapsed_time=elapsed_time
+        )
+
     def GetOrders(self, request, context):
         print("---GetOrders---")
         OrderReply = orders_pb2.OrderReply()
