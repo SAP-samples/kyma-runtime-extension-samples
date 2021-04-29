@@ -36,22 +36,3 @@ spec:
   selector:
     app: grpcorderserver
   type: ClusterIP
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: grpcorderserver
-spec:
-  gateways:
-  - kyma-gateway.kyma-system.svc.cluster.local
-  hosts:
-  - 'grpcorderserver.a0e7f99.kyma.shoot.live.k8s-hana.ondemand.com'
-  http:
-  - match:
-    - uri:
-        prefix: /
-    route:
-    - destination:
-        host: grpcorderserver.grpc.svc.cluster.local
-        port:
-          number: 50051
