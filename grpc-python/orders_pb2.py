@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0corders.proto\x12\x06orders\"(\n\x0cOrderRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x05\"4\n\nOrderReply\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x05\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\t2}\n\x05Order\x12\x39\n\x0bRecordOrder\x12\x14.orders.OrderRequest\x1a\x12.orders.OrderReply\"\x00\x12\x39\n\tGetOrders\x12\x14.orders.OrderRequest\x1a\x12.orders.OrderReply\"\x00\x30\x01\x62\x06proto3'
+  serialized_pb=b'\n\x0corders.proto\x12\x06orders\".\n\x0cOrderRequest\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x01\"H\n\nOrderReply\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x01\x12\x0c\n\x04\x63ost\x18\x03 \x01(\x01\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\t2}\n\x05Order\x12\x39\n\x0bRecordOrder\x12\x14.orders.OrderRequest\x1a\x12.orders.OrderReply\"\x00\x12\x39\n\tGetOrders\x12\x14.orders.OrderRequest\x1a\x12.orders.OrderReply\"\x00\x30\x01\x62\x06proto3'
 )
 
 
@@ -34,16 +34,16 @@ _ORDERREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='orders.OrderRequest.name', index=0,
+      name='symbol', full_name='orders.OrderRequest.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='id', full_name='orders.OrderRequest.id', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      name='amount', full_name='orders.OrderRequest.amount', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -60,7 +60,7 @@ _ORDERREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=24,
-  serialized_end=64,
+  serialized_end=70,
 )
 
 
@@ -73,22 +73,29 @@ _ORDERREPLY = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='orders.OrderReply.name', index=0,
+      name='symbol', full_name='orders.OrderReply.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='id', full_name='orders.OrderReply.id', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      name='amount', full_name='orders.OrderReply.amount', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='date', full_name='orders.OrderReply.date', index=2,
-      number=3, type=9, cpp_type=9, label=1,
+      name='cost', full_name='orders.OrderReply.cost', index=2,
+      number=3, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='date', full_name='orders.OrderReply.date', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -105,8 +112,8 @@ _ORDERREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=66,
-  serialized_end=118,
+  serialized_start=72,
+  serialized_end=144,
 )
 
 DESCRIPTOR.message_types_by_name['OrderRequest'] = _ORDERREQUEST
@@ -136,8 +143,8 @@ _ORDER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=120,
-  serialized_end=245,
+  serialized_start=146,
+  serialized_end=271,
   methods=[
   _descriptor.MethodDescriptor(
     name='RecordOrder',

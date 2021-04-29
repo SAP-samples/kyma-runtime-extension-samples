@@ -16,15 +16,15 @@ class OrderStub(object):
             channel: A grpc.Channel.
         """
         self.RecordOrder = channel.unary_unary(
-            '/orders.Order/RecordOrder',
-            request_serializer=orders__pb2.OrderRequest.SerializeToString,
-            response_deserializer=orders__pb2.OrderReply.FromString,
-        )
+                '/orders.Order/RecordOrder',
+                request_serializer=orders__pb2.OrderRequest.SerializeToString,
+                response_deserializer=orders__pb2.OrderReply.FromString,
+                )
         self.GetOrders = channel.unary_stream(
-            '/orders.Order/GetOrders',
-            request_serializer=orders__pb2.OrderRequest.SerializeToString,
-            response_deserializer=orders__pb2.OrderReply.FromString,
-        )
+                '/orders.Order/GetOrders',
+                request_serializer=orders__pb2.OrderRequest.SerializeToString,
+                response_deserializer=orders__pb2.OrderReply.FromString,
+                )
 
 
 class OrderServicer(object):
@@ -46,58 +46,57 @@ class OrderServicer(object):
 
 def add_OrderServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'RecordOrder': grpc.unary_unary_rpc_method_handler(
-            servicer.RecordOrder,
-            request_deserializer=orders__pb2.OrderRequest.FromString,
-            response_serializer=orders__pb2.OrderReply.SerializeToString,
-        ),
-        'GetOrders': grpc.unary_stream_rpc_method_handler(
-            servicer.GetOrders,
-            request_deserializer=orders__pb2.OrderRequest.FromString,
-            response_serializer=orders__pb2.OrderReply.SerializeToString,
-        ),
+            'RecordOrder': grpc.unary_unary_rpc_method_handler(
+                    servicer.RecordOrder,
+                    request_deserializer=orders__pb2.OrderRequest.FromString,
+                    response_serializer=orders__pb2.OrderReply.SerializeToString,
+            ),
+            'GetOrders': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetOrders,
+                    request_deserializer=orders__pb2.OrderRequest.FromString,
+                    response_serializer=orders__pb2.OrderReply.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'orders.Order', rpc_method_handlers)
+            'orders.Order', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
+
  # This class is part of an EXPERIMENTAL API.
-
-
 class Order(object):
     """The order service definition.
     """
 
     @staticmethod
     def RecordOrder(request,
-                    target,
-                    options=(),
-                    channel_credentials=None,
-                    call_credentials=None,
-                    insecure=False,
-                    compression=None,
-                    wait_for_ready=None,
-                    timeout=None,
-                    metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(request, target, '/orders.Order/RecordOrder',
-                                             orders__pb2.OrderRequest.SerializeToString,
-                                             orders__pb2.OrderReply.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            orders__pb2.OrderRequest.SerializeToString,
+            orders__pb2.OrderReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetOrders(request,
-                  target,
-                  options=(),
-                  channel_credentials=None,
-                  call_credentials=None,
-                  insecure=False,
-                  compression=None,
-                  wait_for_ready=None,
-                  timeout=None,
-                  metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_stream(request, target, '/orders.Order/GetOrders',
-                                              orders__pb2.OrderRequest.SerializeToString,
-                                              orders__pb2.OrderReply.FromString,
-                                              options, channel_credentials,
-                                              insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            orders__pb2.OrderRequest.SerializeToString,
+            orders__pb2.OrderReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

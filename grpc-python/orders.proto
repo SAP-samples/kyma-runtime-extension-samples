@@ -10,14 +10,14 @@ service Order {
 
 // The request message containing the user's name.
 message OrderRequest {
-  string name = 1;
-  int32 id = 2;
+  string symbol = 1;
+  double amount = 2;
 }
 
 // The response message containing the greetings
 message OrderReply {
-    string name = 1;
-    int32 id = 2;
-    string date = 3;
-
+    string symbol = 1;
+    double amount = 2;
+    double cost = 3;
+    string date = 4;
 }

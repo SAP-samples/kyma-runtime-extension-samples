@@ -6,6 +6,8 @@ import logging
 import grpc
 
 import os
+import random
+import string
 
 import orders_pb2
 import orders_pb2_grpc
@@ -35,33 +37,35 @@ class AuthGateway(grpc.AuthMetadataPlugin):
         callback(((os.environ.get("_GRPC_TOKEN_"), signature),), None)
 
 
+def id_generator(size=3, chars=string.ascii_uppercase):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
 def get_orders(stub):
     order = orders_pb2.OrderRequest()
     orders = stub.GetOrders(order)
     for order in orders:
-        print("Order name: %s Order Id: %s" % (order.name, order.id))
+        print("Ordered %s of: %s at: %s for %s" %
+              (order.amount, order.symbol, order.date, order.cost))
 
 
 def generate_order(stub):
-    record_order(stub, 1, "order1")
-    record_order(stub, 2, "order2")
-    record_order(stub, 3, "order3")
-    record_order(stub, 4, "order4")
+    i = 1
+    while i < 6:
+        record_order(stub, id_generator(), random.randrange(1000))
+        i += 1
 
 
-def record_order(stub, id, name):
+def record_order(stub, symbol, amount):
     order = orders_pb2.OrderRequest()
-    order.id = id
-    order.name = name
+    order.symbol = symbol
+    order.amount = amount
     orderResult = stub.RecordOrder(order)
-    print("Recorded Order name: %s Order Id: %s at: %s" %
-          (orderResult.name, orderResult.id, orderResult.date))
+    print("Ordered %s of: %s at: %s for %s" %
+          (orderResult.amount, orderResult.symbol, orderResult.date, orderResult.cost))
 
 
 def run():
-    # NOTE(gRPC Python Team): .close() is possible on a channel and should be
-    # used in circumstances in which the with statement does not fit the needs
-    # of the code.
     with open("kyma.pem", "rb") as fp:
         channel_credential = grpc.ssl_channel_credentials(fp.read())
 
@@ -72,15 +76,20 @@ def run():
         call_credentials,
     )
 
-    # with grpc.secure_channel('127.0.0.1:50051', composite_credentials) as channel:
+    if os.environ.get("_DEV_") == "true":
+        print("-------------- insecure_channel --------------")
+        channel = grpc.insecure_channel('127.0.0.1:50051')
+    else:
+        print("-------------- secure_channel --------------")
+        channel = grpc.secure_channel(
+            'grpcorderserver.a0e7f99.kyma.shoot.live.k8s-hana.ondemand.com:443', composite_credentials)
 
-    with grpc.secure_channel('grpcorderserver.a0e7f99.kyma.shoot.live.k8s-hana.ondemand.com:443', composite_credentials) as channel:
-
-        stub = orders_pb2_grpc.OrderStub(channel)
-        print("-------------- RecordOrder--------------")
-        generate_order(stub)
-        print("-------------- GetOrders --------------")
-        get_orders(stub)
+    stub = orders_pb2_grpc.OrderStub(channel)
+    print("-------------- RecordOrder--------------")
+    generate_order(stub)
+    print("-------------- GetOrders --------------")
+    get_orders(stub)
+    channel.close()
 
 
 if __name__ == '__main__':

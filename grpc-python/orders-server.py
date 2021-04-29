@@ -6,6 +6,7 @@ import logging
 import grpc
 
 import os
+import random
 
 import orders_pb2
 import orders_pb2_grpc
@@ -22,12 +23,16 @@ class SignatureValidationInterceptor(grpc.ServerInterceptor):
         self._abortion = grpc.unary_unary_rpc_method_handler(abort)
 
     def intercept_service(self, continuation, handler_call_details):
-        method_name = handler_call_details.method.split('/')[-1]
-        expected_metadata = (os.environ.get("_GRPC_TOKEN_"), method_name[::-1])
-        if expected_metadata in handler_call_details.invocation_metadata:
+        if os.environ.get("_DEV_") is not None and os.environ.get("_DEV_") == "true":
             return continuation(handler_call_details)
         else:
-            return self._abortion
+            method_name = handler_call_details.method.split('/')[-1]
+            expected_metadata = (os.environ.get(
+                "_GRPC_TOKEN_"), method_name[::-1])
+            if expected_metadata in handler_call_details.invocation_metadata:
+                return continuation(handler_call_details)
+            else:
+                return self._abortion
 
 
 class OrderServicer(orders_pb2_grpc.OrderServicer):
@@ -40,10 +45,11 @@ class OrderServicer(orders_pb2_grpc.OrderServicer):
 
         now = datetime.now()
         order = orders_pb2.OrderReply()
-        order.name = request.name
-        order.id = request.id
-        order.date = now.strftime("%m/%d/%Y, %H:%M:%S")
 
+        order.symbol = request.symbol
+        order.amount = request.amount
+        order.date = now.strftime("%m/%d/%Y, %H:%M:%S")
+        order.cost = random.uniform(1, 100)
         orderlist.append(order)
 
         return order
@@ -52,11 +58,12 @@ class OrderServicer(orders_pb2_grpc.OrderServicer):
         print("---GetOrders---")
         OrderReply = orders_pb2.OrderReply()
         for order in orderlist:
-            OrderReply.name = order.name
-            OrderReply.id = order.id
+            OrderReply.symbol = order.symbol
+            OrderReply.amount = order.amount
             OrderReply.date = order.date
-            print("Recorded Order name: %s Order Id: %s at: %s" %
-                  (OrderReply.name, OrderReply.id, OrderReply.date))
+            OrderReply.cost = order.cost
+            print("Ordered %s of: %s at: %s for %s" %
+                  (OrderReply.amount, OrderReply.symbol, OrderReply.date, OrderReply.cost))
             yield OrderReply
 
 
