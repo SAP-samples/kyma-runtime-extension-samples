@@ -2,7 +2,7 @@ Work In Progress
 
 ## Overview
 
-This sample demostrates gRPC connectivity between a gRPC server running in the Kyma runtime and a gRPC client running outside of the Kyma runtime. The sample utilizes the root certificate used by the Kyma runtime to establish a TLS connection between the client and server and verifies the connection with a token.
+This sample demostrates gRPC connectivity between a gRPC server running in the Kyma runtime and a gRPC client running outside of the Kyma runtime. The sample utilizes the root certificate used by the Kyma runtime to establish a TLS connection between the client and server and verifies the connection with a token. The client app streams auto generated order data to the server and receives back the amount of orders created and the elapsed time. Then will request a stream of existing orders which are displayed within the terminal. Running locally established a insecure connection which is based on an environment varialbe **_DEV_** being set to true. A secure connection is required when running the server app within the Kyma runtime. In this case the variable **_DEV_** most be set to false.
 
 ## Prerequisites
 
@@ -14,11 +14,11 @@ This sample demostrates gRPC connectivity between a gRPC server running in the K
 
 ## Steps
 
-### Run the sammple locally
+### Run the sample locally
 
 1. Clone the project.
 
-2. Inside the directory, run:
+2. Install grpcio-tools:
 
    ```shell script
    pip install grpcio-tools
@@ -30,13 +30,14 @@ This sample demostrates gRPC connectivity between a gRPC server running in the K
    export _DEV_="true"
    ```
 
-4. Run the server
+4. Within the sample directory start the server
 
    ```shell script
     python orders-server.py
    ```
 
-5. In another terminal run the client
+5. In another terminal within the sample directory start the client
+
    ```shell script
    python orders-client.py
    ```
