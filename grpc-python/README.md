@@ -24,21 +24,16 @@ This sample demostrates gRPC connectivity between a gRPC server running in the K
    pip install grpcio-tools
    ```
 
-3. For running locally the environment variable `_DEV_` needs to be set to true.
-
-   ```shell script
-   export _DEV_="true"
-   ```
-
-4. Within the sample directory start the server
+3. Within the sample directory start the server
 
    ```shell script
     python orders-server.py
    ```
 
-5. In another terminal within the sample directory start the client
+4. In another terminal within the sample directory set the environment variable `_DEV_` to true and start the client
 
    ```shell script
+    export _DEV_="true"
    python orders-client.py
    ```
 
@@ -67,11 +62,12 @@ kubectl -n grpc apply -f ./k8s/deployment.yaml
 kubectl -n grpc apply -f ./k8s/apirule.yaml
 ```
 
-4. Prepare the client environment by setting the `_DEV_` to false and the `_GRPC_TOKEN_` to match the value set, defaulted to 12345678, on the server within the deployment.yaml
+4. Prepare the client environment by setting the `_DEV_` to false and the `_GRPC_TOKEN_` to match the value set, defaulted to 12345678, on the server within the deployment.yaml as well are the `_GRPC_SERVER_`.
 
    ```shell script
    export _DEV_="false"
    export _GRPC_TOKEN_="12345678"
+   export _GRPC_SERVER_=grpcorderserver.*********.kyma.shoot.live.k8s-hana.ondemand.com:443
    ```
 
 5. Run the client

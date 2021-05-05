@@ -41,19 +41,6 @@ class OrderServicer(orders_pb2_grpc.OrderServicer):
     global orderlist
     orderlist = []
 
-    def RecordOrder(self, request, context):
-
-        now = datetime.now()
-        order = orders_pb2.OrderReply()
-
-        order.symbol = request.symbol
-        order.amount = request.amount
-        order.date = now.strftime("%m/%d/%Y, %H:%M:%S")
-        order.cost = random.uniform(1, 100)
-        orderlist.append(order)
-
-        return order
-
     def RecordOrders(self, request_iterator, context):
 
         start_time = time.time()

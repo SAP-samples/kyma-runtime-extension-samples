@@ -43,6 +43,7 @@ def symbol_generator(size=3, chars=string.ascii_uppercase):
 
 def get_orders(stub):
     order = orders_pb2.OrderRequest()
+    order.symbol = "TJE"
     orders = stub.GetOrders(order)
     for order in orders:
         print("Ordered %s of: %s at: %s for %s" %
@@ -81,8 +82,8 @@ def run():
         channel = grpc.insecure_channel('127.0.0.1:50051')
     else:
         print("-------------- secure_channel --------------")
-        channel = grpc.secure_channel(
-            'grpcorderserver.a0e7f99.kyma.shoot.live.k8s-hana.ondemand.com:443', composite_credentials)
+        channel = grpc.secure_channel(os.environ.get(
+            "_GRPC_SERVER_"), composite_credentials)
 
     stub = orders_pb2_grpc.OrderStub(channel)
     print("-------------- RecordOrder--------------")
