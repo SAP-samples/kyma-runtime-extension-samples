@@ -8,13 +8,13 @@ service Order {
   rpc GetOrders (OrderRequest) returns (stream OrderReply) {}
 }
 
-// The request message containing the user's name.
+// The request message
 message OrderRequest {
   string symbol = 1;
   double amount = 2;
 }
 
-// The response message containing the greetings
+// The response message
 message OrderReply {
     string symbol = 1;
     double amount = 2;
@@ -22,6 +22,7 @@ message OrderReply {
     string date = 4;
 }
 
+// The summary message
 message OrderSummary {
   int32 created = 1;
   double elapsed_time = 2;
