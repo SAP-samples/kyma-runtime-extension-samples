@@ -42,8 +42,8 @@ def symbol_generator(size=3, chars=string.ascii_uppercase):
 
 
 def get_orders(stub):
+    # send an empty order
     order = orders_pb2.OrderRequest()
-    order.symbol = "TJE"
     orders = stub.GetOrders(order)
     for order in orders:
         print("Ordered %s of: %s at: %s for %s" %
