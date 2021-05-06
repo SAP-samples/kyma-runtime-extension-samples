@@ -111,6 +111,24 @@ The second microservice is the one that implements the extension logic and where
 - A call is made to C4C to create a task with the exchanged token that contains the user context.
 - The task is created with the logged-in user as the processor, not a static user.
 
+**Token Exchange**
+
+The token exchange is done by making API calls to destination service. The configuration has been done in SAP, BTP in previous steps and an instance has been created on Kyma Service Catalog. The created instance provides the necessary credentials and call details (OAuth URL, API enpoint)
+
+The token exchange call looks like below:
+
+```shell
+curl --location --request GET '{uri-in-destination-service-instance-in-kyma-service-catalog}/destination-configuration/v1/destinations/{destination-name-in-BTP}' \
+  --header 'X-user-token: {JWT-token-to-be-exchanged}' \
+  --header 'Authorization: Bearer {OAuth-token}'
+```
+You can get the OAuth token by using the credentials provided in destination service instance created in Kyma Service Catalog.
+Use the 
+`URL + /oauth/token `
+as the token endpoint and client id and client secret as credentials.
+
+![destination-service-get-token](assets/destination-service-get-token.png)
+
 #### Setup
 
 - Create a Destination Service instance in the Kyma Service Catalog. This will be used to get the credentials to make the call to the Destination Service.
