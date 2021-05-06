@@ -34,7 +34,7 @@ This sample demonstrates how to:
   - API deployment written in GO
   - API Rule
   - Service
-  - Trigger
+  - Event Subscription
   - ServiceBinding
   - ServiceBindingUsage
 
@@ -160,16 +160,16 @@ spec:
 kubectl -n dev apply -f ./k8s/deployment-servicebinding.yaml
 ```
 
-### Deploy the Event Trigger
+### Deploy the Event Subscripiton
 
-The Event Trigger works for both samples. It expects that either SAP Commerce Cloud or the Commerce Mock application is connected and configured within the Namespace. You can find a blog post with details on the Commerce Mock setup [here](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-commerce-mock-events-and-apis/).
+The Event Subscripiton works for both samples. It expects that either SAP Commerce Cloud or the Commerce Mock application is connected and configured within the Namespace. You can find a blog post with details on the Commerce Mock setup [here](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-commerce-mock-events-and-apis/).
 
-The trigger and code within the Golang application are set up for the `order.created` event. Before you deploy the trigger, verify that the value of the source matches the name of your application.
+The subscription and code within the Golang application are set up for the `order.created` event. Before you deploy the subscription, verify that the value of `spec.filter.filters.eventType.value` is correct for the name of your application.
 
 1. Apply the Deployment:
 
 ```shell script
-kubectl -n dev apply -f ./k8s/event-trigger.yaml
+kubectl -n dev apply -f ./k8s/event.yaml
 ```
 
 2. Within the mock application, submit the `order.created` event. This populates the database with the submitted order code and the `order received from event` notification.
