@@ -13,8 +13,6 @@ import orders_pb2
 import orders_pb2_grpc
 import datetime
 
-_SIGNATURE_HEADER_KEY = 'x-signature'
-
 
 class AuthGateway(grpc.AuthMetadataPlugin):
 
