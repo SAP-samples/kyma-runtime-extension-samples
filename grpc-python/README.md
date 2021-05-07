@@ -33,7 +33,7 @@ This sample demostrates gRPC connectivity between a gRPC server running in the K
 4. In another terminal within the sample directory set the environment variable `_DEV_` to true and start the client
 
    ```shell script
-    export _DEV_="true"
+   export _DEV_="true"
    python orders-client.py
    ```
 
@@ -47,7 +47,7 @@ This sample demostrates gRPC connectivity between a gRPC server running in the K
   docker push {your-docker-account}/grpcorderserver
 ```
 
-3. Adjust the **imaage** of the deployment.yaml to reference your docker hub account.
+3. Adjust the **image** of the deployment.yaml to reference your docker hub account.
 4. Within the deployment.yaml you will find the envirnoment variable **_GRPC_TOKEN_** being set for the image. This is used as an authentication measure and requires that the client sends a matching token in the request.
 5. Create a new `grpc` Namespace:
 
