@@ -65,21 +65,21 @@ def record_orders(stub):
 
 
 def run():
-    with open("kyma.pem", "rb") as fp:
-        channel_credential = grpc.ssl_channel_credentials(fp.read())
-
-    call_credentials = grpc.metadata_call_credentials(AuthGateway(),
-                                                      name='auth gateway')
-    composite_credentials = grpc.composite_channel_credentials(
-        channel_credential,
-        call_credentials,
-    )
-
     if os.environ.get("_DEV_") == "true":
         print("-------------- insecure_channel --------------")
         channel = grpc.insecure_channel('127.0.0.1:50051')
     else:
         print("-------------- secure_channel --------------")
+        with open("kyma.pem", "rb") as fp:
+            channel_credential = grpc.ssl_channel_credentials(fp.read())
+
+        call_credentials = grpc.metadata_call_credentials(AuthGateway(),
+                                                          name='auth gateway')
+        composite_credentials = grpc.composite_channel_credentials(
+            channel_credential,
+            call_credentials,
+        )
+
         channel = grpc.secure_channel(os.environ.get(
             "_GRPC_SERVER_"), composite_credentials)
 

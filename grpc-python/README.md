@@ -24,9 +24,10 @@ This sample demostrates gRPC connectivity between a gRPC server running in the K
    pip install grpcio-tools
    ```
 
-3. Within the sample directory start the server
+3. Within the sample directory set the environment variable `_DEV_` to true and start the server
 
    ```shell script
+   export _DEV_="true"
     python orders-server.py
    ```
 
