@@ -62,7 +62,7 @@ sap.ui.define(
       signin: function (reqUrl) {
         this.mgr
           .signinRedirect({ state: reqUrl })
-          .then(function (x) {
+          .then(function () {
             console.log("signin done");
           })
           .catch(function (err) {
