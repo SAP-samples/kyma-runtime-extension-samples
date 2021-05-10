@@ -28,7 +28,7 @@ This sample demostrates gRPC connectivity between a gRPC server running in the K
 
    ```shell script
    export _DEV_=true
-    python orders-server.py
+   python orders-server.py
    ```
 
 4. In another terminal within the sample directory set the environment variable `_DEV_` to true and start the client
