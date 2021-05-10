@@ -52,17 +52,17 @@ sap.ui.define(
 
         this.mgr = new Oidc.UserManager(settings);
 
-        if (window.location.href.indexOf("#") >= 0) {
+        if (window.location.href.indexOf("#id_token") >= 0) {
           this.processSigninResponse();
         } else {
-          this.signin();
+          this.signin(window.location.href);
         }
       },
 
-      signin: function () {
+      signin: function (reqUrl) {
         this.mgr
-          .signinRedirect({ state: "some state data" })
-          .then(function () {
+          .signinRedirect({ state: reqUrl })
+          .then(function (x) {
             console.log("signin done");
           })
           .catch(function (err) {
@@ -77,6 +77,7 @@ sap.ui.define(
         this.mgr
           .signinRedirectCallback()
           .then(function (response) {
+            history.replaceState(null, null, response.state);
             response.profile.id_token = response.id_token;
             userMdl.setData(response.profile);
             me.setModel(userMdl, "user");
