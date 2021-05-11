@@ -77,7 +77,7 @@ sap.ui.define(
         this.mgr
           .signinRedirectCallback()
           .then(function (response) {
-            history.replaceState(null, null, response.state);
+            history.replaceState(null, document.title, response.state);
             response.profile.id_token = response.id_token;
             userMdl.setData(response.profile);
             me.setModel(userMdl, "user");
