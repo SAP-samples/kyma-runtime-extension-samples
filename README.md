@@ -40,7 +40,7 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [Sample deploying a websocket based extension on Kyma](./sample-websockets/README.md)
 - [Cloud Integration Multi-cloud](./pi-scenario/README.md)
 - [Cloud Integration Neo](./pi-scenario/README-neo.md)
-- [gRPC Python](./grpc-python/README-neo.md)
+- [gRPC Python](./grpc-python/README.md)
 
 ## Helm Charts
 
