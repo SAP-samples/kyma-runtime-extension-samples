@@ -1,6 +1,6 @@
 # Overview
 
-This sample demonstrates how to build and deploy a Scala Based Akka-HTTP microservice as an extension and expose the API in SAP Cloud Platform, Kyma runtime.
+This sample demonstrates how to build and deploy a Scala Based Akka-HTTP microservice as an extension and expose the API in SAP BTP, Kyma runtime.
 
 ![extension](./assets/extension.png)
 
@@ -13,7 +13,7 @@ This sample demonstrates how to:
 
 ## Prerequisites
 
-* SAP Cloud Platform, Kyma runtime instance
+* SAP BTP, Kyma runtime instance
 * [Docker](https://www.docker.com/)
 * [make](https://www.gnu.org/software/make/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
