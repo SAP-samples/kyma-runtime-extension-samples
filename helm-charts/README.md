@@ -6,7 +6,7 @@ For more information see [helm](https://helm.sh/)
 
 ## Prerequisites
 
-- SAP Cloud Platform, Kyma Runtime instance
+- SAP BTP, Kyma Runtime instance
 - [Helm](https://helm.sh/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - `kubectl` is configured to `KUBECONFIG` downloaded from Kyma Runtime.
