@@ -79,7 +79,8 @@ func getInfoVerifyScope(r *http.Request) (handler.Config, error) {
 		return handlerCfg, err
 	}
 
-	scopeToCheck := handlerCfg.RequestInfo.SubscriptionAppID + ".Callback"
+	appConfig := appconfig.GetConfig()
+	scopeToCheck := appConfig.AppAuthProxy.IDPConfig.XSAppName + ".Callback"
 
 	if checkScope(r.Header.Get("authorization"), scopeToCheck) == false {
 		err := errors.New("Not Authorized!")

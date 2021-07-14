@@ -160,13 +160,13 @@ kubectl apply -f ./k8s/service-binding.yaml -n saas
 5. The sample will display
 6. The app will have the following endpoints
 
-   https://saas-demo-<tenant id>.<cluster domain>/
+   https://saas-demo-\<tenant id\>.\<cluster domain\>/
 
-   https://saas-demo-<tenant id>.<cluster domain>/headers
+   https://saas-demo-\<tenant id\>.\<cluster domain\>/headers
 
-   https://saas-demo-<tenant id>.<cluster domain>/auth/user
+   https://saas-demo-\<tenant id\>.\<cluster domain\>/auth/user
 
-   https://saas-demo-<tenant id>.<cluster domain>/auth/groups
+   https://saas-demo-\<tenant id\>.\<cluster domain\>/auth/groups
 
 ### Run the Sample Locally
 
@@ -183,6 +183,7 @@ kubectl apply -f ./k8s/service-binding.yaml -n saas
  export IDP_clientsecret='<client secret>'
  export IDP_url='<url>'
  export IDP_identityzone='<identityzone>'
+ export IDP_xsappname='<xsappname>'
 ```
 
 3. Within the folder **cmd/api** run

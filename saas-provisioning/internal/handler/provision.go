@@ -332,7 +332,7 @@ func (c *Config) generateAppAuthProxyConfigMap() (map[string]string, error) {
 	data.RedirectURI = "https://" + c.AppConfig.AppName + "-" + c.Tenant + "." + c.AppConfig.Domain + "/oauth/callback"
 	data.IDPConfig.ClientSecret = c.AppConfig.AppAuthProxy.IDPConfig.ClientSecret
 	data.IDPConfig.ClientID = c.AppConfig.AppAuthProxy.IDPConfig.ClientID
-	data.IDPConfig.XSAppName = c.RequestInfo.SubscriptionAppID
+	data.IDPConfig.XSAppName = c.AppConfig.AppAuthProxy.IDPConfig.XSAppName
 
 	var targetPath string
 	for i, s := range c.AppConfig.AppAuthProxy.Routes {

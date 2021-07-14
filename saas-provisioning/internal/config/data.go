@@ -53,7 +53,7 @@ type IDPConfig struct {
 	URL                     string `envconfig:"IDP_url"`
 	IdentityZone            string `envconfig:"IDP_identityzone"`
 	TokenEndpointAuthMethod string `envconfig:"IDP_token_endpoint_auth_method,default=client_secret_basic"`
-	XSAppName               string `envconfig:"-"`
+	XSAppName               string `envconfig:"IDP_xsappname"`
 }
 
 type MethodScopes struct {
