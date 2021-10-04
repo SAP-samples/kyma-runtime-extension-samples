@@ -1,6 +1,6 @@
 # Overview
 
-This sample demonstrates how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) using SAP Cloud Platform, Kyma runtime.
+This sample demonstrates how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) using SAP BTP, Kyma runtime.
 
 It uses XSUAA with user federation via SAP IAS. However, any external identity provider would also work as long as it supports SAML 2.0.
 
@@ -23,10 +23,10 @@ The JWT token received in Kyma needs to be exchanged for an OAuth2 token that ca
 
 ## Prerequisites
 
-- SAP Cloud Platform, Kyma runtime instance
+- SAP BTP, Kyma runtime instance
 - SAP Cloud for Customer tenant
-- SAP Cloud Platform Identity Authentication Service tenant
-- OAuth 2.0-based authentication between IAS, SAP Cloud Platform, and C4C requires the same user ID to exist in both IAS and C4C.
+- SAP Identity Authentication Service tenant
+- OAuth 2.0-based authentication between IAS, SAP BTP, and C4C requires the same user ID to exist in both IAS and C4C.
 
 ## Steps
 
@@ -51,8 +51,8 @@ Set up single sign-on (SSO) using IAS with C4C. Refer to the [official documenta
 <sup>Full details can be found at [help.sap.com](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/7c6aa87459764b179aeccadccd4f91f3.html#loio7c6aa87459764b179aeccadccd4f91f3) </sup>
 
 - In your Identity Authentication service (IAS) tenant download the SAML Metadata file by choosing the menu option **Applications & Resources** -> **Tenant Settings** -> **SAML 2.0 Configuration**. Choose the option to **Download Metadata File**.
-- In your SAP Cloud Platform Subaccount choose the menu option **Security** -> **Trust Configuration**. Choose the option **New Trust Configuration** and upload the file downloaded from your IAS tenant in the previous step.
-- In your SAP Cloud Platform Subaccount choose the menu option **Security** -> **Trust Configuration**. Choose the option **SAML Metadata** to download the SCP metadata.
+- In your SAP BTP Subaccount choose the menu option **Security** -> **Trust Configuration**. Choose the option **New Trust Configuration** and upload the file downloaded from your IAS tenant in the previous step.
+- In your SAP BTP Subaccount choose the menu option **Security** -> **Trust Configuration**. Choose the option **SAML Metadata** to download the SCP metadata.
 - In your Identity Authentication service (IAS) tenant choose the menu option **Applications & Resources** -> **Applications**. Choose **Add**, provide a name and save the application.
 - In the IAS application choose **SAML 2.0 Configuration**. Choose the option **Browse** and provide the SAML Metadata file downloaded from SCP. Save the changes.
 - In the IAS application choose **Subject Name Identifier** and set the **basic attribute** to use the field which would map to the C4C user. Save the changes.
@@ -63,7 +63,7 @@ Configure user propagation between C4C and Kyma runtime.
 
 [This blog](https://blogs.sap.com/2017/11/14/configuring-oauth-2.0-between-sap-hybris-cloud-for-customer-and-sap-cloud-platform/) was used as a reference. It was written for Neo, but some steps are also applicable for Kyma runtime.
 
-You will end up creating a Destination Service in SAP Cloud Platform. It will be later on used by the microservice to do the token exchange.
+You will end up creating a Destination Service in SAP BTP. It will be later on used by the microservice to do the token exchange.
 
 - Download the `Trust` certificate from **Subaccount** --> **Destinations** --> **Download Trust**.
   ![download-trust](assets/download-trust.png)
@@ -82,7 +82,7 @@ You will end up creating a Destination Service in SAP Cloud Platform. It will be
 - Register an Oauth2 Client in C4C.
   ![register-oauth-client](assets/register-oauth-client.png)
 
-- Create a destination in SAP Cloud Platform. Under your subaccount, go to **Connectivity** --> **Destinations**.
+- Create a destination in SAP BTP. Under your subaccount, go to **Connectivity** --> **Destinations**.
   ![http-destination](assets/http-destination.png)
 
   Configure these additional properties:
@@ -157,7 +157,7 @@ The c4c-extension c4c-extension Application microservice implements the extensio
 
 - Deploy the extension with user propagation.
 
-  - Update `DESTINATION_NAME` in [`deployment.yaml`](/k8s/c4c-extension/deployment.yaml) with the name of the destination created in SAP Cloud Platform.
+  - Update `DESTINATION_NAME` in [`deployment.yaml`](/k8s/c4c-extension/deployment.yaml) with the name of the destination created in SAP BTP.
 
   - Deploy the extension.
 
