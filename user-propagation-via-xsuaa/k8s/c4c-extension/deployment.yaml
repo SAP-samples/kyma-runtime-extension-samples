@@ -33,7 +33,7 @@ spec:
           - name: DESTINATION_URL
             value: $(uri)/destination-configuration/v1/destinations
           - name: DESTINATION_NAME
-            value: {provide name of destinaton created in cloud platform} #should be updated
+            value: {provide name of destinaton created in SAP BTP} #should be updated
 status: {}
 ---
 apiVersion: v1
