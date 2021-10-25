@@ -1,6 +1,6 @@
 # Overview
 
-This sample demonstrates how to build and deploy a Micronaut microservice as an extension and expose the API in SAP Cloud Platform, Kyma runtime.
+This sample demonstrates how to build and deploy a Micronaut microservice as an extension and expose the API in SAP BTP, Kyma runtime.
 
 [Micronaut](https://micronaut.io/) enables creating native images using GraalVM for Java.
 
@@ -15,7 +15,7 @@ This sample demonstrates how to:
 
 ## Prerequisites
 
-* SAP Cloud Platform, Kyma runtime instance
+* SAP BTP, Kyma runtime instance
 * [Docker](https://www.docker.com/)
 * [make](https://www.gnu.org/software/make/)
 * [Gradle](https://gradle.org/)
