@@ -8,6 +8,8 @@ This sample demostrates how the SAP SAAS Provisioning service can be used to dev
 - An external path to https://httpbin.org/ which will output the headers.
 - The related services
 
+![diagram](assets/diagram.png)
+
 ### Create a new `saas` Namespace:
 
 ```shell script
