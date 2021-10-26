@@ -8,6 +8,8 @@ This sample demostrates how the SAP SAAS Provisioning service can be used to dev
 - An external path to https://httpbin.org/ which will output the headers.
 - The related services
 
+![diagram](assets/diagram.png)
+
 ### Create a new `saas` Namespace:
 
 ```shell script
@@ -32,7 +34,9 @@ The XSUAA Service Instance defines how subscribers will authenticate to the samp
 {
   "xsappname": "saas-provisioning-demo-app",
   "oauth2-configuration": {
-    "redirect-uris": ["https://*.<cluster domain>/oauth/callback"]
+    "redirect-uris": [
+      "https://*.c-979a4a0.kyma.shoot.live.k8s-hana.ondemand.com/oauth/callback"
+    ]
   },
   "tenant-mode": "shared",
   "scopes": [
@@ -82,7 +86,7 @@ The XSUAA Service Instance defines how subscribers will authenticate to the samp
   "description": "A Kyma SAAS Provisioning Demo Sample App",
   "category": "Kyma Demo",
   "appUrls": {
-    "onSubscription": "https://saas-provisioning-demo.<cluster domain>/callback/v1.0/tenants/{tenantId}"
+    "onSubscription": "https://saas-provisioning-demo.c-979a4a0.kyma.shoot.live.k8s-hana.ondemand.com/callback/v1.0/tenants/{tenantId}"
   }
 }
 ```
