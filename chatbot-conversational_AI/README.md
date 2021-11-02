@@ -44,17 +44,19 @@ This sample demonstrates how to:
 
 3. On the **Build** tab, go to `customer-satisfaction-reply` and scroll down to the section `if user chooses no`. There, delete the two existing actions, click on `Choose Message Type`, then on `Text` and paste the following message:
 
-```shell script
-Sorry, that I couldn't find an answer to your question. Please post it on <https://sap.stackenterprise.co/questions/ask|Stack Overflow>. Tag it with `[kyma-runtime]` and give the question a short and precise title.
-```
+   ```shell script
+   Sorry, that I couldn't find an answer to your question. Please post it on <https://sap.stackenterprise.co/questions/ask|Stack Overflow>. Tag it with `[kyma-runtime]` and give the question a short and precise title.
+   ```
+   
+4. On the **Build** tab, go to `faq` and scroll down to the section `if ?qna.faq.max_confidence lower-than .05`. There, delete the existing reply `I was not able to find what you were looking for in my document.` by clicking on the trash can with the label `Delete action`.
 
 <br />
 
-### 2. Connect the FAQ chatbot to a Communication Platform
+### 2. Connect the FAQ Chatbot to a Communication Platform
 
 The FAQ chatbot can be connected to multiple communication platforms. In the previously created FAQ chatbot, go to the **Connect** tab and explore the options. In this tutorial, the bot is connected to Slack following the [Deploy an SAP Conversational AI Chatbot on Slack](https://developers.sap.com/tutorials/conversational-ai-deploy-slack.html) tutorial.
 
-1. In the **Connect** tab click on `Slack`.
+1. In the **Connect** tab, click on `Slack`.
 
 2. Click on `Create a Slack app` and follow the instructions there:
    - Click on the link which will bring you to https://api.slack.com/apps. 
@@ -120,7 +122,7 @@ The FAQ chatbot can be connected to multiple communication platforms. In the pre
 
 <br />
 
-### 3. Deploy the knowledge database to Kyma
+### 3. Deploy the Knowledge Database to Kyma
 
 The first step will be to deploy the knowledge database. Make sure that you have a running Docker installation and a Docker Hub account. The proceed with the following steps:
 
@@ -177,7 +179,7 @@ The first step will be to deploy the knowledge database. Make sure that you have
 
 <br />
 
-### 4. Deploy the API function for the database to Kyma
+### 4. Deploy the API Function for the Database to Kyma
 
 Next, an API function must be deployed to allow manipulation of the database from outside. This is very similar to the [api-mssql-function](https://github.com/SAP-samples/kyma-runtime-extension-samples/tree/main/api-mssql-function) in this Git repository.
 
@@ -216,7 +218,7 @@ Next, an API function must be deployed to allow manipulation of the database fro
 
 <br />
 
-### 5. Deploy the bot observer tool to Kyma
+### 5. Deploy the Bot Observer Tool to Kyma
 
 Now, it is time to deploy the bot observer tool. This is a simple node.js server that displays the current bot knowledge (requested from SAP CAI), the Stack Overflow content, and the knowledge database content.
 
@@ -340,5 +342,5 @@ Now, it is time to deploy the bot observer tool. This is a simple node.js server
 
 <br />
 
-## About the contributer and the project
+## About the Contributer and the Project
 The development of this chatbot and the tutorial was a project contributed by Lasse Urban, who is a vocational training student at SAP. He spent one rotation in the STAR (Student Training and Rotation) Program with the Kyma Runtime Adoption team from April 2021 to October 2021. If you want to learn more about the project or the contributer, please visit [Lasse's GitHub page](https://github.com/lasseUrban/kyma-chatbot).
