@@ -45,7 +45,7 @@ This sample demonstrates how to:
 3. On the **Build** tab, go to `customer-satisfaction-reply` and scroll down to the section `if user chooses no`. There, delete the two existing actions, click on `Choose Message Type`, then on `Text` and paste the following message:
 
    ```shell script
-   Sorry, that I couldn't find an answer to your question. Please post it on <https://sap.stackenterprise.co/questions/ask|Stack Overflow>. Tag it with `[kyma-runtime]` and give the question a short and precise title.
+   Sorry, that I couldn't find an answer to your question. Please post it on Stack Overflow.
    ```
    
 4. On the **Build** tab, go to `faq` and scroll down to the section `if ?qna.faq.max_confidence lower-than .05`. There, delete the existing reply `I was not able to find what you were looking for in my document.` by clicking on the trash can with the label `Delete action`.
@@ -244,7 +244,7 @@ Now, it is time to deploy the bot observer tool. This is a simple node.js server
    | bot-url                | The bot URL is needed to communicate with the FAQ bot in SAP Conversational AI and needs to be of this format:<br /><br />`{user_slug}/bots/{bot_slug}/versions/{version_slug}/qna/topic/knowledge_sources/{knowledge_source_id}/answers`<br /><br />- The user_slug can be found in the `Settings` of the CAI bot on the tab `Tokens` at the bottom.<br />- The bot_slug is the name of the bot and can be found in the `Settings` of the CAI bot on the tab `Bot Options`.<br />- The version_slug can be found in the `Settings` of the CAI bot on the tab `Versions` (the value is most likely `v1`).<br />- The knowledge_source_id is the name of the csv-file that you uploaded in step 1.2<br />&nbsp; &nbsp;(if you took the one from this repo, the value is `kymafaq`).<br /><br />Please check the [SAP CAI API reference](https://api.sap.com/api/FAQBot_API/resource) for more information. |
    | cai-x-token            | 1. Go back to the `Settings` of the CAI bot and to the tab `Tokens`.<br />2. Copy the `Developer token` and paste it in the secret.yaml as the value of `cai-x-token`. |
    | stack-tag              | Choose a tag that is used for questions the bot should learn, e.g., `kyma-runtime`. |
-   | stack-key              | 1. Go to the Stack Overflow instance you want to connect to, e.g., [SAP Stack Overflow Employee Network](https://sap.stackenterprise.co/).<br />2. Next to the search bar at the top click on your profile picture to access your profile.<br />3. Click on `Edit profile and settings`.<br />4. Click on `API access keys`.<br />5. Choose a name and click `Create access key`.<br />6. Copy the `Key` and paste it in the secret.yaml as the value of `stack-key`.      |
+   | stack-key              | 1. Go to the Stack Overflow instance you want to connect to.<br />2. Next to the search bar at the top click on your profile picture to access your profile.<br />3. Click on `Edit profile and settings`.<br />4. Click on `API access keys`.<br />5. Choose a name and click `Create access key`.<br />6. Copy the `Key` and paste it in the secret.yaml as the value of `stack-key`.      |
    | db-name                | Use the value `spec.env.database.value` from the `knowledge-database/api-mssql-function/k8s/deployment.yaml` file. |
    | db-host                |  Use the value `spec.env.host.value` from the `knowledge-database/api-mssql-function/k8s/deployment.yaml` file. |
    | db-username            |  Use the value `spec.env.username.value` from the `knowledge-database/api-mssql-function/k8s/deployment.yaml` file. |
