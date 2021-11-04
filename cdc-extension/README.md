@@ -103,6 +103,8 @@ This example includes a **Kyma serverless function**, ***cdc-extension***, that 
 
 	- `kubectl create namespace cdc`
 
+	**Note:** As a prerequisite, please follow the steps listed in the following tutorial: [Download the Kyma Runtime kubeconfig](https://developers.sap.com/tutorials/cp-kyma-download-cli.html#2ef10816-b759-4080-a8ec-eadbc3317ebd)
+
 	**Alternately, use the Kyma Console User Interface to create a new namespace**
 	
 	- Open the Kyma console and click on **Add new namespace**. Enter its name as **cdc** and click the **Create** button.
