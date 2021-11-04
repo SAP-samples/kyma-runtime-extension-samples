@@ -1,8 +1,8 @@
-# Deploying an SAP Customer Data Cloud Extension to SAP BTP, Kyma runtime
+# Deploying an SAP Customer Data Cloud Extension to SAP BTP, Kyma Runtime
 
-The objective of this example is to demonstrate how to setup a **Kyma serverless function** to be used as an **[SAP Customer Data Cloud](https://help.sap.com/viewer/product/SAP_CUSTOMER_DATA_CLOUD/GIGYA/en-US) (CDC; aka: Gigya)** extension endpoint.
+The objective of this example is to demonstrate how to setup a **Kyma serverless function** to be used as an **[SAP Customer Data Cloud](https://help.sap.com/viewer/product/SAP_CUSTOMER_DATA_CLOUD/GIGYA/en-US) (CDC; aka: Gigya) extension endpoint**.
 
-**CDC Extensions** support secure, server-side, synchronous execution of custom logic and intercept specifc CDC REST API calls. They can be used to meet a wide range of business use-cases, such as to:
+**CDC Extensions** support secure, server-side, synchronous execution of custom logic and intercept specific CDC REST API calls. They can be used to meet a wide range of business use-cases, such as to:
 
 * Prevent a user from registering with an abusive username
 * Prevent a user from registering with a disposable email address
@@ -23,7 +23,12 @@ Currently, the following CDC REST API calls can be intercepted using CDC extensi
 
 In this example, the **accounts.setAccountInfo** REST API endpoint has been intercepted to cleanse addresses via an external SAP Data Quality Management microservice.
 
-The code of this example can be easily re-used to build any other CDC extension and deploy it to SAP BTP, Kyma runtime.
+The code of this example can be easily re-used to build any other CDC extension and deploy it to SAP BTP, Kyma Runtime.
+
+**Notes:** 
+
+* All the functionality presented here are subject to change and may be changed by SAP at any time for any reason without notice.
+* For demonstration, this example uses an API Key to authenticate requests to SAP DQM. In a real-world scenario, either [OAuth 2.0](https://help.sap.com/viewer/d95546360fea44988eb614718ff7e959/Cloud/en-US/1fa6310be4e14ebb86c0411491bcff97.html) or [Client Certificate Authentication](https://help.sap.com/viewer/d95546360fea44988eb614718ff7e959/Cloud/en-US/7e983cce55604a8bb23a137483ea5dca.html) are to be used.
 
 ## Scenario
 
@@ -60,7 +65,7 @@ This example includes a **Kyma serverless function**, ***cdc-extension***, that 
 - [Enable SAP BTP, Kyma Runtime](https://developers.sap.com/tutorials/cp-kyma-getting-started.html).
 - [Download and install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html#d81e7789-ced4-4df6-b4a0-132d8c637077).
 - [Test the kubectl installation](https://developers.sap.com/tutorials/cp-kyma-download-cli.html#4709f3b9-b9bc-45f1-89c1-cd6f097c55f5).
-- [Download the Kyma runtime kubeconfig](https://developers.sap.com/tutorials/cp-kyma-download-cli.html#2ef10816-b759-4080-a8ec-eadbc3317ebd).
+- [Download the Kyma Runtime kubeconfig](https://developers.sap.com/tutorials/cp-kyma-download-cli.html#2ef10816-b759-4080-a8ec-eadbc3317ebd).
 - Create your [api.sap.com](https://api.sap.com/) account.
 
 ## Deployment steps
@@ -74,13 +79,13 @@ This example includes a **Kyma serverless function**, ***cdc-extension***, that 
 	
 	`git clone https://github.com/SAP-samples/kyma-runtime-extension-samples`
 		
-	**Note:** The source code of this example is located in the cdc-extensions subfolder of [this repository](https://github.com/SAP-samples/kyma-runtime-extension-samples).
+	**Note:** The source code of this example is in the cdc-extensions subfolder of [this repository](https://github.com/SAP-samples/kyma-runtime-extension-samples).
 
-2. Update the values of the following environment variables in the **./cdc-extension/k8s/function.yaml** file: `CDC_API_KEY`, `SAP_API_HUB_API_KEY`, `PUBLIC_KEY_KID`, `PUBLIC_KEY_N` and `PUBLIC_KEY_E`
+2. Update the values of the following environment variables in the **./kyma-runtime-extension-samples/cdc-extension/k8s/function.yaml** file: `CDC_API_KEY`, `SAP_API_HUB_API_KEY`, `PUBLIC_KEY_KID`, `PUBLIC_KEY_N` and `PUBLIC_KEY_E`
 
-    - `CDC_API_KEY` - This is the API Key of the CDC site, and can be got from the CDC console.
+    - `CDC_API_KEY` - This is the API Key of the CDC site and can be got from the [CDC console](https://console.gigya.com/).
     
-    - `SAP_API_HUB_API_KEY` - This is the API Key of SAP API Business Hub. Login to [api.sap.com](https://api.sap.com/). Then, go to your profile settings and click on "Show API Key" to get the value for this variable.
+    - `SAP_API_HUB_API_KEY` - This is the API Key of SAP API Business Hub. Login to [api.sap.com](https://api.sap.com/). Then, go to your profile settings and click on **Show API Key** to get the value for this variable.
 
 	Go to "https://accounts.`CDC_Data_Center`/accounts.getJWTPublicKey?apiKey=`Your-CDC-Site-API-key`".
 	
@@ -100,7 +105,7 @@ This example includes a **Kyma serverless function**, ***cdc-extension***, that 
 
 	**Alternately, use the Kyma Console User Interface to create a new namespace**
 	
-	- Open the Kyma console and click on "Add new namespace". Enter its name as "cdc" and click the Create button.
+	- Open the Kyma console and click on **Add new namespace**. Enter its name as **cdc** and click the **Create** button.
 
 4. Create/update Kubernetes resources of the **cdc-extension serverless function**.
 
@@ -108,7 +113,7 @@ This example includes a **Kyma serverless function**, ***cdc-extension***, that 
 	
 	- `kubectl apply -f ./kyma-runtime-extension-samples/cdc-extension/k8s/api-rule.yaml`
 
-	**Note:** As a prerequisite, please follow the steps listed in the following tutorial: [Download the Kyma runtime kubeconfig](https://developers.sap.com/tutorials/cp-kyma-download-cli.html#2ef10816-b759-4080-a8ec-eadbc3317ebd)
+	**Note:** As a prerequisite, please follow the steps listed in the following tutorial: [Download the Kyma Runtime kubeconfig](https://developers.sap.com/tutorials/cp-kyma-download-cli.html#2ef10816-b759-4080-a8ec-eadbc3317ebd)
 
 	> The resources are represented as declarative YAML objects. Applying the resources will perfom the following steps:
 	
@@ -122,7 +127,7 @@ This example includes a **Kyma serverless function**, ***cdc-extension***, that 
 	- Then, click on **Browse** to select the following YAML file, and click on **Deploy**: **./kyma-runtime-extension-samples/cdc-extension/k8s/function.yaml**
 	- Repeat the above steps and select the following YAML file. Then, click on **Deploy**: **./kyma-runtime-extension-samples/cdc-extension/k8s/api-rule.yaml**
 
-5. Go to the Kyma Console -> CDC namespace -> Discovery & Network -> API Rules. Copy the **host** URL of the cdc-extension API Rule. Then, go to the CDC Console. Select your site and click on Extensions -> Add. Enter a name, select the API as **accounts.setAccountInfo (OnBeforeSetAccountInfo)**, paste the **host** URL, and click on the Save button.
+5. Go to the Kyma Console -> CDC namespace -> Discovery & Network -> API Rules. Copy the **host** URL of the cdc-extension API Rule. Then, go to the [CDC Console](https://console.gigya.com/). Select your site and click on Extensions -> Add. Enter a name, select the API as **accounts.setAccountInfo (OnBeforeSetAccountInfo)**, paste the **host** URL, and click on the Save button.
 
 6. Add the following two fields to the CDC schema with **Type** as **string** and **Write Access** as **clientModify**.
 
@@ -140,17 +145,19 @@ This example includes a **Kyma serverless function**, ***cdc-extension***, that 
 		- profile.zip
 		- profile.country
 
+	**Note:** Set the above schema fields as **required**.
+
 ## Steps to test the solution
 
 1. Register an account in your CDC site. 
 
-	**Note:** This can also be done by previewing the regsitation screen of the **Default-RegistrationLogin** screen-set in the CDC console.
+	**Note:** This can also be done by previewing the registration screen of the **Default-RegistrationLogin** screen-set in the [CDC console](https://console.gigya.com/).
  
 2. The registration completion screen will be displayed. 
 
-3. Enter an invalid address and click the Submit button. An error message will be returned.
+3. Enter an invalid address and click the **Submit** button. An error message will be returned.
 
-4. Fix the addrees and click the Submit button. The form should be processed successfully.
+4. Fix the address and click the **Submit** button. The form should be processed successfully.
  
 5. View the details of the account that was registered in the **Identity Access** screen of the CDC console. It can be observed that the address of the user has been cleansed, and the geo codes of the address have also been added.
 
