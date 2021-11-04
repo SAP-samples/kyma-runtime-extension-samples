@@ -129,14 +129,14 @@ This example includes a **Kyma serverless function**, ***cdc-extension***, that 
 	- Then, click on **Browse** to select the following YAML file, and click on **Deploy**: **./kyma-runtime-extension-samples/cdc-extension/k8s/function.yaml**
 	- Repeat the above steps and select the following YAML file. Then, click on **Deploy**: **./kyma-runtime-extension-samples/cdc-extension/k8s/api-rule.yaml**
 
-5. Go to the Kyma Console -> CDC namespace -> Discovery & Network -> API Rules. Copy the **host** URL of the cdc-extension API Rule. Then, go to the [CDC Console](https://console.gigya.com/). Select your site and click on Extensions -> Add. Enter a name, select the API as **accounts.setAccountInfo (OnBeforeSetAccountInfo)**, paste the **host** URL, and click on the Save button.
+5. Go to the Kyma Console -> **cdc** namespace -> Discovery & Network -> API Rules. Copy the **host** URL of the cdc-extension API Rule. Then, go to the [CDC Console](https://console.gigya.com/). Select your site and click on Extensions -> Add. Enter a name, select the API as **accounts.setAccountInfo (OnBeforeSetAccountInfo)**, paste the **host** URL and click on the **Save** button.
 
-6. Add the following two fields to the CDC schema with **Type** as **string** and **Write Access** as **clientModify**.
+6. Add the following two fields to the schema of your CDC site with **Type** as **string** and **Write Access** as **clientModify**.
 
 	- data.addr_latitude
 	- data.addr_longitude
 
-7. Add the following text fields to the CDC Registration Completion screen and set them to be required in the CDC schema.
+7. Add the following text fields to the CDC **Registration Completion** screen and set them to be required in the CDC schema.
 
 	- Screen-Set ID: **Default-RegistrationLogin**
 	- Screen ID: **gigya-complete-registration-screen**
@@ -155,7 +155,7 @@ This example includes a **Kyma serverless function**, ***cdc-extension***, that 
 
 	**Note:** This can also be done by previewing the registration screen of the **Default-RegistrationLogin** screen-set in the [CDC console](https://console.gigya.com/).
  
-2. The registration completion screen will be displayed. 
+2. The **Registration Completion** screen will be displayed. 
 
 3. Enter an invalid address and click the **Submit** button. An error message will be returned.
 
