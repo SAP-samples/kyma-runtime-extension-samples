@@ -41,6 +41,7 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [Cloud Integration Multi-cloud](./pi-scenario/README.md)
 - [Cloud Integration Neo](./pi-scenario/README-neo.md)
 - [gRPC Python](./grpc-python/README.md)
+- [Deploying an SAP Customer Data Cloud Extension to SAP BTP, Kyma runtime](./cdc-extension/README.md)
 
 ## Helm Charts
 
