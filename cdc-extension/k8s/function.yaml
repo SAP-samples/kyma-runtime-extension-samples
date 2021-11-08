@@ -73,8 +73,6 @@ spec:
                 "std_addr_region_full",
                 "std_addr_postcode_full",
                 "std_addr_country_2char",
-                "addr_latitude",
-                "addr_longitude",
                 "addr_asmt_level",
                 "addr_info_code",
                 "addr_info_code_msg",
@@ -140,10 +138,6 @@ spec:
                         } else if (result) {
                             responseBody.status = "ENRICH";
                             responseBody.data = {
-                                "data": {
-                                    ...(result.addr_latitude && { "addr_latitude": result.addr_latitude }),
-                                    ...(result.addr_longitude && { "addr_longitude": result.addr_longitude })
-                                },
                                 "profile": {
                                     ...(result.std_addr_address_delivery && { "address": result.std_addr_address_delivery }),
                                     ...(result.std_addr_locality_full && { "city": result.std_addr_locality_full }),
