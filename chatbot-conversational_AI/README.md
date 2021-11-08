@@ -42,7 +42,7 @@ This sample demonstrates how to:
    - For the data policy choose `non-personal` and `non-vulnerable`.
    - Choose the bot visibility to be `public` and press the `Create` button.
 
-2. On the **Train** tab, click the `Upload Document` button and upload the `kymafaq.csv` that you can find in this Git repository. After the upload you should be able to click on the document and see that there is already one question-answer pair.
+2. On the **Train** tab, click the `Upload Document` button and upload the [kymafaq.csv](kymafaq.csv) that you can find in this Git repository. After the upload you should be able to click on the document and see that there is already one question-answer pair.
 
 3. On the **Build** tab, go to `customer-satisfaction-reply` and scroll down to the section `if user chooses no`. There, delete the two existing actions, click on `Choose Message Type`, then on `Text` and paste the following message:
 
