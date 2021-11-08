@@ -10,7 +10,7 @@ The following code is included in this sample:
 
 - Knowledge database: simple [MS SQL database](knowledge-database/database-mssql/app/setup.sql) that stores all IDs of the questions the bot can answer
 - Bot observer tool: [node.js server](bot-observer-tool/app/server.js) that displays the current bot knowledge, the Stack Overflow content, and the knowledge database content. This server can also be used to verify that everything was set up correctly.
-- Update functionality: [Kubernetes CronJob](update-bot/k8s/cronjob.yaml) and [JS-script](update-bot/k8s/update-bot.js) to update the bot automatically
+- Update functionality: [Kubernetes CronJob](update-bot/k8s/cronjob.yaml) and [JS-script](update-bot/app/update-bot.js) to update the bot automatically
 
 This sample demonstrates how to:
 
