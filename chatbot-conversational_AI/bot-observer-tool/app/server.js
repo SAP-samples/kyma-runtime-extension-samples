@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 var cai_credentials = null;
  
-const cai_credentials_url = 'https://sapcai-community.authentication.eu10.hana.ondemand.com/oauth/token';
+const cai_credentials_url = process.env.CAI_CREDENTIALS_URL;
 const post_data = 'grant_type=client_credentials&client_id=' + process.env.CAI_CREDENTIALS_ID + '&client_secret=' + process.env.CAI_CREDENTIALS_SECRET;
 const options_credentials = {
   method: 'POST',
@@ -39,7 +39,7 @@ const options_credentials = {
   body: post_data
 };
 
-const bot_url = 'https://api.cai.tools.sap/train/v2/users/' + process.env.BOT_URL;
+const bot_url = process.env.BOT_URL;
 var options_bot = {
   method: 'GET',
   json: true,
@@ -93,7 +93,7 @@ app.get('/bot', async (req, res) => {
  *  Stack Data - Endpoint '/stack'                      *
  ********************************************************/
 
-const stack_url = 'https://sap.stackenterprise.co/api/2.2/search/advanced?tagged=' + process.env.STACK_TAG + '&pagesize=100&key=' + process.env.STACK_KEY;
+const stack_url = process.env.STACK_URL + '/search/advanced?tagged=' + process.env.STACK_TAG + '&pagesize=100&key=' + process.env.STACK_KEY;
 const options_stack = {
   method: 'GET',
   json: true

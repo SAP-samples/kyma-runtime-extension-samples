@@ -99,14 +99,14 @@ async function get_stackQuestions() {
   try {
     // An API call can fetch max 100 entries per page. It must be checked if there is more data available (see: https://api.stackexchange.com/docs/paging)
     var pagenumber = 1;
-    var stack_url_questions = 'https://sap.stackenterprise.co/api/2.2/search/advanced?tagged=' + process.env.STACK_TAG + '&pagesize=100&page=' + pagenumber + '&filter=withbody&key=' + process.env.STACK_KEY;
+    var stack_url_questions = process.env.STACK_URL + '/search/advanced?tagged=' + process.env.STACK_TAG + '&pagesize=100&page=' + pagenumber + '&filter=withbody&key=' + process.env.STACK_KEY;
     var result = await got(stack_url_questions, stack_config);
     var allQuestions = result.body;
     var moreDataAvailable_flag = allQuestions.has_more;
 
     while (moreDataAvailable_flag) {
       pagenumber = pagenumber + 1;
-      stack_url_questions = 'https://sap.stackenterprise.co/api/2.2/search/advanced?tagged=' + process.env.STACK_TAG + '&pagesize=100&page=' + pagenumber + '&filter=withbody&key=' + process.env.STACK_KEY;
+      stack_url_questions = process.env.STACK_URL + '/search/advanced?tagged=' + process.env.STACK_TAG + '&pagesize=100&page=' + pagenumber + '&filter=withbody&key=' + process.env.STACK_KEY;
       result = await got(stack_url_questions, stack_config);
       result.body.items.forEach(element => allQuestions.items.push(element));
       moreDataAvailable_flag = result.body.has_more;
@@ -120,7 +120,7 @@ async function get_stackQuestions() {
 }
 
 async function get_stackAnswers(question_id) {
-  const stack_url_answers = 'https://sap.stackenterprise.co/api/2.2/questions/' + question_id + '/answers?pagesize=100&filter=withbody&sort=votes&key=' + process.env.STACK_KEY;
+  const stack_url_answers = process.env.STACK_URL + '/questions/' + question_id + '/answers?pagesize=100&filter=withbody&sort=votes&key=' + process.env.STACK_KEY;
   try {
     const result = await got(stack_url_answers, stack_config);
     return result.body;
@@ -159,7 +159,7 @@ async function get_dbData(db_request) {
 /********************************************************
  *  SAP CAI                                             *
  ********************************************************/
-const cai_credentials_url = 'https://sapcai-community.authentication.eu10.hana.ondemand.com/oauth/token';
+const cai_credentials_url = process.env.CAI_CREDENTIALS_URL;
 const post_data = 'grant_type=client_credentials&client_id=' + process.env.CAI_CREDENTIALS_ID + '&client_secret=' + process.env.CAI_CREDENTIALS_SECRET;
 const cai_config = {
   method: 'POST',
@@ -181,7 +181,7 @@ async function get_caiCredentials() {
 }
 
 /********************************************************/
-const cai_request_url = 'https://api.cai.tools.sap/train/v2/users/' + process.env.BOT_URL;
+const cai_request_url = process.env.BOT_URL;
 const cai_request_config = {
   headers: {
     'Authorization': '',
@@ -225,9 +225,6 @@ async function add_caiQuestion(questionText, answerID, access_token) {
     cai_request_config.headers.Authorization =  'Bearer ' + access_token;
     questionText = questionText.replace(/\&quot\;/g, "\"");
     questionText = questionText.replace(/.com\/\?/g, ".com? ");
-
-    // This is because of a bug in SAP CAI. It just makes the question a bold so that the format is a little prettier
-    questionText = " *" + questionText + "* ";
 
     cai_request_config.body = '{"value": ' + JSON.stringify(questionText)  + ', "display": "true"}';
     cai_request_url_with_question = cai_request_url + '/' + answerID + '/questions';

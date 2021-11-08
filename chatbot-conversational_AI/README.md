@@ -2,13 +2,15 @@
 
 ## Overview
 
-This sample provides a tutorial and the code to set up an FAQ chatbot in SAP Conversational AI (CAI) that learns questions and answers from Stack Overflow. The learning process is based on a Kubernetes CronJob. It receives all questions with a specific tag from Stack Overflow, stores the question IDs in a simple SQL database, and adds new questions to the SAP CAI bot. The SQL database is necessary to keep track of which question from Stack Overflow corresponds to which question in the bot knowledge.
+This sample provides a tutorial and the code to set up an FAQ chatbot in SAP Conversational AI (CAI) that learns question and answer pairs from Stack Overflow. The learning process is based on a Kubernetes CronJob. It receives all questions with a specific tag from Stack Overflow, stores the question IDs in a simple SQL database, and adds new questions to the SAP CAI bot. The SQL database is necessary to keep track of which question from Stack Overflow corresponds to which question in the bot knowledge.
+
+![Overview of the Chatbot's Architecture](assets/botarchitecture.PNG)
 
 The following code is included in this sample:
 
-- Knowledge database: simple MS SQL database that stores all IDs of the questions the bot can answer
-- Bot observer tool: node.js server that displays the current bot knowledge, the Stack Overflow content, and the knowledge database content. This server can also be used to verify that everything was set up correctly.
-- Update functionality: Kubernetes CronJob and JS-script to update the bot automatically
+- Knowledge database: simple [MS SQL database](knowledge-database/database-mssql/app/setup.sql) that stores all IDs of the questions the bot can answer
+- Bot observer tool: [node.js server](bot-observer-tool/app/server.js) that displays the current bot knowledge, the Stack Overflow content, and the knowledge database content. This server can also be used to verify that everything was set up correctly.
+- Update functionality: [Kubernetes CronJob](update-bot/k8s/cronjob.yaml) and [JS-script](update-bot/k8s/update-bot.js) to update the bot automatically
 
 This sample demonstrates how to:
 
@@ -48,7 +50,20 @@ This sample demonstrates how to:
    Sorry, that I couldn't find an answer to your question. Please post it on Stack Overflow.
    ```
    
-4. On the **Build** tab, go to `faq` and scroll down to the section `if ?qna.faq.max_confidence lower-than .05`. There, delete the existing reply `I was not able to find what you were looking for in my document.` by clicking on the trash can with the label `Delete action`.
+4. On the **Build** tab, go to `faq` and make the following three changes to the actions:
+   - Edit the first action and replace the pairs of two asterisks by single asterisks
+     ```shell script
+     *{{qna.faq.answers.0.question}}*
+     {{qna.faq.answers.0.answer}}
+     ```
+   - Edit the second action and also replace the pairs of two asterisks by single asterisks
+     ```shell script
+     *Did you mean to ask?*
+     1) {{qna.faq.answers.0.question}}
+     2) {{qna.faq.answers.1.question}}
+     3) {{qna.faq.answers.2.question}}
+     ```
+   - Delete the third action. Scroll down to `if ?qna.faq.max_confidence lower-than .05`. There, delete the existing reply `I was not able to find what you were looking for in my document.` by clicking on the trash can with the label `Delete action`.
 
 <br />
 
@@ -343,4 +358,4 @@ Now, it is time to deploy the bot observer tool. This is a simple node.js server
 <br />
 
 ## About the Contributer and the Project
-The development of this chatbot and the tutorial was a project contributed by Lasse Urban, who is a vocational training student at SAP. He spent one rotation in the STAR (Student Training and Rotation) Program with the Kyma Runtime Adoption team from April 2021 to October 2021. If you want to learn more about the project or the contributer, please visit [Lasse's GitHub page](https://github.com/lasseUrban/kyma-chatbot).
+The development of this chatbot and the tutorial was a project contributed by Lasse Urban, who is a vocational training student at SAP. He spent one rotation in the STAR (Student Training and Rotation) Program with the Kyma Runtime Adoption team from April 2021 until October 2021.

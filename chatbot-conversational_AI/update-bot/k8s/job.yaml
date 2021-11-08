@@ -11,6 +11,11 @@ spec:
         image: lasseurban/bot-update      #change it to your image
         imagePullPolicy: Always
         env:
+          - name: CAI_CREDENTIALS_URL
+            valueFrom:
+              secretKeyRef:
+                name: bot-secret
+                key: cai-credentials-url
           - name: CAI_CREDENTIALS_ID
             valueFrom:
               secretKeyRef:
@@ -31,6 +36,11 @@ spec:
               secretKeyRef:
                 name: bot-secret
                 key: cai-x-token
+          - name: STACK_URL
+            valueFrom:
+              secretKeyRef:
+                name: bot-secret
+                key: stack-url
           - name: STACK_TAG
             valueFrom:
               secretKeyRef:
