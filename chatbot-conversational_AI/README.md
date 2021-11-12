@@ -4,7 +4,7 @@
 
 This sample provides a tutorial and the code to set up an FAQ chatbot in SAP Conversational AI (CAI) that learns question and answer pairs from Stack Overflow. The learning process is based on a Kubernetes CronJob. It receives all questions with a specific tag from Stack Overflow, stores the question IDs in a simple SQL database, and adds new questions to the SAP CAI bot. The SQL database is necessary to keep track of which question from Stack Overflow corresponds to which question in the bot knowledge.
 
-![Overview of the Chatbot's Architecture](assets/botarchitecture.PNG)
+![Overview of the Chatbot's Architecture](assets/BotArchitecture.jpg)
 
 The following code is included in this sample:
 
