@@ -42,6 +42,7 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [Cloud Integration Neo](./pi-scenario/README-neo.md)
 - [gRPC Python](./grpc-python/README.md)
 - [Sample SAP Customer Data Cloud Extension](./cdc-extension/README.md)
+- [Self-learning FAQ Chatbot based on SAP Conversational AI](./chatbot-conversational_AI/README.md)
 
 ## Helm Charts
 
