@@ -313,7 +313,6 @@ This example includes a **Kyma Serverless Function**, *cdp-extension*, that is e
 
 11. Click Save and Done.
 
-
 ### Upload a file to AWS S3
 
 Upload the `input_20211119_001.json` file (located in the `./kyma-runtime-extension-samples/cdp-extension/input` folder of the **cdp-extensions** repo) to the **input** folder of your AWS S3 bucket.
@@ -328,7 +327,6 @@ Upload the `input_20211119_001.json` file (located in the `./kyma-runtime-extens
 aws-cdp-integration --> Load users from AWS S3 --> Ingest Now.
 
 3. If SAP API Hub is up and running and your Extension has been setup correctly, then the data is enriched during ingestion with additional data from SAP S/4HANA Cloud.
-
 
 ## Troubleshooting steps
 
