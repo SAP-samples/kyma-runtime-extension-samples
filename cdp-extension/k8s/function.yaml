@@ -108,8 +108,8 @@ spec:
                 },
                 contactPhoneNumberDetails: async () => {
                     let contactPhoneNumberDetails = null;
-                    if (contactPersonNumberAndAddressID && contactPersonNumberAndAddressID.contactPersonNumber && contactPersonNumberAndAddressID.addressID) {
-                        contactPhoneNumberDetails = await getContactPhoneNumberDetails(contactPersonNumber, addressID);
+                    if (contactPersonNumberAndAddressID && contactPersonNumberAndAddressID.personNumber && contactPersonNumberAndAddressID.addressID) {
+                        contactPhoneNumberDetails = await getContactPhoneNumberDetails(contactPersonNumberAndAddressID.personNumber, contactPersonNumberAndAddressID.addressID);
                     }
                     return contactPhoneNumberDetails;
                 }
