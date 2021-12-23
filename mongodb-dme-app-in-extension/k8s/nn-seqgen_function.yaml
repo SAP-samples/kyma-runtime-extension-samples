@@ -1,0 +1,160 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata: 
+  labels: 
+    app: nn-seqgen
+  name: nn-seqgen
+spec:
+  deps: "{ \n    \"name\": \"nn-seqgen\",\n    \"version\": \"1.0.0\",\n    \"dependencies\":
+    {\n        \"mongoose\": \"^6.0.0\"\n    }\n}"
+  maxReplicas: 1
+  minReplicas: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  env: 
+    - name: PATTERN
+      value: PLANTYYYYDDMMLLNNNNN
+    - name: RESET_MODE
+      value: DAY
+    - name: NUMBER_BASE
+      value: "10"
+    - name: MONGODB_HOST
+      valueFrom: 
+        configMapKeyRef: 
+          key: host
+          name: nn-seqgen
+    - name: MONGODB_PORT
+      valueFrom: 
+        configMapKeyRef: 
+          key: port
+          name: nn-seqgen
+    - name: MONGO_USER
+      valueFrom: 
+        secretKeyRef: 
+          key: username
+          name: nn-seqgen-user-creds
+    - name: MONGO_PASSWORD
+      valueFrom: 
+        secretKeyRef: 
+          key: password
+          name: nn-seqgen-user-creds
+  runtime: nodejs14
+  source: "const mongoose = require('mongoose');\n\n// Connect to Mongo DB with host,
+    port, user, password from Environment Variables\nconst mongoDBHost = readEnv(\"MONGODB_HOST\");\nconst
+    mongoDBPort = readEnv(\"MONGODB_PORT\");\nconst userName = readEnv(\"MONGO_USER\");\n//
+    encode password \nconst password = encodeURIComponent(readEnv(\"MONGO_PASSWORD\"));\nconst
+    mongoDBConnectionURL = `mongodb://${userName}:${password}@${mongoDBHost}:${mongoDBPort}/ident-db?retryWrites=true&w=majority`;\nconsole.log('seqgenchm
+    mongoDBConnectionURL: ', mongoDBConnectionURL);\nmongoose.connect(mongoDBConnectionURL,
+    {\n    useNewUrlParser: true,\n    useUnifiedTopology: true\n}).then(() => {\n
+    \   console.log(\"seqgenchm function.Connected to Mongo Database Successfully!\")\n}).catch((error)
+    => {\n    console.error('seqgenchm function.Could not connect to MongoDB.. ',
+    error)\n});\n// get reset mode = YEAR, MONTH, DAY, NONE \nconst resetMode = !isEmpty(readEnv(\"RESET_MODE\"))
+    ? readEnv(\"RESET_MODE\") : \"NONE\";\n// get pattern for building identifier
+    \nconst pattern = !isEmpty(readEnv(\"PATTERN\")) ? readEnv(\"PATTERN\") : \"PLANTYYYYDDMMLLNNNNN\";\n//
+    The number base of the sequence portion of the numbering pattern, supported 10
+    for decimal and 16 for hexdecimal \nconst numberBase = !isEmpty(readEnv(\"NUMBER_BASE\"))
+    ? readEnv(\"NUMBER_BASE\") : \"10\";\n// Define sequence schema \nconst sequenceSchema
+    = mongoose.Schema({\n    sequence: {\n        type: Number,\n        default:
+    0,\n    },\n    plant: String,\n    workCenter: String,\n    year: Number,\n    month:
+    Number,\n    day: Number,\n    resetMode: String\n});\n\n//******************Extension
+    Entry point *****************\n\nmodule.exports = {\n    main: async function(event,
+    context) {\n        try {\n            if (mongoose.connection.readyState ===
+    0) {\n                throw new Error(\"Could not connect to MongoDB.\");\n            }\n
+    \           let request = event.data;\n            if (isEmpty(request)) {\n                throw
+    new Error(\"No request body found.\");\n            }\n            console.log('seqgenchm
+    input request %j: ', request);\n            let newIdentifiers = []; //we will
+    collect the new identifiers here\n            let result;\n            if (\"identifiers\"
+    in request) {\n                console.log(\"seqgenchm. Received Identifiers %j:\",
+    request.identifiers);\n                result = await processIdentifiers(request.identifiers,
+    newIdentifiers, \"extensionParameters\" in request ? request.extensionParameters
+    : null);\n            } else {\n                throw new Error(\"No identifiers
+    found in request\");\n            }\n            console.log(\"seqgenchm RESULT
+    %j\", result);\n\n            request.identifiers = newIdentifiers;\n\n            console.log(\"seqgenchm
+    returning request %j\", request);\n\n            return request;\n        } catch
+    (err) {\n            console.error(\"an error occurred...\", err);\n            event.extensions.response.status(500).json({\n
+    \               \"message\": \"An error occurred during seqgenchm function execution\",\n
+    \               \"error\": err.message\n            });\n        }\n    }\n}\n\n\n//******************
+    processIdentifiers *****************************\n// Process all received identifiers
+    and change them to defined format in pattern\n//******************************************************************\n\nasync
+    function processIdentifiers(identifiers, newIdentifiers, extensionParameters)
+    {\n    console.log(\"seqgenchm.ProcessIdentifiers %j , %j , %j \", identifiers,
+    newIdentifiers, extensionParameters);\n    let workCenterParam;\n    let plant;\n
+    \   let newIdentifier;\n    if (extensionParameters) {\n        workCenterParam
+    = extensionParameters[\"WORK_CENTER\"];\n        plant = extensionParameters[\"PLANT\"]
+    ? extensionParameters[\"PLANT\"] : getPlantFromRouting(extensionParameters[\"ROUTING\"]);\n
+    \       console.log(\"seqgenchm workCenter Param\", workCenterParam);\n        console.log(\"seqgenchm
+    plant Param\", plant);\n    } else {\n        throw new Error(\"No extension parameters
+    found\");\n    }\n    if (!isEmpty(identifiers)) {\n        // create Model based
+    on schema\n        const sequenceModel = mongoose.model('NextNumberSequence',
+    sequenceSchema);\n        for (let iter = 0; iter < identifiers.length; iter++)
+    {\n            try {\n                newIdentifier = await buildNewIdentifier(sequenceModel,
+    workCenterParam, plant);\n                newIdentifiers.push(newIdentifier);\n
+    \           } catch (err) {\n                console.log(\"seqgenchm.processIdentifiers:
+    failed to process identifiers %j\", err);\n                throw err;\n            }\n
+    \       }\n    }\n    return newIdentifiers;\n}\n\n//**********************buildNewIdentifier***********************************\n\nasync
+    function buildNewIdentifier(sequenceModel, workCenter, plant) {\n    let nextNum;\n
+    \   try {\n        nextNum = await updateOrInsertSequence(sequenceModel, workCenter,
+    plant);\n        console.log('seqgenchm.buildNewIdentifier', nextNum);\n    }
+    catch (err) {\n        console.log(\"error calling buildNewIdentifier %j\", err);\n
+    \       throw err;\n    }\n    let newIdentifier = replacePatternPlaceholders(workCenter,
+    plant, nextNum);\n    console.log(\"seqgenchm.new Identifier %s\", newIdentifier);\n
+    \   return newIdentifier;\n}\n\nfunction replacePatternPlaceholders(workCenter,
+    plant, nextNum) {\n    //example for PATTERN = YYMMDDLLNNNN pattern - Year = YY,
+    Month = MM,Day = DD, Work Center = LL, sequence = NNNNN\n    let newIndetifier
+    = pattern;\n    let dateComposition = getDateComponents();\n    var placeholders
+    = {\n        \"YYYY\": dateComposition.fullYear,\n        \"YY\": dateComposition.twoDigitYear,\n
+    \       \"MM\": dateComposition.month,\n        \"DD\": dateComposition.day,\n
+    \       \"LL\": workCenter,\n        \"PLANT\": plant,\n        \"NNNNN\": numberToNumberBase(nextNum,
+    numberBase, 5) \n    }\n    for (var placeholder in placeholders) {\n        while
+    (newIndetifier.indexOf(placeholder) > -1) {\n            newIndetifier = newIndetifier.replace(placeholder,
+    placeholders[placeholder])\n        }\n    }\n    return newIndetifier;\n\n}\n\n//***********************update
+    or Insert Sequence document**********************************\nasync function
+    updateOrInsertSequence(sequenceModel, workCenter, plant) {\n    let dateComposition
+    = getDateComponents();\n    let filter;\n    // incriment sequence on 1\n    let
+    update = {\n        $inc: {\n            sequence: 1\n        }\n    };\n    //
+    define search filter in collection \n    switch (resetMode) {\n        case 'NONE':\n
+    \           filter = {\n                workCenter: workCenter,\n                plant:
+    plant,\n                resetMode: resetMode\n            };\n            break;\n
+    \       case 'YEAR':\n            filter = {\n                workCenter: workCenter,\n
+    \               plant: plant,\n                year: dateComposition.year,\n                resetMode:
+    resetMode\n            };\n            break;\n        case 'MONTH':\n            filter
+    = {\n                workCenter: workCenter,\n                plant: plant,\n
+    \               month: dateComposition.month,\n                year: dateComposition.year,\n
+    \               resetMode: resetMode\n            };\n            break;\n        case
+    'DAY':\n            filter = {\n                workCenter: workCenter,\n                plant:
+    plant,\n                month: dateComposition.month,\n                year: dateComposition.year,\n
+    \               day: dateComposition.day,\n                resetMode: resetMode\n
+    \           };\n            break;\n        default:\n            filter = {\n
+    \               workCenter: workCenter,\n                plant: plant,\n                resetMode:
+    resetMode\n            };\n            break;\n    }\n    // upsert = true, means
+    that findOneAndUpdate method works like update or insert if not found\n    let
+    sequenceDocument = await sequenceModel.findOneAndUpdate(filter, update, {\n        new:
+    true,\n        upsert: true\n    });\n    console.log(\"seqgenchm document sequenceDocument:
+    %j\", sequenceDocument);\n    return sequenceDocument.sequence;\n}\n\n// read
+    Environment Variables\nfunction readEnv(sEnv) {\n    return process.env[sEnv];\n}\n\n//********************************************************\nfunction
+    getDateComponents() {\n    let today = new Date();\n    let dd = today.getDate().toString().padStart(2,
+    '0');\n    let mm = (today.getMonth() + 1).toString().padStart(2, '0');\n    let
+    yyyy = today.getFullYear();\n    let yy = today.getFullYear().toString().substr(-2);\n\n
+    \   return {\n        month: mm,\n        day: dd,\n        fullYear: yyyy,\n
+    \       twoDigitYear: yy\n    }\n}\n\n//*********************************************************\nfunction
+    isEmpty(obj) {\n    if (obj == null) return true;\n    // Assume if it has a length
+    property with a non-zero value that that property is correct.\n    if (obj.length
+    && obj.length > 0) return false;\n    if (obj.length === 0) return true;\n    for
+    (var key in obj) {\n        if (hasOwnProperty.call(obj, key)) return false;\n
+    \   }\n    return true;\n}\n// extract Plant from Handle string\nfunction getPlantFromRouting(routing)
+    {\n    //routing input example: \"RouterStepBO:RouterBO:KYMA,ROUTER1,U,A,10;RouterStepBO:RouterBO:KYMA,ROUTER1,U,A,20\"\n
+    \   // we need to extract plant, it is KYMA \n    if (!isEmpty(routing)) {\n        var
+    routingArr = routing.split(':');\n        if (!isEmpty(routingArr)) {\n            var
+    routerBO = routingArr[2];\n            if (!isEmpty(routerBO)) {\n                var
+    routerBOArr = routerBO.split(',');\n                if (!isEmpty(routerBOArr))
+    {\n                    return routerBOArr[0];\n                }\n            }\n
+    \       }\n    }\n}\n// convert number to hex if needed and add leading zeros.
+    \nfunction numberToNumberBase(number, numberBase, padding) {\n    if (numberBase
+    === \"16\") {\n      //hexdecimal\n      number = Number(number).toString(16).toUpperCase();\n
+    \   }\n    //adding leading 0 to number\n    number = String(number).padStart(padding,
+    '0');\n\n    return number;\n}"

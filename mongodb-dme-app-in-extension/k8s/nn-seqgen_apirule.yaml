@@ -1,0 +1,17 @@
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: nn-seqgen-api
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - accessStrategies:
+        - config: {}
+          handler: noop
+      methods:
+        - POST
+      path: /.*
+  service:
+    host: nn-seqgen
+    name: nn-seqgen
+    port: 80
