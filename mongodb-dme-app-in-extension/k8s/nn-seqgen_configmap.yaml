@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nn-seqgen
+  labels:
+    app: nn-seqgen
+data:
+  host: mongo-nodeport-svc
+  port: "27017"
