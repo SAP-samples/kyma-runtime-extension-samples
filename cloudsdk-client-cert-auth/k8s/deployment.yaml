@@ -18,9 +18,10 @@ spec:
         app: cloudsdk-client-cert-auth
     spec:
       volumes:
-        - name: dest-creds
+        - name: destination-credentials
           secret:
-            secretName: jolly-swirles
+            secretName: destination-service-binding
+            optional: false
       containers:
       - image: gabbi/cloudsdk-client-cert-auth:0.0.1
         name: cloudsdk-client-cert-auth
@@ -36,7 +37,7 @@ spec:
             value: https://client.badssl.com/
         volumeMounts:
           - mountPath: /etc/secrets/sapcp/destination/test-client-cert-auth
-            name: dest-creds
+            name: destination-credentials
             readOnly: true
 status: {}
 ---
@@ -56,3 +57,22 @@ spec:
     app: cloudsdk-client-cert-auth
 status:
   loadBalancer: {}
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: cloudsdk-client-cert-auth
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - accessStrategies:
+        - config: {}
+          handler: noop
+      methods:
+        - GET
+      path: /.*
+  service:
+    host: cloudsdk-client-cert-auth
+    name: cloudsdk-client-cert-auth
+    port: 8080
+status: {}
