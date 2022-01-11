@@ -44,6 +44,7 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [Sample SAP Customer Data Cloud Extension](./cdc-extension/README.md)
 - [Sample SAP Customer Data Platform Extension](./cdp-extension/README.md)
 - [Self-learning FAQ Chatbot based on SAP Conversational AI](./chatbot-conversational_AI/README.md)
+- [SAP Cloud SDK Java Client Certificate Authentication](./cloudsdk-client-cert-auth/README.md)
 
 ## Helm Charts
 
