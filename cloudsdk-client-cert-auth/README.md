@@ -8,6 +8,14 @@ In this sample, we will connect to an external system that is secured with **Cli
 
 ![flow](./assets/flow.png)
 
+## Prerequisites
+
+* Kyma Runtime provisioned in your SAP BTP Subaccount
+* JDK 11 or higher
+* kubectl
+* Kubectl configured to connect to your provisioned Kyma runtime using downloaded KUBECONFIG
+* make
+
 ## Setup
 
 ### Configuration
