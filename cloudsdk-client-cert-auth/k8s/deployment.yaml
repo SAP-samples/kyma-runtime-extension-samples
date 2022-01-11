@@ -23,7 +23,7 @@ spec:
             secretName: destination-service-binding
             optional: false
       containers:
-      - image: gabbi/cloudsdk-client-cert-auth:0.0.1
+      - image: gabbi/cloudsdk-client-cert-auth:0.0.2
         name: cloudsdk-client-cert-auth
         ports:
         - containerPort: 8080
