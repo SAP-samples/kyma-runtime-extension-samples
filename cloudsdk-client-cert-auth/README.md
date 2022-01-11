@@ -10,11 +10,12 @@ In this sample, we will connect to an external system that is secured with **Cli
 
 ## Prerequisites
 
-* Kyma Runtime provisioned in your SAP BTP Subaccount
+* [Kyma Runtime provisioned in your SAP BTP Subaccount](https://blogs.sap.com/2020/05/13/sap-cloud-platform-extension-factory-kyma-runtime-how-to-get-started/)
 * JDK 11 or higher
-* kubectl
+* [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 * Kubectl configured to connect to your provisioned Kyma runtime using downloaded KUBECONFIG
-* make
+* [Make](https://www.gnu.org/software/make/)
+* [docker](https://www.docker.com/products/docker-desktop)
 
 ## Setup
 
