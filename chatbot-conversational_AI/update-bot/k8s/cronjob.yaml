@@ -12,7 +12,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: update-bot-container
-            image: lasseurban/bot-update      #change it to your image
+            image: gabbi/bot-update      #change it to your image
             imagePullPolicy: Always
             env:
               - name: CAI_CREDENTIALS_URL
