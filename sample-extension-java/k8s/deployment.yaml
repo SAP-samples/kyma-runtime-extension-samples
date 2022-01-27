@@ -21,7 +21,7 @@ spec:
         kyma-grafana: enabled
     spec:
       containers:
-      - image: gabbi/sample-extension-java:0.0.12
+      - image: gabbi/sample-extension-java:0.0.20
         name: sample-extension-java
         ports:
           - containerPort: 8080
