@@ -1,4 +1,4 @@
-RELEASE?=0.0.2
+RELEASE?=0.0.3
 APP=cloudsdk-client-cert-auth
 DOCKER_ACCOUNT?=gabbi
 CONTAINER_IMAGE?=${DOCKER_ACCOUNT}/${APP}:${RELEASE}

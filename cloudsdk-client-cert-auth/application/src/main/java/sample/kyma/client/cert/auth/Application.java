@@ -9,6 +9,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 
 import java.nio.file.Paths;
+import java.util.Optional;
 
 @SpringBootApplication
 @ComponentScan({"com.sap.cloud.sdk", "sample.kyma.client.cert.auth"})
@@ -20,9 +21,13 @@ public class Application extends SpringBootServletInitializer {
     }
 
     public static void main(final String[] args) {
+        String serviceBindingsRootLocation = Optional.ofNullable(
+                        System.getenv("SERVICE_BINDINGS_ROOT_LOCATION"))
+                .orElse("/etc/secrets/sapcp");
+
         ScpCfCloudPlatform
                 .getInstanceOrThrow()
-                .setServiceBindingsRootLocation(Paths.get("/etc/secrets/sapcp"));
+                .setServiceBindingsRootLocation(Paths.get(serviceBindingsRootLocation));
         SpringApplication.run(Application.class, args);
     }
 }
