@@ -193,16 +193,16 @@ The expected result shows that the Pod for the `sample-event-trigger-java` Deplo
           name: sample-event-trigger-java
     ```
 
-    ```shell
-    kubectl -n dev apply -f ./k8s/event-trigger.yaml
-    ```
+```shell script
+kubectl -n dev apply -f ./k8s/subscription.yaml
+```
 
-* Verify that the Subscription is correctly deployed:
+* Verify that the Trigger is correctly deployed:
 
     ```shell
-    kubectl -n dev get subscriptions.eventing.kyma-project.io
-    NAME                                     READY   AGE
-    sample-event-trigger-java-subscription   true    10d
+    kubectl -n dev get trigger
+    NAME                        READY   REASON   BROKER    SUBSCRIBER_URI                                            AGE
+    sample-event-trigger-java   True             default   http://sample-event-trigger-java.dev.svc.cluster.local/   13s
     ```
 
 ### Helm Chart Deployment
