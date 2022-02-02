@@ -2,6 +2,8 @@
 
 ## Overview
 
+ref: <https://cloudevents.github.io/sdk-java/spring.html>
+
 This sample demonstrates how to build and deploy a Java-based microservice as an Event Trigger in SAP BTP, Kyma runtime using **CloudEvents SDK**.
 
 The sample uses the CloudEvents SDK to deserialize events. Kyma eventing dispatches the CloudEvents v1, so the v1 library of [CloudEvents SDK](https://github.com/cloudevents/sdk-java/blob/v1.0.0/README.md) is used.
@@ -195,12 +197,12 @@ The expected result shows that the Pod for the `sample-event-trigger-java` Deplo
     kubectl -n dev apply -f ./k8s/event-trigger.yaml
     ```
 
-* Verify that the Trigger is correctly deployed:
+* Verify that the Subscription is correctly deployed:
 
     ```shell
-    kubectl -n dev get trigger
-    NAME                        READY   REASON   BROKER    SUBSCRIBER_URI                                            AGE
-    sample-event-trigger-java   True             default   http://sample-event-trigger-java.dev.svc.cluster.local/   13s
+    kubectl -n dev get subscriptions.eventing.kyma-project.io
+    NAME                                     READY   AGE
+    sample-event-trigger-java-subscription   true    10d
     ```
 
 ### Helm Chart Deployment

@@ -1,12 +1,11 @@
-RELEASE=0.0.1
+RELEASE=0.0.2
 APP=sample-event-trigger-java
 DOCKER_ACCOUNT?=TBD
 CONTAINER_IMAGE=${DOCKER_ACCOUNT}/${APP}:${RELEASE}
-NAMESPACE?=dev
 
-.PHONY: build build-docker clean tag push
+.PHONY: build build-image clean push-image
 
-all: clean build build-docker tag
+all: clean build build-image push-image
 
 clean:
 	./gradlew clean
