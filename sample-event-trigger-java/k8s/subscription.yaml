@@ -1,0 +1,16 @@
+apiVersion: eventing.kyma-project.io/v1alpha1
+kind: Subscription
+metadata:
+  name: sample-event-trigger-java-subscription
+spec:
+  filter:
+    filters:
+      - eventSource:
+          property: source
+          type: exact
+          value: ""
+        eventType:
+          property: type
+          type: exact
+          value: sap.kyma.custom.mp-mock-ccv2-adopt-team-2-tst-2.order.created.v1
+  sink: http://sample-event-trigger-java.gaurav.svc.cluster.local
