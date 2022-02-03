@@ -1,0 +1,13 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: producer
+spec:
+  baseDir: in-cluster-events/functions-javascript/producer
+  env:
+  - name: PUBLISHER_URL
+    value: http://eventing-event-publisher-proxy.kyma-system/publish
+  reference: in-cluster-events
+  runtime: nodejs14
+  source: in-cluster-events-functions
+  type: git

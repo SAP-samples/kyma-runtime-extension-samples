@@ -5,7 +5,7 @@ module.exports = {
     main: async function (event, context) {
         const ce = new CloudEvent({
             type: "sap.kyma.custom.internal.product.viewed.v1",
-            source: "/default/my.kyma/gaurav-10",
+            source: "/default/my.kyma/gaurav-10-1",
             data: { 'produtId': '123' },
             datacontenttype: "application/json"
         },
