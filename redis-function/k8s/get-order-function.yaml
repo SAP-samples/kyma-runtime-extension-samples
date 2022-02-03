@@ -1,0 +1,53 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: get-order
+spec:
+  deps: "{ \n  \"name\": \"get-order\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+    {\n      \"redis\":  \"^3.0.2\",\n      \"handy-redis\": \"^2.0.0\"\n  }\n}"
+  env:
+  - name: REDIS_PORT
+    value: "6379"
+  - name: REDIS_PASSWORD
+    value: kPppOZp2hC
+  - name: REDIS_HOST
+    value: redis.dev.svc.cluster.local
+  maxReplicas: 1
+  minReplicas: 1
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+  source: "const hredis = require(\"handy-redis\");\n\nconst client = hredis.createNodeRedisClient({\n
+    \ port:  process.env[\"REDIS_PORT\"],\n  host: process.env[\"REDIS_HOST\"],\n
+    \ password: process.env[\"REDIS_PASSWORD\"]\n});\n\nmodule.exports = { \n  main:
+    async function (event, context) {\n    try {   \n      const orderCode = event.extensions.request.query.orderCode;\n
+    \     let result = await processGetRequest(orderCode);\n      return result ?
+    result : {\"error\": \"orderCode was not found\"};\n    }\n    catch(err) {\n
+    \     console.log(\"an error occurred...\", err);\n      event.extensions.response.status(500).json({\"error\":
+    err});\n    }\n  }\n}\n\nasync function processGetRequest(orderCode){    \n  if(orderCode
+    !== undefined){\n    console.log(\"getting order from cache: \", orderCode);\n
+    \   return client.hgetall(orderCode);\n  }else{\n    throw \"No orderCode received!\"\n
+    \ }\n}\n"
+  type: ""
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: get-order
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - path: /.*
+      accessStrategies:
+        - config: {}
+          handler: noop
+      methods:
+        - GET
+  service:
+    host: get-order
+    name: get-order
+    port: 80
