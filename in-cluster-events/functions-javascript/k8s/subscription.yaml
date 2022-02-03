@@ -2,6 +2,8 @@ apiVersion: eventing.kyma-project.io/v1alpha1
 kind: Subscription
 metadata:
   name: consumer
+  labels:
+    scenario: in-cluster-events
 spec:
   filter:
     filters:
@@ -15,4 +17,4 @@ spec:
         value: sap.kyma.custom.internal.product.viewed.v1
   protocol: ""
   protocolsettings: {}
-  sink: http://consumer.dev.svc.cluster.local #this is the service name and port
+  sink: http://consumer.in-cluster-events.svc.cluster.local #this is the service name and port

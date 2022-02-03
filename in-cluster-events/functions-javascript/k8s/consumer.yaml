@@ -2,6 +2,8 @@ apiVersion: serverless.kyma-project.io/v1alpha1
 kind: Function
 metadata:
   name: consumer
+  labels:
+    scenario: in-cluster-events
 spec:
   baseDir: in-cluster-events/functions-javascript/consumer
   reference: in-cluster-events
