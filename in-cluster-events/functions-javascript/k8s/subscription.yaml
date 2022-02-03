@@ -15,4 +15,4 @@ spec:
         value: sap.kyma.custom.internal.product.viewed.v1
   protocol: ""
   protocolsettings: {}
-  sink: http://event-consumer.dev.svc.cluster.local #this is the service name and port
+  sink: http://consumer.dev.svc.cluster.local #this is the service name and port

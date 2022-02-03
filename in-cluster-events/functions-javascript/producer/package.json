@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "producer",
   "author": "Gaurav Abbi",
-  "license": "ISC",
   "dependencies": {
     "axios": "^0.25.0",
     "cloudevents": "^5.3.0"
