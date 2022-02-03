@@ -1,0 +1,15 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: destination-service-instance
+spec:
+  clusterServiceClassExternalName: destination
+  clusterServicePlanExternalName: lite
+---
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: destination-service-binding
+spec:
+  instanceRef:
+    name: destination-service-instance

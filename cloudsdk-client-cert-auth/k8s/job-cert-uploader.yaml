@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  creationTimestamp: null
+  name: cert-uploader
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - image: gabbi/bash-curl-jq:0.0.1
+        name: cert-uploader
+        resources: {}
+        command:
+          - /bin/sh
+          - -c
+          - /etc/custom/scripts/job.sh
+        env:
+          - name: CERTIFICATE_NAME
+            value: badssl.p12
+          - name: CERTIFICATE_PATH
+            value: /etc/custom/certs/$(CERTIFICATE_NAME)
+        envFrom:
+          - secretRef:
+              name: destination-service-binding
+        volumeMounts:
+          - name: scripts
+            mountPath: /etc/custom/scripts
+          - name: client-certs
+            mountPath: /etc/custom/certs
+      restartPolicy: Never
+      volumes:
+      - configMap:
+          defaultMode: 0777
+          name: scripts
+          optional: false
+        name: scripts
+      - secret:
+          secretName: client-certs
+          optional: false
+        name: client-certs
+status: {}

@@ -1,0 +1,231 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: cdc-extension
+  namespace: cdc
+  labels:
+    app: cdc-extension
+    example: cdc-extension
+spec:
+  deps: |-
+    { 
+      "name": "cdc-extension",
+      "version": "1.0.0",
+      "dependencies": {
+        "axios": "^0.21.1",
+        "jsonwebtoken": "^8.5.1",
+        "rsa-pem-from-mod-exp": "^0.8.4"
+      }
+    }
+  maxReplicas: 1
+  minReplicas: 1
+  resources:
+    limits:
+      cpu: 20m
+      memory: 32Mi
+    requests:
+      cpu: 10m
+      memory: 16Mi
+  env:
+    - name: CDC_API_KEY
+      value: "CDC_API_KEY"
+    - name: SAP_API_HUB_API_KEY
+      value: "SAP_API_HUB_API_KEY"
+    - name: DQM_API_URL
+      value: "https://sandbox.api.sap.com/dq"
+    - name: PUBLIC_KEY_KID
+      value: "PUBLIC_KEY_KID"
+    - name: PUBLIC_KEY_N
+      value: "PUBLIC_KEY_N"
+    - name: PUBLIC_KEY_E
+      value: "PUBLIC_KEY_E"
+  source: |-
+    const axios = require("axios").default;
+    const jwt = require("jsonwebtoken");
+    const getPem = require("rsa-pem-from-mod-exp");
+
+    let Address = class {
+        constructor(data) {
+            /* The params object holds the latest data submitted by the user (and takes preference), 
+            while the accountInfo object holds previously saved data of the user. */
+            let params, accountInfo;
+            if (data && data.params) {
+                params = data.params;
+            }
+            if (data && data.accountInfo) {
+                accountInfo = data.accountInfo;
+            }
+            this.addressInput = {
+                ...(accountInfo && accountInfo.profile && accountInfo.profile.address && { mixed: data.accountInfo.profile.address }),
+                ...(params && params.profile && params.profile.address && { mixed: data.params.profile.address }),
+                ...(accountInfo && accountInfo.profile && accountInfo.profile.city && { locality: data.accountInfo.profile.city }),
+                ...(params && params.profile && params.profile.city && { locality: data.params.profile.city }),
+                ...(accountInfo && accountInfo.profile && accountInfo.profile.state && { region: data.accountInfo.profile.state }),
+                ...(params && params.profile && params.profile.state && { region: data.params.profile.state }),
+                ...(accountInfo && accountInfo.profile && accountInfo.profile.zip && { postcode: data.accountInfo.profile.zip }),
+                ...(params && params.profile && params.profile.zip && { postcode: data.params.profile.zip }),
+                ...(accountInfo && accountInfo.profile && accountInfo.profile.country && { country: data.accountInfo.profile.country }),
+                ...(params && params.profile && params.profile.country && { country: data.params.profile.country })
+            };
+            this.outputFields = [
+                "std_addr_address_delivery",
+                "std_addr_locality_full",
+                "std_addr_region_full",
+                "std_addr_postcode_full",
+                "std_addr_country_2char",
+                "addr_asmt_level",
+                "addr_info_code",
+                "addr_info_code_msg",
+                "geo_asmt_level",
+                "geo_info_code",
+                "geo_info_code_msg"
+            ];
+        }
+    };
+
+    // Interceptor to log the request
+    axios.interceptors.request.use(request => {
+        console.log('Request:', JSON.stringify(request, null, 2));
+        return request
+    })
+
+    // Interceptor to log the response
+    axios.interceptors.response.use(response => {
+        console.log('Response:', response);
+        return response
+    })
+
+    module.exports = {
+        main: async function (event, context) {
+            let n = process.env.PUBLIC_KEY_N;
+            let e = process.env.PUBLIC_KEY_E;
+            let response = event.extensions.response;
+            let responseBody = { status: "OK" };
+            try {
+                if (event && event.data && event.data.jws) {
+                    console.log('event.data.jws:', event.data.jws);
+                    let decoded = await jwt.decode(event.data.jws, { complete: true });
+                    console.log('decoded:', decoded);
+
+                    // Validate the kid & refresh the public key if it has expired
+                    if (process.env.PUBLIC_KEY_KID !== decoded.header.kid) {
+                        const publicKey = await refreshPublicKey(decoded.header.kid);
+                        console.log(`N: ${publicKey.n} ; E: ${publicKey.e}`);
+                        if (publicKey && publicKey.n && publicKey.e) {
+                            n = publicKey.n;
+                            e = publicKey.e;
+                        } else {
+                            throw new Error('Invalid kid');
+                        }
+                    }
+
+                    // Validate the JSON Web Token
+                    const verified = await verifyJWT(event.data.jws, n, e);
+                    if (!verified) {
+                        throw new Error('The JWT could not be validated.');
+                    } else if (verified && decoded.payload.extensionPoint === 'OnBeforeSetAccountInfo') {
+                        let address = new Address(decoded.payload.data);
+                        console.log('address:', address);
+                        var result = await addressCleanse(address);
+                        if (result && result.addr_info_code) {
+                            console.log('result.addr_info_code:', result.addr_info_code);
+                            responseBody.status = "FAIL";
+                            responseBody.data = {
+                                validationErrors: [
+                                    { fieldName: "profile.address", message: result.addr_info_code_msg }
+                                ]
+                            };
+                        } else if (result) {
+                            responseBody.status = "ENRICH";
+                            responseBody.data = {
+                                "profile": {
+                                    ...(result.std_addr_address_delivery && { "address": result.std_addr_address_delivery }),
+                                    ...(result.std_addr_locality_full && { "city": result.std_addr_locality_full }),
+                                    ...(result.std_addr_region_full && { "state": result.std_addr_region_full }),
+                                    ...(result.std_addr_postcode_full && { "zip": result.std_addr_postcode_full }),
+                                    ...(result.std_addr_country_2char && { "country": result.std_addr_country_2char })
+                                }
+                            };
+                        } else if (!result) {
+                            throw new Error('addressCleanse error.');
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('error:', error);
+                responseBody.status = "FAIL";
+                responseBody.data = {
+                    validationErrors: [
+                        { fieldName: "profile.address", message: "Invalid Request" }
+                    ]
+                };
+            } finally {
+                response.status(200).send(responseBody);
+            }
+        }
+    }
+
+    async function refreshPublicKey(kid) {
+        let response = await getJWTPublicKey();
+        if (response && response.status === 200
+            && response.data && response.data.statusCode === 200) {
+            for (const [key, value] of Object.entries(response.data.keys)) {
+                if (kid === value.kid) {
+                    console.log(`n: ${value.n} ; e: ${value.e}`);
+                    return {
+                        n: value.n,
+                        e: value.e
+                    };
+                }
+            }
+        }
+        return {
+            n: null,
+            e: null
+        };
+    }
+
+    async function getJWTPublicKey() {
+        return await axios({
+            method: "get",
+            url: "https://accounts.us1.gigya.com/accounts.getJWTPublicKey",
+            params: { apiKey: process.env.CDC_API_KEY, V2: "true" }
+        });
+    }
+
+    async function verifyJWT(sigJwt, n, e) {
+        return await jwt.verify(sigJwt, getPem(n, e), { algorithms: ["RS256"] }, function (err, payload) {
+            if (err) {
+                console.log("Error validating the JWT. ", err);
+                return false;
+            } else if (payload) {
+                console.log("Validated payload: ", JSON.stringify(payload));
+                return true;
+            }
+        });
+    }
+
+    // SAP DQM API call
+    async function addressCleanse(address) {
+        let response = null;
+        try {
+            const url = `${process.env.DQM_API_URL}/addressCleanse`;
+            const options = {
+                timeout: 9000,
+                headers: {
+                    'APIKey': process.env.SAP_API_HUB_API_KEY,
+                    'DataServiceVersion': '2.0',
+                    'Accept': 'application/json'
+                }
+            };
+            response = await axios.post(url, address, options);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            if (response.data) {
+                return response.data;
+            } else {
+                return response;
+            }
+        }
+    }

@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cloudsdk-client-cert-auth
+  name: cloudsdk-client-cert-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudsdk-client-cert-auth
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cloudsdk-client-cert-auth
+    spec:
+      volumes:
+        - name: destination-credentials
+          secret:
+            secretName: destination-service-binding
+            optional: false
+      containers:
+      - image: gabbi/cloudsdk-client-cert-auth:0.0.3
+        name: cloudsdk-client-cert-auth
+        ports:
+        - containerPort: 8080
+        resources: {}
+        env:
+          - name: DEST_NAME
+            value: test-client-cert-auth
+          - name: SET_LOGGING_LEVEL
+            value: DEBUG
+          - name: EXTERNAL_SERVICE_URL
+            value: https://client.badssl.com/
+        volumeMounts:
+          - mountPath: /etc/secrets/sapcp/destination/test-client-cert-auth
+            name: destination-credentials
+            readOnly: true
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cloudsdk-client-cert-auth
+  name: cloudsdk-client-cert-auth
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: cloudsdk-client-cert-auth
+status:
+  loadBalancer: {}
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: cloudsdk-client-cert-auth
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - accessStrategies:
+        - config: {}
+          handler: noop
+      methods:
+        - GET
+      path: /.*
+  service:
+    host: cloudsdk-client-cert-auth
+    name: cloudsdk-client-cert-auth
+    port: 8080
+status: {}

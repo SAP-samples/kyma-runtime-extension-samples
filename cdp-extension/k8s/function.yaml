@@ -1,0 +1,272 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: cdp-extension
+  namespace: cdp
+  labels:
+    app: cdp-extension
+    example: cdp-extension
+spec:
+  deps: |-
+    { 
+      "name": "cdp-extension",
+      "version": "1.0.0",
+      "dependencies": {
+        "axios": "^0.24.0",
+        "async": "^3.2.2"
+      }
+    }
+  maxReplicas: 1
+  minReplicas: 1
+  resources:
+    limits:
+      cpu: 20m
+      memory: 32Mi
+    requests:
+      cpu: 10m
+      memory: 16Mi
+  env:
+    - name: SAP_API_HUB_API_KEY
+      value: "SAP_API_HUB_API_KEY"
+    - name: S4HANA_CLOUD_API_BUSINESS_PARTNER
+      value: "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER"
+  source: |-
+    const axios = require("axios").default;
+    const async = require("async");
+
+    let ExtensionResponse = class {
+        constructor(contact) {
+            if (contact && ((contact.profile && !isEmpty(contact.profile)) || (contact.data && !isEmpty(contact.data)))) {
+                this.status = "OK";
+                this.data = {
+                    "extension": contact
+                };
+            } else {
+                this.status = "FAIL";
+                this.errorMessage = "Invalid Request";
+            }
+        }
+    };
+
+    let Contact = class {
+        constructor(data) {
+            let contactPersonDetails, contactPhoneNumberDetails;
+            if (data && data.contactPersonDetails) {
+                contactPersonDetails = data.contactPersonDetails;
+            }
+            if (data && data.contactPhoneNumberDetails) {
+                contactPhoneNumberDetails = data.contactPhoneNumberDetails;
+            }
+            this.profile = {
+                ...(contactPersonDetails && contactPersonDetails.email && { email: contactPersonDetails.email }),
+                ...(contactPersonDetails && contactPersonDetails.contactPersonInfo && contactPersonDetails.contactPersonInfo.firstName && { firstName: contactPersonDetails.contactPersonInfo.firstName }),
+                ...(contactPersonDetails && contactPersonDetails.contactPersonInfo && contactPersonDetails.contactPersonInfo.lastName && { lastName: contactPersonDetails.contactPersonInfo.lastName }),
+            };
+            this.data = {
+                ...(contactPhoneNumberDetails && contactPhoneNumberDetails.phoneNumber && { phoneNumber: contactPhoneNumberDetails.phoneNumber }),
+                ...(contactPhoneNumberDetails && contactPhoneNumberDetails.phoneNumberExtension && { phoneNumberExtension: contactPhoneNumberDetails.phoneNumberExtension }),
+                ...(contactPhoneNumberDetails && contactPhoneNumberDetails.internationalPhoneNumber && { internationalPhoneNumber: contactPhoneNumberDetails.internationalPhoneNumber }),
+                ...(contactPhoneNumberDetails && contactPhoneNumberDetails.phoneNumberType && { phoneNumberType: contactPhoneNumberDetails.phoneNumberType }),
+                ...(contactPersonDetails && contactPersonDetails.contactPersonInfo && contactPersonDetails.contactPersonInfo.contactPersonBPID && { contactPersonBPID: contactPersonDetails.contactPersonInfo.contactPersonBPID }),
+                ...(contactPersonDetails && contactPersonDetails.groups && { groups: contactPersonDetails.groups })
+            };
+        }
+    };
+
+    // Interceptor to log the request
+    axios.interceptors.request.use(request => {
+        console.log('Request:', JSON.stringify(request, null, 2));
+        return request
+    })
+
+    // Interceptor to log the response
+    axios.interceptors.response.use(response => {
+        console.log('Response:', response);
+        return response
+    })
+
+    // Get the contact details
+    const getContact = async (email) => {
+        const contactPersonNumberAndAddressID = await getContactPersonNumberAndAddressID(email);
+        console.log('contactPersonNumberAndAddressID:', contactPersonNumberAndAddressID);
+        let contact = null;
+        try {
+            let data = await async.parallel({
+                contactPersonDetails: async () => {
+                    let contactPersonInfo = null, groups = null;
+                    if (contactPersonNumberAndAddressID && contactPersonNumberAndAddressID.personNumber) {
+                        contactPersonInfo = await getContactPersonInfo(contactPersonNumberAndAddressID.personNumber);
+                        if (contactPersonInfo && contactPersonInfo.contactPersonBPID) {
+                            groups = await getGroups(contactPersonInfo.contactPersonBPID);
+                        }
+                    }
+                    return {
+                        ...(contactPersonNumberAndAddressID && { email: email }),
+                        ...(contactPersonInfo && { contactPersonInfo: contactPersonInfo }),
+                        ...(groups && { groups: groups })
+                    };
+                },
+                contactPhoneNumberDetails: async () => {
+                    let contactPhoneNumberDetails = null;
+                    if (contactPersonNumberAndAddressID && contactPersonNumberAndAddressID.personNumber && contactPersonNumberAndAddressID.addressID) {
+                        contactPhoneNumberDetails = await getContactPhoneNumberDetails(contactPersonNumberAndAddressID.personNumber, contactPersonNumberAndAddressID.addressID);
+                    }
+                    return contactPhoneNumberDetails;
+                }
+            });
+            console.log('data:', data);
+            contact = new Contact(data);
+        }
+        catch (error) {
+            console.error('error:', error);
+        } finally {
+            return contact;
+        }
+    }
+
+    // Get the "Contact Person Number" of the first Contact Person with this email
+    let getContactPersonNumberAndAddressID = async (emailAddress) => {
+        let contactPersonNumberAndAddressID = null;
+        try {
+            const url = `${process.env.S4HANA_CLOUD_API_BUSINESS_PARTNER}/A_AddressEmailAddress`;
+            const params = {
+                $select: `Person, AddressID`,
+                $filter: `EmailAddress eq '${emailAddress}'`
+            };
+            const response = await getAxiosResponse(url, params);
+            if (response && response.d && response.d.results && response.d.results.length !== 0 && response.d.results[0].Person && response.d.results[0].AddressID) {
+                contactPersonNumberAndAddressID = {
+                    personNumber: response.d.results[0].Person,
+                    addressID: response.d.results[0].AddressID
+                };
+            }
+        } catch (error) {
+            console.error('error:', error);
+        } finally {
+            return contactPersonNumberAndAddressID;
+        }
+    }
+
+    // Get the "Phone Number" of the Contact Person with this "Contact Person Number" and "Address ID"
+    let getContactPhoneNumberDetails = async (personNumber, addressID) => {
+        let contactPhoneNumberDetails = null;
+        try {
+            const url = `${process.env.S4HANA_CLOUD_API_BUSINESS_PARTNER}/A_AddressPhoneNumber`;
+            const params = {
+                $select: `PhoneNumber, PhoneNumberExtension, InternationalPhoneNumber, PhoneNumberType`,
+                $filter: `Person eq '${personNumber}' and AddressID eq '${addressID}'`
+            }
+            const response = await getAxiosResponse(url, params);
+            if (response && response.d && response.d.results && response.d.results.length !== 0) {
+                contactPhoneNumberDetails = {
+                    phoneNumber: response.d.results[0].PhoneNumber,
+                    phoneNumberExtension: response.d.results[0].PhoneNumberExtension,
+                    internationalPhoneNumber: response.d.results[0].InternationalPhoneNumber,
+                    phoneNumberType: response.d.results[0].PhoneNumberType,
+                };
+            }
+        } catch (error) {
+            console.error('error:', error);
+        } finally {
+            return contactPhoneNumberDetails;
+        }
+    }
+
+    // Get Contact Person BP ID and Name of the contact with this "Person Number"
+    let getContactPersonInfo = async (personNumber) => {
+        let contactPersonInfo = null;
+        try {
+            const url = `${process.env.S4HANA_CLOUD_API_BUSINESS_PARTNER}/A_BusinessPartner`;
+            const params = {
+                $select: `BusinessPartner, FirstName, LastName`,
+                $filter: `PersonNumber eq '${personNumber}'`
+            };
+            const response = await getAxiosResponse(url, params);
+            if (response && response.d && response.d.results && response.d.results.length !== 0) {
+                contactPersonInfo = {
+                    ...(response.d.results[0].BusinessPartner && { contactPersonBPID: response.d.results[0].BusinessPartner }),
+                    ...(response.d.results[0].FirstName && { firstName: response.d.results[0].FirstName }),
+                    ...(response.d.results[0].LastName && { lastName: response.d.results[0].LastName })
+                };
+            }
+        } catch (error) {
+            console.error('error:', error);
+        } finally {
+            return contactPersonInfo;
+        }
+    }
+
+    // Get all the Organizations / Customers that have this user as a contact
+    let getGroups = async (contactPersonBPID) => {
+        let groups = null;
+        try {
+            const url = `${process.env.S4HANA_CLOUD_API_BUSINESS_PARTNER}/A_BusinessPartnerContact`;
+            const params = {
+                $select: `BusinessPartnerCompany, RelationshipNumber, RelationshipCategory`,
+                $filter: `BusinessPartnerPerson eq '${contactPersonBPID}'`
+            };
+            const response = await getAxiosResponse(url, params);
+            if (response && response.d && response.d.results && response.d.results.length !== 0) {
+                groups = response.d.results.map(obj => {
+                    return {
+                        ...(obj.BusinessPartnerCompany && { customerBPID: obj.BusinessPartnerCompany }),
+                        ...(obj.RelationshipNumber && { relationshipNumber: obj.RelationshipNumber }),
+                        ...(obj.RelationshipCategory && { relationshipCategory: obj.RelationshipCategory })
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('error:', error);
+        } finally {
+            return groups;
+        }
+    }
+
+    // GET API call using axios
+    let getAxiosResponse = async (url, params) => {
+        let response = null;
+        try {
+            const config = {
+                timeout: 40000,
+                headers: {
+                    'APIKey': process.env.SAP_API_HUB_API_KEY,
+                    'Accept': 'application/json'
+                },
+                params: params
+            };
+            response = await axios.get(url, config);
+        } catch (error) {
+            console.error('error:', error);
+        } finally {
+            if (response.data) {
+                return response.data;
+            } else {
+                return response;
+            }
+        }
+    }
+
+    // Check if the object is empty
+    let isEmpty = (object) => {
+        return Object.keys(object).length === 0
+    }
+
+    // Main function
+    module.exports = {
+        main: async (event, context) => {
+            if (event.data) {
+                console.log('event.data:' + JSON.stringify(event.data, null, 2));
+            }
+            let email = null, contact = null;
+            if (event.data && event.data.data && event.data.data.profile && event.data.data.profile.email) {
+                email = event.data.data.profile.email;
+            }
+            if (email) {
+                contact = await getContact(email);
+                console.log('contact:', contact);
+            }
+            let response = new ExtensionResponse(contact);
+            console.log('response:', JSON.stringify(response));
+            return response;
+        }
+    }

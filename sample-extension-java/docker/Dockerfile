@@ -1,4 +1,4 @@
-FROM openjdk:11.0.7-jre-slim
+FROM openjdk:17-alpine
 MAINTAINER Gaurav Abbi <gaurav.abbi@sap.com>
 
 WORKDIR /var/app
