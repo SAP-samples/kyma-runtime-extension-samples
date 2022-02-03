@@ -34,6 +34,12 @@ In this sample, we will walk through a quick tutorial to set up and test the in-
     kubectl -n in-cluster-events apply -f functions-javascript/k8s/consumer.yaml
     ```
 
+* Ensure consumer and producer pods are up and running
+
+    ```shell
+    kubectl -n in-cluster-events get po
+    ```
+
 * Set up the subscription to configure events to be dispatched to the consumer.
 
     ```shell
@@ -47,13 +53,7 @@ In this sample, we will walk through a quick tutorial to set up and test the in-
     kubectl -n in-cluster-events apply -f functions-javascript/k8s/producer.yaml
     ```
 
-### Verify
-
-* Ensure consumer and producer pods are up and running
-
-    ```shell
-    kubectl -n in-cluster-events get po
-    ```
+## Verify
 
 * For verification purpose, let us expose the producer via API Rule.
 
@@ -74,7 +74,7 @@ In this sample, we will walk through a quick tutorial to set up and test the in-
     kubectl -n in-cluster-events logs consumer-z9vsk-85cb475b59-9bvv2 function
     ```
 
-### Cleanup
+## Cleanup
 
 Delete all the created resources
 
