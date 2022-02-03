@@ -2,5 +2,7 @@ apiVersion: serverless.kyma-project.io/v1alpha1
 kind: GitRepository
 metadata:
   name: in-cluster-events-functions
+  labels:
+    scenario: in-cluster-events
 spec:
   url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git

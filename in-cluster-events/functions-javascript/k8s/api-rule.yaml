@@ -1,0 +1,19 @@
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: test-in-cluster-events
+  labels:
+    scenario: in-cluster-events
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - accessStrategies:
+        - handler: allow
+          config: {}
+      methods:
+        - GET
+      path: /.*
+  service:
+    host: test-in-cluster-events
+    name: producer
+    port: 80
