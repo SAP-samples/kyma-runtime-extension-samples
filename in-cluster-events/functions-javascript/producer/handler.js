@@ -21,6 +21,6 @@ module.exports = {
             data: message.body,
             headers: message.headers
         })
-        console.log(publishResponse);
+        console.log(`status of published event ${publishResponse.status}`);
     }
 }
