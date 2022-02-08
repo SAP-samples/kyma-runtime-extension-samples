@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../../custom-component-dapr",
+			"name" : "Custom Resource Installation on Kyma - Dapr"
+		}
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen"
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-azuretools.vscode-azurefunctions",
+			"vsls-contrib.codetour",
+            "humao.rest-client",
+            "ms-kubernetes-tools.vscode-kubernetes-tools",
+            "redhat.vscode-yaml"
+		]
+	}
+}
