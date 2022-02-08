@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: daprwishlistapp
+  labels:
+    app: daprwishlistapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: daprwishlistapp
+  template:
+    metadata:
+      labels:
+        app: daprwishlistapp
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "daprwishlistapp"
+        dapr.io/app-port: "7080"
+    spec:
+      containers:
+        - name: daprwishlistapp
+          image: <Your Docker ID>/daprwishlistapp:1.0.0
+          ports:
+            - containerPort: 7080
+          imagePullPolicy: Always
+          env:
+            - name: HOST_OF_DAPR
+              valueFrom:
+                configMapKeyRef:
+                  key: daprhost
+                  name: configfordaprwishlistapp
+            - name: STATE_STORE_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: statestoreid
+                  name: configfordaprwishlistapp
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: daprwishlistapp
+  labels:
+    app: daprwishlistapp
+spec:
+  selector:
+    app: daprwishlistapp
+  ports:
+    - protocol: TCP
+      port: 7080
+      targetPort: 7080
+  type: LoadBalancer

@@ -1,0 +1,329 @@
+# Installation of Custom Resources into Kyma
+
+This repository contains the setup of the [Dapr](https://dapr.io/) in a Kyma 2.0 cluster on the SAP Business Technology Platform (BTP) and provides a sample app to interact with the [state store component] of Dapr.
+
+## Prerequisites
+
+You need to have the following prerequisites in place:
+
+* Access to a Kyma 2.0 cluster on SAP BTP
+* [kubectl CLI](https://kubernetes.io/docs/tasks/tools/)
+* kubectl OIDC plugin: [kubelogin](https://github.com/int128/kubelogin) (we recommend installation via [krew](https://github.com/kubernetes-sigs/krew))
+* [helm](https://helm.sh/)
+* GNU make
+  * Windows: Installation via [chocolatey](https://community.chocolatey.org/packages/make) or via [winget](https://winget.run/pkg/GnuWin32/Make)
+  * MacOS: Installation via [homebrew](https://formulae.brew.sh/formula/make)
+  * Linux: Installation via corresponding package manager (e.g. `sudo apt-get install make` for Debian-based distributions) 
+
+The sample is validated on [Docker Desktop](https://www.docker.com/products/docker-desktop) for building the containers. While other alternatives like [podman]() mights also work, we did not validate it.
+In addition we assume [Docker Hub](https://hub.docker.com/) as container registry.
+
+>> Be aware of the licensing model of Docker that changed concerning the usage in enterprises. For details see the [official announcement](https://www.docker.com/blog/updating-product-subscriptions/)
+
+## Scenario
+
+### Business Part
+
+The Use-case is that we want to develop a wishlist service (e.g. for Christmas, birthdays etc.). So anybody should be able to place three wishes (yes only three) on a wishlist. The services should offer endpoints to get a list of wishes on the list as well as place a wishes on the list. In addition, there should be a management endpoint that allows to delete all wishes from the list (yes that's for you you naughty folks out there).
+
+As a cross-functional requirement we do not want to rely on a specific state store, but want to be free to exchange this at any point in time. On the other hand we want to make the life of the developer as easy as possible when it comes to the consumption of the state store. Even when the concrete state store services changes there should be no need to change the implementation of the services. 
+
+### Technical Part
+
+Technically of course we deploy the solution to Kyma 2.0. To fulfill the cross-functional requirement we will use Dapr and its [state handling building block](https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/). The installation of [Custom Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) is possible with Kyma 2.0 and we will use this new degree-of-freedom to make use of Dapr in the Kyma cluster. However, as Kyma represents an opinionated stack and already comes with some components, there are some points to consider when setiing things up that we will cover in the following sections.
+
+>>🔎 **Observation** - For the state store we use a deployment of Redis into the Kyma Cluster. This is not a production-grade setup, but for the sake of this sample this approach is okay.
+
+## Setup of Dapr in Kyma 2.0
+
+In general there are two ways to deploy Dapr to a Kuberenets cluster:
+
+* Using the [Dapr CLI](https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/#install-with-dapr-cli)
+* Using [helm](https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/#install-with-helm-advanced)
+
+We will use the `helm` option. Before starting the installation we must consider that [Istio](https://istio.io/) is running as service mesh in the Kyma environment. This means that:
+
+* Sidecar containers are injected by Istio in any namespace as default setup.
+* Istio is taking care about securing communication via mTLS.
+
+While the first aspect can potentially cause conflicts with any new custom resource, the second one is a functional overlap with Dapr's [service invocation](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/) component. In order to have a conflict-free installation both points must be deactivated, namely no sidecar injection into the core Dapr components and no mTLS setup on Dapr side. Let's do that.
+
+1. Create a dedicated custom namespace for the installation of Dapr, we go for `dapr-system`:
+
+   ```shell
+   kubectl create ns dapr-system
+   ```
+
+2. Deactivate the sidecar container injection into the `dapr-system` namespace. This can be achieved by labeling the namespace with `istio-injection=disabled`:
+
+   ```shell
+   kubectl label namespace dapr-system istio-injection=disabled
+   ```
+
+   >>🔎 **Observation** - You can of course also create the namespace via the new Kyma console and deactivate the sidecar injection there. Be aware to switch to the "Advanced" section in the namespace creation dialog.
+
+3. Add the Dapr helm repository and update it:
+
+  ```shell
+  helm repo add dapr https://dapr.github.io/helm-charts/
+  helm repo update
+  # See which chart versions are available
+  helm search repo dapr --devel --versions
+  ```
+
+4. Install the desired version of Dapr via helm into the custom namespace. In order to avoid clashes with the mTLS setup of Istio we globally deactivate the mTLS functionality for Dapr
+
+  ```shell
+  helm upgrade --install dapr dapr/dapr --version=1.6 --namespace dapr-system  --set global.mtls.enabled=false --wait
+  ```
+
+5. Verify the installation via:
+
+  ```shell
+  kubectl get pods --namespace dapr-system
+  ```
+
+  This should give you output like:
+
+  ```shell
+  NAME                                     READY     STATUS    RESTARTS   AGE
+  dapr-dashboard-7bd6cbf5bf-xglsr          1/1       Running   0          40s
+  dapr-operator-7bd6cbf5bf-xglsr           1/1       Running   0          40s
+  dapr-placement-7f8f76778f-6vhl2          1/1       Running   0          40s
+  dapr-sidecar-injector-8555576b6f-29cqm   1/1       Running   0          40s
+  dapr-sentry-9435776c7f-8f7yd             1/1       Running   0          40s
+  ```
+
+🎉 **Congratulations** - you have Dapr running on Kyma.
+
+Let's move on and deploy Redis to Kyma which will act as the state store.
+
+## Setup of Redis and Sample App
+
+In this sample we will deploy Redis as well as the sample app into the same custom namespace `dapr-sample` that we create via:
+
+```shell
+kubectl create ns dapr-sample
+```
+
+### Deploy Redis to Kyma 2.0
+
+Next we deploy to the namespace `dapr-sample` using helm. Apply the following helm commands:
+
+```shell
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm install redis bitnami/redis --namespace dapr-sample
+```
+
+You can verify the installation via:
+
+```shell
+kubectl get pods -n dapr-system
+```
+
+This should give you an output like:
+
+```shell
+NAME                READY   STATUS    RESTARTS   AGE
+redis-master-0      1/1     Running   0          69s
+redis-replicas-0    1/1     Running   0          69s
+redis-replicas-1    1/1     Running   0          22s
+```
+
+>>🔎 **Observation** - The deployment of Redis also created Kubernetes secrets that we can use to interact with Redis via Dapr.
+
+🎉 **Congratulations** - you have a Redis store running on Kyma.
+
+Let's move on and connect Redis to Dapr.
+
+## Connect Redis to Dapr
+
+To make Dapr aware of Redis as a state store we must create a so called Dapr *component*. To do so we apply the file `daprstate.yaml`:
+
+```yaml
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: statestore
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    value: redis-master.dapr-sample.svc.cluster.local:6379
+  - name: redisPassword
+    secretKeyRef:
+      name: redis
+      key: redis-password
+```
+
+The file contains the name of the store namely `statestore` which will be used to address it via the Dapr API from our application
+
+>>🔎 **Observation** - We fetch the password to connect to Redis from the secrets file that was created in the deployment.
+
+With this any container that is connected to Dapr can interact with the state store component via standardized APIs independent of the technical type of the state store.
+
+>> 📝 **Tip** - You find more information about Dapr in the official [documentation](https://docs.dapr.io/concepts/components-concept/)
+
+🎉 **Congratulations** - you have connected Redis to Dapr as a component.
+
+Let's move on and create the app that uses the state store to implement the business logic of our wishlist.
+
+## The Sample App
+
+### Provide the Configuration
+
+In order to avoid hard-coded values in our application code we create a config map that contains some basic parameters to call the Dapr that are then available as environment parameters for our app. The `configmap.yaml` contains the following data:
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configfordaprwishlistapp
+  labels:
+    app: daprwishlistapp
+data:
+  daprhost: http://localhost
+  statestoreid: statestore
+```
+
+We apply this configuration to your namespace via:
+
+```shell
+kubectl apply -f configmap.yaml -n dapr-sample
+```
+
+### Implement the App
+
+As the focus of the sample is to deploy a custom resource to Kyma we will not go into the depth of the implementation here, we will just shortly highlight how the interaction with Dapr works.
+
+To implement the business logic we provided three functions i.e. Azure Functions that give us the three endpoints. The code is contained in the following directories
+
+* `DaprWishListMessage`: this function contains the logic to add a wish to the wishlist (including the constraint to put only three on one list) and and is available via the path `/api/wishlistentry/{key}` for POST requests.
+* `DaprWishListReport`: this function contains the logic to get the wishes on a list i.e. for a specific key and is available via the path `/api/wishlist/{key}` for GET requests.
+* `DaprWishListManagementApi`: this function contains the logic to completely delete a wishlist for a specific key and is available via the path `/api/wishlistmanagement/{key}` for DELETE requests.
+
+The logic is defined in the `index.ts` files in the corresponding directories, the configuration (e.g. what HTTP verbs are supported) is described in the `function.json` file.  
+
+Let's take a closer look at the core code of `DaprWishListReport` namely the index.ts file:
+
+```typescript
+import { DaprClient } from "dapr-client"
+
+...
+
+const daprHost = process.env.HOST_OF_DAPR
+const daprPort = process.env.DAPR_HTTP_PORT
+const stateStoreName = process.env.STATE_STORE_ID
+const stateStoreKey = context.bindingData.key
+
+...
+
+try {
+    const daprClient = new DaprClient(daprHost, daprPort)
+    const currentWishListEntries = <KeyValueType>await daprClient.state.get(stateStoreName, stateStoreKey)
+    context.log(`Current state: ${currentWishListEntries}`)
+    if (currentWishListEntries) {
+        responseBody = `You have already ${currentWishListEntries.wishCounter} on your list. Your wishes are: ${currentWishListEntries.wishListItems}`
+    }
+    else {
+        responseBody = "No wishes yet made. Go start filling you list but be aware that you only have 3 wishes"
+    }
+} catch (error) {
+    context.log.error(error)
+    responseStatusCode = 500
+    responseBody = `An error occurred when fetching the data`
+}
+```
+
+THe main building blocks are:
+
+* We import the [Dapr SDK for JavaScript](https://github.com/dapr/js-sdk) to make the interaction with Dapr even easier.
+* We assign the relevant parameters for the Dapr client from the environment variables and from the data we get via the request
+* We create a Dapr client and access the uniform interface to the state store via the corresponding message, in this case via `state.get` to fetch the current state for a specific key.
+
+The result is returned to the caller in the body of the HTTP response.
+
+>> 📝 **Tip** - If you want to learn more about the implementation details, we provide a CodeTour that gives you more insight into this.
+
+### Build the container
+
+Before we build the container, we need to install the dependencies and build the TypeScript code via:
+
+```shell
+npm install
+npm run build
+```
+
+Next we need to build the container for our functions. To do so we have a [Docker file](Dockerfile) in place which uses a predefined base image and is configured to expose the functions on port 7080. The build is executed via the Docker CLI. To make the build and push of the container a bit more comfortable find a [Makefile](Makefile) in this repository. Replace the placeholder `<Your Docker ID>` in this file and then build and push the image to DockerHub via:
+
+```shell
+make build-and-push-image
+```
+
+### Deploy the Sample App
+
+WHen the image is available in the container registry on DockerHub, we can deploy the application to Kyma. In order to connect the deployment with Dapr (and technically inject the Dapr sidecar to the pod) we need to add the following annotations in the `deployment.yaml` file:
+
+```yaml
+...
+metadata:
+  labels:
+    app: daprwishlistapp
+  annotations:
+    dapr.io/enabled: "true"
+    dapr.io/app-id: "daprwishlistapp"
+    dapr.io/app-port: "7080"
+...
+```
+
+These annotations:
+
+* enable the Dapr sidecar injection (`dapr.io/enabled`)
+* provide an identifier for the app to Dapr (`dapr.io/app-id`)
+* tell Dapr which port to listen to (`dapr.io/app-port`)
+
+We execute the deployment in two steps:
+
+1. Create the deployment and the service in Kyma via the file [deployment.yaml](k8s\deployment.yaml) in the directory `k8s`. Navigate in the directory and adjust the placeholder `<Your Docker ID>` and apply the file via:
+
+  ```shell
+  kubectl apply -f deployment.yaml -n dapr-sample
+  ```
+
+  After that you have the application up and running in your cluster. YOu can of course verify the deployment via the Kyma dashboard or via the CLI.
+  
+  >>🔎 **Observation** - When you look at the put of `kubectl get pods -n dapr-sample` you will see that the pod that contains the application consists of three containers, the container of the app itself, the Istio side car container and the Dapr sidecar container.
+
+2. To make the endpoints callable we also need an API rule in place that exposes the service. For that we prepared the file [apirules.yaml](k8s\apirule.yaml) that creates such a rule.Apply the file via
+
+  ```shell
+  kubectl apply -f apirule.yaml -n dapr-sample
+  ```
+
+  >>🔎 **Observation** - We use the `noop` handler as access strategy. This si not a setup that should be used in production.
+
+🎉 **Congratulations** - you have deployed the application to Kyma.
+
+Now we can test and see if the bits and pieces work together as expected.
+
+## Test the Setup
+
+You can call the endpoints with your preferred tool like Postman, cUrl. 
+
+In addition, we have prepared the [samplerequest.htt](samplerequests.http) file that you can use for the calls if you have installed the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension for VSCode. The only thing you need do is to replace the placeholder `<Put your cluster domain here>` with the according value for your Kyma Cluster. You can retrieve that via:
+
+```shell
+kubectl get configmap -n kube-system shoot-info -ojsonpath='{.data.domain}'
+```
+
+Now you are set to execute the different calls to interact with the wishlist. Have Fun!
+
+>> 📝 **Tip** - You can use te .htp file as template for the calls in any other tool you prefer.
+
+🏆  **FINISHED** - you made it, you deployed Dapr as custom component as well as Redis to Kyma and setup an application that uses teh Dapr state store component!
+
+## CodeTour
+
+We also offer a [CodeTour](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) that you can use to walk through the code snippets and get the explanation provided in this `README.md`at the right spots. It also contains more detailed information on the implementation of the functions.  

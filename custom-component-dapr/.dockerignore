@@ -1,0 +1,6 @@
+.vscode 
+local.settings.json 
+Makefile 
+deployment.yaml 
+*.http 
+*.md
