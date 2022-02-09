@@ -8,7 +8,7 @@ POST {{hostname}}/api/wishlistentry/<Put a key here>
 content-type: application/json
 
 {
-    "wishListItem": "Surface Studio"
+    "wishListItem": "XBox Series X"
 }
 
 ### Sample call to delete the entry in the statestore for the key specified

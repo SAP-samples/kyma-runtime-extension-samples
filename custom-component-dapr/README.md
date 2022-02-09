@@ -128,7 +128,7 @@ helm install redis bitnami/redis --namespace dapr-sample
 You can verify the installation via:
 
 ```shell
-kubectl get pods -n dapr-system
+kubectl get pods -n dapr-sample
 ```
 
 This should give you an output like:
@@ -169,6 +169,12 @@ spec:
 
 The file contains the name of the store namely `statestore` which will be used to address it via the Dapr API from our application.
 
+We apply the file via:
+
+```shell
+kubectl apply -f daprstate.yaml -n dapr-sample
+```
+
 >>🔎 **Observation** - We fetch the password to connect to Redis from the secrets file that was created in the deployment of Redis.
 
 With this any container that is connected to Dapr can interact with the state store component via standardized APIs independent of the technical type of the state store itself.
@@ -179,7 +185,7 @@ With this any container that is connected to Dapr can interact with the state st
 
 Let's move on and create the wishlist application that uses the state store.
 
-## The Sample App
+## The Sample Application
 
 ### Provide the Configuration
 
@@ -203,11 +209,11 @@ Apply this configuration to your namespace via:
 kubectl apply -f configmap.yaml -n dapr-sample
 ```
 
-### Implement the App
+### Implement the Application
 
 As the focus of the sample is to deploy a custom resource to Kyma we will not go into the depth of the implementation here, we will just shortly highlight how the interaction with Dapr works from the code.
 
-To implement the business logic we provided three functions i.e. *Azure Functions* that give us the three endpoints. The code is contained in the following directories:
+To implement the business logic we provided three functions i.e. *Azure Functions* in TypeSCript that give us the three endpoints. The code is contained in the following directories:
 
 * `DaprWishListMessage`: this function contains the logic to add a wish to the wishlist (including the constraint to put only three on one list) for a given key and and is available via the path `/api/wishlistentry/{key}` for `POST` requests.
 * `DaprWishListReport`: this function contains the logic to get the wishes on a list for a specific key and is available via the path `/api/wishlist/{key}` for `GET` requests.
@@ -313,7 +319,7 @@ We execute the deployment in two steps:
   kubectl apply -f apirule.yaml -n dapr-sample
   ```
 
-  >>🔎 **Observation** - We use the `noop` handler as access strategy. This si not a setup that should be used in production.
+  >>🔎 **Observation** - We use the `noop` handler as access strategy. This is not a setup that should be used in production.
 
 🎉 **Congratulations** - you have deployed the application to Kyma.
 
