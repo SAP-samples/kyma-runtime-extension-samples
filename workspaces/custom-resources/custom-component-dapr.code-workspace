@@ -3,10 +3,6 @@
 		{
 			"path": "../../custom-component-dapr",
 			"name" : "Custom Resource Installation on Kyma - Dapr"
-		},
-		{
-			"path": "../../.tours/custom-resources/.tours",
-			"name" : "Code Tour files"
 		}
 	],
 	"settings": {

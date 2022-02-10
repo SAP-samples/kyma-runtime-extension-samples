@@ -32,7 +32,7 @@
     },
     {
       "title": "Dapr Component - State Store",
-      "file": "custom-component-dapr/k8s/daprstate.yaml",
+      "file": "k8s/daprstate.yaml",
       "selection": {
         "start": {
           "line": 2,
@@ -47,7 +47,7 @@
     },
     {
       "title": "Dapr Component - Identifier",
-      "file": "custom-component-dapr/k8s/daprstate.yaml",
+      "file": "k8s/daprstate.yaml",
       "selection": {
         "start": {
           "line": 3,
@@ -62,7 +62,7 @@
     },
     {
       "title": "Dapr Component - State Store Type",
-      "file": "custom-component-dapr/k8s/daprstate.yaml",
+      "file": "k8s/daprstate.yaml",
       "selection": {
         "start": {
           "line": 6,
@@ -77,7 +77,7 @@
     },
     {
       "title": "Dapr Component - State Store Secret",
-      "file": "custom-component-dapr/k8s/daprstate.yaml",
+      "file": "k8s/daprstate.yaml",
       "selection": {
         "start": {
           "line": 9,
@@ -96,7 +96,7 @@
     },
     {
       "title": "Dapr Parameters - ConfigMap", 
-      "file": "custom-component-dapr/k8s/configmap.yaml",
+      "file": "k8s/configmap.yaml",
       "selection": {
         "start": {
           "line": 2,
@@ -111,7 +111,7 @@
     },
     {
       "title": "Dapr Parameters - ConfigMap Data", 
-      "file": "custom-component-dapr/k8s/configmap.yaml",
+      "file": "k8s/configmap.yaml",
       "selection": {
         "start": {
           "line": 7,
@@ -134,7 +134,7 @@
     },
     {
       "title": "Function \"DaprWishListReport\" - Routing", 
-      "file": "custom-component-dapr/DaprWishListReport/function.json",
+      "file": "DaprWishListReport/function.json",
       "selection": {
         "start": {
           "line": 8,
@@ -149,7 +149,7 @@
     },
     {
       "title": "Function \"DaprWishListReport\" - HTTP Verbs", 
-      "file": "custom-component-dapr/DaprWishListReport/function.json",
+      "file": "DaprWishListReport/function.json",
       "selection": {
         "start": {
           "line": 9,
@@ -164,7 +164,7 @@
     },
     {
       "title": "Function \"DaprWishListReport\" - Import Dapr SDK Dependencies", 
-      "file": "custom-component-dapr/DaprWishListReport/index.ts",
+      "file": "DaprWishListReport/index.ts",
       "selection": {
         "start": {
           "line": 2,
@@ -179,7 +179,7 @@
     },
     {
       "title": "Function \"DaprWishListReport\" - Provide Dapr Parameters", 
-      "file": "custom-component-dapr/DaprWishListReport/index.ts",
+      "file": "DaprWishListReport/index.ts",
       "selection": {
         "start": {
           "line": 7,
@@ -194,7 +194,7 @@
     },
     {
       "title": "Function \"DaprWishListReport\" - Dapr Client", 
-      "file": "custom-component-dapr/DaprWishListReport/index.ts",
+      "file": "DaprWishListReport/index.ts",
       "selection": {
         "start": {
           "line": 17,
@@ -209,7 +209,7 @@
     },
     {
       "title": "Function \"DaprWishListReport\" - Get the Entries of Wishlist", 
-      "file": "custom-component-dapr/DaprWishListReport/index.ts",
+      "file": "DaprWishListReport/index.ts",
       "selection": {
         "start": {
           "line": 19,
@@ -224,7 +224,7 @@
     },
     {
       "title": "Function \"DaprWishListReport\" - Return the Entries of Wishlist 1", 
-      "file": "custom-component-dapr/DaprWishListReport/index.ts",
+      "file": "DaprWishListReport/index.ts",
       "selection": {
         "start": {
           "line": 23,
@@ -239,7 +239,7 @@
     },
     {
       "title": "Function \"DaprWishListReport\" - Return the Entries of Wishlist 2", 
-      "file": "custom-component-dapr/DaprWishListReport/index.ts",
+      "file": "DaprWishListReport/index.ts",
       "selection": {
         "start": {
           "line": 42,
@@ -254,7 +254,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - Routing", 
-      "file": "custom-component-dapr/DaprWishListMessage/function.json",
+      "file": "DaprWishListMessage/function.json",
       "selection": {
         "start": {
           "line": 8,
@@ -269,7 +269,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - HTTP Verbs", 
-      "file": "custom-component-dapr/DaprWishListMessage/function.json",
+      "file": "DaprWishListMessage/function.json",
       "selection": {
         "start": {
           "line": 9,
@@ -284,7 +284,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - Import Dapr SDK Dependencies",
-      "file": "custom-component-dapr/DaprWishListMessage/index.ts",
+      "file": "DaprWishListMessage/index.ts",
       "selection": {
         "start": {
           "line": 2,
@@ -299,7 +299,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - Provide Dapr Parameters", 
-      "file": "custom-component-dapr/DaprWishListMessage/index.ts",
+      "file": "DaprWishListMessage/index.ts",
       "selection": {
         "start": {
           "line": 8,
@@ -314,7 +314,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - Get the Entries of Wishlist",
-      "file": "custom-component-dapr/DaprWishListMessage/index.ts",
+      "file": "DaprWishListMessage/index.ts",
       "selection": {
         "start": {
           "line": 21,
@@ -329,7 +329,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - Handling of Wishlist Entries 1",
-      "file": "custom-component-dapr/DaprWishListMessage/index.ts",
+      "file": "DaprWishListMessage/index.ts",
       "selection": {
         "start": {
           "line": 28,
@@ -344,7 +344,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - Handling of Wishlist Entries 2",
-      "file": "custom-component-dapr/DaprWishListMessage/index.ts",
+      "file": "DaprWishListMessage/index.ts",
       "selection": {
         "start": {
           "line": 37,
@@ -359,7 +359,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - Handling of Wishlist Entries 3",
-      "file": "custom-component-dapr/DaprWishListMessage/index.ts",
+      "file": "DaprWishListMessage/index.ts",
       "selection": {
         "start": {
           "line": 46,
@@ -374,7 +374,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - Saving  the new Wishlist aka State",
-      "file": "custom-component-dapr/DaprWishListMessage/index.ts",
+      "file": "DaprWishListMessage/index.ts",
       "selection": {
         "start": {
           "line": 54,
@@ -389,7 +389,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - Return Message 1",
-      "file": "custom-component-dapr/DaprWishListMessage/index.ts",
+      "file": "DaprWishListMessage/index.ts",
       "selection": {
         "start": {
           "line": 65,
@@ -404,7 +404,7 @@
     },
     {
       "title": "Function \"DaprWishListMessage\" - Return Message 2",
-      "file": "custom-component-dapr/DaprWishListMessage/index.ts",
+      "file": "DaprWishListMessage/index.ts",
       "selection": {
         "start": {
           "line": 91,
@@ -419,7 +419,7 @@
     },
     {
       "title": "Function \"DaprWishListManagementApi\" - Routing", 
-      "file": "custom-component-dapr/DaprWishListManagementApi/function.json",
+      "file": "DaprWishListManagementApi/function.json",
       "selection": {
         "start": {
           "line": 11,
@@ -434,7 +434,7 @@
     },
     {
       "title": "Function \"DaprWishListManagementApi\" - HTTP Verbs", 
-      "file": "custom-component-dapr/DaprWishListManagementApi/function.json",
+      "file": "DaprWishListManagementApi/function.json",
       "selection": {
         "start": {
           "line": 8,
@@ -449,7 +449,7 @@
     },
     {
       "title": "Function \"DaprWishListManagementApi\" - Import Dapr SDK Dependencies",
-      "file": "custom-component-dapr/DaprWishListManagementApi/index.ts",
+      "file": "DaprWishListManagementApi/index.ts",
       "selection": {
         "start": {
           "line": 2,
@@ -464,7 +464,7 @@
     },
     { 
       "title": "Function \"DaprWishListManagementApi\" - Provide Dapr Parameters", 
-      "file": "custom-component-dapr/DaprWishListManagementApi/index.ts",
+      "file": "DaprWishListManagementApi/index.ts",
       "selection": {
         "start": {
           "line": 6,
@@ -479,7 +479,7 @@
     },
     {
       "title": "Function \"DaprWishListManagementApi\" - Delete Entries",
-      "file": "custom-component-dapr/DaprWishListManagementApi/index.ts",
+      "file": "DaprWishListManagementApi/index.ts",
       "selection": {
         "start": {
           "line": 18,
@@ -494,7 +494,7 @@
     },
     {
       "title": "Function \"DaprWishListManagementApi\" - Response Message",
-      "file": "custom-component-dapr/DaprWishListManagementApi/index.ts",
+      "file": "DaprWishListManagementApi/index.ts",
       "selection": {
         "start": {
           "line": 24,
@@ -513,7 +513,7 @@
     },
     {
       "title": "Build the Functions - Dockerfile 1",
-      "file": "custom-component-dapr/Dockerfile",
+      "file": "Dockerfile",
       "selection": {
         "start": {
           "line": 3,
@@ -528,7 +528,7 @@
     },
     {
       "title": "Build the Functions - Dockerfile 2",
-      "file": "custom-component-dapr/Dockerfile",
+      "file": "Dockerfile",
       "selection": {
         "start": {
           "line": 7,
@@ -543,7 +543,7 @@
     },
     {
       "title": "Build the Functions - Dockerfile 3",
-      "file": "custom-component-dapr/Dockerfile",
+      "file": "Dockerfile",
       "selection": {
         "start": {
           "line": 8,
@@ -558,7 +558,7 @@
     },
     {
       "title": "Build the Functions - Dockerfile 4",
-      "file": "custom-component-dapr/Dockerfile",
+      "file": "Dockerfile",
       "selection": {
         "start": {
           "line": 10,
@@ -573,7 +573,7 @@
     },
     {
       "title": "Build the Functions - Makefile 1",
-      "file": "custom-component-dapr/Makefile",
+      "file": "Makefile",
       "selection": {
         "start": {
           "line": 3,
@@ -588,7 +588,7 @@
     },
     {
       "title": "Build the Functions - Makefile 2",
-      "file": "custom-component-dapr/Makefile",
+      "file": "Makefile",
       "selection": {
         "start": {
           "line": 11,
@@ -603,7 +603,7 @@
     },
     {
       "title": "Deploy the Application 1",
-      "file": "custom-component-dapr/k8s/deployment.yaml",
+      "file": "k8s/deployment.yaml",
       "selection": {
         "start": {
           "line": 2,
@@ -618,7 +618,7 @@
     },
     {
       "title": "Deploy the Application 2",
-      "file": "custom-component-dapr/k8s/deployment.yaml",
+      "file": "k8s/deployment.yaml",
       "selection": {
         "start": {
           "line": 23,
@@ -633,7 +633,7 @@
     },
     {
       "title": "Deploy the Application 3",
-      "file": "custom-component-dapr/k8s/deployment.yaml",
+      "file": "k8s/deployment.yaml",
       "selection": {
         "start": {
           "line": 16,
@@ -648,7 +648,7 @@
     },
     {
       "title": "Deploy the Application 4",
-      "file": "custom-component-dapr/k8s/deployment.yaml",
+      "file": "k8s/deployment.yaml",
       "selection": {
         "start": {
           "line": 27,
@@ -663,7 +663,7 @@
     },
     {
       "title": "Deploy the Application 5",
-      "file": "custom-component-dapr/k8s/deployment.yaml",
+      "file": "k8s/deployment.yaml",
       "selection": {
         "start": {
           "line": 40,
@@ -678,7 +678,7 @@
     },
     {
       "title": "Deploy the Application 6",
-      "file": "custom-component-dapr/k8s/apirule.yaml",
+      "file": "k8s/apirule.yaml",
       "selection": {
         "start": {
           "line": 1,
@@ -697,7 +697,7 @@
     },
     {
       "title": "Test the Application 1",
-      "file": "custom-component-dapr/samplerequests.http",
+      "file": "samplerequests.http",
       "selection": {
         "start": {
           "line": 1,
@@ -712,7 +712,7 @@
     },
     {
       "title": "Test the Application 2",
-      "file": "custom-component-dapr/samplerequests.http",
+      "file": "samplerequests.http",
       "selection": {
         "start": {
           "line": 4,
@@ -727,7 +727,7 @@
     },
     {
       "title": "Test the Application 3",
-      "file": "custom-component-dapr/samplerequests.http",
+      "file": "samplerequests.http",
       "selection": {
         "start": {
           "line": 7,
@@ -742,7 +742,7 @@
     },
     {
       "title": "Test the Application 4",
-      "file": "custom-component-dapr/samplerequests.http",
+      "file": "samplerequests.http",
       "selection": {
         "start": {
           "line": 15,
