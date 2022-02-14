@@ -1,0 +1,25 @@
+@hostname=https://daprwishlistapp.<Put your cluster domain here>
+
+### Add a todo item to the list
+POST http://localhost:5046/todoitems
+Content-Type: application/json
+
+{
+  "name":"walk dog",
+  "isComplete":true
+}
+
+### Get all todo items
+GET http://{{hostname}}/todoitems/
+
+### Rewrite a todo item
+PUT http://{{hostname}}/todoitems/1
+Content-Type: application/json
+
+{
+  "name": "feed fish",
+  "isComplete": false
+}
+
+### Delete a todo item
+DELETE http://{{hostname}}/todoitems/2
