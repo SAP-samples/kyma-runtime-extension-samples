@@ -20,5 +20,6 @@ jobs:
     - uses: actions/setup-java@v2.5.0
       with:
         java-version: 17
+        distribution: jdk
     - name: Gradle Build and then Build the Docker image
       run: make build-image
