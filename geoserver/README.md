@@ -1,6 +1,6 @@
 ## Overview
 
-This sample provides a [GeoServer](https://www.geoserver.org/blog) instance with the plugin for SAP HANA Connectivity. Geoserver exposes in a variety of formats spatial data hosted in SAP HANA.
+This sample provides a [GeoServer](https://geoserver.org/blog/) instance with the plugin for SAP HANA Connectivity. Geoserver exposes in a variety of formats spatial data hosted in SAP HANA.
 
 The docker image used is available [here](./docker/Dockerfile). 
 
@@ -31,7 +31,7 @@ This filesystem will be mounted as the data directory, and will contain configur
 
 3. Apply the Deployment:
 
-Optionaly, you could edit [geoserver-deployments](./k8s/geoserver-deployments.yaml) to customize the service URL.
+Optionaly, you could edit [geoserver-deployments](./k8s/geoserver-deployment.yaml) to customize the service URL.
 
 ```shell script
 kubectl apply -f ./k8s/geoserver-deployment.yaml -n geo
