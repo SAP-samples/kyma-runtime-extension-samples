@@ -1,6 +1,6 @@
 ## Overview
 
-This sample provides a [GeoServer](https://geoserver.org/blog/) instance with the plugin for SAP HANA Connectivity. Geoserver exposes in a variety of formats spatial data hosted in SAP HANA.
+This sample provides a [GeoServer](http://geoserver.org/blog/) instance with the plugin for SAP HANA Connectivity. Geoserver exposes in a variety of formats spatial data hosted in SAP HANA.
 
 The docker image used is available [here](./docker/Dockerfile). 
 
