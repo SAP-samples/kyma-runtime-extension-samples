@@ -1,0 +1,9 @@
+https://app-auth-proxy/
+https://saas-demo-/
+https://sandbox.api.sap.com.*
+https://c4c-user-prop-xsuaa/
+https://accounts/
+https://client.badssl.com/
+.localhost*
+.kyma.shoot.live.k8s-hana.ondemand.com*
+.svc.cluster.local*
