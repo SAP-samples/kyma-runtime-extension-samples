@@ -6,6 +6,8 @@ on:
     paths:
     - "sample-extension-java/**"
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'
 
 jobs:
 
