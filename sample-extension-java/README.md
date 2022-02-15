@@ -1,3 +1,5 @@
+[![Build docker sample-extension-java](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-sample-extension-java.yml/badge.svg?branch=main)](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-sample-extension-java.yml)
+
 # Overview
 
 This sample demonstrates how to build and deploy a Java-based microservice as an extension and expose the API in SAP BTP, Kyma runtime.
