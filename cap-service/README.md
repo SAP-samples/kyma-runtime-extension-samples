@@ -22,8 +22,8 @@ This sample demonstrates how to:
 
 ### CAP Resources
 
-[CAP hints for SQLite on windows](https://cap.cloud.sap/docs/resources/troubleshooting#how-do-i-install-sqlite-on-windows)
-[Troubleshooting guide](https://cap.cloud.sap/docs/resources/troubleshooting#npm-installation) for CAP.
+- [CAP hints for SQLite on windows](https://cap.cloud.sap/docs/resources/troubleshooting#how-do-i-install-sqlite-on-windows)
+- [Troubleshooting guide](https://cap.cloud.sap/docs/resources/troubleshooting#npm-installation) for CAP.
 
 ## Steps
 
@@ -33,33 +33,33 @@ This sample demonstrates how to:
 
 2. Inside the directory, run:
 
-```
-npm install
-```
+    ```shell
+    npm install
+    ```
 
 3. Install the CAP tools
 
-```Shell/Bash
-npm i -g @sap/cds-dk
-```
+    ```shell
+    npm i -g @sap/cds-dk
+    ```
 
 4. Verify the CAP tools install by running
 
-```Shell/Bash
-cds
-```
+    ```shell
+    cds
+    ```
 
 5. Deploy the DB schemas to you local `sqlite` database
 
-```Shell/Bash
-cds deploy --to sqlite
-```
+    ```shell
+    cds deploy --to sqlite
+    ```
 
 6. Run the app using the command
 
-```Shell/Bash
-cds watch
-```
+    ```shell
+    cds watch
+    ```
 
 The application loads at `http://localhost:4004`.
 
@@ -67,42 +67,39 @@ The application loads at `http://localhost:4004`.
 
 1. Build and push the image to your Docker repository:
 
-````
-
-docker build -t <your-docker-id>/cap-service -f docker/Dockerfile .
-docker push {your-docker-account}/cap-service
-
-```
+    ```shell
+    docker build -t <your-docker-id>/cap-service -f docker/Dockerfile .
+    docker push {your-docker-account}/cap-service
+    ```
 
 2. To run the image locally, adjust the value of the **API_URL** parameter in the `webapp/config.js` file and mount it into the image:
 
-```
-docker run -p 4004:4004 <dockerid>/cap-service:latest --name cap-service
-````
+    ```shell
+    docker run -p 4004:4004 <dockerid>/cap-service:latest --name cap-service
+    ```
 
 ### Deploy the application
 
 1. Create a new `dev` Namespace:
 
-```shell script
-kubectl create namespace dev
-```
+    ```shell
+    kubectl create namespace dev
+    ```
 
 2. Apply the Resources:
 
-```shell script
-kubectl -n dev apply -f ./k8s/deployment.yaml
-kubectl -n dev apply -f ./k8s/apirule.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/deployment.yaml
+    kubectl -n dev apply -f ./k8s/apirule.yaml
+    ```
 
 3. Use the APIRule to open the application:
 
-```
-https://cap-service.{cluster-domain}
-```
+    ```shell
+    https://cap-service.{cluster-domain}
+    ```
 
 ### Examples with HANA DB
 
-https://www.youtube.com/watch?v=kwKr4JbscvY
-
-https://sap-samples.github.io/cloud-cap-risk-management/Kyma/#add-sap-hana-cloud
+- <https://www.youtube.com/watch?v=kwKr4JbscvY>
+- <https://sap-samples.github.io/cloud-cap-risk-management/Kyma/#add-sap-hana-cloud>

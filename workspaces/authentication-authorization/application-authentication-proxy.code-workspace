@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
+			"path": "../../app-auth-proxy",
+			"name" : "Application Authentication Proxy"
+		}
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen"
+	},
+	"extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+            "humao.rest-client",
+			"redhat.vscode-yaml",
+            "ms-azuretools.vscode-docker",
+            "ms-kubernetes-tools.vscode-kubernetes-tools",
+			"golang.go"
+        ]
+	}
+}
