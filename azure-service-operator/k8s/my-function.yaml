@@ -21,7 +21,7 @@ spec:
       value: rediscache-gabbi-1 #replace it with your redis cache name
   maxReplicas: 1
   minReplicas: 1
-  reference: main
+  reference: sample-operators
   resources:
     limits:
       cpu: 200m
@@ -30,6 +30,6 @@ spec:
       cpu: 100m
       memory: 128Mi
   runtime: nodejs14
-  source: ci-cd-kyma-repository
+  source: kyma-runtime-extension-samples
   type: git
 status: {}
