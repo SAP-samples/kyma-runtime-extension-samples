@@ -19,6 +19,8 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 
 - [SAP TechEd 2021 Walkthrough and Sample](https://github.com/SAP-samples/teched2021-DEV261)
 
+This is a full setup including many other SAP BTP Services and a CICD setup with the respective SAP BTP service.
+
 - [App Reverse Proxy with OIDC Authentication Middleware](./app-auth-proxy/README.md)
 - [SAAS Provisioning Sample](./saas-provisioning/README.md)
 - [HANA Cloud NodeJS API](./hana-nodejs/README.md)
