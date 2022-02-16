@@ -18,7 +18,7 @@ To check if your API Rule has been setup correctly, verify that it looks as show
 
    ![API Rule](../assets/troubleshooting/2.png)
 
-## Check the Send Grid environment variables at your consumer function
+## Check the Send Grid environment variables of the event-consumer function
 
 To verify your environment variables, go to **Workloads** > **Functions** > **event-consumer**.
 
