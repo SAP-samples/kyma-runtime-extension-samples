@@ -17,6 +17,8 @@ Running various samples requires access to the Kyma runtime. There are also othe
 
 Jumpstart your Kyma journey by using these samples to build event and api based extensions in your favorite technology.
 
+- [SAP TechEd 2021 Walkthrough and Sample](https://github.com/SAP-samples/teched2021-DEV261)
+
 - [App Reverse Proxy with OIDC Authentication Middleware](./app-auth-proxy/README.md)
 - [SAAS Provisioning Sample](./saas-provisioning/README.md)
 - [HANA Cloud NodeJS API](./hana-nodejs/README.md)
