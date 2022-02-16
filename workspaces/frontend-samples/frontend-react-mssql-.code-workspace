@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../frontend-react-mssql",
 			"name" : "Sample React Order App"
 		}

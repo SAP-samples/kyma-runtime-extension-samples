@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../c4c-customization",
 			"name" : "SAP Cloud for Customer Extension (Kyma Function)"
 		}

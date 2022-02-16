@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../s4hana-materialstock-function",
 			"name" : "S/4HANA Material Stock - Kyma Function "
 		}

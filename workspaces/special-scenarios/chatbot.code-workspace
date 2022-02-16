@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../chatbot-conversational_AI",
 			"name" : "Chatbot and Converstional AI"
 		}

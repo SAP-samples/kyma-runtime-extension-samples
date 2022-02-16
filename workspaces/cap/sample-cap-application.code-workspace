@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../cap-service",
 			"name" : "Sample CAP Application on Kyma"
 		}

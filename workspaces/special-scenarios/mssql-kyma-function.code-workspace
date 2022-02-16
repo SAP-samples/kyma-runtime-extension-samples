@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../api-mssql-function",
 			"name" : "MSSQL and Kyma Function"
 		}

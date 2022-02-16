@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../sample-extension-java",
 			"name" : "Sample Extension: Websockets (Python)"
 		}

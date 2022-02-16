@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../frontend-ui5-mssql",
 			"name" : "Sample UI5 Order App (Code)"
 		},

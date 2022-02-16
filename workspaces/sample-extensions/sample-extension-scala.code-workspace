@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../sample-extension-scala",
 			"name" : "Sample Extension: Scala (Code)"
 		},

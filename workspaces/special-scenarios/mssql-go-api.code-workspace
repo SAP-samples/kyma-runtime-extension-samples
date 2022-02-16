@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../api-mssql-go",
 			"name" : "MSSQL Go API (Code)"
 		},

@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../sample-multitenant-extension",
 			"name" : "Sample Extension: Multitenantcy"
 		}

@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../cloudsdk-client-cert-auth",
 			"name" : "SAP Cloud SDK Java - Client Certificate Authentication"
 		}

@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../database-azure-mssql",
 			"name" : "Open Service Broker and Azure SQL DB"
 		}

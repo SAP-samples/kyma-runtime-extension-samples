@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../sample-extension-dotnet",
 			"name" : "Sample Extension: .NET Core 3.1 (Code)"
 		},

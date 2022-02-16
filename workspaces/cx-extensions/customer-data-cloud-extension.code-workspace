@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../cdc-extension",
 			"name" : "SAP Customer Data Cloud Extension (Kyma Function)"
 		}

@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../sample-cloudsdk-java",
 			"name" : "Sample Extension: SAP Cloud SDK Java (Code)"
 		},

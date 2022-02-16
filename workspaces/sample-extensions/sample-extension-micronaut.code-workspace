@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../sample-extension-micronaut",
 			"name" : "Sample Extension: Micronaut (Code)"
 		},

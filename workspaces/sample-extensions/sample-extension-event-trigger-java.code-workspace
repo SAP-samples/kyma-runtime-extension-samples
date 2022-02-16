@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../sample-event-trigger-java",
 			"name" : "Sample Extension: Event Trigger with Java (Code)"
 		},

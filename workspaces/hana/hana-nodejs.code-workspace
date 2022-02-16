@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../hana-nodejs",
 			"name" : "Kyma and HANA Cloud"
 		}

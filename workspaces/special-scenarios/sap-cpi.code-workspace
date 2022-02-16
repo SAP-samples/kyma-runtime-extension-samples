@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
 			"path": "../../pi-scenario",
 			"name" : "Integration of Kyma and SAP CPI"
 		}
