@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "../../cap-service",
+			"name" : "Sample CAP Application on Kyma"
+		}
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen"
+	},
+	"extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+            "humao.rest-client",
+			"redhat.vscode-yaml",
+            "ms-azuretools.vscode-docker",
+            "ms-kubernetes-tools.vscode-kubernetes-tools",
+			"SAPSE.vscode-cds",
+			"alexcvzz.vscode-sqlite"
+        ]
+	}
+}
