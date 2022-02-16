@@ -1,0 +1,6 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: GitRepository
+metadata:
+  name: kyma-runtime-extension-samples
+spec:
+  url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
