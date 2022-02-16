@@ -1,3 +1,5 @@
+# Redis and Kyma Functions
+
 ## Overview
 
 This sample provides a Redis deployment and two serverless functions that interact with it. The function `cache-order` is set to subscribe to an `order.created` event provided by the Commerce mock application. Once triggered, the function will perform an API call to the Commerce mock to obtain additional details regarding the order and then cache the information into Redis. The function `get-order`, exposed as an API, is used to then retrieve the order details from the Redis cache.
@@ -18,4 +20,4 @@ This sample demonstrates how to:
 
 ## Details
 
-Detailed steps can be found at [Use Redis in the Kyma Runtime to Store and Retrieve Data](https://developers.sap.com/tutorials/cp-kyma-redis-function.html)
+You find detailed steps at [Use Redis in the Kyma Runtime to Store and Retrieve Data](https://developers.sap.com/tutorials/cp-kyma-redis-function.html).

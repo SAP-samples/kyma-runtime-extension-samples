@@ -49,6 +49,7 @@ This is a full setup including many other SAP BTP Services and a CICD setup with
 - [Sample SAP Customer Data Platform Extension](./cdp-extension/README.md)
 - [Self-learning FAQ Chatbot based on SAP Conversational AI](./chatbot-conversational_AI/README.md)
 - [SAP Cloud SDK Java Client Certificate Authentication](./cloudsdk-client-cert-auth/README.md)
+- [Redis and Kyma Functions](./redis-function/README.md)
 
 ## Helm Charts
 
