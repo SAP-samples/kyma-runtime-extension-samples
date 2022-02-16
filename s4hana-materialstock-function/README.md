@@ -1,3 +1,5 @@
+# S/4HANA Nodejs SAP Cloud SDK Example
+
 ## Overview
 
 This sample provides a Serverless Function configured to call the Material Stock API provided by S/4HANA using the SAP Cloud SDK. This function is exposed as an un-authenticated API.
@@ -25,15 +27,15 @@ This sample demonstrates how to:
 
 1. Create a new `dev` Namespace:
 
-```shell script
-kubectl create namespace dev
-```
+    ```shell
+    kubectl create namespace dev
+    ```
 
 2. Apply the Deployment:
 
-```shell script
-kubectl -n dev apply -f ./k8s/deployment.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/deployment.yaml
+    ```
 
 ### Provision a ServiceInstance
 
@@ -44,16 +46,16 @@ Within the `dev` Namespace:
 3. Choose the `api-access` plan.
 4. Choose the **Add Parameters** option and provide the communication arrangement JSON. For the material stock example, use the following snippet. Make sure to adjust the **systemName** parameter.  
 
-```
-{
-  "systemName": "{System Name}",
-  "communicationArrangement": {
-    "communicationArrangementName": "INBOUND_COMMUNICATION_ARRANGEMENT",
-    "scenarioId": "SAP_COM_0164",
-    "inboundAuthentication": "BasicAuthentication"
-  }
-}
-```
+    ```json
+    {
+      "systemName": "{System Name}",
+      "communicationArrangement": {
+        "communicationArrangementName": "INBOUND_COMMUNICATION_ARRANGEMENT",
+        "scenarioId": "SAP_COM_0164",
+        "inboundAuthentication": "BasicAuthentication"
+      }
+    }
+    ```
 
 5. Choose **Create**.
 
@@ -66,12 +68,13 @@ Within the `dev` Namespace:
 5. Choose **Create**.
 6. Verify that the Function is up and running:
 
-```shell script
-kubectl -n dev get function s4hana-materialstock
-```
+    ```shell
+    kubectl -n dev get function s4hana-materialstock
+    ```
 
 ### Call the API
 
 Use the APIRule:
-  - `https://s4hana-materialstock.{cluster-domain}/orders`
-  - `https://s4hana-materialstock.{cluster-domain}/orders/10000001`
+
+- `https://s4hana-materialstock.{cluster-domain}/orders`
+- `https://s4hana-materialstock.{cluster-domain}/orders/10000001`
