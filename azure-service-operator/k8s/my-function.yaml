@@ -1,0 +1,35 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: use-azure-redis-cache
+spec:
+  baseDir: azure-service-operator/function
+  buildResources:
+    limits:
+      cpu: 1700m
+      memory: 1100Mi
+    requests:
+      cpu: 1100m
+      memory: 1100Mi
+  env:
+    - name: REDIS_CACHE_KEY
+      valueFrom:
+        secretKeyRef:
+          name: rediscache-rediscache-gabbi-1 #replace it with rediscache-{your redis cache name}
+          key: primaryKey
+    - name: REDIS_CACHE_NAME
+      value: rediscache-gabbi-1 #replace it with your redis cache name
+  maxReplicas: 1
+  minReplicas: 1
+  reference: main
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  runtime: nodejs14
+  source: ci-cd-kyma-repository
+  type: git
+status: {}
