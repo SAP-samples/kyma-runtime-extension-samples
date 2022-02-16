@@ -166,10 +166,10 @@ kubectl apply -f ./k8s/service-account.yaml -n saas
 5. The sample will display
 6. The app will have the following endpoints
 
-    - https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/
-    - https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/headers
-    - https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/auth/user
-    - https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/auth/groups
+    - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/>
+    - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/headers>
+    - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/auth/user>
+    - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/auth/groups>
 
 ### Run the Sample Locally
 
@@ -195,7 +195,7 @@ kubectl apply -f ./k8s/service-account.yaml -n saas
     go run .
     ```
 
-Send a PUT or DELETE request to `http://localhost:8000/callback/v1.0/tenants/<a tentant id>` containing
+Send a `PUT` or `DELETE` request to `http://localhost:8000/callback/v1.0/tenants/<a tentant id>` containing
 
 **Header**
 Authorization: Bearer < valid jwt containing the saas-provisioning-demo-app\*\*\*\*Callback scope for the app >
