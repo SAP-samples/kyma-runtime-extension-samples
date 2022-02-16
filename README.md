@@ -38,7 +38,7 @@ This is a full setup including many other SAP BTP Services and a CICD setup with
 - [Scala AKKA HTTP based extesnsion with API exposed via Microgateway](./sample-extension-scala/README.md)
 - [SAP Cloud SDK Java based extension with API exposed via Microgateway](./sample-cloudsdk-java/README.md)
 - [Sample to extend SAP Cloud for Customer with user propagation](./user-propagation/README.md)
-- [Sample to extend SAP Cloud for Customer with user propagation via xsuaa](./user-propagation/README.md)
+- [Sample to extend SAP Cloud for Customer with user propagation via XSUAA](./user-propagation-via-xsuaa/README.md)
 - [Micronaut based extension with API exposed via Microgateway](./sample-extension-micronaut/README.md)
 - [GeoServer for a geospatial middleware over HANA Cloud](./geoserver/README.md)
 - [Sample deploying a websocket based extension on Kyma](./sample-websockets/README.md)

@@ -1,4 +1,6 @@
-# Overview
+# Sample to extend SAP Cloud for Customer with user propagation via XSUAA
+
+## Overview
 
 This sample demonstrates how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) using SAP BTP, Kyma runtime.
 
@@ -72,9 +74,9 @@ You will end up creating a Destination Service in SAP BTP. It will be later on u
 
   - Get the issuing entity name from the certificate. You can use OpenSSL to view certificate details.
 
-    ```shell script
-    openssl x509 -in {cert path} -text -noout
-    ```
+      ```shell
+      openssl x509 -in {cert path} -text -noout
+      ```
 
   - Upload the certificate.
     ![new-oauth2-provider](assets/new-oauth2-provider.png)
@@ -85,9 +87,12 @@ You will end up creating a Destination Service in SAP BTP. It will be later on u
 - Create a destination in SAP BTP. Under your subaccount, go to **Connectivity** --> **Destinations**.
   ![http-destination](assets/http-destination.png)
 
-  Configure these additional properties:
-  `scope`                      : `UIWC:CC_HOME`
-  `x_user_token.jwks_uri`      : `Provide URI of the JSON web key set`
+    Configure these additional properties:
+
+    ```shell
+    scope                      : UIWC:CC_HOME
+    x_user_token.jwks_uri      : Provide URI of the JSON web key set
+    ```
 
 ### Identifier used by the Destination Service to get the token
 
@@ -119,22 +124,22 @@ To specify use of only IAS authentication provide the **Origin Key** shown in th
 }
 ```
 
-<sup> For a complete list of parameters visit [Application Security Descriptor Configuration Syntax](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.04/en-US/6d3ed64092f748cbac691abc5fe52985.html) </sup>
+>> For a complete list of parameters visit [Application Security Descriptor Configuration Syntax](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.04/en-US/6d3ed64092f748cbac691abc5fe52985.html)
 
 1. Once the instance is provisioned choose the option `Create Credentials`
 2. Under the `Credentials` tab choose the `Secret` which should display the instance secret in a dialog. Choose `Decode` to view the values. These will be needed if running the sample locally.
 
 ### Deploy httpbin Application
 
-httpbin is a service that returns all the request headers to the `/headers` endpoint.
+`httpbin` is a service that returns all the request headers to the `/headers` endpoint.
 
 It is used for demonstrating and verifying that the token is forwarded from the API Gateway to the microservice.
 
 - Deploy httpbin.
 
-  ```shell script
-  kubectl -n dev apply -f https://raw.githubusercontent.com/istio/istio/master/samples/httpbin/httpbin.yaml
-  ```
+    ```shell
+    kubectl -n dev apply -f https://raw.githubusercontent.com/istio/istio/master/samples/httpbin/httpbin.yaml
+    ```
 
 ### Deploy c4c-extension Application
 
@@ -149,11 +154,11 @@ The c4c-extension c4c-extension Application microservice implements the extensio
 
 - Create a Destination Service instance in the Kyma Service Catalog. This will be used to get the credentials to make the call to the Destination Service.
 
-  ![create instance](assets/create-destination-instance.png)
+    ![create instance](assets/create-destination-instance.png)
 
 - Create credentials for the instance.
 
-  ![kyma destination service instance](assets/destination-service-kyma-instance.png)
+    ![kyma destination service instance](assets/destination-service-kyma-instance.png)
 
 - Deploy the extension with user propagation.
 
@@ -161,12 +166,12 @@ The c4c-extension c4c-extension Application microservice implements the extensio
 
   - Deploy the extension.
 
-    ```shell script
-      kubectl -n dev apply -f k8s/c4c-extension/deployment.yaml
-    ```
+      ```shell
+        kubectl -n dev apply -f k8s/c4c-extension/deployment.yaml
+      ```
 
 - Bind the extension to the Destination Service instance.
-  ![bind instance](assets/bind-application.png)
+    ![bind instance](assets/bind-application.png)
 
 ### Deploy Angular Frontend App
 
@@ -182,9 +187,9 @@ It makes another call to create a C4C task for the logged-in user.
 
 - Deploy the app:
 
-  ```shell script
-  kubectl -n dev apply -f k8s/frontend/angular-app.yaml
-  ```
+    ```shell
+    kubectl -n dev apply -f k8s/frontend/angular-app.yaml
+    ```
 
 ### Deploy Auth Proxy Application
 
@@ -192,37 +197,37 @@ The [App Auth Proxy](../app-auth-proxy/README.md) provides serverside authentica
 
 1. Within `./k8s/auth-proxy/configmap.yaml` adjust the **cluster-domain** value of the **redirect_uri** to match the domain of the Kyma runtime and then apply the ConfigMap:
 
-```shell script
-kubectl -n dev apply -f ./k8s/auth-proxy/configmap.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/auth-proxy/configmap.yaml
+    ```
 
-3. Get the name of the xsuaa ServiceInstance:
+2. Get the name of the xsuaa ServiceInstance:
 
-```shell script
-kubectl -n dev get serviceinstances
-```
+    ```shell
+    kubectl -n dev get serviceinstances
+    ```
 
-For example:
+    For example:
 
-| NAME                   | CLASS                     | PLAN        | STATUS | AGE |
-| ---------------------- | ------------------------- | ----------- | ------ | --- |
-| **_xsuaa-showy-yard_** | ClusterServiceClass/xsuaa | application | Ready  | 63m |
+    ```shell
+    | NAME                   | CLASS                     | PLAN        | STATUS | AGE |
+    | ---------------------- | ------------------------- | ----------- | ------ | --- |
+    | **_xsuaa-showy-yard_** | ClusterServiceClass/xsuaa | application | Ready  | 63m |
+    ```
 
-4. Within `./k8s/auth-proxy/deployment.yaml` adjust the value of `<Service Instance Name>` to the XSUAA service instance name and the apply the Deployment:
+3. Within `./k8s/auth-proxy/deployment.yaml` adjust the value of `<Service Instance Name>` to the XSUAA service instance name and the apply the Deployment:
 
-```shell script
-kubectl -n dev apply -f ./k8s/auth-proxy/deployment.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/auth-proxy/deployment.yaml
+    ```
 
-5. Apply the APIRule:
+4. Apply the APIRule:
 
-```shell script
-kubectl -n dev apply -f ./k8s/auth-proxy/apirule.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/auth-proxy/apirule.yaml
+    ```
 
-6. Access the application
-
-Access the app at `https://c4c-user-prop-xsuaa.{kyma-cluster-domain}`
+5. Access the app at `https://c4c-user-prop-xsuaa.{kyma-cluster-domain}`
 
 ## Takeaways
 
@@ -230,4 +235,3 @@ Access the app at `https://c4c-user-prop-xsuaa.{kyma-cluster-domain}`
 - Although the sample is built for SAP Cloud for Customer, a similar approach can be applied to other SAP Solutions, such as SuccessFactors.
 - The approach requires an extension to build the logic required to fetch the token.
 - The flow does not make the call via Application Gateway but directly calls the SAP Cloud For Customer APIs with the token it got from the Destination Service.
--
