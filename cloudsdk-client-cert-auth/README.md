@@ -1,6 +1,8 @@
-# Overview
+# SAP Cloud SDK Java Client Certificate Authentication
 
-There could be extension and application use cases deployed on Kyma runtime where the workload is required to connect to an external system. There external system could have been secured with OAuth2, Basic Authentication, Client Certificate Authentication or any other means. 
+## Overview
+
+There could be extension and application use cases deployed on Kyma runtime where the workload is required to connect to an external system. There external system could have been secured with OAuth2, Basic Authentication, Client Certificate Authentication or any other means.
 
 In all such cases, SAP Destination service can be used to store and retrieve technical information to consume the target external system. SAP Cloud SDK can be used for the boilerplate logic to retrieve the credentials and connect to the external system. The advantage is that the application code is then solely focused on the business logic and all connectivity details are handled by the SAP Cloud SDK.
 
@@ -23,53 +25,53 @@ In this sample, we will connect to an external system that is secured with **Cli
 
 1. Create an instance of SAP Destination service and Service binding. The Service binding will create the credentials for calling the destination service API. It will be used to upload the client certificate as well as by the SAP Cloud SDK to connect to the external system. 
 
-```yaml
-apiVersion: servicecatalog.k8s.io/v1beta1
-kind: ServiceInstance
-metadata:
-  name: destination-service-instance
-spec:
-  clusterServiceClassExternalName: destination
-  clusterServicePlanExternalName: lite
----
-apiVersion: servicecatalog.k8s.io/v1beta1
-kind: ServiceBinding
-metadata:
-  name: destination-service-binding
-spec:
-  instanceRef:
-    name: destination-service-instance
-```
+    ```yaml
+    apiVersion: servicecatalog.k8s.io/v1beta1
+    kind: ServiceInstance
+    metadata:
+      name: destination-service-instance
+    spec:
+      clusterServiceClassExternalName: destination
+      clusterServicePlanExternalName: lite
+    ---
+    apiVersion: servicecatalog.k8s.io/v1beta1
+    kind: ServiceBinding
+    metadata:
+      name: destination-service-binding
+    spec:
+      instanceRef:
+        name: destination-service-instance
+    ```
 
-```shell
-kubectl -n {your-namespace} apply -f k8s/destination-service-instance.yaml
-```
+    ```shell
+    kubectl -n {your-namespace} apply -f k8s/destination-service-instance.yaml
+    ```
 
 2. Upload the client certificate as a secret. This will be used by a job in next step to upload the certificate to your SAP BTP Subaccount. You can also manually upload the certificate to the destination service.
 The certificate for this sample has been retrieved from the [test site](https://badssl.com/download/)
 
-```shell
-kubectl -n {your-namespace} create secret generic client-certs --from-file=assets/badssl.p12
-```
+    ```shell
+    kubectl -n {your-namespace} create secret generic client-certs --from-file=assets/badssl.p12
+    ```
 
-4. Deploy a job in Kyma runtime to upload the client certificate to your SAP BTP Subaccount.
+3. Deploy a job in Kyma runtime to upload the client certificate to your SAP BTP Subaccount.
 
-```shell
-kubectl -n {your-namespace} apply -f k8s/job-cert-uploader.yaml
-```
+    ```shell
+    kubectl -n {your-namespace} apply -f k8s/job-cert-uploader.yaml
+    ```
 
 4. Configure the Destination in SAP Business Technology Platform (SAP BTP) Cockpit.
 ![dest-config](./assets/dest-client-cert-auth.png)
 
-```
-Name: test-client-cert-auth
-Type: HTTP
-URL: https://client.badssl.com/
-Proxy Type: Internet
-Authentication: ClientCertificateAuthentication
-Key Store Location: badssl.p12
-Key Store Password: badssl.com
-```
+    ```shell
+    Name: test-client-cert-auth
+    Type: HTTP
+    URL: https://client.badssl.com/
+    Proxy Type: Internet
+    Authentication: ClientCertificateAuthentication
+    Key Store Location: badssl.p12
+    Key Store Password: badssl.com
+    ```
 
 ### Application
 
