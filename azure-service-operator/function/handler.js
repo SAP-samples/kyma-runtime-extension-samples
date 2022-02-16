@@ -7,11 +7,14 @@ var redisClient = redis.createClient({
     password: process.env.REDIS_CACHE_KEY
 });
 
+(async () => {
+    await redisClient.connect();
+}
+)();
+
 module.exports = {
     main: async function (event, context) {
         try {
-            await redisClient.connect();
-
             if (event.extensions.request.method === 'POST') {
                 await saveEntry(event);
                 console.log('saved');
