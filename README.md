@@ -50,6 +50,7 @@ This is a full setup including many other SAP BTP Services and a CICD setup with
 - [Self-learning FAQ Chatbot based on SAP Conversational AI](./chatbot-conversational_AI/README.md)
 - [SAP Cloud SDK Java Client Certificate Authentication](./cloudsdk-client-cert-auth/README.md)
 - [Redis and Kyma Functions](./redis-function/README.md)
+- [Next.js app with Kyma eventing & Go backend connected to SAP HANA Cloud database](./nextjs-app-with-kyma-eventing/README.md)
 
 ## Helm Charts
 

@@ -1,0 +1,321 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "Registrations REST API:",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "paths": {
+    "/customers": {
+      "get": {
+        "description": "Returns list of customers",
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "listCustomers",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Customer"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a new customer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "newCustomer",
+        "parameters": [
+          {
+            "description": "Customer object that needs to be added",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      }
+    },
+    "/customers/search": {
+      "get": {
+        "description": "Search customers based on cno and/or email",
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "searchCustomers",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "customer number",
+            "name": "cno",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "email address",
+            "name": "email",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Customer"
+              }
+            }
+          },
+          "404": {
+            "description": "Customer not found",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      }
+    },
+    "/customers/{cno}": {
+      "put": {
+        "description": "Update an existing customer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "updateCustomer",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Customer number",
+            "name": "cno",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Customer object that needs to be updated",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Customer not found",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete an existing recipe",
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "deleteCustomer",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Customer number",
+            "name": "cno",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceMessage"
+            }
+          },
+          "404": {
+            "description": "Customer not found",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Customer": {
+      "description": "Customer represents data about a Customer",
+      "type": "object",
+      "properties": {
+        "address": {
+          "description": "The address of a customer",
+          "type": "string",
+          "x-go-name": "Address",
+          "example": "123, ABC Street, New York, NY, 11111, USA"
+        },
+        "cno": {
+          "description": "The customer number",
+          "type": "string",
+          "x-go-name": "Cno",
+          "example": "47912cc0-d801-41c4-b6da-30577e272f43"
+        },
+        "comment": {
+          "description": "The comment given by the customer",
+          "type": "string",
+          "x-go-name": "Comment",
+          "example": "Thanks"
+        },
+        "created": {
+          "description": "The date when the record was created",
+          "type": "string",
+          "x-go-name": "Created",
+          "example": "2022-02-03T09:55:19-05:00"
+        },
+        "email": {
+          "description": "The email of a customer",
+          "type": "string",
+          "x-go-name": "Email",
+          "example": "john.doe.mock@mailinator.com"
+        },
+        "firstName": {
+          "description": "The first name of a customer",
+          "type": "string",
+          "x-go-name": "FirstName",
+          "example": "Jane"
+        },
+        "lastName": {
+          "description": "The last name of a customer",
+          "type": "string",
+          "x-go-name": "LastName",
+          "example": "Doe"
+        },
+        "phone": {
+          "description": "The phone number of a customer",
+          "type": "string",
+          "x-go-name": "Phone",
+          "example": "+1-111-111-1111"
+        },
+        "title": {
+          "description": "The title of a customer",
+          "type": "string",
+          "x-go-name": "Title",
+          "example": "Mrs."
+        },
+        "updated": {
+          "description": "The date when the record was last updated",
+          "type": "string",
+          "x-go-name": "Updated",
+          "example": "2022-02-03T09:55:19-05:00"
+        }
+      },
+      "x-go-package": "github.com/SAP-samples/kyma-runtime-extension-samples/nextjs-app-with-kyma-eventing/registrations-rest-api/models"
+    },
+    "ServiceError": {
+      "description": "ServiceError represents an error message",
+      "type": "object",
+      "properties": {
+        "errorMessage": {
+          "description": "The error message",
+          "type": "string",
+          "x-go-name": "ErrorMessage",
+          "example": "Some error"
+        }
+      },
+      "x-go-package": "github.com/SAP-samples/kyma-runtime-extension-samples/nextjs-app-with-kyma-eventing/registrations-rest-api/models"
+    },
+    "ServiceMessage": {
+      "description": "ServiceMessage represents a service message",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "The service message",
+          "type": "string",
+          "x-go-name": "Message",
+          "example": "Customer updated."
+        }
+      },
+      "x-go-package": "github.com/SAP-samples/kyma-runtime-extension-samples/nextjs-app-with-kyma-eventing/registrations-rest-api/models"
+    }
+  }
+}

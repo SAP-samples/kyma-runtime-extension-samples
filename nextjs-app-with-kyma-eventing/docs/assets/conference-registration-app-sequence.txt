@@ -1,0 +1,23 @@
+User->Client-side User Interface \n(Next.js app - Microservice): User accesses the app
+
+Client-side User Interface \n(Next.js app - Microservice)->API endpoint \n(Next.js app - Microservice): Post Conference Registration \nform data \n(HTTP POST)
+
+API endpoint \n(Next.js app - Microservice)->SAP Event Mesh \nQueue: Publish Message \nto Queue \n(CloudEvent with \nevent data)
+
+API endpoint \n(Next.js app - Microservice)-->Client-side User Interface \n(Next.js app - Microservice): OK
+
+Client-side User Interface \n(Next.js app - Microservice)-->User: OK
+
+SAP Event Mesh \nQueue->SAP Event Mesh \nQueue: Store CloudEvent \nin Queue
+
+SAP Event Mesh \nQueue->Event Consumer \n(Node.js Serverless Function): Consume Message \nfrom Queue \n(Event data)
+
+Event Consumer \n(Node.js Serverless Function)->Registrations \nREST API Server \n(Go Microservice): Post Customer details \n(HTTP POST)
+
+Registrations \nREST API Server \n(Go Microservice)->SAP HANA Cloud: Save record to database
+
+SAP HANA Cloud-->Registrations \nREST API Server \n(Go Microservice): OK
+
+Registrations \nREST API Server \n(Go Microservice)-->Event Consumer \n(Node.js Serverless Function): OK
+
+Event Consumer \n(Node.js Serverless Function)->SendGrid: Send Email to User
