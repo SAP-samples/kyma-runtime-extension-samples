@@ -1,4 +1,4 @@
-# App Reverse Proxy with OIDC Authentication Middleware
+# Serverless Function MS SQL database API
 
 ## Overview
 
