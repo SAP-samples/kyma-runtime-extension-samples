@@ -1,9 +1,11 @@
-# Overview
+# Sample deploying a websocket based extension on Kyma
+
+## Overview
 
 In certain extension use cases it might be required to build real-time communication. Some of the examples include
 
-* Sending a news feed to the subscribered users 
-* Updating the status of the customer wishlist 
+* Sending a news feed to the subscribed users
+* Updating the status of the customer wishlist
 * Order delivery status in real-time
 * Real time customer interactions
 
@@ -29,9 +31,9 @@ The extension flow is pretty simple and described below:
 
 ## Websocket connection
 
-To acheive the websocket capability, no extra configuration is required.
+To achieve the websocket capability, no extra configuration is required.
 
-The extension is exposed over the internet using API Rule  at the `https://websocket-server.{cluster-domain} URL.
+The extension is exposed over the internet using API Rule  at the `https://websocket-server.{cluster-domain}` URL.
 
 Kyma supports the upgrade of the HTTP connection to websocket connection out-of-the-box.
 
@@ -48,7 +50,7 @@ The YAML definition contains:
 * An API Rule to expose the service over internet.
 * Simply access the API rule and send the events from you connected SAP Commerce Cloud system.
 
-It is also possible to secure the exposed endpoing with JWT or OAuth2.
+It is also possible to secure the exposed endpoint with JWT or OAuth2.
 
 ## Demo
 
