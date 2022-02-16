@@ -1,3 +1,5 @@
+# Azure MS SQL database
+
 ## Overview
 
 This sample provisions the MS SQL database within Microsoft Azure using the Open Service Broker. This process generates a randomly named database, user and password. Once the provisioning is completed, the database is configured with a sample `Orders` table populated with two rows of sample data. The generation of the table and data is handled within the `seed-db` lambda function which is defined in the `k8/deployment.yaml` file.
