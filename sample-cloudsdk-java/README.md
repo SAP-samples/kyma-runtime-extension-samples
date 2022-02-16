@@ -1,4 +1,6 @@
-# Overview
+# SAP Cloud SDK Java based extension with API exposed via Microgateway
+
+## Overview
 
 This sample describes the steps and configurations to build and deploy microservice-based extensions on SAP BTP, Kyma runtime using SAP Cloud SDK for Java.
 
