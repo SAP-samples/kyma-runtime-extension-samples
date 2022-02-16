@@ -24,7 +24,7 @@ The microservice makes API calls to an S/4 System to perform various read/write 
 
 1. Generate the maven project.
 
-    ```shell script
+    ```shell
     mvn archetype:generate "-DarchetypeGroupId=com.sap.cloud.sdk.archetypes" "-DarchetypeArtifactId=scp-cf-spring" "-DarchetypeVersion=RELEASE"
     ```
 
@@ -67,7 +67,7 @@ The microservice makes API calls to an S/4 System to perform various read/write 
 
 4. Build and push the image
 
-    ```shell script
+    ```shell
     DOCKER_ACCOUNT={your-docker-repo} make push-image
     ```
 
@@ -83,30 +83,30 @@ The microservice makes API calls to an S/4 System to perform various read/write 
 
     * These predefined variables will be injected automatically when performing a service binding with this Deployment.  
 
-    ```yaml
-    env:
-    - name: destinations
-      value: '[{name: "$(APPLICATION_TENANT_NAME)", url: "$(URL)", username: "$(User)", password: "$(Password)"}]'
-    ```
+      ```yaml
+      env:
+      - name: destinations
+        value: '[{name: "$(APPLICATION_TENANT_NAME)", url: "$(URL)", username: "$(User)", password: "$(Password)"}]'
+      ```
 
     For reference, see the full [Deployment definition](k8s/deployment.yaml).
 
-    ```shell script
-    kubectl -n {NAMESPACE-TO-DEPLOY} apply -f k8s/deployment.yaml
-    ```
+      ```shell
+      kubectl -n {NAMESPACE-TO-DEPLOY} apply -f k8s/deployment.yaml
+      ```
 
 7. Bind the Deployment with the ServiceInstance. You can either reuse the existing credentials or create new ones.
     ![bind](assets/bind-instance.png)
 
 8. Verify that the Deployment is running by checking the logs:
 
-    ```shell script
+    ```shell
     kubectl -n {NAMESPACE-TO-DEPLOY} logs -l app=sample-cloudsdk-java -c sample-cloudsdk-java
     ```
 
 9. Expose the application using an APIRule:
 
-    ```shell script
+    ```shell
     kubectl -n {NAMESPACE-TO-DEPLOY} apply -f k8s/api-rule.yaml
     ```
 
@@ -114,6 +114,6 @@ The microservice makes API calls to an S/4 System to perform various read/write 
 
 Call the API to get two top campaigns at this address:
 
-```shell-script
+```shell
  <https://sample-cloudsdk-java.{CLUSTER-DOMAIN}/campaigns>
 ```
