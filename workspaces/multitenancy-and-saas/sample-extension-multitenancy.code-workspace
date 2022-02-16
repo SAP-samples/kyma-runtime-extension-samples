@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../sample-multitenant-extension",
+			"name" : "Sample Extension: Multitenantcy"
+		}
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen"
+	}
+}
