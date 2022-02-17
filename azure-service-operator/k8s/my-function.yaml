@@ -15,10 +15,10 @@ spec:
     - name: REDIS_CACHE_KEY
       valueFrom:
         secretKeyRef:
-          name: rediscache-rediscache-gabbi-1 #replace it with rediscache-{your redis cache name}
+          name: rediscache-{your-provided-name} #replace it with rediscache-{your redis cache name}
           key: primaryKey
     - name: REDIS_CACHE_NAME
-      value: rediscache-gabbi-1 #replace it with your redis cache name
+      value: {your-provided-name} #replace it with your redis cache name
   maxReplicas: 1
   minReplicas: 1
   reference: sample-operators

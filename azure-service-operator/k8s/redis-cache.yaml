@@ -10,7 +10,7 @@ kind: RedisCache
 metadata:
   labels:
     env: demo
-  name: rediscache-gabbi-1 #replace it with your redis cache name
+  name: {provide-a-name} #replace it with your redis cache name
 spec:
   location: westeurope
   properties:
