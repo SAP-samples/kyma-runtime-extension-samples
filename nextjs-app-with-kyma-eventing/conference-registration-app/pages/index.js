@@ -297,11 +297,20 @@ export default function EventRegistrationForm() {
           </Flex>
           <Flex flex={1}>
             <Image
-              alt={'Image'}
+              alt={'Hawaii'}
               objectFit={'cover'}
-              src={
-                'https://images.unsplash.com/photo-1495822892661-2ead864e1c7b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2064&q=80'
-              }
+              htmlHeight={'100%'}
+              htmlWidth={'100%'}
+              sizes={'(max-width: 1400px) 100vw, 1400px'}
+              src={'images/hawaii_ptlfav_c_scale,w_1400.webp'}
+              srcset="
+              images/hawaii_ptlfav_c_scale,w_600.webp 600w,
+              images/hawaii_ptlfav_c_scale,w_721.webp 721w,
+              images/hawaii_ptlfav_c_scale,w_858.webp 858w,
+              images/hawaii_ptlfav_c_scale,w_979.webp 979w,
+              images/hawaii_ptlfav_c_scale,w_1071.webp 1071w,
+              images/hawaii_ptlfav_c_scale,w_1358.webp 1358w,
+              images/hawaii_ptlfav_c_scale,w_1400.webp 1400w"
             />
           </Flex>
         </Stack>
