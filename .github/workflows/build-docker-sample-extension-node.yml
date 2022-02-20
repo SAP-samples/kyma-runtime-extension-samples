@@ -1,0 +1,39 @@
+name: Build docker for Node.js-based samples
+on:
+  push:
+    branches: [ main ]
+    paths:
+    - "hana-nodejs/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+     matrix:
+       node-version: [14.x, 16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: 'Install dependencies and Build'
+        shell: bash
+        run: |
+          pushd './hana-nodejs/app'
+          npm ci
+          npm run build --if-present
+          popd
+      - name: 'Check for outdated dependencies'
+        shell: bash
+        run: |
+          pushd './hana-nodejs/app'
+          npm outdated
+          popd
+      - name: 'Build Docker Image'
+        shell: bash
+        run: |
+          pushd './hana-nodejs'
+          make build-image
+          popd                    

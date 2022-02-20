@@ -1,4 +1,6 @@
-# Overview
+# Sample to extend SAP Cloud for Customer with user propagation
+
+## Overview
 
 This sample provides details on how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) using SAP BTP, Kyma runtime. A similar configuration is applicable when extending other SAP Solutions such as S4.
 
@@ -23,7 +25,7 @@ Trust is established between SAP Cloud for Customer and Destination Service. The
 9. Microservice/Function does the token exchange via the Destination Service. The Destination Service calls C4C and performs the OAuth2 SAML bearer assertion flow.
 10. Microservice/Function makes a call to C4C with the OAuth2 token it got from the Destination Service, preserving the logged-in user's identity.
 
-> **NOTE:** The flow does not use Application Gateway when calling C4C from the Kyma runtime. Instead, it calls the APIs directly.
+>> **NOTE:** The flow does not use Application Gateway when calling C4C from the Kyma runtime. Instead, it calls the APIs directly.
 
 ## Prerequisites
 
@@ -53,9 +55,9 @@ You will end up creating a Destination Service in SAP BTP. It will be later on u
 
   - Get the issuing entity name from the certificate. You can use OpenSSL to view certificate details.
 
-    ```shell script
-    openssl x509 -in {cert path} -text -noout
-    ```
+      ```shell
+      openssl x509 -in {cert path} -text -noout
+      ```
 
   - Upload the certificate.
     ![new-oauth2-provider](assets/new-oauth2-provider.png)
@@ -67,8 +69,11 @@ You will end up creating a Destination Service in SAP BTP. It will be later on u
   ![http-destination](assets/http-destination.png)
 
   Configure these additional properties:
-  `scope` : `UIWC:CC_HOME`
-  `x_user_token.jwks_uri` : `Provide URI of the JSON web key set`
+  
+    ```shell
+    scope : UIWC:CC_HOME
+    x_user_token.jwks_uri : "Provide URI of the JSON web key set"
+    ```
 
 ### Identifier used by the Destination Service to get the token
 
@@ -87,9 +92,9 @@ It is used for demonstrating and verifying that the token is forwarded from the 
 
 - Deploy httpbin.
 
-  ```shell script
-  kubectl -n identity-propagation apply -f https://raw.githubusercontent.com/istio/istio/master/samples/httpbin/httpbin.yaml
-  ```
+    ```shell
+    kubectl -n identity-propagation apply -f https://raw.githubusercontent.com/istio/istio/master/samples/httpbin/httpbin.yaml
+    ```
 
 - Expose it with an [API rule](k8s/apirule-httpbin.yaml). The API rule is configured to forward headers, such as `Bearer Token`, to the microservice.
   [api-rule-forward-headers](assets/apirule-forward-headers.png)
@@ -98,9 +103,9 @@ It is used for demonstrating and verifying that the token is forwarded from the 
 
   - Deploy the API rule.
 
-    ```shell script
-    kubectl -n identity-propagation apply -f k8s/apirule-httpbin.yaml
-    ```
+      ```shell
+      kubectl -n identity-propagation apply -f k8s/apirule-httpbin.yaml
+      ```
 
 ### Extension
 
@@ -122,10 +127,9 @@ curl --location --request GET '{uri-in-destination-service-instance-in-kyma-serv
   --header 'X-user-token: {JWT-token-to-be-exchanged}' \
   --header 'Authorization: Bearer {OAuth-token}'
 ```
+
 You can get the OAuth token by using the credentials provided in destination service instance created in Kyma Service Catalog.
-Use the 
-`URL + /oauth/token `
-as the token endpoint and client id and client secret as credentials.
+Use the `URL + /oauth/token ` as the token endpoint and client id and client secret as credentials.
 
 ![destination-service-get-token](assets/destination-service-get-token.png)
 
@@ -145,9 +149,9 @@ as the token endpoint and client id and client secret as credentials.
 
   - Deploy the extension.
 
-    ```shell script
-      kubectl apply -f c4c-extension-with-user-context/k8s/deployment.yaml
-    ```
+      ```shell
+        kubectl apply -f c4c-extension-with-user-context/k8s/deployment.yaml
+      ```
 
 - Bind the extension to the Destination Service instance.
   ![bind instance](assets/bind-application.png)
@@ -158,9 +162,9 @@ as the token endpoint and client id and client secret as credentials.
 
   - Deploy the API rule.
 
-    ```shell script
-      kubectl -n identity-propagation apply -f c4c-extension-with-user-context/k8s/apirule.yaml
-    ```
+      ```shell
+        kubectl -n identity-propagation apply -f c4c-extension-with-user-context/k8s/apirule.yaml
+      ```
 
 ### Angular app
 
@@ -187,15 +191,15 @@ Follow these steps:
 
 - Deploy the app:
 
-  ```shell script
-  kubectl -n identity-propagation apply -f k8s/angular-app.yaml
-  ```
+    ```shell
+    kubectl -n identity-propagation apply -f k8s/angular-app.yaml
+    ```
 
 - Expose the app using an API Rule:
 
-  ```shell script
-  kubectl -n identity-propagation apply -f k8s/apirule-angular-app.yaml
-  ```
+    ```shell
+    kubectl -n identity-propagation apply -f k8s/apirule-angular-app.yaml
+    ```
 
 - Access the app at `https://sample-angular-app.{kyma-cluster-domain}`.`
 
@@ -209,17 +213,17 @@ It is another sample app in case you want to try out the example with UI5 instea
 
 - To run locally, within the folder `ui5-example-app` run the commands to install, build the dependencies, and start the application
 
-  ```shell script
-  npm install
-  ```
+    ```shell
+    npm install
+    ```
 
-  ```shell script
-  npm run build-all
-  ```
+    ```shell
+    npm run build-all
+    ```
 
-  ```shell script
-  npm run start
-  ```
+    ```shell
+    npm run start
+    ```
 
 - App will be available at `http://localhost:8080/index.html`
 
@@ -227,16 +231,16 @@ It is another sample app in case you want to try out the example with UI5 instea
 
 - To build and push the docker image run the following commands from the folder `ui5-example-app`
 
-```shell script
-docker build -t {your-docker-account}/kyma-identity-propagation-ui5 -f Dockerfile .
-docker push {your-docker-account}/kyma-identity-propagation-ui5
-```
+    ```shell
+    docker build -t {your-docker-account}/kyma-identity-propagation-ui5 -f Dockerfile .
+    docker push {your-docker-account}/kyma-identity-propagation-ui5
+    ```
 
 - To run the image locally, adjust the values of the parameters in the `webapp/config.js` file and mount it into the image:
 
-```
-docker run --mount type=bind,source=$(pwd)/webapp/config.json,target=/usr/share/nginx/html/config.json -p 8080:80 -d {your-docker-account}/kyma-identity-propagation-ui5:latest
-```
+    ```shell
+    docker run --mount type=bind,source=$(pwd)/webapp/config.json,target=/usr/share/nginx/html/config.json -p 8080:80 -d {your-docker-account}/kyma-identity-propagation-ui5:latest
+    ```
 
 - App will be available at `http://localhost:8080/`
 
@@ -244,19 +248,19 @@ docker run --mount type=bind,source=$(pwd)/webapp/config.json,target=/usr/share/
 
 - Create the configmap from the file `ui5-example-app/webapp/config.json`
 
-```shell script
-kubectl create configmap kyma-identity-propagation-ui5 --from-file=webapp/config.json -n identity-propagation
-```
+    ```shell
+    kubectl create configmap kyma-identity-propagation-ui5 --from-file=webapp/config.json -n identity-propagation
+    ```
 
 - Apply the deployment and the apirule found in the `k8s` folder
 
-```shell script
-kubectl apply -f ui5-app.yaml -n identity-propagation
-```
+    ```shell
+    kubectl apply -f ui5-app.yaml -n identity-propagation
+    ```
 
-```shell script
-kubectl apply -f apirule-ui5-app.yaml -n identity-propagation
-```
+    ```shell
+    kubectl apply -f apirule-ui5-app.yaml -n identity-propagation
+    ```
 
 ## Takeaways
 

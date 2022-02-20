@@ -13,6 +13,7 @@ The UI extension is an Angular application with OIDC client. An OIDC client is r
 ## Project structure
 
 The project contains the following directories:
+
 - `functions`
 - `customization`
 
@@ -20,9 +21,9 @@ The project contains the following directories:
 
 This directory contains the following functions:
 
-**create-customization.js** - a function that stores a customization request
-**get-customization.js** - a function that retrieves a customization
-**update-customization** - a function that retrieves a webhook from Slack to update the customization request
+- **create-customization.js** - a function that stores a customization request
+- **get-customization.js** - a function that retrieves a customization
+- **update-customization** - a function that retrieves a webhook from Slack to update the customization request
 
 ### Customization
 

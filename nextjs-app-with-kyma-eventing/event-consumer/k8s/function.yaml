@@ -1,0 +1,93 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: event-consumer
+  namespace: conference-registration
+  labels:
+    app: event-consumer
+    example: event-consumer
+spec:
+  deps: |-
+    { 
+      "name": "event-consumer",
+      "version": "1.0.0",
+      "dependencies": {
+            "axios":"^0.25.0,
+            "@sendgrid/mail": "^7.4.6"
+      }
+    }
+  maxReplicas: 1
+  minReplicas: 1
+  resources:
+    limits:
+      cpu: 20m
+      memory: 32Mi
+    requests:
+      cpu: 10m
+      memory: 16Mi
+  env:
+    - name: REGISTRATIONS_REST_API_ENDPOINT
+      value: ""
+    - name: SENDGRID_API_KEY
+      value: ""
+    - name: SENDGRID_SENDER_EMAIL
+      value: ""
+  source: |-
+    const axios = require("axios").default;
+    const sgMail = require("@sendgrid/mail");
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const EMAIL_SUBJECT = "Event Registration Confirmation";
+    const EMAIL_BODY_TEXT = "This is to confirm your registration for the event.";
+
+    const sendEmail = async function(email, subject, text, html) {
+      const msg = {
+        to: email, 
+        from: process.env.SENDGRID_SENDER_EMAIL, 
+        subject: subject,
+        text: text,
+        html: html
+      }
+      return sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Mail sent");
+        }, error => {
+          console.error(error);
+          if (error.response) {
+            console.error(error.response.body)
+          }
+      });
+    }
+
+    module.exports = { 
+      main: async function (event, context) {
+
+        console.log('event.data:', event.data);
+
+        const response = await axios({
+            method: "post",
+            url: process.env.REGISTRATIONS_REST_API_ENDPOINT + "/customers",
+            data: event.data
+        });
+
+        console.log('registrations-rest-api response:', response);
+
+        if (event && event.data) {
+          var eventId = event["ce-id"];
+          console.log("eventId:", eventId);
+          console.log("event.data:", JSON.stringify(event.data));
+
+          const EMAIL_BODY_HTML = `Hello ${event.data.title} ${event.data.firstName} ${event.data.lastName},<br><br>Thanks for registering for Tech Conference 2022. We are looking forward to seeing you.<br><br>Location: <strong>Hawaii, USA</strong><br>Date and Time: <strong>December 3 to 5, 2022 | 10:00am to 5:00pm</strong><br>Agenda: <strong>Everything about Hyperscalers</strong><br><br>With best regards,<br>The Tech Conference Team<br><br><img src='https://images.unsplash.com/photo-1495822892661-2ead864e1c7b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2064&q=80' alt='The Tech Conference' class='center' style='height:400px;'>`
+
+          if (event.data.email) {
+            await sendEmail(event.data.email, EMAIL_SUBJECT, EMAIL_BODY_TEXT, EMAIL_BODY_HTML);
+          }
+          
+        }
+
+        res = event.extensions.response;
+        res.status(200);
+        return;
+
+      }
+    }

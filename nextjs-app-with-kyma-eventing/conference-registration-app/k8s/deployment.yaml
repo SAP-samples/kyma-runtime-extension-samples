@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conference-registration-app
+  namespace: conference-registration
+  labels:
+    app: conference-registration-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: conference-registration-app
+  template:
+    metadata:
+      labels:
+        app: conference-registration-app
+    spec:
+      containers:
+        - name: conference-registration-app
+          image: docker.io/<docker-username>/conference-registration-app:latest
+          imagePullPolicy: Always
+          envFrom:
+          - configMapRef:
+              name: app-config
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 3000
+          volumeMounts:
+            - name: config-volume
+              readOnly: true
+              mountPath: "/etc/config-volume"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: app-config

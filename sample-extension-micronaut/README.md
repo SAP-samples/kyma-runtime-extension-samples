@@ -1,4 +1,6 @@
-# Overview
+# Micronaut based extension with API exposed via Microgateway
+
+## Overview
 
 This sample demonstrates how to build and deploy a Micronaut microservice as an extension and expose the API in SAP BTP, Kyma runtime.
 
@@ -32,15 +34,15 @@ The Micronaut application implements a simple `Orders` API with CRUD operations.
 
 * Create a new `dev` Namespace:
 
-```shell script
-kubectl create namespace dev
-```
+    ```shell
+    kubectl create namespace dev
+    ```
 
 * Build and push the image to the Docker repository:
 
-```shell script
-DOCKER_ACCOUNT={your-docker-account} make push-image
-```
+    ```shell
+    DOCKER_ACCOUNT={your-docker-account} make push-image
+    ```
 
 ### Kubernetes Deployment
 
@@ -52,15 +54,15 @@ To deploy as Helm chart, please refer to [Helm Chart Deployment](#helm-chart-dep
 
 * Deploy the application:
 
-```shell script
-kubectl -n dev apply -f ./k8s/deployment.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/deployment.yaml
+    ```
 
 * Verify that the Pods are up and running:
 
-```shell script
-kubectl -n dev get po
-```
+    ```shell
+    kubectl -n dev get po
+    ```
 
 The expected result shows that the Pod for the `sample-extension-micronaut` Deployment is running:
 
@@ -68,37 +70,37 @@ The expected result shows that the Pod for the `sample-extension-micronaut` Depl
 
 * Create an APIRule. In the APIRule, specify the Kubernetes Service that is exposed:
 
-```yaml
-apiVersion: gateway.kyma-project.io/v1alpha1
-kind: APIRule
-metadata:
-  name: sample-extension-micronaut
-spec:
-  gateway: kyma-gateway.kyma-system.svc.cluster.local
-  rules:
-    - accessStrategies:
-        - config: {}
-          handler: noop
-      methods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-      path: /.*
-  service:
-    host: sample-extension-micronaut
-    name: sample-extension-micronaut
-    port: 8080
-```  
+    ```yaml
+    apiVersion: gateway.kyma-project.io/v1alpha1
+    kind: APIRule
+    metadata:
+      name: sample-extension-micronaut
+    spec:
+      gateway: kyma-gateway.kyma-system.svc.cluster.local
+      rules:
+        - accessStrategies:
+            - config: {}
+              handler: noop
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+          path: /.*
+      service:
+        host: sample-extension-micronaut
+        name: sample-extension-micronaut
+        port: 8080
+    ```  
 
 This sample snippet exposes the `sample-extension-micronaut` Service. The Service is specified in the **spec.service.name** field.
 The `sample-extension-micronaut` subdomain is specified in the **spec.service.host** field.
 
 * Apply the APIRule:
 
-```shell script
-kubectl -n dev apply -f ./k8s/api-rule.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/api-rule.yaml
+    ```
 
 ### Helm Chart Deployment
 
@@ -113,11 +115,15 @@ A [Helm Chart definition](../helm-charts/sample-extension-micronaut/README.md) i
 
 To install the helm chart in `dev` namespace, run the following command. Change to use your image. You can also override other parameters defined in [values.yaml](../helm-charts/sample-extension-micronaut/values.yaml)
 
-```shell script
+```shell
 helm -n dev install kymaapp ../helm-charts/sample-extension-micronaut --set image.repository=gabbi/sample-extension-micronaut:0.0.7 --set jdbc.user={db user} --set jdbc.password={db password}
 ```
 
-To verify, the installed chart, run `helm -n dev ls`
+To verify, the installed chart, run 
+
+```shell
+helm -n dev ls
+```
 
 ### Try it out
 

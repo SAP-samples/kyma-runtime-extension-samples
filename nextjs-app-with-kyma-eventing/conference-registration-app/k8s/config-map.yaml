@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: conference-registration
+data:
+  PUBLISHER_URL: "http://eventing-event-publisher-proxy.kyma-system/publish"
+  EVENT_TYPE: "sap.kyma.custom.app.conference.registration.v1"
+  EVENT_SOURCE: "/kyma/conference-registration/conference-registration-app"

@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
+			"path": "../../user-propagation",
+			"name" : "User Propagation via IAS"
+		}
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen"
+	},
+	"extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+            "humao.rest-client",
+			"redhat.vscode-yaml",
+            "ms-azuretools.vscode-docker",
+            "ms-kubernetes-tools.vscode-kubernetes-tools",
+			"SAPOSS.vscode-ui5-language-assistant",
+			"Angular.ng-template",
+			"ms-vscode.vscode-typescript-next"
+        ]
+	}
+}

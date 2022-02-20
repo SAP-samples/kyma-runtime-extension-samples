@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
+			"path": "../../redis-function",
+			"name" : "SAP Developer Tutorial: Redis and Kyma Function"
+		}
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen"
+	},
+	"extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+            "humao.rest-client",
+			"redhat.vscode-yaml",
+            "ms-azuretools.vscode-docker",
+            "ms-kubernetes-tools.vscode-kubernetes-tools"
+        ]
+	}
+}

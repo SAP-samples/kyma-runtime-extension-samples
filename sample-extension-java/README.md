@@ -1,4 +1,8 @@
-# Overview
+# Java-based extension with API exposed via Microgateway
+
+[![Build docker sample-extension-java](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-sample-extension-java.yml/badge.svg?branch=main)](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-sample-extension-java.yml)
+
+## Overview
 
 This sample demonstrates how to build and deploy a Java-based microservice as an extension and expose the API in SAP BTP, Kyma runtime.
 
@@ -30,15 +34,15 @@ The Spring Boot application implements a simple `Orders` API with CRUD operation
 
 * Create a new `dev` Namespace:
 
-```shell script
-kubectl create namespace dev
-```
+    ```shell
+    kubectl create namespace dev
+    ```
 
 * Build and push the image to the Docker repository:
 
-```shell script
-DOCKER_ACCOUNT={your-docker-account} make push-image
-```
+    ```shell
+    DOCKER_ACCOUNT={your-docker-account} make push-image
+    ```
 
 ### Kubernetes Deployment
 
@@ -50,15 +54,15 @@ To deploy as Helm chart, please refer to [Helm Chart Deployment](#helm-chart-dep
 
 * Deploy the application:
 
-```shell script
-kubectl -n dev apply -f ./k8s/deployment.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/deployment.yaml
+    ```
 
 * Verify that the Pods are up and running:
 
-```shell script
-kubectl -n dev get po
-```
+    ```shell
+    kubectl -n dev get po
+    ```
 
 The expected result shows that the Pod for the `sample-extension-java` Deployment is running:
 
@@ -66,37 +70,37 @@ The expected result shows that the Pod for the `sample-extension-java` Deploymen
 
 * Create an APIRule. In the APIRule, specify the Kubernetes Service that is exposed:
 
-```yaml
-apiVersion: gateway.kyma-project.io/v1alpha1
-kind: APIRule
-metadata:
-  name: sample-extension-java
-spec:
-  gateway: kyma-gateway.kyma-system.svc.cluster.local
-  rules:
-    - accessStrategies:
-        - config: {}
-          handler: noop
-      methods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-      path: /.*
-  service:
-    host: sample-extension-java
-    name: sample-extension-java
-    port: 8080
-```  
+    ```yaml
+    apiVersion: gateway.kyma-project.io/v1alpha1
+    kind: APIRule
+    metadata:
+      name: sample-extension-java
+    spec:
+      gateway: kyma-gateway.kyma-system.svc.cluster.local
+      rules:
+        - accessStrategies:
+            - config: {}
+              handler: noop
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+          path: /.*
+      service:
+        host: sample-extension-java
+        name: sample-extension-java
+        port: 8080
+    ```  
 
-This sample snippet exposes the `sample-extension-java` Service. The Service is specified in the **spec.service.name** field.
-The `sample-extension-java` subdomain is specified in the **spec.service.host** field.
+    This sample snippet exposes the `sample-extension-java` Service. The Service is specified in the **spec.service.name** field.
+    The `sample-extension-java` subdomain is specified in the **spec.service.host** field.
 
 * Apply the APIRule:
 
-```shell script
-kubectl -n dev apply -f ./k8s/api-rule.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/api-rule.yaml
+    ```
 
 ### Helm Chart Deployment
 
@@ -111,11 +115,15 @@ A [Helm Chart definition](../helm-charts/sample-extension-java/README.md) is als
 
 To install the helm chart in `dev` namespace, run the following command. Change to use your image. You can also override other parameters defined in [values.yaml](../helm-charts/sample-extension-java/values.yaml)
 
-```shell script
+```shell
 helm -n dev install kymaapp ../helm-charts/sample-extension-java --set image.repository=gabbi/sample-extension-java:0.0.7 --set jdbc.user={db user} --set jdbc.password={db password}
 ```
 
-To verify, the installed chart, run `helm -n dev ls`
+To verify, the installed chart, run: 
+
+```shell
+helm -n dev ls
+```
 
 ### Try it out
 

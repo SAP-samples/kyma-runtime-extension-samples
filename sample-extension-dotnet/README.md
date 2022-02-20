@@ -1,4 +1,6 @@
-# Overview
+# ASP.NET-based extension with API exposed via Microgateway
+
+## Overview
 
 This sample demonstrates how to build and deploy an ASP.NET-based microservice as an extension and expose the API in SAP BTP, Kyma runtime.
 
@@ -26,15 +28,15 @@ This sample demonstrates how to:
 
 * Create a new `dev` Namespace:
 
-```shell script
-kubectl create namespace dev
-```
+    ```shell
+    kubectl create namespace dev
+    ```
 
 * Build and push the image to the Docker repository:
 
-```shell script
-DOCKER_ACCOUNT={your-docker-account} make push-image
-```
+    ```shell
+    DOCKER_ACCOUNT={your-docker-account} make push-image
+    ```
 
 * Update the image name in the [Kubernetes Deployment](k8s/deployment.yaml). Refer to the standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
 
@@ -46,19 +48,19 @@ To deploy as Helm chart, please refer to [Helm Chart Deployment](#helm-chart-dep
 
 * Deploy the application:
 
-```shell script
-kubectl -n dev apply -f ./k8s/deployment.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/deployment.yaml
+    ```
 
 * Verify that the Pods are up and running:
 
-```shell script
-kubectl -n dev get po -l app=sample-extension-dotnet
-```
+    ```shell
+    kubectl -n dev get po -l app=sample-extension-dotnet
+    ```
 
 The expected result shows that the Pod for the `sample-extension-dotnet` Deployment is running:
 
-```shell script
+```shell
 kubectl -n dev get po -l app=sample-extension-dotnet
 NAME                                       READY   STATUS    RESTARTS   AGE
 sample-extension-dotnet-774fbc5c7b-x44pd   2/2     Running   0          15s
@@ -68,37 +70,37 @@ sample-extension-dotnet-774fbc5c7b-x44pd   2/2     Running   0          15s
 
 1. Create an APIRule. In the APIRule, specify the Kubernetes Service that is exposed:
 
-```yaml
-apiVersion: gateway.kyma-project.io/v1alpha1
-kind: APIRule
-metadata:
-  name: sample-extension-dotnet
-spec:
-  gateway: kyma-gateway.kyma-system.svc.cluster.local
-  rules:
-    - accessStrategies:
-        - config: {}
-          handler: noop
-      methods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-      path: /.*
-  service:
-    host: sample-extension-dotnet
-    name: sample-extension-dotnet
-    port: 80
-```  
+    ```yaml
+    apiVersion: gateway.kyma-project.io/v1alpha1
+    kind: APIRule
+    metadata:
+      name: sample-extension-dotnet
+    spec:
+      gateway: kyma-gateway.kyma-system.svc.cluster.local
+      rules:
+        - accessStrategies:
+            - config: {}
+              handler: noop
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+          path: /.*
+      service:
+        host: sample-extension-dotnet
+        name: sample-extension-dotnet
+        port: 80
+    ```  
 
-This sample snippet exposes the `sample-extension-dotnet` Service. The Service is specified in the **spec.service.name** field.
-The `sample-extension-dotnet` subdomain is specified in the **spec.service.host** field.
+    This sample snippet exposes the `sample-extension-dotnet` Service. The Service is specified in the **spec.service.name** field.
+    The `sample-extension-dotnet` subdomain is specified in the **spec.service.host** field.
 
-* Apply the APIRule:
+2. Apply the APIRule:
 
-```shell script
-kubectl -n dev apply -f ./k8s/api-rule.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/api-rule.yaml
+    ```
 
 ### Helm Chart Deployment
 
@@ -111,31 +113,31 @@ A [Helm Chart definition](../helm-charts/sample-extension-dotnet/README.md) is a
 
 #### Helm install
 
-To install the helm chart in `dev` namespace, run the following command. Change to use your image.
+* To install the helm chart in `dev` namespace, run the following command. Change to use your image.
 
-```shell script
-helm install kymaapp ../helm-charts/sample-extension-dotnet --set image.repository=gabbi/sample-extension-dotnet:0.0.1 -n dev
-```
+    ```shell
+    helm install kymaapp ../helm-charts/sample-extension-dotnet --set image.repository=gabbi/sample-extension-dotnet:0.0.1 -n dev
+    ```
 
-To verify, the installed chart, run `helm -n dev ls`
+* To verify, the installed chart, run `helm -n dev ls`
 
-```shell script
-NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
-dev-gateway     dev             1               2020-09-14 17:34:58.607853163 +0000 UTC deployed        gateway-0.0.1
-kymaapp         dev             1               2020-09-15 15:18:34.502591 +0200 CEST   deployed        sample-extension-dotnet-0.1.0   1.16.0
-```
+    ```shell
+    NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
+    dev-gateway     dev             1               2020-09-14 17:34:58.607853163 +0000 UTC deployed        gateway-0.0.1
+    kymaapp         dev             1               2020-09-15 15:18:34.502591 +0200 CEST   deployed        sample-extension-dotnet-0.1.0   1.16.0
+    ```
 
 ### Try it out
 
-Access the APIs through this URL:
+* Access the APIs through this URL:
 
-```shell script
-https://sample-extension-dotnet.{cluster domain}
-```
+    ```shell
+    https://sample-extension-dotnet.{cluster domain}
+    ```
 
-Make an HTTP call using curl:
+* Make an HTTP call using curl:
 
-```shell script
-curl https://sample-extension-dotnet.{cluster domain}
-Hello from dotnet app running on Kyma Runtime
-```
+    ```shell
+    curl https://sample-extension-dotnet.{cluster domain}
+    Hello from dotnet app running on Kyma Runtime
+    ```
