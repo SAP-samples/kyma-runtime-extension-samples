@@ -16,7 +16,7 @@ Then we will use the deployed operator to provision Azure Redis Cache and use it
 
 ## Deploy the operator
 
-* Create the namespaces
+* Create the namespaces for Operator Lifecycle management and deploying the operators themselves.
 
     ```shell
     kubectl create ns olm
@@ -26,7 +26,7 @@ Then we will use the deployed operator to provision Azure Redis Cache and use it
     kubectl label namespaces operators istio-injection=disabled --overwrite
     ```
 
-* Install the operator lifecycle manager
+* Install the operator lifecycle manager. Here I am installing the latest available version at the time of writing this sample. You can use a newer version if available. Refer to [install section](https://operatorhub.io/operator/azure-service-operator)
 
     ```shell
     curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.20.0/install.sh | bash -s v0.20.0
