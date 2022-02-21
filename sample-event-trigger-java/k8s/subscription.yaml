@@ -12,5 +12,5 @@ spec:
         eventType:
           property: type
           type: exact
-          value: sap.kyma.custom.mp-mock-ccv2-adopt-team-2-tst-2.order.created.v1
-  sink: http://sample-event-trigger-java.gaurav.svc.cluster.local
+          value: sap.kyma.custom.{your-connected-commerce-application-name}.order.created.v1
+  sink: http://sample-event-trigger-java.dev.svc.cluster.local
