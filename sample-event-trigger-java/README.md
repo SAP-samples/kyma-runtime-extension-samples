@@ -1,4 +1,6 @@
-# Overview
+# Java-based microservice as an Event Trigger using CloudEvents SDK
+
+## Overview
 
 This sample demonstrates how to build and deploy a Java-based microservice as an Event Trigger in SAP BTP, Kyma runtime using **CloudEvents SDK**.
 
@@ -34,34 +36,21 @@ This sample demonstrates how to:
 
 ### Configure Kyma
 
-1. Create a new `dev` Namespace:
+* Create a new `dev` Namespace:
 ![new-namepace](assets/new-namespace.png)
 
-2. Bind your application to the Namespace:
+* Ensure that the events are configured for the connected application.
 
-  * Navigate to **Applications/Systems**:
+  * Navigate to **Integration -> Applications**:
   ![Go to Applications/Systems](assets/go-to-applications.png)
 
   * Select the SAP Commerce Cloud system:
   ![select commerce cloud](assets/select-commece-application.png)
 
-  * Create a Binding to the `dev` Namespace:
-  ![create binding](assets/create-binding.png)
+  * Ensure that the SAP Commerce Cloud Events are a part of the Provided Service and Events.
+  ![commerce events](assets/commerce-events.png)
 
-3. Create a ServiceInstance for the Commerce Events:
-
-  * Navigate to your Namespace:
-![navigate](assets/navigate-to-ns.png)
-
-  * Navigate to the **Service Catalog** tab and select the bounded SAP Commerce Cloud system:
-![catalog](assets/go-to-catalog.png)
-
-  * Choose the `SAP Commerce Cloud - Events` as the ServicePlan:
-![events service plan](./assets/choose-commerce-events-plan.png)
-
-  * Create the ServiceInstance
-
-After creating the ServiceInstance, the events can be consumed by Functions and microservices deployed in the `dev` Namespace.
+  * If not, configure the events from the SAP Commerce Cloud Backoffice or mock commerce whichever you are using.
 
 ### Configure the application
 
@@ -130,12 +119,12 @@ sample-event-trigger-java-5fb6856f4d-xk64k   2/2     Running   0          45m
 kubectl -n dev apply -f ./k8s/subscription.yaml
 ```
 
-* Verify that the Trigger is correctly deployed:
+* Verify that the Subscription is correctly deployed:
 
 ```shell script
-kubectl -n dev get trigger
-NAME                        READY   REASON   BROKER    SUBSCRIBER_URI                                            AGE
-sample-event-trigger-java   True             default   http://sample-event-trigger-java.dev.svc.cluster.local/   13s
+kubectl -n dev get subscriptions.eventing.kyma-project.io
+NAME                                    READY   AGE
+sample-event-trigger-java-subscription  true    10m
 ```
 
 ### Helm Chart Deployment
@@ -152,7 +141,7 @@ A [Helm Chart definition](../helm-charts/sample-event-trigger-java/README.md) is
 To install the helm chart in `dev` namespace, run
 
  ```shell script
-helm install kymaapp ../helm-charts/sample-event-trigger-java --set image.repository=gabbi/sample-event-trigger-java:0.0.2 --set trigger.source={your-connected-application-as-shown-in-kyma} --set trigger.eventType=order.created -n dev
+helm install kymaapp ../helm-charts/sample-event-trigger-java --set image.repository=gabbi/sample-event-trigger-java:0.0.2 --set subscription.application={your-connected-application-as-shown-in-kyma} --set subscription.eventType=order.created -n dev
 ```
 
 To verify, the installed chart
@@ -174,34 +163,34 @@ kymaapp         dev             1               2020-09-14 20:20:03.464428 +0200
   * Navigate to `SAP Commerce Cloud - Events` and send the `order.created` event.
     ![send-event](assets/mock-send-event.png)
 
-* Observe the logs using kubectl:
+  * Observe the logs using kubectl:
 
-    ```shell script
-    kubectl -n dev logs deploy/sample-event-trigger-java -c sample-event-trigger-java
-    ```
+      ```shell script
+      kubectl -n dev logs deploy/sample-event-trigger-java -c sample-event-trigger-java
+      ```
 
-The expected logs look as follows:
+      The expected logs look as follows:
 
-```shell script
-datacontenttype: application/json
-specversion: 1.0
-id: c3603dcf-a401-4cb4-b5cb-d928f65cc1a8
-source: kyma
-time: 2022-02-02T14:51:05.633Z
-type: sap.kyma.custom.mpmockccv2adoptteam2tst2.order.created.v1
-OrderCreated{orderCode='0202-2'}
-```
+      ```shell script
+      datacontenttype: application/json
+      specversion: 1.0
+      id: c3603dcf-a401-4cb4-b5cb-d928f65cc1a8
+      source: kyma
+      time: 2022-02-02T14:51:05.633Z
+      type: sap.kyma.custom.mpmockccv2adoptteam2tst2.order.created.v1
+      OrderCreated{orderCode='0202-2'}
+      ```
 
 ### Cleanup
 
 Delete the created resources:
 
-```shell script
+```shell
 kubectl -n dev delete -f ./k8s/
 ```
 
 or, for helm
 
-```shell script
+```shell
 helm del kymaapp -n dev
 ```
