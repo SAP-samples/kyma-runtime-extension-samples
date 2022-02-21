@@ -113,7 +113,7 @@ sample-event-trigger-java-5fb6856f4d-xk64k   2/2     Running   0          45m
 
 #### Configure the Event Trigger
 
-* Create the Event Subscription to receive the `order.created` event from the source. The source is the connected SAP Commerce Cloud system.
+* Create the Event Subscription to receive the `order.created` event from the source. The source is the connected SAP Commerce Cloud system. Update [subscription.yaml](./k8s/subscription.yaml), Replace `{your-connected-commerce-application-name}` with your connected commerce application name as shown in **Integration -> Applications**
 
 ```shell script
 kubectl -n dev apply -f ./k8s/subscription.yaml
