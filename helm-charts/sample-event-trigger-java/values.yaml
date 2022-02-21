@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: gabbi/sample-event-trigger-java:0.0.1
+  repository: gabbi/sample-event-trigger-java:0.0.2
   pullPolicy: Always
 
 securityContext:
@@ -16,8 +16,8 @@ service:
   port: 80
   targetPort: 8080
 
-trigger:
-  source: TBA
+subscription:
+  application: TBA
   eventType: TBA
 
 resources: {}
