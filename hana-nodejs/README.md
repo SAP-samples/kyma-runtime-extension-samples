@@ -1,6 +1,8 @@
 # HANA Cloud NodeJS API
 
-This sample demostrates how SAP HANA Cloud can be utilized within the Kyma runtime.
+[![Build docker hana-nodejs](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-hana-nodejs.yml/badge.svg?branch=main)](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-hana-nodejs.yml)
+
+This sample demonstrates how SAP HANA Cloud can be utilized within the Kyma runtime.
 
 ## Prerequisites
 
