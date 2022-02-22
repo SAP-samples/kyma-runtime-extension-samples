@@ -1,4 +1,6 @@
-# Overview
+# SAP Cloud SDK Java based extension with API exposed via Microgateway
+
+## Overview
 
 This sample describes the steps and configurations to build and deploy microservice-based extensions on SAP BTP, Kyma runtime using SAP Cloud SDK for Java.
 
@@ -24,11 +26,11 @@ The microservice makes API calls to an S/4 System to perform various read/write 
 
 1. Generate the maven project.
 
-    ```shell script
+    ```shell
     mvn archetype:generate "-DarchetypeGroupId=com.sap.cloud.sdk.archetypes" "-DarchetypeArtifactId=scp-cf-spring" "-DarchetypeVersion=RELEASE"
     ```
 
-2. [Generate a typed OData client for Java](https://sap.github.io/cloud-sdk/docs/java/features/odata/generate-typed-odata-v2-and-v4-client-for-java/). For the purpose of this sample, generate the code for [SAP Marketing Cloud Campaign OData APIs](https://help.sap.com/viewer/0f9408e4921e4ba3bb4a7a1f75f837a7/1911.500/en-US/f2ae5a181b274befbb07183d2c4ac61a.html) using the [metadata file](application/edmx/campaigns.xml).
+2. [Generate a typed OData client for Java](https://sap.github.io/cloud-sdk/docs/java/features/odata/generate-typed-odata-v2-and-v4-client-for-java). For the purpose of this sample, generate the code for [SAP Marketing Cloud Campaign OData APIs](https://help.sap.com/viewer/0f9408e4921e4ba3bb4a7a1f75f837a7/1911.500/en-US/f2ae5a181b274befbb07183d2c4ac61a.html) using the [metadata file](application/edmx/campaigns.xml).
 
 3. Implement the code to make API calls using the generated services:
 
@@ -67,7 +69,7 @@ The microservice makes API calls to an S/4 System to perform various read/write 
 
 4. Build and push the image
 
-    ```shell script
+    ```shell
     DOCKER_ACCOUNT={your-docker-repo} make push-image
     ```
 
@@ -83,30 +85,30 @@ The microservice makes API calls to an S/4 System to perform various read/write 
 
     * These predefined variables will be injected automatically when performing a service binding with this Deployment.  
 
-    ```yaml
-    env:
-    - name: destinations
-      value: '[{name: "$(APPLICATION_TENANT_NAME)", url: "$(URL)", username: "$(User)", password: "$(Password)"}]'
-    ```
+      ```yaml
+      env:
+      - name: destinations
+        value: '[{name: "$(APPLICATION_TENANT_NAME)", url: "$(URL)", username: "$(User)", password: "$(Password)"}]'
+      ```
 
     For reference, see the full [Deployment definition](k8s/deployment.yaml).
 
-    ```shell script
-    kubectl -n {NAMESPACE-TO-DEPLOY} apply -f k8s/deployment.yaml
-    ```
+      ```shell
+      kubectl -n {NAMESPACE-TO-DEPLOY} apply -f k8s/deployment.yaml
+      ```
 
 7. Bind the Deployment with the ServiceInstance. You can either reuse the existing credentials or create new ones.
     ![bind](assets/bind-instance.png)
 
 8. Verify that the Deployment is running by checking the logs:
 
-    ```shell script
+    ```shell
     kubectl -n {NAMESPACE-TO-DEPLOY} logs -l app=sample-cloudsdk-java -c sample-cloudsdk-java
     ```
 
 9. Expose the application using an APIRule:
 
-    ```shell script
+    ```shell
     kubectl -n {NAMESPACE-TO-DEPLOY} apply -f k8s/api-rule.yaml
     ```
 
@@ -114,6 +116,6 @@ The microservice makes API calls to an S/4 System to perform various read/write 
 
 Call the API to get two top campaigns at this address:
 
-```shell-script
+```shell
  <https://sample-cloudsdk-java.{CLUSTER-DOMAIN}/campaigns>
 ```

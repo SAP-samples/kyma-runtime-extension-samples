@@ -1,3 +1,5 @@
+# Azure MS SQL database
+
 ## Overview
 
 This sample provisions the MS SQL database within Microsoft Azure using the Open Service Broker. This process generates a randomly named database, user and password. Once the provisioning is completed, the database is configured with a sample `Orders` table populated with two rows of sample data. The generation of the table and data is handled within the `seed-db` lambda function which is defined in the `k8/deployment.yaml` file.
@@ -20,9 +22,9 @@ This sample demonstrates how to:
 
 1. Create a new `dev` Namespace:
 
-```shell script
-kubectl create namespace dev
-```
+    ```shell
+    kubectl create namespace dev
+    ```
 
 2. Open the Kyma Console and choose the `dev` Namespace.
 3. Within the `dev` Namespace, choose **Service Management** -> **Catalog** -> **Add-Ons**.
@@ -39,25 +41,27 @@ kubectl create namespace dev
 2. Within the `dev` Namespace, choose **Service Management** -> **Catalog** -> **Services**.
 3. Choose the `Azure SQL Database 12.0` tile.
 4. Choose the following:
-  - Plan: Basic Tier
-  - Connection Plan: Default
-  - Location: Your desired location
-  - Resource Group: The resource group to assign the database to
+
+    - Plan: Basic Tier
+    - Connection Plan: Default
+    - Location: Your desired location
+    - Resource Group: The resource group to assign the database to
+
 5. Choose **Create**.
 
 ### Deploy the Function/APIRule
 
 1. Apply the Deployment:
 
-```shell script
-kubectl -n dev apply -f ./k8s/deployment.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/deployment.yaml
+    ```
 
 2. Verify that the Function is up and running:
 
-```shell script
-kubectl -n dev get function seed-db
-```
+    ```shell
+    kubectl -n dev get function seed-db
+    ```
 
 ### Bind the Function to the MS SQL database
 
@@ -77,6 +81,6 @@ kubectl -n dev get function seed-db
 4. Choose the Host value link. The expected response is `database has been initialized....`.
 5. Remove the Function/APIRule Deployment:
 
-```shell script
-kubectl -n dev delete -f ./k8s/deployment.yaml
-```
+    ```shell
+    kubectl -n dev delete -f ./k8s/deployment.yaml
+    ```

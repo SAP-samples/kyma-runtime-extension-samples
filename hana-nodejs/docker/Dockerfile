@@ -1,5 +1,5 @@
 # Use the Node version that matches the version you have installed locally
-FROM node:12.18.1
+FROM node:16
 # Create app directory
 WORKDIR /usr/src/app
 # Install app dependencies

@@ -1,4 +1,6 @@
-# Overview
+# Scala AKKA HTTP based extesnsion with API exposed via Microgateway
+
+## Overview
 
 This sample demonstrates how to build and deploy a Scala Based Akka-HTTP microservice as an extension and expose the API in SAP BTP, Kyma runtime.
 
@@ -30,15 +32,15 @@ The Scala Based Akka-HTTP microservice implements a simple `Orders` API with CRU
 
 * Create a new `dev` Namespace:
 
-```shell script
-kubectl create namespace dev
-```
+    ```shell
+    kubectl create namespace dev
+    ```
 
 * Build and push the image to the Docker repository:
 
-```shell script
-DOCKER_ACCOUNT={your-docker-account} make push-image
-```
+    ```shell
+    DOCKER_ACCOUNT={your-docker-account} make push-image
+    ```
 
 ### Kubernetes Deployment
 
@@ -50,19 +52,19 @@ To deploy as Helm chart, please refer to [Helm Chart Deployment](#helm-chart-dep
 
 * Deploy the application:
 
-```shell script
-kubectl -n dev apply -f ./k8s/deployment.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/deployment.yaml
+    ```
 
 * Verify that the Pods are up and running:
 
-```shell script
-kubectl -n dev get po
-```
+    ```shell
+    kubectl -n dev get po
+    ```
 
 The expected result shows that the Pod for the `sample-extension-scala` Deployment is running:
 
-```shell script
+```shell
 NAME                                     READY   STATUS    RESTARTS   AGE
 sample-extension-scala-76b545f95b-xh6fx   2/2     Running   0          4m10s
 ```
@@ -71,37 +73,37 @@ sample-extension-scala-76b545f95b-xh6fx   2/2     Running   0          4m10s
 
 * Create an APIRule. In the APIRule, specify the Kubernetes Service that is exposed:
 
-```yaml
-apiVersion: gateway.kyma-project.io/v1alpha1
-kind: APIRule
-metadata:
-  name: sample-extension-scala
-spec:
-  gateway: kyma-gateway.kyma-system.svc.cluster.local
-  rules:
-    - accessStrategies:
-        - config: {}
-          handler: noop
-      methods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-      path: /.*
-  service:
-    host: sample-extension-scala
-    name: sample-extension-scala
-    port: 8080
-```  
+    ```yaml
+    apiVersion: gateway.kyma-project.io/v1alpha1
+    kind: APIRule
+    metadata:
+      name: sample-extension-scala
+    spec:
+      gateway: kyma-gateway.kyma-system.svc.cluster.local
+      rules:
+        - accessStrategies:
+            - config: {}
+              handler: noop
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+          path: /.*
+      service:
+        host: sample-extension-scala
+        name: sample-extension-scala
+        port: 8080
+    ```  
 
 This sample snippet exposes the `sample-extension-scala` Service. The Service is specified in the **spec.service.name** field.
 The `sample-extension-scala` subdomain is specified in the **spec.service.host** field.
 
 * Apply the APIRule:
 
-```shell script
-kubectl -n dev apply -f ./k8s/api-rule.yaml
-```
+    ```shell
+    kubectl -n dev apply -f ./k8s/api-rule.yaml
+    ```
 
 ### Helm Chart Deployment
 
@@ -116,13 +118,17 @@ A [Helm Chart definition](../helm-charts/sample-extension-scala/README.md) is al
 
 To install the helm chart in `dev` namespace, run the following command. Change to use your image.
 
-```shell script
+```shell
 helm install kymaapp ../helm-charts/sample-extension-scala --set image.repository=gabbi/sample-extension-scala:0.0.1 -n dev
 ```
 
-To verify, the installed chart, run `helm -n dev ls`
+To verify, the installed chart, run 
 
-```shell script
+```shell
+helm -n dev ls
+```
+
+```shell
 NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
 kymaapp         dev             1               2020-09-25 17:23:36.838647 +0200 CEST   deployed        sample-extension-scala-0.1.0    1.16.0
 ```

@@ -17,6 +17,10 @@ Running various samples requires access to the Kyma runtime. There are also othe
 
 Jumpstart your Kyma journey by using these samples to build event and api based extensions in your favorite technology.
 
+- [SAP TechEd 2021 Walkthrough and Sample](https://github.com/SAP-samples/teched2021-DEV261)
+
+This is a full setup including many other SAP BTP Services and a CICD setup with the respective SAP BTP service.
+
 - [App Reverse Proxy with OIDC Authentication Middleware](./app-auth-proxy/README.md)
 - [SAAS Provisioning Sample](./saas-provisioning/README.md)
 - [HANA Cloud NodeJS API](./hana-nodejs/README.md)
@@ -34,7 +38,7 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [Scala AKKA HTTP based extesnsion with API exposed via Microgateway](./sample-extension-scala/README.md)
 - [SAP Cloud SDK Java based extension with API exposed via Microgateway](./sample-cloudsdk-java/README.md)
 - [Sample to extend SAP Cloud for Customer with user propagation](./user-propagation/README.md)
-- [Sample to extend SAP Cloud for Customer with user propagation via xsuaa](./user-propagation/README.md)
+- [Sample to extend SAP Cloud for Customer with user propagation via XSUAA](./user-propagation-via-xsuaa/README.md)
 - [Micronaut based extension with API exposed via Microgateway](./sample-extension-micronaut/README.md)
 - [GeoServer for a geospatial middleware over HANA Cloud](./geoserver/README.md)
 - [Sample deploying a websocket based extension on Kyma](./sample-websockets/README.md)
@@ -45,6 +49,8 @@ Jumpstart your Kyma journey by using these samples to build event and api based 
 - [Sample SAP Customer Data Platform Extension](./cdp-extension/README.md)
 - [Self-learning FAQ Chatbot based on SAP Conversational AI](./chatbot-conversational_AI/README.md)
 - [SAP Cloud SDK Java Client Certificate Authentication](./cloudsdk-client-cert-auth/README.md)
+- [Redis and Kyma Functions](./redis-function/README.md)
+- [Next.js app with Kyma eventing & Go backend connected to SAP HANA Cloud database](./nextjs-app-with-kyma-eventing/README.md)
 
 ## Helm Charts
 
@@ -72,4 +78,4 @@ The samples are provided "as-is". There is no guarantee that raised issues will 
 
 ## License
 
-Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSES/Apache-2.0.txt) file.
+Copyright (c) 2022 SAP SE or an SAP affiliate company. All rights reserved. This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSES/Apache-2.0.txt) file.

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registrations-rest-api
+  namespace: conference-registration
+  labels:
+    app: registrations-rest-api
+  annotations:
+    prometheus.io/scrape: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registrations-rest-api
+  template:
+    metadata:
+      labels:
+        app: registrations-rest-api
+    spec:
+      containers:
+        - name: registrations-rest-api
+          image: docker.io/<docker-username>/registrations-rest-api:latest
+          imagePullPolicy: Always
+          envFrom:
+          - secretRef:
+              name: app-secret
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 8080
+          volumeMounts:
+            - name: secret-volume
+              readOnly: true
+              mountPath: "/etc/secret-volume"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "1000m"
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: app-secret

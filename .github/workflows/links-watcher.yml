@@ -1,0 +1,28 @@
+name: Links Watcher
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  links-watcher:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout source code"
+        uses: actions/checkout@v2
+
+      - name: Check Links in README
+        id: lychee
+        uses: lycheeverse/lychee-action@v1.2.0
+        with:
+          fail: true
+          args: --verbose --no-progress --exclude-file .lycheeignore --exclude-mail --exclude-all-private **/*.md
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
