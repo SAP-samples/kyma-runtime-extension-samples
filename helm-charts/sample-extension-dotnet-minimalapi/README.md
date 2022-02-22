@@ -11,11 +11,11 @@ A Helm chart definition to deploy the sample .NET minimal API extension.
 
 ## To Deploy
 
-### Must Haves
+### Prerequistes
 
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* [Helm3](https://helm.sh/docs/intro/install/)
-* `kubectl` is configured to `KUBECONFIG` downloaded from Kyma Runtime.
+The following prerequisites are needed:
+
+* [Docker and Kubernetes](../prerequisites#docker-and-kubernetes)
 
 ### Helm install
 
@@ -31,12 +31,12 @@ or,
 
 provide a [values.yaml](values.yaml) with parameters configured and run the command
 
-```shell script
+```shell
 helm install kymaapp . -f values.yaml -n dotnetdev
 ```
 
 ### Cleanup
 
-```shell script
+```shell
 helm del kymaapp -n dotnetdev
 ```

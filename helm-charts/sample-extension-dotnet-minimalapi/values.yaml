@@ -13,5 +13,6 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 5046
+  targetport: 80
 
 resources: {}

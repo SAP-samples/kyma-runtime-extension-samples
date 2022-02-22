@@ -1,7 +1,7 @@
-@hostname=<Put your hostname here>
+@hostname=https://sample-extension-dotnet-minimalapi.c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.com
 
 ### Add a todo item to the list
-POST {{hostname}}todoitems
+POST {{hostname}}/todoitems
 Content-Type: application/json
 
 {
@@ -22,4 +22,4 @@ Content-Type: application/json
 }
 
 ### Delete a todo item
-DELETE {{hostname}}/todoitems/2
+DELETE {{hostname}}/todoitems/1

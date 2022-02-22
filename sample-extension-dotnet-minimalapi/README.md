@@ -1,5 +1,7 @@
 # Overview
 
+[![Build docker sample-extension-dotnet-minimalapi](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-sample-extension-dotnet-minimalapi.yml/badge.svg?branch=main)](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-sample-extension-dotnet-minimalapi.yml)
+
 This sample demonstrates how to build and deploy an ASP.NET Core-based microservice as an extension leveraging the minimal web API functionality and exposing the API in SAP BTP, Kyma runtime.
 
 You can find the application code in the [ToDoApi](./ToDoApi) directory.
@@ -30,13 +32,13 @@ This tutorial requires the following prerequisites:
 
 * Create a new `dotnetdev` Namespace:
 
-```shell script
+```shell
 kubectl create namespace dotnetdev
 ```
 
 * Adjust the placeholder `DOCKER_ACCOUNT` in the [Makefile](sample-extension-dotnet-minimalapi\Makefile) and then build and push the image to the Docker repository:
 
-```shell script
+```shell
 DOCKER_ACCOUNT={your-docker-account} make build-and-push-image
 ```
 
@@ -50,19 +52,19 @@ To deploy as Helm chart, please refer to [Helm Chart Deployment](#helm-chart-dep
 
 * Deploy the application:
 
-```shell script
+```shell
 kubectl -n dotnetdev apply -f ./k8s/deployment.yaml
 ```
 
 * Verify that the Pods are up and running:
 
-```shell script
+```shell
 kubectl -n dotnetdev get po -l app=sample-extension-dotnet-minimalapi
 ```
 
 The expected result shows that the Pod for the `sample-extension-dotnet` Deployment is running:
 
-```shell script
+```shell
 kubectl -n dotnetdev get po -l app=sample-extension-dotnet-minimalapi
 NAME                                                  READY   STATUS    RESTARTS   AGE
 sample-extension-dotnet-minimalapi-774fbc5c7b-x44pd   2/2     Running   0          15s
@@ -100,7 +102,7 @@ The `sample-extension-dotnet-minimalapi` subdomain is specified in the **spec.se
 
 * Apply the APIRule:
 
-```shell script
+```shell
 kubectl -n dotnetdev apply -f ./k8s/api-rule.yaml
 ```
 
@@ -108,28 +110,29 @@ kubectl -n dotnetdev apply -f ./k8s/api-rule.yaml
 
 A [Helm Chart definition](../helm-charts/sample-extension-dotnet/README.md) is also available for developers to try out.
 
-#### Must Haves
+#### Prerequisites
 
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* [Helm3](https://helm.sh/docs/intro/install/)
+The following prerequisites are needed:
+
+* [Docker and Kubernetes](../prerequisites#docker-and-kubernetes)
 
 #### Helm install
 
 To install the helm chart in `dotnetdev` namespace, run the following command. Change the placeholder `<YOUR DOCKER ACCOUNT>` to use your account.
 
-```shell script
+```shell
 helm install kymaapp ../helm-charts/sample-extension-dotnet-minimalapi --set image.repository=<YOUR DOCKER ACCOUNT>/dotnet6minimalapi:0.0.1 -n dotnetdev
 ```
 
 To verify, the installed chart, run
 
 ```shell
-helm -n dotnetdev ls`
+helm -n dotnetdev ls
 ```
 
 This should give you an output like
 
-```shell script
+```shell
 NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
 dev-gateway     dev             1               2020-09-14 17:34:58.607853163 +0000 UTC deployed        gateway-0.0.1
 kymaapp         dev             1               2020-09-15 15:18:34.502591 +0200 CEST   deployed        sample-extension-dotnet-0.1.0   1.16.0
@@ -139,13 +142,8 @@ kymaapp         dev             1               2020-09-15 15:18:34.502591 +0200
 
 Access the APIs through this URL:
 
-```shell script
-https://sample-extension-dotnet.{cluster domain}
+```shell
+https://sample-extension-dotnet-minimalapi.{cluster domain}
 ```
 
-Make an HTTP call using curl:
-
-```shell script
-curl https://sample-extension-dotnet.{cluster domain}
-Hello from dotnet app running on Kyma Runtime
-```
+See several sample calls in the file [samplerequests.http](samplerequests.http). Put the right name for the hostname into the file and execute the different commands to interact with your todo list.

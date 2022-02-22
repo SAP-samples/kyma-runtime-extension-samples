@@ -1,6 +1,6 @@
 RELEASE=0.0.1
 APP=dotnet6minimalapi
-DOCKER_ACCOUNT=lechnerc77
+DOCKER_ACCOUNT=sapsamples
 CONTAINER_IMAGE=${DOCKER_ACCOUNT}/${APP}:${RELEASE}
 
 .PHONY: build-image push-image
