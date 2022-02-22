@@ -1,0 +1,30 @@
+{
+	"folders": [
+		{
+			"path": "../../prerequisites",
+			"name" : "Prerequisites"
+		},
+		{
+			"path": "../../sample-extension-dotnet-minimalapi",
+			"name" : "Sample Extension: .NET 6 - Minimal API (Code)"
+		},
+        {
+            "path": "../../helm-charts/sample-extension-dotnet-minimalapi",
+            "name" : "Sample Extension: .NET 6 - Minimal API  (Helm Charts)"
+
+        }
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen"
+	},
+	"extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+            "humao.rest-client",
+			"redhat.vscode-yaml",
+            "ms-azuretools.vscode-docker",
+            "ms-kubernetes-tools.vscode-kubernetes-tools",
+			"ms-dotnettools.vscode-dotnet-pack"
+        ]
+	}
+}
