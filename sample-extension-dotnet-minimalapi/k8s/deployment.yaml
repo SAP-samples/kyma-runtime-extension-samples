@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sample-extension-dotnet-minimalapi
+  name: sample-extension-dotnet-minimalapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-extension-dotnet-minimalapi
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sample-extension-dotnet-minimalapi
+    spec:
+      containers:
+      - image: lechnerc77/dotnet6minimalapi:0.0.1
+        name: sample-extension-dotnet-minimalapi
+        imagePullPolicy: Always
+        resources: {}
+        ports:
+        - containerPort: 5046
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sample-extension-dotnet-minimalapi
+  name: sample-extension-dotnet-minimalapi
+spec:
+  ports:
+  - port: 5046
+    protocol: TCP
+    targetPort: 5046
+  selector:
+    app: sample-extension-dotnet-minimalapi
+  type: ClusterIP
+status:
+  loadBalancer: {}

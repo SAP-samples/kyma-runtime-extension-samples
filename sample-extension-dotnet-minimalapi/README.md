@@ -7,31 +7,37 @@ You can find the application code in the [ToDoApi](./ToDoApi) directory.
 This sample demonstrates how to:
 
 * Create a development Namespace in the Kyma runtime.
-* Create and deploy an ASP.NET Core application in the Kyma runtime.
+* Create and deploy an ASP.NET Core-based application in the Kyma runtime.
 * Expose the ASP.NET Core application using [APIRules](https://kyma-project.io/docs/kyma/latest/05-technical-reference/00-custom-resources/apix-01-apirule/#documentation-content).
 * Call the API.
 
+## ToDo App
+
+The application used in this sample is described [here](https://docs.microsoft.com/aspnet/core/tutorials/min-web-api?view=aspnetcore-6.0&tabs=visual-studio)
+
 ## Prerequisites
 
-* SAP BTP, Kyma runtime instance
-* [Docker](https://www.docker.com/)
-* [make](https://www.gnu.org/software/make/)
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
+This tutorial requires the following prerequisites:
+
+* [Docker and Kubernetes](../prerequisites#docker-and-kubernetes)
+* [.NET](../prerequisites#net)
+* [REST Client Extension](../prerequisites#rest-clients)
+* [Build Tooling](../prerequisites#build-tooling)
 
 ## Steps
 
 ### Prepare for deployment
 
-* Create a new `dev` Namespace:
+* Create a new `dotnetdev` Namespace:
 
 ```shell script
-kubectl create namespace dev
+kubectl create namespace dotnetdev
 ```
 
-* Build and push the image to the Docker repository:
+* Adjust the placeholder `DOCKER_ACCOUNT` in the [Makefile](sample-extension-dotnet-minimalapi\Makefile) and then build and push the image to the Docker repository:
 
 ```shell script
-DOCKER_ACCOUNT={your-docker-account} make push-image
+DOCKER_ACCOUNT={your-docker-account} make build-and-push-image
 ```
 
 * Update the image name in the [Kubernetes Deployment](k8s/deployment.yaml). Refer to the standard Kubernetes [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions.
@@ -45,21 +51,21 @@ To deploy as Helm chart, please refer to [Helm Chart Deployment](#helm-chart-dep
 * Deploy the application:
 
 ```shell script
-kubectl -n dev apply -f ./k8s/deployment.yaml
+kubectl -n dotnetdev apply -f ./k8s/deployment.yaml
 ```
 
 * Verify that the Pods are up and running:
 
 ```shell script
-kubectl -n dev get po -l app=sample-extension-dotnet
+kubectl -n dotnetdev get po -l app=sample-extension-dotnet-minimalapi
 ```
 
 The expected result shows that the Pod for the `sample-extension-dotnet` Deployment is running:
 
 ```shell script
-kubectl -n dev get po -l app=sample-extension-dotnet
-NAME                                       READY   STATUS    RESTARTS   AGE
-sample-extension-dotnet-774fbc5c7b-x44pd   2/2     Running   0          15s
+kubectl -n dotnetdev get po -l app=sample-extension-dotnet-minimalapi
+NAME                                                  READY   STATUS    RESTARTS   AGE
+sample-extension-dotnet-minimalapi-774fbc5c7b-x44pd   2/2     Running   0          15s
 ```
 
 #### Expose the API
@@ -70,7 +76,7 @@ sample-extension-dotnet-774fbc5c7b-x44pd   2/2     Running   0          15s
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
-  name: sample-extension-dotnet
+  name: sample-extension-dotnet-minimalapi
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   rules:
@@ -84,18 +90,18 @@ spec:
         - DELETE
       path: /.*
   service:
-    host: sample-extension-dotnet
-    name: sample-extension-dotnet
-    port: 80
+    host: sample-extension-dotnet-minimalapi
+    name: sample-extension-dotnet-minimalapi
+    port: 5046
 ```  
 
-This sample snippet exposes the `sample-extension-dotnet` Service. The Service is specified in the **spec.service.name** field.
-The `sample-extension-dotnet` subdomain is specified in the **spec.service.host** field.
+This sample snippet exposes the `sample-extension-dotnet-minimalapi` Service. The Service is specified in the **spec.service.name** field.
+The `sample-extension-dotnet-minimalapi` subdomain is specified in the **spec.service.host** field.
 
 * Apply the APIRule:
 
 ```shell script
-kubectl -n dev apply -f ./k8s/api-rule.yaml
+kubectl -n dotnetdev apply -f ./k8s/api-rule.yaml
 ```
 
 ### Helm Chart Deployment
@@ -109,13 +115,19 @@ A [Helm Chart definition](../helm-charts/sample-extension-dotnet/README.md) is a
 
 #### Helm install
 
-To install the helm chart in `dev` namespace, run the following command. Change to use your image.
+To install the helm chart in `dotnetdev` namespace, run the following command. Change the placeholder `<YOUR DOCKER ACCOUNT>` to use your account.
 
 ```shell script
-helm install kymaapp ../helm-charts/sample-extension-dotnet --set image.repository=gabbi/sample-extension-dotnet:0.0.1 -n dev
+helm install kymaapp ../helm-charts/sample-extension-dotnet-minimalapi --set image.repository=<YOUR DOCKER ACCOUNT>/dotnet6minimalapi:0.0.1 -n dotnetdev
 ```
 
-To verify, the installed chart, run `helm -n dev ls`
+To verify, the installed chart, run
+
+```shell
+helm -n dotnetdev ls`
+```
+
+This should give you an output like
 
 ```shell script
 NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                           APP VERSION
