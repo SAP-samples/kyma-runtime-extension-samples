@@ -4,7 +4,7 @@
 
 This sample demonstrates how to build and deploy an ASP.NET Core-based microservice as an extension leveraging the minimal web API functionality and exposing the API in SAP BTP, Kyma runtime.
 
-You can find the application code in the [ToDoApi](./ToDoApi) directory.
+You can find the application code in the [TodoApi](./TodoApi) directory.
 
 This sample demonstrates how to:
 
@@ -36,7 +36,7 @@ This tutorial requires the following prerequisites:
 kubectl create namespace dotnetdev
 ```
 
-* Adjust the placeholder `DOCKER_ACCOUNT` in the [Makefile](sample-extension-dotnet-minimalapi\Makefile) and then build and push the image to the Docker repository:
+* Adjust the placeholder `DOCKER_ACCOUNT` in the [Makefile](Makefile) and then build and push the image to the Docker repository:
 
 ```shell
 DOCKER_ACCOUNT={your-docker-account} make build-and-push-image
