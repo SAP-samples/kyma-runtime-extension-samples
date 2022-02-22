@@ -6,7 +6,7 @@ NAMESPACE?=dev
 
 .PHONY: build build-image clean push-image all
 
-all: clean build build-docker tag
+all: clean build build-image push-image
 
 clean:
 	./gradlew clean
