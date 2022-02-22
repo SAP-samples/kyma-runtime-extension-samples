@@ -16,7 +16,7 @@ spec:
         app: sample-extension-dotnet-minimalapi
     spec:
       containers:
-      - image: lechnerc77/dotnet6minimalapi:0.0.1
+      - image: <YOUR DOCKER ID>/dotnet6minimalapi:0.0.1
         name: sample-extension-dotnet-minimalapi
         imagePullPolicy: Always
         resources: {}
