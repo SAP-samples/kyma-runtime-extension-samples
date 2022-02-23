@@ -4,21 +4,21 @@ This repository contains the setup of the [Dapr](https://dapr.io/) in a Kyma 2.0
 
 ## Prerequisites
 
-You need to have the following prerequisites in place:
+>> This tutorial is targeting Kyma version 2.x
 
-* Access to a Kyma 2.0 cluster on SAP BTP
-* [kubectl CLI](https://kubernetes.io/docs/tasks/tools/)
-* kubectl OIDC plugin: [kubelogin](https://github.com/int128/kubelogin) (we recommend installation via [krew](https://github.com/kubernetes-sigs/krew))
-* [helm](https://helm.sh/)
-* GNU make
-  * Windows: Installation via [chocolatey](https://community.chocolatey.org/packages/make) or via [winget](https://winget.run/pkg/GnuWin32/Make)
-  * MacOS: Installation via [homebrew](https://formulae.brew.sh/formula/make)
-  * Linux: Installation via corresponding package manager (e.g. `sudo apt-get install make` for Debian-based distributions)
+You need to have the following prerequisites as described here:
+
+* [Prerequistes - Docker and Kubernetes](../prerequisites/README.md#docker-and-kubernetes)
+* [Prerequistes - Build Tooling](../prerequisites/README.md#build-tooling)
+* [Prerequistes - REST Client](../prerequisites/README.md#rest-clients)
 
 The sample in this repository is validated with [Docker Desktop](https://www.docker.com/products/docker-desktop) for building the containers. While other alternatives like [podman](https://podman.io/) mights also work, we did not validate it.
+
 In addition we assume that [Docker Hub](https://hub.docker.com/) is used as container registry.
 
 >> ⚠ Be aware of the licensing model of Docker that changed concerning the usage in enterprises. For details see the [official announcement](https://www.docker.com/blog/updating-product-subscriptions/)
+
+As an alternative, this tutorial contains a [develop container](.devcontainer/devcontainer.json).
 
 ## Scenario
 
@@ -343,4 +343,4 @@ Now you are set to execute the different calls to interact with the wishlist. Ha
 
 ## Want more guidance - use the CodeTour
 
-We also offer a [CodeTour](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) for this repository. The tour provides you the information presented in this `README.md` and adds more detailed explanations the code snippets especially when it comes to the Azure Functions part.  
+We also offer a [CodeTour](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) for this repository. The tour provides you the information presented in this `README.md` and adds more detailed explanations the code snippets especially when it comes to the Azure Functions part.
