@@ -27,7 +27,7 @@ spec:
       memory: 16Mi
   env:
     - name: REGISTRATIONS_REST_API_ENDPOINT
-      value: ""
+      value: "http://registrations-rest-api.conference-registration.svc.cluster.local"
     - name: SENDGRID_API_KEY
       value: ""
     - name: SENDGRID_SENDER_EMAIL
