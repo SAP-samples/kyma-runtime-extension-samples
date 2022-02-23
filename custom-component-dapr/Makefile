@@ -1,6 +1,6 @@
 RELEASE=1.0.0
 APP=daprwishlistapp
-DOCKER_ACCOUNT=<Your Docker ID>
+DOCKER_ACCOUNT=sapsamples
 CONTAINER_IMAGE=${DOCKER_ACCOUNT}/${APP}:${RELEASE}
 
 .PHONY: build-image push-image

@@ -1,5 +1,7 @@
 # Installation of Custom Resources into Kyma
 
+[![Build docker Custom Component Dapr](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-custom-component-dapr.yml/badge.svg?branch=main)](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-custom-component-dapr.yml/)
+
 This repository contains the setup of the [Dapr](https://dapr.io/) in a Kyma 2.0 cluster on the SAP Business Technology Platform (BTP) and provides a sample app to interact with the [state store component](https://docs.dapr.io/concepts/components-concept/) of Dapr.
 
 ## Prerequisites
