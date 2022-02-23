@@ -70,7 +70,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | Name | Description |Blog Post
 | ---  | ---         |---
 |[SAP Cloud SDK Java based extension with API exposed via Microgateway](./sample-cloudsdk-java/README.md) |This sample describes the steps and configurations to build and deploy microservice-based extensions using SAP Cloud SDK for Java| -
-|[SAP Cloud SDK Java Client Certificate Authentication](./cloudsdk-client-cert-auth/README.md) |This sample show how to connect to an external system secured with Client Certificate Authentication using SAP Cloud SDK| -
+|[SAP Cloud SDK Java Client Certificate Authentication](./cloudsdk-client-cert-auth/README.md) |This sample show how to connect to an external system secured with Client Certificate Authentication using SAP Cloud SDK| [Link](https://blogs.sap.com/2022/01/11/use-sap-cloud-sdk-on-kyma-runtime-to-connect-to-external-systems-with-client-cert-authentication/)
 
 ### Open Service Broker
 
@@ -125,7 +125,6 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | ---  | ---         | ---
 | To | Come | Soon
 
-
 ## Helm Charts
 
 It is also possible to deploy some of the samples as a helm chart and template your Kyma extensions. You find more details in the [Helm Chart Examples](./helm-charts/README.md) file.
@@ -134,11 +133,15 @@ It is also possible to deploy some of the samples as a helm chart and template y
 
 For further resources, go to:
 
-- Twitter: [@kymaproject](https://twitter.com/kymaproject)
-- LinkedIn: [linkedin.kyma-project.io](http://linkedin.kyma-project.io)
-- Youtube: [youtube.kyma-project.io](http://youtube.kyma-project.io)
-- Slack: [slack.kyma-project.io](http://slack.kyma-project.io)
-- GitHub: [github.com/kyma-project](http://github.com/kyma-project)
+[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kyma-project)
+
+[![Twitter](https://img.shields.io/twitter/url?label=@kyamproject&style=social&url=https://twitter.com/kymaproject)](https://twitter.com/kymaproject)
+
+[![Linkedin](https://img.shields.io/badge/-Linkedin-blue?style=flat-square&logo=LinkedIn&logoColor=white&link=http://linkedin.kyma-project.io)](http://linkedin.kyma-project.io)
+
+[![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](http://slack.kyma-project.io)
+
+[![YouTube](https://img.shields.io/badge/YOUTUBE-gray.svg?colorB=ff0000&colorA=ff0000&style=flat)](http://youtube.kyma-project.io)
 
 ## Known issues
 
