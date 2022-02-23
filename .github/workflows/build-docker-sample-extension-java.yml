@@ -8,7 +8,8 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * 0'
-
+env:
+  SAMPLE_NAME: sample-extension-java
 jobs:
 
   build:
@@ -25,3 +26,10 @@ jobs:
         distribution: adopt
     - name: Gradle Build and then Build the Docker image
       run: make build-image
+    - name: Step is going to fail
+      run: exit 1
+    - name: Slack Notify
+      uses: rtCamp/action-slack-notify@v2.2.0
+      if: ${{ failure() }}
+      env:
+        SLACK_MESSAGE: 'Build Failed for ${{ env.SAMPLE_NAME }}'
