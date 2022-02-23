@@ -143,7 +143,7 @@ If you want to get in touch with us here you go:
 
 [![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](http://slack.kyma-project.io)
 
-[![Twitter](https://img.shields.io/twitter/url?label=@kyamproject&style=social&url=https://twitter.com/kymaproject)](https://twitter.com/kymaproject)
+[![Twitter](https://img.shields.io/twitter/url?label=@kymaproject&style=social&url=https://twitter.com/kymaproject)](https://twitter.com/kymaproject)
 
 
 ## Known issues
