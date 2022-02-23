@@ -33,21 +33,3 @@ spec:
     \   return client.hgetall(orderCode);\n  }else{\n    throw \"No orderCode received!\"\n
     \ }\n}\n"
   type: ""
----
-apiVersion: gateway.kyma-project.io/v1alpha1
-kind: APIRule
-metadata:
-  name: get-order
-spec:
-  gateway: kyma-gateway.kyma-system.svc.cluster.local
-  rules:
-    - path: /.*
-      accessStrategies:
-        - config: {}
-          handler: noop
-      methods:
-        - GET
-  service:
-    host: get-order
-    name: get-order
-    port: 80
