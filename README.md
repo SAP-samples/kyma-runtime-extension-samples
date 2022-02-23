@@ -130,17 +130,21 @@ It is also possible to deploy some of the samples as a helm chart and template y
 
 ## Resources
 
-For further resources, go to:
+There are also further resources that allow you to dive into the topic of Kyma:
+
+- [SAP Developer Center - Kyma Missions and Tutorials](https://developers.sap.com/tutorial-navigator.html?tag=software-product%3Atechnology-platform%2Fsap-business-technology-platform%2Fsap-btp-kyma-runtime)
+- [Discovery Center - Kyma Missions](https://discovery-center.cloud.sap/missionssearch/Kyma/)
+
+## How to get in touch with us?
+
+If you want to get in touch with us here you go:
 
 [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kyma-project)
 
-[![Twitter](https://img.shields.io/twitter/url?label=@kyamproject&style=social&url=https://twitter.com/kymaproject)](https://twitter.com/kymaproject)
-
-[![Linkedin](https://img.shields.io/badge/-Linkedin-blue?style=flat-square&logo=LinkedIn&logoColor=white&link=http://linkedin.kyma-project.io)](http://linkedin.kyma-project.io)
-
 [![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](http://slack.kyma-project.io)
 
-[![YouTube](https://img.shields.io/badge/YOUTUBE-gray.svg?colorB=ff0000&colorA=ff0000&style=flat)](http://youtube.kyma-project.io)
+[![Twitter](https://img.shields.io/twitter/url?label=@kyamproject&style=social&url=https://twitter.com/kymaproject)](https://twitter.com/kymaproject)
+
 
 ## Known issues
 
