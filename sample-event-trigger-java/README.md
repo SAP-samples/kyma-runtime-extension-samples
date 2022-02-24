@@ -181,6 +181,14 @@ kymaapp         dev             1               2020-09-14 20:20:03.464428 +0200
       OrderCreated{orderCode='0202-2'}
       ```
 
+#### Troubleshooting
+
+Confirm that event is published and compare the naming by looking at the Kyma component `eventing-publisher-proxy`
+
+```shell script
+kubectl -n kyma-system logs -l app.kubernetes.io/name=eventing-publisher-proxy -c eventing-publisher-proxy
+```
+
 ### Cleanup
 
 Delete the created resources:
