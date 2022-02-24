@@ -1,7 +1,10 @@
 ## SAP Connectivity Proxy
 
-With the release of Kyma 2.0, connectivity to on premise systems can now be achieved using the SAP Cloud Connector. Running as an on-premise agent, the SAP Cloud Connector provides a secure tunnel to connect SAP BTP applications and on-premise systems. This is accomplished by using the [Connectivity Proxy](https://help.sap.com/viewer/cca91383641e40ffbe03bdc78f00f681/Cloud/en-US/e661713ef7d14373b57e3e26b0b03b86.html)
-which is a software component deployed into The Kyma Cluster that interacts with the SAP Cloud Connector.
+The sample demostrates the configuration of the SAP Cloud Connector with the SAP Kyma runtime. This includes...
+
+- The provisioning of the Connectivity Proxy within the Kyma runtime.
+- A sample Nodejs application is ran locally and configured in the SAP Cloud Connector to be exposed to the connected SAP BTP account.
+- A Serverless function is deployed within the Kyma runtime, which is configured to call the sample Nodejs application via the Connectivity Proxy.
 
 ### Enable the Connectivity Service Entitlment
 
@@ -42,7 +45,7 @@ The Kyma Control Plane should now provision the Connectivity Proxy. This will ge
 kubectl get pods -n kyma-system
 ```
 
-### Deploying the Sample Application
+### Configuration of the Sample Application
 
 To validate the setup, start the sample application included in the repo and configure it within the SAP Cloud Connector.
 
