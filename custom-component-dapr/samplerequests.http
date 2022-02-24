@@ -1,0 +1,15 @@
+@hostname=https://daprwishlistapp.<Put your cluster domain here>
+
+### Sample call to get the entry of a wishlist from the statestore for the key specified
+GET {{hostname}}/api/wishlist/<Put a key here>
+
+### Sample call to add an entry in the statestore for the key specified
+POST {{hostname}}/api/wishlistentry/<Put a key here>
+content-type: application/json
+
+{
+    "wishListItem": "XBox Series X"
+}
+
+### Sample call to delete the entry in the statestore for the key specified
+DELETE {{hostname}}/api/wishlistmanagement/<Put a key here>

@@ -1,0 +1,763 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Custom Resources - Dapr",
+  "steps": [
+    {
+      "title": "Introduction",
+      "description": "This CodeTour guides you through the setup of [Dapr](https://dapr.io/) as a custom resource in a Kyma 2.0 cluster on the SAP Business Technology Platform (BTP). In addition, it gives you insights into a sample app to interact with the [state store component](https://docs.dapr.io/concepts/components-concept/) of Dapr.\r\n\r\n>> We will provide some interactive steps in this CodeTour, so please make sure that you have the prerequisites mentioned in the `README.md` in place."
+    },
+    {
+      "title": "Scenario - Business Part",
+      "description": "We want to develop a wishlist service (e.g. for Christmas, birthdays etc.). So anybody should be able to place three wishes (yes only three) on a wishlist. The services should offer endpoints to get a list of wishes already on the list as well as be able to place wishes to the list. In addition, there should be a management endpoint that allows to delete all wishes from the list (yes that's for you you naughty folks out there).\r\n\r\nTo implement this we want to use a state store, but as a cross-functional requirement we do not want to rely on a specific state store. We want to be able to exchange this at any point in time. On the other hand we want to make the life of the developer as easy as possible when it comes to the consumption of the state store. Even when the concrete state store service changes there should be no need to change the implementation."
+    },
+    {
+      "title": "Scenario - Technical Part",
+      "description": "Technically of course we deploy the solution to Kyma 2.0 and attach a state store like Redis.\r\n\r\nTo fulfill the cross-functional requirement we will use Dapr and its [state handling building block](https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/). The installation of [Custom Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) is possible with Kyma 2.0 and we will use this new degree-of-freedom to make use of *Dapr* in the Kyma cluster. \r\n\r\nHowever, as Kyma represents an opinionated stack and already comes with some components, there are some points to consider when setting things up that we will cover in the following sections."
+    },
+    {
+      "title": "Installation of Dapr",
+      "description": "As a first step we create a custom namespace to install Dapr into:\r\n\r\n>> kubectl create ns dapr-system\r\n\r\nNext we deactivate the Istio sidecar injection via the corresponding label:\r\n\r\n>> kubectl label namespace dapr-system istio-injection=disabled\r\n\r\nThen we add Dapr to the helm repository:\r\n\r\n>> helm repo add dapr https://dapr.github.io/helm-charts/\r\n\r\n>> helm repo update\r\n\r\nFinally we install Dapr into the custom namespace and disable mTLS as this is covered by Istio:\r\n\r\n>> helm upgrade --install dapr dapr/dapr --version=1.6 --namespace dapr-system  --set global.mtls.enabled=false --wait"
+    },
+    {
+      "title": "Check Installation of Dapr",
+      "description": "We check that Dapr is installed properly via:\r\n\r\n>> kubectl get pods --namespace dapr-system\r\n\r\nThis should give you an output like:\r\n\r\n```shell\r\nNAME                                     READY     STATUS    RESTARTS   AGE\r\ndapr-dashboard-7bd6cbf5bf-xglsr          1/1       Running   0          40s\r\ndapr-operator-7bd6cbf5bf-xglsr           1/1       Running   0          40s\r\ndapr-placement-7f8f76778f-6vhl2          1/1       Running   0          40s\r\ndapr-sidecar-injector-8555576b6f-29cqm   1/1       Running   0          40s\r\ndapr-sentry-9435776c7f-8f7yd             1/1       Running   0          40s\r\n```"
+    },
+    {
+      "title": "Deployment of Redis",
+      "description": "We create a custom namesapce for the deployment of Redis:\r\n\r\n>> kubectl create ns dapr-sample\r\n\r\nAs for Dapr we add Redis to the helm repository and install it into the new namesapce:\r\n\r\n>> helm repo add bitnami https://charts.bitnami.com/bitnami\r\n\r\n>> helm repo update\r\n\r\n>> helm install redis bitnami/redis --namespace dapr-sample\r\n"
+    },
+    {
+      "title": "Verify Redis Installation",
+      "description": "We verify the Redis installation via:\r\n\r\n>> kubectl get pods -n dapr-sample\r\n\r\nThis should give you an output like:\r\n\r\n```shell\r\nNAME                READY   STATUS    RESTARTS   AGE\r\nredis-master-0      1/1     Running   0          69s\r\nredis-replicas-0    1/1     Running   0          69s\r\nredis-replicas-1    1/1     Running   0          22s\r\n```"
+    },
+    {
+      "title": "Dapr Component - State Store",
+      "file": "k8s/daprstate.yaml",
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 1
+        },
+        "end": {
+          "line": 2,
+          "character": 16
+        }
+      },
+      "description": "In order to make Dapr aware of Redis as a state store we must create a so called *Component* in the cluster"
+    },
+    {
+      "title": "Dapr Component - Identifier",
+      "file": "k8s/daprstate.yaml",
+      "selection": {
+        "start": {
+          "line": 3,
+          "character": 1
+        },
+        "end": {
+          "line": 4,
+          "character": 19
+        }
+      },
+      "description": "The component is identified by its name that we set to `statestore`."
+    },
+    {
+      "title": "Dapr Component - State Store Type",
+      "file": "k8s/daprstate.yaml",
+      "selection": {
+        "start": {
+          "line": 6,
+          "character": 3
+        },
+        "end": {
+          "line": 6,
+          "character": 20
+        }
+      },
+      "description": "We specify that the type of the state store is Redis in the corresponding section of the yaml file."
+    },
+    {
+      "title": "Dapr Component - State Store Secret",
+      "file": "k8s/daprstate.yaml",
+      "selection": {
+        "start": {
+          "line": 9,
+          "character": 2
+        },
+        "end": {
+          "line": 14,
+          "character": 26
+        }
+      },
+      "description": "The metadata is depending on the type. We add here the necessary data for Redis. We use the secret created in the Redis deployment to access the password in order to enable Dapr to communicate with Redis."
+    },
+    {
+      "title": "Deployment of Component",
+      "description": "We apply the component via \r\n\r\n>> kubectl apply -f .\\k8s\\daprstate.yaml -n dapr-sample"
+    },
+    {
+      "title": "Dapr Parameters - ConfigMap", 
+      "file": "k8s/configmap.yaml",
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 1
+        },
+        "end": {
+          "line": 2,
+          "character": 16
+        }
+      },
+      "description": "In order to avoid hard-coded configuration values in our application code we create a config map that contains some basic parameters to call Dapr from the app."
+    },
+    {
+      "title": "Dapr Parameters - ConfigMap Data", 
+      "file": "k8s/configmap.yaml",
+      "selection": {
+        "start": {
+          "line": 7,
+          "character": 1
+        },
+        "end": {
+          "line": 9,
+          "character": 27
+        }
+      },
+      "description": "We provide the values for the host and the ID of the state store as data of the configmap."
+    },
+    {
+      "title": "Deployment of ConfigMap",
+      "description": "Deploy the configmap to the namespace via:\r\n\r\n>> kubectl apply -f .\\k8s\\configmap.yaml -n dapr-sample"
+    },
+    {
+      "title": "Implementation of the  Application",
+      "description": "We showcase the interaction with Dapr via a sample application. To implement the business logic we use *Azure Functions* in TypeScript. we provide a function to:\r\n\r\n* add a wish to the wishlist (including the constraint to put only three on one list) for a given key and and is available via the path `/api/wishlistentry/{key}` for `POST` requests.\r\n* get the wishes on a list for a specific key and is available via the path `/api/wishlist/{key}` for `GET` requests.\r\n* completely delete a wishlist for a specific key and is available via the path `/api/wishlistmanagement/{key}` for `DELETE` requests.\r\n\r\nIn general, the logic is defined in the `index.ts` files in the corresponding directories, the configuration is defined in the `function.json` files. The following steps will walk you through the single functions implementations.  "
+    },
+    {
+      "title": "Function \"DaprWishListReport\" - Routing", 
+      "file": "DaprWishListReport/function.json",
+      "selection": {
+        "start": {
+          "line": 8,
+          "character": 6
+        },
+        "end": {
+          "line": 8,
+          "character": 33
+        }
+      },
+      "description": "Starting with the function `DaprWishListReport` to fetch the wishlist from the state store. We configure the route the function will be available on. We define a mandatory parameter `{key}` that specifies the key for the state store.  "
+    },
+    {
+      "title": "Function \"DaprWishListReport\" - HTTP Verbs", 
+      "file": "DaprWishListReport/function.json",
+      "selection": {
+        "start": {
+          "line": 9,
+          "character": 6
+        },
+        "end": {
+          "line": 11,
+          "character": 8
+        }
+      },
+      "description": "In addition we configure that this function will only serve HTTP `GET` requests."
+    },
+    {
+      "title": "Function \"DaprWishListReport\" - Import Dapr SDK Dependencies", 
+      "file": "DaprWishListReport/index.ts",
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 1
+        },
+        "end": {
+          "line": 4,
+          "character": 1
+        }
+      },
+      "description": "Code-wise we import the Dapr SDK including types that are needed for the processing to have a native access to the Dapr endpoints without having to think about handling of HTTP requests."
+    },
+    {
+      "title": "Function \"DaprWishListReport\" - Provide Dapr Parameters", 
+      "file": "DaprWishListReport/index.ts",
+      "selection": {
+        "start": {
+          "line": 7,
+          "character": 5
+        },
+        "end": {
+          "line": 10,
+          "character": 50
+        }
+      },
+      "description": "We set the parameter values for the Dapr client via the environment variables available via the configmap and the Dapr sidecar. In addition we fetch the key for the state store from the context that is made available due to the route we defined before."
+    },
+    {
+      "title": "Function \"DaprWishListReport\" - Dapr Client", 
+      "file": "DaprWishListReport/index.ts",
+      "selection": {
+        "start": {
+          "line": 17,
+          "character": 8
+        },
+        "end": {
+          "line": 17,
+          "character": 62
+        }
+      },
+      "description": "We create a Dapr client using the parameters from above."
+    },
+    {
+      "title": "Function \"DaprWishListReport\" - Get the Entries of Wishlist", 
+      "file": "DaprWishListReport/index.ts",
+      "selection": {
+        "start": {
+          "line": 19,
+          "character": 9
+        },
+        "end": {
+          "line": 19,
+          "character": 111
+        }
+      },
+      "description": "We then call the GET method for the state store of the Dapr client to retrieve the information from the specified state store for the key we have received from the caller."
+    },
+    {
+      "title": "Function \"DaprWishListReport\" - Return the Entries of Wishlist 1", 
+      "file": "DaprWishListReport/index.ts",
+      "selection": {
+        "start": {
+          "line": 23,
+          "character": 9
+        },
+        "end": {
+          "line": 33,
+          "character": 1
+        }
+      },
+      "description": "Finally we return either the wishlist (in case there entries on it) or a statement that there are no wishes on the list to the caller."
+    },
+    {
+      "title": "Function \"DaprWishListReport\" - Return the Entries of Wishlist 2", 
+      "file": "DaprWishListReport/index.ts",
+      "selection": {
+        "start": {
+          "line": 42,
+          "character": 5
+        },
+        "end": {
+          "line": 45,
+          "character": 6
+        }
+      },
+      "description": "The message is returned to the caller via the Azure Functions infrastructure automatically by providing it to the Azure Functions context."
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - Routing", 
+      "file": "DaprWishListMessage/function.json",
+      "selection": {
+        "start": {
+          "line": 8,
+          "character": 6
+        },
+        "end": {
+          "line": 8,
+          "character": 38
+        }
+      },
+      "description": "The next function that we implement is the `DaprWishListMessage` that serves as endpoint for adding wishes onto the list. As for the previous function we specify the route the function will be available on which contains a mandatory parameter {key} that specifies the key for the state store under which the wish should be added.\r\n\r\n"
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - HTTP Verbs", 
+      "file": "DaprWishListMessage/function.json",
+      "selection": {
+        "start": {
+          "line": 9,
+          "character": 7
+        },
+        "end": {
+          "line": 11,
+          "character": 8
+        }
+      },
+      "description": "As this endpoint should only serve `POST` requests, we add the corresponding configuration."
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - Import Dapr SDK Dependencies",
+      "file": "DaprWishListMessage/index.ts",
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 1
+        },
+        "end": {
+          "line": 5,
+          "character": 1
+        }
+      },
+      "description": "In analogy to the previous function we import the Dapr SDK as well as the relevant types for the interaction with the Dapr state store."
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - Provide Dapr Parameters", 
+      "file": "DaprWishListMessage/index.ts",
+      "selection": {
+        "start": {
+          "line": 8,
+          "character": 4
+        },
+        "end": {
+          "line": 11,
+          "character": 50
+        }
+      },
+      "description": "We set the parameter values for the Dapr SDK via the values injected as environment variables as well as the state store key from the HTTP request."
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - Get the Entries of Wishlist",
+      "file": "DaprWishListMessage/index.ts",
+      "selection": {
+        "start": {
+          "line": 21,
+          "character": 9
+        },
+        "end": {
+          "line": 24,
+          "character": 1
+        }
+      },
+      "description": "We then fetch the current state of the wishlist for the given key using the Dapr client."
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - Handling of Wishlist Entries 1",
+      "file": "DaprWishListMessage/index.ts",
+      "selection": {
+        "start": {
+          "line": 28,
+          "character": 9
+        },
+        "end": {
+          "line": 31,
+          "character": 1
+        }
+      },
+      "description": "In case that there are wishes on the list we check if an additional wish would exceed the maximum number of wishes, which is three."
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - Handling of Wishlist Entries 2",
+      "file": "DaprWishListMessage/index.ts",
+      "selection": {
+        "start": {
+          "line": 37,
+          "character": 16
+        },
+        "end": {
+          "line": 41,
+          "character": 41
+        }
+      },
+      "description": "In case the number of wishes is more than three, we report this back to the caller."
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - Handling of Wishlist Entries 3",
+      "file": "DaprWishListMessage/index.ts",
+      "selection": {
+        "start": {
+          "line": 46,
+          "character": 16
+        },
+        "end": {
+          "line": 52,
+          "character": 19
+        }
+      },
+      "description": "If we are still below three wishes we add the wish to the generic array for state stores of Dapr as a key-value pair. The wish *per se* is available via the body of the request."
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - Saving  the new Wishlist aka State",
+      "file": "DaprWishListMessage/index.ts",
+      "selection": {
+        "start": {
+          "line": 54,
+          "character": 17
+        },
+        "end": {
+          "line": 56,
+          "character": 71
+        }
+      },
+      "description": "We use the Dapr client to save the new state values to the state store and return a corresponding message to the caller."
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - Return Message 1",
+      "file": "DaprWishListMessage/index.ts",
+      "selection": {
+        "start": {
+          "line": 65,
+          "character": 12
+        },
+        "end": {
+          "line": 75,
+          "character": 92
+        }
+      },
+      "description": "In case it is the very first wish on the list, we provide a different message to the caller and of course add the wish to the state store."
+    },
+    {
+      "title": "Function \"DaprWishListMessage\" - Return Message 2",
+      "file": "DaprWishListMessage/index.ts",
+      "selection": {
+        "start": {
+          "line": 91,
+          "character": 5
+        },
+        "end": {
+          "line": 94,
+          "character": 6
+        }
+      },
+      "description": "Returning of the message to the caller is handled via the Azure Functions infrastructure that we use."
+    },
+    {
+      "title": "Function \"DaprWishListManagementApi\" - Routing", 
+      "file": "DaprWishListManagementApi/function.json",
+      "selection": {
+        "start": {
+          "line": 11,
+          "character": 7
+        },
+        "end": {
+          "line": 11,
+          "character": 42
+        }
+      },
+      "description": "The last function we implement is the `DaprWishListManagementApi` that serves requests to delete the entries on a wishlist, namely the state for a specific key. We define the route of the endpoint. We expect the key for the entry to delete as obligatory part of the route."
+    },
+    {
+      "title": "Function \"DaprWishListManagementApi\" - HTTP Verbs", 
+      "file": "DaprWishListManagementApi/function.json",
+      "selection": {
+        "start": {
+          "line": 8,
+          "character": 7
+        },
+        "end": {
+          "line": 10,
+          "character": 9
+        }
+      },
+      "description": "We aslo configure that for this function only the HTTP verb `DELETE` will be supported."
+    },
+    {
+      "title": "Function \"DaprWishListManagementApi\" - Import Dapr SDK Dependencies",
+      "file": "DaprWishListManagementApi/index.ts",
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 1
+        },
+        "end": {
+          "line": 2,
+          "character": 41
+        }
+      },
+      "description": "We import the Dapr client from the SDK."
+    },
+    { 
+      "title": "Function \"DaprWishListManagementApi\" - Provide Dapr Parameters", 
+      "file": "DaprWishListManagementApi/index.ts",
+      "selection": {
+        "start": {
+          "line": 6,
+          "character": 5
+        },
+        "end": {
+          "line": 9,
+          "character": 50
+        }
+      },
+      "description": "We set the parameter values for the Dapr client as we did for the other two functions."
+    },
+    {
+      "title": "Function \"DaprWishListManagementApi\" - Delete Entries",
+      "file": "DaprWishListManagementApi/index.ts",
+      "selection": {
+        "start": {
+          "line": 18,
+          "character": 12
+        },
+        "end": {
+          "line": 21,
+          "character": 1
+        }
+      },
+      "description": "After creating the Dapr client we call the delete method for the state store and hand over the relevant parameters."
+    },
+    {
+      "title": "Function \"DaprWishListManagementApi\" - Response Message",
+      "file": "DaprWishListManagementApi/index.ts",
+      "selection": {
+        "start": {
+          "line": 24,
+          "character": 13
+        },
+        "end": {
+          "line": 24,
+          "character": 74
+        }
+      },
+      "description": "As for the other functions we report the executed activity back to the caller via the HTTP response."
+    },
+    {
+      "title": "Build the Functions - Introduction",
+      "description": "Before we can build the containers we nee to install the dependencies via:\r\n\r\n>> npm install\r\n\r\nAnd then build the TypeScript functions via:\r\n\r\n>> npm run build"
+    },
+    {
+      "title": "Build the Functions - Dockerfile 1",
+      "file": "Dockerfile",
+      "selection": {
+        "start": {
+          "line": 3,
+          "character": 1
+        },
+        "end": {
+          "line": 3,
+          "character": 54
+        }
+      },
+      "description": "The Docker file that we use to build the container uses a base image of Microsoft for Node.js-based Azure Functions"
+    },
+    {
+      "title": "Build the Functions - Dockerfile 2",
+      "file": "Dockerfile",
+      "selection": {
+        "start": {
+          "line": 7,
+          "character": 5
+        },
+        "end": {
+          "line": 7,
+          "character": 40
+        }
+      },
+      "description": "We configure that the default homepage is switched off so that only our functions endpoints are available."
+    },
+    {
+      "title": "Build the Functions - Dockerfile 3",
+      "file": "Dockerfile",
+      "selection": {
+        "start": {
+          "line": 8,
+          "character": 5
+        },
+        "end": {
+          "line": 8,
+          "character": 35
+        }
+      },
+      "description": "We also overwrite the default port that the functions are exposed on and use port 7080."
+    },
+    {
+      "title": "Build the Functions - Dockerfile 4",
+      "file": "Dockerfile",
+      "selection": {
+        "start": {
+          "line": 10,
+          "character": 1
+        },
+        "end": {
+          "line": 13,
+          "character": 16
+        }
+      },
+      "description": "The remaining part of the Dockerfile contains the default logic to copy the build results and run the Azure Functions in the container."
+    },
+    {
+      "title": "Build the Functions - Makefile 1",
+      "file": "Makefile",
+      "selection": {
+        "start": {
+          "line": 3,
+          "character": 1
+        },
+        "end": {
+          "line": 3,
+          "character": 32
+        }
+      },
+      "description": "To make the build process for the container a bit more comfortable we created a Makefile. Here you must exchange the placeholder `<Your Docker ID>` with your value."
+    },
+    {
+      "title": "Build the Functions - Makefile 2",
+      "file": "Makefile",
+      "selection": {
+        "start": {
+          "line": 11,
+          "character": 1
+        },
+        "end": {
+          "line": 12,
+          "character": 32
+        }
+      },
+      "description": "We then build the Docker image and push it to DockerHub via:\r\n\r\n>> make build-and-push-image"
+    },
+    {
+      "title": "Deploy the Application 1",
+      "file": "k8s/deployment.yaml",
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 1
+        },
+        "end": {
+          "line": 2,
+          "character": 17
+        }
+      },
+      "description": "To complete our journey we now deploy the application into the Kyma cluster."
+    },
+    {
+      "title": "Deploy the Application 2",
+      "file": "k8s/deployment.yaml",
+      "selection": {
+        "start": {
+          "line": 23,
+          "character": 18
+        },
+        "end": {
+          "line": 23,
+          "character": 34
+        }
+      },
+      "description": "You need to adjust the value of the placeholder `<Your Docker ID>` with your ID to fetch the rights image"
+    },
+    {
+      "title": "Deploy the Application 3",
+      "file": "k8s/deployment.yaml",
+      "selection": {
+        "start": {
+          "line": 16,
+          "character": 7
+        },
+        "end": {
+          "line": 19,
+          "character": 33
+        }
+      },
+      "description": "To instruct Dapr to inject a sidecar and add some additional information for the Dapr infrastructure, we add annotations to the deployment that are picked up by Dapr. \r\nIn this sample we provide the annotations:\r\n\r\n* `dapr.io/enabled` to enable the Dapr sidecar injection\r\n* `dapr.io/app-id` to provide an identifier for the app to Dapr\r\n* `dapr.io/app-port` to tell Dapr which port to listen to"
+    },
+    {
+      "title": "Deploy the Application 4",
+      "file": "k8s/deployment.yaml",
+      "selection": {
+        "start": {
+          "line": 27,
+          "character": 11
+        },
+        "end": {
+          "line": 37,
+          "character": 49
+        }
+      },
+      "description": "We also provide the configmap value as environment variables to the container."
+    },
+    {
+      "title": "Deploy the Application 5",
+      "file": "k8s/deployment.yaml",
+      "selection": {
+        "start": {
+          "line": 40,
+          "character": 1
+        },
+        "end": {
+          "line": 53,
+          "character": 21
+        }
+      },
+      "description": "In addition we specify a service for the app. "
+    },
+    {
+      "title": "Deploy the Application 6",
+      "file": "k8s/apirule.yaml",
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 19,
+          "character": 15
+        }
+      },
+      "description": "To provide external access to the application we provide an API rule for our service. \r\n\r\n>> We use the `noop` handler as access strategy. This is not a setup that should be used in production, but is okay for this sample scenario."
+    },
+    {
+      "title": "Deployment to Kyma",
+      "description": "Now we can deploy the application to Kyma by applying the corresponding files. First we execute the deployment and service via:\r\n\r\n>> kubectl apply -f .\\k8s\\deployment.yaml -n dapr-sample\r\n\r\nThen we add the APi rule via:\r\n\r\n>> kubectl apply -f .\\k8s\\apirule.yaml -n dapr-sample"
+    },
+    {
+      "title": "Test the Application 1",
+      "file": "samplerequests.http",
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 35
+        },
+        "end": {
+          "line": 1,
+          "character": 65
+        }
+      },
+      "description": "Now it is time to do some testing. For that we provides a `.http` file that you can use with the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) Extension of VSCode.\r\n\r\nBefore you execute the requests make sure that you replace the placeholder <Put your Cluster domain here> with the value from your cluster. You can fetch this values e.g. via:\r\n\r\n>> kubectl get configmap -n kube-system shoot-info -ojsonpath='{.data.domain}'"
+    },
+    {
+      "title": "Test the Application 2",
+      "file": "samplerequests.http",
+      "selection": {
+        "start": {
+          "line": 4,
+          "character": 1
+        },
+        "end": {
+          "line": 4,
+          "character": 47
+        }
+      },
+      "description": "Now you can fetch the entries that are on the list for a given key (do not forget to place a reasonable key here)."
+    },
+    {
+      "title": "Test the Application 3",
+      "file": "samplerequests.http",
+      "selection": {
+        "start": {
+          "line": 7,
+          "character": 1
+        },
+        "end": {
+          "line": 12,
+          "character": 2
+        }
+      },
+      "description": "You can push wisheson the list for a given key (do not forget to place a reasonable key here)."
+    },
+    {
+      "title": "Test the Application 4",
+      "file": "samplerequests.http",
+      "selection": {
+        "start": {
+          "line": 15,
+          "character": 1
+        },
+        "end": {
+          "line": 15,
+          "character": 60
+        }
+      },
+      "description": "And you get clear the entries on the list for a given key (do not forget to place a reasonable key here)."
+    },
+    {
+      "title": "Finish",
+      "description": "🏆  **FINISHED** - you made it, you deployed Dapr as custom component as well as Redis to a Kyma cluster and setup an application that uses the Dapr state store component!\r\n\r\nHave fun playing around with the setup!"
+    }
+  ]
+}
