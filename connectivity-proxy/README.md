@@ -6,7 +6,7 @@ The sample demostrates the configuration of the SAP Cloud Connector with the SAP
 - A sample Nodejs application is ran locally and configured in the SAP Cloud Connector to be exposed to the connected SAP BTP account.
 - A Serverless function is deployed within the Kyma runtime, which is configured to call the sample Nodejs application via the Connectivity Proxy.
 
-### Enable the Connectivity Service Entitlment
+### Enable the Connectivity Service Entitelment
 
 In order to configure the Connectivity Proxy within the Kyma Runtime you must first make sure that the Connectivity Service Entitlement is present within your subaccount. This can be accomplished by
 
