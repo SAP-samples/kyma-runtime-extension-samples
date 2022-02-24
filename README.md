@@ -101,7 +101,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 |[Cloud Integration Neo](./pi-scenario/README-neo.md) |This sample details how to bi-directionally connect SAP Process Integration and Kyma in NEO| -
 |[gRPC Python](./grpc-python/README.md) |This sample demonstrates gRPC connectivity| -
 |[Self-learning FAQ Chatbot based on SAP Conversational AI](./chatbot-conversational_AI/README.md) |This sample provides a tutorial and the code to set up an FAQ chatbot in SAP Conversational AI (CAI)| [Post](https://blogs.sap.com/2021/11/15/sap-conversational-ai-chatbot-learning-from-stack-overflow-via-a-kubernetes-cronjob-deployed-in-kyma-runtime/)
-|[Next.js app with Kyma eventing & Go backend connected to SAP HANA Cloud database](./nextjs-app-with-kyma-eventing/README.md) |This sample provides a tutorial for a conference registration app using Next.js| -
+|[Next.js app with Kyma eventing & Go backend connected to SAP HANA Cloud database](./nextjs-app-with-kyma-eventing/README.md) |This sample provides a tutorial for a conference registration app using Next.js| [Post](https://blogs.sap.com/2022/02/24/going-jamstack-with-kyma-runtime-building-a-high-performance-web-app/)
 
 ## Multitenancy and SaaS
 
@@ -120,9 +120,11 @@ Running various samples requires access to the Kyma runtime. There are also othe
 
 ## Kyma 2.0
 
+An overview blog post on Kyma 2.0 is available here: [A long-awaited update for Kyma runtime](https://blogs.sap.com/2022/02/23/a-long-awaited-update-for-kyma-runtime/)
+
 | Name | Description | References
 | ---  | ---         | ---
-| To | Come | Soon
+| [Installing a custom component](./custom-component-dapr/README.md) | Sample that installs and uses [Dapr](https://dapr.io/) as Custom Component on Kyma| -
 
 ## Helm Charts
 
