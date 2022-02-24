@@ -13,6 +13,12 @@ Kyma eventing ensures that the event is reliably delivered until the subscriber 
 
 In this sample, we will walk through a quick tutorial to set up and test the in-cluster eventing in Kyma Runtime using Kyma functions and cloudevents SDK.
 
+## Prerequisites
+
+* [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
+* [Kubernetes tooling](../prerequisites/#kubernetes)
+* [curl](https://curl.se/download.html)
+
 ## Steps
 
 * Set up namespace
