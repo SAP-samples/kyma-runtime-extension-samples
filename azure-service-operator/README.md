@@ -14,6 +14,13 @@ Then we will use the deployed operator to provision Azure Redis Cache and use it
 
 > Here Azure Redis cache is used for the sake of simplicity. You can use the operator to provision any of the avaialble services on the list.
 
+## Prerequisites
+
+This tutorial requires the following prerequisites:
+
+* [Docker and Kubernetes](../prerequisites#docker-and-kubernetes)
+* [A Kyma runtime](../prerequisites/#kyma)
+
 ## Deploy the operator
 
 * Create the namespaces for Operator Lifecycle management and deploying the operators themselves.
