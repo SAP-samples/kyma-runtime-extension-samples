@@ -154,7 +154,7 @@ The samples are provided on the "as-is" basis. Currently, there are no known iss
 
 ## Get support
 
-The samples are provided "as-is". There is no guarantee that raised issues will be answered or addressed in future releases. For more information, visit SAP Community and [ask a question](https://answers.sap.com/questions/ask.html), or contact your SAP contact to get support. In case you observe any defect in the product usage itself, kindly use the SAP Product Support channel and raise an incident adequately for the defects observed.
+The samples are provided "as-is". There is no guarantee that raised issues will be answered or addressed in future releases. For more information, visit [SAP Community](https://community.sap.com/), especially our [Kyma topic page](https://community.sap.com/topics/kyma) and [ask a question](https://answers.sap.com/questions/ask.html?primaryTagId=73554900100800003012), or contact your SAP contact to get support. In case you observe any defect in the product usage itself, kindly use the SAP Product Support channel and raise an incident adequately for the defects observed.
 
 ## License
 
