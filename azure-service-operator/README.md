@@ -18,7 +18,7 @@ Then we will use the deployed operator to provision Azure Redis Cache and use it
 
 This tutorial requires the following prerequisites:
 
-* [Docker and Kubernetes](../prerequisites#docker-and-kubernetes)
+* [Docker and Kubernetes](../prerequisites#kubernetes)
 * [A Kyma runtime](../prerequisites/#kyma)
 * An Azure Subscription along with Service Principal.
 
