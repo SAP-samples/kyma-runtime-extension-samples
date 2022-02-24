@@ -8,4 +8,4 @@ https://charts.bitnami.com/bitnami
 .localhost*
 .kyma.shoot.live.k8s-hana.ondemand.com*
 .svc.cluster.local*
- https://test-in-cluster-events*
+https://test-in-cluster-events.*
