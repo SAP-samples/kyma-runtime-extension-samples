@@ -150,7 +150,7 @@ Let's move on and connect Redis to Dapr.
 
 ## Connect Redis to Dapr
 
-To make Dapr aware of Redis as a state store we must create a so called Dapr *component*. To do so we apply the file [daprstate.yaml](.\k8s\daprstate.yaml):
+To make Dapr aware of Redis as a state store we must create a so called Dapr *component*. To do so we apply the file [daprstate.yaml](./k8s/daprstate.yaml):
 
 ```yaml
 apiVersion: dapr.io/v1alpha1
@@ -305,7 +305,7 @@ These annotations:
 
 We execute the deployment in two steps:
 
-1. Create the deployment and the service in Kyma via the file [deployment.yaml](k8s\deployment.yaml) in the directory `k8s`. Navigate in the directory, adjust the placeholder `<Your Docker ID>` and apply the file via:
+1. Create the deployment and the service in Kyma via the file [deployment.yaml](k8s/deployment.yaml) in the directory `k8s`. Navigate in the directory, adjust the placeholder `<Your Docker ID>` and apply the file via:
 
   ```shell
   kubectl apply -f deployment.yaml -n dapr-sample
@@ -315,7 +315,7 @@ We execute the deployment in two steps:
   
   >>🔎 **Observation** - When you look at the put of `kubectl get pods -n dapr-sample` you will see that the pod of the application consists of three containers, the container of the app itself, the Istio sidecar container and the Dapr sidecar container.
 
-2. To make the endpoints callable we need an API rule in place that exposes the service. For that we prepared the file [apirules.yaml](k8s\apirule.yaml) that creates such a rule. Apply the file via:
+2. To make the endpoints callable we need an API rule in place that exposes the service. For that we prepared the file [apirules.yaml](k8s/apirule.yaml) that creates such a rule. Apply the file via:
 
   ```shell
   kubectl apply -f apirule.yaml -n dapr-sample

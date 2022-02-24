@@ -4,6 +4,7 @@ https://sandbox.api.sap.com.*
 https://c4c-user-prop-xsuaa/
 https://accounts/
 https://client.badssl.com/
+https://charts.bitnami.com/bitnami
 .localhost*
 .kyma.shoot.live.k8s-hana.ondemand.com*
 .svc.cluster.local*
