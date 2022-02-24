@@ -1,0 +1,11 @@
+{
+    "name": "Build Node.js Base Workflow",
+    "description": "Starter Workflow for building Node.js based samples",
+    "categories": [
+        "JavaScript",
+        "TypeScript"
+    ],
+    "filePatterns": [
+        "package.json$"
+    ]
+}
