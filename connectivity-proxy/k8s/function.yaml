@@ -1,7 +1,7 @@
 apiVersion: serverless.kyma-project.io/v1alpha1
 kind: Function
 metadata:
-  name: cc-test
+  name: cc-sample
 spec:
   buildResources:
     limits:
@@ -10,7 +10,7 @@ spec:
     requests:
       cpu: 1100m
       memory: 1100Mi
-  deps: "{ \n  \"name\": \"vacant-drunk\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+  deps: "{ \n  \"name\": \"cc-sample\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
     {\n    \"axios\": \"0.21.4\"\n  }\n}"
   env:
   - name: cc_url

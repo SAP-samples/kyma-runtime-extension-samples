@@ -1,7 +1,7 @@
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
-  name: cc-test
+  name: cc-sample
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   rules:
@@ -17,6 +17,6 @@ spec:
     - HEAD
     path: /.*
   service:
-    host: cc-test.c-84b5775.kyma.ondemand.com
-    name: cc-test
+    host: cc-sample
+    name: cc-sample
     port: 80
