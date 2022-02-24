@@ -20,6 +20,7 @@ This tutorial requires the following prerequisites:
 
 * [Docker and Kubernetes](../prerequisites#docker-and-kubernetes)
 * [A Kyma runtime](../prerequisites/#kyma)
+* An Azure Subscription along with Service Principal.
 
 ## Deploy the operator
 
