@@ -8,3 +8,4 @@ https://charts.bitnami.com/bitnami
 .localhost*
 .kyma.shoot.live.k8s-hana.ondemand.com*
 .svc.cluster.local*
+https://*.$(kubectl)*
