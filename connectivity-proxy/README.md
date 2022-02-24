@@ -19,7 +19,7 @@ In order to configure the Connectivity Proxy within the Kyma Runtime you must fi
 
 ### Provision the Service in the Kyma Runtime
 
-The next steps involves creating a service instance of the Connectivity Proxy and then a service binding. Once the creation of the sevice binding is detected by the Kyma Control Plane, the Connectivity Proxy will be provisioned in the runtime into the namespace **kyma-system**. From within the Kyma runtime it will be accessible using the URL **connectivity-proxy.kyma-system.svc.cluster.local:20003**
+The next step involves creating a service instance of the Connectivity Proxy and then a service binding. Once the creation of the sevice binding is detected by the Kyma Control Plane, the Connectivity Proxy will be provisioned in the runtime into the namespace **kyma-system**. From within the Kyma runtime it will be accessible using the URL **connectivity-proxy.kyma-system.svc.cluster.local:20003**
 
 - Within your desired namespace
 - Choose **Service Management -> Catalog**
@@ -105,7 +105,7 @@ kubectl apply -f function.yaml -n <your namespace>
 kubectl apply -f apirule.yaml -n <your namespace>
 ```
 
-Open the apirule in the choosen namespace by choosing the menu option **Discoery and Network -> API Rules** and choosing the **host** of the
+Open the apirule in the choosen namespace by choosing the menu option **Discovery and Network -> API Rules** and choosing the **host** of the
 **cc-sample** API Rule. The expected response should be similar to
 
 ```json
