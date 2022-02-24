@@ -16,7 +16,7 @@
 - [**Step 3** - Deploy the **Event Consumer function**](docs/setup/step-3.md)
 - [**Step 4** - Apply the **Event Registration Subscription**](docs/setup/step-4.md)
 - [**Step 5** - Create an instance of **SAP HANA Cloud**](docs/setup/step-5.md)
-- [**Step 6** - Deploy the **Registration REST API Server**](docs/setup/step-6.md)
+- [**Step 6** - Deploy the **Registrations REST API Server**](docs/setup/step-6.md)
 
 ## Verification steps
 

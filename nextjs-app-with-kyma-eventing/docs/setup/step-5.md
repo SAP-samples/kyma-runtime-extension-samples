@@ -115,5 +115,5 @@ This can be done by either using the Cloud Foundry CLI or from the BTP cockpit.
 
 ## Navigation
 
-| [:house:](../../README.md) | :arrow_backward: [Setup : Step 4 - Apply the Event Registration Subscription)](step-4.md) | :arrow_forward: [Setup : Step 6 - Deploy the Registration REST API Server](step-6.md) |
+| [:house:](../../README.md) | :arrow_backward: [Setup : Step 4 - Apply the Event Registration Subscription)](step-4.md) | :arrow_forward: [Setup : Step 6 - Deploy the Registrations REST API Server](step-6.md) |
 | -------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |

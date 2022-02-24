@@ -1,4 +1,4 @@
-# Step 6 - Deploy the Registration REST API Server
+# Step 6 - Deploy the Registrations REST API Server
 
 1. Go to the **nextjs-app-with-kyma-eventing/registrations-rest-api** folder.
 

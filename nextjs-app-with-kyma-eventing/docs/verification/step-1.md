@@ -10,5 +10,5 @@
 
 ## Navigation
 
-| [:house:](../../README.md) | :arrow_backward: [Setup : Step 6 - Deploy the Registration REST API Server](../setup/step-6.md) | :arrow_forward: [Verification : Step 2 - View the environment variables in the config map](step-2.md) |
+| [:house:](../../README.md) | :arrow_backward: [Setup : Step 6 - Deploy the Registrations REST API Server](../setup/step-6.md) | :arrow_forward: [Verification : Step 2 - View the environment variables in the config map](step-2.md) |
 | -------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |

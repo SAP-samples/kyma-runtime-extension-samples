@@ -51,7 +51,7 @@ Then, verify that the values of the **SENDGRID_API_KEY** & **SENDGRID_SENDER_EMA
    **Example:**
 
    ```shell
-   kubectl logs event-emitter-td98x-59dcbcff48-l294g -n conference-registration
+   kubectl logs event-consumer-td98x-59dcbcff48-l294g -n conference-registration
    ```
 
 ## Navigation
