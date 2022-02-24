@@ -24,11 +24,11 @@ This sample demonstrates how to:
 
 ## Prerequisites
 
-* SAP BTP, Kyma runtime instance
-* [Docker](https://www.docker.com/)
+* [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
+* [Docker](../prerequisites/#docker)
 * [make](https://www.gnu.org/software/make/)
 * [Gradle](https://gradle.org/)
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* [Kubernetes tooling](../prerequisites/#kubernetes)
 * [Java 17+](https://openjdk.java.net/projects/jdk/17/)
 * SAP Commerce Cloud system connected to the Kyma runtime. You can also use the mock. Refer to [this blog post](https://blogs.sap.com/2020/06/17/sap-cloud-platform-extension-factory-kyma-runtime-mock-applications/) to set up the commerce mock.
 

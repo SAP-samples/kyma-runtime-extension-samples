@@ -4,7 +4,7 @@ This file contains a collection of all prerequisites in one central place. The d
 
 Usually besides a vanilla installation of the tools depending on your OS you will find packages via the corresponding package managers (e.g. [chocolatey](https://chocolatey.org/) or [winget](https://github.com/microsoft/winget-cli) for Windows or [homebrew](https://brew.sh/) for MacOS)
 
-## Docker 
+## Docker
 
 |Tool|Description
 |-|-
