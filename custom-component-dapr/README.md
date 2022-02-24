@@ -10,7 +10,8 @@ This repository contains the setup of the [Dapr](https://dapr.io/) in a Kyma 2.0
 
 You need to have the following prerequisites as described here:
 
-* [Prerequistes - Docker and Kubernetes](../prerequisites/README.md#docker-and-kubernetes)
+* [Prerequistes - Docker](../prerequisites/README.md#docker)
+* [Prerequistes - Kubernetes](../prerequisites/README.md#kubernetes)
 * [Prerequistes - Build Tooling](../prerequisites/README.md#build-tooling)
 * [Prerequistes - REST Client](../prerequisites/README.md#rest-clients)
 

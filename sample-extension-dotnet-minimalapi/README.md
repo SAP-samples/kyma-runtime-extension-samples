@@ -21,7 +21,8 @@ The application used in this sample is described [here](https://docs.microsoft.c
 
 This tutorial requires the following prerequisites:
 
-* [Docker and Kubernetes](../prerequisites#docker-and-kubernetes)
+* [Docker](../prerequisites#docker)
+* [Kubernetes](../prerequisites#kubernetes)
 * [.NET](../prerequisites#net)
 * [REST Client Extension](../prerequisites#rest-clients)
 * [Build Tooling](../prerequisites#build-tooling)

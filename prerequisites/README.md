@@ -4,18 +4,23 @@ This file contains a collection of all prerequisites in one central place. The d
 
 Usually besides a vanilla installation of the tools depending on your OS you will find packages via the corresponding package managers (e.g. [chocolatey](https://chocolatey.org/) or [winget](https://github.com/microsoft/winget-cli) for Windows or [homebrew](https://brew.sh/) for MacOS)
 
-## Docker and Kubernetes
+## Docker 
 
 |Tool|Description
 |-|-
 |[Docker Desktop](https://www.docker.com/) | Tool to build and run OCI-compliant containers
+
+>> ⚠ NOTE: Be aware of the terms of Docker for usage in enterprises. For details see [link](https://www.docker.com/blog/updating-product-subscriptions/)
+
+## Kubernetes
+
+|Tool|Description
+|-|-
 |[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) | Kubernetes command-line tool, that allows you to run commands against Kubernetes clusters
 |[krew](https://krew.sigs.k8s.io/) | Plugin manager for `kubectl` command-line tool.
 |[kubelogin](https://github.com/int128/kubelogin) | `kubectl` plugin for Kubernetes OpenID Connect (OIDC) authentication,
 |[Helm](https://helm.sh/) | The package manager for Kubernetes
 |[jq](https://stedolan.github.io/jq/) | Tool for JSON processing in CLI
-
->> ⚠ NOTE: Be aware of the terms of Docker for usage in enterprises. For details see [link](https://www.docker.com/blog/updating-product-subscriptions/)
 
 ## Kyma
 
