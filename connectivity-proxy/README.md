@@ -125,7 +125,7 @@ Open the apirule in the choosen namespace by choosing the menu option **Discover
 
 Using a curl pod to call the sample Nodejs application via the Connectivity Proxy can be accomplished by
 
-- Creating a pod with curl installed
+- Create an interactive pod with curl installed
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
