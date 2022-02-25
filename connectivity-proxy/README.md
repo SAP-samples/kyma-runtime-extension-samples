@@ -5,6 +5,7 @@ The sample demostrates the configuration of the SAP Cloud Connector with the SAP
 - The provisioning of the Connectivity Proxy within the Kyma runtime.
 - A sample Nodejs application is ran locally and configured in the SAP Cloud Connector to be exposed to the connected SAP BTP account.
 - A Serverless function is deployed within the Kyma runtime, which is configured to call the sample Nodejs application via the Connectivity Proxy.
+- Using a curl pod to call the sample Nodejs application via the Connectivity Proxy.
 
 ### Enable the Connectivity Service Entitelment
 
@@ -118,4 +119,32 @@ Open the apirule in the choosen namespace by choosing the menu option **Discover
     { "product_ID": "943735", "quantity": 6, "title": "familiar", "price": 12 }
   ]
 }
+```
+
+#### Using Curl to test the connection
+
+Using a curl pod to call the sample Nodejs application via the Connectivity Proxy can be accomplished by
+
+- Creating a pod with curl installed
+
+```shell
+kubectl run curl --image=radial/busyboxplus:curl -i --tty
+```
+
+- Call the on premise connection by running
+
+```
+curl --proxy http://connectivity-proxy.kyma-system.svc.cluster.local:20003 http://localhost:3000/orders?OrderNo=123
+```
+
+- To escape the pod
+
+```
+exit
+```
+
+- To remove the pod
+
+```
+kubectl delete pod curl
 ```
