@@ -11,10 +11,18 @@ spec:
   servers:
     - port:
         number: 443
-        name: app
+        name: https
         protocol: HTTPS
       hosts:
         - app.your-domain.com
       tls:
         mode: SIMPLE
         credentialName: letsencrypt-cert-9t54f
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - app.your-domain.com
+      tls:
+        httpsRedirect: true

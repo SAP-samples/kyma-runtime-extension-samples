@@ -94,7 +94,7 @@ Create an Issuer in the `istio-system` namespace.
 
 1. Replace `your-email@domain.com` and `app.your-domain.com` in the `./cloudflare/k8s/issuer.yaml` file with your desired email and domain, which will be used for registration to the Issuer.
 
-2. Create the `cloudflare` DNS Provider resource in the `conference-registration` namespace.
+2. Create the `Issuer` resource in the `conference-registration` namespace.
 
    ```shell
    kubectl apply -f ./cloudflare/k8s/issuer.yaml
@@ -148,9 +148,13 @@ After the Certificate has been created, you can use it to create the Istio Ingre
 
 ### Option 1: Use the kubectl CLI to create an Istio Ingress Gateway
 
-1. Replace `letsencrypt-cert-9t54f` in the `./cloudflare/k8s/ingressgateway.yaml` file with the name of the secret that was generated in the `istio-system` namespace for the `letsencrypt-cert` Certificate that was created in the previous step.
+1. Replace `letsencrypt-cert-9t54f` in the `./cloudflare/k8s/ingressgateway.yaml` file with the `Secret` that was generated in the `istio-system` namespace for the `letsencrypt-cert` Certificate created in the previous step.
 
-2. Create the `Istio Ingress Gateway` resource in the `conference-registration` namespace.
+    > **Note:** The name of the Secret starts with `letsencrypt-cert-` and end with a random text.
+
+2. Replace all instances of `app.your-domain.com` with your domain name in the `./cloudflare/k8s/ingressgateway.yaml` file.
+
+3. Create the `Istio Ingress Gateway` resource in the `conference-registration` namespace.
 
    ```shell
    kubectl apply -f ./cloudflare/k8s/ingressgateway.yaml
@@ -160,10 +164,36 @@ After the Certificate has been created, you can use it to create the Istio Ingre
 
 1. Select the `conference-registration` namespace in the top-right corner of the Kyma console.
 
-2. Go to `Istio` -> `Gateways` and Select `Create Gateway`. Then, enter the following values and select `Create`.
+2. Go to `Istio` -> `Gateways` and Select `Create Gateway`. Click on the `Advanced` tab. Then, select `Add Server` and expand the `Servers` section.
 
     ![Create an Istio Ingress Gateway](../assets/setup-step-7/13.png)
+
+3. Select `Server 1`.
+
     ![Create an Istio Ingress Gateway](../assets/setup-step-7/14.png)
+
+4. Select its protocol as `HTTPS` and give it a name as shown below.
+
+    ![Create an Istio Ingress Gateway](../assets/setup-step-7/15.png)
+
+5. Select the `TLS Mode` as `SIMPLE`. For `Credential Name` select the `Secret` that was generated in the `istio-system` namespace for the `letsencrypt-cert` Certificate created in the previous step. Then, add your domain to the `Hosts` field.
+
+    > **Note:** The name of the Secret starts with `letsencrypt-cert-` and end with a random text.
+
+    ![Create an Istio Ingress Gateway](../assets/setup-step-7/16.png)
+
+6. Under the other `Server` section, select the `Protocol` as `HTTP` and give it a name as shown below. Then, add your domain to the `Hosts` field.
+
+    ![Create an Istio Ingress Gateway](../assets/setup-step-7/17.png)
+
+7. Then, click on the `YAML` tab at the top, and enter `httpsRedirect: true` under `tls` within the server with `HTTP` protocol as shown below. Then, select `Create`.
+
+    ```shell
+      tls:
+        httpsRedirect: true
+    ```
+
+    ![Create an Istio Ingress Gateway](../assets/setup-step-7/18.png)
 
 ## 9. Create an API Rule with your Istio Gateway
 
