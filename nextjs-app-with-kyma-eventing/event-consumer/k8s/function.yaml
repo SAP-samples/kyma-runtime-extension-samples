@@ -5,14 +5,13 @@ metadata:
   namespace: conference-registration
   labels:
     app: event-consumer
-    example: event-consumer
 spec:
   deps: |-
     { 
       "name": "event-consumer",
       "version": "1.0.0",
       "dependencies": {
-            "axios":"^0.25.0,
+            "axios":"^0.25.0",
             "@sendgrid/mail": "^7.4.6"
       }
     }

@@ -1,0 +1,16 @@
+apiVersion: dns.gardener.cloud/v1alpha1
+kind: DNSEntry
+metadata:
+  name: app
+  namespace: conference-registration
+  labels:
+    app.kubernetes.io/name: app
+  annotations:
+    dns.gardener.cloud/class: garden
+spec:
+  dnsName: app.your-domain.com
+  targets:
+    - a0000000aa00000a00daa0000aa00000-000000000.ca-central-1.elb.amazonaws.com
+    - a0000a0a0aa0a000000000000000a0a0-000000000.ca-central-1.elb.amazonaws.com
+  text: []
+  ttl: 600

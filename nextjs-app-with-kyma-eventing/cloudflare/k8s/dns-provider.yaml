@@ -1,0 +1,18 @@
+apiVersion: dns.gardener.cloud/v1alpha1
+kind: DNSProvider
+metadata:
+  name: cloudflare
+  namespace: conference-registration
+  labels:
+    app.kubernetes.io/name: cloudflare
+  annotations:
+    dns.gardener.cloud/class: garden
+spec:
+  domains:
+    include:
+      - app.your-domain.com
+    exclude: []
+  secretRef:
+    name: cloudflare-credentials
+    namespace: conference-registration
+  type: cloudflare-dns

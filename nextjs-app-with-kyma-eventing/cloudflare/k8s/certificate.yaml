@@ -1,0 +1,12 @@
+apiVersion: cert.gardener.cloud/v1alpha1
+kind: Certificate
+metadata:
+  name: letsencrypt-cert
+  namespace: istio-system
+  labels:
+    app.kubernetes.io/name: letsencrypt-cert
+spec:
+  commonName: app.your-domain.com
+  issuerRef:
+    name: letsencrypt
+    namespace: istio-system

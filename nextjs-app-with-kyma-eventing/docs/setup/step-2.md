@@ -15,7 +15,7 @@
 3. Build the docker image of the **conference-registration-app microservice**.
 
    ```shell
-   docker build . -t `<docker-username>`/conference-registration-app -f Dockerfile
+   docker build . -t <docker-username>/conference-registration-app -f Dockerfile
    ```
 
    > Note: Replace `<docker-username>` with your username
@@ -23,7 +23,7 @@
 4. Push the docker image of the **conference-registration-app microservice** to your Container Image Library.
 
    ```shell
-   docker push `<docker-username>`/conference-registration-app
+   docker push <docker-username>/conference-registration-app
    ```
 
    > Note: Replace `<docker-username>` with your username

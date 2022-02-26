@@ -1,0 +1,25 @@
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: app-your-domain-com
+  namespace: conference-registration
+  labels:
+    app.kubernetes.io/name: app-your-domain-com
+spec:
+  gateway: app.conference-registration.svc.cluster.local
+  rules:
+    - accessStrategies:
+        - handler: allow
+          config: {}
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - HEAD
+      path: /.*
+  service:
+    host: app.your-domain.com
+    name: conference-registration-app
+    port: 80

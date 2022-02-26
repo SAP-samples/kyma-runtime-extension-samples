@@ -88,7 +88,7 @@ This can be done by either using the Cloud Foundry CLI or from the BTP cockpit.
     Password: *********
     ```
 
-5. Right-click on the **Catalog** folder and select **Open SQL Console**.
+5. Right-click on **tech-conference-db** and select **Open SQL Console**.
 
 6. Run the following query:
 

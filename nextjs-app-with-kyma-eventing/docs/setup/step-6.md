@@ -3,13 +3,13 @@
 1. Go to the **nextjs-app-with-kyma-eventing/registrations-rest-api** folder.
 
    ```shell
-   cd nextjs-app-with-kyma-eventing/registrations-rest-api
+   cd registrations-rest-api
    ```
 
 2. Build the docker image of the **registrations-rest-api microservice**.
 
    ```shell
-   docker build . -t `<docker-username>`/registrations-rest-api -f Dockerfile
+   docker build . -t <docker-username>/registrations-rest-api -f Dockerfile
    ```
 
    > Note: Replace `<docker-username>` with your username
@@ -17,7 +17,7 @@
 3. Push the docker image of the **registrations-rest-api microservice** to your Container Image Library.
 
    ```shell
-   docker push `<docker-username>`/registrations-rest-api
+   docker push <docker-username>/registrations-rest-api
    ```
 
    > Note: Replace `<docker-username>` with your username
@@ -26,7 +26,7 @@
 
    > Note: Replace `<docker-username>` with your username
 
-5. Update the values of the `HANA_DB_USER`, `HANA_DB_PASSWORD`, `HANA_DB_HOST` & `HANA_DB_PORT` environment variables in the ./registrations-rest-api/k8s/secret.yaml file. 
+5. Update the values of the `HANA_DB_USER`, `HANA_DB_PASSWORD`, `HANA_DB_HOST` & `HANA_DB_PORT` environment variables in the ./registrations-rest-api/k8s/secret.yaml file.
 
    The **host** and **port** can be got from the SAP HANA Cloud screen of your subaccount in the BTP cockpit (**Cloud Foundry** > **Spaces** > **dev** > **SAP HANA Cloud** > **tech-conference-db** > **Actions** > **Copy SQL Endpoint**).
 
@@ -48,5 +48,5 @@
 
 ## Navigation
 
-| [:house:](../../README.md) | :arrow_backward: [Setup : Step 5 - Create an instance of SAP HANA Cloud](step-5.md) | :arrow_forward: [Verification : Step 1 - Verify that all the resources of the app are running](../verification/step-1.md) |
+| [:house:](../../README.md) | :arrow_backward: [Setup : Step 5 - Create an instance of SAP HANA Cloud](step-5.md) | :arrow_forward: [Setup : Step 7 - Connect your web app running on Kyma Runtime to a domain via Cloudflare](step-7.md) |
 | -------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |

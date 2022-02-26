@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: app
+  namespace: conference-registration
+  labels:
+    app.kubernetes.io/name: app
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: app
+        protocol: HTTPS
+      hosts:
+        - app.your-domain.com
+      tls:
+        mode: SIMPLE
+        credentialName: letsencrypt-cert-9t54f

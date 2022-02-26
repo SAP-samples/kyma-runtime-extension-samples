@@ -1,0 +1,16 @@
+apiVersion: cert.gardener.cloud/v1alpha1
+kind: Issuer
+metadata:
+  name: letsencrypt
+  namespace: istio-system
+  labels:
+    app.kubernetes.io/name: letsencrypt
+spec:
+  requestsPerDayQuota: 0
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: your-email@domain.com
+    autoRegistration: true
+    domains:
+      include:
+        - app.your-domain.com

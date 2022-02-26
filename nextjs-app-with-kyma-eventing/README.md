@@ -17,6 +17,7 @@
 - [**Step 4** - Apply the **Event Registration Subscription**](docs/setup/step-4.md)
 - [**Step 5** - Create an instance of **SAP HANA Cloud**](docs/setup/step-5.md)
 - [**Step 6** - Deploy the **Registrations REST API Server**](docs/setup/step-6.md)
+- [**Step 7** - Connect your web app running on **Kyma Runtime** to a domain via **Cloudflare**](docs/setup/step-7.md)
 
 ## Verification steps
 
