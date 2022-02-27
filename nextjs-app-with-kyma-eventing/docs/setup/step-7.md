@@ -195,7 +195,7 @@ After the Certificate has been created, you can use it to create the Istio Ingre
 
     ![Create an Istio Ingress Gateway](../assets/setup-step-7/18.png)
 
-## 9. Create an API Rule with your Istio Gateway
+## 9. Create an API Rule with your Istio Ingress Gateway
 
 Create an API Rule to expose your web app running on Kyma Runtime.
 
@@ -221,7 +221,7 @@ After the Istio Gateway has been created, you can use it to create the API Rule 
 
 2. Go to `Discovery and Network` -> `API Rules` and Select `Create API Rule`. Then, enter the following values. Use your domain instead of `app.your-domain.com` and use any desired name instead of `app-your-domain-com`. Then, select `Create`.
 
-![Create an API Rule](../assets/setup-step-7/15.png)
+![Create an API Rule](../assets/setup-step-7/19.png)
 
 ## 10. Set your SSL mode in Cloudflare to Full
 
@@ -229,11 +229,11 @@ After the Istio Gateway has been created, you can use it to create the API Rule 
 
 2. Select your domain and go to `SSL/TLS` -> `Overview`. Then, select `Full (strict)`.
 
-    ![Set your SSL mode](../assets/setup-step-7/16.png)
+    ![Set your SSL mode](../assets/setup-step-7/20.png)
 
 3. Next, go to `SSL/TLS` -> `Edge Certificates`. Then, enable `Always Use HTTPS` if you want all visitors to go to the secure version of your site.
 
-    ![Set your SSL mode](../assets/setup-step-7/17.png)
+    ![Set your SSL mode](../assets/setup-step-7/21.png)
 
 | [:house:](../../README.md) | :arrow_backward: [Setup : Step 6 - Deploy the Registrations REST API Server](step-6.md) | :arrow_forward: [Verification : Step 1 - Verify that all the resources of the app are running](../verification/step-1.md) |
 | -------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
