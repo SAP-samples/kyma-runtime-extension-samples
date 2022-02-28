@@ -1,5 +1,7 @@
 # Step 7 - Connect your web app running on Kyma Runtime to a domain via Cloudflare
 
+> **Note:** If you're following the example from the [previous step](step-6.md), then continue to use the `conference-registration` namespace in all the YAML files and steps listed below (i.e. no changes required). Otherwise, change all references of `conference-registration` namespace and use your namespace instead.
+
 ## 1. Add your domain to Cloudflare
 
 For the first step, there are three options and you can choose one of them as per your preference.
@@ -70,7 +72,7 @@ If you get a permission error communicating with Cloudflare, be sure the domain 
 
 ### Option 2: Use the Kyma console to create a DNS Provider
 
-In the Kyma console, select the  `conference-registration` namespace. Then, go to `Configuration` -> `DNS Providers` and enter the following values. Use your domain instead of `app.your-domain.com`.
+In the Kyma console, select the  `conference-registration` namespace. Then, go to `Configuration` -> `DNS Providers` and enter the following values. Select your namespace and for `Secret Name` select the Secret that you created in the previous step. For `Include Domains` use your domain instead of `app.your-domain.com`. Then, click `Create`.
 
 ![create a DNS Provider](../assets/setup-step-7/5.png)
 
@@ -88,7 +90,7 @@ Wait for the status of the DNS Entry to change to `ready` before proceeding with
 
 Create an Issuer in the `istio-system` namespace.
 
-**Note:** This example uses [Let's Encrypt](https://letsencrypt.org/). You can use any other ACME server to create the Issuer.
+**Note:** This example uses [Let's Encrypt](https://letsencrypt.org/). You can use any other [ACME](https://datatracker.ietf.org/doc/html/rfc8555) server to create the Issuer. You can also use a [Certificate Authority (CA)](https://www.ssl.com/faqs/what-is-a-certificate-authority/) instead.
 
 ### Option 1: Use the kubectl CLI to create an Issuer
 
