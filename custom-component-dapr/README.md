@@ -2,11 +2,11 @@
 
 [![Build docker Custom Component Dapr](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-custom-component-dapr.yml/badge.svg?branch=main)](https://github.com/SAP-samples/kyma-runtime-extension-samples/actions/workflows/build-docker-custom-component-dapr.yml/)
 
-This repository contains the setup of the [Dapr](https://dapr.io/) in a Kyma 2.0 cluster on the SAP Business Technology Platform (BTP) and provides a sample app to interact with the [state store component](https://docs.dapr.io/concepts/components-concept/) of Dapr.
+This repository contains the setup of the [Dapr](https://dapr.io/) in SAP Business Technology Platform (BTP), Kyma runtime based on open source Kyma 2.0 and provides a sample app to interact with the [state store component](https://docs.dapr.io/concepts/components-concept/) of Dapr.
 
 ## Prerequisites
 
->> This tutorial is targeting Kyma version 2.x
+>> This tutorial is targetingS AP BTP, Kyma runtime based on open source Kyma 2.0
 
 You need to have the following prerequisites as described here:
 
@@ -33,15 +33,15 @@ To implement this we want to use a state store, but as a cross-functional requir
 
 ### Technical Part
 
-Technically of course we deploy the solution to Kyma 2.0 and attach a state store like Redis.
+Technically of course we deploy the solution to SAP BTP, Kyma runtime based on open source Kyma 2.0 and attach a state store like Redis.
 
-To fulfill the cross-functional requirement we will use Dapr and its [state handling building block](https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/). The installation of [Custom Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) is possible with Kyma 2.0 and we will use this new degree-of-freedom to make use of *Dapr* in the Kyma cluster. 
+To fulfill the cross-functional requirement we will use Dapr and its [state handling building block](https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/). The installation of [Custom Resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) is possible with SAP BTP, Kyma runtime based on open source Kyma 2.0 and we will use this new degree-of-freedom to make use of *Dapr* in the Kyma cluster. 
 
 However, as Kyma represents an opinionated stack and already comes with some components, there are some points to consider when setting things up that we will cover in the following sections.
 
 >>🔎 **Observation** - For the state store we use a deployment of Redis into the Kyma Cluster. This is not a production-grade setup, but for the sake of this sample we assume this approach as okay.
 
-## Setup of Dapr in Kyma 2.0
+## Setup of Dapr in SAP BTP, Kyma runtime based on open source Kyma 2.0
 
 In general there are two ways to deploy Dapr to a Kubernetes cluster:
 
@@ -118,7 +118,7 @@ In this sample we will deploy Redis as well as the sample app into the same cust
 kubectl create ns dapr-sample
 ```
 
-### Deploy Redis to Kyma 2.0
+### Deploy Redis to SAP BTP, Kyma runtime based on open source Kyma 2.0
 
 Next we deploy Redis to the namespace `dapr-sample` using helm. Apply the following commands:
 
