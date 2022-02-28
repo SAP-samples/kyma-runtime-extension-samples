@@ -138,7 +138,7 @@ After the Issuer has been created, you can use it to create a Certificate in the
 
 1. Select the `istio-system` namespace in the top-right corner of the Kyma console.
 
-2. Go to `Configuration` -> `Certificates`. Select `Create Certificate` and select the `Advanced` tab. Then, enter the following values and select `Create`.  Use your domain instead of `app.your-domain.com`.
+2. Go to `Configuration` -> `Certificates`. Select `Create Certificate` and select the `Advanced` tab. Then, enter the following values. For `Common Name` enter your primary domain name instead of `app.your-domain.com`. For `Issuer Namespace` select `istio-system` and for `Issuer Name` select the Issuer created in the previous step. Then, click `Create`.
 
     ![Create a Certificate](../assets/setup-step-7/12.png)
 
