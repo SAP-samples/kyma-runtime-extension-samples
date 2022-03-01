@@ -6,6 +6,7 @@ on:
   workflow_dispatch: {}
 env:
   REGISTRY: ghcr.io
+  SUBDIRECTORY: custom-component-dapr
   IMAGE_NAME: daprwishlistapp
   LABEL: 1.0.0
 
@@ -32,7 +33,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: "{{defaultContext}}:custom-component-dapr"
+          context: ./${{ env.SUBDIRECTORY }}
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ env.LABEL }}            
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.LABEL }}
+          labels: ${{ steps.meta.outputs.labels }}            
