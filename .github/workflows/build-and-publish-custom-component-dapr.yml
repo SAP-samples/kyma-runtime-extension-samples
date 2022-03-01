@@ -1,5 +1,4 @@
 name: Build and publish container image for the Custom Component Sample
-on:
 
 on:
   release:
