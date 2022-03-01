@@ -35,5 +35,5 @@ jobs:
         with:
           context: ./${{ env.SUBDIRECTORY }}
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.LABEL }}
+          tags: ${{ env.REGISTRY }}/${{ github.repository}}/${{ env.IMAGE_NAME }}:${{ env.LABEL }}
           labels: ${{ steps.meta.outputs.labels }}            
