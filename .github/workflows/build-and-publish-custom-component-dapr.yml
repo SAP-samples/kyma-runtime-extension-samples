@@ -1,4 +1,5 @@
-name: build-and-publish
+name: Build and publish container image for the Custom Component Sample
+on:
 
 on:
   release:
@@ -29,11 +30,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}//${{ github.repository }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}},value=${{ env.LABEL }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: ./${{ env.SUBDIRECTORY }}
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository}}/${{ env.IMAGE_NAME }}:${{ env.LABEL }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}            
