@@ -44,7 +44,7 @@ For the first step, there are three options and you can choose one of them as pe
 
 ## 3. Create a Kubernetes Secret with your Cloudflare API token
 
-1. Use the Base64 encoded token from the above step to update the value of the resource with `data.CLOUDFLARE_API_TOKEN` in the `./cloudflare/k8s/secret.yaml` file.
+1. Use the Base64 encoded token from the above step to update the value of the resource with `data.CLOUDFLARE_API_TOKEN` in the [`./cloudflare/k8s/secret.yaml`](../../cloudflare/k8s/secret.yaml) file.
 
 2. Create the `cloudflare-credentials` Kubernetes secret in the `conference-registration` namespace.
 
@@ -62,7 +62,7 @@ If you get a permission error communicating with Cloudflare, be sure the domain 
 
 ### Option 1: Use the kubectl CLI to create a DNS Provider
 
-1. Replace `app.your-domain.com` in the `./cloudflare/k8s/dns-provider.yaml` file with your desired domain.
+1. Replace `app.your-domain.com` in the [`./cloudflare/k8s/dns-provider.yaml`](../../cloudflare/k8s/dns-provider.yaml) file with your desired domain.
 
 2. Create the `cloudflare` DNS Provider resource in the `conference-registration` namespace.
 
@@ -94,7 +94,7 @@ Create an Issuer in the `istio-system` namespace.
 
 ### Option 1: Use the kubectl CLI to create an Issuer
 
-1. Replace `your-email@domain.com` and `app.your-domain.com` in the `./cloudflare/k8s/issuer.yaml` file with your desired email and domain, which will be used for registration to the Issuer.
+1. Replace `your-email@domain.com` and `app.your-domain.com` in the [`./cloudflare/k8s/issuer.yaml`](../../cloudflare/k8s/issuer.yaml) file with your desired email and domain, which will be used for registration to the Issuer.
 
 2. Create the `Issuer` resource in the `conference-registration` namespace.
 
@@ -126,7 +126,7 @@ After the Issuer has been created, you can use it to create a Certificate in the
 
 ### Option 1: Use the kubectl CLI to create a Certificate
 
-1. Replace `app.your-domain.com` in the `./cloudflare/k8s/certificate.yaml` file with your desired domain.
+1. Replace `app.your-domain.com` in the [`./cloudflare/k8s/certificate.yaml`](../../cloudflare/k8s/certificate.yaml) file with your desired domain.
 
 2. Create the `Certificate` resource in the `istio-system` namespace.
 
@@ -150,11 +150,11 @@ After the Certificate has been created, you can use it to create the Istio Ingre
 
 ### Option 1: Use the kubectl CLI to create an Istio Ingress Gateway
 
-1. Replace `letsencrypt-cert-9t54f` in the `./cloudflare/k8s/ingressgateway.yaml` file with the `Secret` that was generated in the `istio-system` namespace for the `letsencrypt-cert` Certificate created in the previous step.
+1. Replace `letsencrypt-cert-9t54f` in the [`./cloudflare/k8s/ingressgateway.yaml`](../../cloudflare/k8s/ingressgateway.yaml) file with the `Secret` that was generated in the `istio-system` namespace for the `letsencrypt-cert` Certificate created in the previous step.
 
     > **Note:** The name of the Secret starts with `letsencrypt-cert-` and end with a random text.
 
-2. Replace all instances of `app.your-domain.com` with your domain name in the `./cloudflare/k8s/ingressgateway.yaml` file.
+2. Replace all instances of `app.your-domain.com` with your domain name in the [`./cloudflare/k8s/ingressgateway.yaml`](../../cloudflare/k8s/ingressgateway.yaml) file.
 
 3. Create the `Istio Ingress Gateway` resource in the `conference-registration` namespace.
 
@@ -205,7 +205,7 @@ After the Istio Gateway has been created, you can use it to create the API Rule 
 
 ### Option 1: Use the kubectl CLI to create an API Rule
 
-1. Make the following changes in the `./cloudflare/k8s/api-rule.yaml` file:
+1. Make the following changes in the [`./cloudflare/k8s/api-rule.yaml`](../../cloudflare/k8s/api-rule.yaml) file:
 
     * Change the value of the host from `app.your-domain.com` to your domain.
 
