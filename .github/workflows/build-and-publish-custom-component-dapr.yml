@@ -7,6 +7,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: daprwishlistapp
+  LABEL: 1.0.0
 
 jobs:
   build_and_push:
@@ -34,4 +35,4 @@ jobs:
           context: "{{defaultContext}}:custom-component-dapr"
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}            
+          labels: ${{ env.LABEL }}            
