@@ -1,0 +1,7 @@
+apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshot
+metadata:
+  name: snapshot
+spec:
+  source:
+    persistentVolumeClaimName: storage-example-stateful-app-0
