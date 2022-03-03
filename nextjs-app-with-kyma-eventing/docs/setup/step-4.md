@@ -1,5 +1,21 @@
 # Step 4 - Apply the Event Registration Subscription
 
+## Prerequisite step: Select your eventing backend
+
+### Prerequisite Option 1: Use NATS
+
+**NATS** is the default eventing backend of SAP BTP, Kyma Runtime. If you haven't changed your eventing backend to SAP Event Mesh, then there are no additional steps required.
+
+### Prerequisite Option 2: Use SAP Event Mesh
+
+Optionally, use Kyma Eventing with **SAP Event Mesh** (only if you're not using a free tier or free trial BTP account).
+
+   > **Note:** By default, Kyma clusters have an Eventing backend based on **[NATS](https://nats.io/)**. However, it is possible to switch this backend to **[SAP Event Mesh](https://help.sap.com/viewer/product/SAP_EM/Cloud/en-US)** if you're not using a free tier or free trial BTP account.
+
+#### :arrow_right: [Setup SAP Event Mesh as your eventing backend for Kyma Runtime](step-4-option-2.md)
+
+## Apply the Event Registration Subscription
+
 1. Create a Subscription to receive events. The subscription custom resource is used to subscribe to events.
 
    ```shell
@@ -11,36 +27,6 @@
    ```shell
    kubectl get subscription -n conference-registration
    ```
-
-## Optionally, use Kyma Eventing with SAP Event Mesh (only if you're not using a free tier or free trial BTP account)
-
-   > **Note:** By default, Kyma clusters have an Eventing backend based on **[NATS](https://nats.io/)**. However, it is possible to switch this backend to **[SAP Event Mesh](https://help.sap.com/viewer/product/SAP_EM/Cloud/en-US)** if you're not using a free tier or free trial BTP account.
-
-### Create an instance of Event Mesh service in your BTP account
-
-1. Within you BTP subaccount, go to the **Entitlements** page and click on **Configure Entitlements**.
-
-   ![Configure Entitlements](../assets/setup-step-4/1.png)
-
-2. Search for **Event Mesh**, select the **standard** plan and on **Add 1 Service Plan**.
-
-   ![Add Event Mesh](../assets/setup-step-4/2.png)
-
-3. Click on **Save**.
-
-   ![Save Entitlements](../assets/setup-step-4/3.png)
-
-4. Within you BTP subaccount, go to **Services** > **Service Marketplace**, search for **Event Mesh** and click **Create**.
-
-   ![Create Event Mesh instance](../assets/setup-step-4/4.png)
-
-5. Select the **standard** plan and click **create**.
-
-   ![Create Event Mesh instance](../assets/setup-step-4/5.png)
-
-### :arrow_lower_right&#58;
-
-### [Use Kyma Eventing with SAP Event Mesh](https://help.sap.com/products/BTP/65de2977205c403bbc107264b8eccf4b/407d1266017f4b529b61665fa7408c41.html)
 
 ## Navigation
 

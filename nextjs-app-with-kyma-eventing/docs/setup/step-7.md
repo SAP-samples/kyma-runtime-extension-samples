@@ -12,9 +12,12 @@ For the first step, there are three options and you can choose one of them as pe
 
 * **Option 3**: Register your domain through another domain name registrar and then [add your domain to Cloudflare](https://community.cloudflare.com/t/step-1-adding-your-domain-to-cloudflare/64309).
 
-    > **Note:** Cloudflare also offers a [**free plan**](https://www.cloudflare.com/plans/free/) with **CDN** and **Unmetered DDoS Protection for Layers 3-7** for personal or hobby projects that aren’t business-critical.
+  > **Note:** Cloudflare also offers a [**free plan**](https://www.cloudflare.com/plans/free/) with **CDN** and **Unmetered DDoS Protection for Layers 3-7** for personal or hobby projects that aren’t business-critical.
 
-## 2. Create a Cloudflare API token
+Your nameserver change may take up to **48 hours** to propagate. Therefore, it would be best to wait for **48 hours**  before proceeding with the next step.
+
+
+## 2. Create a Cloudflare API Token
 
 1. Log into the [Cloudflare Dashboard](https://dash.cloudflare.com/) and go to `User Profile` -> `API Tokens` or simply [click here](https://dash.cloudflare.com/profile/api-tokens). From the API Token home screen select `Create Token`. Then, under `Custom token`, select `Get Started`.
 
@@ -42,11 +45,11 @@ For the first step, there are three options and you can choose one of them as pe
     echo -n '1234567890123456789' | base64
     ```
 
-## 3. Create a Kubernetes Secret with your Cloudflare API token
+## 3. Create a Kubernetes Secret with your Cloudflare API Token
 
 1. Use the Base64 encoded token from the above step to update the value of the resource with `data.CLOUDFLARE_API_TOKEN` in the [`./cloudflare/k8s/secret.yaml`](../../cloudflare/k8s/secret.yaml) file.
 
-2. Create the `cloudflare-credentials` Kubernetes secret in the `conference-registration` namespace.
+2. Create the `cloudflare-credentials` Kubernetes Secret in the `conference-registration` namespace.
 
    ```shell
    kubectl apply -f ./cloudflare/k8s/secret.yaml
@@ -54,9 +57,9 @@ For the first step, there are three options and you can choose one of them as pe
 
    > **Note:** Fore more details, refer to the [Cloudflare DNS Provider](https://github.com/gardener/external-dns-management/blob/master/docs/cloudflare/README.md) documentation.
 
-### Troubleshooting
+### Create a Kubernetes Secret — Troubleshooting
 
-If you get a permission error communicating with Cloudflare, be sure the domain name being registered does not exceed your plan limits. Hierarchical domains are not supported on the free plan as of this writing.
+If you get a permission error communicating with Cloudflare, ensure that the domain name being registered does not exceed the limits of your plan. Hierarchical domains are not supported on the free plan as of this writing.
 
 ## 4. Create a DNS Provider
 
@@ -76,6 +79,8 @@ In the Kyma console, select the  `conference-registration` namespace. Then, go t
 
 ![create a DNS Provider](../assets/setup-step-7/5.png)
 
+Wait for the status of the `DNS Provider` to change to `READY` before proceeding with the next step.
+
 ## 5. Create a DNS Entry
 
 In the Kyma console, select the  `conference-registration` namespace. Then, go to `Configuration` -> `DNS Entries`. Use your domain instead of `app.your-domain.com`. Under `Targets`, select both the options from the dropdown to add both the `istio-ingressgateway` and `vpn-shoot` records as the Targets. Then, click `Create`.
@@ -84,7 +89,15 @@ In the Kyma console, select the  `conference-registration` namespace. Then, go t
 
 ![Create a DNS Entry](../assets/setup-step-7/7.png)
 
-Wait for the status of the DNS Entry to change to `ready` before proceeding with the next step.
+Wait for the status of the `DNS Entry` to change to `READY` before proceeding with the next step.
+
+### Create a DNS Entry — Troubleshooting
+
+#### 403 error
+
+* Check to ensure that the `DNS Provider` created in the previous step has a `READY` status.
+* Confirm that the API Token added to the Kubernetes Secret created in the `Create a Kubernetes Secret` step above has the required access to add DNS records to your domain name registrar's account.
+* Log into the [Cloudflare Dashboard](https://dash.cloudflare.com/) and go to `Websites` -> Select your account and domain -> `DNS` and verify that the common records of your domain name are displayed there. If there are no records there, then your nameserver change may not have propagated and you would need to wait for up to **48 hours** for them to be displayed.
 
 ## 6. Create an Issuer
 
