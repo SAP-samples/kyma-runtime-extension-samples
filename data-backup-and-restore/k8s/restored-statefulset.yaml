@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: example-stateful-app
+  name: example-stateful-app
+spec:
+  serviceName: example-stateful-app
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-stateful-app
+  template:
+    metadata:
+      labels:
+        app: example-stateful-app
+    spec:
+      containers:
+      - image: busybox
+        name: example-stateful-app
+        resources: {}
+        volumeMounts:
+        - name: pvc-restored
+          mountPath: /data
+        command:
+        - sleep
+        - infinity
+  volumeClaimTemplates:
+  - metadata:
+      name: pvc-restored
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource:
+        kind: VolumeSnapshot
+        name: snapshot
+        apiGroup: snapshot.storage.k8s.io
+      resources:
+        requests:
+          storage: 1Gi
