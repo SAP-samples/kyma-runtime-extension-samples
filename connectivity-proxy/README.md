@@ -14,7 +14,7 @@ In order to configure the Connectivity Proxy within the Kyma Runtime you must fi
 - Within your global account…
 - Choose **Entitlements -> Entity Assignments**
 - Search **for Connectivity Service**
-- Choose **connectivity_proxy**
+- Choose **connectivity_proxy** for the plan
 - Choose **Add 1 Service Plan**
 - Choose **Save**
 
