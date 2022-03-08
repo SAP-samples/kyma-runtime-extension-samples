@@ -71,7 +71,7 @@ The XSUAA Service Instance defines how subscribers will authenticate to the samp
     }
     ```
 
-### Create SAAS Provioning Instance
+### Create SAAS Provisioning Instance
 
 >> <https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/ff540477f5404e3da2a8ce23dcee602a.html>
 
