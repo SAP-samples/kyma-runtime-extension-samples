@@ -73,11 +73,17 @@ In this sample, we will walk through a quick tutorial to set up and test the in-
     curl https://test-in-cluster-events.$(kubectl get configmap -n kube-system shoot-info -ojsonpath='{.data.domain}') -v
     ```
 
-* Check the logs for the prdoducer and consumer pods
+* Check the logs for the producer and consumer pods
+  Check the pod names with the following command
 
     ```shell
-    kubectl -n in-cluster-events logs producer-zjs7z-764fbd8b5d-mhmls function
-    kubectl -n in-cluster-events logs consumer-z9vsk-85cb475b59-9bvv2 function
+    kubectl get pods -n in-cluster-events
+    ```
+
+   Now from the list of pods, choose pod name for producer and consumer and replace below: 
+    ```shell
+    kubectl -n in-cluster-events logs <producer_pod_name> function
+    kubectl -n in-cluster-events logs <consumer_pod_name> function
     ```
 
 ## Cleanup
