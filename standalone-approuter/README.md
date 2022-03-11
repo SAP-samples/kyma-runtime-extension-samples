@@ -73,4 +73,4 @@ As a simple backend, we will use an HttpBin application that returns the request
 
 ## Accessing the Application
 
-The approuter is exposed at <https://https://my-approuter.{CLUSTER_DOMAIN}>. Access the URL <https://https://my-approuter.{CLUSTER_DOMAIN}/sap/com/httpbin/headers> to get all the request headers
+The approuter is exposed at <https://my-approuter.{CLUSTER_DOMAIN}>. Access the URL <https://my-approuter.{CLUSTER_DOMAIN}/sap/com/httpbin/headers> to get all the request headers
