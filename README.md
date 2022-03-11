@@ -112,11 +112,12 @@ Running various samples requires access to the Kyma runtime. There are also othe
 
 ## Authentication and Authorization
 
-| Name                                                                                                              | Description                                                                                                                    | References |
-| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------- |
-| [Sample to extend SAP Cloud for Customer with user propagation](./user-propagation/README.md)                     | This sample provides details on how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) via IAS | -          |
-| [Sample to extend SAP Cloud for Customer with user propagation via XSUAA](./user-propagation-via-xsuaa/README.md) | This sample demonstrates how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) via XSUAA      | -          |
-| [App Reverse Proxy with OIDC Authentication Middleware](./app-auth-proxy/README.md)                               | This sample provides a reverse proxy feature which dispatches requests to other microservices running in Kyma                  | -          |
+| Name                                                                                                              | Description                                                                                                                          | References |
+| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------       | ---------- |
+| [Sample to extend SAP Cloud for Customer with user propagation](./user-propagation/README.md)                     | This sample provides details on how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) via IAS       | -          |
+| [Sample to extend SAP Cloud for Customer with user propagation via XSUAA](./user-propagation-via-xsuaa/README.md) | This sample demonstrates how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) via XSUAA            | -          |
+| [App Reverse Proxy with OIDC Authentication Middleware](./app-auth-proxy/README.md)                               | This sample provides a reverse proxy feature which dispatches requests to other microservices running in Kyma                        | -          |
+| [Standalone approuter on SAP BTP, Kyma runtime](./standalone-approuter/README.md)                                 | This Sample demonstrates deploying a standalone app router on Kyma runtime and use it to securely expose microservices and functions | -           |
 
 ## Updates on SAP BTP, Kyma runtime based on Open Source Kyma 2.0
 
