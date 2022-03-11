@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+config
+k8s
+assets
+Makefile
+Dockerfile
+README.md
+.gitingore

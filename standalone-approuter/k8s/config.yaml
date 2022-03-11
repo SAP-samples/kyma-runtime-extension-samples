@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: destinations
+data:
+  destinations: >-
+    [
+        {
+          "name": "httpbin",
+          "url": "http://httpbin.dev.svc.cluster.local:8000",
+          "forwardAuthToken": true
+        }
+    ]
+---
+apiVersion: v1
+data:
+  xs-app.json: |-
+    {
+        "authenticationMethod": "route",
+        "sessionTimeout": 10,
+        "login" : {
+          "callbackEndpoint": "/sap/com/httpbin"
+        },
+        "routes": [
+            {
+                "source": "^/sap/com/httpbin/(.*)$",
+                "destination": "httpbin",
+                "target": "$1",
+                "authenticationType": "xsuaa"
+            },
+            {
+            "source": "^/(.*)$",
+            "destination": "httpbin",
+            "target": "/",
+            "authenticationType": "xsuaa"
+        }
+        ]
+    }
+kind: ConfigMap
+metadata:
+  name: xs-app

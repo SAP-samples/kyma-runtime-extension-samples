@@ -1,0 +1,13 @@
+{
+  "name": "app-router",
+  "version": "1.0.0",
+  "description": "Standalone approuter to be used in Kyma",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node node_modules/@sap/approuter/approuter.js"
+  },
+  "author": "Gaurav Abbi",
+  "dependencies": {
+    "@sap/approuter": "^10.13.2"
+  }
+}

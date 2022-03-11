@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: my-approuter
+  name: my-approuter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-approuter
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: my-approuter
+    spec:
+      volumes:
+      - name: xs-app
+        configMap:
+          name: xs-app
+      - name: my-xsuaa-binding
+        secret:
+          secretName: my-xsuaa-binding
+      containers:
+      - image: gabbi/approuter:0.0.1
+        name: my-approuter
+        ports:
+        - containerPort: 5000
+        resources: {}
+        volumeMounts:
+        - name: xs-app
+          mountPath: /usr/src/app/xs-app.json
+          subPath: xs-app.json
+          readOnly: true
+        - name: my-xsuaa-binding
+          mountPath: /etc/secrets/sapcp/xsuaa/my-xsuaa
+          readOnly: true
+        env:
+        - name: destinations
+          valueFrom:
+            configMapKeyRef:
+              name: destinations
+              key: destinations
+        - name: XS_APP_LOG_LEVEL
+          value: debug
+        - name: REQUEST_TRACE
+          value: "true"
+        - name: DEV_ENV_TRACES
+          value: "true"
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: my-approuter
+  name: my-approuter
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: my-approuter
+status:
+  loadBalancer: {}
+
+

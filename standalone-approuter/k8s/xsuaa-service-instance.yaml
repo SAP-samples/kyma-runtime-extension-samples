@@ -1,0 +1,37 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: my-xsuaa
+spec:
+  clusterServiceClassExternalName: xsuaa
+  clusterServicePlanExternalName: application
+  parameters:
+    xsappname: my-approuter
+    tenant-mode: dedicated
+    scopes:
+      - name: $XSAPPNAME.User
+        description: "user role"
+    role-templates:
+      - name: User
+        description: "access apps exposed via app router"
+        scope-references:
+          - $XSAPPNAME.User
+    role-collections:
+      - name: "kyma-my-approuter-users"
+        description: "access apps exposed via app router"
+        role-template-references:
+          - $XSAPPNAME.User
+    oauth2-configuration:
+      redirect-uris:
+        # callback
+        - "https://**.{CLUSTER_DOMAIN}/**"
+        - "http://**/*"
+        - "http://*/**"
+---
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: my-xsuaa-binding
+spec:
+  instanceRef:
+    name: my-xsuaa
