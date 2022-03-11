@@ -31,6 +31,13 @@ As a simple backend, we will use an HttpBin application that returns the request
 
 ![scenario](assets/scenario.png)
 
+## Prerequisites
+
+- [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
+- [Docker](../prerequisites/#docker)
+- [make](https://www.gnu.org/software/make/)
+- [Kubernetes tooling](../prerequisites/#kubernetes)
+
 ## Steps
 
 - Create a namespace dev
