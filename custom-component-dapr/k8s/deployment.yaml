@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: daprwishlistapp
-          image: <Your Docker ID>/daprwishlistapp:1.0.0
+          image: ghcr.io/sap-samples/kyma-runtime-extension-samples/daprwishlistapp:latest
           ports:
             - containerPort: 7080
           imagePullPolicy: Always
