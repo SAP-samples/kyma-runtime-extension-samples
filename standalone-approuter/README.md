@@ -29,7 +29,9 @@ We will deploy an approuter, expose it over the internet via APIRule. It will be
 
 As a simple backend, we will use an HttpBin application that returns the request headers as a response. Good for understanding flows and troubleshooting.
 
-![scenario](assets/scenario.png)
+![scenario](assets/scenario.svg)
+
+> Note: Standalone approuter is deployed with 2 replicas. Session stickiness is acheived by configuring the [Destination rule](k8s/deployment.yaml)
 
 ## Prerequisites
 

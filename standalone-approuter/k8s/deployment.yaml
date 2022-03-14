@@ -1,3 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: my-approuter
+spec:
+  host: my-approuter
+  trafficPolicy:
+    loadBalancer:
+      consistentHash:
+        httpCookie:
+          name: JSESSIONID
+          path: /
+          ttl: 0s
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,7 +20,7 @@ metadata:
     app: my-approuter
   name: my-approuter
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: my-approuter
