@@ -19,4 +19,4 @@ spec:
         - handler: header
           config:
             headers:
-              x-forwarded-host: "{CLUSTER_DOMAIN}"
+              x-forwarded-host: "my-approuter.{CLUSTER_DOMAIN}"
