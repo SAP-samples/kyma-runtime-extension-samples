@@ -19,6 +19,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: 'Install dependencies and Build'
+        shell: bash
+        run: |
+          pushd './custom-component-dapr'
+          npm ci
+          npm run build
+          popd  
       - name: Log in to the Container registry (GH Packages)
         uses: docker/login-action@v1
         with:
