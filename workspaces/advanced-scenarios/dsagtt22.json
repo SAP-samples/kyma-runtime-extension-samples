@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "../../dsagtt22",
+			"name": "Hands-on DSAG Technology Days 2022"
+		}
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen"
+	},
+	"extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+			"ms-azuretools.vscode-azurefunctions",
+			"ms-azuretools.vscode-dapr",
+			"ms-azuretools.vscode-docker",
+			"ms-kubernetes-tools.vscode-kubernetes-tools",
+			"vsls-contrib.codetour",
+			"humao.rest-client",
+			"redhat.vscode-yaml"
+		]
+	}
+}

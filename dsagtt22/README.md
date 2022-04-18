@@ -32,7 +32,7 @@ So from the perspective of SAP components the building blocks can be sketched li
 
 ![HandsOn SAP Components](./pics/DSAGTT2022_SAP_Components.png)
 
-In addition we will show how you can deploy artefacts to SAP BTP, Kyma runtime using [GitHub Actions](https://docs.github.com/en/actions).
+In addition we will show how you can deploy artefacts to SAP BTP, Kyma runtime using [GitHub Actions](https://docs.github.com/actions).
 
 ## Technical Prerequisites
 
