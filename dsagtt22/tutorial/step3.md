@@ -53,6 +53,6 @@ From within the Kyma runtime the proxy will be accessible using the URL `connect
 
 🎉 Congratulations - You've now completed the setup of the Connectivity Proxy!
 
-Continue to [Step 4 - Set up the service mesh](step4.md).
+Continue to [Step 4 - Set up the SAP Event Mesh](step4.md).
 
 [◀ Previous step](step2.md) | [🔼 Overview](../README.md) | [Next step ▶](step4.md)

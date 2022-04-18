@@ -1,4 +1,4 @@
-# Step 4 - Set up the event mesh
+# Step 4 - Set up the SAp Event Mesh
 
 > DSAG Technologietage 2022 Category: 👨‍🔧
 
