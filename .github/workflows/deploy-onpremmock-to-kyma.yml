@@ -1,0 +1,22 @@
+name: DSAG TT 2022 - Deploy on prem mock to Kyma 
+
+on:
+  workflow_dispatch: {}
+env:
+  NAMESPACE: dsagtt22-sapcc
+
+jobs:
+  execute_deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Authenticate with Kubernetes
+        uses: azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG_SERVICE_ACCOUNT }}
+      - name: Execute deployment of Cloud Connector
+        run: |
+          kubectl apply -f dsagtt22/onprem-mock/k8s/deployment.yaml
+      

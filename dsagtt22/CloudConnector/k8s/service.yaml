@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sapcc-app
+  name: sappcc-service
+  namespace: dsagtt22-sapcc
+spec:
+  ports:
+    - name: "adminport"
+      port: 8443
+      targetPort: 8443
+  type: LoadBalancer
+  selector:
+    app: sapcc-app

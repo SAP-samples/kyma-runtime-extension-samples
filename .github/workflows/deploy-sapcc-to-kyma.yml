@@ -1,0 +1,30 @@
+name: DSAG TT 2022 - Deploy SAP Cloud Connector to Kyma 
+
+on:
+  workflow_dispatch: {}
+env:
+  NAMESPACE: dsagtt22-sapcc
+
+jobs:
+  execute_deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Authenticate with Kubernetes
+        uses: azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG_SERVICE_ACCOUNT }}
+      - name: Setup namespace in Kyma (Istio disabled)
+        run: |
+          kubectl apply -f dsagtt22/CloudConnector/k8s/namespace.yaml
+      - name: Create pvc in Kyma
+        run: |
+          kubectl apply -f dsagtt22/CloudConnector/k8s/pvc.yaml
+      - name: Execute deployment of Cloud Connector
+        run: |
+          kubectl apply -f dsagtt22/CloudConnector/k8s/deployment.yaml
+      - name: Create service in Kyma
+        run: |
+          kubectl apply -f dsagtt22/CloudConnector/k8s/service.yaml

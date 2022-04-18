@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+    <Dialog title="{i18n>deleteOrder}" type="Message">
+        <content>
+            <Text id="confirmDeleteMsg" text="{i18n>orderConfirmDelete}"></Text>
+        </content>
+        <buttons>
+            <Button text="{i18n>delete}" press="deleteOrder" />
+            <Button text="{i18n>cancel}" press="closeDialog" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

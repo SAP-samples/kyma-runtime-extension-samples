@@ -1,0 +1,46 @@
+name: DSAG TT 2022 - Deploy backend to Kyma
+
+on:
+  workflow_dispatch: {}
+env:
+  NAMESPACE: dsagtt22
+
+jobs:
+  execute_deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Authenticate with Kubernetes
+        uses: azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG_SERVICE_ACCOUNT }}
+      - name: Setup namespace in Kyma
+        run: |
+          echo "*** Create namespace ***"
+          kubectl create ns ${{ env.NAMESPACE }}
+      - name: Setup MS SQL Deployment in Kyma
+        run: |
+          echo "*** Create secret ***"
+          kubectl apply -f dsagtt22/ordermicroservice/api-mssql-go/k8s/secret.yaml -n ${{ env.NAMESPACE }}
+          echo "*** Create persistent volume claim ***"  
+          kubectl apply -f dsagtt22/ordermicroservice/database-mssql/k8s/pvc.yaml -n ${{ env.NAMESPACE }}
+          echo "*** Create deployment ***"
+          kubectl apply -f dsagtt22/ordermicroservice/database-mssql/k8s/deployment.yaml -n ${{ env.NAMESPACE }}
+      - name: Setup GO API for MS SQL in Kyma
+        run: |
+          echo "*** Create configmap ***"  
+          kubectl apply -f dsagtt22/ordermicroservice/api-mssql-go/k8s/configmap.yaml -n ${{ env.NAMESPACE }}
+          echo "*** Create deployment ***"
+          kubectl apply -f dsagtt22/ordermicroservice/api-mssql-go/k8s/deployment.yaml -n ${{ env.NAMESPACE }}
+          echo "*** Create API rule ***"
+          kubectl apply -f dsagtt22/ordermicroservice/api-mssql-go/k8s/apirule.yaml -n ${{ env.NAMESPACE }}    
+      - name: Setup UI5 frontend for MS SQL in Kyma
+        run: |
+          echo "*** Create configmap ***"  
+          kubectl apply -f dsagtt22/ordermicroservice/frontend-ui5-mssql/k8s/configmap.yaml -n ${{ env.NAMESPACE }}
+          echo "*** Create deployment ***"
+          kubectl apply -f dsagtt22/ordermicroservice/frontend-ui5-mssql/k8s/deployment.yaml -n ${{ env.NAMESPACE }}
+          echo "*** Create API rule ***"
+          kubectl apply -f dsagtt22/ordermicroservice/frontend-ui5-mssql/k8s/apirule.yaml -n ${{ env.NAMESPACE }}    

@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: orderserviceconfig
+data:
+  ORDER_SERVICE_ENDPOINT: <YOUR ENDPOINT>
+  ONPREM_SERVICE_ENDPOINT: <YOUR ENDPOINT>

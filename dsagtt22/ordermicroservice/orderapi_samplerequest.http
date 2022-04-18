@@ -1,0 +1,24 @@
+@basurl=https://api-mssql-go.<KYMA CLUSTER HOSTNAME>
+
+###
+POST {{basurl}}/orders
+
+{
+    "order_id": "10000003",
+    "description": "Sample Order 3",
+    "status": "in process",
+    "email": "max.mueller@test.com"
+}
+
+###
+GET {{basurl}}/orders
+
+###
+PUT {{basurl}}/orders/10000002
+
+{
+    "order_id": "10000002",
+    "description": "Sample Order 2 neu",
+    "status": "in process",
+    "email": "max.mueller@test.com"
+}

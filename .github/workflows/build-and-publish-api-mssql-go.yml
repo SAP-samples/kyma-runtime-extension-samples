@@ -1,0 +1,35 @@
+name: Build and publish container image for the Golang MS SQL database API
+
+on:
+  workflow_dispatch: {}
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: api-mssql-go
+  LABEL: 1.0.0
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Log in to the Container registry (GH Packages)
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}},value=${{ env.LABEL }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2.10.0
+        with:
+          context: "{{defaultContext}}:dsagtt22/ordermicroservice/api-mssql-go" 
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}            

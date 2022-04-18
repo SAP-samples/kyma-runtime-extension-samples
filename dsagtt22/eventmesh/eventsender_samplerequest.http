@@ -1,0 +1,32 @@
+@clientid = <Value>
+@clientsecret = <Value>
+@authbase64 = <base64 encoded clientid:clientsecret>
+@tokenendpoint = <Tokenendpoint from Service Keys>
+@baseurl = <Base Url from Service Keys>
+@queue = <URL encoded Queue Name>
+@granttype = client_credentials
+
+### Get Token
+# @name gettoken
+POST {{tokenendpoint}}?grant_type=client_credentials&response_type=token
+Authorization: Basic {{authbase64}}
+
+
+### Send a message to a queue
+# @name sendmessage
+POST {{baseurl}}/messagingrest/v1/queues/{{queue}}/messages
+Authorization: Bearer {{gettoken.response.body.access_token}} 
+Content-Type: application/json 
+x-qos: 1
+
+{
+    "materialId":"0815"
+}
+
+### Test: Trigger API rule directly
+POST https://testinput.c2891b4.kyma.ondemand.com
+Content-Type: application/json 
+
+{
+    "materialId": 123
+}

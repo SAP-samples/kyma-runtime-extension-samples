@@ -1,0 +1,28 @@
+{
+    "emname": "dsagtt22",
+    "namespace": "default/dsagtt22.kyma/eventing.demo",
+    "version": "1.1.0",
+    "options": {
+        "management": true,
+        "messagingrest": true,
+        "messaging": true
+    },
+    "rules": {
+        "queueRules": {
+            "publishFilter": [
+                "${namespace}/*"
+            ],
+            "subscribeFilter": [
+                "${namespace}/*"
+            ]
+        },
+        "topicRules": {
+            "publishFilter": [
+                "${namespace}/*"
+            ],
+            "subscribeFilter": [
+                "${namespace}/*"
+            ]
+        }
+    }
+}

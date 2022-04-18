@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sap-cloud-connector
+  namespace: dsagtt22-sapcc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sapcc-app
+  template:
+    metadata:
+      labels:
+        app: sapcc-app
+    spec:
+      containers:
+        - name: sap-cc-image
+          image: ghcr.io/sap-samples/kyma-runtime-extension-samples/java11-sapcc:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8443
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          volumeMounts:
+            - mountPath: /usr/sapcc
+              name: sapcc-volume
+          command: ["/bin/sh"]
+          args: [ "-c", "if [ ! -f /usr/sapcc/go.sh ]; then cp -a /home/sapcc/. /usr/sapcc && rm -rf /home/sapcc/; else echo Already installed, starting; fi; ./go.sh"]
+      volumes:
+        - name: sapcc-volume
+          persistentVolumeClaim:
+            claimName: sapcc-pvc
+---
+

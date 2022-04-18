@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onpremmockapp
+  namespace: dsagtt22-sapcc
+  labels:
+    app: onpremmockapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: onpremmockapp
+  template:
+    metadata:
+      labels:
+        app: onpremmockapp
+    spec:
+      containers:
+        - name: onpremmockapp
+          image: ghcr.io/sap-samples/kyma-runtime-extension-samples/dsagtt22-onprem-mock:latest
+          ports:
+            - containerPort: 17080
+          imagePullPolicy: Always
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: onpremmockapp
+  labels:
+    app: onpremmockapp
+  namespace: dsagtt22-sapcc  
+spec:
+  selector:
+    app: onpremmockapp
+  ports:
+    - protocol: TCP
+      port: 17080
+      targetPort: 17080
+  type: ClusterIP

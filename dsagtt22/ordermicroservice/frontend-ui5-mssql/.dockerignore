@@ -1,0 +1,5 @@
+.dockerignore
+Dockerfile
+Dockerfile.prod
+.gitignore
+kyma.pem

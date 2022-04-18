@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: eventmeshconfig
+data:
+  MESSAGING_ENDPOINT_BASE: <YOUR MESSAGING ENDPONT - BASE URL e.g. https://enterprise-messaging-pubsub.cfapps.us30.hana.ondemand.com>
+  MESSAGING_TOKEN_ENDPOINT: <YOUR MESSAGING TOKEN ENDPONT>
+  TRIGGER_QUEUE_PATH: <YOUR QUEUE PATH> 
