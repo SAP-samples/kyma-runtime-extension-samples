@@ -10,3 +10,4 @@ https://charts.bitnami.com/bitnami
 .svc.cluster.local*
 https://test-in-cluster-events.*
 https://my-approuter.*
+https://docs.github.com/actions
