@@ -102,13 +102,18 @@ spec:
         port: 20003,
       }
 
+      const body = {
+        "userId": "01"
+      }
+
       const url = `${process.env.ONPREM_SERVICE_ENDPOINT}/api/OrdersByMaterial/${materialId}`
 
       try {
 
         const result = await axios.get(url, {
           headers: headers,
-          proxy: proxy
+          proxy: proxy,
+          body: body
         });
 
         console.log(`The result is is: ${result.data.orderId}`)
