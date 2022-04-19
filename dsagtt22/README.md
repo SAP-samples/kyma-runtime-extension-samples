@@ -56,7 +56,7 @@ Let the fun begin 👩‍💻
 1. [Step 1 - Set up the order microservice 👀](./tutorial/step1.md)
 2. [Step 2 - Set up the on-premise components 👀](./tutorial/step2.md)
 3. [Step 3 - Set up the connectivity proxy 👨‍🔧](./tutorial/step3.md)
-4. [Step 4 - Set up the service mesh 👨‍🔧](./tutorial/step4.md)
+4. [Step 4 - Set up the SAP Event Mesh 👨‍🔧](./tutorial/step4.md)
 5. [Step 5 - Develop function "trigger supply chain issue" 👨‍🔧](./tutorial/step5.md)
 6. [Step 6 - Develop function "update order status" 👨‍🔧](./tutorial/step6.md)
 7. [OPTIONAL: Step 7 - Develop function "send delay email" 👨‍🔧](./tutorial/step7.md)

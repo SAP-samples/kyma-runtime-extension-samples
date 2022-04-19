@@ -1,4 +1,4 @@
-# Step 4 - Set up the event mesh
+# Step 4 - Set up the SAp Event Mesh
 
 > DSAG Technologietage 2022 Category: 👨‍🔧
 
@@ -129,16 +129,23 @@ This finalizes the setup of the Event Mesh, we will later come back to the appli
 
 ## Option 2 - Setup via the BTP Setup Automator
 
-To provision the event mesh you can also use the [BTP setup automator](https://github.com/SAP-samples/btp-setup-automator)
+To provision the event mesh you can also use the [BTP setup automator](https://github.com/SAP-samples/btp-setup-automator). You find a description on how to use this tool as well as predefined configuration files in the directory [dsag/2022-technologydays](https://github.com/SAP-samples/btp-setup-automator/tree/main/usecases/other/dsag/2022-technologydays) of the GitHub Repository.
 
 ## Retrieve Service Keys
 
-To enable the communication with the event mesh we need to fetch the service keys in order to authenticate requests. You retrieve those key in the SAP BTP Cockpit:
+To enable the communication with the event mesh we need to fetch the service keys in order to authenticate requests. 
+
+> 📝 **Tip** - If you used the BTP setup automator to provision the SAP Event Mesh service and application, the service keys are already created by the tool. You can directly download the keys.
+
+You create the keys in the SAP BTP Cockpit:
 
 - Navigate to your subaccount in the SAP BTP Cockpit
 - Go to **Services** -> **Instances and Subscriptions**
 - In the section **Instances** press the action menu (three dots) and select **Create Service Key**
 - Enter a name for the service key (e. g. `dsagttt22eventmeshsk`) and press **Create**
+
+Download the created service key:
+
 - Click on the link of the created service key
 
   ![Link to Service Keys for Event Mesh](../pics/step4_Link_to_Service_Keys.png)
