@@ -8,11 +8,11 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     const randomOrderEntry = orderList[getRandomInt(0, orderList.length - 1)]
 
-    context.log(`The order ${randomOrderEntry.orderId}-${context.req.body.userId} belongs to the material ${context.bindingData.materialid}`)
+    context.log(`The order ${context.req.body.userId}-${randomOrderEntry.orderId} belongs to the material ${context.bindingData.materialid}`)
 
     const responseBody = {
         "materialId": context.bindingData.materialid,
-        "orderId": `${randomOrderEntry.orderId}-${context.req.body.userId}`
+        "orderId": `${context.req.body.userId}-${randomOrderEntry.orderId}`
     }
 
     context.res = {

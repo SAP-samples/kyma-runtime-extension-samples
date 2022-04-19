@@ -7,7 +7,7 @@
       "route": "OrdersByMaterial/{materialid:int}",
       "name": "req",
       "methods": [
-        "get"
+        "post"
       ]
     },
     {

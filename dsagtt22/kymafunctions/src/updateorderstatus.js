@@ -42,10 +42,9 @@ async function getOrderByMaterial(materialId) {
 
   try {
 
-    const result = await axios.get(url, {
+    const result = await axios.post(url, body, {
       headers: headers,
-      proxy: proxy,
-      body: body
+      proxy: proxy
     });
 
     console.log(`The result is is: ${result.data.orderId}`)
