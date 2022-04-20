@@ -4,7 +4,7 @@
 
 ## Goal 🎯
 
-This step covers the creation of a Kyma Function that triggers the overall process i. e. pushes a message into the `supplychainissue` queue that can then processed by another Kyma Function to update the order status.
+This step covers the creation of a Kyma Function that triggers the overall process i. e. pushes a message into the `supplychainissue<userID>` queue that can then processed by another Kyma Function to update the order status.
 
 In this section we will:
 
@@ -44,7 +44,7 @@ To avoid hard-coding this into the code of the Kyma Function we create a `config
       | ---                          | ---
       | **MESSAGING_TOKEN_ENDPOINT** | Value of `"tokenendpoint"` in your Event Mesh service key file
       | **MESSAGING_ENDPOINT_BASE**  | Value of `"uri"` in your Event Mesh service key file
-      | **TRIGGER_QUEUE_PATH**       | Full name Name of the `supplychainissue` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
+      | **TRIGGER_QUEUE_PATH**       | Full name Name of the `supplychainissue<userID>` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
 
   > 📝 **Tip** - When fetching the values from the service key file, make sure to take them from the JSON object with the property `"protocol": ["httprest"]`.
 
@@ -77,7 +77,7 @@ In the Kyma Dashboard:
 - Go to the **Workloads** -> **Functions** area in the navigation sidebar
 - Push the **Create Function** button
 - Enter following data into the pop-up (**Simple** tab):
-  - **Name**: `triggersupplyshortagemessage`
+  - **Name**: `triggersupplyshortagemessage<userID>`
   - **Runtime**: `Node.js 14`
 - Press the **Create** button.
 
@@ -101,7 +101,7 @@ We declare the dependency in the **Dependencies** tab under the **Code** section
 
 ```json
 { 
-  "name": "triggersupplyshortagemessage",
+  "name": "triggersupplyshortagemessage<userID>",
   "version": "1.0.0",
   "dependencies": {
     "node-fetch": "^2.6.7"
@@ -298,11 +298,11 @@ In the Kyma Dashboard:
 - Push the **Create API Rule** button
 - Enter following data into the pop-up (**Simple** tab):
 - In the pop-up **Create API Rule** enter the following data:
-  - **Name**: `supplychaintrigger`
-  - **Service**: Select the service `triggersupplyshortagemessage` from the drop down list
+  - **Name**: `supplychaintrigger<userID>`
+  - **Service**: Select the service `triggersupplyshortagemessage<userID>` from the drop down list
   - **Gateway**: Leave the default value
   - **Host**: Leave the default value
-  - **Subdomain**: `supplychaintrigger`
+  - **Subdomain**: `supplychaintrigger<userID>`
   - **Path**: Leave the default value
   - **Handler**: `noop`
   - **Methods**: Make sure that the `GET` checkbox is ticked

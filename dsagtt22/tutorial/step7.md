@@ -6,7 +6,7 @@
 
 This step covers the creation of an email to notify the customer about the delayed order. We will create another Kyma Function that will
 
-- be registered as a webhook for the `delayedorder` queue
+- be registered as a webhook for the `delayedorder<userID>` queue
 - fetch the information about the order including the email address from the order microservice
 - send an email by using the 3rd party service [Courier](https://www.courier.com/)
 
@@ -33,7 +33,7 @@ As a first step we create the Kyma Function and expose it via a API rule. In the
 - Go to the **Workloads** -> **Functions** area in the navigation sidebar
 - Push the **Create Function** button
 - Enter following data into the pop-up (**Simple** tab):
-  - **Name**: `delayedorderemailsender`
+  - **Name**: `delayedorderemailsender<userID>`
   - **Runtime**: `Node.js 14`
 - Press the **Create** button.
 
@@ -43,11 +43,11 @@ We leave the Kyma Function as is and create a API rule to expose it. To achieve 
 - Push the **Create API Rule** button
 - Enter following data into the pop-up (**Simple** tab):
 - In the pop-up **Create API Rule** enter the following data:
-  - **Name**: `delayedorderemailsender`
+  - **Name**: `delayedorderemailsender<userID>`
   - **Service**: Select the service `delayedorderemailsender` from the drop down list
   - **Gateway**: Leave the default value
   - **Host**: Leave the default value
-  - **Subdomain**: `delayedorderemailsender`
+  - **Subdomain**: `delayedorderemailsender<userID>`
   - **Path**: Leave the default value
   - **Handler**: `noop`
   - **Methods**: Tick the `POST`
@@ -58,9 +58,9 @@ As the Kyma Function can be called we register it as a webhook in the Event Mesh
 
 ## Step 7.3 - Register the Webhook
 
-> 📝 **Tip** - As we have tested the flow already in step 6, there are already messages in the `delayedorder` queue. To avoid confusion later when checking the Kyma Function logs, purge the queue via the corresponding action in the Event Mesh application of the delayedorder` queue.
+> 📝 **Tip** - As we have tested the flow already in step 6, there are already messages in the `delayedorder<userID>` queue. To avoid confusion later when checking the Kyma Function logs, purge the queue via the corresponding action in the Event Mesh application of the `delayedorder<userID>` queue.
 
-In order to get the Kyma Function triggered by messages posted to the queue `delayedorder` we must register it as webhook listening to this queue. For that execute the following steps:
+In order to get the Kyma Function triggered by messages posted to the queue `delayedorder<userID>` we must register it as webhook listening to this queue. For that execute the following steps:
 
 - Navigate to your subaccount in the SAP BTP Cockpit.
 - Go to **Services** -> **Instances and Subscriptions**
@@ -70,7 +70,7 @@ In order to get the Kyma Function triggered by messages posted to the queue `del
 - Press the **Create Webhook** button
 - Enter the following data:
   - **Subscription Name**: orderdelayedhandler
-  - **Queue Name**: Choose the queue `delayedorder` from the drop-down menu
+  - **Queue Name**: Choose the queue `delayedorder<userID>` from the drop-down menu
   - **Quality of Service**: 0
   - **Exempt Handshake**: Switch the toggle to `Yes`
   - **On Premise**: Leave the toggle at `No`
@@ -81,7 +81,7 @@ In order to get the Kyma Function triggered by messages posted to the queue `del
 
 After that activate the webhook by selecting **Resume** from the menu available in the **Actions** tab of the webhook table.
 
-We have now registered the Kyma Function as webhook for the messages in the `delayedorder` queue. In the next step we implement the business logic in the Kyma Function.
+We have now registered the Kyma Function as webhook for the messages in the `delayedorder<userID>` queue. In the next step we implement the business logic in the Kyma Function.
 
 ## Step 7.4 - Implementing the Kyma Function `delayedorderemailsender`
 
@@ -104,7 +104,7 @@ In order to store the secret of the Courier API we define another secret in Kyma
 
 ### Step 7.4b - Completing the Kyma Function implementation
 
-As we want to call the order microservice and then trigger an email via Courier, we need to make some data of the configuration available in the Kyma Function via environment variables. Go to the Kyma Function `delayedorderemailsender` and add the following variables:
+As we want to call the order microservice and then trigger an email via Courier, we need to make some data of the configuration available in the Kyma Function via environment variables. Go to the Kyma Function `delayedorderemailsender<userID>` and add the following variables:
 
 | Variable Name            | Source
 | ---                      | ---
@@ -273,9 +273,9 @@ With this setup we are now good to test the overall flow.
 
 ## Step 7.5 - Test the Setup
 
-Test the setup as in [Step 6.4](./step6.md#step-64---test-the-setup) by triggering a message via the Kyma Function `triggersupplyshortagemessage`.
+Test the setup as in [Step 6.4](./step6.md#step-64---test-the-setup) by triggering a message via the Kyma Function `triggersupplyshortagemessage<userID>`.
 
-You can then check the processing via the logs of your Kyma Function `delayedorderemailsender`:
+You can then check the processing via the logs of your Kyma Function `delayedorderemailsender<userID>`:
 
 ![Kyma Function Logs of Email Processing](../pics/step7_Function_Log.png)
 

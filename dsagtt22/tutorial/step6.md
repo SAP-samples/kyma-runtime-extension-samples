@@ -4,12 +4,12 @@
 
 ## Goal 🎯
 
-This step covers the creation of the main business logic for our scenario. We will create a Kyma Function, expose it via an API rule and register it as a webhook for the `supplychainissue` queue. Invoked by messages delivered to the queue the Kyma Function will:
+This step covers the creation of the main business logic for our scenario. We will create a Kyma Function, expose it via an API rule and register it as a webhook for the `supplychainissue<userID>` queue. Invoked by messages delivered to the queue the Kyma Function will:
 
 - Extract the material ID from the message
 - Call the on-premise service to identify the orders connected to the material ID via the Connectivity Proxy of Kyma
 - Update the status of the order to the value "DELAYED"
-- Push a message to the `delayedorder` queue to trigger the notification of the customers.
+- Push a message to the `delayedorder<userID>` queue to trigger the notification of the customers.
 
 ## Step 6.1 - Create the Kyma Function `updateorderstatus`
 
@@ -18,7 +18,7 @@ As a first step we create the Kyma Function and expose it via a API rule. In the
 - Go to the **Workloads** -> **Functions** area in the navigation sidebar
 - Push the **Create Function** button
 - Enter following data into the pop-up (**Simple** tab):
-  - **Name**: `updateorderstatus`
+  - **Name**: `updateorderstatus<userID>`
   - **Runtime**: `Node.js 14`
 - Press the **Create** button.
 
@@ -28,11 +28,11 @@ We leave the Kyma Function as is and create a API rule to expose it. To achieve 
 - Push the **Create API Rule** button
 - Enter following data into the pop-up (**Simple** tab):
 - In the pop-up **Create API Rule** enter the following data:
-  - **Name**: `updateorderstatus`
+  - **Name**: `updateorderstatus<userID>`
   - **Service**: Select the service `updateorderstatus` from the drop down list
   - **Gateway**: Leave the default value
   - **Host**: Leave the default value
-  - **Subdomain**: `updateorderstatus`
+  - **Subdomain**: `updateorderstatus<userID>`
   - **Path**: Leave the default value
   - **Handler**: `noop`
   - **Methods**: Tick the `POST`
@@ -43,7 +43,7 @@ As the Kyma Function can be called we register it as a webhook in the Event Mesh
 
 ## Step 6.2 - Register the Webhook
 
-In order to get the Kyma Function triggered by messages posted to the queue `supplychainissue` we must register it as webhook listening to this queue. For that execute the following steps:
+In order to get the Kyma Function triggered by messages posted to the queue `supplychainissue<userID>` we must register it as webhook listening to this queue. For that execute the following steps:
 
 - Navigate to your subaccount in the SAP BTP Cockpit.
 - Go to **Services** -> **Instances and Subscriptions**
@@ -53,7 +53,7 @@ In order to get the Kyma Function triggered by messages posted to the queue `sup
 - Press the **Create Webhook** button
 - Enter the following data:
   - **Subscription Name**: supplychainissuehandler
-  - **Queue Name**: Choose the queue `supplychainissue` from the drop-down menu
+  - **Queue Name**: Choose the queue `supplychainissue<userID>` from the drop-down menu
   - **Quality of Service**: 0
   - **Exempt Handshake**: Switch the toggle to `Yes`
   - **On Premise**: Leave the toggle at `No`
@@ -66,7 +66,7 @@ After that activate the webhook by selecting **Resume** from the menu available 
 
 ![Webhook Registration in Event Mesh](../pics/step6_Webhook_Registration.png)
 
-We have now registered the Kyma Function as webhook for the messages in the `supplychainissue` queue. In the next step we implement the business logic in the Kyma Function.
+We have now registered the Kyma Function as webhook for the messages in the `supplychainissue<userID>` queue. In the next step we implement the business logic in the Kyma Function.
 
 ## Step 6.3 - Implementing the Kyma Function `updateorderstatus`
 
@@ -75,7 +75,7 @@ The implementation of the Kyma Function comprises the following steps:
 - Adding the necessary configuration information in the config maps
 - Implementing the call to the on-premise system
 - Implementing the call to the order microservice
-- Implementing the push of a message to the `delayedorder` queue
+- Implementing the push of a message to the `delayedorder<userID>` queue
 
 We will walk through these steps in the following sections.
 
@@ -83,7 +83,7 @@ We will walk through these steps in the following sections.
 
 As additional configuration to the one we created in the previous step, we need:
 
-- Path to the message queue `delayedorder`
+- Path to the message queue `delayedorder<userID>`
 - Endpoint of the on-premise service
 - Endpoint of the order microservice
 
@@ -95,7 +95,7 @@ We put the queue name in the already existing config map `triggerfunctionconfigm
 - Enter the following key-value pairs into the **Data** section:
       | Key                        | Value
       | ---                        | ---
-      | **DELAYEDORDER_PATH**      | Full name Name of the `delayedorder` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
+      | **DELAYEDORDER_PATH**      | Full name Name of the `delayedorder<userID>` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
 - Press the **Update** button.
 
 Then create a new config map:
@@ -111,7 +111,7 @@ Then create a new config map:
       | **ORDER_SERVICE_ENDPOINT**   | Value of the API rule endpoint of the order microservice API (not UI5 app). This should be `https://api-mssql-go.<Host of your Kyma cluster>`
 - Press the **Create** button.
 
-Now we need to connect these values to the Kyma Function via environment variables. Navigate to the Kyma Function `updateorderstatus` and open the inline editor:
+Now we need to connect these values to the Kyma Function via environment variables. Navigate to the Kyma Function `updateorderstatus<userID>` and open the inline editor:
 
 - In the **Environment Variables** section of the inline editor press the **Add Environment Variable** button.
 - Select **Config Map Variable**
@@ -134,7 +134,7 @@ Execute the same procedure for the following variables:
 
 ### Step 6.3b - The main body of the Kyma Function `updateorderstatus`
 
-As we have all configuration in place we can start with the implementatin of the Kyma Function. We first build the body of the function sketching the process flow and then implement the details:  
+As we have all configuration in place we can start with the implementation of the Kyma Function. We first build the body of the function sketching the process flow and then implement the details:  
 
 - First cleanup the function body and add the `async` keyword to the function
 
@@ -325,6 +325,8 @@ First we implement the call to the on-premise system:
 
 - Finally implement the call to the on-premise system via a `GET` request:
 
+  > 📝 **Tip** - As we have one on-premise system for all participants, we must cheat a bit: we transfer the userID as an additional information to call of the on-premise system. The mock will then construct the order ID according to the schema <userID>-orderID to return a unique value. The ID of the order will be a random ID from the range 10000001 to 10000003.  
+
   ```javascript
   async function getOrderByMaterial(materialId) {
   
@@ -338,32 +340,35 @@ First we implement the call to the on-premise system:
       port: 20003
     }
 
+     const body = {
+      "userId": "<userID>"
+    }    
+
     const url = `${process.env.ONPREM_SERVICE_ENDPOINT}/api/OrdersByMaterial/${materialId}`
-  }  
 
-  try {
-
-    const result = await axios.get(url, {
-      headers: headers,
-      proxy: proxy
-    });
-
-    console.log(`The result is is: ${result.data.orderId}`)
-
-    return result.data.orderId
-
-  }
-  catch (error) {
-    console.log(`Error when calling Axios: ${error}`)
-
-    return "error"
-  }
-
+    try {
+  
+      const result = await axios.get(url, {
+        headers: headers,
+        proxy: proxy
+      });
+  
+      console.log(`The result is is: ${result.data.orderId}`)
+  
+      return result.data.orderId
+  
+    }
+    catch (error) {
+      console.log(`Error when calling Axios: ${error}`)
+  
+      return "error"
+    }
+  
   ```
 
 - Save your changes.
 
-As we have the order ID of the order connected to thematerial ID we can now update the status of the order via the order micrososervice.
+As we have the order ID of the order connected to the material ID we can now update the status of the order via the order micrososervice.
 
 ### Step 6.3d - Updating orders via the order microservice
 
@@ -462,7 +467,7 @@ To achieve this add the following logic to your function:
 
 ### Step 6.3e - Pushing a message to the `delayedorder` queue
 
-The last missing piece is the function that pushes the order ID to the message queue `delayedorder` to trigger the follow up processing. The logic is the same as for the first Kyma Function we created in [step](./step5.md). You can copy and paste the logic to a new a asynchronous function `pushMessageToNotificationQueue` at the end of exchange the parameters to use the `orderId` in the message and use the `delayedorder` queue.in order to have a cleaner structure we extracted the fetching of the Bearer token to a dedicated function.
+The last missing piece is the function that pushes the order ID to the message queue `delayedorder<userID>` to trigger the follow up processing. The logic is the same as for the first Kyma Function we created in [step](./step5.md). You can copy and paste the logic to a new a asynchronous function `pushMessageToNotificationQueue` at the end of exchange the parameters to use the `orderId` in the message and use the `delayedorder<userID>` queue.in order to have a cleaner structure we extracted the fetching of the Bearer token to a dedicated function.
 
 The code should finally look like this:
 
@@ -551,11 +556,11 @@ Now we have everything in place to give the flow a try.
 
 ## Step 6.4 - Test the Setup
 
-Test the setup by triggering a message via the Kyma Function `triggersupplyshortagemessage` i. e. the corresponding API Rule by opening the endpoint in a browser. This gives you the following screen:
+Test the setup by triggering a message via the Kyma Function `triggersupplyshortagemessage<userID>` i. e. the corresponding API Rule by opening the endpoint in a browser. This gives you the following screen:
 
 ![Trigger of Message for Supply Chain Shortage](../pics/step6_TriggerProcess.png)
 
-You can then check the processing via the logs of your Kyma Function `updateorderstatus`:
+You can then check the processing via the logs of your Kyma Function `updateorderstatus<userID>`:
 
 ![Kyma Function Logs of Order Processing](../pics/step6_FunctionLog.png)
 
@@ -567,7 +572,7 @@ You can of course also the the UI5 frontend which should reflect the status upda
 
 ## Summary
 
-🎉 Congratulations - You've now completed the implementation of the Kyma Functions that reacts on the supply chain issues message, identifies and updates the order for the given material and pushes another message to the `delayedorder` queue.
+🎉 Congratulations - You've now completed the implementation of the Kyma Functions that reacts on the supply chain issues message, identifies and updates the order for the given material and pushes another message to the `delayedorder<userID>` queue.
 
 Continue to [OPTIONAL: Step 7 - Develop function "send delay email"](step7.md).
 

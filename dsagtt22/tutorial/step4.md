@@ -112,12 +112,12 @@ To do so, execute the following steps:
 - Open to the Event Mesh application via the link from the previous section.
 - Click on the tile that represents the Event Mesh service instance called `dsagtt22`.
 - Go to the section `queues`
-- Click the **Create Queue* button** and enter the following data to create the queue for messages due to the supply chain shortage:
-  - **Queue Name**: `supplychainissue`
+- Click the **Create Queue* button** and enter the following data to create the queue for messages due to the supply chain shortage (exchange the "userID" with your ID):
+  - **Queue Name**: `supplychainissue<userID>`
   - Leave the default values for the other fields
   - Press the **Create** button
 - Click the **Create Queue* button** and enter the following data to create the queue for messages that should trigger the outbound communication to the customers because of the delayed order:
-  - **Queue Name**: `delayedorder`
+  - **Queue Name**: `delayedorder<userID>`
   - Leave the default values for the other fields
   - Press the **Create** button
 
@@ -142,7 +142,7 @@ You create the keys in the SAP BTP Cockpit:
 - Navigate to your subaccount in the SAP BTP Cockpit
 - Go to **Services** -> **Instances and Subscriptions**
 - In the section **Instances** press the action menu (three dots) and select **Create Service Key**
-- Enter a name for the service key (e. g. `dsagttt22eventmeshsk`) and press **Create**
+- Enter a name for the service key (e. g. `dsagttt22eventmeshsk-<userID>`) and press **Create**
 
 Download the created service key:
 
@@ -158,7 +158,7 @@ You have now the relevant information to communicate with the Event Mesh i.e. to
 
 ## Summary
 
-🎉 Congratulations - You've now completed the setup and configuration of the EVent Mesh!
+🎉 Congratulations - You've now completed the setup and configuration of the Event Mesh!
 
 Continue to [Step 5 - Develop function "trigger supply chain issue"](step5.md).
 
