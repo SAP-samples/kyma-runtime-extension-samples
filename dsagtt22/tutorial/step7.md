@@ -287,6 +287,6 @@ And we should also have received an email:
 
 ## Summary
 
-🥳 Congratulations - You've now successfully completed the hands-on "DSAG Technologietage 2022 - Using Microservices in the SAP BTP, Kyma Runtime to extend SAP Cloud an OnPrem Systems" 🥳
+🥳 **Congratulations** - You've now successfully completed the hands-on "DSAG Technologietage 2022 - Using Microservices in the SAP BTP, Kyma Runtime to extend SAP Cloud an OnPrem Systems" 🥳
 
 [◀ Previous step](step6.md) | [🔼 Overview](../README.md)
