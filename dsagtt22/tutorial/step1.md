@@ -163,7 +163,7 @@ For the *frontend deployment* we create the following artifacts:
 
 ### 1.4a Deployment via GitHub Actions
 
-We want to automate the deployment via a GitHub Action. to be able to do so we need credentials to access the Kyma cluster from the action. To do so we create a *service account* with the right permissions to deploy the different artifacts.
+We want to automate the deployment via a GitHub Action. To be able to do so we need credentials to access the Kyma cluster from the action. To do so we create a *service account* with the right permissions to deploy the different artifacts.
 
 To do so we create a namespace via:
 
