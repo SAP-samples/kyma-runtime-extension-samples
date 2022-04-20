@@ -143,7 +143,7 @@ For the *database deployment* we create the following artifacts:
 - [`pvc.yaml`](../ordermicroservice/database-mssql/k8s/pvc.yaml): defining the persistent volume claim for the database.
 - [`deployment.yaml`](../ordermicroservice/database-mssql/k8s/deployment.yaml): defining the deployment of the database container including a service.
 
-For the *database deployment* we create the following artifacts:
+For the *API deployment* we create the following artifacts:
 
 - [`configmap.yaml`](../ordermicroservice/api-mssql-go/k8s/configmap.yaml): defining the data base host and port.
 
@@ -154,9 +154,14 @@ For the *database deployment* we create the following artifacts:
 
 For the *frontend deployment* we create the following artifacts:
 
-- [`configmap.yaml`](../ordermicroservice/frontend-ui5-mssql/k8s/configmap.yaml): containing the configuration for the endpoint of the API. **This needs to be adjusted to point to your Kyma cluster**
+- [`configmap.yaml`](../ordermicroservice/frontend-ui5-mssql/k8s/configmap.yaml): containing the configuration for the endpoint of the API.
+  
+  > 📝 **Tip** - This needs to be adjusted to point to your Kyma cluster API rule of the API deployment.
+
 - [`deployment.yaml`](../ordermicroservice/api-mssql-go/k8s/deployment.yaml): defining the deployment of the UI5 app container including a service.
 - [`apirule.yaml`](../ordermicroservice/api-mssql-go/k8s/deployment.yaml): defining the API rule to expose the HTTP endpoint of the UI5 app.
+
+### 1.4a Deployment via GitHub Actions
 
 We want to automate the deployment via a GitHub Action. to be able to do so we need credentials to access the Kyma cluster from the action. To do so we create a *service account* with the right permissions to deploy the different artifacts.
 
@@ -291,6 +296,16 @@ Now we create the workflow file [`deploy-microservice-to-kyma.yml`](../../.githu
 After the deployment has finished you have access to the UI5 app via the route defined in the corresponding API rule:
 
 ![UI5 App on Kyma](../pics/step1_UI5app.png)
+
+## 1.4b Manual Deployment
+
+You can also deploy all artifacts via `kubectl` CLI. To do so you must deploy the `k8s` folders of the following directories:
+
+- `dsagtt22/ordermicroservice/database-mssql`
+- `dsagtt22/ordermicroservice/api-mssql-go`
+- `dsagtt22/ordermicroservice/frontend-ui5-mssql`
+
+You can lookup the detailed commands in the section above as defined in the GitHub Actions.
 
 ## Summary
 
