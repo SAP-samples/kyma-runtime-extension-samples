@@ -25,7 +25,7 @@ The components involved in the flow are depicted here:
 For this scenario we want to leverage several services available on SAP BTP:
 
 - The [SAP BTP, Kyma Runtime](https://discovery-center.cloud.sap/serviceCatalog/kyma-runtime?region=all) as central extension platform and home for the Kyma Functions with our business logic and the order microservice
-- The [The SAP Event Mesh](https://discovery-center.cloud.sap/serviceCatalog/event-mesh?region=all) to provide the message queues
+- The [SAP Event Mesh](https://discovery-center.cloud.sap/serviceCatalog/event-mesh?region=all) to provide the message queues
 - The [Cloud Connector](https://help.sap.com/docs/CP_CONNECTIVITY/cca91383641e40ffbe03bdc78f00f681/e6c7616abb5710148cfcf3e75d96d596.html) in conjunction with the [connectivity proxy](https://help.sap.com/docs/CP_CONNECTIVITY/cca91383641e40ffbe03bdc78f00f681/e661713ef7d14373b57e3e26b0b03b86.html) to connect to a on-premise system.
 
 So from the perspective of SAP components the building blocks can be sketched like this:
