@@ -17,8 +17,8 @@ Usually besides a vanilla installation of the tools depending on your OS you wil
 |Tool|Description
 |-|-
 |[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) | Kubernetes command-line tool, that allows you to run commands against Kubernetes clusters
-|[krew](https://krew.sigs.k8s.io/) | Plugin manager for `kubectl` command-line tool.
-|[kubelogin](https://github.com/int128/kubelogin) | `kubectl` plugin for Kubernetes OpenID Connect (OIDC) authentication,
+|[krew](https://krew.sigs.k8s.io/) | Plugin manager for `kubectl` command-line tool
+|[kubelogin](https://github.com/int128/kubelogin) | `kubectl` plugin for Kubernetes OpenID Connect (OIDC) authentication
 |[Helm](https://helm.sh/) | The package manager for Kubernetes
 |[jq](https://stedolan.github.io/jq/) | Tool for JSON processing in CLI
 
