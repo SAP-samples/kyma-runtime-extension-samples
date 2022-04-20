@@ -36,14 +36,14 @@ This option guides you through the setup of the SAP Event Mesh via the SAP BTP C
 - Choose **Create**
 - Select **Event Mesh** and the **default** service plan.
 - Select your Cloud Foundry space where you want to deploy the service
-- Enter the **Instance Name**: `dsagtt22`
+- Enter the **Instance Name**: `dsagtt22<userID>`
 - Choose **Next**
 - Enter the parameters of the service via JSON:
 
   ```JSON
   {
-    "emname": "dsagtt22",
-    "namespace": "default/dsagtt22.kyma/eventing.demo",
+    "emname": "dsagtt22<userID>",
+    "namespace": "default/dsagtt22<userID>.kyma/eventing.demo",
     "version": "1.1.0",
     "options": {
         "management": true,
@@ -110,7 +110,7 @@ We now need to create two message queues for your application:
 To do so, execute the following steps:
 
 - Open to the Event Mesh application via the link from the previous section.
-- Click on the tile that represents the Event Mesh service instance called `dsagtt22`.
+- Click on the tile that represents the Event Mesh service instance called `dsagtt22<userID>`.
 - Go to the section `queues`
 - Click the **Create Queue* button** and enter the following data to create the queue for messages due to the supply chain shortage (exchange the "userID" with your ID):
   - **Queue Name**: `supplychainissue<userID>`
