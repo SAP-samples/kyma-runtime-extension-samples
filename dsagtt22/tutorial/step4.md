@@ -141,7 +141,7 @@ You create the keys in the SAP BTP Cockpit:
 
 - Navigate to your subaccount in the SAP BTP Cockpit
 - Go to **Services** -> **Instances and Subscriptions**
-- In the section **Instances** press the action menu (three dots) of the line item dsagtt22<userID>` and select **Create Service Key**
+- In the section **Instances** press the action menu (three dots) of the line item `dsagtt22<userID>` and select **Create Service Key**
 - Enter a name for the service key (e. g. `dsagttt22eventmeshsk-<userID>`) and press **Create**
 
 Download the created service key:
