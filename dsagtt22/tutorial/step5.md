@@ -12,7 +12,7 @@ In this section we will:
 - Use a Kubernetes `configmap` and a `secret` to store the necessary configuration
 - Expose the Function via an API Rule
 
-You will develop everything in the Kyma Dashboard "Busola", which means you do not need any tools installed locally.
+You will develop everything in the Kyma Dashboard, which means you do not need any tools installed locally.
 
 > 📝 **Tip** - If you want to create the artifacts locally and deploy them to Kyma via the `kubectl` CLI, feel free to do so. You find the code in the directory [dsagtt22/kymafunctions](../kymafunctions).
 
