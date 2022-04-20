@@ -185,7 +185,7 @@ In addition we need a Cluster Role binding that is defined in the file [`k8s-set
 kubectl apply -f cluster-role-binding.yaml -n dsagtt22-infra
 ```
 
-Now we fetch the data needed to access the Kyma cluster via:
+Now we fetch the data needed to access the Kyma cluster. For that set an environment variable called `ns` to `dsagtt22-infra`. Then fetch the `kubeconfig` via the provided scripts:
 
 ```shell
   chmod +x k8s-setup-ghaction/kubeconfig-sa-mac.sh
@@ -291,15 +291,13 @@ Now we create the workflow file [`deploy-microservice-to-kyma.yml`](../../.githu
           kubectl apply -f dsagtt22/ordermicroservice/frontend-ui5-mssql/k8s/apirule.yaml -n ${{ env.NAMESPACE }}
   ```
 
-> 🔎 **Observation** - You can of course also deploy the files manually by applying the files via `kubectl apply -f <FILENAME>` from your console.
-
 After the deployment has finished you have access to the UI5 app via the route defined in the corresponding API rule:
 
 ![UI5 App on Kyma](../pics/step1_UI5app.png)
 
 ## 1.4b Manual Deployment
 
-You can also deploy all artifacts via `kubectl` CLI. To do so you must deploy the `k8s` folders of the following directories:
+You can also deploy all artifacts via `kubectl apply -f` CLI. To do so you must deploy the `k8s` folders of the following directories:
 
 - `dsagtt22/ordermicroservice/database-mssql`
 - `dsagtt22/ordermicroservice/api-mssql-go`

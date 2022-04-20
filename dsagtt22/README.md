@@ -49,6 +49,8 @@ The following sections guide you through the single steps of the tutorial. Durin
 - Sections marked with 👨‍🔧 contain the hands-on steps you must work on
 - Sections marked with 👀 are for your information. They contain some interesting insights but contain no actions you must execute.
 
+> Remark: As the tutorial is done with a group of participants, we need to make sure that we have no conflicts concerning names collisions etc.. If you are running this sample on your own set the the value for "userID" to "01". 
+
 ## Tutorial Steps
 
 Let the fun begin 👩‍💻
