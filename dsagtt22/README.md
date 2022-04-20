@@ -1,4 +1,4 @@
-# DSAG Technologietage 2022 - Using Microservices in the SAP BTP, Kyma Runtime to extend SAP Cloud an OnPrem Systems
+# DSAG Technologietage 2022 - Using Microservices in the SAP BTP, Kyma Runtime to extend SAP Cloud and OnPrem Systems
 
 This is the hands-on tutorial of the DSAG Technologietage 2022. It show how you can leverage the SAP BTP, Kyma Runtime to extend SAP Solution on-premise or in the cloud making use of Microservices and Kyma Functions.
 
