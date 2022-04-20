@@ -81,7 +81,7 @@ You can build the image locally via the Docker CLI. In this exercise we make use
   
   > 🔎 **Observation** - We need to point the GitHub Action to the Dockerfile if it is not located in the root of the repository. This is achieved via the `context` parameter. We use the variable `{{defaultContext}}` which points to the root directory of the repository as entrypoint fo the path.
 
-  > 📝 **Tip** - If you only wnt to build but not to push the image (e. g. to make a health check of your build process, you can use the same setup, just set the parameter `push` in the action `docker/build-push-action@v2.10.0` to `false`. 
+  > 📝 **Tip** - If you only want to build but not to push the image (e. g. to make a health check of your build process, you can use the same setup, just set the parameter `push` in the action `docker/build-push-action@v2.10.0` to `false`. 
 
 The action is available in the Actions section of the repository. Trigger it manually to execute build:
 
