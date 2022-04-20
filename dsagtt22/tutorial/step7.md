@@ -136,16 +136,16 @@ Now we can start with the code of the Kyma Function:
 
 - Add the packages also as dependencies to the Kyma Function:
 
- ```json
-  { 
-    "name": "delayedorderemailsender",
-    "version": "1.0.0",
-    "dependencies": {
-      "node-fetch": "^2.6.7",
-      "@trycourier/courier": "^3.12.0"
-      }
-  }
-  ```
+  ```json
+   { 
+     "name": "delayedorderemailsender",
+     "version": "1.0.0",
+     "dependencies": {
+       "node-fetch": "^2.6.7",
+       "@trycourier/courier": "^3.12.0"
+       }
+   }
+   ```
 
 - Save your changes.
 
