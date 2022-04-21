@@ -37,7 +37,7 @@ We leave the Kyma Function as is and create a API rule to expose it. To achieve 
   - **Handler**: `noop`
   - **Methods**: Tick the `POST`
 - Press the **Create** button
-- After creation copy the value of the endpoint of the API rule. We will need this value in the next step.  
+- After creation copy the Host value of the endpoint of the API rule. We will need this value in the next step.  
 
 As the Kyma Function can be called we register it as a webhook in the Event Mesh.
 
