@@ -86,13 +86,13 @@ The system will create the Kyma Function forward you to the Kyma Function inline
 - In the **Environment Variables** section of the inline editor press the **Add Environment Variable** button.
 - Select **Config Map Variable**
 - In the pop-up **Create Config Map Variable** enter the following data:
-  - **Name**: `MESSAGING_TOKEN_ENDPOINT`
+  - **Name**: `EM_`
   - **Config Map**: Select the config map `triggerfunctionconfigmap` from the drop down list
-  - **Key**: Select the key `MESSAGING_TOKEN_ENDPOINT` from the drop down list
+  - **Key**: Select `<All Keys>` from the drop down list
 - Press the **Create** button  
-- Add the variables `MESSAGING_ENDPOINT_BASE` and `TRIGGER_QUEUE_PATH` correspondingly to the environment variables.
+- This will add three variables as the config map consists of three keys, all names starting with `EM_`.
 
-The procedure for the secrets is the same, but you need to select **Secret Variable** rom the action menu of the **Add Environment Variable** button. Follow the above procedure to add the `MESSAGE_CLIENT_ID` and the `MESSAGE_CLIENT_SECRET` as environment variables to the Kyma Function.
+The procedure for the secrets is the same, but you need to select **Secret Variable** from the action menu of the **Add Environment Variable** button. Follow the above procedure to add `<All Keys>` as environment variables starting with `EM_` to the Kyma Function.
 
 > 📝 **Tip** - The environment variables are available in the Kyma Function via `process.env.<ENVVARIABLE_NAME>`.
 
@@ -143,10 +143,10 @@ Now all is set to write code of the Kyma Function:
   module.exports = {
     main: async function (event, context) {
   
-      const clientId = process.env.MESSAGE_CLIENT_ID
-      const clientSecret = process.env.MESSAGE_CLIENT_SECRET
+      const clientId = process.env.EM_MESSAGE_CLIENT_ID
+      const clientSecret = process.env.EM_MESSAGE_CLIENT_SECRET
   
-      const messagingTokenEndpoint = process.env.MESSAGING_TOKEN_ENDPOINT
+      const messagingTokenEndpoint = process.env.EM_MESSAGING_TOKEN_ENDPOINT
       const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
   
     }
@@ -161,12 +161,12 @@ Now all is set to write code of the Kyma Function:
   module.exports = {
     main: async function (event, context) {
   
-      const clientId = process.env.MESSAGE_CLIENT_ID
-      const clientSecret = process.env.MESSAGE_CLIENT_SECRET
+      const clientId = process.env.EM_MESSAGE_CLIENT_ID
+      const clientSecret = process.env.EM_MESSAGE_CLIENT_SECRET
 
       const authString = "Basic " + Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
-      const messagingTokenEndpoint = process.env.MESSAGING_TOKEN_ENDPOINT
+      const messagingTokenEndpoint = process.env.EM_MESSAGING_TOKEN_ENDPOINT
       const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
   
     }
@@ -181,12 +181,12 @@ Now all is set to write code of the Kyma Function:
   module.exports = {
     main: async function (event, context) {
   
-      const clientId = process.env.MESSAGE_CLIENT_ID
-      const clientSecret = process.env.MESSAGE_CLIENT_SECRET
+      const clientId = process.env.EM_MESSAGE_CLIENT_ID
+      const clientSecret = process.env.EM_MESSAGE_CLIENT_SECRET
   
       const authString = "Basic " + Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
   
-      const messagingTokenEndpoint = process.env.MESSAGING_TOKEN_ENDPOINT
+      const messagingTokenEndpoint = process.env.EM_MESSAGING_TOKEN_ENDPOINT
       const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
   
       // Fetch the OAuth2 token to call the message queue
@@ -240,8 +240,8 @@ Now all is set to write code of the Kyma Function:
       }
   
       // Call queue to publish message that order was updated
-      const messagingEndpointBase = process.env.MESSAGING_ENDPOINT_BASE
-      const queuePath = process.env.TRIGGER_QUEUE_PATH
+      const messagingEndpointBase = process.env.EM_MESSAGING_ENDPOINT_BASE
+      const queuePath = process.env.EM_TRIGGER_QUEUE_PATH
       const queuePathEncoded = encodeURIComponent(queuePath)
   
       const queueUrl = `${messagingEndpointBase}/messagingrest/v1/queues/${queuePathEncoded}/messages`
