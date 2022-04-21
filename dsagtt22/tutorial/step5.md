@@ -22,7 +22,7 @@ First we create a namespace for our hands-on:
 
 - Go to the Kyma Dashboard
 - Got to the **Namespaces Section** and push the **Create Namespace** button
-- On the "Simple" tab of the po-up enter the name `dsagtt-handson` and press **Create**
+- On the "Simple" tab of the po-up enter the name `dsagtt-handson<userID>` and press **Create**
 
 ## Step 5.2 - Create the config map
 
