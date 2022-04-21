@@ -116,21 +116,17 @@ Now we need to connect these values to the Kyma Function via environment variabl
 - In the **Environment Variables** section of the inline editor press the **Add Environment Variable** button.
 - Select **Config Map Variable**
 - In the pop-up **Create Config Map Variable** enter the following data:
-  - **Name**: `ONPREM_SERVICE_ENDPOINT`
+  - **Name**: `EM_`
   - **Config Map**: Select the config map `orderserviceconfig` from the drop down list
-  - **Key**: Select the key `ONPREM_SERVICE_ENDPOINT` from the drop down list
+  - **Key**: Select `<All keys>` from the drop down list
 - Press the **Create** button  
-- Add the variables `ORDER_SERVICE_ENDPOINT` correspondingly to the environment variables.
 
 Execute the same procedure for the following variables:
 
 | Variable Name              | Source
 | ---                        | ---
-| `MESSAGING_TOKEN_ENDPOINT` | Config map `triggerfunctionconfigmap`
-| `MESSAGING_ENDPOINT_BASE`  | Config map `triggerfunctionconfigmap`
-| `DELAYEDORDER_PATH`        | Config map `triggerfunctionconfigmap`
-| `MESSAGE_CLIENT_ID`        | Secret `eventmeshsecret`
-| `MESSAGE_CLIENT_SECRET`    | Secret `eventmeshsecret`
+| `EM_`                      | Config map `triggerfunctionconfigmap`
+| `EM_`                      | Secret `eventmeshsecret`
 
 ### Step 6.3b - The main body of the Kyma Function `updateorderstatus`
 
