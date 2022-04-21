@@ -4,12 +4,12 @@ const fetch = require('node-fetch')
 module.exports = {
   main: async function (event, context) {
 
-    const clientId = process.env.MESSAGE_CLIENT_ID
-    const clientSecret = process.env.MESSAGE_CLIENT_SECRET
+    const clientId = process.env.EM_MESSAGE_CLIENT_ID
+    const clientSecret = process.env.EM_MESSAGE_CLIENT_SECRET
 
     const authString = "Basic " + Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
-    const messagingTokenEndpoint = process.env.MESSAGING_TOKEN_ENDPOINT
+    const messagingTokenEndpoint = process.env.EM_MESSAGING_TOKEN_ENDPOINT
     const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
 
     // Fetch the OAuth2 token to call the message queue
@@ -38,8 +38,8 @@ module.exports = {
     }
 
     // Call queue to publish message that order was updated
-    const messagingEndpointBase = process.env.MESSAGING_ENDPOINT_BASE
-    const queuePath = process.env.TRIGGER_QUEUE_PATH
+    const messagingEndpointBase = process.env.EM_MESSAGING_ENDPOINT_BASE
+    const queuePath = process.env.EM_TRIGGER_QUEUE_PATH
     const queuePathEncoded = encodeURIComponent(queuePath)
 
     const queueUrl = `${messagingEndpointBase}/messagingrest/v1/queues/${queuePathEncoded}/messages`
