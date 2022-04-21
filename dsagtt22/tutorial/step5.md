@@ -282,7 +282,7 @@ Now all is set to write code of the Kyma Function:
   }
   ```
 
-- Save the changes via the **Save** button. This will trigger a build ond deployment of the Kyma Function into the cluster.
+- Save the changes via the **Save** button. This will trigger a build and deployment of the Kyma Function into the cluster.
 
   > 🔎 **Observation** - The Event Mesh REST endpoint returns the HTTP code 204 stating the server has executed the request. This does not necessarily mean that the message was successfully processed in the Event Mesh or that the endpoint even exists.
 
