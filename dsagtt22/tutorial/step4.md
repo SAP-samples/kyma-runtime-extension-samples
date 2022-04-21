@@ -75,7 +75,19 @@ This option guides you through the setup of the SAP Event Mesh via the SAP BTP C
 
 In order to be able to interact with the Event Mesh you must now setup the Event Mesh application including the assignment of the corresponding roles to your user
 
-### Option 1 | Step 4.2 - Assign the roles for the Event Mesh application
+### Option 1 | Step 4.2 - Subscribe to the Event Mesh application
+
+- Navigate to your subaccount in the SAP BTP Cockpit
+- Go to **Services** -> **Instances and Subscriptions**
+- Click **Create**
+- Select **Event Mesh** and the **standard application** plan
+- Click **Create**
+
+You find the link to the Administration UI for the Event Mesh in the section **Services** -> ***Instances and Subscriptions** in the **Application area**:
+
+![Event Mesh - Link to UI](../pics/step4_Link_to_Event_Mesh.png)
+
+### Option 1 | Step 4.3 - Assign the roles for the Event Mesh application
 
 - Go to the user overview in your subaccount (**Security** -> **Users**)
 - Select your user
@@ -87,18 +99,6 @@ In order to be able to interact with the Event Mesh you must now setup the Event
 - Save your changes
 
 You have now the right roles to access the UI for the Event Mesh. The last thing that needs to be done is to subscripe to the Event Mesh application
-
-### Option 1 | Step 4.3 - Subscribe to the Event Mesh application
-
-- Navigate to your subaccount in the SAP BTP Cockpit
-- Go to **Services** -> **Instances and Subscriptions**
-- Click **Create**
-- Select **Event Mesh** and the **standard application** plan
-- Click **Create**
-
-You find the link to the Administration UI for the Event Mesh in the section **Services** -> ***Instances and Subscriptions** in the **Application area**:
-
-![Event Mesh - Link to UI](../pics/step4_Link_to_Event_Mesh.png)
 
 ### Option 1 | Step 4.4 - Create the message queues
 
