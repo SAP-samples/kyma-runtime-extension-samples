@@ -467,7 +467,7 @@ To achieve this add the following logic to your function:
 
 ### Step 6.3e - Pushing a message to the `delayedorder` queue
 
-The last missing piece is the function that pushes the order ID to the message queue `delayedorder<userID>` to trigger the follow up processing. The logic is the same as for the first Kyma Function we created in [step 5](./step5.md). You can copy and paste the logic to a new a asynchronous function `pushMessageToNotificationQueue` at the end of exchange the parameters to use the `orderId` in the message and use the `delayedorder<userID>` queue. In order to have a cleaner structure we extracted the fetching of the Bearer token to a dedicated function.
+The last missing piece is the function that pushes the order ID to the message queue `delayedorder<userID>` to trigger the follow up processing. The logic is the same as for the first Kyma Function we created in [step 5](./step5.md). Copy and paste the logic to a new a asynchronous function `pushMessageToNotificationQueue` at the end of the file. Exchange the parameters i. e. use the `orderId` in the message and the `delayedorder<userID>` as queue. In order to have a cleaner structure we extract the fetching of the Bearer token to a dedicated function.
 
 The code should finally look like this:
 
