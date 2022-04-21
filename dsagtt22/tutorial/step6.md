@@ -319,7 +319,7 @@ First we implement the call to the on-premise system:
       port: 20003
     }
 
-    const url = `${process.env.ONPREM_SERVICE_ENDPOINT}/api/OrdersByMaterial/${materialId}`
+    const url = `${process.env.EM_ONPREM_SERVICE_ENDPOINT}/api/OrdersByMaterial/${materialId}`
   }  
   ```
 
@@ -344,7 +344,7 @@ First we implement the call to the on-premise system:
       "userId": "<userID>"
     }    
 
-    const url = `${process.env.ONPREM_SERVICE_ENDPOINT}/api/OrdersByMaterial/${materialId}`
+    const url = `${process.env.EM_ONPREM_SERVICE_ENDPOINT}/api/OrdersByMaterial/${materialId}`
 
     try {
   
@@ -392,7 +392,7 @@ To achieve this add the following logic to your function:
   ```javascript
   async function updateOrderStatus(orderId2Update) {
 
-    const orderApiEndpoint = process.env.ORDER_SERVICE_ENDPOINT
+    const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
 
     const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
   
@@ -404,11 +404,11 @@ To achieve this add the following logic to your function:
   ```javascript
   async function updateOrderStatus(orderId2Update) {
 
-    const orderApiEndpoint = process.env.ORDER_SERVICE_ENDPOINT
+    const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
 
     const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
 
-    const orderApiEndpoint = process.env.ORDER_SERVICE_ENDPOINT
+    const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
 
     const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
 
@@ -427,11 +427,11 @@ To achieve this add the following logic to your function:
   ```javascript
   async function updateOrderStatus(orderId2Update) {
 
-    const orderApiEndpoint = process.env.ORDER_SERVICE_ENDPOINT
+    const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
 
     const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
 
-    const orderApiEndpoint = process.env.ORDER_SERVICE_ENDPOINT
+    const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
 
     const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
 
@@ -475,12 +475,12 @@ The code should finally look like this:
 // Dedicated function to retrieve the Bearer token of the Event Mesh
 async function getBearerTokenForEventMesh() {
 
-  const clientId = process.env.MESSAGE_CLIENT_ID
-  const clientSecret = process.env.MESSAGE_CLIENT_SECRET
+  const clientId = process.env.EM_MESSAGE_CLIENT_ID
+  const clientSecret = process.env.EM_MESSAGE_CLIENT_SECRET
 
   const authString = "Basic " + Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
-  const messagingTokenEndpoint = process.env.MESSAGING_TOKEN_ENDPOINT
+  const messagingTokenEndpoint = process.env.EM_MESSAGING_TOKEN_ENDPOINT
   const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
 
   const fetchTokenHeader = {
@@ -516,9 +516,9 @@ async function getBearerTokenForEventMesh() {
 async function pushMessageToNotificationQueue(orderId2Update) {
 
   const accessTokenEventMesh = await getBearerTokenForEventMesh()
-  const messagingEndpointBase = process.env.MESSAGING_ENDPOINT_BASE
+  const messagingEndpointBase = process.env.EM_MESSAGING_ENDPOINT_BASE
 
-  const queuePath = process.env.DELAYEDORDER_PATH
+  const queuePath = process.env.EM_DELAYEDORDER_PATH
   const queuePathEncoded = encodeURIComponent(queuePath)
 
   const queueUrl = `${messagingEndpointBase}/messagingrest/v1/queues/${queuePathEncoded}/messages`
