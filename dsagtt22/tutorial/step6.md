@@ -93,9 +93,11 @@ We put the queue name in the already existing config map `triggerfunctionconfigm
 - Open the existing config map `triggerfunctionconfigmap`
 - Press the **Edit** button
 - Enter the following key-value pairs into the **Data** section:
-      | Key                        | Value
-      | ---                        | ---
-      | **DELAYEDORDER_PATH**      | Full name Name of the `delayedorder<userID>` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
+
+    | Key | Value
+    | --- | ---
+    | **DELAYEDORDER_PATH** | Full name of the `delayedorder<userID>` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
+
 - Press the **Update** button.
 
 Then create a new config map:
@@ -105,10 +107,12 @@ Then create a new config map:
 - Enter following data into the pop-up (**Simple** tab):
   - **Name**: `orderserviceconfig`
   - Enter the following key-value pairs into the **Data** section:
+
       | Key                          | Value
       | ---                          | ---
       | **ONPREM_SERVICE_ENDPOINT**  | Value of the virtual service endpoint from the cloud connector, e. g. `http://onpremmock:17080`
       | **ORDER_SERVICE_ENDPOINT**   | Value of the API rule endpoint of the order microservice API (not UI5 app). This should be `https://api-mssql-go.<Host of your Kyma cluster>`
+
 - Press the **Create** button.
 
 Now we need to connect these values to the Kyma Function via environment variables. Navigate to the Kyma Function `updateorderstatus<userID>` and open the inline editor:
