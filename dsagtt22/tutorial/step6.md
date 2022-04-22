@@ -271,7 +271,10 @@ First we implement the call to the on-premise system:
 
     console.log(`MaterialId for Orders: ${materialId} `)
 
+    // Call on prem system to fetch order data by material
     const orderId2Update = await getOrderByMaterial(materialId)
+    
+    await updateOrderStatus(orderId2Update)
 
     await pushMessageToNotificationQueue(orderId2Update)
 
