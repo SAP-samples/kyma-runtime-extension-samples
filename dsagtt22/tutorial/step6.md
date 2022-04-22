@@ -175,6 +175,7 @@ As we have all configuration in place we can start with the implementation of th
 
     console.log(`MaterialId for Orders: ${materialId} `)
 
+    // Call on prem system to fetch order data by material
     const orderId2Update = await getOrderByMaterial(materialId)
 
    }
@@ -193,7 +194,10 @@ As we have all configuration in place we can start with the implementation of th
 
     console.log(`MaterialId for Orders: ${materialId} `)
 
+    // Call on prem system to fetch order data by material
     const orderId2Update = await getOrderByMaterial(materialId)
+    
+    await updateOrderStatus(orderId2Update)
 
    }
   } 
@@ -211,7 +215,10 @@ As we have all configuration in place we can start with the implementation of th
 
     console.log(`MaterialId for Orders: ${materialId} `)
 
+    // Call on prem system to fetch order data by material
     const orderId2Update = await getOrderByMaterial(materialId)
+    
+    await updateOrderStatus(orderId2Update)
 
     await pushMessageToNotificationQueue(orderId2Update)
 
