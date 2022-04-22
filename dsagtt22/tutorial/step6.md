@@ -353,7 +353,7 @@ First we implement the call to the on-premise system:
         proxy: proxy
       });
   
-      console.log(`The result is is: ${result.data.orderId}`)
+      console.log(`The result is: ${result.data.orderId}`)
   
       return result.data.orderId
   
