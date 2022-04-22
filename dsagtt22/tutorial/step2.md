@@ -91,7 +91,7 @@ We open the Cloud Connector UI by navigating to the URL `https://<YOUR EXTERNAL 
 
 After the initial login you must set a new personal password. Next we configure the connection to the target subaccount and expose the mock application:
 
-- First configure the connection to the subaccount you want to consume the app service **from**:
+- First configure the connection to the subaccount you want to consume the app service **from**. Define a "Location ID" in case several Kyma runtime instances should connect via this one Cloud Connector:
 
   ![Cloud Connector - Definition of Subaccount](../pics/step2_IP_CloudConnector-Subaccount.png)
 
