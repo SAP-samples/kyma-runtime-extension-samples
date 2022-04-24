@@ -175,6 +175,7 @@ As we have all configuration in place we can start with the implementation of th
 
     console.log(`MaterialId for Orders: ${materialId} `)
 
+    // Call on prem system to fetch order data by material
     const orderId2Update = await getOrderByMaterial(materialId)
 
    }
@@ -193,7 +194,10 @@ As we have all configuration in place we can start with the implementation of th
 
     console.log(`MaterialId for Orders: ${materialId} `)
 
+    // Call on prem system to fetch order data by material
     const orderId2Update = await getOrderByMaterial(materialId)
+    
+    await updateOrderStatus(orderId2Update)
 
    }
   } 
@@ -211,7 +215,10 @@ As we have all configuration in place we can start with the implementation of th
 
     console.log(`MaterialId for Orders: ${materialId} `)
 
+    // Call on prem system to fetch order data by material
     const orderId2Update = await getOrderByMaterial(materialId)
+    
+    await updateOrderStatus(orderId2Update)
 
     await pushMessageToNotificationQueue(orderId2Update)
 
@@ -264,7 +271,10 @@ First we implement the call to the on-premise system:
 
     console.log(`MaterialId for Orders: ${materialId} `)
 
+    // Call on prem system to fetch order data by material
     const orderId2Update = await getOrderByMaterial(materialId)
+    
+    await updateOrderStatus(orderId2Update)
 
     await pushMessageToNotificationQueue(orderId2Update)
 
@@ -276,13 +286,13 @@ First we implement the call to the on-premise system:
   }  
   ```
 
-- Fill some basic header information for the call via the Connectivity Proxy
+- Fill some basic header information for the call via the Connectivity Proxy. Use the subaccount name of your assigned subaccount as "Location ID". We have to set this location ID because all subaccounts of this hands-on session share one Cloud Connector instance with the same on-premise mock.
 
   ```javascript
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
     }
   }  
   ```
@@ -293,7 +303,7 @@ First we implement the call to the on-premise system:
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
     }
 
     const proxy = {
@@ -310,7 +320,7 @@ First we implement the call to the on-premise system:
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
     }
 
     const proxy = {
@@ -331,7 +341,7 @@ First we implement the call to the on-premise system:
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
     }
 
     const proxy = {
@@ -348,12 +358,12 @@ First we implement the call to the on-premise system:
 
     try {
   
-      const result = await axios.get(url, {
+      const result = await axios.post(url, body, {
         headers: headers,
         proxy: proxy
       });
   
-      console.log(`The result is is: ${result.data.orderId}`)
+      console.log(`The result is: ${result.data.orderId}`)
   
       return result.data.orderId
   
