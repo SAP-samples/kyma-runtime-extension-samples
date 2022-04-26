@@ -10,6 +10,7 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "sap/ui/Device"], function (JSONMo
 
     createOrdersModel: function () {
       const model = new JSONModel();
+      model.setSizeLimit(200);
       return model;
     },
   };

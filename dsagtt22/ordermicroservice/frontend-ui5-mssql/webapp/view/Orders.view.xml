@@ -51,7 +51,6 @@
 							<Title text="{i18n>orders}" />
 							<ToolbarSpacer />
                   			<SearchField id="searchField" width="auto" search=".onFilterOrders" />
-							<ToolbarSpacer />
 							<Button icon="sap-icon://add" press="onAddOrder" />
 						</content>
 					</Toolbar>

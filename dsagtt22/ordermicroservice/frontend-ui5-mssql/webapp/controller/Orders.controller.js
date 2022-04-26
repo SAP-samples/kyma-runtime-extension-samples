@@ -37,8 +37,6 @@ sap.ui.define(
           isBusy: true,
         });
 
-        viewModel.setSizeLimit(200);
-
         this.getView().setModel(viewModel, "viewModel");
       },
 
@@ -101,18 +99,27 @@ sap.ui.define(
 
       onFilterOrders: function (oEvent) {
 
-        // build filter array
-        var aFilter = [];
         var sQuery = oEvent.getParameter("query");
-        if (sQuery) {
-          aFilter.push(new Filter("order_id", FilterOperator.Contains, sQuery));
-          aFilter.push(new Filter("description", FilterOperator.Contains, sQuery));
-        }
 
-        // filter binding
+        const orderFilter = new Filter({
+          filters: [
+            new Filter({
+              path: 'order_id',
+              operator: FilterOperator.Contains,
+              value1: sQuery
+            }),
+            new Filter({
+              path: 'description',
+              operator: FilterOperator.Contains,
+              value1: sQuery
+            })
+          ],
+          and: false
+        })
+
         var oTable = this.byId("ordertable");
         var oBinding = oTable.getBinding("items");
-        oBinding.filter(aFilter);
+        oBinding.filter(orderFilter);
       },
 
 
