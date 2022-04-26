@@ -36,6 +36,9 @@ sap.ui.define(
           isMsgStripVisible: false,
           isBusy: true,
         });
+
+        viewModel.setSizeLimit(200);
+
         this.getView().setModel(viewModel, "viewModel");
       },
 
