@@ -102,7 +102,8 @@ sap.ui.define(
         var aFilter = [];
         var sQuery = oEvent.getParameter("query");
         if (sQuery) {
-          aFilter.push(new Filter("Order", FilterOperator.Contains, sQuery));
+          aFilter.push(new Filter("order_id", FilterOperator.Contains, sQuery));
+          aFilter.push(new Filter("description", FilterOperator.Contains, sQuery));
         }
 
         // filter binding
