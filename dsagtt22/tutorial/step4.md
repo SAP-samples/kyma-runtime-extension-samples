@@ -1,6 +1,6 @@
 # Step 4 - Set up the SAP Event Mesh
 
-> DSAG Technologietage 2022 Category: 👨‍🔧
+> DSAG Technologietage 2022 Category: 👨‍🔧, steps 4.1 to 4.4 are 👀
 
 ## Goal 🎯
 
