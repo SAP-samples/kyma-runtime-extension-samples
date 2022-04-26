@@ -15,6 +15,7 @@ This step covers the setup of the event mesh on SAP BTP, i.e.:
 This option guides you through the setup of the SAP Event Mesh via the SAP BTP Cockpit.
 
 ### Option 1 | Step 4.1 - Enable the SAP Event Mesh Entitlement
+> DSAG Technologietage 2022 Category: 👀
 
 - Within your global account…
 - Choose **Entitlements -> Entity Assignments**
@@ -30,6 +31,7 @@ This option guides you through the setup of the SAP Event Mesh via the SAP BTP C
 > 📝 **Tip** - Make sure that you have a Cloud Foundry space for the deployment of the service. If this is not the case create a space via the SAP BTP cockpit in the subaccount where you want  (**Cloud Foundry** -> **Spaces** -> **Create Space**).
 
 ### Option 1 | Step 4.2 - Create the event mesh service
+> DSAG Technologietage 2022 Category: 👀
 
 - Navigate to your subaccount in the SAP BTP Cockpit
 - Go to **Services** -> **Instances and Subscriptions**
@@ -75,7 +77,8 @@ This option guides you through the setup of the SAP Event Mesh via the SAP BTP C
 
 In order to be able to interact with the Event Mesh you must now setup the Event Mesh application including the assignment of the corresponding roles to your user
 
-### Option 1 | Step 4.2 - Subscribe to the Event Mesh application
+### Option 1 | Step 4.3 - Subscribe to the Event Mesh application
+> DSAG Technologietage 2022 Category: 👀
 
 - Navigate to your subaccount in the SAP BTP Cockpit
 - Go to **Services** -> **Instances and Subscriptions**
@@ -87,7 +90,8 @@ You find the link to the Administration UI for the Event Mesh in the section **S
 
 ![Event Mesh - Link to UI](../pics/step4_Link_to_Event_Mesh.png)
 
-### Option 1 | Step 4.3 - Assign the roles for the Event Mesh application
+### Option 1 | Step 4.4 - Assign the roles for the Event Mesh application
+> DSAG Technologietage 2022 Category: 👀
 
 - Go to the user overview in your subaccount (**Security** -> **Users**)
 - Select your user
@@ -100,7 +104,7 @@ You find the link to the Administration UI for the Event Mesh in the section **S
 
 You have now the right roles to access the UI for the Event Mesh. The last thing that needs to be done is to subscripe to the Event Mesh application
 
-### Option 1 | Step 4.4 - Create the message queues
+### Option 1 | Step 4.5 - Create the message queues
 
 We now need to create two message queues for your application:
 
