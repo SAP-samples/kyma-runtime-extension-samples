@@ -12,7 +12,7 @@
 		<content>
 			<MessageStrip text="{viewModel>/errorMsgTxt}" visible="{viewModel>/isMsgStripVisible}" type="Error" enableFormattedText="true" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"></MessageStrip>
 
-			<Table inset="true" items="{orders>/}" busy="{viewModel>/isBusy}">
+			<Table id="ordertable" inset="true" items="{orders>/}" busy="{viewModel>/isBusy}">
 				<columns>
 					<Column>
 						<header>
@@ -49,7 +49,9 @@
 					<Toolbar>
 						<content>
 							<Title text="{i18n>orders}" />
-							<ToolbarSpacer></ToolbarSpacer>
+							<ToolbarSpacer />
+                  			<SearchField id="searchField" width="auto" search=".onFilterOrders" />
+							<ToolbarSpacer />
 							<Button icon="sap-icon://add" press="onAddOrder" />
 						</content>
 					</Toolbar>

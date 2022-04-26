@@ -6,8 +6,10 @@ sap.ui.define(
     "../api/orders",
     "sap/ui/core/Fragment",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
   ],
-  function (Controller, formatter, models, API, Fragment, JSONModel) {
+  function (Controller, formatter, models, API, Fragment, JSONModel, Filter, FilterOperator) {
     "use strict";
 
     var ordModels;
@@ -94,6 +96,22 @@ sap.ui.define(
         this._oFormDialog.close();
       },
 
+      onFilterOrders: function (oEvent) {
+
+        // build filter array
+        var aFilter = [];
+        var sQuery = oEvent.getParameter("query");
+        if (sQuery) {
+          aFilter.push(new Filter("Order", FilterOperator.Contains, sQuery));
+        }
+
+        // filter binding
+        var oTable = this.byId("ordertable");
+        var oBinding = oTable.getBinding("items");
+        oBinding.filter(aFilter);
+      },
+
+
       closeDialog: function (oEvent) {
         const dialog = oEvent.getSource().getParent();
         dialog.close();
@@ -152,8 +170,8 @@ sap.ui.define(
             .setProperty(orderPath + "/status", data.status);
           this.getView()
             .getModel("orders")
-            .setProperty(orderPath + "/email", data.email);  
-            
+            .setProperty(orderPath + "/email", data.email);
+
         } catch (err) {
           this.showErrorMsq(err);
           console.log(err);
