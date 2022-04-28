@@ -115,11 +115,11 @@ To do so, execute the following steps:
 - Open to the Event Mesh application via the link from the previous section.
 - Click on the tile that represents the Event Mesh service instance called `dsagtt22<userID>`.
 - Go to the section `queues`
-- Click the **Create Queue* button** and enter the following data to create the queue for messages due to the supply chain shortage (exchange the "userID" with your ID):
+- Click the **Create Queue** button and enter the following data to create the queue for messages due to the supply chain shortage (exchange the "userID" with your ID):
   - **Queue Name**: `supplychainissue<userID>`
   - Leave the default values for the other fields
   - Press the **Create** button
-- Click the **Create Queue* button** and enter the following data to create the queue for messages that should trigger the outbound communication to the customers because of the delayed order:
+- Click the **Create Queue** button and enter the following data to create the queue for messages that should trigger the outbound communication to the customers because of the delayed order:
   - **Queue Name**: `delayedorder<userID>`
   - Leave the default values for the other fields
   - Press the **Create** button
