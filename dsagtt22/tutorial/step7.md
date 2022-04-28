@@ -190,7 +190,7 @@ Now we can start with the code of the Kyma Function:
         // If there is a reasonable email in the order we can use it from there
         //email = responseBodyFromOrderService[0].email
         // or we use some hardcoded value
-        email = "christian.lechner@sap.com"
+        email = "<your.email@address.de>"
       }
       else {
         console.log("Error when fetching the order")
@@ -231,7 +231,7 @@ Now we can start with the code of the Kyma Function:
         // If there is a reasonable email in the order we can use it from there
         //email = responseBodyFromOrderService[0].email
         // or we use some hardcoded value
-        email = "christian.lechner@sap.com"
+        email = "<your.email@address.de>"
       }
       else {
         console.log("Error when fetching the order")
@@ -266,6 +266,8 @@ Now we can start with the code of the Kyma Function:
     }
   }
   ```
+
+> 📝 **Tip** - Ensure to put in your email address at <your.email@address.de>
 
 - Save your changes.
 
