@@ -47,13 +47,13 @@ To avoid hard-coding this into the code of the Kyma Function we create a `config
       | **MESSAGING_ENDPOINT_BASE**  | Value of `"uri"` in your Event Mesh service key file
       | **TRIGGER_QUEUE_PATH**       | Full name Name of the `supplychainissue<userID>` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
 
-> 📝 **Tip** - When fetching the values from the service key file, make sure to take them from the JSON object with the property `"protocol": ["httprest"]` roughly in line 54ff of the file.
+> 📝 **Tip** - When fetching the values from the service key file, make sure to take them from the JSON object with the property `"protocol": ["httprest"]` roughly in lines 54ff of the file.
 
 - Press the **Create** button.
 
 ## Step 5.3 - Create the secret
 
-To execute the OAuth2 flow (type `client_credentials`) we need the `clientid` and the `clientsecret`. As this is confidential we store it into a `secret` which we create:
+To execute the OAuth2 flow (type `client_credentials`) we need the `clientid` and the `clientsecret`. As this is confidential we store it into a `secret` ([What's that?](https://kubernetes.io/docs/concepts/configuration/secret/))which we create:
 
 - Go to the **Configuration** -> **Secrets** area in the navigation sidebar
 - Push the **Create Secret** button
