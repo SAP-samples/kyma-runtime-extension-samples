@@ -115,7 +115,16 @@ Then create a new config map:
 
 - Press the **Create** button.
 
-Now we need to connect these values to the Kyma Function via environment variables. Navigate to the Kyma Function `updateorderstatus<userID>` and open the inline editor:
+Now we need to bind the Event Mesh instance to the function and connect the values from the config maps to the Kyma Function via environment variables. 
+
+- Navigate to **Service Management** -> **Instances**
+- Select your instance `dsagtt22<user ID>`
+- Click **Create Service Binding Usage +***
+- Select as `Usage Kind` **serverless-function** and as `Application` select `updateorderstatus<userID>`
+- Provide the prefix `EM_`
+- Keep the checkbox checked and select `Create`. 
+
+Navigate to the Kyma Function `updateorderstatus<userID>` and open the inline editor:
 
 - In the **Environment Variables** section of the inline editor press the **Add Environment Variable** button.
 - Select **Config Map Variable**
@@ -130,7 +139,7 @@ Execute the same procedure for the following variables:
 | Variable Name              | Source
 | ---                        | ---
 | `EM_`                      | Config map `triggerfunctionconfigmap`
-| `EM_`                      | Secret `eventmeshsecret`
+
 
 ### Step 6.3b - The main body of the Kyma Function `updateorderstatus`
 
