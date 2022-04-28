@@ -49,25 +49,7 @@ Many of the information is retrieved by binding the Event Mesh instance to the f
 
 - Press the **Create** button.
 
-## Step 5.3 - Create the secret
-
-To execute the OAuth2 flow (type `client_credentials`) we need the `clientid` and the `clientsecret`. As this is confidential we store it into a `secret` ([What's that?](https://kubernetes.io/docs/concepts/configuration/secret/)) which we create:
-
-- Go to the **Configuration** -> **Secrets** area in the navigation sidebar
-- Push the **Create Secret** button
-- Enter following data into the pop-up (**Simple** tab):
-  - **Name**: `eventmeshsecret`
-  - **Type**: Leave the default value (`Opaque`)
-  - Enter the following key-value pairs into the **Data** section:
-      | Key                        | Value
-      | ---                        | ---
-      | **MESSAGE_CLIENT_ID**      | Value of `"clientid":` in your Event Mesh service key file under the `"oa2"` property
-      | **MESSAGE_CLIENT_SECRET**  | Value of `"clientsecret":` in your Event Mesh service key file under the `"oa2"` property
-- Press the **Create** button.
-
-> 🔎 **Observation** - the secret contains only a base64 encoded value of the `clientid` and the `clientsecret`. Although the secret is only available in the cluster we would probably store those values in a dedicated vault.
-
-## Step 5.4 - Create the Kyma Function
+## Step 5.3 - Create the Kyma Function
 
 As we have the configuration in place we can now start with implementing the Kyma Function which pushes a message that contains the ID of the material that has a supply chain shortage into the corresponding message queue. To achieve this the Kyma Function must authenticate against the Event Mesh using the `clientid` and `clientsecret` to fetch the Bearer Token and then call the HTTP REST endpoint of the Event Mesh to push the message into the queue.
 
@@ -80,20 +62,29 @@ In the Kyma Dashboard:
   - **Runtime**: `Node.js 14`
 - Press the **Create** button.
 
-The system will create the Kyma Function forward you to the Kyma Function inline editor. As we will need several values from the `configmap` and the `secret` we created before, we need to make them accessible in the Kyma Function. To achieve this we must add them as environment variables:
+The system will create the Kyma Function forward you to the Kyma Function inline editor. As we will need the value from the `configmap` and secrets for the Event Mesh instance, we need to make them accessible in the Kyma Function. To achieve this we must add them as environment variables and bind the Event Mesh instance to the function.
+
+## Step 5.4 - Set environment variables, bind service instance, and extending the function
 
 - In the **Environment Variables** section of the inline editor press the **Add Environment Variable** button.
 - Select **Config Map Variable**
 - In the pop-up **Create Config Map Variable** enter the following data:
-  - **Name**: `EM_`
+  - **Name**: `EM_TRIGGER_QUEUE_PATH`
   - **Config Map**: Select the config map `triggerfunctionconfigmap` from the drop down list
-  - **Key**: Select `<All Keys>` from the drop down list
+  - **Key**: Select the only value available `TRIGGER_QUEUE_PATH`
 - Press the **Create** button  
-- This will add three variables as the config map consists of three keys, all names starting with `EM_`.
-
-The procedure for the secrets is the same, but you need to select **Secret Variable** from the action menu of the **Add Environment Variable** button. Follow the above procedure to add `<All Keys>` as environment variables starting with `EM_` to the Kyma Function.
 
 > 📝 **Tip** - The environment variables are available in the Kyma Function via `process.env.<ENVVARIABLE_NAME>`.
+
+To get the client details from the Event Mesh instance injected, you need to bind it to the function:
+
+- Navigate to **Service Management** -> **Instances**
+- Select your instance `dsagtt22<user ID>`
+- Click **Create Service Binding Usage +***
+- Select as `Usage Kind` **serverless-function** and as `Application` select `triggersupplyshortagemessage<userID>`
+- Provide the prefix `EM_`
+- Keep the checkbox checked and select `Create`. 
+
 
 As we need to make HTTP calls we need a npm package that helps us with that. As a lightweight solution we use `node-fetch`.
 We declare the dependency in the **Dependencies** tab under the **Code** section:
