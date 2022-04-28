@@ -14,7 +14,7 @@ This step covers the creation of an email to notify the customer about the delay
 
 > 📝 **Tip - DSAG Technologietage 2022** - If you are doing this hands-on as part of the DSAG Technologietage 2022 you can get an API key by the hands-on tutors, no need to register
 
-In order to be able to send email we want to make use of a third party service that takes care of this task. In this hands.on we will use [Courier](https://www.courier.com/).
+In order to be able to send email we want to make use of a third party service that takes care of this task. In this hands on we will use [Courier](https://www.courier.com/).
 
 In order to send email you must first register yourself at <https://app.courier.com/>. There is no credit card required and the service offers a free tier for the sending email. The sign-up flow is self-explanatory, make sure to tick the email channel when setting up your account.
 
