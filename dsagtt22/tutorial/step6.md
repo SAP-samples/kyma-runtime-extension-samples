@@ -495,12 +495,12 @@ The code should finally look like this:
 // Dedicated function to retrieve the Bearer token of the Event Mesh
 async function getBearerTokenForEventMesh() {
 
-  const clientId = process.env.EM_MESSAGE_CLIENT_ID
-  const clientSecret = process.env.EM_MESSAGE_CLIENT_SECRET
+  const clientId = JSON.parse(process.env.EM_uaa).clientid
+  const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret
 
   const authString = "Basic " + Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
-  const messagingTokenEndpoint = process.env.EM_MESSAGING_TOKEN_ENDPOINT
+  const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint
   const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
 
   const fetchTokenHeader = {
@@ -536,7 +536,7 @@ async function getBearerTokenForEventMesh() {
 async function pushMessageToNotificationQueue(orderId2Update) {
 
   const accessTokenEventMesh = await getBearerTokenForEventMesh()
-  const messagingEndpointBase = process.env.EM_MESSAGING_ENDPOINT_BASE
+  const messagingEndpointBase = JSON.parse(process.env.EM_messaging)[2].uri
 
   const queuePath = process.env.EM_DELAYEDORDER_PATH
   const queuePathEncoded = encodeURIComponent(queuePath)
