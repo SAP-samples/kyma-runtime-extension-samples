@@ -53,7 +53,7 @@ To avoid hard-coding this into the code of the Kyma Function we create a `config
 
 ## Step 5.3 - Create the secret
 
-To execute the OAuth2 flow (type `client_credentials`) we need the `clientid` and the `clientsecret`. As this is confidential we store it into a `secret` ([What's that?](https://kubernetes.io/docs/concepts/configuration/secret/))which we create:
+To execute the OAuth2 flow (type `client_credentials`) we need the `clientid` and the `clientsecret`. As this is confidential we store it into a `secret` ([What's that?](https://kubernetes.io/docs/concepts/configuration/secret/)) which we create:
 
 - Go to the **Configuration** -> **Secrets** area in the navigation sidebar
 - Push the **Create Secret** button
