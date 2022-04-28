@@ -62,5 +62,6 @@ Let the fun begin 👩‍💻
 5. [Step 5 - Develop function "trigger supply chain issue" 👨‍🔧](./tutorial/step5.md)
 6. [Step 6 - Develop function "update order status" 👨‍🔧](./tutorial/step6.md)
 7. [OPTIONAL: Step 7 - Develop function "send delay email" 👨‍🔧](./tutorial/step7.md)
+8. [The extra mile: setup order microservice in your namespace 👨‍🔧](./tutorial/step1.md) - If you want to try out CI/CD flows with GitActions, walk through Step 1 on your own and modify the namespace into which you deploy the microservices to your created namespace `dsagtt-handson<userID>`
 
 If you want to walk-through the tutorial later on your own, you must execute each step on you own.
