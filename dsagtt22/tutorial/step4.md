@@ -30,8 +30,36 @@ This option guides you through the setup of the SAP Event Mesh via the SAP BTP C
 
 > 📝 **Tip** - Make sure that you have a Cloud Foundry space for the deployment of the service. If this is not the case create a space via the SAP BTP cockpit in the subaccount where you want  (**Cloud Foundry** -> **Spaces** -> **Create Space**).
 
-### Option 1 | Step 4.2 - Create the event mesh service
+In order to be able to interact with the Event Mesh you must now setup the Event Mesh application including the assignment of the corresponding roles to your user
+
+### Option 1 | Step 4.2 - Subscribe to the Event Mesh application
 > DSAG Technologietage 2022 Category: 👀
+
+- Navigate to your subaccount in the SAP BTP Cockpit
+- Go to **Services** -> **Instances and Subscriptions**
+- Click **Create**
+- Select **Event Mesh** and the **standard application** plan
+- Click **Create**
+
+You find the link to the Administration UI for the Event Mesh in the section **Services** -> ***Instances and Subscriptions** in the **Application area**:
+
+![Event Mesh - Link to UI](../pics/step4_Link_to_Event_Mesh.png)
+
+### Option 1 | Step 4.3 - Assign the roles for the Event Mesh application
+> DSAG Technologietage 2022 Category: 👀
+
+- Go to the user overview in your subaccount (**Security** -> **Users**)
+- Select your user
+- In the **Role Collections** section choose the action **Assign Role Collection** from the detail view
+- Assign the following roles to your user:
+  - **Enterprise Messaging Administrator**
+  - **Enterprise Messaging Developer**
+  - **Enterprise Messaging Subscription Administrator**
+- Save your changes
+
+You have now the right roles to access the UI for the Event Mesh. The last thing that needs to be done is to subscripe to the Event Mesh application
+
+### Option 1 | Step 4.4 - Create the event mesh service
 
 - Navigate to your subaccount in the SAP BTP Cockpit
 - Go to **Services** -> **Instances and Subscriptions**
@@ -74,35 +102,6 @@ This option guides you through the setup of the SAP Event Mesh via the SAP BTP C
   ```
 
 - Choose **Create**
-
-In order to be able to interact with the Event Mesh you must now setup the Event Mesh application including the assignment of the corresponding roles to your user
-
-### Option 1 | Step 4.3 - Subscribe to the Event Mesh application
-> DSAG Technologietage 2022 Category: 👀
-
-- Navigate to your subaccount in the SAP BTP Cockpit
-- Go to **Services** -> **Instances and Subscriptions**
-- Click **Create**
-- Select **Event Mesh** and the **standard application** plan
-- Click **Create**
-
-You find the link to the Administration UI for the Event Mesh in the section **Services** -> ***Instances and Subscriptions** in the **Application area**:
-
-![Event Mesh - Link to UI](../pics/step4_Link_to_Event_Mesh.png)
-
-### Option 1 | Step 4.4 - Assign the roles for the Event Mesh application
-> DSAG Technologietage 2022 Category: 👀
-
-- Go to the user overview in your subaccount (**Security** -> **Users**)
-- Select your user
-- In the **Role Collections** section choose the action **Assign Role Collection** from the detail view
-- Assign the following roles to your user:
-  - **Enterprise Messaging Administrator**
-  - **Enterprise Messaging Developer**
-  - **Enterprise Messaging Subscription Administrator**
-- Save your changes
-
-You have now the right roles to access the UI for the Event Mesh. The last thing that needs to be done is to subscripe to the Event Mesh application
 
 ### Option 1 | Step 4.5 - Create the message queues
 
