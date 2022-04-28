@@ -232,7 +232,7 @@ Now all is set to write code of the Kyma Function:
       }
   
       // Call queue to publish message that order was updated
-      const messagingEndpointBase = process.env.EM_MESSAGING_ENDPOINT_BASE
+      const messagingEndpointBase = JSON.parse(process.env.EM_messaging)[2].uri
       const queuePath = process.env.EM_TRIGGER_QUEUE_PATH
       const queuePathEncoded = encodeURIComponent(queuePath)
   
