@@ -28,8 +28,6 @@ This option guides you through the setup of the SAP Event Mesh via the SAP BTP C
 - Choose **Add 1 Service Plan**
 - Choose **Save**
 
-> 📝 **Tip** - Make sure that you have a Cloud Foundry space for the deployment of the service. If this is not the case create a space via the SAP BTP cockpit in the subaccount where you want  (**Cloud Foundry** -> **Spaces** -> **Create Space**).
-
 In order to be able to interact with the Event Mesh you must now setup the Event Mesh application including the assignment of the corresponding roles to your user
 
 ### Option 1 | Step 4.2 - Subscribe to the Event Mesh application
@@ -59,16 +57,23 @@ You find the link to the Administration UI for the Event Mesh in the section **S
 
 You have now the right roles to access the UI for the Event Mesh. The last thing that needs to be done is to subscripe to the Event Mesh application
 
-### Option 1 | Step 4.4 - Create the event mesh service
+### Option 1 | Step 4.4 - Create the event mesh service in Kyma runtime
 
 - Navigate to your subaccount in the SAP BTP Cockpit
-- Go to **Services** -> **Instances and Subscriptions**
-- Choose **Create**
-- Select **Event Mesh** and the **default** service plan.
-- Select your Cloud Foundry space where you want to deploy the service
-- Enter the **Instance Name**: `dsagtt22<userID>`
-- Choose **Next**
-- Enter the parameters of the service via JSON:
+- Go to **Overview** -> **Link to dashboard**
+
+Inside the Kyma runtime Dashboard, create a namespace
+- Go to the Kyma Dashboard
+- Got to the **Namespaces Section** and push the **Create Namespace** button
+- On the "Simple" tab of the po-up enter the name `dsagtt-handson<userID>` and press **Create**
+
+Continue creating the event mesh service instance
+- Open your namespace `dsagtt-handson<userID>`
+- Navigate to **Service Management** -> **Catalog**
+- Look for the **Event Mesh** tile and select it.
+- Choose **Add +**
+- Provide the name `dsagtt22<userID>` and select the **default** service plan.
+- Choose **Add parameters** and enter the parameters of the service via JSON:
 
   ```JSON
   {
@@ -112,7 +117,9 @@ We now need to create two message queues for your application:
 
 To do so, execute the following steps:
 
-- Open to the Event Mesh application via the link from the previous section.
+- Navigate to your subaccount in the SAP BTP Cockpit
+- Go to **Services** -> **Instances and Subscriptions**
+- Open to the Event Mesh application.
 - Click on the tile that represents the Event Mesh service instance called `dsagtt22<userID>`.
 - Go to the section `queues`
 - Click the **Create Queue** button and enter the following data to create the queue for messages due to the supply chain shortage (exchange the "userID" with your ID):
