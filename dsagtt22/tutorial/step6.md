@@ -295,13 +295,13 @@ First we implement the call to the on-premise system:
   }  
   ```
 
-- Fill some basic header information for the call via the Connectivity Proxy. Use the subaccount name of your assigned subaccount as "Location ID". We have to set this location ID because all subaccounts of this hands-on session share one Cloud Connector instance with the same on-premise mock.
+- Fill some basic header information for the call via the Connectivity Proxy. Use the color (in lower case, e.g. "orange") of your subaccount name assigned to you as "Location ID". We have to set this location ID because all subaccounts of this hands-on session share one Cloud Connector instance with the same on-premise mock.
 
   ```javascript
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_color_in_lower_case>",
     }
   }  
   ```
@@ -312,7 +312,7 @@ First we implement the call to the on-premise system:
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_color_in_lower_case>",
     }
 
     const proxy = {
@@ -329,7 +329,7 @@ First we implement the call to the on-premise system:
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_color_in_lower_case>",
     }
 
     const proxy = {
@@ -350,7 +350,7 @@ First we implement the call to the on-premise system:
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_color_in_lower_case>",
     }
 
     const proxy = {
