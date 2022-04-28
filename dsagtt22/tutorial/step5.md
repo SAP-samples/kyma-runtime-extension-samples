@@ -9,20 +9,20 @@ This step covers the creation of a Kyma Function that triggers the overall proce
 In this section we will:
 
 - Create a Kyma Function that pushes a message to the Event Mesh including the OAuth2 authentication flow
-- Use a Kubernetes `configmap` and a `secret` to store the necessary configuration
+- Use a Kubernetes `configmap` to store additional configuration
 - Expose the Function via an API Rule
 
 You will develop everything in the Kyma Dashboard, which means you do not need any tools installed locally.
 
 > 📝 **Tip** - If you want to create the artifacts locally and deploy them to Kyma via the `kubectl` CLI, feel free to do so. You find the code in the directory [dsagtt22/kymafunctions](../kymafunctions).
 
-## Step 5.1 - Create a namespace
+## Step 5.1 - Open your namespace
 
-First we create a namespace for our hands-on:
+Go back to the Kyma Dashboard:
 
 - Go to the Kyma Dashboard
-- Got to the **Namespaces Section** and push the **Create Namespace** button
-- On the "Simple" tab of the po-up enter the name `dsagtt-handson<userID>` and press **Create**
+- Go to the **Namespaces Section** and open `dsagtt-handson<userID>`
+
 
 ## Step 5.2 - Create the config map
 
@@ -32,7 +32,7 @@ The Kyma Function needs the following information:
 - The messaging endpoint of the Event Mesh to push the message into the the queue
 - The queue name
 
-To avoid hard-coding this into the code of the Kyma Function we create a `config map` ([What's that?](https://kubernetes.io/docs/concepts/configuration/configmap/)):
+Many of the information is retrieved by binding the Event Mesh instance to the function. The missing parts are stored in a `config map` ([What's that?](https://kubernetes.io/docs/concepts/configuration/configmap/)):
 
 - Go to the previously created namespace
 - Go to the **Configuration** -> **Config Maps** area in the navigation sidebar
@@ -42,12 +42,7 @@ To avoid hard-coding this into the code of the Kyma Function we create a `config
   - Enter the following key-value pairs into the **Data** section:
 
       | Key                          | Value
-      | ---                          | ---
-      | **MESSAGING_TOKEN_ENDPOINT** | Value of `"tokenendpoint"` in your Event Mesh service key file [downloaded in this step](https://github.com/SAP-samples/kyma-runtime-extension-samples/blob/main/dsagtt22/tutorial/step4.md#retrieve-service-keys)
-      | **MESSAGING_ENDPOINT_BASE**  | Value of `"uri"` in your Event Mesh service key file
       | **TRIGGER_QUEUE_PATH**       | Full name Name of the `supplychainissue<userID>` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
-
-> 📝 **Tip** - When fetching the values from the service key file, make sure to take them from the JSON object with the property `"protocol": ["httprest"]` roughly in lines 54ff of the file.
 
 - Press the **Create** button.
 
