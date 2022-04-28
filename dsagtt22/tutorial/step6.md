@@ -115,7 +115,16 @@ Then create a new config map:
 
 - Press the **Create** button.
 
-Now we need to connect these values to the Kyma Function via environment variables. Navigate to the Kyma Function `updateorderstatus<userID>` and open the inline editor:
+Now we need to bind the Event Mesh instance to the function and connect the values from the config maps to the Kyma Function via environment variables. 
+
+- Navigate to **Service Management** -> **Instances**
+- Select your instance `dsagtt22<user ID>`
+- Click **Create Service Binding Usage +***
+- Select as `Usage Kind` **serverless-function** and as `Application` select `updateorderstatus<userID>`
+- Provide the prefix `EM_`
+- Keep the checkbox checked and select `Create`. 
+
+Navigate to the Kyma Function `updateorderstatus<userID>` and open the inline editor:
 
 - In the **Environment Variables** section of the inline editor press the **Add Environment Variable** button.
 - Select **Config Map Variable**
@@ -130,7 +139,7 @@ Execute the same procedure for the following variables:
 | Variable Name              | Source
 | ---                        | ---
 | `EM_`                      | Config map `triggerfunctionconfigmap`
-| `EM_`                      | Secret `eventmeshsecret`
+
 
 ### Step 6.3b - The main body of the Kyma Function `updateorderstatus`
 
@@ -286,13 +295,13 @@ First we implement the call to the on-premise system:
   }  
   ```
 
-- Fill some basic header information for the call via the Connectivity Proxy. Use the subaccount name of your assigned subaccount as "Location ID". We have to set this location ID because all subaccounts of this hands-on session share one Cloud Connector instance with the same on-premise mock.
+- Fill some basic header information for the call via the Connectivity Proxy. Use the color (in lower case, e.g. "orange") of your subaccount name assigned to you as "Location ID". We have to set this location ID because all subaccounts of this hands-on session share one Cloud Connector instance with the same on-premise mock.
 
   ```javascript
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_color_in_lower_case>",
     }
   }  
   ```
@@ -303,7 +312,7 @@ First we implement the call to the on-premise system:
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_color_in_lower_case>",
     }
 
     const proxy = {
@@ -320,7 +329,7 @@ First we implement the call to the on-premise system:
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_color_in_lower_case>",
     }
 
     const proxy = {
@@ -341,7 +350,7 @@ First we implement the call to the on-premise system:
   async function getOrderByMaterial(materialId) {
   
     const headers = {
-      "SAP-Connectivity-SCC-Location_ID": "<subaccount_name>",
+      "SAP-Connectivity-SCC-Location_ID": "<subaccount_color_in_lower_case>",
     }
 
     const proxy = {
@@ -373,6 +382,7 @@ First we implement the call to the on-premise system:
   
       return "error"
     }
+  }
   
   ```
 
@@ -418,10 +428,6 @@ To achieve this add the following logic to your function:
 
     const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
 
-    const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
-
-    const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
-
     const responseFromOrderService = await fetch(readOrderUrl,
       {
         method: 'GET',
@@ -436,10 +442,6 @@ To achieve this add the following logic to your function:
 
   ```javascript
   async function updateOrderStatus(orderId2Update) {
-
-    const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
-
-    const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
 
     const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
 
@@ -485,12 +487,12 @@ The code should finally look like this:
 // Dedicated function to retrieve the Bearer token of the Event Mesh
 async function getBearerTokenForEventMesh() {
 
-  const clientId = process.env.EM_MESSAGE_CLIENT_ID
-  const clientSecret = process.env.EM_MESSAGE_CLIENT_SECRET
+  const clientId = JSON.parse(process.env.EM_uaa).clientid
+  const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret
 
   const authString = "Basic " + Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
-  const messagingTokenEndpoint = process.env.EM_MESSAGING_TOKEN_ENDPOINT
+  const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint
   const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
 
   const fetchTokenHeader = {
@@ -526,7 +528,7 @@ async function getBearerTokenForEventMesh() {
 async function pushMessageToNotificationQueue(orderId2Update) {
 
   const accessTokenEventMesh = await getBearerTokenForEventMesh()
-  const messagingEndpointBase = process.env.EM_MESSAGING_ENDPOINT_BASE
+  const messagingEndpointBase = JSON.parse(process.env.EM_messaging)[2].uri
 
   const queuePath = process.env.EM_DELAYEDORDER_PATH
   const queuePathEncoded = encodeURIComponent(queuePath)
