@@ -428,10 +428,6 @@ To achieve this add the following logic to your function:
 
     const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
 
-    const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
-
-    const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
-
     const responseFromOrderService = await fetch(readOrderUrl,
       {
         method: 'GET',
@@ -446,10 +442,6 @@ To achieve this add the following logic to your function:
 
   ```javascript
   async function updateOrderStatus(orderId2Update) {
-
-    const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
-
-    const readOrderUrl = `${orderApiEndpoint}/orders/${orderId2Update}`
 
     const orderApiEndpoint = process.env.EM_ORDER_SERVICE_ENDPOINT
 
