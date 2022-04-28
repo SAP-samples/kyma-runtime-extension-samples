@@ -16,7 +16,7 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG_SERVICE_ACCOUNT }}
-      - name: Execute deployment of Cloud Connector
+      - name: Execute deployment of on-premise mock
         run: |
           kubectl apply -f dsagtt22/onprem-mock/k8s/deployment.yaml
       

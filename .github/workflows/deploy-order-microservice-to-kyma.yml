@@ -1,4 +1,4 @@
-name: DSAG TT 2022 - Deploy backend to Kyma
+name: DSAG TT 2022 - Deploy order microservice to Kyma
 
 on:
   workflow_dispatch: {}
