@@ -1,6 +1,6 @@
 # Step 3 - Set up the connectivity proxy
 
-> DSAG Technologietage 2022 Category: 👨‍🔧
+> DSAG Technologietage 2022 Category: 👀
 
 ## Goal 🎯
 
