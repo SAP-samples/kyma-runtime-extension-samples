@@ -135,10 +135,10 @@ Now all is set to write code of the Kyma Function:
   module.exports = {
     main: async function (event, context) {
   
-      const clientId = JSON.parse(process.env.EM_uaa).clientid;
-      const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret;
+      const clientId = JSON.parse(process.env.EM_uaa).clientid
+      const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret
   
-      const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint;
+      const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint
       const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
   
     }
@@ -153,12 +153,12 @@ Now all is set to write code of the Kyma Function:
   module.exports = {
     main: async function (event, context) {
   
-      const clientId = JSON.parse(process.env.EM_uaa).clientid;
-      const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret;
+      const clientId = JSON.parse(process.env.EM_uaa).clientid
+      const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret
 
       const authString = "Basic " + Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
-      const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint;
+      const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint
       const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
   
     }
@@ -173,12 +173,12 @@ Now all is set to write code of the Kyma Function:
   module.exports = {
     main: async function (event, context) {
   
-      const clientId = JSON.parse(process.env.EM_uaa).clientid;
-      const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret;
+      const clientId = JSON.parse(process.env.EM_uaa).clientid
+      const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret
   
       const authString = "Basic " + Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
   
-      const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint;
+      const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint
       const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
   
       // Fetch the OAuth2 token to call the message queue
