@@ -32,7 +32,7 @@ The Kyma Function needs the following information:
 - The messaging endpoint of the Event Mesh to push the message into the the queue
 - The queue name
 
-To avoid hard-coding this into the code of the Kyma Function we create a `config map` ([What's that?](https://kubernetes.io/docs/concepts/configuration/configmap/):
+To avoid hard-coding this into the code of the Kyma Function we create a `config map` ([What's that?](https://kubernetes.io/docs/concepts/configuration/configmap/)):
 
 - Go to the previously created namespace
 - Go to the **Configuration** -> **Config Maps** area in the navigation sidebar
