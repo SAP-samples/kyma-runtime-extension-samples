@@ -42,7 +42,7 @@ Many of the information is retrieved by binding the Event Mesh instance to the f
   - Enter the following key-value pairs into the **Data** section:
 
 
-      | Key                          | Value
+      | Key                          | Value 
       | **TRIGGER_QUEUE_PATH**       | Full name Name of the `supplychainissue<userID>` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
 
 
