@@ -40,13 +40,14 @@ To avoid hard-coding this into the code of the Kyma Function we create a `config
 - Enter following data into the pop-up (**Simple** tab):
   - **Name**: `triggerfunctionconfigmap`
   - Enter the following key-value pairs into the **Data** section:
+  > 📝 **Tip** - When fetching the values from the service key file, make sure to take them from the JSON object with the property `"protocol": ["httprest"]` roughly in line 54ff of the file.
       | Key                          | Value
       | ---                          | ---
       | **MESSAGING_TOKEN_ENDPOINT** | Value of `"tokenendpoint"` in your Event Mesh service key file [downloaded in this step](https://github.com/SAP-samples/kyma-runtime-extension-samples/blob/main/dsagtt22/tutorial/step4.md#retrieve-service-keys)
       | **MESSAGING_ENDPOINT_BASE**  | Value of `"uri"` in your Event Mesh service key file
       | **TRIGGER_QUEUE_PATH**       | Full name Name of the `supplychainissue<userID>` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
 
-  > 📝 **Tip** - When fetching the values from the service key file, make sure to take them from the JSON object with the property `"protocol": ["httprest"]`.
+
 
 - Press the **Create** button.
 
