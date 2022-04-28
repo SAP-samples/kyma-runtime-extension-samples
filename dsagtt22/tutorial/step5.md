@@ -87,7 +87,9 @@ To get the client details from the Event Mesh instance injected, you need to bin
 
 
 As we need to make HTTP calls we need a npm package that helps us with that. As a lightweight solution we use `node-fetch`.
-We declare the dependency in the **Dependencies** tab under the **Code** section:
+
+- Navigate back to your function
+- Declare the dependency in the **Dependencies** tab under the **Code** section:
 
 ```json
 { 
@@ -133,10 +135,10 @@ Now all is set to write code of the Kyma Function:
   module.exports = {
     main: async function (event, context) {
   
-      const clientId = process.env.EM_MESSAGE_CLIENT_ID
-      const clientSecret = process.env.EM_MESSAGE_CLIENT_SECRET
+      const clientId = JSON.parse(process.env.EM_uaa).clientid;
+      const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret;
   
-      const messagingTokenEndpoint = process.env.EM_MESSAGING_TOKEN_ENDPOINT
+      const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint;
       const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
   
     }
@@ -151,12 +153,12 @@ Now all is set to write code of the Kyma Function:
   module.exports = {
     main: async function (event, context) {
   
-      const clientId = process.env.EM_MESSAGE_CLIENT_ID
-      const clientSecret = process.env.EM_MESSAGE_CLIENT_SECRET
+      const clientId = JSON.parse(process.env.EM_uaa).clientid;
+      const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret;
 
       const authString = "Basic " + Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
-      const messagingTokenEndpoint = process.env.EM_MESSAGING_TOKEN_ENDPOINT
+      const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint;
       const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
   
     }
@@ -171,12 +173,12 @@ Now all is set to write code of the Kyma Function:
   module.exports = {
     main: async function (event, context) {
   
-      const clientId = process.env.EM_MESSAGE_CLIENT_ID
-      const clientSecret = process.env.EM_MESSAGE_CLIENT_SECRET
+      const clientId = JSON.parse(process.env.EM_uaa).clientid;
+      const clientSecret = JSON.parse(process.env.EM_uaa).clientsecret;
   
       const authString = "Basic " + Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
   
-      const messagingTokenEndpoint = process.env.EM_MESSAGING_TOKEN_ENDPOINT
+      const messagingTokenEndpoint = JSON.parse(process.env.EM_messaging)[2].oa2.tokenendpoint;
       const messagingTokenFetchUrl = `${messagingTokenEndpoint}?grant_type=client_credentials&response_type=token`
   
       // Fetch the OAuth2 token to call the message queue
