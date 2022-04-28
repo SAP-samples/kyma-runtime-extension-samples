@@ -42,7 +42,7 @@ To avoid hard-coding this into the code of the Kyma Function we create a `config
   - Enter the following key-value pairs into the **Data** section:
       | Key                          | Value
       | ---                          | ---
-      | **MESSAGING_TOKEN_ENDPOINT** | Value of `"tokenendpoint"` in your Event Mesh service key file
+      | **MESSAGING_TOKEN_ENDPOINT** | Value of `"tokenendpoint"` in your Event Mesh service key file [downloaded in this step](https://github.com/SAP-samples/kyma-runtime-extension-samples/blob/main/dsagtt22/tutorial/step4.md#retrieve-service-keys)
       | **MESSAGING_ENDPOINT_BASE**  | Value of `"uri"` in your Event Mesh service key file
       | **TRIGGER_QUEUE_PATH**       | Full name Name of the `supplychainissue<userID>` queue as displayed in the Event Mesh app (**Queues** -> **Queue Name**)
 
