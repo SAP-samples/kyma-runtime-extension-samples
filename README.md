@@ -8,7 +8,7 @@ The samples are implemented in multiple languages and demonstrate various Kyma r
 
 ![kyma-runtime](assets/kyma-runtime-cockpit.png)
 
-## Prerequisites
+## Requirements
 
 Running various samples requires access to the Kyma runtime. There are also other sample-specific requirements that you can find in the _Prerequisites_ section of each sample. An overview of prerequisites is available in the [prerequisites](prerequisites/README.md) directory.
 
@@ -158,6 +158,14 @@ The samples are provided on the "as-is" basis. Currently, there are no known iss
 ## Get support
 
 The samples are provided "as-is". There is no guarantee that raised issues will be answered or addressed in future releases. For more information, visit [SAP Community](https://community.sap.com/), especially our [Kyma topic page](https://community.sap.com/topics/kyma) and [ask a question](https://answers.sap.com/questions/ask.html?primaryTagId=73554900100800003012), or contact your SAP contact to get support. In case you observe any defect in the product usage itself, kindly use the SAP Product Support channel and raise an incident adequately for the defects observed.
+
+## Contributing
+
+If you wish to contribute code, offer fixes or improvements, please send a pull request. Due to legal reasons, contributors will be asked to accept a DCO when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
+
+## Code of Conduct
+
+Please note, that we have a [code of conduct](https://github.com/SAP-samples/.github/blob/main/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
 ## License
 
