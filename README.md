@@ -129,6 +129,7 @@ An overview blog post about updates on SAP BTP, Kyma runtime based on Open Sourc
 | [In-Cluster Events](./in-cluster-events/README.md)                              | Sample that walks you through how to set up and test the in-cluster eventing       | [Post](https://blogs.sap.com/2022/02/24/eventing-whats-new-in-kyma-2.0/)                |
 | [Installing a custom component](./custom-component-dapr/README.md)              | Sample that installs and uses [Dapr](https://dapr.io/) as Custom Component on Kyma | -                                                                                       |
 | [Extending on-premise systems via Kyma runtime](./connectivity-proxy/README.md) | Sample that walks you through how to connect an on premise system                  | [Post](https://blogs.sap.com/2022/02/24/extending-on-premise-systems-via-kyma-runtime/) |
+| [Hands-on for DSAG Technlology Days 2022](./dsagtt22/README.md) | Hands-on which combines an event-based setup with on-premise connectivity                   |  |
 
 ## Helm Charts
 
