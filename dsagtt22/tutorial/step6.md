@@ -111,7 +111,7 @@ Then create a new config map:
       | Key                          | Value
       | ---                          | ---
       | **ONPREM_SERVICE_ENDPOINT**  | Value of the virtual service endpoint from the cloud connector, e. g. `http://onpremmock:17080`
-      | **ORDER_SERVICE_ENDPOINT**   | Value of the API rule endpoint of the order microservice API (not UI5 app). This should be `https://api-mssql-go.c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.com/`
+      | **ORDER_SERVICE_ENDPOINT**   | Value of the API rule endpoint of the order microservice API (not UI5 app). This should be `https://api-mssql-go.<kyma-domain>`
 
 - Press the **Create** button.
 
@@ -578,7 +578,7 @@ You can then check the processing via the logs of your Kyma Function `updateorde
 
 > 📝 **Tip** - The processing of the first message might take a bit, so be patient or execute the trigger again.
 
-You can of course also the the UI5 frontend which should reflect the status update at https://fe-ui5-mssql.c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.com/:
+You can of course also the the UI5 frontend which should reflect the status update:
 
 ![UI5 App changed Status of Order](../pics/step6_UI5%20result.png)
 
