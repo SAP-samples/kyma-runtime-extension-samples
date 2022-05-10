@@ -59,6 +59,7 @@ jobs:
       name: Build Java Project
       run: |
         echo "build to be incorporated"
+        make build-java-projects
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
 
