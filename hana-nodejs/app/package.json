@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sap/hana-client": "^2.12.22",
-    "dotenv": "^16.0.0",
+    "@sap/hana-client": "^2.12.25",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1"
   }
 }
