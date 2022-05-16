@@ -10,7 +10,7 @@ spec:
       actions:
       - name: email
         properties:
-          destination: your.email@domain.com
+          destination: cansu.doganay@sap.com
         state: ENABLED
         type: EMAIL
       conditions:
@@ -33,9 +33,9 @@ metadata:
 spec:
   env:
   - name: AN_REGION
-    value: US21 #provide your subaccount region
+    value: EU10-CANARY
   - name: CLUSTER_DOMAIN
-    value: "TBA" #provide your cluster domain
+    value: https://kyma-env-broker.cp.stage.kyma.cloud.sap/kubeconfig/CEAC0EF0-2D7A-4F60-9BB9-04BB27D79D6E
   deps: "{ \n  \"name\": \"alert-notif-test\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
     {\n    \"@sap_oss/alert-notification-client\": \"1.1.0\"\n  }\n}"
   runtime: nodejs14
