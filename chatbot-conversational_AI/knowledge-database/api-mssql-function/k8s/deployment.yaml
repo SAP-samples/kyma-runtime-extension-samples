@@ -5,6 +5,8 @@ metadata:
   labels:
     app: api-mssql-function
 spec:
+  deps: "{ \n  \"name\": \"dbtester\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+    {\n      \"mssql\": \"6.2.0\"\n  }\n}"
   env:
     - name: database
       value: BotKnowledgeDB
@@ -14,11 +16,7 @@ spec:
       value: mfrCPTK3
     - name: username
       value: sa
-  type: git
-  runtime: nodejs14
-  source: github-repo
-  reference: main
-  baseDir: chatbot-conversational_AI/knowledge-database/api-mssql-function/function
+  source: "const sql = require('mssql')\n\nconst config = {\n    user: process.env.username,\n    password: process.env.password,\n    server: process.env.host, \n    database: process.env.database,\n}\n\nmodule.exports = { \n  main: async function (event, context) {\n    try {\n      const method = event.extensions.request.method\n      const id_num = event.extensions.request.path.split(\"/\")[1];\n      const pool = await sql.connect(config)\n      const request = new sql.Request()\n      \n      switch(method) {\n        case \"GET\":\n          if(id_num){\n            return await getQuestion(request, id_num);\n          }else{\n            return await getQuestions(request);\n          } \n        case \"POST\":\n          return await addQuestion(request, event.data);\n        case \"DELETE\":\n          return await deleteQuestion(request, id_num);\n        default:\n          event.extensions.response.status(500).json({\"message\": \"Unhandled method was received\", \"error\": \"Unhandled method was received\"});\n      }\n    } catch (err) {\n        // ... error checks\n        console.log(\"ERROR catch: \", err);\n        event.extensions.response.status(500).json({\"message\": \"An error occurred during execution\", \"error\": err});\n    }\n    \n    sql.on('error', err => {\n      // ... error handler\n      console.log(\"ERROR handler: \", error);\n      event.extensions.response.status(500).json({\"message\": \"Connection to the database could not be established\", \"error\": err});\n    })\n  }\n}\n\nasync function getQuestions(request){\n  try{\n    let result = await request.query('select * from Questions')\n    return result.recordsets[0];\n  }catch(err){\n    throw err;\n  }\n}\n\nasync function getQuestion(request, id_num){\n  try{\n    let result = await request.query(`select * from Questions where id_num = '${id_num}'`)\n    return result.recordsets[0];\n  }catch(err){\n    throw err;\n  }\n}\n\nasync function addQuestion(request, data){\n  try{\n    let result = await request.query(`insert into Questions (stack_q_id, stack_q_ts, stack_a_id, stack_a_ts, cai_q_id, cai_a_id) values ('${data.stack_q_id}', '${data.stack_q_ts}', '${data.stack_a_id}', '${data.stack_a_ts}', '${data.cai_q_id}', '${data.cai_a_id}'); select * from Questions where stack_q_id = '${data.stack_q_id}'`);\n    return result.recordsets[0];\n  }catch(err){\n    throw err\n  }\n}\n\nasync function deleteQuestion(request, id_num){\n  try{\n    let result = await request.query(`delete from Questions where id_num = '${id_num}'`);\n    return result.rowsAffected;\n  }catch(err){\n    throw err\n  }\n}\n"
 ---
 apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
