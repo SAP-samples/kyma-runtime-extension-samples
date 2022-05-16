@@ -12,7 +12,7 @@ spec:
       eventType:
         property: type
         type: exact
-        value: sap.kyma.custom.mp-commerce-mock.order.created.v1
+        value: sap.kyma.custom.mp-jano-commerce-mock.order.created.v1
   protocol: ""
   protocolsettings: {}
-  sink: http://api-mssql-go.dev.svc.cluster.local:80/orderCodeEvent 
+  sink: http://api-mssql-go.jano.svc.cluster.local:80/orderCodeEvent 
