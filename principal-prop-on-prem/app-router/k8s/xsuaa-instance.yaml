@@ -1,0 +1,40 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: principal-prop-on-prem-xsuaa
+spec:
+  clusterServiceClassExternalName: xsuaa
+  clusterServicePlanExternalName: broker
+  parameters:
+    xsappname: principal-prop-on-prem
+    scopes:
+      - name: "$XSAPPNAME.View"
+        description: "View sales"
+      - name: "uaa.user"
+        description: "uaa"
+      - name: "$XSAPPNAME.Callback"
+        description: "Callbacks for tenant onboarding"
+        grant-as-authority-to-apps:
+          - "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+    role-templates:
+      - name: "Token_Exchange"
+        description: "UAA"
+        scope-references:
+          - "uaa.user"
+      - name: "Viewer"
+        description: "Read Access to Sales data"
+        scope-references:
+          - "$XSAPPNAME.View"
+    oauth2-configuration:
+      redirect-uris:
+        # callback
+        - "https://principal-prop-on-prem.{your-cluster-domain}/**"
+        - "http://localhost:5000/**"
+---
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: principal-prop-on-prem
+spec:
+  instanceRef:
+    name: principal-prop-on-prem-xsuaa

@@ -1,0 +1,20 @@
+{
+  "name": "sales_reporter",
+  "version": "0.0.1",
+  "description": "Sales Reporter application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "tsvetan.angelov01@sap.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-forge": "^0.10.0"
+  },
+  "engines": {
+    "node": "12.13.0"
+  }
+}

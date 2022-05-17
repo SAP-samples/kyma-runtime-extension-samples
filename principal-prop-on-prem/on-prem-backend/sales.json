@@ -1,0 +1,31 @@
+[
+	{
+		"user": "{logged-in-user-email}",
+		"sales": [
+			{
+				"item": "Potato Chips",
+				"units_sold": 15999,
+				"price_per_unit": {
+					"amount": 1.50,
+					"currency": "EUR"
+				}
+			},
+			{
+				"item": "Strawberry Ice Cream",
+				"units_sold": 7455,
+				"price_per_unit": {
+					"amount": 3.25,
+					"currency": "EUR"
+				}
+			},
+			{
+				"item": "Toilet Paper",
+				"units_sold": 987663,
+				"price_per_unit": {
+					"amount": 2.75,
+					"currency": "EUR"
+				}
+			}
+		]
+	}
+]
