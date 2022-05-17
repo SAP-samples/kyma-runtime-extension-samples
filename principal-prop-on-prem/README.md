@@ -76,8 +76,9 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
   HTTPS=true && npm start
   ```
 
-* Configure the on-prem-backend in cloud connector as a virtual host and the resources to path and all sub-paths
+* Configure the on-prem-backend in cloud connector as a virtual host
   ![cc-1](assets/cc-1.png)
+* Configure the resources to path and all sub-paths
   ![cc-2](assets/cc-2.png)
 
 ### Kyma configuration
@@ -90,6 +91,7 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
 
 * Create Connectivity Service Instance in any namespace.
   >Note: Only one instance is required for the cluster. If you have deployed it previously, simply skip this step.
+  
   ![connectivity](./assets/connectivity.png)
 
 * Create xsuaa instance. Update the [app-router/k8s/xsuaa-instance.yaml](app-router/k8s/xsuaa-instance.yaml) to provide `{your-cluster-domain}`
