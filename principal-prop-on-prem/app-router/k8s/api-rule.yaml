@@ -1,0 +1,23 @@
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  labels:
+    app: principal-prop-on-prem
+  name: principal-prop-on-prem
+  apirule.gateway.kyma-project.io/v1alpha1: approuter
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  service:
+    host: principal-prop-on-prem
+    name: app-router
+    port: 5000
+  rules:
+    - path: /.*
+      methods: ["GET", "POST", "PUT", "DELETE"]
+      accessStrategies:
+        - handler: noop
+      mutators:
+        - handler: header
+          config:
+            headers:
+              x-forwarded-host: "principal-prop-on-prem.{your-cluster-domain}"

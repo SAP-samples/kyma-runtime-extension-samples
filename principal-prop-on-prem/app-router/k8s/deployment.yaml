@@ -1,0 +1,85 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: app-router
+spec:
+  host: app-router
+  trafficPolicy:
+    loadBalancer:
+      consistentHash:
+        httpCookie:
+          name: JSESSIONID
+          path: /
+          ttl: 0s
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: app-router
+  name: app-router
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-router
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: app-router
+    spec:
+      containers:
+      - image: gabbi/app-router:0.0.21
+        name: app-router
+        ports:
+        - containerPort: 5000
+        resources: {}
+        volumeMounts:
+        - name: approuter-config-volume
+          mountPath: /usr/src/app/xs-app.json
+          subPath: xs-app.json
+        - name: xsuaa-credentials
+          mountPath: /etc/secrets/sapcp/xsuaa/principal-prop-on-prem-xsuaa
+          readOnly: true
+        env:
+        - name: destinations
+          valueFrom:
+            secretKeyRef:
+              name: prinicpal-prop-on-prem-destinations
+              key: destinations
+        - name: CLUSTER_DOMAIN
+          value: {your-cluster-domain}
+        - name: XS_APP_LOG_LEVEL
+          value: debug
+        - name: REQUEST_TRACE
+          value: "true"
+        - name: DEV_ENV_TRACES
+          value: "true"
+      volumes:
+      - name: approuter-config-volume
+        configMap:
+          name: approuter-config
+      - name: xsuaa-credentials
+        secret:
+          secretName: principal-prop-on-prem
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: app-router
+  name: app-router
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: app-router
+status:
+  loadBalancer: {}
