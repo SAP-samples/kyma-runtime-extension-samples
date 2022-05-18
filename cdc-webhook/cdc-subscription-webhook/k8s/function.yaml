@@ -1,0 +1,172 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: cdc-subscription-webhook
+  namespace: cdc
+  labels:
+    app: cdc-subscription-webhook
+spec:
+  deps: |-
+    {
+      "name": "cdc-subscription-webhook",
+      "version": "1.0.0",
+      "dependencies": {
+        "axios": "^0.27.2",
+        "jsonwebtoken": "^8.5.1",
+        "rsa-pem-from-mod-exp": "^0.8.4",
+        "cloudevents": "^6.0.1"
+      }
+    }
+  maxReplicas: 1
+  minReplicas: 1
+  resources:
+    limits:
+      cpu: 20m
+      memory: 32Mi
+    requests:
+      cpu: 10m
+      memory: 16Mi
+  env:
+    - name: PUBLISHER_URL
+      value: "http://eventing-event-publisher-proxy.kyma-system/publish"
+    - name: EVENT_SOURCE
+      value: "/default/sap.kyma.custom/cdc.1"
+    - name: EVENT_TYPE
+      value: "sap.kyma.custom.cdc.subscription.updated.v1"
+    - name: CDC_API_KEY
+      valueFrom:
+        secretKeyRef:
+          key: CDC_API_KEY
+          name: cdc-subscription-webhook-secret
+    - name: CDC_KID
+      valueFrom:
+        secretKeyRef:
+          key: CDC_KID
+          name: cdc-subscription-webhook-secret
+    - name: CDC_N_MODULUS
+      valueFrom:
+        secretKeyRef:
+          key: CDC_N_MODULUS
+          name: cdc-subscription-webhook-secret
+    - name: CDC_E_EXPONENT
+      valueFrom:
+        secretKeyRef:
+          key: CDC_E_EXPONENT
+          name: cdc-subscription-webhook-secret
+  source: |-
+    const axios = require("axios").default;
+    const jwt = require("jsonwebtoken");
+    const getPem = require("rsa-pem-from-mod-exp");
+    const { HTTP, CloudEvent } = require("cloudevents");
+
+    const getJWTPublicKey = async function() {
+      return await axios({
+        method: "get",
+        url: "https://accounts.us1.gigya.com/accounts.getJWTPublicKey",
+        params: { apiKey: process.env.CDC_API_KEY, V2: "true" }
+      });
+    }
+
+    const verifyJWT = async function(sigJwt, nModulus, eExponent) {
+      var cert = getPem(nModulus, eExponent);
+      return await jwt.verify(sigJwt, cert, { algorithms: ["RS256"] }, function (err, payload) {
+        if (err) {
+          console.log("Error verifying the JWT. ", JSON.stringify(err));
+          return false;
+        } else if (payload) {
+          console.log("Verified payload: ", JSON.stringify(payload));
+          return true;
+        }
+      });
+    }
+
+    const processEvents = async function(events) {
+      console.log("events: ", JSON.stringify(events));
+      for (const [key, event] of Object.entries(events)) {
+        await processEvent(event);
+      }
+    }
+
+    const processEvent = async function(event) {
+      if (event.type === "subscriptionUpdated") {
+
+        const ce = new CloudEvent({
+          id: event.id,
+          type: process.env.EVENT_TYPE,
+          source: process.env.EVENT_SOURCE,
+          data: event.data,
+          datacontenttype: "application/json"
+        });
+
+        const message = HTTP.structured(ce);
+
+        var publishResponse = await axios({
+          method: "post",
+          url: process.env.PUBLISHER_URL,
+          data: message.body,
+          headers: message.headers
+        });
+
+        if (publishResponse && publishResponse.config) {
+          console.log(publishResponse.config.data);
+        }
+
+      }
+    };
+
+    module.exports = { 
+      main: async function (event, context) {
+
+        var nModulus = process.env.CDC_N_MODULUS;
+        var eExponent = process.env.CDC_E_EXPONENT;
+
+        if (event) {
+
+          const headers = event.extensions.request.headers;
+          var sigJwt = headers["x-gigya-sig-jwt"];
+
+          if (sigJwt) {
+
+            console.log("x-gigya-sig-jwt:", sigJwt);
+            var decoded = await jwt.decode(sigJwt, { complete: true });
+
+            // Start - validate kid and update nModulus & eExponent
+            if (process.env.CDC_KID !== decoded.header.kid) {
+
+              var getJWTPublicKeyResponse = await getJWTPublicKey();
+
+              if (getJWTPublicKeyResponse && getJWTPublicKeyResponse.status === 200 
+                && getJWTPublicKeyResponse.data && getJWTPublicKeyResponse.data.statusCode === 200) {
+                  for (const [key, value] of Object.entries(getJWTPublicKeyResponse.data.keys)) {
+                    if (process.env.CDC_KID === value.kid) {
+                      console.log(value.n, value.e);
+                      nModulus = value.n;
+                      eExponent =  value.e;
+                      break;
+                    }
+                  }
+              }
+
+            }
+            // End - validate kid and update nModulus & eExponent
+
+            // Start - verify the JWT
+            var verified = await verifyJWT(sigJwt, nModulus, eExponent);
+            // End - verify the JWT
+
+            // Start - Send events to event mesh queue
+            if (verified && event.data.events) {
+              await processEvents(event.data.events);
+            }
+            // End - Send events to event mesh queue
+
+          }
+
+        }
+
+        res = event.extensions.response;
+        res.status(200);
+        return;
+
+      }
+    }

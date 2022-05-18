@@ -1,0 +1,228 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: event-consumer
+  namespace: cdc
+  labels:
+    app: event-consumer
+spec:
+  deps: |-
+    { 
+      "name": "event-consumer",
+      "version": "1.0.0",
+      "dependencies": {
+        "axios": "^0.27.2",
+        "@sendgrid/mail": "^7.6.2",
+        "memcache-plus": "^0.2.22"
+      }
+    }
+  maxReplicas: 1
+  minReplicas: 1
+  resources:
+    limits:
+      cpu: 20m
+      memory: 32Mi
+    requests:
+      cpu: 10m
+      memory: 16Mi
+  env:
+    - name: MEMCACHED_ENDPOINT
+      value: "bm-memcached.cdc.svc.cluster.local"
+    - name: CDC_API_KEY
+      valueFrom:
+        secretKeyRef:
+          key: CDC_API_KEY
+          name: event-consumer-secret
+    - name: CDC_APP_USER_KEY
+      valueFrom:
+        secretKeyRef:
+          key: CDC_APP_USER_KEY
+          name: event-consumer-secret
+    - name: CDC_APP_SECRET
+      valueFrom:
+        secretKeyRef:
+          key: CDC_APP_SECRET
+          name: event-consumer-secret
+    - name: SENDGRID_API_KEY
+      valueFrom:
+        secretKeyRef:
+          key: SENDGRID_API_KEY
+          name: event-consumer-secret
+    - name: SENDGRID_SENDER_EMAIL
+      valueFrom:
+        secretKeyRef:
+          key: SENDGRID_SENDER_EMAIL
+          name: event-consumer-secret
+  source: |-
+    const axios = require("axios").default;
+    const MemcachePlus = require('memcache-plus');
+    const client = new MemcachePlus(process.env.MEMCACHED_ENDPOINT);
+    const sgMail = require("@sendgrid/mail");
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const SUBSCRIPTION_SUBJECT = "Subscription Confirmation";
+    const UNSUBSCRIPTION_SUBJECT = "Unsubscription Confirmation";
+    const UNSUBSCRIPTION_BODY_TEXT = "This is to confirm that you have been Unsubscribed from our Marketing emails.";
+    const UNSUBSCRIPTION_BODY_HTML = "<strong>This is to confirm that you have been Unsubscribed from our Marketing emails.</strong>";
+
+    const getLiteToken = async function(emailAccountToken) {
+      return await axios({
+        method: "get",
+        url: "https://accounts.us1.gigya.com/accounts.getLiteToken",
+        params: { 
+            apiKey: process.env.CDC_API_KEY, 
+            userKey: process.env.CDC_APP_USER_KEY, 
+            secret: process.env.CDC_APP_SECRET,
+            emailToken: emailAccountToken
+        }
+      });
+    }
+
+    const getAccountInfo = async function(token) {
+      return await axios({
+        method: "get",
+        url: "https://accounts.us1.gigya.com/accounts.getAccountInfo",
+        params: { 
+            apiKey: process.env.CDC_API_KEY, 
+            userKey: process.env.CDC_APP_USER_KEY, 
+            secret: process.env.CDC_APP_SECRET,
+            regToken: token,
+            include: "identities-active , identities-all , identities-global , loginIDs , emails, profile, data, password, isLockedOut, lastLoginLocation, regSource, irank, rba, subscriptions, userInfo, preferences, groups",
+            extraProfileFields: "languages, address, phones, education, educationLevel, honors, publications,  patents, certifications, professionalHeadline, bio, industry, specialities, work, skills, religion, politicalView, interestedIn, relationshipStatus, hometown, favorites, followersCount, followingCount, username, name, locale, verified, timezone, likes, samlData"
+        }
+      });
+    }
+
+    const sendEmail = async function(email, subject, text, html) {
+      const msg = {
+        to: email, 
+        from: process.env.SENDGRID_SENDER_EMAIL, 
+        subject: subject,
+        text: text,
+        html: html
+      }
+      return sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Mail sent");
+        }, error => {
+          console.error(error);
+          if (error.response) {
+            console.error(error.response.body)
+          }
+      });
+    }
+
+    const getChoices = function(selections) {
+      return Object.keys(selections).reduce(
+        (acc, k) => (
+          (acc[selections[k]] = [...(acc[selections[k]] || []), k]), acc
+        ),
+        {}
+      );
+    }
+
+    const toUpperCase = function(str) {
+      return str.toUpperCase();
+    }
+
+    const getSelectedChoices = function(choices) {
+      return choices?.true?.map((choice) => {
+        return choice.replace(/([A-Z])/g, " $1").replace(/^./, toUpperCase);
+      });
+    }
+
+    const getHtmlList = function(selectedChoices) {
+      return (
+        "<ul>" +
+        selectedChoices
+          ?.map(function (value) {
+            return "<li>" + value + "</li>";
+          })
+          .join("") +
+        "</ul>"
+      );
+    }
+
+    const getHtml = function(firstName, selectedLifestyles, selectedProductCategories) {
+      return (
+        (firstName !== undefined ? "Hi " + firstName + "," : "Hi,") +
+        "<h4>This is to confirm your email Subscription to our Marketing emails.</h4>" +
+        (selectedLifestyles || selectedProductCategories
+          ? "It's great to know your choices listed below."
+          : "") +
+        (selectedLifestyles ? "<h4>Lifestyles</h4>" + getHtmlList(selectedLifestyles)
+          : "") +
+        (selectedProductCategories ? "<h4>Product Categories</h4>" + getHtmlList(selectedProductCategories)
+          : "") +
+        "Some top recipes will be coming your way soon!"
+      );
+    }
+
+    const getPlainText = function(html) {
+      return html.replace(/(<([^>]+)>)/gi, " ");
+    }
+
+    const processAccount = async function(emailAccountToken, isSubscribedToMarketing) {
+      var getLiteTokenResponse = await getLiteToken(emailAccountToken);
+      if (getLiteTokenResponse && getLiteTokenResponse.status === 200 
+      && getLiteTokenResponse.data && getLiteTokenResponse.data.statusCode === 200) {
+        console.log("getLiteTokenResponse:", JSON.stringify(getLiteTokenResponse.data));
+        if (getLiteTokenResponse.data.token) {
+          var getAccountInfoResponse = await getAccountInfo(getLiteTokenResponse.data.token);
+          if (getAccountInfoResponse && getAccountInfoResponse.status === 200 
+          && getAccountInfoResponse.data && getAccountInfoResponse.data.statusCode === 200) {
+            console.log("getAccountInfoResponse:", JSON.stringify(getAccountInfoResponse.data));
+            const firstName = getAccountInfoResponse.data.profile.firstName;
+            const selectedLifestyles = getSelectedChoices(getChoices(getAccountInfoResponse.data.data.lifestyles));
+            const selectedProductCategories = getSelectedChoices(getChoices(getAccountInfoResponse.data.data.productCategories));
+            const SUBSCRIPTION_BODY_HTML = getHtml(firstName, selectedLifestyles, selectedProductCategories);
+            const SUBSCRIPTION_BODY_TEXT = getPlainText(SUBSCRIPTION_BODY_HTML);
+            if (getAccountInfoResponse.data.profile.email) {
+              if (isSubscribedToMarketing) {
+                await sendEmail(getAccountInfoResponse.data.profile.email, SUBSCRIPTION_SUBJECT, SUBSCRIPTION_BODY_TEXT, SUBSCRIPTION_BODY_HTML);
+              } else {
+                await sendEmail(getAccountInfoResponse.data.profile.email, UNSUBSCRIPTION_SUBJECT, UNSUBSCRIPTION_BODY_TEXT, UNSUBSCRIPTION_BODY_HTML);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    module.exports = { 
+
+      main: async function (event, context) {
+
+        if (event && event.data) {
+          var eventId = event["ce-id"];
+          console.log("eventId:", eventId);
+
+          var eventIdValue = await client.get(eventId);
+          if (!eventIdValue) {
+
+            // Handle event only in case of cache miss to eliminate duplicates
+            await client.set(eventId, eventId, 86400);
+            console.log('Successfully set the key:', eventId);
+        
+            console.log("event.data:", JSON.stringify(event.data));
+            console.log("emailAccountToken:", event.data.emailAccountToken);
+
+            if (event.data.emailAccountToken) {
+              var isSubscribedToMarketing = false;
+              if (event.data.subscription && event.data.subscription.hasOwnProperty("marketing")) {
+                isSubscribedToMarketing = event.data.subscription.marketing.email.isSubscribed;
+                console.log("isSubscribedToMarketing:", isSubscribedToMarketing);
+              }
+              await processAccount(event.data.emailAccountToken, isSubscribedToMarketing);
+            }
+
+          }
+        }
+
+        var res = event.extensions.response;
+        res.status(200);
+        return;
+
+      }
+      
+    }

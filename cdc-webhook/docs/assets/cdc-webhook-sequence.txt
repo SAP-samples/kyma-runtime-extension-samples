@@ -1,0 +1,39 @@
+
+User->CDC: Newsletter Subscription
+CDC-->User: OK
+
+CDC->CDC: Subscription Updated \nevent
+
+CDC->Webhook Endpoint \n(Serverless Function): Event notification message
+
+Webhook Endpoint \n(Serverless Function)->Webhook Endpoint \n(Serverless Function): Validate JWT, \nget event data
+Webhook Endpoint \n(Serverless Function)->SAP Event Mesh: Publish Message to Queue \n(CloudEvent with event data)
+SAP Event Mesh->SAP Event Mesh: Store CloudEvent Message in Queue
+
+Webhook Endpoint \n(Serverless Function)-->CDC: Status 200
+
+SAP Event Mesh->Event Consumer \n(Serverless Function): Consume Message from Queue \n(Event data)
+
+Event Consumer \n(Serverless Function)->Memcached Microservice: Check for cache hit
+
+alt hit
+    
+    Event Consumer \n(Serverless Function)->Event Consumer \n(Serverless Function): Stop processing for cache hit \n(Eliminate duplicates)
+    
+    Event Consumer \n(Serverless Function)-->SAP Event Mesh: Status 200
+    
+else miss
+    
+    Event Consumer \n(Serverless Function)->Memcached Microservice: Cache Event ID
+
+    Event Consumer \n(Serverless Function)->CDC: accounts.getLiteToken
+    CDC-->Event Consumer \n(Serverless Function): Lite Token
+    
+    Event Consumer \n(Serverless Function)->CDC: accounts.getAccountInfo
+    CDC-->Event Consumer \n(Serverless Function): Account Info
+    
+    Event Consumer \n(Serverless Function)->SendGrid: Send Email to User
+    
+    Event Consumer \n(Serverless Function)-->SAP Event Mesh: Status 200
+    
+end
