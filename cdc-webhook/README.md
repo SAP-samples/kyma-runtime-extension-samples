@@ -1,4 +1,4 @@
-# CDC Webhook
+# Sample SAP Customer Data Cloud Webhook
 
 ## Solution Architecture
 
