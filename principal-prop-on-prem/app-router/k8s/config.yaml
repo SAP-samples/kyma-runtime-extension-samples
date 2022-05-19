@@ -1,22 +1,4 @@
 apiVersion: v1
-kind: Secret
-metadata:
-  name: prinicpal-prop-on-prem-destinations
-type: Opaque
-stringData:
-  destinations: >-
-    [
-        {
-          "name": "on-prem-backend",
-          "url": "http://{your-virtual-host}:{port}",
-          "proxyHost": "connectivity-proxy.kyma-system.svc.cluster.local",
-          "proxyPort": "20003",
-          "forwardAuthToken" : false,
-          "timeout": 1200
-        }
-    ]
----
-apiVersion: v1
 data:
   xs-app.json: |-
     {
@@ -37,3 +19,5 @@ data:
 kind: ConfigMap
 metadata:
   name: approuter-config
+  labels:
+    sample: principal-prop-on-prem
