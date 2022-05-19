@@ -7,13 +7,29 @@ async function main() {
   const db_request = new sql.Request();
 
   const [stackData, dbData, caiCredentials] = await Promise.all([get_stackQuestions(), get_dbData(db_request), get_caiCredentials()]);
+  var update_all_questions = false;
+  if ('UPDATE_ALL' in process.env && process.env.UPDATE_ALL == 'Y') {
+    update_all_questions = true;
+  }
   console.log("********************************** all knowledge received **********************************")
 
   for (let counter = 0; counter < stackData.items.length; counter++) {
     // Choose the next question from Stack
     stackQuestion = stackData.items[counter];
 
-    if (stackQuestion.is_answered) {
+    // Check if the question is already in the database
+    var q_in_db_flag = 0;
+    var id_in_db = -1;
+    for (let i = 0; i < dbData.length; i++) {
+      if (stack_q_id == dbData[i].stack_q_id) {
+        q_in_db_flag = 1;
+        id_in_db = i;
+        break;
+      }
+    }
+
+    // If (question is not in database but answered) or all questions should be updated
+    if ((q_in_db_flag == 0 && stackQuestion.is_answered) || update_all_questions) {
       var answers = await get_stackAnswers(stackQuestion.question_id),
         questionText = stackQuestion.title;
       questionLink = stackQuestion.link;
@@ -27,16 +43,6 @@ async function main() {
       cai_q_id = null,
         cai_a_id = null;
 
-      // Check if the question is already in the database
-      var q_in_db_flag = 0;
-      var id_in_db = -1;
-      for (let i = 0; i < dbData.length; i++) {
-        if (stack_q_id == dbData[i].stack_q_id) {
-          q_in_db_flag = 1;
-          id_in_db = i;
-          break;
-        }
-      }
 
       // Question is already in the database and needs to be updated (tested on 20210910)
       var q_update_flag = 0;
@@ -68,21 +74,17 @@ async function main() {
           throw err;
         }
       }
-    } else { // Question is not answered
-      // Check whether the question is already in the database ==> if so, delete it from the db and CAI
-      for (let i = 0; i < dbData.length; i++) {
-        if (stackQuestion.question_id == dbData[i].stack_q_id) {
-          try { // Delete it from the database and CAI
-            await delete_caiEntry(dbData[i].cai_a_id, caiCredentials.access_token);
-            await db_request.query(`delete from Questions where id_num = '${dbData[i].id_num}'`);
-          } catch (err) {
-            console.log("An Error has occurred during deleting a Question/Answer pair in SAP CAI and the internal DB (it was deleted because it was deleted in Stack Overflow)");
-            throw err;
-          }
-          console.log("A question was deleted from Stack Overflow and hence in the bot.");
-          break;
-        }
+    }
+    // Question is in database, but not answered (anymore)
+    else if (q_in_db_flag == 1 && !stackQuestion.is_answered) {
+      try { // Delete it from the database and CAI
+        await delete_caiEntry(dbData[i].cai_a_id, caiCredentials.access_token);
+        await db_request.query(`delete from Questions where id_num = '${dbData[i].id_num}'`);
+      } catch (err) {
+        console.log("An Error has occurred during deleting a Question/Answer pair in SAP CAI and the internal DB (it was deleted because it was deleted in Stack Overflow)");
+        throw err;
       }
+      console.log("A question was deleted from Stack Overflow and hence in the bot.");
     }
   }
 
