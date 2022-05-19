@@ -35,6 +35,8 @@ Refer [Configuring Principal configuration on help.sap.com](https://help.sap.com
   ![ca](assets/ca.png)
 * Ensure that for Principal Propagation, the Subject Pattern is `CN=${name}`
   ![subject-pattern](assets/subject-pattern.png)
+* [Setup a System Certificate](https://help.sap.com/docs/CP_CONNECTIVITY/cca91383641e40ffbe03bdc78f00f681/3f974eae3cba4dafa274ec59f69daba6.html)
+  * Use third option - generating a self-signed certificate.
 
 ### On prem backend
 
@@ -94,13 +96,30 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
   
   ![connectivity](./assets/connectivity.png)
 
+* Create a destination Configuration in BTP Cockpit.
+  ![destination-config](assets/destination-config.png)
+
 * Create xsuaa instance. Update the [app-router/k8s/xsuaa-instance.yaml](app-router/k8s/xsuaa-instance.yaml) to provide `{your-cluster-domain}`
 
   ```shell script
   kubectl -n $NS apply -f app-router/k8s/xsuaa-instance.yaml
   ```
 
-* Create the configuration required for application router. Update the [app-router/k8s/config.yaml](app-router/k8s/config.yaml) to provide `{your-virtual-host}:{port}` as configured in the cloud connector
+* Create a Destination Service instance.
+
+  ```shell script
+  kubectl -n $NS apply -f app-router/k8s/destination-instance.yaml
+  ```
+
+* For the application router to automatically exchange the token using the destination configuration, it needs to be provided with the necessary credentials as well as the details of the connectivity proxy running inside the Kyma cluster.
+
+* Create the configmap containing connection details about connectivity-proxy running inside kyma runtime.
+
+  ```shell script
+  kubectl -n $NS apply -f app-router/k8s/connectivity-proxy-info.yaml
+  ```
+
+* Create the configuration required for application router.
 
   ```shell script
   kubectl -n $NS apply -f app-router/k8s/config.yaml
@@ -117,9 +136,6 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
   ```shell script
   kubectl -n $NS apply -f app-router/k8s/api-rule.yaml
   ```
-
-  * configure app-router to use it
-  * contains logic to do token exchange.
 
 ### Test
 

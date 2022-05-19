@@ -2,6 +2,8 @@ apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceInstance
 metadata:
   name: principal-prop-on-prem-xsuaa
+  labels:
+    sample: principal-prop-on-prem
 spec:
   clusterServiceClassExternalName: xsuaa
   clusterServicePlanExternalName: broker
@@ -34,7 +36,9 @@ spec:
 apiVersion: servicecatalog.k8s.io/v1beta1
 kind: ServiceBinding
 metadata:
-  name: principal-prop-on-prem
+  name: principal-prop-on-prem-xsuaa
+  labels:
+    sample: principal-prop-on-prem
 spec:
   instanceRef:
     name: principal-prop-on-prem-xsuaa

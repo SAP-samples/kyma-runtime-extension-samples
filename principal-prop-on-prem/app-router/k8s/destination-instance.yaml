@@ -1,0 +1,19 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: principal-prop-on-prem-dest
+  labels:
+    sample: principal-prop-on-prem
+spec:
+  clusterServiceClassExternalName: destination
+  clusterServicePlanExternalName: lite
+---
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: principal-prop-on-prem-dest
+  labels:
+    sample: principal-prop-on-prem
+spec:
+  instanceRef:
+    name: principal-prop-on-prem-dest
