@@ -15,7 +15,7 @@ spec:
         app: cap-orders-service  
     spec:     # pod spec                  
       containers: 
-      - image: {your-docker-account}/cap-orders-service:latest # image we pushed
+      - image: I565662/cap-orders-service:latest # image we pushed
         name: cap-orders-service 
         imagePullPolicy: Always
         ports:
