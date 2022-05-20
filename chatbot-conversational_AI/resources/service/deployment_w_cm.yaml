@@ -15,7 +15,7 @@ spec:
         app: cap-orders-service  
     spec:     # pod spec                  
       containers: 
-      - image: I565662/cap-orders-service:latest # image we pushed
+      - image: rc-enablement-team.common.repositories.cloud.sap/I565662/cap-orders-service:latest # image we pushed
         name: cap-orders-service 
         imagePullPolicy: Always
         ports:
