@@ -36,4 +36,4 @@ data:
   CC_PROXY_PORT: ""
   MOCK_HOST: "http://order-mock.cap.svc.cluster.local:80"
   ALERT_NOTIF_SRV: "alert-notif.cap.svc.cluster.local"
-# try to changeeee
+ 
