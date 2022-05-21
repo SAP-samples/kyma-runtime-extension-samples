@@ -3,7 +3,8 @@ kind: CronJob
 metadata:
   name: update-bot-job
 spec:
-  schedule: "*/2 * * * *"     #change it to your schedule
+  # Update intervall for new questions and answers
+  schedule: "*/30 * * * *"     #change it to your schedule
   concurrencyPolicy: Replace
   jobTemplate:
     spec:
@@ -83,6 +84,7 @@ kind: CronJob
 metadata:
   name: update-all-bot-job
 spec:
+  # update intervall for refreshing all questions
   schedule: "0 23 * * *"     #change it to your schedule
   concurrencyPolicy: Replace
   jobTemplate:
