@@ -1,8 +1,8 @@
 ## SAP Connectivity Proxy
 
-The sample demostrates the configuration of the SAP Cloud Connector with the SAP Kyma runtime. This includes...
+The sample demostrates the use of the SAP Cloud Connector from within SAP BTP, Kyma runtime. This includes...
 
-- The provisioning of the Connectivity Proxy within the Kyma runtime.
+- The provisioning of the Connectivity Proxy within the Kyma runtime ([SAP Help Portal link](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/0c035010a9d64cc8a02d872829c7fa75.html?locale=en-US)).
 - A sample Nodejs application is ran locally and configured in the SAP Cloud Connector to be exposed to the connected SAP BTP account.
 - A Serverless function is deployed within the Kyma runtime, which is configured to call the sample Nodejs application via the Connectivity Proxy.
 - Using a curl pod to call the sample Nodejs application via the Connectivity Proxy.
