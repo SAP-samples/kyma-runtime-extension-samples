@@ -42,21 +42,23 @@ spec:
 status:
   loadBalancer: {}
 ---
-apiVersion: eventing.knative.dev/v1alpha1
-kind: Trigger
+apiVersion: eventing.kyma-project.io/v1alpha1
+kind: Subscription
 metadata:
-  labels:
-    eventing.knative.dev/broker: default
   name: websocket-server
 spec:
-  broker: default
   filter:
-    attributes:
-      eventtypeversion: v1
-      source: mp-gaurav-mock-commerce
-      type: order.created
-  subscriber:
-    uri: http://websocket-server.dev.svc.cluster.local:8888/events
+    filters:
+      - eventSource:
+          property: source
+          type: exact
+          value: ''
+        eventType:
+          property: type
+          type: exact
+          value: sap.kyma.custom.mp-gaurav-10-mock-ccv2.order.created.v1
+  protocolsettings: {}
+  sink: http://websocket-server.dev.svc.cluster.local:8888/events
 status: {}
 ---
 apiVersion: gateway.kyma-project.io/v1alpha1
