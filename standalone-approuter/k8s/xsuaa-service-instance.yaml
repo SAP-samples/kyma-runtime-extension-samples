@@ -1,10 +1,10 @@
-apiVersion: servicecatalog.k8s.io/v1beta1
+apiVersion: services.cloud.sap.com/v1
 kind: ServiceInstance
 metadata:
   name: my-xsuaa
 spec:
-  clusterServiceClassExternalName: xsuaa
-  clusterServicePlanExternalName: application
+  serviceOfferingName: xsuaa
+  servicePlanName: broker
   parameters:
     xsappname: my-approuter
     tenant-mode: dedicated
@@ -28,10 +28,9 @@ spec:
         - "http://**/*"
         - "http://*/**"
 ---
-apiVersion: servicecatalog.k8s.io/v1beta1
+apiVersion: services.cloud.sap.com/v1
 kind: ServiceBinding
 metadata:
   name: my-xsuaa-binding
 spec:
-  instanceRef:
-    name: my-xsuaa
+  serviceInstanceName: principal-prop-on-prem-xsuaa
