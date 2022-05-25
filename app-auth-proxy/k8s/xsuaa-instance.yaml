@@ -1,0 +1,20 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: xsuaa-app-auth-proxy
+spec:
+  serviceOfferingName: xsuaa
+  servicePlanName: application
+  parameters:
+    oauth2-configuration:
+      redirect-uris:
+      - https://app-auth-proxy.c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.comoauth/callback
+      - http://localhost:8000/oauth/callback
+    xsappname: app-auth-proxy
+---
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: xsuaa-app-auth-proxy
+spec:
+  serviceInstanceName: xsuaa-app-auth-proxy
