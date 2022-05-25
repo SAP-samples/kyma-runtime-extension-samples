@@ -5,6 +5,8 @@ metadata:
   labels:
     sample: principal-prop-on-prem
 spec:
+  serviceOfferingName: xsuaa
+  servicePlanName: broker
   parameters:
     xsappname: principal-prop-on-prem
     scopes:
@@ -30,8 +32,6 @@ spec:
         # callback
         - "https://principal-prop-on-prem.{your-cluster-domain}/**"
         - "http://localhost:5000/**"
-  serviceOfferingName: xsuaa
-  servicePlanName: broker
 ---
 apiVersion: services.cloud.sap.com/v1
 kind: ServiceBinding
