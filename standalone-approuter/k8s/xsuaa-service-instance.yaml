@@ -25,12 +25,11 @@ spec:
       redirect-uris:
         # callback
         - "https://my-approuter.{CLUSTER_DOMAIN}/**"
-        - "http://**/*"
-        - "http://*/**"
+        - "http://localhost:5000/**"
 ---
 apiVersion: services.cloud.sap.com/v1
 kind: ServiceBinding
 metadata:
   name: my-xsuaa-binding
 spec:
-  serviceInstanceName: principal-prop-on-prem-xsuaa
+  serviceInstanceName: my-xsuaa
