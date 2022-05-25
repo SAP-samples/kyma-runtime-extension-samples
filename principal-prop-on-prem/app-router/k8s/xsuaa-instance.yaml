@@ -1,12 +1,10 @@
-apiVersion: servicecatalog.k8s.io/v1beta1
+apiVersion: services.cloud.sap.com/v1
 kind: ServiceInstance
 metadata:
   name: principal-prop-on-prem-xsuaa
   labels:
     sample: principal-prop-on-prem
 spec:
-  clusterServiceClassExternalName: xsuaa
-  clusterServicePlanExternalName: broker
   parameters:
     xsappname: principal-prop-on-prem
     scopes:
@@ -32,13 +30,14 @@ spec:
         # callback
         - "https://principal-prop-on-prem.{your-cluster-domain}/**"
         - "http://localhost:5000/**"
+  serviceOfferingName: xsuaa
+  servicePlanName: broker
 ---
-apiVersion: servicecatalog.k8s.io/v1beta1
+apiVersion: services.cloud.sap.com/v1
 kind: ServiceBinding
 metadata:
   name: principal-prop-on-prem-xsuaa
   labels:
     sample: principal-prop-on-prem
 spec:
-  instanceRef:
-    name: principal-prop-on-prem-xsuaa
+  serviceInstanceName: principal-prop-on-prem-xsuaa
