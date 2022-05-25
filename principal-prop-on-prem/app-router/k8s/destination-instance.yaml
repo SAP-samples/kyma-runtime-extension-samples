@@ -1,19 +1,18 @@
-apiVersion: servicecatalog.k8s.io/v1beta1
+apiVersion: services.cloud.sap.com/v1
 kind: ServiceInstance
 metadata:
   name: principal-prop-on-prem-dest
   labels:
     sample: principal-prop-on-prem
 spec:
-  clusterServiceClassExternalName: destination
-  clusterServicePlanExternalName: lite
+  serviceOfferingName: destination
+  servicePlanName: lite
 ---
-apiVersion: servicecatalog.k8s.io/v1beta1
+apiVersion: services.cloud.sap.com/v1
 kind: ServiceBinding
 metadata:
-  name: principal-prop-on-prem-dest
   labels:
     sample: principal-prop-on-prem
+  name: principal-prop-on-prem-dest
 spec:
-  instanceRef:
-    name: principal-prop-on-prem-dest
+  serviceInstanceName: principal-prop-on-prem-dest
