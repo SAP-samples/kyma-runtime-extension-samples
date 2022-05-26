@@ -36,7 +36,7 @@ This sample demonstrates how to:
 2. Open the file `k8s/xsuaa-instance.yaml` and adjust the value `<cluster domain>` and then apply the file
 
    ```shell script
-   kubectl -n dev apply -f ./k8s/xsuaa-instance..yaml
+   kubectl -n dev apply -f ./k8s/xsuaa-instance.yaml
    ```
 
    > > For a complete list of parameters visit [Application Security Descriptor Configuration Syntax](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.04/en-US/6d3ed64092f748cbac691abc5fe52985.html)
