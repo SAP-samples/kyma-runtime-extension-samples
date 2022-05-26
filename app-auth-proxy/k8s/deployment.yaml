@@ -1,29 +1,3 @@
-apiVersion: servicecatalog.k8s.io/v1beta1
-kind: ServiceBinding
-metadata:
-  name: xsuaa-app-auth-proxy-bind
-  labels:
-    app: app-auth-proxy
-spec:
-  instanceRef:
-    name: <Service Instance Name>
----
-apiVersion: servicecatalog.kyma-project.io/v1alpha1
-kind: ServiceBindingUsage
-metadata:
-  name: xsuaa-app-auth-proxy-bind-usage
-  labels:
-    app: app-auth-proxy
-spec:
-  serviceBindingRef:
-    name: xsuaa-app-auth-proxy-bind
-  usedBy:
-    kind: deployment
-    name: app-auth-proxy
-  parameters:
-    envPrefix:
-      name: "IDP_"
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -51,6 +25,27 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /app/config
+          env:
+          - name: IDP_clientid
+            valueFrom:
+              secretKeyRef:
+                name: xsuaa-app-auth-proxy
+                key: clientid
+          - name: IDP_clientsecret
+            valueFrom:
+              secretKeyRef:
+                name: xsuaa-app-auth-proxy
+                key: clientsecret
+          - name: IDP_url
+            valueFrom:
+              secretKeyRef:
+                name: xsuaa-app-auth-proxy
+                key: url
+          - name: IDP_xsappname
+            valueFrom:
+              secretKeyRef:
+                name: xsuaa-app-auth-proxy
+                key: xsappname
       volumes:
         - name: config-volume
           configMap:
