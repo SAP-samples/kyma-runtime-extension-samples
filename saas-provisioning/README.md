@@ -22,76 +22,23 @@ kubectl create namespace saas
 
 The XSUAA Service Instance defines how subscribers will authenticate to the sample application. The sample app uses the [App Auth Proxy](../app-auth-proxy)
 
->> <https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.03/en-US/3bfb120045694e21bfadb1344a693d1f.html>
+> > <https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.03/en-US/3bfb120045694e21bfadb1344a693d1f.html>
 
-1. Within the Kyma console open the namespace **saas**.
-2. Choose **Service Management** -> **Catalog**.
-3. Choose the service **Authorization & Trust Management**.
-4. Choose **Add**.
-5. Choose the Plan **application**.
-6. Choose **Add parameters** and provide the object after adjusting the **<cluster domain>** value of the redirect-uris.
-7. After the instance is created, choose the **Credentials** tab and choose the option **Create Credentials**.
+1. Open the file `k8s/xsuaa-instance.yaml` and adjust the value `<cluster domain>` and then apply the file
 
-    ```json
-    {
-      "xsappname": "saas-provisioning-demo-app",
-      "oauth2-configuration": {
-        "redirect-uris": [
-          "https://*.c-979a4a0.kyma.shoot.live.k8s-hana.ondemand.com/oauth/callback"
-        ]
-      },
-      "tenant-mode": "shared",
-      "scopes": [
-        {
-          "name": "$XSAPPNAME.Callback",
-          "description": "With this scope set, the callbacks for tenant onboarding, offboarding and getDependencies can be called.",
-          "grant-as-authority-to-apps": [
-            "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
-          ]
-        },
-        {
-          "name": "$XSAPPNAME.User",
-          "description": "Use the application"
-        }
-      ],
-      "role-templates": [
-        {
-          "name": "User",
-          "description": "User",
-          "scope-references": ["$XSAPPNAME.User"]
-        }
-      ],
-      "role-collections": [
-        {
-          "name": "saas-provisioning-demo-app-User",
-          "description": "My SaaS App User",
-          "role-template-references": ["$XSAPPNAME.User"]
-        }
-      ]
-    }
-    ```
+   ```shell script
+   kubectl -n dev apply -f ./k8s/xsuaa-instance.yaml
+   ```
 
 ### Create SAAS Provisioning Instance
 
->> <https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/ff540477f5404e3da2a8ce23dcee602a.html>
+> > <https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/ff540477f5404e3da2a8ce23dcee602a.html>
 
-1. Choose **Service Management** -> **Catalog**.
-2. Choose the service **SaaS Provisioning**
-3. Choose **Add**
-4. Choose the Plan **application**
-5. Choose **Add parameters** and provide the object after adjusting the **<cluster domain>** value of the onSubscription property.
+1. Open the file `k8s/saas-instance.yaml` and adjust the value `<cluster domain>` and then apply the file
 
-    ```json
-    {
-      "xsappname": "saas-provisioning-demo-app",
-      "displayName": "Kyma SAAS Provisioning Demo",
-      "description": "A Kyma SAAS Provisioning Demo Sample App",
-      "category": "Kyma Demo",
-      "appUrls": {
-        "onSubscription": "https://saas-provisioning-demo.c-979a4a0.kyma.shoot.live.k8s-hana.ondemand.com/callback/v1.0/tenants/{tenantId}"
-      }
-    }
-    ```
+   ```shell script
+   kubectl -n dev apply -f ./k8s/saas-instance.yaml
+   ```
 
 ### Deploy the Sample
 
@@ -128,20 +75,6 @@ The service account used by the sample app to generate k8s resources:
 kubectl apply -f ./k8s/service-account.yaml -n saas
 ```
 
-### Bind XSUAA Service Instance to the App
-
-1. Bind the XSUAA Service Instance by first determine the instance name by running:
-
-    ```shell
-    kubectl -n saas get serviceinstances
-    ```
-
-2. Adjust the value of <Service Instance Name> found in `service-binding.yaml` to the XSUAA service instance name and then apply it:
-
-    ```shell
-    kubectl apply -f ./k8s/service-binding.yaml -n saas
-    ```
-
 ### Subscribe to the App
 
 1. Create another subaccount using the same provider and region as the Kyma runtime containing the SAAS application and open it
@@ -166,34 +99,34 @@ kubectl apply -f ./k8s/service-account.yaml -n saas
 5. The sample will display
 6. The app will have the following endpoints
 
-    - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/>
-    - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/headers>
-    - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/auth/user>
-    - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/auth/groups>
+   - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/>
+   - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/headers>
+   - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/auth/user>
+   - <https://saas-demo-<tenant id&gt;.&lt;cluster domain&gt;/auth/groups>
 
 ### Run the Sample Locally
 
 1. Download a Kubeconfig from the Kyma runtime and set envirnoment variable
 
-    ```bash
-     export KUBECONFIG=<file path>
-    ```
+   ```bash
+    export KUBECONFIG=<file path>
+   ```
 
 2. Set envirnoment variables
 
-    ```bash
-     export IDP_clientid='<client id>'
-     export IDP_clientsecret='<client secret>'
-     export IDP_url='<url>'
-     export IDP_identityzone='<identityzone>'
-     export IDP_xsappname='<xsappname>'
-    ```
+   ```bash
+    export IDP_clientid='<client id>'
+    export IDP_clientsecret='<client secret>'
+    export IDP_url='<url>'
+    export IDP_identityzone='<identityzone>'
+    export IDP_xsappname='<xsappname>'
+   ```
 
 3. Within the folder **cmd/api** run
 
-    ```bash
-    go run .
-    ```
+   ```bash
+   go run .
+   ```
 
 Send a `PUT` or `DELETE` request to `http://localhost:8000/callback/v1.0/tenants/<a tentant id>` containing
 
