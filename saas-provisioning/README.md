@@ -27,7 +27,7 @@ The XSUAA Service Instance defines how subscribers will authenticate to the samp
 1. Open the file `k8s/xsuaa-instance.yaml` and adjust the value `<cluster domain>` and then apply the file
 
    ```shell script
-   kubectl -n dev apply -f ./k8s/xsuaa-instance.yaml
+   kubectl -n saas apply -f ./k8s/xsuaa-instance.yaml
    ```
 
 ### Create SAAS Provisioning Instance
@@ -37,7 +37,7 @@ The XSUAA Service Instance defines how subscribers will authenticate to the samp
 1. Open the file `k8s/saas-instance.yaml` and adjust the value `<cluster domain>` and then apply the file
 
    ```shell script
-   kubectl -n dev apply -f ./k8s/saas-instance.yaml
+   kubectl -n saas apply -f ./k8s/saas-instance.yaml
    ```
 
 ### Deploy the Sample
