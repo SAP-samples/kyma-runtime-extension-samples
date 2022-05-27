@@ -10,7 +10,7 @@ spec:
       actions:
       - name: email
         properties:
-          destination: a.weers@sap.com
+          destination: cansu.doganay@sap.com
         state: ENABLED
         type: EMAIL
       conditions:
