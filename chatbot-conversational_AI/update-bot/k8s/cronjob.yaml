@@ -13,7 +13,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: update-bot-container
-            image: gabbi/bot-update      #change it to your image
+            image: <image-name> #gabbi/bot-update      #change it to your image
             imagePullPolicy: Always
             env:
               - name: CAI_CREDENTIALS_URL
@@ -78,6 +78,8 @@ spec:
                     key: db-password
               - name: UPDATE_ALL
                 value: "N"
+          imagePullSecrets:
+          - name: regcred
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -94,7 +96,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: update-bot-container
-            image: gabbi/bot-update      #change it to your image
+            image: <image-name> #gabbi/bot-update      #change it to your image
             imagePullPolicy: Always
             env:
               - name: CAI_CREDENTIALS_URL
@@ -159,3 +161,5 @@ spec:
                     key: db-password
               - name: UPDATE_ALL
                 value: "Y"
+          imagePullSecrets:
+          - name: regcred
