@@ -78,8 +78,8 @@ async function main() {
     // Question is in database, but not answered (anymore)
     else if (q_in_db_flag == 1 && !stackQuestion.is_answered) {
       try { // Delete it from the database and CAI
-        await delete_caiEntry(dbData[i].cai_a_id, caiCredentials.access_token);
-        await db_request.query(`delete from Questions where id_num = '${dbData[i].id_num}'`);
+        await delete_caiEntry(dbData[id_in_db].cai_a_id, caiCredentials.access_token);
+        await db_request.query(`delete from Questions where id_num = '${dbData[id_in_db].id_num}'`);
       } catch (err) {
         console.log("An Error has occurred during deleting a Question/Answer pair in SAP CAI and the internal DB (it was deleted because it was deleted in Stack Overflow)");
         throw err;
