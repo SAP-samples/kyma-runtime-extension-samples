@@ -4,7 +4,6 @@ metadata:
   labels:
     sample: principal-prop-on-prem
   name: principal-prop-on-prem
-  apirule.gateway.kyma-project.io/v1alpha1: approuter
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
   service:
