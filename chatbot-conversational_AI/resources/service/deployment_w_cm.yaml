@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cap-orders-service
+  labels:
+    app: cap-orders-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cap-orders-service 
+  template:
+    metadata:
+      labels: # labels to select/identify the deployment
+        app: cap-orders-service  
+    spec:     # pod spec                  
+      containers: 
+      - image: {your-docker-account}/cap-orders-service:latest # image we pushed
+        name: cap-orders-service 
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 4004
+        envFrom:
+          - secretRef:
+              name: orders-vcap-services
+          - configMapRef:
+              name: cap-orders-service
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cap-orders-service
+data:
+  CC_PROXY_HOST: ""
+  CC_PROXY_PORT: ""
+  MOCK_HOST: "http://order-mock.cap.svc.cluster.local:80"
+  ALERT_NOTIF_SRV: "http://alert-notif.cap.svc.cluster.local"
