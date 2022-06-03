@@ -15,7 +15,7 @@ spec:
         app: cap-orders-service  
     spec:     # pod spec                  
       containers: 
-      - image: {your-docker-account}/cap-orders-service:latest # image we pushed
+      - image: rc-enablement-team.common.repositories.cloud.sap/i565662/cap-orders-service:latest # image we pushed
         name: cap-orders-service 
         imagePullPolicy: Always
         ports:
@@ -35,4 +35,4 @@ data:
   CC_PROXY_HOST: ""
   CC_PROXY_PORT: ""
   MOCK_HOST: "http://order-mock.cap.svc.cluster.local:80"
-  ALERT_NOTIF_SRV: "http://alert-notif.cap.svc.cluster.local"
+  ALERT_NOTIF_SRV: "alert-notif.cap.svc.cluster.local"
