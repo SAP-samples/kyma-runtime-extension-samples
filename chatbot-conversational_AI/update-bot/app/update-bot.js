@@ -37,7 +37,7 @@ async function main() {
     }
 
     // If (question is not in database but answered) or all questions should be updated
-    if ((q_in_db_flag == 0 && stackQuestion.is_answered) || update_all_questions) {
+    if ((q_in_db_flag == 0 && stackQuestion.is_answered) || (update_all_questions && stackQuestion.is_answered)) {
       var answers = await get_stackAnswers(stackQuestion.question_id);
       var questionText = stackQuestion.title;
       var questionLink = stackQuestion.link;
