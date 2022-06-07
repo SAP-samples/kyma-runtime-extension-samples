@@ -37,18 +37,18 @@ async function main() {
 
     // If (question is not in database but answered) or all questions should be updated
     if ((q_in_db_flag == 0 && stackQuestion.is_answered) || update_all_questions) {
-      var answers = await get_stackAnswers(stackQuestion.question_id),
-        questionText = stackQuestion.title;
-      questionLink = stackQuestion.link;
-      var bestAnswer = answers.items[0],
-        answerText = bestAnswer.body;
+      var answers = await get_stackAnswers(stackQuestion.question_id);
+      var questionText = stackQuestion.title;
+      var questionLink = stackQuestion.link;
+      var bestAnswer = answers.items[0];
+      var answerText = bestAnswer.body;
 
-      var stack_q_id = stackQuestion.question_id,
-        stack_q_ts = stackQuestion.last_activity_date
-      stack_a_id = bestAnswer.answer_id,
-        stack_a_ts = bestAnswer.last_edit_date ? bestAnswer.last_edit_date : bestAnswer.creation_date
-      cai_q_id = null,
-        cai_a_id = null;
+      var stack_q_id = stackQuestion.question_id;
+      var stack_q_ts = stackQuestion.last_activity_date;
+      var stack_a_id = bestAnswer.answer_id;
+      var stack_a_ts = bestAnswer.last_edit_date ? bestAnswer.last_edit_date : bestAnswer.creation_date;
+      var cai_q_id = null;
+      var cai_a_id = null;
 
 
       // Question is already in the database and needs to be updated (tested on 20210910)
