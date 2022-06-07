@@ -17,6 +17,7 @@ async function main() {
   for (let counter = 0; counter < stackData.items.length; counter++) {
     // Choose the next question from Stack
     stackQuestion = stackData.items[counter];
+    var stack_q_id = stackQuestion.question_id;
 
     // Check if the question is already in the database
     var q_in_db_flag = 0;
@@ -43,7 +44,6 @@ async function main() {
       var bestAnswer = answers.items[0];
       var answerText = bestAnswer.body;
 
-      var stack_q_id = stackQuestion.question_id;
       var stack_q_ts = stackQuestion.last_activity_date;
       var stack_a_id = bestAnswer.answer_id;
       var stack_a_ts = bestAnswer.last_edit_date ? bestAnswer.last_edit_date : bestAnswer.creation_date;
