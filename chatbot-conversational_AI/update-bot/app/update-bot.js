@@ -224,7 +224,8 @@ async function add_caiAnswer(answerText, questionLink, access_token) {
 
     // add the Link to Stack Overflow to the Answer
     if (slackFormat.length > 1800) { // answer is too long
-      finalFormat = "\n" + slackFormat.substring(0, slackFormat.split('. ', 4).join('. ').length + 1) + " ... " + " <" + questionLink + "/|[See more]>";
+      // cut the answer to max four sentences and max 1800 characters
+      finalFormat = "\n" + slackFormat.substring(0, Math.min(slackFormat.split('. ', 4).join('. ').length + 1, 1800)) + " ... " + " <" + questionLink + "/|[See more]>";
     } else {
       var finalFormat = "\n" + slackFormat + "\n\n" + "For more help, please click <" + questionLink + "/|here> to go directly to this question on Stack Overflow.";
     }
