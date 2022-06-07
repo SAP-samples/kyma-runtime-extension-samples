@@ -68,7 +68,7 @@ async function main() {
       // Question is not in database or must be updated (was deleted and must be added again)
       if (q_in_db_flag == 0 || q_update_flag == 1) {
         try {
-          console.log(`Add answer to CAI (${answerText})`);
+          console.log(`Add answer to CAI (${answerText.substring(0, 50)})`);
           var arrTuple = await add_caiAnswer(answerText, questionLink, caiCredentials.access_token);
           var caiAnswerResult = arrTuple[0];
           var errValue = arrTuple[1];
@@ -238,6 +238,7 @@ async function add_caiAnswer(answerText, questionLink, access_token) {
     return [JSON.parse(result.body), null];
   } catch (err) {
     console.log("An Error has occurred during adding an answer to SAP CAI: " + err);
+    console.log(`cai_request_url=${cai_request_url}; finalAnswerString=${finalAnswerString}`);
     //throw err;
     return [null, err];
   }
