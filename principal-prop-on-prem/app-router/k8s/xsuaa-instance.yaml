@@ -9,15 +9,12 @@ spec:
   servicePlanName: application
   parameters:
     xsappname: principal-prop-on-prem
+    tenant-mode: dedicated
     scopes:
       - name: "$XSAPPNAME.View"
         description: "View sales"
       - name: "uaa.user"
         description: "uaa"
-      - name: "$XSAPPNAME.Callback"
-        description: "Callbacks for tenant onboarding"
-        grant-as-authority-to-apps:
-          - "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
     role-templates:
       - name: "Token_Exchange"
         description: "UAA"
