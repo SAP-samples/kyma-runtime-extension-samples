@@ -6,7 +6,7 @@ metadata:
     sample: principal-prop-on-prem
 spec:
   serviceOfferingName: xsuaa
-  servicePlanName: broker
+  servicePlanName: application
   parameters:
     xsappname: principal-prop-on-prem
     scopes:

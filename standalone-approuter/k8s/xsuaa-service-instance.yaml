@@ -4,7 +4,7 @@ metadata:
   name: my-xsuaa
 spec:
   serviceOfferingName: xsuaa
-  servicePlanName: broker
+  servicePlanName: application
   parameters:
     xsappname: my-approuter
     tenant-mode: dedicated
