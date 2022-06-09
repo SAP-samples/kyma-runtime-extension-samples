@@ -19,32 +19,6 @@ spec:
         - image: 'jcawley5/saas-provisioning-demo:latest'
           imagePullPolicy: Always
           name: saas-provisioning-demo
-          env:
-          - name: IDP_clientid
-            valueFrom:
-              secretKeyRef:
-                name: saas-prov-xsuaa-binding
-                key: clientid
-          - name: IDP_clientsecret
-            valueFrom:
-              secretKeyRef:
-                name: saas-prov-xsuaa-binding
-                key: clientsecret
-          - name: IDP_url
-            valueFrom:
-              secretKeyRef:
-                name: saas-prov-xsuaa-binding
-                key: url
-          - name: IDP_xsappname
-            valueFrom:
-              secretKeyRef:
-                name: saas-prov-xsuaa-binding
-                key: xsappname
-          - name: IDP_identityzone
-            valueFrom:
-              secretKeyRef:
-                name: saas-prov-xsuaa-binding
-                key: xsappname
           ports:
             - name: http
               containerPort: 8000

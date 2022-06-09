@@ -22,19 +22,21 @@
 
 ### 2. Create an instance of SAP Event Mesh service in your Kyma Runtime (default plan)
 
-1. Go to your Kyma workspace and select `Namespaces`. Then, select your namespace. For example, select the `conference-registration` namespace.
+1. Go to your Kyma workspace and select `Namespaces`. Then, select the `conference-registration` namespace.
+
+   > **Note:** If you're following the example from the [previous step](step-4.md), then select the `conference-registration` namespace.. Otherwise, select your namespace instead.
 
    ![Select your namespace](../assets/setup-step-4/5.png)
 
-2. Select `Service Management` -> `BTP Service Instances` and select `Create Service Instance +`.
+2. Select `Service Management` -> `Catalog` -> Search for `Event Mesh` and select `Event Mesh`.
 
    ![Create service instance](../assets/setup-step-4/6.png)
 
-3. Enter the name of the instance as `enterprise-messaging-client-1`, the `Offering Name` as `enterprise-messaging`, the `Plan Name` as `default`. Then, select the YAML tab.
+3. Select `Add`.
 
    ![Create service instance](../assets/setup-step-4/7.png)
 
-4. Within the YAML tab, add the parameters listed in the next step.
+4. Enter the name of the instance as `kyma-enterprise-messaging-client`. Select the `default` plan and select `Add parameters`.
 
    ![Create service instance](../assets/setup-step-4/8.png)
 
@@ -42,32 +44,34 @@
 
    ```shell
    {
-      "options": {
-         "management": true,
-         "messagingrest": true,
-         "messaging": true
+   "options": {
+      "management": true,
+      "messagingrest": true
+   },
+   "rules": {
+      "topicRules": {
+         "publishFilter": [
+         "${namespace}/*"
+         ],
+         "subscribeFilter": [
+         "${namespace}/*"
+         ]
       },
-      "rules": {
-         "topicRules": {
-               "publishFilter": [
-                  "${namespace}/*"
-               ],
-               "subscribeFilter": [
-                  "${namespace}/*"
-               ]
-         },
-         "queueRules": {
-               "publishFilter": [
-                  "${namespace}/*"
-               ],
-               "subscribeFilter": [
-                  "${namespace}/*"
-               ]
-         }
-      },
-      "version": "1.1.0",
-      "emname": "enterprise-messaging-client-1",
-      "namespace": "default/sap.kyma.custom/app.1"
+      "queueRules": {
+         "publishFilter": [
+         "${namespace}/*"
+         ],
+         "subscribeFilter": [
+         "${namespace}/*"
+         ]
+      }
+   },
+   "resources": {
+      "units": "10"
+   },
+   "version": "1.1.0",
+   "emname": "kyma-enterprise-messaging-client",
+   "namespace": "eu/kyma-enterprise-messaging-client/dev"
    }
    ```
 
@@ -75,40 +79,36 @@
 
    ![Create service instance](../assets/setup-step-4/9.png)
 
-7. Wait for the status of the service instance to change to `PROVISIONED`. Then, select `Service Management` -> `BTP Service Bindings` and select `Create Service Binding +`.
+7. Wait for the status of the service instance to change to `PROVISIONED`. Then, select `Add Service Binding`.
 
    ![Create binding](../assets/setup-step-4/10.png)
 
-8. For `Name` enter `enterprise-messaging-client-1-binding` and for `Service Instance Name`, select `enterprise-messaging-client-1`. Then, select `Create`.
+8. For `Name` enter `kyma-enterprise-messaging-client-binding` and for `Secret Name` enter `kyma-enterprise-messaging-client-secret`. Then, select `Create`.
 
    ![Create binding](../assets/setup-step-4/11.png)
 
 ### 3. Switch the default eventing of Kyma Runtime from NATS to SAP Event Mesh
 
-1. After the previous step, wait for the status of the service instance binding to change to `PROVISIONED`. Then, select the service binding. For example, `enterprise-messaging-client-1-binding`.
+1. After the previous step, wait for the status of the service instance binding to change to `READY`. Then, select the Secret name. For example, `kyma-enterprise-messaging-client-secret`.
 
    ![Create binding](../assets/setup-step-4/12.png)
 
-2. Select the secret.
+2. Select `Edit`.
 
    ![Create binding](../assets/setup-step-4/13.png)
 
-3. Select `Edit` to edit the secret.
+3. Select the `YAML` tab.
 
    ![Create binding](../assets/setup-step-4/14.png)
 
-4. Select the `YAML` tab.
-
-   ![Create binding](../assets/setup-step-4/15.png)
-
-5. Enter the following YAML code snippet to add the `kyma-project.io/eventing-backend: beb` label to the Secret. Then, select `Update`.
+4. Enter the following YAML code snippet to add the `kyma-project.io/eventing-backend: beb` label to the Secret. Then, select `Update`.
 
    ```shell
    labels:
-     kyma-project.io/eventing-backend: beb
+      kyma-project.io/eventing-backend: beb
    ```
 
-   ![Create binding](../assets/setup-step-4/16.png)
+   ![Create binding](../assets/setup-step-4/15.png)
 
 ## Optional steps to setup SAP Event Mesh Enterprise Messaging application in your SAP BTP cockpit
 
@@ -118,21 +118,21 @@
 
 1. Within your BTP subaccount, go to **Services** > **Service Marketplace**, search for **Event Mesh** and click **Create**.
 
-   ![Create Event Mesh instance](../assets/setup-step-4/17.png)
+   ![Create Event Mesh instance](../assets/setup-step-4/16.png)
 
 2. Select the **standard** plan and click **create**.
 
-   ![Create Event Mesh instance](../assets/setup-step-4/18.png)
+   ![Create Event Mesh instance](../assets/setup-step-4/17.png)
 
 ## 2. Assign the required Role Collections to the admin user
 
 1. Assign the required Role Collections to the admin user. In your BTP subaccount, select `Security` -> `Users`. Search for your user. Then, select the right arrow below the `Actions' column.
 
-   ![Select Actions](../assets/setup-step-4/19.png)
+   ![Select Actions](../assets/setup-step-4/18.png)
 
 2. Scroll down and click on the three dots below `Role Collections`. Then select `Assign Role Collection`.
 
-   ![Select Actions](../assets/setup-step-4/20.png)
+   ![Select Actions](../assets/setup-step-4/19.png)
 
 3. Select all the following options and select `Assign Role Collection`.
 
@@ -142,21 +142,21 @@
    * Enterprise Messaging Subscription Administrator
    * Event Mesh Integration Administrator
 
-   ![Select Actions](../assets/setup-step-4/21.png)
+   ![Select Actions](../assets/setup-step-4/20.png)
 
 ## 3. Navigate to the SAP Event Mesh Enterprise Messaging application
 
 1. Go to `Services` -> `Instances and Subscriptions` and select the `Event Mesh` application.
 
-   ![Select Actions](../assets/setup-step-4/22.png)
+   ![Select Actions](../assets/setup-step-4/21.png)
 
 2. Select `kyma-enterprise-messaging-client`.
 
-   ![Select Actions](../assets/setup-step-4/23.png)
+   ![Select Actions](../assets/setup-step-4/22.png)
 
 3. Navigate through the various tabs and explore the user interface of the SAP Event Mesh Enterprise Messaging application.
 
-   ![Select Actions](../assets/setup-step-4/24.png)
+   ![Select Actions](../assets/setup-step-4/23.png)
 
 ## Refer to the following documentation page for more information :arrow_lower_right&#58;
 
@@ -164,5 +164,5 @@
 
 ## Navigation
 
-| [:house:](../../README.md) | :arrow_backward: [Setup : Step 6 - Apply the Webhook Event Subscription](step-6.md) | :arrow_forward: [Verification : Step 1 - Verify that all the resources of the app are running](../verification/step-1.md) |
+| [:house:](../../README.md) | :arrow_backward: [Setup : Step 4 - Apply the Event Registration Subscription)](step-4.md) | :arrow_forward: [Setup : Step 5 - Create an instance of SAP HANA Cloud](step-5.md) |
 | -------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |

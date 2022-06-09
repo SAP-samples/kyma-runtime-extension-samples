@@ -9,8 +9,8 @@ spec:
     {\n    \"@sap-cloud-sdk/core\": \"^1.24.1\",\n    \"@sap/cloud-sdk-vdm-material-stock-service\":
     \"^1.19.2\"\n  }\n}"
   source: "const vdm = require(\"@sap/cloud-sdk-vdm-material-stock-service\");\n\nconst
-    destConfig = {\n  \"url\": process.env.S4_URL,\n  \"authentication\": process.env.S4_Authentication,\n
-    \ \"username\": process.env.S4_User,\n  \"password\": process.env.S4_Password,\n}\n\nmodule.exports
+    destConfig = {\n  \"url\": process.env.URL,\n  \"authentication\": process.env.Authentication,\n
+    \ \"username\": process.env.User,\n  \"password\": process.env.Password,\n}\n\nmodule.exports
     = { \n  main: async function (event, context) {\n    const response = await getMaterialStock();\n
     \   return response;\n  }\n}\n\nasync function getMaterialStock() {\n  return
     vdm.MaterialStock.requestBuilder()\n      .getAll().execute(destConfig);\n}"
