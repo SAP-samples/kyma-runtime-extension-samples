@@ -4,87 +4,87 @@
 
 # This defines all the variables for the update-bot
 # UPDATE-BOT NEEDS TO BE UPDATED WHEN PR HAS BEEN MERGED
-update-bot:
-	cronjob:
-	job:
-	secret:
-		cai-credentials-url: <url>
-		cai-credentials-id: <id>
-		cai-credentials-secret: <secret>
-		bot-url: <bot-url>
-		cai-x-token: <token>
-		stack-url: <url>
-		stack-tag: <tag>
-		stack-key: <key>
-		db-name: <name>
-		db-host: <host>
-		db-username: <name>
-		db-password: <password>
+#update-bot:
+#	cronjob:
+#	job:
+#	secret:
+#		cai-credentials-url: <url>
+#		cai-credentials-id: <id>
+#		cai-credentials-secret: <secret>
+#		bot-url: <bot-url>
+#		cai-x-token: <token>
+#		stack-url: <url>
+#		stack-tag: <tag>
+#		stack-key: <key>
+#		db-name: <name>
+#		db-host: <host>
+#		db-username: <name>
+#		db-password: <password>
 
 
 
 # This defines all the variables for the bot-observer-tool
-bot-observer-tool:
-	apirule:
-		gateway: <gateway>
-		port: <portnumber>
-	deployment:
-		image: <image-name>
-		containerport: <containerport>
-	secret:
-		cai-credentials-url: <url>
-		cai-credentials-id: <id>
-		cai-credentials-secret: <secret>
-		bot-url: <bot-url>
-		cai-x-token: <token>
-		stack-url: <url>
-		stack-tag: <tag>
-		stack-key: <key>
-		db-name: <name>
-		db-host: <host>
-		db-username: <name>
-		db-password: <password>
-	service:
-		portname: <portname>
-		port: <portnumber>
-		targetport: <portnumber>
-        test-key: test-value
+#bot-observer-tool:
+#	apirule:
+#		gateway: <gateway>
+#		port: <portnumber>
+#	deployment:
+#		image: <image-name>
+#		containerport: <containerport>
+#	secret:
+#		cai-credentials-url: <url>
+#		cai-credentials-id: <id>
+#		cai-credentials-secret: <secret>
+#		bot-url: <bot-url>
+#		cai-x-token: <token>
+#		stack-url: <url>
+#		stack-tag: <tag>
+#		stack-key: <key>
+#		db-name: <name>
+#		db-host: <host>
+#		db-username: <name>
+#		db-password: <password>
+#	service:
+#		portname: <portname>
+#		port: <portnumber>
+#		targetport: <portnumber>
+#       test-key: test-value
 
 
 
 # This defines all the variables for the api-mssql-function
-api-mssql-function:
-	deployment:
-		env:
-			database: <databasename>
-			host: <hostname>
-			username: <username>
-			password: <password>
-			reference: <referenceinrepo>
-			basedir: <basedir>
-	apirule:
-		gateway: <gateway>
-		port: <portnumber>
+#api-mssql-function:
+#	deployment:
+#		env:
+#			database: <databasename>
+#			host: <hostname>
+#			username: <username>
+#			password: <password>
+#			reference: <referenceinrepo>
+#			basedir: <basedir>
+#	apirule:
+#		gateway: <gateway>
+#		port: <portnumber>
 
 
 
 # This defines all the variables for the database-mssql
-database-mssql:
-	deployment:
-		image: <image-name>
-		containerport: <containerPort>
-		env:
-			mssql_pid: <pid>
-			accept_eula: <y>
-		volumemounts:
-			name: <mssqldb>
-			mountpath: <path>
-	service:
-		protocol: <protocol>
-		port: <portnumber>
-		targetport <portnumber>
-	pvc:
-		storage: <storage>
-	secret:
-		username: <username>
-		password: <password>
+#database-mssql:
+#	deployment:
+#		image: <image-name>
+#		containerport: <containerPort>
+#		env:
+#			mssql_pid: <pid>
+#			accept_eula: <y>
+#		volumemounts:
+#			name: <mssqldb>
+#			mountpath: <path>
+#	service:
+#		protocol: <protocol>
+#		port: <portnumber>
+#		targetport <portnumber>
+#	pvc:
+#		storage: <storage>
+#	secret:
+#		username: <username>
+#		password: <password>
