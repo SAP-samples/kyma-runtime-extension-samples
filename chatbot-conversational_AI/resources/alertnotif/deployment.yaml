@@ -48,7 +48,7 @@ spec:
         key: client_secret
         name: alert-notif-ser-binding          
   - name: AN_REGION
-    value: eu10-CANARY #provide your subaccount region
+    value: cf-eu10-CANARY #provide your subaccount region
   - name: CLUSTER_DOMAIN
     value: "c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.com/" #provide your cluster domain
   deps: "{ \n  \"name\": \"alert-notif-test\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
