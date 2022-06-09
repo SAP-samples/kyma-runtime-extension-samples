@@ -101,9 +101,9 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: bot-secret
+  name: bot-secret-test
   labels:
-    app: bot-secret
+    app: bot-secret-test
 type: Opaque
 stringData:
   #cai-credentials-url: {{ .Values.botobservertool.caicredentialsurl }}
