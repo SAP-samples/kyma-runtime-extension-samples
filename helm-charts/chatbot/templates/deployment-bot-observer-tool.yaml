@@ -106,18 +106,18 @@ metadata:
     app: bot-secret
 type: Opaque
 stringData:
-  #cai-credentials-url: {{ .Values.bot-observer-tool.cai-credentials-url }}
-  #cai-credentials-id: {{ .Values.bot-observer-tool.cai-credentials-id }}
-  #cai-credentials-secret: {{ .Values.bot-observer-tool.cai-credentials-secret }}
-  #bot-url:  {{ .Values.bot-observer-tool.bot-url }}
-  #cai-x-token: {{ .Values.bot-observer-tool.cai-x-token }}
-  #stack-url: {{ .Values.bot-observer-tool.stack-url }}
-  #stack-tag: {{ .Values.bot-observer-tool.stack-tag }}
-  #stack-key: {{ .Values.bot-observer-tool.stack-key }}
-  #db-name: {{ .Values.bot-observer-tool.db-name }}
-  #db-host: {{ .Values.bot-observer-tool.db-host }}
-  #db-username: {{ .Values.bot-observer-tool.db-username }}
-  #db-password: {{ .Values.bot-observer-tool.db-password }}
+  #cai-credentials-url: {{ .Values.botobservertool.caicredentialsurl }}
+  #cai-credentials-id: {{ .Values.botobservertool.caicredentialsid }}
+  #cai-credentials-secret: {{ .Values.botobservertool.caicredentialssecret }}
+  #bot-url:  {{ .Values.botobservertool.boturl }}
+  #cai-x-token: {{ .Values.botobservertool.caixtoken }}
+  #stack-url: {{ .Values.botobservertool.stackurl }}
+  #stack-tag: {{ .Values.botobservertool.stacktag }}
+  #stack-key: {{ .Values.botobservertool.stackkey }}
+  #db-name: {{ .Values.botobservertool.dbname }}
+  #db-host: {{ .Values.botobservertool.dbhost }}
+  #db-username: {{ .Values.botobservertool.dbusername }}
+  #db-password: {{ .Values.botobservertool.dbpassword }}
   test-key: {{ .Values.botobservertool.testkey }}
   #also maybe add the regcred helm-field here
 
