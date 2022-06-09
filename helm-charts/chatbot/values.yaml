@@ -48,6 +48,7 @@ bot-observer-tool:
 		portname: <portname>
 		port: <portnumber>
 		targetport: <portnumber>
+        test-key: test-value
 
 
 

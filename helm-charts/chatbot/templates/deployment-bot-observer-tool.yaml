@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: display-bot-knowledge
-        image: lasseurban/bot-observer-tool     #change it to your image
+        image: <image-name>     #change it to your image
         ports:
         - name: https
           containerPort: 3000
@@ -81,6 +81,8 @@ spec:
               secretKeyRef:
                 name: bot-secret
                 key: db-password
+	imagePullSecrets:
+	- name: regcred
 ---
 apiVersion: v1
 kind: Service
@@ -95,3 +97,27 @@ spec:
   - name: https
     port: 3000
     targetPort: 3000
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bot-secret
+  labels:
+    app: bot-secret
+type: Opaque
+stringData:
+  #cai-credentials-url: {{ .Values.bot-observer-tool.cai-credentials-url }}
+  #cai-credentials-id: {{ .Values.bot-observer-tool.cai-credentials-id }}
+  #cai-credentials-secret: {{ .Values.bot-observer-tool.cai-credentials-secret }}
+  #bot-url:  {{ .Values.bot-observer-tool.bot-url }}
+  #cai-x-token: {{ .Values.bot-observer-tool.cai-x-token }}
+  #stack-url: {{ .Values.bot-observer-tool.stack-url }}
+  #stack-tag: {{ .Values.bot-observer-tool.stack-tag }}
+  #stack-key: {{ .Values.bot-observer-tool.stack-key }}
+  #db-name: {{ .Values.bot-observer-tool.db-name }}
+  #db-host: {{ .Values.bot-observer-tool.db-host }}
+  #db-username: {{ .Values.bot-observer-tool.db-username }}
+  #db-password: {{ .Values.bot-observer-tool.db-password }}
+  test-key: {{ .Values.bot-observer-tool.test-value }}
+  #also maybe add the regcred helm-field here
+
