@@ -1,0 +1,20 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: s4-hana-cloud-0164
+spec:
+  parameters:
+    communicationArrangement:
+      communicationArrangementName: INBOUND_COMMUNICATION_ARRANGEMENT
+      inboundAuthentication: BasicAuthentication
+      scenarioId: SAP_COM_0164
+    systemName: EC8
+  serviceOfferingName: s4-hana-cloud
+  servicePlanName: api-access
+---
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: s4-hana-cloud-0164-binding
+spec:
+  serviceInstanceName: s4-hana-cloud-0164

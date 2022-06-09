@@ -1,0 +1,16 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: connectivity-proxy
+spec:
+  externalName: connectivity-proxy
+  serviceOfferingName: connectivity
+  servicePlanName: connectivity_proxy
+---
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: connectivity-proxy-binding
+spec:
+  secretName: connectivity-proxy-binding
+  serviceInstanceName: connectivity-proxy

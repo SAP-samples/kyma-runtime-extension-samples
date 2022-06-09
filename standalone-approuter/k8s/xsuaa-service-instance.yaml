@@ -1,10 +1,10 @@
-apiVersion: servicecatalog.k8s.io/v1beta1
+apiVersion: services.cloud.sap.com/v1
 kind: ServiceInstance
 metadata:
   name: my-xsuaa
 spec:
-  clusterServiceClassExternalName: xsuaa
-  clusterServicePlanExternalName: application
+  serviceOfferingName: xsuaa
+  servicePlanName: application
   parameters:
     xsappname: my-approuter
     tenant-mode: dedicated
@@ -25,13 +25,11 @@ spec:
       redirect-uris:
         # callback
         - "https://my-approuter.{CLUSTER_DOMAIN}/**"
-        - "http://**/*"
-        - "http://*/**"
+        - "http://localhost:5000/**"
 ---
-apiVersion: servicecatalog.k8s.io/v1beta1
+apiVersion: services.cloud.sap.com/v1
 kind: ServiceBinding
 metadata:
   name: my-xsuaa-binding
 spec:
-  instanceRef:
-    name: my-xsuaa
+  serviceInstanceName: my-xsuaa
