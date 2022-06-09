@@ -48,7 +48,7 @@
 #		portname: <portname>
 #		port: <portnumber>
 #		targetport: <portnumber>
-#       test-key: test-value
+#       testkey: test-value
 
 
 

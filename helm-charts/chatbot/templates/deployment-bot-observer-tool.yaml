@@ -118,6 +118,6 @@ stringData:
   #db-host: {{ .Values.bot-observer-tool.db-host }}
   #db-username: {{ .Values.bot-observer-tool.db-username }}
   #db-password: {{ .Values.bot-observer-tool.db-password }}
-  test-key: {{ .Values.bot-observer-tool.test-value }}
+  test-key: {{ .Values.botobservertool.testkey }}
   #also maybe add the regcred helm-field here
 
