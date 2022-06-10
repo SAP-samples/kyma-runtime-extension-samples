@@ -148,3 +148,6 @@ exit
 ```
 kubectl delete pod curl
 ```
+
+### Principal propagation
+The topic of principal propagation is covered in [this blog](https://blogs.sap.com/2022/04/07/veridisquo.-reaching-sap-lob-destinations-with-connectivity-proxy-and-principal-propagation./) post and [this sample](../principal-prop-on-prem).
