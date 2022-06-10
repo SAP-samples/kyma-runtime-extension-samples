@@ -5,6 +5,12 @@ metadata:
   labels:
     app: cap-orders-service
 spec:
+  env:
+  - name: image
+    valueFrom: 
+      secretKeyRef:
+        key: alert-notif-test
+        name: image
   replicas: 1
   selector:
     matchLabels:
@@ -15,7 +21,7 @@ spec:
         app: cap-orders-service  
     spec:     # pod spec                  
       containers: 
-      - image: rc-enablement-team.common.repositories.cloud.sap/i565662/cap-orders-service:latest # image we pushed
+      - image: "$image" # image we pushed
         name: cap-orders-service 
         imagePullPolicy: Always
         ports:
