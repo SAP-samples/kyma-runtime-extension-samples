@@ -3,6 +3,12 @@ kind: ServiceInstance
 metadata:
   name: alert-notif-ser-instance
 spec:
+  env:
+  - name: email
+    valueFrom: 
+      secretKeyRef:
+        key: alert-notif-test
+        name: email
   serviceOfferingName: alert-notification
   servicePlanName: standard
   parameters:
@@ -10,7 +16,7 @@ spec:
       actions:
       - name: email
         properties:
-          destination: cansu.doganay@sap.com
+          destination: "$email"
         state: ENABLED
         type: EMAIL
       conditions:
@@ -48,9 +54,15 @@ spec:
         key: client_secret
         name: alert-notif-ser-binding          
   - name: AN_REGION
-    value: cf-eu10-CANARY #provide your subaccount region
+    valueFrom:
+      secretKeyRef:
+        key: alert-notif-test
+        name: an_region
   - name: CLUSTER_DOMAIN
-    value: "c-6d073c0.kyma-stage.shoot.live.k8s-hana.ondemand.com/" #provide your cluster domain
+    valueFrom:
+      secretKeyRef:
+        key: alert-notif-test
+        name: cluster_domain
   deps: "{ \n  \"name\": \"alert-notif-test\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
     {\n    \"@sap_oss/alert-notification-client\": \"1.1.0\"\n  }\n}"
   runtime: nodejs14
