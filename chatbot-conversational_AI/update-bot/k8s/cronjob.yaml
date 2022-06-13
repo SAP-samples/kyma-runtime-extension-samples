@@ -87,7 +87,7 @@ metadata:
   name: update-all-bot-job
 spec:
   # update intervall for refreshing all questions
-  schedule: "0 23 * * *"     #change it to your schedule
+  schedule: "15 23 * * *"     #change it to your schedule
   concurrencyPolicy: Replace
   jobTemplate:
     spec:
