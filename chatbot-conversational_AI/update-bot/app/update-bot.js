@@ -30,10 +30,10 @@ async function main() {
       }
     }
     if (q_in_db_flag == 1) {
-      console.log(`Question (ID=${stack_q_id}) was found in mssql db at index ${id_in_db}`);
+      console.log(`${new Date()}: Question (ID=${stack_q_id}) was found in mssql db at index ${id_in_db}`);
     }
     else {
-      console.log(`Question (ID=${stack_q_id}) was not found in mssql db.`);
+      console.log(`${new Date()}: Question (ID=${stack_q_id}) was not found in mssql db.`);
     }
 
     // If (question is not in database but answered) or all questions should be updated
@@ -54,13 +54,13 @@ async function main() {
       // Question is already in the database and needs to be updated (tested on 20210910)
       var q_update_flag = 0;
       if (q_in_db_flag == 1 && (dbData[id_in_db].stack_q_ts != stack_q_ts || dbData[id_in_db].stack_a_ts != stack_a_ts)) {
-        console.log(`Deleting Question (ID=${dbData[id_in_db].id_num}) from CAI and mssql, because it is already in the dbs but was updated (or received new answer).`);
+        console.log(`${new Date()}: Deleting Question (ID=${dbData[id_in_db].id_num}) from CAI and mssql, because it is already in the dbs but was updated (or received new answer).`);
         try { // Delete it from the database and CAI
           await delete_caiEntry(dbData[id_in_db].cai_a_id, caiCredentials.access_token);
           await db_request.query(`delete from Questions where id_num = '${dbData[id_in_db].id_num}'; `);
           q_update_flag = 1;
         } catch (err) {
-          console.log(`An Error has occurred during deleting a Question/Answer pair (CAI_ANSWER_ID=${dbData[id_in_db].cai_a_id}; MSSQL_ID=${dbData[id_in_db].id_num}) in SAP CAI and the internal DB`);
+          console.log(`${new Date()}: An Error has occurred during deleting a Question/Answer pair (CAI_ANSWER_ID=${dbData[id_in_db].cai_a_id}; MSSQL_ID=${dbData[id_in_db].id_num}) in SAP CAI and the internal DB`);
           throw err;
         }
       }
@@ -68,21 +68,21 @@ async function main() {
       // Question is not in database or must be updated (was deleted and must be added again)
       if (q_in_db_flag == 0 || q_update_flag == 1) {
         try {
-          console.log(`Add answer to CAI (${answerText.substring(0, 50)})`);
+          console.log(`${new Date()}: Add answer to CAI (${answerText.substring(0, 50)})`);
           var arrTuple = await add_caiAnswer(answerText, questionLink, caiCredentials.access_token);
           var caiAnswerResult = arrTuple[0];
           var errValue = arrTuple[1];
           console.log("Answer from CAI: " + caiAnswerResult);
           if (errValue === null) {
             cai_a_id = caiAnswerResult.results.id;
-            console.log(`Add question (for answer ID=${cai_a_id}) to CAI (${questionText})`);
+            console.log(`${new Date()}: Add question (for answer ID=${cai_a_id}) to CAI (${questionText})`);
             var caiQuestionResult = await add_caiQuestion(questionText, cai_a_id, caiCredentials.access_token);
             cai_q_id = caiQuestionResult.results.id;
             console.log("Insert entry in mssql: stack_q_id=${stack_q_id}, stack_a_id=${stack_a_id}, cai_q_id=${cai_q_id}, cai_a_id=${cai_a_id}");
             await db_request.query(`insert into Questions (stack_q_id, stack_q_ts, stack_a_id, stack_a_ts, cai_q_id, cai_a_id) values ('${stack_q_id}', '${stack_q_ts}', '${stack_a_id}', '${stack_a_ts}', '${cai_q_id}', '${cai_a_id}'); select * from Questions where stack_q_id = '${stack_q_id}'`);
           }
         } catch (err) {
-          console.log("An Error has occurred during adding a new Question/Answer pair to SAP CAI and the internal DB");
+          console.log(`${new Date()}: An Error has occurred during adding a new Question/Answer pair to SAP CAI and the internal DB`);
           throw err;
         }
       }
@@ -93,15 +93,15 @@ async function main() {
         await delete_caiEntry(dbData[id_in_db].cai_a_id, caiCredentials.access_token);
         await db_request.query(`delete from Questions where id_num = '${dbData[id_in_db].id_num}'`);
       } catch (err) {
-        console.log(`An Error has occurred during deleting a Question/Answer pair (CAI_ANSWER_ID=${dbData[id_in_db].cai_a_id}; MSSQL_ID=${dbData[id_in_db].id_num}) in SAP CAI and the internal DB (it was deleted because it was deleted in Stack Overflow)`);
+        console.log(`${new Date()}: An Error has occurred during deleting a Question/Answer pair (CAI_ANSWER_ID=${dbData[id_in_db].cai_a_id}; MSSQL_ID=${dbData[id_in_db].id_num}) in SAP CAI and the internal DB (it was deleted because it was deleted in Stack Overflow)`);
         throw err;
       }
-      console.log(`A question (CAI_ANSWER_ID=${dbData[id_in_db].cai_a_id}; MSSQL_ID=${dbData[id_in_db].id_num}) was deleted from Stack Overflow and hence in the bot.`);
+      console.log(`${new Date()}: A question (CAI_ANSWER_ID=${dbData[id_in_db].cai_a_id}; MSSQL_ID=${dbData[id_in_db].id_num}) was deleted from Stack Overflow and hence in the bot.`);
     }
   }
 
   await sqlconnection.close();
-  console.log("done");
+  console.log(`${new Date()}: done`);
   process.exit(0);
 }
 
@@ -132,7 +132,7 @@ async function get_stackQuestions() {
 
     return allQuestions;
   } catch (err) {
-    console.log("An Error has occurred during requesting the stack questions labeled with " + process.env.STACK_TAG + ". Maybe it is a problem with concatenating multiple pages of questions because max pagesize exceeded.");
+    console.log(`${new Date()}: An Error has occurred during requesting the stack questions labeled with ${process.env.STACK_TAG}. Maybe it is a problem with concatenating multiple pages of questions because max pagesize exceeded.`);
     throw err;
   }
 }
@@ -143,24 +143,27 @@ async function get_stackAnswers(question_id) {
     const result = await stack_request(stack_url_answers, stack_config);
     return result.body;
   } catch (err) {
-    console.log("An Error has occurred during requesting the stack answer to question " + question_id);
+    console.log(`${new Date()}: An Error has occurred during requesting the stack answer to question ${question_id}`);
     throw err;
   }
 }
 
 async function stack_request(url, config) {
   try {
+    console.log(`${new Date()}: STACK_REQUEST: ${url}`);
     const result = await got(url, config);
     // application must wait some seconds if backoff-field in response is set
     // otherwise a throttle-violation is raised
     if ("backoff" in result.body) {
       var backoff_seconds = result.body["backoff"];
-      console.log(`Backoff response received from Stack! Duration: ${backoff_seconds} seconds`);
-      await new Promise(r => setTimeout(r, backoff_seconds * 1000));
+      console.log(`${new Date()}: Backoff response received from Stack! Duration: ${backoff_seconds} seconds`);
+      // add some offset (500ms) to be sure that the backoff is long enough
+      await new Promise(r => setTimeout(r, backoff_seconds * 1000 + 500));
+      console.log(`${new Date()}: Backoff finsihed!`);
     }
     return result;
   } catch(err) {
-    console.log(`Error in stack_request!\nURL: ${url}\nConfig: ${config}\nError: ${err}`);
+    console.log(`${new Date()}: Error in stack_request!\nURL: ${url}\nError: ${err}`);
     throw err;
   }
 }

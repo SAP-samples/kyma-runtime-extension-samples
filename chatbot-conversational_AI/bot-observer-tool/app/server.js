@@ -103,13 +103,13 @@ app.get('/stack', async (req, res) => {
   try {
     // An API call can fetch max 100 entries per page. It must be checked if there is more data available (see: https://api.stackexchange.com/docs/paging)
     var pagenumber = 1;
-    var result = await got(stack_url, options_stack);
+    var result = await stack_request(stack_url, options_stack);
     var allQuestions = result.body;
     var moreDataAvailable_flag = allQuestions.has_more;
 
     while (moreDataAvailable_flag) {
       pagenumber = pagenumber + 1;
-      result = await got(stack_url  + '&page=' + pagenumber, options_stack);
+      result = await stack_request(stack_url  + '&page=' + pagenumber, options_stack);
       result.body.items.forEach(element => allQuestions.items.push(element));
       moreDataAvailable_flag = result.body.has_more;
     }
@@ -120,6 +120,26 @@ app.get('/stack', async (req, res) => {
     console.error(err);
   }
 });
+
+async function stack_request(url, config) {
+  try {
+    console.log(`${new Date()}: STACK_REQUEST: ${url}`);
+    const result = await got(url, config);
+    // application must wait some seconds if backoff-field in response is set
+    // otherwise a throttle-violation is raised
+    if ("backoff" in result.body) {
+      var backoff_seconds = result.body["backoff"];
+      console.log(`${new Date()}: Backoff response received from Stack! Duration: ${backoff_seconds} seconds`);
+      // add some offset (500ms) to be sure that the backoff is long enough
+      await new Promise(r => setTimeout(r, backoff_seconds * 1000 + 500));
+      console.log(`${new Date()}: Backoff finsihed!`);
+    }
+    return result;
+  } catch(err) {
+    console.log(`${new Date()}: Error in stack_request!\nURL: ${url}\nError: ${err}`);
+    throw err;
+  }
+}
 
 
 
