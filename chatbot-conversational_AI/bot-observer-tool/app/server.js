@@ -123,20 +123,21 @@ app.get('/stack', async (req, res) => {
 
 async function stack_request(url, config) {
   try {
-    console.log(`${new Date()}: STACK_REQUEST: ${url}`);
+    console.log(`${new Date().toISOString()}: STACK_REQUEST: ${url}`);
     const result = await got(url, config);
     // application must wait some seconds if backoff-field in response is set
     // otherwise a throttle-violation is raised
     if ("backoff" in result.body) {
       var backoff_seconds = result.body["backoff"];
-      console.log(`${new Date()}: Backoff response received from Stack! Duration: ${backoff_seconds} seconds`);
+      console.log(`${new Date().toISOString()}: Backoff response received from Stack! Duration: ${backoff_seconds} seconds`);
       // add some offset (500ms) to be sure that the backoff is long enough
-      await new Promise(r => setTimeout(r, backoff_seconds * 1000 + 500));
-      console.log(`${new Date()}: Backoff finsihed!`);
+      // the stack server does not measure the time differences very accurately (and not in favor of the client)
+      await new Promise(r => setTimeout(r, (backoff_seconds+2) * 1000));
+      console.log(`${new Date().toISOString()}: Backoff finsihed!`);
     }
     return result;
   } catch(err) {
-    console.log(`${new Date()}: Error in stack_request!\nURL: ${url}\nError: ${err}`);
+    console.log(`${new Date().toISOString()}: Error in stack_request!\nURL: ${url}\nError: ${err}`);
     throw err;
   }
 }
