@@ -118,14 +118,14 @@ async function get_stackQuestions() {
     // An API call can fetch max 100 entries per page. It must be checked if there is more data available (see: https://api.stackexchange.com/docs/paging)
     var pagenumber = 1;
     var stack_url_questions = process.env.STACK_URL + '/search/advanced?tagged=' + process.env.STACK_TAG + '&pagesize=100&page=' + pagenumber + '&filter=withbody&key=' + process.env.STACK_KEY;
-    var result = await got(stack_url_questions, stack_config);
+    var result = await stack_request(stack_url_questions, stack_config);
     var allQuestions = result.body;
     var moreDataAvailable_flag = allQuestions.has_more;
 
     while (moreDataAvailable_flag) {
       pagenumber = pagenumber + 1;
       stack_url_questions = process.env.STACK_URL + '/search/advanced?tagged=' + process.env.STACK_TAG + '&pagesize=100&page=' + pagenumber + '&filter=withbody&key=' + process.env.STACK_KEY;
-      result = await got(stack_url_questions, stack_config);
+      result = await stack_request(stack_url_questions, stack_config);
       result.body.items.forEach(element => allQuestions.items.push(element));
       moreDataAvailable_flag = result.body.has_more;
     }
@@ -140,10 +140,27 @@ async function get_stackQuestions() {
 async function get_stackAnswers(question_id) {
   const stack_url_answers = process.env.STACK_URL + '/questions/' + question_id + '/answers?pagesize=100&filter=withbody&sort=votes&key=' + process.env.STACK_KEY;
   try {
-    const result = await got(stack_url_answers, stack_config);
+    const result = await stack_request(stack_url_answers, stack_config);
     return result.body;
   } catch (err) {
     console.log("An Error has occurred during requesting the stack answer to question " + question_id);
+    throw err;
+  }
+}
+
+async function stack_request(url, config) {
+  try {
+    const result = await got(url, config);
+    // application must wait some seconds if backoff-field in response is set
+    // otherwise a throttle-violation is raised
+    if ("backoff" in result.body) {
+      var backoff_seconds = result.body["backoff"];
+      console.log(`Backoff response received from Stack! Duration: ${backoff_seconds} seconds`);
+      await new Promise(r => setTimeout(r, backoff_seconds * 1000));
+    }
+    return result;
+  } catch(err) {
+    console.log(`Error in stack_request!\nURL: ${url}\nConfig: ${config}\nError: ${err}`);
     throw err;
   }
 }
