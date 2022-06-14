@@ -6,7 +6,8 @@
    cd registrations-rest-api
    ```
 2. Download the PEM file and place it to /registrations-rest-api. The certificate (DigiCertGlobalRootCA.crt.pem) can be downloaded in 'pem-format' from [digicert]      (https://www.digicert.com/kb/digicert-root-certificates.htm).
-
+   > Note: Replace file name to DigiCertGlobalRootCA.pem
+   
    Please see [SAP Help](https://help.sap.com/docs/HANA_SERVICE_CF/cc53ad464a57404b8d453bbadbc81ceb/5bd9bcec690346a8b36df9161b1343c2.html?locale=en-US).
    The certificate is signed by 'DigiCert Global Root CA' with a certificate thumbprint (SHA1): A8985D3A65E5E5C4B2D7D66D40C6DD2FB19C5436.
 
