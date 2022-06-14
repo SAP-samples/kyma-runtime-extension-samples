@@ -103,7 +103,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | [Self-learning FAQ Chatbot based on SAP Conversational AI](./chatbot-conversational_AI/README.md)                             | This sample provides a tutorial and the code to set up an FAQ chatbot in SAP Conversational AI (CAI)                                     | [Post](https://blogs.sap.com/2021/11/15/sap-conversational-ai-chatbot-learning-from-stack-overflow-via-a-kubernetes-cronjob-deployed-in-kyma-runtime/) |
 | [Next.js app with Kyma eventing & Go backend connected to SAP HANA Cloud database](./nextjs-app-with-kyma-eventing/README.md) | This sample provides a tutorial for a conference registration app using Next.js                                                          | [Post](https://blogs.sap.com/2022/02/24/going-jamstack-with-kyma-runtime-building-a-high-performance-web-app/)                                         |
 | [Data Backup and Restore](./data-backup-and-restore/README.md)                                                                | This sample demonstrates performing a backup and restore for a stateful application where data is stored using Persistence Volume Claim. | -                                                                                                                                                       |
-| [HandsOn DSAG Technology Days 2022](./dsagtt22/)                                                                              | This sample gives a walkthrough setting up a sceanrio combining on prem sysetms with Kyma Functions and the Event Mesh                   | - |
+| [HandsOn DSAG Technology Days 2022](./dsagtt22/)                                                                              | This sample gives a walk-through setting up a scenario combining on prem systems with Kyma Functions and the Event Mesh                   | - |
 
 ## Multitenancy and SaaS
 
@@ -118,9 +118,10 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------       | ---------- |
 | [Sample to extend SAP Cloud for Customer with user propagation](./user-propagation/README.md)                     | This sample provides details on how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) via IAS       | -          |
 | [Sample to extend SAP Cloud for Customer with user propagation via XSUAA](./user-propagation-via-xsuaa/README.md) | This sample demonstrates how a user propagation flow can be achieved when extending SAP Cloud for Customer(C4C) via XSUAA            | -          |
-| [App Reverse Proxy with OIDC Authentication Middleware](./app-auth-proxy/README.md)                               | This sample provides a reverse proxy feature which dispatches requests to other microservices running in Kyma                        | -          |
+| [App Reverse Proxy with OIDC Authentication Middleware](./app-auth-proxy/README.md)                               | This sample provides a reverse proxy feature which dispatches requests to other microservice running in Kyma                        | -          |
 | [Standalone approuter on SAP BTP, Kyma runtime](./standalone-approuter/README.md)                                 | This Sample demonstrates deploying a standalone app router on Kyma runtime and use it to securely expose microservices and functions | -           |
 | [Principal Propagation to on premise](./principal-prop-on-prem/README.md)                                 | This sample provides details on how a principal propagation flow can be achieved when extending an on-prem system using SAP BTP, Kyma runtime | -           |
+| [Configure Auth0 as IDP for Kyma access](./kyma-access-auth0-as-idp/) | This sample provide details on how Auth0 can be configured as an Identity Provider for accessing Kyma runtime | - |
 
 ## Updates on SAP BTP, Kyma runtime based on Open Source Kyma 2.0
 
