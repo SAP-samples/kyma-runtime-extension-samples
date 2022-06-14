@@ -57,26 +57,37 @@ You find the link to the Administration UI for the Event Mesh in the section **S
 
 You have now the right roles to access the UI for the Event Mesh. The last thing that needs to be done is to subscripe to the Event Mesh application
 
-### Option 1 | Step 4.4 - Create the event mesh service in Kyma runtime
+### Option 1 | Step 4.4 - Create the event mesh service and binding in Kyma runtime
 
 - Navigate to your subaccount in the SAP BTP Cockpit
 - Go to **Overview** -> **Link to dashboard**
 
 Inside the Kyma runtime Dashboard, create a namespace
+
 - Go to the Kyma Dashboard
 - Got to the **Namespaces Section** and push the **Create Namespace** button
 - On the "Simple" tab of the po-up enter the name `dsagtt-handson<userID>` and press **Create**
 
 Continue creating the event mesh service instance
+
 - Open your namespace `dsagtt-handson<userID>`
-- Navigate to **Service Management** -> **Catalog**
-- Look for the **Event Mesh** tile and select it.
-- Choose **Add +**
-- Provide the name `dsagtt22<userID>` and select the **default** service plan.
-- Choose **Add parameters** and enter the parameters of the service via JSON:
+- Navigate to **Service Management** -> **BTP Service Instances**
+- Click on **"Create Service Instance +"**
+
+In the pop-up **"Create Service Instance"** enter the following data in the tab **"Simple"**:
+
+| Field         | Value
+| ---           | ---
+| Name          | dsagtt22<userID>
+| Offering Name | enterprise-messaging
+| Plan Name     | default
+
+> You find the information on the service name in the SAP BTP Cockpit by navigating to the Service Marketplace and selecting the service you want to instantiate.
+
+Now switch to the **"Advanced"** tab and copy the following values in the parameters section:
 
   ```JSON
-  {
+  parameters:  {
     "emname": "dsagtt22<userID>",
     "namespace": "default/dsagtt22<userID>.kyma/eventing.demo",
     "version": "1.1.0",
@@ -106,7 +117,18 @@ Continue creating the event mesh service instance
   }
   ```
 
-- Choose **Create**
+After that press the create button to start the creation of the service instance.
+
+After a successful creation of the service instance, create a service binding:
+
+- Navigate to **Service Management** -> **BTP Service Binding**
+- Click on **"Create Service Binding +"**
+- On the "Simple" tab enter the following values:
+  - **"Name"**: `dsagtt22<userID>`
+  - **"Service Instance Name"**: Select the service instance for the event mesh `dsagtt22<userID>` from the drop down menu.
+- Press the create button.  
+
+> The binding is successfully created when the Status is switched to `Provisoned`. This results in a Kubernetes secret that contains the necessary information to be able to connect to the SAP Event Mesh.
 
 ### Option 1 | Step 4.5 - Create the message queues
 

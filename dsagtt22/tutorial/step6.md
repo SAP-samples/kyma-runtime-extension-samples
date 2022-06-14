@@ -115,14 +115,15 @@ Then create a new config map:
 
 - Press the **Create** button.
 
-Now we need to bind the Event Mesh instance to the function and connect the values from the config maps to the Kyma Function via environment variables. 
+To get the client secrets for the Event Mesh instance injected, you need to add the secret created by the service binding into the function as environment variable:
 
-- Navigate to **Service Management** -> **Instances**
-- Select your instance `dsagtt22<user ID>`
-- Click **Create Service Binding Usage +***
-- Select as `Usage Kind` **serverless-function** and as `Application` select `updateorderstatus<userID>`
-- Provide the prefix `EM_`
-- Keep the checkbox checked and select `Create`. 
+- In the **Environment Variables** section of the inline editor press the **Add Environment Variable** button.
+- Select **Secret Variable**
+- In the pop-up **Create Secret Variable** enter the following data:
+  - **Name**: `EM_`
+  - **Secret**: `dsagtt22<userID>`
+  - **Key**: <All Keys>
+- Press the **Create** button  
 
 Navigate to the Kyma Function `updateorderstatus<userID>` and open the inline editor:
 
@@ -139,7 +140,6 @@ Execute the same procedure for the following variables:
 | Variable Name              | Source
 | ---                        | ---
 | `EM_`                      | Config map `triggerfunctionconfigmap`
-
 
 ### Step 6.3b - The main body of the Kyma Function `updateorderstatus`
 

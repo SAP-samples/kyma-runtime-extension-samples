@@ -64,7 +64,7 @@ In the Kyma Dashboard:
 
 The system will create the Kyma Function forward you to the Kyma Function inline editor. As we will need the value from the `configmap` and secrets for the Event Mesh instance, we need to make them accessible in the Kyma Function. To achieve this we must add them as environment variables and bind the Event Mesh instance to the function.
 
-## Step 5.4 - Set environment variables, bind service instance, and extending the function
+## Step 5.4 - Set environment variables and extending the function
 
 - In the **Environment Variables** section of the inline editor press the **Add Environment Variable** button.
 - Select **Config Map Variable**
@@ -76,15 +76,15 @@ The system will create the Kyma Function forward you to the Kyma Function inline
 
 > 📝 **Tip** - The environment variables are available in the Kyma Function via `process.env.<ENVVARIABLE_NAME>`.
 
-To get the client details from the Event Mesh instance injected, you need to bind it to the function:
+To get the client secrets for the Event Mesh instance injected, you need to add the secret created by the service binding into the function as environment variable:
 
-- Navigate to **Service Management** -> **Instances**
-- Select your instance `dsagtt22<user ID>`
-- Click **Create Service Binding Usage +***
-- Select as `Usage Kind` **serverless-function** and as `Application` select `triggersupplyshortagemessage<userID>`
-- Provide the prefix `EM_`
-- Keep the checkbox checked and select `Create`. 
-
+- In the **Environment Variables** section of the inline editor press the **Add Environment Variable** button.
+- Select **Secret Variable**
+- In the pop-up **Create Secret Variable** enter the following data:
+  - **Name**: `EM_`
+  - **Secret**: `dsagtt22<userID>`
+  - **Key**: <All Keys>
+- Press the **Create** button  
 
 As we need to make HTTP calls we need a npm package that helps us with that. As a lightweight solution we use `node-fetch`.
 
