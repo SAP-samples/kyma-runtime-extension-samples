@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { C4cTaskComponent } from './c4c-task.component';
 
@@ -6,7 +6,7 @@ describe('C4cTaskComponent', () => {
   let component: C4cTaskComponent;
   let fixture: ComponentFixture<C4cTaskComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ C4cTaskComponent ]
     })
