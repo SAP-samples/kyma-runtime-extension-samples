@@ -5,11 +5,12 @@
    ```shell
    cd registrations-rest-api
    ```
-2. Download the PEM file and place it to /registrations-rest-api. The certificate (DigiCertGlobalRootCA.crt.pem) can be downloaded in 'pem-format' from [digicert]      (https://www.digicert.com/kb/digicert-root-certificates.htm).
-   > Note: Replace file name to DigiCertGlobalRootCA.pem
+   
+2. Download the PEM file and place it within the `/registrations-rest-api` folder. The certificate (DigiCertGlobalRootCA.crt.pem) can be downloaded in 'pem-format' from [digicert](https://www.digicert.com/kb/digicert-root-certificates.htm). [Here](https://cacerts.digicert.com/DigiCertGlobalRootCA.crt.pem) is the direct link to download the file.
+   > Note: After downloading the file, rename it to DigiCertGlobalRootCA.pem
    
    Please see [SAP Help](https://help.sap.com/docs/HANA_SERVICE_CF/cc53ad464a57404b8d453bbadbc81ceb/5bd9bcec690346a8b36df9161b1343c2.html?locale=en-US).
-   The certificate is signed by 'DigiCert Global Root CA' with a certificate thumbprint (SHA1): A8985D3A65E5E5C4B2D7D66D40C6DD2FB19C5436.
+   The certificate is signed by 'DigiCert Global Root CA' with a certificate thumbprint (SHA1): A8:98:5D:3A:65:E5:E5:C4:B2:D7:D6:6D:40:C6:DD:2F:B1:9C:54:36
 
 3. Build the docker image of the **registrations-rest-api microservice**.
 
