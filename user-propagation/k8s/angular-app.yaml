@@ -18,7 +18,7 @@ spec:
         app: kyma-identity-propagation-spa
     spec:
       containers:
-      - image: gabbi/kyma-identity-propagation-spa:0.0.4
+      - image: gabbi/kyma-identity-propagation-spa:0.0.5
         name: kyma-identity-propagation-spa
         resources: {}
         ports:
