@@ -4,10 +4,6 @@ metadata:
   name: mssql-data
   labels:
     app: mssql
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: chatbot
-    meta.helm.sh/release-namespace: karl-kyma
 spec:
   accessModes:
     - ReadWriteOnce

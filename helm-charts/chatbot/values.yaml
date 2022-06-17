@@ -54,22 +54,9 @@
 
 
 # This defines all the variables for the database-mssql
-#databasemssql:
-#	deployment:
-#		image: <image-name>
-#		containerport: <containerPort>
-#		env:
-#			mssql_pid: <pid>
-#			accept_eula: <y>
-#		volumemounts:
-#			name: <mssqldb>
-#			mountpath: <path>
-#	service:
-#		protocol: <protocol>
-#		port: <portnumber>
-#		targetport <portnumber>
-#	pvc:
-#		storage: <storage>
-#	secret:
-#		username: <username>
-#		password: <password>
+databasemssql:
+  deployment:
+    image: lasseurban/bot-db
+  secret:
+    username: <username>
+    password: <password>

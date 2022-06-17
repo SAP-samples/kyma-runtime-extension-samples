@@ -4,10 +4,6 @@ metadata:
   name: mssql
   labels:
     app: mssql
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: chatbot
-    meta.helm.sh/release-namespace: karl-kyma
 spec:
   replicas: 1
   selector:
@@ -21,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: mssql
-          image: lasseurban/bot-db    #change it to your image
+          image: {{ .Values.databasemssql.deployment.image }} 
           imagePullPolicy: Always
           ports:
             - containerPort: 1433
@@ -38,8 +34,6 @@ spec:
           volumeMounts:
             - name: mssqldb
               mountPath: /var/opt/mssql
-      imagePullSecrets:
-        - name: regcred
       volumes:
         - name: mssqldb
           persistentVolumeClaim:
@@ -51,10 +45,6 @@ metadata:
   name: mssql
   labels:
     app: mssql
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: chatbot
-    meta.helm.sh/release-namespace: karl-kyma
 spec:
   selector:
     app: mssql
