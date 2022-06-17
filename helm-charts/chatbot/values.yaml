@@ -4,56 +4,41 @@
 
 # This defines all the variables for the update-bot
 # UPDATE-BOT NEEDS TO BE UPDATED WHEN PR HAS BEEN MERGED
-#update-bot:
-#	cronjob:
-#	job:
+#bot:
 #	secret:
-#		cai-credentials-url: <url>
-#		cai-credentials-id: <id>
-#		cai-credentials-secret: <secret>
-#		bot-url: <bot-url>
-#		cai-x-token: <token>
-#		stack-url: <url>
-#		stack-tag: <tag>
-#		stack-key: <key>
-#		db-name: <name>
-#		db-host: <host>
-#		db-username: <name>
-#		db-password: <password>
+#		caicredentialsurl: <url>
+#		caicredentialsid: <id>
+#		caicredentialssecret: <secret>
+#		boturl: <bot-url>
+#		caixtoken: <token>
+#		stackurl: <url>
+#		stacktag: <tag>
+#		stackkey: <key>
+#		dbname: <name>
+#		dbhost: <host>
+#		dbusername: <name>
+#		dbpassword: <password>
+#	updatebot:
+#		cronjob:
+#		job:
+#	botobservertool:
+#		apirule:
+#			gateway: <gateway>
+#			port: <portnumber>
+#		deployment:
+#			image: <image-name>
+#			containerport: <containerport>
+#		service:
+#			portname: <portname>
+#			port: <portnumber>
+#	 		targetport: <portnumber>
+#	        testkey: test-value
 
-
-
-# This defines all the variables for the bot-observer-tool
-#bot-observer-tool:
-#	apirule:
-#		gateway: <gateway>
-#		port: <portnumber>
-#	deployment:
-#		image: <image-name>
-#		containerport: <containerport>
-#	secret:
-#		cai-credentials-url: <url>
-#		cai-credentials-id: <id>
-#		cai-credentials-secret: <secret>
-#		bot-url: <bot-url>
-#		cai-x-token: <token>
-#		stack-url: <url>
-#		stack-tag: <tag>
-#		stack-key: <key>
-#		db-name: <name>
-#		db-host: <host>
-#		db-username: <name>
-#		db-password: <password>
-#	service:
-#		portname: <portname>
-#		port: <portnumber>
-#		targetport: <portnumber>
-#       testkey: test-value
 
 
 
 # This defines all the variables for the api-mssql-function
-#api-mssql-function:
+#apimssqlfunction:
 #	deployment:
 #		env:
 #			database: <databasename>
@@ -69,7 +54,7 @@
 
 
 # This defines all the variables for the database-mssql
-#database-mssql:
+#databasemssql:
 #	deployment:
 #		image: <image-name>
 #		containerport: <containerPort>
