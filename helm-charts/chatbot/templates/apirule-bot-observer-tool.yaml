@@ -2,13 +2,8 @@ apiVersion: gateway.kyma-project.io/v1alpha1
 kind: APIRule
 metadata:
   name: bot-observer-apirule
-  labels:
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: chatbot
-    meta.helm.sh/release-namespace: karl-kyma
 spec:
-  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  gateway: {{ .Values.apirule.gateway }}
   rules:
   - accessStrategies:
     - config: {}
@@ -19,4 +14,4 @@ spec:
   service:
     host: bot-observer
     name: bot-observer-service
-    port: 3000
+    port: {{ .Values.apirule.port }}

@@ -1,55 +1,53 @@
 # Default values for the chatbot kubernetes application
+
 # Declare the values for the variables for the given template files
 
 
 # This defines all the variables for the update-bot
 # UPDATE-BOT NEEDS TO BE UPDATED WHEN PR HAS BEEN MERGED
-#bot:
-#	secret:
-#		caicredentialsurl: <url>
-#		caicredentialsid: <id>
-#		caicredentialssecret: <secret>
-#		boturl: <bot-url>
-#		caixtoken: <token>
-#		stackurl: <url>
-#		stacktag: <tag>
-#		stackkey: <key>
-#		dbname: <name>
-#		dbhost: <host>
-#		dbusername: <name>
-#		dbpassword: <password>
-#	updatebot:
-#		cronjob:
-#		job:
-#	botobservertool:
-#		apirule:
-#			gateway: <gateway>
-#			port: <portnumber>
-#		deployment:
-#			image: <image-name>
-#			containerport: <containerport>
-#		service:
-#			portname: <portname>
-#			port: <portnumber>
-#	 		targetport: <portnumber>
-#	        testkey: test-value
-
-
+bot:
+  secret:
+    caicredentialsurl: <url>
+    caicredentialsid: <id>
+    caicredentialssecret: <secret>
+    boturl: <bot-url>
+    caixtoken: <token>
+    stackurl: <url>
+    stacktag: <tag>
+    stackkey: <key>
+    dbname: <name>
+    dbhost: <host>
+    dbusername: <name>
+    dbpassword: <password>
+  updatebot:
+    cronjob: <cronjob>
+    job: <job>
+  botobservertool:
+    apirule:
+      gateway: <gateway>
+      port: <portnumber>
+    deployment:
+      image: <image-name>
+      containerport: <containerport>
+    service:
+      portname: <portname>
+      port: <portnumber>
+      targetport: <portnumber>
 
 
 # This defines all the variables for the api-mssql-function
-#apimssqlfunction:
-#	deployment:
-#		env:
-#			database: <databasename>
-#			host: <hostname>
-#			username: <username>
-#			password: <password>
-#			reference: <referenceinrepo>
-#			basedir: <basedir>
-#	apirule:
-#		gateway: <gateway>
-#		port: <portnumber>
+apimssqlfunction:
+  deployment:
+    env:
+      database: <databasename>
+      host: <hostname>
+      username: <username>
+      password: <password>
+      reference: <referenceinrepo>
+      basedir: <basedir>
+apirule:
+  gateway: <gateway>
+  port: <portnumber>
 
 
 
@@ -60,3 +58,10 @@ databasemssql:
   secret:
     username: <username>
     password: <password>
+
+# This defines all the variables for the alert notification
+alertnotification:
+  email: <email>
+  secret:
+    anregion: <anregion>
+    clusterdomain: <clusterdomain>
