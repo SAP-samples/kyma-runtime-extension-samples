@@ -45,10 +45,6 @@ apimssqlfunction:
       password: <password>
       reference: <referenceinrepo>
       basedir: <basedir>
-apirule:
-  gateway: <gateway>
-  port: <portnumber>
-
 
 
 # This defines all the variables for the database-mssql

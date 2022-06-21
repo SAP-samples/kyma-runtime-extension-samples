@@ -3,7 +3,7 @@ kind: APIRule
 metadata:
   name: bot-observer-apirule
 spec:
-  gateway: {{ .Values.apirule.gateway }}
+  gateway: {{ .Values.bot.botobservertool.apirule.gateway }}
   rules:
   - accessStrategies:
     - config: {}
@@ -14,4 +14,4 @@ spec:
   service:
     host: bot-observer
     name: bot-observer-service
-    port: {{ .Values.apirule.port }}
+    port: {{ .Values.bot.botobservertool.apirule.port }}
