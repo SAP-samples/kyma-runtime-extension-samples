@@ -38,12 +38,14 @@ bot:
 apimssqlfunction:
   deployment:
     env:
-      database: <databasename>
+      database: <database>
       host: <hostname>
       username: <username>
       password: <password>
-      reference: <referenceinrepo>
-      basedir: <basedir>
+    reference: <reference>
+    basedir: <basedir>
+  apirule:
+    gateway: <gateway>
 
 
 # This defines all the variables for the database-mssql
