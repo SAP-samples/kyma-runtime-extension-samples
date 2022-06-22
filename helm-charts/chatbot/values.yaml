@@ -60,3 +60,7 @@ alertnotification:
   secret:
     anregion: <anregion>
     clusterdomain: <clusterdomain>
+
+# This defines the secret for the container registry
+regsecret:
+  dockerconfigjson: <regcred> 
