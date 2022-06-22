@@ -4,11 +4,11 @@ This sample provides details on how a principal propagation flow can be achieved
 
 The sample can use XSUAA as well as SAP Identity Authentication Service (IAS) as an external identity provider with user federation.
 
-The prinicpal propagation relies on the exchange of the JWT token received in Kyma. The exchanged token is then forwarded to the SAP Cloud Connector and is used to identify the logged-in user.
+The principal propagation relies on the exchange of the JWT token received in Kyma. The exchanged token is then forwarded to the SAP Cloud Connector and is used to identify the logged-in user.
 
 In the sample flow, a logged-in user will fetch his sales data from the on-prem system.
 
-![flow](assets/principal-prop-on-prem.svg)
+![flow](assets/pp-on-prem.svg)
 
 Using standalone SAP application router an API `sap/com/onprem/mysales` is hosted on the Kyma runtime. This API then calls the on-prem system via Connectivity Proxy.
 
@@ -130,6 +130,8 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
   ```shell script
   kubectl -n $NS apply -f app-router/k8s/deployment.yaml
   ```
+
+  >Note: The application router image is based on the [stand-alone application router sample](../standalone-approuter/README.md)
 
 * Expose it over internet using API Rule. Update the [app-router/k8s/api-rule.yaml](app-router/k8s/api-rule.yaml) to provide `{your-cluster-domain}`
 
