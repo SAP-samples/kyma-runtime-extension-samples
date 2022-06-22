@@ -28,6 +28,7 @@ bot:
       port: 3000
     deployment:
       image: <image-name>
+      tag: <tag>
       containerport: 3000
     service:
       port: 3000
