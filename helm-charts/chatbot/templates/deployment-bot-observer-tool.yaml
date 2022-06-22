@@ -14,6 +14,8 @@ spec:
       labels:
         app: bot-observer
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
       - name: display-bot-knowledge
         image: {{ .Values.bot.botobservertool.deployment.image }}
@@ -81,8 +83,6 @@ spec:
               secretKeyRef:
                 name: bot-secret
                 key: db-password
-      imagePullSecrets:
-      - name: regcred
 ---
 apiVersion: v1
 kind: Service
