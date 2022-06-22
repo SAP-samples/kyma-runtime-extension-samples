@@ -11,6 +11,9 @@ async function main() {
   if ('UPDATE_ALL' in process.env && process.env.UPDATE_ALL == 'Y') {
     update_all_questions = true;
     console.log("Updating all questions.");
+
+    console.log("Clean up CAI");
+    await clean_up_cai(dbData, caiCredentials.access_token);
   }
   console.log("********************************** all knowledge received **********************************")
 
@@ -293,5 +296,67 @@ async function delete_caiEntry(answerID, access_token) {
     throw err;
   }
 }
+
+async function clean_up_cai(mssql_db_data, access_token) {
+  // get all CAI indices stored in mssql database
+  var mssql_indices = [];
+  for (let i = 0; i < mssql_db_data.length; i++) {
+    mssql_indices.push(mssql_db_data[i].cai_a_id);
+  }
+  console.log(`[CLEAN_CAI] Found ${mssql_indices.length} indices of answers in mssql db. `);
+
+  // get all indices stored in CAI
+  var cai_indices;
+  cai_indices = await get_all_CAI_indices(access_token);
+  console.log(`[CLEAN_CAI] Found ${cai_indices.length} indices of answers in CAI. `);
+
+  // filter list of indices to get list of unused CAI entries
+  var unused_indices_in_CAI = cai_indices.filter(x => !mssql_indices.includes(x));
+
+  // delete unused CAI entries
+  unused_indices_in_CAI.forEach(index => {
+    console.log(`[CLEAN_CAI] Delete ${index} from CAI. `);
+    delete_caiEntry(index, access_token);
+  });
+}
+
+async function get_all_CAI_indices(access_token) {
+  var cai_answer_indices = [];
+
+  // get all questions and answers from CAI and extract IDs
+  var pagenumber = 1;
+  var cai_answers_url = process.env.BOT_URL + '?page=';
+  cai_request_config.headers.Authorization = 'Bearer ' + access_token;
+  var result;
+  var number_of_items = -1;
+
+  try {
+    await fetch_CAI_data();
+
+    while (number_of_items > 0) {
+      pagenumber += 1;
+      await fetch_CAI_data();
+    }
+  }
+  catch (err) {
+    console.log("An Error has occurred during requesting answer indices from SAP CAI");
+    throw err;
+  }
+
+  return cai_answer_indices;
+
+  async function fetch_CAI_data() {
+    var http_result = await got.get(cai_answers_url + pagenumber, cai_request_config);
+    result = JSON.parse(http_result.body);
+    if (number_of_items == -1) {
+      number_of_items = result['results']['count'];
+    }
+    result['results']['answers'].forEach(answer => {
+      cai_answer_indices.push(answer['id']);
+      number_of_items -= 1;
+    });
+  }
+}
+
 
 main();
