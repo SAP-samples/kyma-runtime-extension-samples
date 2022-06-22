@@ -25,14 +25,13 @@ bot:
   botobservertool:
     apirule:
       gateway: <gateway>
-      port: <portnumber>
+      port: 3000
     deployment:
       image: <image-name>
-      containerport: <containerport>
+      containerport: 3000
     service:
-      portname: <portname>
-      port: <portnumber>
-      targetport: <portnumber>
+      port: 3000
+      targetport: 3000
 
 
 # This defines all the variables for the api-mssql-function
