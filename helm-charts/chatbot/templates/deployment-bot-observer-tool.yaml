@@ -19,6 +19,7 @@ spec:
       containers:
       - name: display-bot-knowledge
         image: {{ .Values.bot.botobservertool.deployment.image }}:{{ .Values.bot.botobservertool.deployment.tag }}
+        imagePullPolicy: Always
         ports:
         - name: https
           containerPort: {{ .Values.bot.botobservertool.deployment.containerport }}
