@@ -9,11 +9,11 @@ async function main() {
   const [stackData, dbData, caiCredentials] = await Promise.all([get_stackQuestions(), get_dbData(db_request), get_caiCredentials()]);
   var update_all_questions = false;
   if ('UPDATE_ALL' in process.env && process.env.UPDATE_ALL == 'Y') {
-    update_all_questions = true;
-    console.log("Updating all questions.");
-
     console.log("Clean up CAI");
     await clean_up_cai(dbData, caiCredentials.access_token);
+
+    update_all_questions = true;
+    console.log("Updating all questions.");
   }
   console.log("********************************** all knowledge received **********************************")
 
@@ -312,6 +312,7 @@ async function clean_up_cai(mssql_db_data, access_token) {
 
   // filter list of indices to get list of unused CAI entries
   var unused_indices_in_CAI = cai_indices.filter(x => !mssql_indices.includes(x));
+  console.log(`[CLEAN_CAI] There are ${unused_indices_in_CAI.length} unused indices in CAI that will be deleted. `)
 
   // delete unused CAI entries
   unused_indices_in_CAI.forEach(index => {
