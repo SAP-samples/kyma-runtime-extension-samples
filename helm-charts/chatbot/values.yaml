@@ -53,6 +53,11 @@ apimssqlfunction:
 databasemssql:
   deployment:
     image: lasseurban/bot-db
+    tag: latest
+    containerport: 1433
+  service:
+    port: 1433
+    targetport: 1433
   secret:
     username: <username>
     password: <password>

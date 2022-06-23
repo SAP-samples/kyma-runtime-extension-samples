@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql
+  labels:
+    app: mssql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssql
+  template:
+    metadata:
+      labels:
+        app: mssql
+    spec:
+      terminationGracePeriodSeconds: 10
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: mssql
+          image: {{ .Values.databasemssql.deployment.image }}:{{ .Values.databasemssql.deployment.tag }} 
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.databasemssql.deployment.containerport }} 
+          env:
+            - name: MSSQL_PID
+              value: "Developer"
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mssql
+                  key: password
+          volumeMounts:
+            - name: mssqldb
+              mountPath: /var/opt/mssql
+      volumes:
+        - name: mssqldb
+          persistentVolumeClaim:
+            claimName: mssql-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql
+  labels:
+    app: mssql
+spec:
+  selector:
+    app: mssql
+  ports:
+    - protocol: TCP
+      port: {{ .Values.databasemssql.service.port }}
+      targetPort: {{ .Values.databasemssql.service.targetport }}
