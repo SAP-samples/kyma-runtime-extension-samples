@@ -5,7 +5,8 @@ metadata:
   labels:
     app: mssql
 spec:
-  storageClassName: default
+  volumeName: {{ .Values.databasemssql.pvc.volumename }}
+  storageClassName: {{ .Values.databasemssql.pvc.storageclassname }}
   accessModes:
     - ReadWriteOnce
   resources:

@@ -61,6 +61,9 @@ databasemssql:
   secret:
     username: <username>
     password: <password>
+  pvc:
+    volumename: <volumename>
+    storageclassname: <storageclassname>
 
 # This defines all the variables for the alert notification
 alertnotification:
