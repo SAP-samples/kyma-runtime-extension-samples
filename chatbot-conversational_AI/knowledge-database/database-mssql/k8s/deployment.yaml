@@ -34,6 +34,8 @@ spec:
           volumeMounts:
             - name: mssqldb
               mountPath: /var/opt/mssql
+      imagePullSecrets:
+        - name: regcred
       volumes:
         - name: mssqldb
           persistentVolumeClaim:
