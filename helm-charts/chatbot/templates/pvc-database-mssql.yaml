@@ -5,6 +5,7 @@ metadata:
   labels:
     app: mssql
 spec:
+  storageClassName: default
   accessModes:
     - ReadWriteOnce
   resources:
