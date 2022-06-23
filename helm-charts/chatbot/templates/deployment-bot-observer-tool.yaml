@@ -15,7 +15,7 @@ spec:
         app: bot-observer
     spec:
       imagePullSecrets:
-      - name: regcred
+      - name: regsecret
       containers:
       - name: display-bot-knowledge
         image: {{ .Values.bot.botobservertool.deployment.image }}:{{ .Values.bot.botobservertool.deployment.tag }}
