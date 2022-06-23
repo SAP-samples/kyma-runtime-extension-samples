@@ -20,8 +20,13 @@ bot:
     dbusername: <name>
     dbpassword: <password>
   updatebot:
-    cronjob: <cronjob>
-    job: <job>
+    cronjob:
+      update:
+        image: gabbi/bot-update
+        tag: latest
+      updateall:
+        image: gabbi/bot-update
+        tag: latest
   botobservertool:
     apirule:
       gateway: <gateway>
