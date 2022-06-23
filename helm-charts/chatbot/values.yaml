@@ -72,7 +72,7 @@ databasemssql:
 
 # This defines all the variables for the alert notification
 alertnotification:
-  email: <email>
+  email: PGVtYWlsPgo=
   secret:
     anregion: <anregion>
     clusterdomain: <clusterdomain>
