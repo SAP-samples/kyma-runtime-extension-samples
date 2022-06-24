@@ -6,7 +6,7 @@ metadata:
     app: api-mssql-function
     app.kubernetes.io/managed-by: Helm
   annotations:
-    meta.helm.sh/release-name: chatbot
+    meta.helm.sh/release-name: bot-observer
     meta.helm.sh/release-namespace: karl-kyma
 spec:
   env:
@@ -31,7 +31,7 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: Helm
   annotations:
-    meta.helm.sh/release-name: chatbot
+    meta.helm.sh/release-name: bot-observer
     meta.helm.sh/release-namespace: karl-kyma
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
