@@ -13,9 +13,9 @@ Throughout this hands-on-tutorial you will create a MS SQL database, a Golang AP
 ## Deploy a database in kyma cluster
 
 1. Download this GitHub repository:
-    1. Open [the website of the GitHub repository](www.github.com)
-    2. Click on the green `Code` button and choose `Download ZIP`. 
-    3. After the download finished, extract the zip file to a location on your computer. 
+    1. Open the [tutorial](https://github.com/SAP-samples/kyma-runtime-extension-samples/tree/main/tum-hands-on-tutorial)
+    2. Download `tum-hands-on-tutorial.zip`.
+    3. After the download finished, extract the zip file to a location on your computer.
 2. Create a new Namespace with the name `tum-kyma-handson`. Kyma uses namespaces to organize objects in the cluster. You can think of each namespace as a folder that holds a set of objects. Follow these steps to create the namespace:
     1. Open the `Namespaces` overview in the toolbar on the left. ![ ](images/all-namespaces-overview.png)
     2. Click on `Create Namespace +` in the top-right corner. 
