@@ -1,0 +1,41 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: api-mssql-function
+  labels:
+    app: api-mssql-function
+spec:
+  env:
+    - name: database
+      value: {{ .Values.apimssqlfunction.deployment.env.database }}
+    - name: host
+      value: {{ .Values.apimssqlfunction.deployment.env.host }}
+    - name: password
+      value: {{ .Values.apimssqlfunction.deployment.env.password }}
+    - name: username
+      value: {{ .Values.apimssqlfunction.deployment.env.username }}
+  type: git
+  runtime: nodejs14
+  source: github-repo
+  reference: {{ .Values.apimssqlfunction.deployment.reference }}
+  baseDir: {{ .Values.apimssqlfunction.deployment.basedir }} 
+---
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: api-mssql-function
+spec:
+  gateway: {{ .Values.apimssqlfunction.apirule.gateway }}
+  rules:
+    - path: /.*
+      accessStrategies:
+        - config: {}
+          handler: noop
+      methods:
+        - GET
+        - POST
+        - DELETE
+  service:
+    host: api-mssql-function
+    name: api-mssql-function
+    port: 80
