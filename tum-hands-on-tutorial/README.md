@@ -106,4 +106,4 @@ Throughout this hands-on-tutorial you will create a MS SQL database, a Golang AP
 10. In the logs you can see that a SQL command was executed. 
 
 
-Congrats, you finished this tutorial! 🥳
+Congrats, you finished this tutorial! 🥳 If you are done exploring SAP BTP for now, please click on "Delete Trial Account" to save resources. 🌱
