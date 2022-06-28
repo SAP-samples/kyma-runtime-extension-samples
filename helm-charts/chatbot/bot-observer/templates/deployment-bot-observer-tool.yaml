@@ -18,7 +18,7 @@ spec:
       - name: regcred
       containers:
       - name: display-bot-knowledge
-        image: {{ .Values.bot.botobservertool.deployment.image }}:{{ .Values.bot.botobservertool.deployment.tag }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: Always
         ports:
         - name: https

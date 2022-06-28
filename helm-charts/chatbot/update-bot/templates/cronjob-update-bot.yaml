@@ -13,7 +13,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: update-bot-container
-            image: {{ .Values.bot.updatebot.cronjob.update.image }}:{{ .Values.bot.updatebot.cronjob.update.tag }}
+            image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
             imagePullPolicy: Always
             env:
               - name: CAI_CREDENTIALS_URL
@@ -96,7 +96,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: update-bot-container
-            image: {{ .Values.bot.updatebot.cronjob.updateall.image }}:{{ .Values.bot.updatebot.cronjob.updateall.tag }}
+            image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
             imagePullPolicy: Always
             env:
               - name: CAI_CREDENTIALS_URL

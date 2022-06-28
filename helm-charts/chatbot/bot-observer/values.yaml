@@ -4,7 +4,10 @@
 
 
 # This defines all the variables for the update-bot
-# UPDATE-BOT NEEDS TO BE UPDATED WHEN PR HAS BEEN MERGED
+# These are the values for the bot-observer-tool
+image:
+  repository: lasseurban/bot-observer-tool
+  tag: latest
 bot:
   secret:
     caicredentialsurl: <url>
@@ -19,21 +22,11 @@ bot:
     dbhost: <host>
     dbusername: <name>
     dbpassword: <password>
-  updatebot:
-    cronjob:
-      update:
-        image: gabbi/bot-update
-        tag: latest
-      updateall:
-        image: gabbi/bot-update
-        tag: latest
   botobservertool:
     apirule:
       gateway: <gateway>
       port: 3000
     deployment:
-      image: <image-name>
-      tag: <tag>
       containerport: 3000
     service:
       port: 3000
