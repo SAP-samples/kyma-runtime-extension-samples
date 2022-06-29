@@ -83,15 +83,15 @@ spec:
       }
     }
 
-    /*
-    data should be a JSON object.
-    There is the possiblity to set these keys:
-    - severity: ["fatal", "info", "notice", "warning", "error"]
-    - category: ["alert", "exception", "notification", "warning"]
-    - email_header: string
-    - details: JSON object
-    */
+    // data should be a JSON object.
+    // There is the possiblity to set these keys:
+    // - severity: ["fatal", "info", "notice", "warning", "error"]
+    // - category: ["alert", "exception", "notification", "warning"]
+    // - email_header: string
+    // - details: JSON object
+
     async function processAlert(client, data){
+        console.log("processAlert() data: " + JSON.stringify(data));
         const cur_time = Math.floor(+new Date() / 1000);
         var severity_value = Severity.FATAL;
         switch(data.severity) {
@@ -136,11 +136,19 @@ spec:
         var details = data.details || data;
 
         return await client.sendEvent({
-            body: 'The chatbot reported a ' + severity_value + ' ' + category_value '. \nDETAILS:' + JSON.stringify(details).replace(/[{}]|,/g, "\n"),
+            body: 'The chatbot reported a ' + severity_value + ' ' + category_value + '. \nDETAILS: ' + JSON.stringify(details).replace(/[{}]|,/g, "\n"),
             subject: 'Chatbot ' + category_value + ': ' + email_header,
             eventType: 'system_down_condition',
             severity: severity_value,
             category: category_value,
+            resource: {
+                resourceName: 'update-bot',
+                resourceType: 'deployment',
+                resourceInstance: '1',
+                tags: {
+                    detailsLink: 'https://grafana.' + process.env.CLUSTER_DOMAIN + '/explore?orgId=1&left=%5B%22now-1h%22,%22now%22,%22Loki%22,%7B%22expr%22:%22%7Bnamespace%3D%5C%22cap%5C%22%7D%22%7D,%7B%7D%5D'
+                }
+            },
             eventTimestamp: cur_time,
             priority: 1
         });
