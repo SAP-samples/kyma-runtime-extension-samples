@@ -1,5 +1,4 @@
 This is a brief description of the chart that has been created for the chatbot.
-Testvalue
 
 ## PREREQUISITS
 For the installation of this chart to be successful, the setup steps of the chatbot in the github repository have to be followed first.
