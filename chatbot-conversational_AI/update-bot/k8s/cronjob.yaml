@@ -10,7 +10,7 @@ spec:
     spec:
       template:
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
           containers:
           - name: update-bot-container
             image: <image-name> #gabbi/bot-update      #change it to your image
