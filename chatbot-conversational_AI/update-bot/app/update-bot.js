@@ -3,6 +3,8 @@ const got = require('got');
 const axios = require("axios");
 const TurndownService = require('turndown');
 
+const ALERT_NOTIF_SRV = "http://alert-notif.karl-kyma.svc.cluster.local";
+
 async function main() {
   var sqlconnection = await sql.connect(database_config);
   const db_request = new sql.Request();
@@ -323,6 +325,20 @@ async function delete_caiEntry(answerID, access_token) {
     console.log("An Error has occurred during deleting a question from SAP CAI");
     await sendAlert("Failed to delete_caiEntry");
     throw err;
+  }
+
+  return cai_answer_indices;
+
+  async function fetch_CAI_data() {
+    var http_result = await got.get(cai_answers_url + pagenumber, cai_request_config);
+    result = JSON.parse(http_result.body);
+    if (number_of_items == -1) {
+      number_of_items = result['results']['count'];
+    }
+    result['results']['answers'].forEach(answer => {
+      cai_answer_indices.push(answer['id']);
+      number_of_items -= 1;
+    });
   }
 }
 

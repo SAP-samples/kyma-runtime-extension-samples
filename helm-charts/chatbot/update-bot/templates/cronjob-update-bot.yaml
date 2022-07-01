@@ -10,7 +10,7 @@ spec:
     spec:
       template:
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
           containers:
           - name: update-bot-container
             image: {{ .Values.image.repository }}:{{ .Values.image.tag }}

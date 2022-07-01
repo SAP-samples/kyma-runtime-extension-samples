@@ -8,3 +8,9 @@
 image:
   repository: gabbi/bot-update
   tag: latest
+
+# This defines all the values for the alert-notification
+alertnotification:
+  email: dGVzdHZhbHVlCg==
+  clusterdomain: dGVzdHZhbHVlCg==
+  url: dGVzdHZhbHVlCg==
