@@ -6,7 +6,7 @@ metadata:
     scenario: in-cluster-events
 spec:
   baseDir: in-cluster-events/functions-javascript/consumer
-  reference: in-cluster-events
+  reference: main
   runtime: nodejs14
   source: in-cluster-events-functions
   type: git
