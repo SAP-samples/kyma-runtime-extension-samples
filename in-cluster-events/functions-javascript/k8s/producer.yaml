@@ -9,7 +9,7 @@ spec:
   env:
   - name: PUBLISHER_URL
     value: http://eventing-event-publisher-proxy.kyma-system/publish
-  reference: in-cluster-events
+  reference: main
   runtime: nodejs14
   source: in-cluster-events-functions
   type: git
