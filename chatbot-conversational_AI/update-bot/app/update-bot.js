@@ -3,8 +3,6 @@ const got = require('got');
 const axios = require("axios");
 const TurndownService = require('turndown');
 
-const ALERT_NOTIF_SRV = "http://alert-notif.karl-kyma.svc.cluster.local";
-
 async function main() {
   var sqlconnection = await sql.connect(database_config);
   const db_request = new sql.Request();
@@ -123,7 +121,7 @@ async function sendAlert(details, subject="", severity="", category="") {
     details: details
   };
   console.log("Send alert: " + JSON.stringify(data));
-  await axios.post(ALERT_NOTIF_SRV, data, {})
+  await axios.post(process.env.ALERT_NOTIF_SRV, data, {})
     .then(() => {
       console.log("--------Submitted error event to Alert Notification--------");
     })
