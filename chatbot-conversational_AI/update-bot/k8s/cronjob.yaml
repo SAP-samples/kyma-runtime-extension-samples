@@ -10,7 +10,7 @@ spec:
     spec:
       template:
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
           containers:
           - name: update-bot-container
             image: <image-name> #gabbi/bot-update      #change it to your image
@@ -78,6 +78,8 @@ spec:
                     key: db-password
               - name: UPDATE_ALL
                 value: "N"
+              - name: ALERT_NOTIF_SRV
+                value: "http://alert-notif.karl-kyma.svc.cluster.local"
           imagePullSecrets:
           - name: regcred
 ---
@@ -161,5 +163,7 @@ spec:
                     key: db-password
               - name: UPDATE_ALL
                 value: "Y"
+              - name: ALERT_NOTIF_SRV
+                value: "http://alert-notif.karl-kyma.svc.cluster.local"
           imagePullSecrets:
           - name: regcred

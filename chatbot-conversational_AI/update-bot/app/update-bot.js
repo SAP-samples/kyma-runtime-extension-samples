@@ -1,5 +1,6 @@
 const sql = require('mssql');
 const got = require('got');
+const axios = require("axios");
 const TurndownService = require('turndown');
 
 async function main() {
@@ -108,6 +109,26 @@ async function main() {
   process.exit(0);
 }
 
+/********************************************************
+ *  Alert Notification function                         *
+ ********************************************************/
+
+async function sendAlert(details, subject="", severity="", category="") {
+  var data = {
+    email_header: subject,
+    severity: severity,
+    category: category,
+    details: details
+  };
+  console.log("Send alert: " + JSON.stringify(data));
+  await axios.post(process.env.ALERT_NOTIF_SRV, data, {})
+    .then(() => {
+      console.log("--------Submitted error event to Alert Notification--------");
+    })
+    .catch((error) => {
+      console.log("--------a sendAlert error occurred-------- ", error.message);
+    });
+}
 
 
 /********************************************************
@@ -136,6 +157,7 @@ async function get_stackQuestions() {
     return allQuestions;
   } catch (err) {
     console.log(`${new Date().toISOString()}: An Error has occurred during requesting the stack questions labeled with ${process.env.STACK_TAG}. Maybe it is a problem with concatenating multiple pages of questions because max pagesize exceeded.`);
+    await sendAlert(err, "Failed in get_stackQuestions");
     throw err;
   }
 }
@@ -147,6 +169,7 @@ async function get_stackAnswers(question_id) {
     return result.body;
   } catch (err) {
     console.log(`${new Date().toISOString()}: An Error has occurred during requesting the stack answer to question ${question_id}`);
+    await sendAlert(err, "Failed to get_stackAnswers");
     throw err;
   }
 }
@@ -168,6 +191,7 @@ async function stack_request(url, config) {
     return result;
   } catch(err) {
     console.log(`${new Date().toISOString()}: Error in stack_request!\nURL: ${url}\nError: ${err}`);
+    await sendAlert(err, "Failed to stack_request");
     throw err;
   }
 }
@@ -192,6 +216,7 @@ async function get_dbData(db_request) {
     return result.recordsets[0];
   } catch (err) {
     console.log("An Error has occurred during requesting the database content");
+    await sendAlert(err, "Failed to get_dbData");
     throw err;
   }
 }
@@ -218,6 +243,7 @@ async function get_caiCredentials() {
     return JSON.parse(result.body);
   } catch (err) {
     console.log("An Error has occurred during requesting the cai credentials");
+    await sendAlert(err, "Failed to get_caiCredentials");
     throw err;
   }
 }
@@ -264,6 +290,7 @@ async function add_caiAnswer(answerText, questionLink, access_token) {
   } catch (err) {
     console.log("An Error has occurred during adding an answer to SAP CAI: " + err);
     console.log(`cai_request_url=${cai_request_url}; finalAnswerString=${finalAnswerString}`);
+    await sendAlert(err, "Failed to add_caiAnswer");
     //throw err;
     return [null, err];
   }
@@ -281,6 +308,7 @@ async function add_caiQuestion(questionText, answerID, access_token) {
     return JSON.parse(result.body);
   } catch (err) {
     console.log("An Error has occurred during adding a question to SAP CAI");
+    await sendAlert(err, "Failed to add_caiQuestion");
     throw err;
   }
 }
@@ -293,6 +321,7 @@ async function delete_caiEntry(answerID, access_token) {
     return JSON.parse(result.body);
   } catch (err) {
     console.log("An Error has occurred during deleting a question from SAP CAI");
+    await sendAlert("Failed to delete_caiEntry");
     throw err;
   }
 }
@@ -341,6 +370,7 @@ async function get_all_CAI_indices(access_token) {
   }
   catch (err) {
     console.log("An Error has occurred during requesting answer indices from SAP CAI");
+    await sendAlert(err, "Failed to get_all_CAI_indices");
     throw err;
   }
 
