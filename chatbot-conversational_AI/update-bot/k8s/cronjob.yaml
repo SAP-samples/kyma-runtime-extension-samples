@@ -163,5 +163,7 @@ spec:
                     key: db-password
               - name: UPDATE_ALL
                 value: "Y"
+              - name: ALERT_NOTIF_SRV
+                value: "http://alert-notif.karl-kyma.svc.cluster.local"
           imagePullSecrets:
           - name: regcred
