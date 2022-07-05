@@ -4,7 +4,6 @@
 
 
 # This defines all the variables for the update-bot
-# UPDATE-BOT NEEDS TO BE UPDATED WHEN PR HAS BEEN MERGED
 bot:
   secret:
     caicredentialsurl: <url>
@@ -39,7 +38,6 @@ bot:
       port: 3000
       targetport: 3000
 
-
 # This defines all the variables for the api-mssql-function
 apimssqlfunction:
   deployment:
@@ -53,7 +51,6 @@ apimssqlfunction:
   apirule:
     gateway: <gateway>
 
-
 # This defines all the variables for the database-mssql
 databasemssql:
   deployment:
@@ -66,16 +63,12 @@ databasemssql:
   secret:
     username: <username>
     password: <password>
-  pvc:
-    volumename: <volumename>
-    storageclassname: <storageclassname>
 
 # This defines all the variables for the alert notification
 alertnotification:
-  email: PGVtYWlsPgo=
-  secret:
-    anregion: <anregion>
-    clusterdomain: <clusterdomain>
+  email: dGVzdHZhbHVlCg==
+  clusterdomain: dGVzdHZhbHVlCg==
+  url: dGVzdHZhbHVlCg==
 
 # This defines the secret for the container registry
 regsecret:
