@@ -6,18 +6,18 @@
 # This defines all the variables for the update-bot
 bot:
   secret:
-    caicredentialsurl: <url>
-    caicredentialsid: <id>
-    caicredentialssecret: <secret>
-    boturl: <bot-url>
-    caixtoken: <token>
-    stackurl: <url>
-    stacktag: <tag>
-    stackkey: <key>
-    dbname: <name>
-    dbhost: <host>
-    dbusername: <name>
-    dbpassword: <password>
+    caicredentialsurl: https://sapcai-community.authentication.eu10.hana.ondemand.com/oauth/token
+    caicredentialsid: xxxxxxxxx
+    caicredentialssecret: xxxxxxxxx
+    boturl: https://api.cai.tools.sap/train/v2/users/xxxxxxxxxxx/bots/xxxxxxxxxx/versions/xxxxxxxxxxxxxx/qna/topic/knowledge_sources/xxxxxxxxxxxxxxxxxxxxx/answers
+    caixtoken: xxxxxxxxx
+    stackurl: https://sap.stackenterprise.co/api/2.2
+    stacktag: kyma-runtime
+    stackkey: xxxxxxxxx
+    dbname: BotKnowledgeDB
+    dbhost: mssql.chatbot.svc.cluster.local
+    dbusername: sa
+    dbpassword: mfrCPTK3
   updatebot:
     cronjob:
       update:
@@ -28,11 +28,11 @@ bot:
         tag: latest
   botobservertool:
     apirule:
-      gateway: <gateway>
+      gateway: kyma-gateway.kyma-system.svc.cluster.local
       port: 3000
     deployment:
-      image: <image-name>
-      tag: <tag>
+      image: lasseurban/bot-observer-tool
+      tag: latest
       containerport: 3000
     service:
       port: 3000
@@ -42,14 +42,14 @@ bot:
 apimssqlfunction:
   deployment:
     env:
-      database: <database>
-      host: <hostname>
-      username: <username>
-      password: <password>
-    reference: <reference>
-    basedir: <basedir>
+      database: BotKnowledgeDB
+      host: mssql.chatbot.svc.cluster.local
+      username: sa
+      password: mfrCPTK3
+    reference: main
+    basedir: chatbot-conversational_AI/knowledge-database/api-mssql-function/function
   apirule:
-    gateway: <gateway>
+    gateway: kyma-gateway.kyma-system.svc.cluster.local
 
 # This defines all the variables for the database-mssql
 databasemssql:
@@ -61,8 +61,8 @@ databasemssql:
     port: 1433
     targetport: 1433
   secret:
-    username: <username>
-    password: <password>
+    username: c2E=
+    password: bWZyQ1BUSzM=
 
 # This defines all the variables for the alert notification
 alertnotification:
@@ -72,4 +72,4 @@ alertnotification:
 
 # This defines the secret for the container registry
 regsecret:
-  dockerconfigjson: <regcred> 
+  dockerconfigjson: xxxxxxxxx 

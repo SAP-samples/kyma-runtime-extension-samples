@@ -12,7 +12,7 @@ spec:
         properties:
           destination: {{ .Values.alertnotification.email | b64dec }}
         state: ENABLED
-        type: EMAIL
+        type: SLACK
       conditions:
       - name: system_down_condition
         predicate: EQUALS
