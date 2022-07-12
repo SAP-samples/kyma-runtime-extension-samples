@@ -1,0 +1,15 @@
+name: qrcode-producer
+namespace: default
+labels:
+    app.kubernetes.io/name: qrcode-producer
+runtime: nodejs14
+source:
+    sourceType: inline
+apiRules:
+    - service:
+        host: qrcode-producer
+      rules:
+        - methods:
+            - GET
+          accessStrategies:
+            - handler: allow
