@@ -69,6 +69,8 @@ alertnotification:
   email: dGVzdHZhbHVlCg==
   clusterdomain: dGVzdHZhbHVlCg==
   url: dGVzdHZhbHVlCg==
+  slack:
+    webhook: dGVzdHZhbHVlCg==
 
 # This defines the secret for the container registry
 regsecret:
