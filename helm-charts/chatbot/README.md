@@ -13,9 +13,9 @@ The overall-chatbot chart can be installed by doing the following steps:
 2. Change the values in the values.yaml file to your individual values
 3. Install the helm-chart by running the following card from within the directory (within the overall-chatbot folder) 
 ```
-helm install -n <your-namespace>
+helm install overall-chatbot . -n <your-namespace>
 ```
-where <your-namespace> should be substituted to the name of your namespace in which the chatbot is supposed to be running.
+where ```<your-namespace>``` should be substituted to the name of your namespace in which the chatbot is supposed to be running.
 
 After this the kubernetes objects should be running in the given cluster.
 
@@ -24,7 +24,7 @@ The installed chart can be uninstalled with the command:
 ```
 helm uninstall overall-chatbot -n <your-namespace>
 ```
-Where <your-namespace> should be substituted to the name of your namespace in which the chatbot is supposed to be running.
+Where ```<your-namespace>``` should be substituted to the name of your namespace in which the chatbot is supposed to be running.
 
 
 
