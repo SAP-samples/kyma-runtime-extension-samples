@@ -5,9 +5,6 @@ metadata:
   labels:
     app: bot-observer
     app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: bot-observer
-    meta.helm.sh/release-namespace: karl-kyma
 spec:
   replicas: 1
   selector:
@@ -95,9 +92,6 @@ metadata:
   labels:
     app: bot-observer-service
     app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: bot-observer
-    meta.helm.sh/release-namespace: karl-kyma
 spec:
   selector:
     app: bot-observer

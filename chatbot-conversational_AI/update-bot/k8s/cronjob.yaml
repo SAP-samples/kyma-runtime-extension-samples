@@ -4,9 +4,6 @@ metadata:
   name: update-bot-job
   labels:
     app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: update-bot
-    meta.helm.sh/release-namespace: karl-kyma
 spec:
   # Update intervall for new questions and answers
   schedule: "*/30 * * * *"     #change it to your schedule
