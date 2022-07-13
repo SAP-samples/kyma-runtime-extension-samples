@@ -66,9 +66,10 @@ Where <your-namespace> should be substituted to the name of your namespace in wh
 | databasemssql.deployment.containerport        | The port of the mssql database-container that talks to the service  | 1433                        |
 | databasemssql.service.port                    | The port of the database service over which the traffic runs        | 1433                        |
 | databasemssql.service.targetport              | The goal port of the database service                               | 1433                        |
-| databasemssql.secret.username                 | The username for the mssql database login                           | c2E=                        |
-| databasemssql.secret.password                 | The password for the mssql database login                           | bWZyQ1BUSzM=                |
-| alertnotification.email                       | The email to which alerts in case of an error are sent              | dGVzdHZhbHVlCg==            |
-| alertnotification.clusterdomain               | The domain of the cluster for which the alert notification is set   | dGVzdHZhbHVlCg==            |
-| alertnotification.url                         | The url of the service over which alerts can be sent                | dGVzdHZhbHVlCg==            |
+| databasemssql.secret.username                 | The username for the mssql database login (base64 encoded)          | c2E=                        |
+| databasemssql.secret.password                 | The password for the mssql database login (base64 encoded)          | bWZyQ1BUSzM=                |
+| alertnotification.email                       | The email to which alerts in case of an error are sent (base64 encoded)   | dGVzdHZhbHVlCg==            |
+| alertnotification.clusterdomain               | The domain of the cluster for which the alert notification is set (base64 encoded)| dGVzdHZhbHVlCg==            |
+| alertnotification.url                         | The url of the service over which alerts can be sent (base64 encoded) | dGVzdHZhbHVlCg==            |
+| alertnotification.slack.webhook               | The url of the webhook for the slack service (base64 encoded)       | dGVzdHZhbHVlCg==            |
 | regsecret.dockerconfigjson                    | The credentials for the docker registry                             | xxxxxxxxx                   |
