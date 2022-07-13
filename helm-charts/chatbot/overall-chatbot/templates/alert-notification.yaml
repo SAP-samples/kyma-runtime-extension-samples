@@ -13,6 +13,11 @@ spec:
           destination: {{ .Values.alertnotification.email | b64dec }}
         state: ENABLED
         type: EMAIL
+      - name: slack
+        properties:
+          destination: {{ .Values.alertnotification.slack.webhook | b64dec }}
+        state: ENABLED
+        type: SLACK
       conditions:
       - name: system_down_condition
         predicate: EQUALS
@@ -20,7 +25,7 @@ spec:
         propertyValue: system_down_condition
       subscriptions:
       - actions:
-        - email
+        - slack
         conditions:
         - system_down_condition
         name: system_down_condition
