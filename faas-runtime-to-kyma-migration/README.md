@@ -7,9 +7,9 @@ The samples aim to cover the migration of some common usecases described by the 
 
 ## Scenarios
 
- - [qrcode-producer](./expose-via-http/) - Demontrating how to expose kyma Function via HTTP
- - [s3uploader](./secret-handling/) - Demontrating how to use k8s confg mpas and secrets to consume configuration necessary i.e to access 3rd party service
- - [ce-coffee](./cloud-events/) - Demontrating how to send and consume cloud events from SAP BTP Event Mesh in kyma Functions
+ - [qrcode-producer](./expose-via-http/) - Demonstrating how to expose kyma Function via HTTP
+ - [s3uploader](./secret-handling/) - Demonstrating how to use k8s confg maps and secrets to consume configuration necessary i.e to access 3rd party service
+ - [ce-coffee](./cloud-events/) - Demonstrating how to send and consume cloud events from SAP BTP Event Mesh in kyma Functions
  - [hello-timer](./time-based-trigger/) - Demonstrating how to model a time based trigger for a kyma Function using a k8s CronJob
 
 ## Prerequisites
