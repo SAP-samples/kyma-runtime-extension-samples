@@ -27,7 +27,7 @@ bot:
         image: gabbi/bot-update
         tag: latest
   botobservertool:
-    apirule:
+    apirule: 
       gateway: kyma-gateway.kyma-system.svc.cluster.local
       port: 3000
     deployment:
@@ -66,6 +66,7 @@ databasemssql:
 
 # This defines all the variables for the alert notification
 alertnotification:
+  alertnotifsrv: aHR0cDovL2FsZXJ0LW5vdGlmLmthcmwta3ltYS5zdmMuY2x1c3Rlci5sb2NhbAo=
   email: dGVzdHZhbHVlCg==
   clusterdomain: dGVzdHZhbHVlCg==
   url: dGVzdHZhbHVlCg==

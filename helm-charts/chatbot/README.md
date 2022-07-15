@@ -70,6 +70,7 @@ Where ```<your-namespace>``` should be substituted to the name of your namespace
 | databasemssql.secret.password                 | The password for the mssql database login (base64 encoded)          | bWZyQ1BUSzM=                |
 | alertnotification.email                       | The email to which alerts in case of an error are sent (base64 encoded)   | dGVzdHZhbHVlCg==            |
 | alertnotification.clusterdomain               | The domain of the cluster for which the alert notification is set (base64 encoded)| dGVzdHZhbHVlCg==            |
-| alertnotification.url                         | The url of the service over which alerts can be sent (base64 encoded) | dGVzdHZhbHVlCg==            |
-| alertnotification.slack.webhook               | The url of the webhook for the slack service (base64 encoded)       | dGVzdHZhbHVlCg==            |
+| alertnotification.url                         | The url of the region (base64 encoded) | dGVzdHZhbHVlCg==            |
+| alertnotification.slack.webhook               | The url of the webhook for the slack service (base64 encoded)       |dGVzdHZhbHVlCg==            |
+| alertnotification.alertnotifsrv | The url of the service over which alerts can be sent (base64 encoded) | aHR0cDovL2FsZXJ0LW5vdGlmLmthcmwta3ltYS5zdmMuY2x1c3Rlci5sb2NhbAo= | 
 | regsecret.dockerconfigjson                    | The credentials for the docker registry                             | xxxxxxxxx                   |

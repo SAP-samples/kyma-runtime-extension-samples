@@ -78,6 +78,8 @@ spec:
                     key: db-password
               - name: UPDATE_ALL
                 value: "N"
+              - name: ALERT_NOTIF_SRV
+                value: {{ .Values.alertnotification.alertnotifsrv  | b64dec }}
           imagePullSecrets:
           - name: regcred
 ---
@@ -161,6 +163,8 @@ spec:
                     key: db-password
               - name: UPDATE_ALL
                 value: "Y"
+              - name: ALERT_NOTIF_SRV
+                value: {{ .Values.alertnotification.alertnotifsrv  | b64dec }}
           imagePullSecrets:
           - name: regcred
 
