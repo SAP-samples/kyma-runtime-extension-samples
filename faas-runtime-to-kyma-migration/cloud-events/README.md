@@ -1,50 +1,50 @@
-# Cloud Events Handling
+# Cloud Events handling
 
 ## Overview
 
-This sample demonstrates how to subscribe kyma Functions to the cloud events from SAP Evnt Mesh. It is based on the [ce-coffee](https://github.com/SAP-archive/cloud-function-nodejs-samples/tree/master/examples/ce-coffee) SAP FaaS Runtime example and it's purpose is to show how to migrate similar usecases from deprecated SAP FaaS Runtime into Kyma runtime.
+This sample demonstrates how to subscribe Kyma Functions to the Cloud Events from SAP Event Mesh. It is based on the [ce-coffee](https://github.com/SAP-archive/cloud-function-nodejs-samples/tree/master/examples/ce-coffee) SAP FaaS Runtime example, and it's purpose is to show how to migrate similar use cases from deprecated SAP FaaS Runtime into Kyma runtime.
 
 
-## Additional Prerequisites
+## Additional prerequisites
 
-Besides the prerequisistes described in the parent folder, for this sample it is required to have access to an SAP BTP Event Mesh instance. Fill in the ems instance data into the `sap-ems.env` file.
+Besides the prerequisites described in the parent folder, you must have access to an SAP BTP Event Mesh instance. Put the EMS instance data into the `sap-ems.env` file.
 
 
 ## Steps
 
 ### Inspect the Function files
 
-Go to the `cloud-events/ce-coffee` folder and inspect the code (`handler.js`), dependencies (`package.json`) and the Function configuration file which manifests the features of the Function (`config.yaml`) - in this case the subscriptions to 3 types of cloud events.
+Go to the `cloud-events/ce-coffee` folder and inspect the code (`handler.js`), dependencies (`package.json`) and the Function configuration file, which manifests the features of the Function (`config.yaml`) - in this case, the subscriptions to 3 types of Cloud Events.
 
-> **NOTE** the `eventType` property must start with the `sap.kyma.custom` prefix and be followed by at least 4 comma separated sections (7 in total).
+> **NOTE** the `eventType` property must start with the `sap.kyma.custom` prefix and be followed by at least 4 comma-separated sections (7 in total).
 
-### Enable SAP EMS as eventing backend.
+### Enable SAP EMS as Eventing backend
 
-Create a secret containing your EMS instance credentails.
+Create a Secret containing your EMS instance credentials.
 
 ```shell
 kubectl create secret generic my-ems-instance --from-env-file=./sap-ems.env
 ```
 
-Label the secret so that kyma eventing can look it up and apply configuration.
+Label the Secret so that Kyma Eventing can look it up and apply configuration.
 
 ```shell
 kubectl label secret my-ems-instance kyma-project.io/eventing-backend=beb
 ```
 
-> **NOTE** For more information on how to enable EMS eventing in kyma runtime please see the following [documentation](https://github.tools.sap/kyma/documentation/blob/master/how-to-guides/switching-eventing-backend.md).
+> **NOTE** For more information on how to enable EMS eventing in Kyma runtime, see the following [documentation](https://github.tools.sap/kyma/documentation/blob/master/how-to-guides/switching-eventing-backend.md).
 
 
 
-### Deploy the Function using kyma CLI
+### Deploy the Function using Kyma CLI
 
-Run the following command to deploy the Function
+Run the following command to deploy the Function:
 
 ```shell
 $ kyma apply function
 ```
 
-Verify if the Function was successfully built.
+To verify if the Function was built run:
 
 ```shell
 $ kubectl get functions   
@@ -52,7 +52,7 @@ NAME              CONFIGURED   BUILT   RUNNING   RUNTIME    VERSION   AGE
 ce-coffee         True         True    True      nodejs14   1         36s
 ```
 
-Verify subscription.
+To verify your subscription run:
 
 ```bash
 $ kubectl get subscriptions -n ce-coffee
@@ -69,7 +69,7 @@ ce-coffee   true    64s   ["sap.kyma.custom.commerce.coffee.required.v1","sap.ky
 kubectl port-forward -n kyma-system pod/$(kubectl get pod -n kyma-system -l app.kubernetes.io/name=eventing-publisher-proxy -ojsonpath="{.items[].metadata.name}") 8080:8080
 ```
 
-- send cloud event message; make sure that the source and type have valid values
+- send Cloud Event message; make sure that the source and type have valid values
 
 ```bash
 curl -v -X POST \

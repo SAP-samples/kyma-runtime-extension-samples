@@ -1,28 +1,28 @@
-# Triger Function on time based schedule
+# Trigger Function on time-based schedule
 
 ## Overview
 
-This sample demonstrates how to trigger a kyma Function on your custom schedule.
-It is based on the [hello-timer](https://github.com/SAP-samples/cloud-function-nodejs-samples/tree/master/examples/hello-timer) SAP Faas Runtime example and can serve the purpose to show how a similar use case could be migrated from deprecated SAP Faas Runtime into the Kyma runtime.
+This sample demonstrates how to trigger Kyma Function on your custom schedule.
+It is based on the [hello-timer](https://github.com/SAP-samples/cloud-function-nodejs-samples/tree/master/examples/hello-timer) SAP Faas Runtime example and can serve the purpose of showing how a similar use case can be migrated from deprecated SAP Faas Runtime into the Kyma runtime.
 
 
 ## Steps
 
 ### Inspect the Function files
 
-Go to the `time-based-trigger/hello-timer` folder and inspect the code (`handler.js`), dependencies (`package.json`) and the Function configuration file which manifests the features of the Function (`config.yaml`).
-As you see timer is not configurable in the manifest. Time based triggering can be realised via CronJob feature that is built in kubernets. 
+Go to the `time-based-trigger/hello-timer` folder and inspect the code (`handler.js`), dependencies (`package.json`) and the Function configuration file, which manifests the features of the Function (`config.yaml`).
+As you see, the timer is not configurable in the manifest. The time-based triggering can be realised using the Cron Job feature that is built in Kubernetes. 
 
 
-### Deploy the Function using kyma CLI
+### Deploy the Function using Kyma CLI
 
-Run the following command to deploy the Function
+Run the following command to deploy the Function:
 
 ```shell
 $ kyma apply function
 ```
 
-Verify if the Function was successfully built.
+To verify if the Function was built run:
 
 ```shell
 $ kubectl get functions   
@@ -30,13 +30,13 @@ NAME              CONFIGURED   BUILT   RUNNING   RUNTIME    VERSION   AGE
 hello-timer       True         True    True      nodejs14   1         41s
 ```
 
-At this point the Function is iddle. In the next step you will deploy a CronJob that will trigger it based on a desired schedule.
+At this point the Function is idle. Now you can deploy the Cron Job that triggers it, based on a desired schedule.
 
-### Create a Cronjob 
+### Create Cron Job 
 
 #### Collect the trigger configuration:
 
-Export the Function name and namespace as environment variables.
+Export the Function name and Namespace as environment variables.
 
 ```shell
 export TRIGGER_FN_NAME={FUNCTION NAME}
@@ -54,17 +54,17 @@ Export the Function UID:
 export TRIGGER_FN_UID=$(kubectl get function -n ${TRIGGER_FN_NAMESPACE} ${TRIGGER_FN_NAME} -o=jsonpath={".metadata.uid"})
 ```
 
-All this data will allow to define the Function as the CronJob's owner so in case the Function is deleted from the cluster the CronJobs will be deleted as well.
+All this data allows you to define the Function as the Cron Job's owner. If the Function is deleted from the cluster the Cron Jobs are deleted as well.
 
 Export the schedule of the trigger in [cron format](https://en.wikipedia.org/wiki/Cron).
 ```shell
 export TRIGGER_SCHEDULE={TRIGGER SCHEDULE}
 ```
-For example `*/5 * * * *` to schedule execution every 5 minute.
+For example `*/5 * * * *` to schedule execution every 5 minutes.
 
-#### Create the CronJob
+#### Create Cron Job
 
-Run the following kubectl command to create the CronJob:
+Run the following kubectl command to create Cron Job:
 
 ```shell
 cat <<EOF | kubectl create -f -
@@ -115,6 +115,6 @@ run at 2022-07-13T10:15:05.686Z
 
 ### Considerations
 
- - This approach is not recommended if you need high accuracy in execution times. The kubernetes starts a CronJob (deploys a container ) and there is a variable few seconds delay before your Function gets executed. 
- - You may consider running your logic in the CronJob container itself instead of having a CronJob calling your Function via it's internal address.
- - This approach is not suitable for very short intervals (every 30 seconds or shorter). It takes time to deploy the CronJob's container and clean it up once it's done. With short execution intervals ( i.e every 10 seconds) there might be a resource problem ( cluttering the cluster ). 
+ - This approach is not recommended if you need high accuracy in execution times. Kubernetes starts Cron Job (deploys a container), and there is a few seconds delay before your Function gets executed. 
+ - You can consider running your logic in the Cron Job container, instead of having Cron Job calling your Function using its internal address.
+ - This approach is not suitable for very short intervals (every 30 seconds or shorter). It takes time to deploy the Cron Job's container and clean it up once it's done. With short execution intervals (for example, every 10 seconds) there might be a resource problem (cluttering the cluster). 
