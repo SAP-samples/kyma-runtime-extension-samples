@@ -34,6 +34,9 @@ Go to the `secret-handling/s3uploader` folder and inspect the code (`handler.js`
 
 ### Deploy the Function using Kyma CLI
 
+> **NOTE** If you prefer to deploy the scenario using kubectl CLI simply use the attached `s3uploader-resources.yaml` with the `kubectl apply` command and skip to the testing part.
+
+
 Run the following command to deploy the Function:
 
 ```shell

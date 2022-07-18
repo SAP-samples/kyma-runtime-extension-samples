@@ -32,11 +32,14 @@ Label the Secret so that Kyma Eventing can look it up and apply configuration.
 kubectl label secret my-ems-instance kyma-project.io/eventing-backend=beb
 ```
 
-> **NOTE** For more information on how to enable EMS eventing in Kyma runtime, see the following [documentation](https://github.tools.sap/kyma/documentation/blob/master/how-to-guides/switching-eventing-backend.md).
+> **NOTE** For more information on how to enable EMS eventing in Kyma runtime, see the following [documentation](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/407d1266017f4b529b61665fa7408c41.html?version=Cloud).
 
 
 
 ### Deploy the Function using Kyma CLI
+
+> **NOTE** If you prefer to deploy the scenario using kubectl CLI simply use the attached `ce-coffee-resources.yaml` with the `kubectl apply` command and skip to the testing part.
+
 
 Run the following command to deploy the Function:
 
@@ -55,7 +58,7 @@ ce-coffee         True         True    True      nodejs14   1         36s
 To verify your subscription run:
 
 ```bash
-$ kubectl get subscriptions -n ce-coffee
+$ kubectl get subscriptions
 NAME        READY   AGE   CLEAN EVENT TYPES
 ce-coffee   true    64s   ["sap.kyma.custom.commerce.coffee.required.v1","sap.kyma.custom.commerce.coffee.produced.v1","sap.kyma.custom.commerce.coffee.consumed.v1"]
 ```

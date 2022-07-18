@@ -15,6 +15,9 @@ Go to the `expose-via-http/qrcode-producer` folder and inspect the code (`handle
 
 ### Deploy the Function using Kyma CLI
 
+> **NOTE** If you prefer to deploy the scenario using kubectl CLI simply use the attached `qrcode-producer-resources.yaml` with the `kubectl apply` command and skip to the testing part.
+
+
 Run the following command to deploy the Function:
 
 ```shell

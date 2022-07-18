@@ -2,7 +2,7 @@
 
 ## Overview
 
-This folder contains samples that will help you migrate most common scenarios from deprecated SAP FaaS Runtime Functions to Kyma runtime.
+This folder contains samples that help you migrate most common scenarios from deprecated SAP FaaS Runtime Functions to Kyma runtime.
 The samples aim to cover the migration of common use cases, described by the selected [FaaS Functions examples](https://github.com/SAP-archive/cloud-function-nodejs-samples/tree/master/examples).
 
 ## Scenarios

@@ -16,6 +16,8 @@ As you see, the timer is not configurable in the manifest. The time-based trigge
 
 ### Deploy the Function using Kyma CLI
 
+> **NOTE** If you prefer to deploy the scenario using kubectl CLI simply use the attached `hello-timer-resources.yaml` with the `kubectl apply` command and skip to the testing part.
+
 Run the following command to deploy the Function:
 
 ```shell
@@ -30,7 +32,7 @@ NAME              CONFIGURED   BUILT   RUNNING   RUNTIME    VERSION   AGE
 hello-timer       True         True    True      nodejs14   1         41s
 ```
 
-At this point the Function is idle. Now you can deploy the Cron Job that triggers it, based on a desired schedule.
+At this point the Function is iddle. Now you can deploy the Cron Job that triggers it, based on a desired schedule.
 
 ### Create Cron Job 
 
