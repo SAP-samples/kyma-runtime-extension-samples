@@ -15,7 +15,7 @@ Besides the prerequisites described in the parent folder, you must have access t
 
 First, you need to create the actual Secret and Config Map, that is referenced by the Function, to access S3 bucket for storing data.
 
-> **NOTE**:  The `.env` files in this folder are just templates. Please paste the actual data into the files before running the following commands
+> **NOTE**:  The `.env` files in this folder are just templates. Please paste the actual data into the files before running the following commands.
 
 Use the following kubectl CLI command to create Secret from the file:
 ```shell
@@ -34,7 +34,7 @@ Go to the `secret-handling/s3uploader` folder and inspect the code (`handler.js`
 
 ### Deploy the Function using Kyma CLI
 
-> **NOTE** If you prefer to deploy the scenario using kubectl CLI simply use the attached `s3uploader-resources.yaml` with the `kubectl apply` command and skip to the testing part.
+> **NOTE:** If you prefer to deploy the scenario using kubectl CLI, use the attached `s3uploader-resources.yaml` with the `kubectl apply` command and skip to the testing part.
 
 
 Run the following command to deploy the Function:

@@ -15,7 +15,7 @@ Go to the `expose-via-http/qrcode-producer` folder and inspect the code (`handle
 
 ### Deploy the Function using Kyma CLI
 
-> **NOTE** If you prefer to deploy the scenario using kubectl CLI simply use the attached `qrcode-producer-resources.yaml` with the `kubectl apply` command and skip to the testing part.
+> **NOTE:** If you prefer to deploy the scenario using kubectl CLI, use the attached `qrcode-producer-resources.yaml` with the `kubectl apply` command and skip to the testing part.
 
 
 Run the following command to deploy the Function:
@@ -42,13 +42,13 @@ kubectl get vs
 
 ### Configure JWT token access
 
-If you have a jwt token issuer (for example.  SAP XSUAA instance or a custom tenant of SAP Cloud Identity Services ) you can configure it in this scenario so that access to the Function is restricted to requests with valid token.
+If you have a JWT token issuer (for example, SAP XSUAA instance or a custom tenant of SAP Cloud Identity Services), you can configure it in this scenario so that access to the Function is restricted to requests with a valid token.
 
-Inspect the OIDC configuration of you jwt token issuer by opening it's manifest endpoint in the web browser:
+Inspect the OIDC configuration of your JWT token issuer by opening its manifest endpoint in the web browser:
 `https://{yourIssuerUrl}/.well-known/openid-configuration`
 
 
-Copy `issuer` and `jwks_uri` values and use them in the `config.yaml` to configure jwt access strategy.
+Copy `issuer` and `jwks_uri` values and use them in the `config.yaml` to configure the JWT access strategy.
 
 ```yaml
 ...
@@ -74,5 +74,5 @@ kyma apply function
 ```
 
 Now, when you open the same URL in the browser you see a 401 (Unauthorised) response.
-Only requests containing a valid token from your issuer are passed through the Kyma API Gateway and reach your Function 
+Only requests containing a valid token from your issuer are passed through the Kyma API Gateway and reach your Function.
 
