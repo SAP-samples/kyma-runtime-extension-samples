@@ -16,7 +16,7 @@ Besides the prerequisites described in the parent folder, you must have access t
 
 Go to the `cloud-events/ce-coffee` folder and inspect the code (`handler.js`), dependencies (`package.json`) and the Function configuration file, which manifests the features of the Function (`config.yaml`) - in this case, the subscriptions to 3 types of Cloud Events.
 
-> **NOTE** the `eventType` property must start with the `sap.kyma.custom` prefix and be followed by at least 4 comma-separated sections (7 in total).
+> **NOTE:** the `eventType` property must start with the `sap.kyma.custom` prefix and be followed by at least 4 comma-separated sections (7 in total).
 
 ### Enable SAP EMS as Eventing backend
 
@@ -32,13 +32,13 @@ Label the Secret so that Kyma Eventing can look it up and apply configuration.
 kubectl label secret my-ems-instance kyma-project.io/eventing-backend=beb
 ```
 
-> **NOTE** For more information on how to enable EMS eventing in Kyma runtime, see the following [documentation](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/407d1266017f4b529b61665fa7408c41.html?version=Cloud).
+> **NOTE:** For more information on how to enable EMS eventing in Kyma runtime, see the following [documentation](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/407d1266017f4b529b61665fa7408c41.html?version=Cloud).
 
 
 
 ### Deploy the Function using Kyma CLI
 
-> **NOTE** If you prefer to deploy the scenario using kubectl CLI simply use the attached `ce-coffee-resources.yaml` with the `kubectl apply` command and skip to the testing part.
+> **NOTE:** If you prefer to deploy the scenario using kubectl CLI, use the attached `ce-coffee-resources.yaml` with the `kubectl apply` command and skip to the testing part.
 
 
 Run the following command to deploy the Function:
