@@ -1,5 +1,5 @@
 # Use the Node version that matches the version you have installed locally
-FROM node:12.18.1
+FROM node:14.17.5
 # Create app directory, in which the CAP service is built
 WORKDIR /usr/src/app
 # Install app dependencies

@@ -6,13 +6,10 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/audit-logging": "^3.2.0",
-    "@sap/cds": "^4.4.5",
-    "@sap/hana-client": "^2.7.21",
-    "@sap/xsenv": "^3.1.0",
-    "@sap/xssec": "^3.0.10",
+    "@sap/cds": ">=5.4.5",
+    "@sap/xssec": "^3.2.7",
     "express": "^4.17.1",
-    "passport": "^0.4.1"
+    "passport": "^0.6.0"
   },
   "devDependencies": {
     "sqlite3": "^5.0.3"
@@ -47,7 +44,9 @@
     "requires": {
       "db": {
         "kind": "sqlite",
-        "model": "*"
+        "credentials": {
+          "database": "sqlite.db"
+        }
       }
     }
   }
