@@ -7,11 +7,10 @@ using AdminService from './admin-service';
 
 annotate AdminService.Faqs with {
   ID       @Core.Computed;
-  descr    @mandatory;
   title    @mandatory;
   author   @mandatory;
   category @mandatory;
-  descr    @UI.MultiLineText;
+  descr    @UI.MultiLineText  @mandatory;
   answer   @UI.MultiLineText;
 }
 
@@ -24,37 +23,37 @@ annotate AdminService.Faqs with @(UI : {
     Description    : {Value : answer},
   },
   SelectionFields     : [
-  title,
-  author_ID,
-  count,
-  state
+    title,
+    author_ID,
+    count,
+    state
   ],
   LineItem            : [
-  {Value : title},
-  {Value : answer},
-  {Value : descr},
-  {Value : category.name},
-  {Value : state},
-  {Value : count}
+    {Value : title},
+    {Value : answer},
+    {Value : descr},
+    {Value : category.name},
+    {Value : state},
+    {Value : count}
   ],
   Facets              : [
-  {
-    $Type  : 'UI.ReferenceFacet',
-    Label  : '{i18n>General}',
-    Target : '@UI.FieldGroup#General'
-  },
-  {
-    $Type  : 'UI.ReferenceFacet',
-    Label  : '{i18n>Translations}',
-    Target : 'texts/@UI.LineItem'
-  }
+    {
+      $Type  : 'UI.ReferenceFacet',
+      Label  : '{i18n>General}',
+      Target : '@UI.FieldGroup#General'
+    },
+    {
+      $Type  : 'UI.ReferenceFacet',
+      Label  : '{i18n>Translations}',
+      Target : 'texts/@UI.LineItem'
+    }
   ],
   FieldGroup #General : {Data : [
-  {Value : author_ID},
-  {Value : category_ID},
-  {Value : descr},
-  {Value : count},
-  {Value : state}
+    {Value : author_ID},
+    {Value : category_ID},
+    {Value : descr},
+    {Value : count},
+    {Value : state}
   ]}
 });
 
@@ -67,22 +66,22 @@ annotate AdminService.Faqs with @(UI : {
 annotate AdminService.Faqs_texts with @(UI : {
   Identification  : [{Value : title}],
   SelectionFields : [
-  locale,
-  title
+    locale,
+    title
   ],
   LineItem        : [
-  {
-    Value : locale,
-    Label : 'Locale'
-  },
-  {
-    Value : title,
-    Label : 'Question'
-  },
-  {
-    Value : descr,
-    Label : 'Description'
-  }
+    {
+      Value : locale,
+      Label : 'Locale'
+    },
+    {
+      Value : title,
+      Label : 'Question'
+    },
+    {
+      Value : descr,
+      Label : 'Description'
+    }
   ]
 });
 
