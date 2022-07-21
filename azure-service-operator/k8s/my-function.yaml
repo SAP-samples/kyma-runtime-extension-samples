@@ -21,7 +21,7 @@ spec:
       value: {your-provided-name} #replace it with your redis cache name
   maxReplicas: 1
   minReplicas: 1
-  reference: sample-operators
+  reference: main
   resources:
     limits:
       cpu: 200m
