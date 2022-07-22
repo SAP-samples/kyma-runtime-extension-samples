@@ -12,3 +12,4 @@ metadata:
   name: destination-service-binding
 spec:
   serviceInstanceName: destination-service-instance
+  secretRootKey: destination-service-key
