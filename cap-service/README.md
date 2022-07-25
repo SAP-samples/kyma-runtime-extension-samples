@@ -1,16 +1,14 @@
 ## Overview
 
-This sample provides a CAP Service application that you can configure with any of the sample `Order` APIs.
+This sample provides a CAP Service application service.
 
 This sample demonstrates how to:
 
 - Create a development Namespace in the Kyma runtime.
-- Configure and build an SAPUI5 Docker image.
-- Deploy the frontend in the Kyma runtime which includes:
-  - A ConfigMap that contains the URL to the backend API.
-  - A Deployment of the frontend image with the ConfigMap mounted to a volume.
-  - A Service to expose the UI to other Kubernetes resources.
-  - An API to expose the frontend externally.
+- Configure and build an CAP Service Docker image.
+- Deploy the CAP Service in the Kyma runtime which includes:
+  - A Deployment of the CAP Service.
+  - An API to expose the service externally.
 
 ## Prerequisites
 
