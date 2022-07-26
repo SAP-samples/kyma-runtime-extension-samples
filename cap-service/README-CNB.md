@@ -37,27 +37,27 @@ This sample demonstrates how to:
 
 2. Inside the `app` directory, run:
 
-   ```shell
-   npm install
-   ```
+```shell
+npm install
+```
 
 3. Install the CAP tools
 
-   ```shell
-   npm i -g @sap/cds-dk
-   ```
+```shell
+npm i -g @sap/cds-dk
+```
 
 4. Verify the CAP tools install by running
 
-   ```shell
-   cds
-   ```
+```shell
+cds
+```
 
 5. Run the app using the command
 
-   ```shell
-   cds watch
-   ```
+```shell
+cds watch
+```
 
 The application loads at `http://localhost:4004`.
 
@@ -91,48 +91,48 @@ The application loads at `http://localhost:4004`.
 4.  Open the file `k8s/hana-db-secret.yaml` and copy the values into the file.
 5.  Apply the secret
 
-    ```shell
-    kubectl -n dev apply -f ./k8s/hana-db-secret.yaml
-    ```
+```shell
+kubectl -n dev apply -f ./k8s/hana-db-secret.yaml
+```
 
 ### Prepare the app for deployment
 
 1. Within the directory `app`, run the command to add the hana feature to the project
 
-   ```shell
-   cds add hana --for production
-   ```
+```shell
+cds add hana --for production
+```
 
 2. Within the directory `app`, run the command to add the helm feature to the project
 
-   ```shell
-   cds add helm
-   ```
+```shell
+cds add helm
+```
 
 3. Build the application for production
 
-   ```shell
-   cds build --production
-   ```
+```shell
+cds build --production
+```
 
 4. Build the service container using paketo
 
-   ```shell
-   pack build <dockerid>/faq-srv --path gen/srv --builder paketobuildpacks/builder:base
-   ```
+```shell
+pack build <dockerid>/faq-srv --path gen/srv --builder paketobuildpacks/builder:base
+```
 
 5. Build the database deployer container using paketo
 
-   ```shell
-   pack build <dockerid>/faq-hana-deployer --path gen/db --builder paketobuildpacks/builder:base
-   ```
+```shell
+pack build <dockerid>/faq-hana-deployer --path gen/db --builder paketobuildpacks/builder:base
+```
 
 6. Push the two images to your docker account.
 
-   ```shell
-   docker push <dockerid>/faq-srv
-   docker push <dockerid>/faq-hana-deployer
-   ```
+```shell
+docker push <dockerid>/faq-srv
+docker push <dockerid>/faq-hana-deployer
+```
 
 ### Configure the Helm chart
 
@@ -161,56 +161,56 @@ curl https://faq-cap-srv-dev.<cluster domain>/admin/Faqs
 
 1. Within the directory `app`, run the command to add the XSUAA feature to the project. This will result in an XSUAA instance being created when the helm chart is deployed.
 
-   ```shell
-   cds add XSUAA --for production
-   ```
+```shell
+cds add XSUAA --for production
+```
 
 2. Open the file `app/srv/admin-service.cds` and add `@requires : 'authenticated-user'` above the service definition
 
-   ```
-   using {sap.demo.faq as my} from '../db/schema';
+```
+using {sap.demo.faq as my} from '../db/schema';
 
-    @requires : 'authenticated-user'
+   @requires : 'authenticated-user'
 
-    service AdminService {
-        @odata.draft.enabled`
-   ```
+   service AdminService {
+      @odata.draft.enabled`
+```
 
 3. Build the application for production
 
-   ```shell
-   cds build --production
-   ```
+```shell
+cds build --production
+```
 
 4. Rebuild the service container using paketo
 
-   ```shell
-   pack build <dockerid>/faq-srv --path gen/srv --builder paketobuildpacks/builder:base
-   ```
+```shell
+pack build <dockerid>/faq-srv --path gen/srv --builder paketobuildpacks/builder:base
+```
 
 5. Push the images to your docker account.
 
-   ```shell
-   docker push <dockerid>/faq-srv
-   ```
+```shell
+docker push <dockerid>/faq-srv
+```
 
 6. Deploy the app to Kyma
 
-   ```shell
-   helm upgrade --install faq-cap ./chart --namespace dev
-   ```
+```shell
+helm upgrade --install faq-cap ./chart --namespace dev
+```
 
 7. Test the application either in the browser or by testing an endpoint using curl.
 
-   ```shell
-   curl https://faq-cap-srv-dev.<cluster domain>/admin/Faqs
-   ```
+```shell
+curl https://faq-cap-srv-dev.<cluster domain>/admin/Faqs
+```
 
 This should result in the error
 
-    ```json
-    { "statusCode": 401, "code": "401", "message": "Unauthorized" }
-    ```
+```json
+{ "statusCode": 401, "code": "401", "message": "Unauthorized" }
+```
 
 ## Accessing the secured CAP Endpoint
 
@@ -226,17 +226,17 @@ export CLIENTSECRET=$(kubectl get secrets/faq-cap-srv-auth -n dev -o jsonpath="{
 
 2. Run the command, which utilizes [jq](https://stedolan.github.io/jq/) to extract the `access_token` from the response.
 
-   ```shell
-   export ACCESSTOKEN=$(curl --location --request POST $URL/oauth/token \
-    --header 'Content-Type: application/x-www-form-urlencoded' \
-    --data-urlencode 'client_id='$CLIENTID \
-    --data-urlencode 'client_secret='$CLIENTSECRET \
-    --data-urlencode 'grant_type=client_credentials' \
-    --data-urlencode 'response_type=token' | jq -r '.access_token' )
-   ```
+```shell
+export ACCESSTOKEN=$(curl --location --request POST $URL/oauth/token \
+   --header 'Content-Type: application/x-www-form-urlencoded' \
+   --data-urlencode 'client_id='$CLIENTID \
+   --data-urlencode 'client_secret='$CLIENTSECRET \
+   --data-urlencode 'grant_type=client_credentials' \
+   --data-urlencode 'response_type=token' | jq -r '.access_token' )
+```
 
 3. Pass the access_token when calling the endpoint using curl
 
-   ```shell
-   curl https://faq-cap-srv-dev.<cluster domain>/admin/Faqs --header 'Authorization: Bearer '$ACCESSTOKEN
-   ```
+```shell
+curl https://faq-cap-srv-dev.<cluster domain>/admin/Faqs --header 'Authorization: Bearer '$ACCESSTOKEN
+```
