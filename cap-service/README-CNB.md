@@ -201,13 +201,7 @@ curl https://faq-cap-srv-dev.<cluster domain>/admin/Faqs
    helm upgrade --install faq-cap ./chart --namespace dev
    ```
 
-7. If the docker images are not tagged with a new version the pods will not be replaced. If so, delete the pod for the new version to be pulled down.
-
-   ```shell
-   kubectl delete pod -l app.kubernetes.io/instance=faq-cap -n dev
-   ```
-
-8. Test the application either in the browser or by testing an endpoint using curl.
+7. Test the application either in the browser or by testing an endpoint using curl.
 
    ```shell
    curl https://faq-cap-srv-dev.<cluster domain>/admin/Faqs
@@ -231,7 +225,7 @@ export CLIENTID=$(kubectl get secrets/faq-cap-srv-auth -n dev -o jsonpath="{.dat
 export CLIENTSECRET=$(kubectl get secrets/faq-cap-srv-auth -n dev -o jsonpath="{.data.clientsecret}" | base64 -d)
 ```
 
-2. Run the command, which utilizes `jq` to extract the `access_token` from the response.
+2. Run the command, which utilizes [jq](https://stedolan.github.io/jq/) to extract the `access_token` from the response.
 
    ```shell
    export ACCESSTOKEN=$(curl --location --request POST $URL/oauth/token \
