@@ -1,4 +1,33 @@
-https://paketo.io/
+## Overview
+
+This sample provides a CAP Service application service.
+
+This sample demonstrates how to:
+
+- Create a development Namespace in the Kyma runtime.
+- Configure and build an CAP Service using [Paketo](https://paketo.io/).
+- Creating a Helm chart with CAP
+- Connecting a CAP application to Hana Cloud
+- Protecting a CAP service with Authentication
+- Deploy the CAP Service in the Kyma runtime which includes:
+  - A Deployment of the CAP Service.
+  - An API to expose the service externally.
+  - An XSUAA instance
+  - A Secret containing Hana credentials.
+
+## Prerequisites
+
+- SAP BTP, Kyma runtime instance
+- [Docker](https://www.docker.com/)
+- [Docker Hub Account](https://hub.docker.com/signup)
+- [Node.js](https://nodejs.org/en/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime.
+- [Paketo](https://paketo.io/)
+
+### CAP Resources
+
+- [CAP hints for SQLite on windows](https://cap.cloud.sap/docs/resources/troubleshooting#how-do-i-install-sqlite-on-windows)
+- [Troubleshooting guide](https://cap.cloud.sap/docs/resources/troubleshooting#npm-installation) for CAP.
 
 ## Steps
 
@@ -6,7 +35,7 @@ https://paketo.io/
 
 1. Clone the project.
 
-2. Inside the directory, run:
+2. Inside the `app` directory, run:
 
    ```shell
    npm install
@@ -24,13 +53,7 @@ https://paketo.io/
    cds
    ```
 
-5. Deploy the DB schemas to you local `sqlite` database
-
-   ```shell
-   cds deploy --to sqlite
-   ```
-
-6. Run the app using the command
+5. Run the app using the command
 
    ```shell
    cds watch
