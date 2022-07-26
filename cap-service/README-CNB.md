@@ -63,12 +63,11 @@ The application loads at `http://localhost:4004`.
 
 ### Provising the HANA Database
 
+⚠ NOTE: The creation of the instance will take some time. Also please note that when using the SAP BTP trial, the HANA instance will need to be restarted each day.
+
 1. In the SAP BTP global account choose Entitlements -> Entity Assignments. Choose your subaccount and choose Go. This will list all assigned entitlements.
-
 2. Choose Configure Entitlements and Add Service Plans to select additional entitlements.
-3. For the Entitlement choose **SAP HANA Cloud** and choose the Plan **hana**.
-   ⚠ NOTE: The creation of the instance will take some time. Also please note that when using the SAP BTP trial, the HANA instance will need to be restarted each day.
-
+3. For the Entitlement choose **SAP HANA Cloud** and choose the Plan **hana**
 4. Creat the Instance by choosing within the the subaccount view, open Cloud Foundry -> Spaces and select the dev space and choose the menu item SAP HANA Cloud. Choose Create -> SAP HANA Database.
 5. In SAP HANA Cloud Central, select as Type the entry SAP HANA Cloud, SAP HANA Database. Choose Next Step at the bottom right.
 
