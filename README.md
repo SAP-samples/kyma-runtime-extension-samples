@@ -62,7 +62,9 @@ Running various samples requires access to the Kyma runtime. There are also othe
 
 | Name                                   | Description                                                                            | References                                                        |
 | -------------------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| [CAP on Kyma](./cap-service/README.md) | This sample provides a CAP Service application configured with the sample `Order` APIs | [Tutorial](https://developers.sap.com/tutorials/cp-kyma-cap.html) |
+| [CAP on Kyma Cloud Native Buildpac](./cap-service/README-CNB.md)|This sample provides a secured CAP Service application deployed onto HANA and configured for Helm using Cloud Native Buildpacks||
+| [CAP on Kyma](./cap-service/README.md) | This sample provides a CAP Service application configured with the sample `FAQs` APIs | [Tutorial](https://developers.sap.com/tutorials/cp-kyma-cap.html) |
+
 
 ## FAAS Migration
 
