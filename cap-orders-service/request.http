@@ -1,0 +1,22 @@
+
+### Call mocked service
+POST http://localhost:3000/orders
+Content-type: application/json
+
+{
+    "orderNo": 123123
+}
+
+### Call CDS action which calls mocked service and creates an new order
+POST http://localhost:4004/orders/external 
+Content-type: application/json
+Authorization: Basic kyma:kyma
+ 
+{
+    "orderNo": 1231123
+}
+
+### Get Orders
+GET http://localhost:4004/orders/Orders 
+Content-type: application/json
+Authorization: Basic kyma:kyma
