@@ -18,20 +18,3 @@ service OrdersService {
     }
   }
 }
-
-// service ExternalService {
-//   action orders(orderNo : Integer) returns {
-//     OrderNo : Integer;
-//     createdBy : String;
-//     buyer : String;
-//     currency : Currency;
-//     Items : Association to many Items
-//   }
-// }
-
-// entity Items : cuid {
-//   product_ID : Integer;
-//   quantity   : Integer;
-//   title      : String;
-//   price      : Integer;
-// }
