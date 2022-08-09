@@ -99,26 +99,3 @@ const keyName = process.argv[3] || `${instanceName}-key`;
 const secretData = serviceKey(spaceGuid, instanceName, keyName);
 const secret = { apiVersion: "v1", kind: "Secret", type: "Opaque", metadata: { name: instanceName }, stringData: secretData };
 console.log(JSON.stringify(secret, null, 2));
-
-/*
-const resolvedBinding = {
-        binding: {
-            type: "cf",
-            apiEndpoint: target.apiEndpoint,
-            org: org,
-            space: space,
-            instance: instance,
-            key: key,
-            vcap: {
-                label: offeringObj.name,
-                plan: planObj.name,
-                tags: offeringObj.tags
-            },
-            resolved: true,
-        },
-        credentials: keyCredentialsObj.credentials
-    };
-
-    return resolvedBinding;
-}
-}*/
