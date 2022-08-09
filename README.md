@@ -85,6 +85,12 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------- |
 | [Azure MS SQL database](./database-azure-mssql/README.md) | This sample provisions the MS SQL database within Microsoft Azure using the Open Service Broker | -          |
 
+## SAP BTP Service Bindings
+
+| Name                                                                 | Description                                                                                     | References |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ---------- |
+| [Secret from CF Service Key](./secret-from-cf-service-key/README.md) | This sample shows how to create a Kubernetes secret from a Cloud Foundry service key  | -          |
+
 ## SAP HANA Cloud
 
 | Name                                                                           | Description                                                                         | References |
