@@ -76,14 +76,31 @@ This sample will rely on the Destination service to obtain the details of the lo
 
 Following the instructions to configure the localmock application within the SAP Cloud Connector found in the mock application sample at [connectivity-proxy](../connectivity-proxy/)
 
+### Provising the HANA Database
+
+⚠ NOTE: The creation of the instance will take some time. Also please note that when using the SAP BTP trial, the HANA instance will need to be restarted each day.
+
+1. In the SAP BTP global account choose Entitlements -> Entity Assignments. Choose your subaccount and choose Go. This will list all assigned entitlements.
+2. Choose Configure Entitlements and Add Service Plans to select additional entitlements.
+3. For the Entitlement choose **SAP HANA Cloud** and choose the Plan **hana**
+4. Creat the Instance by choosing within the the subaccount view, open Cloud Foundry -> Spaces and select the dev space and choose the menu item SAP HANA Cloud. Choose Create -> SAP HANA Database.
+5. In SAP HANA Cloud Central, select as Type the entry SAP HANA Cloud, SAP HANA Database. Choose Next Step at the bottom right.
+
+6. Provide the following values:
+   1. Instance Name: kyma
+   2. Administrator Password: Any value
+   3. Chose Next Step and keep the default values of the next two screens by choosing Next Step twice.
+   4. On the SAP HANA Database Advanced Settings choose the option Allow all IP addresses and choose Next Step.
+   5. Lastly, choose Review and Create and then Create Instance.
+
 ### Provising the SAP HANA Schemas & HDI Containers
 
 ⚠ NOTE: The step requires that the creation of the SAP HANA Cloud has completed.
 
 1.  Within your SAP BTP subaccount choose Service Marketplace and select SAP HANA Schemas & HDI Containers. Choose Create with the options
-    1. Plan: hdi-shared
-    2. Instance Name: cap-kyma
-2.  Choose Create and select the option View Instance. Once the instance is created, open the instance and choose the option Create under Service Keys. Provide the service Key Name kyma and choose Create.
+    1. **Plan**: hdi-shared
+    2. **Instance Name**: orders-db
+2.  Choose Create and select the option View Instance. Once the instance is created, open the instance and choose the option Create under Service Keys. Provide the service Key Name **kyma** and choose Create.
 
 3.  Once created choose the option View and copy the credentials.
 4.  Open the file `k8s/hana-db-secret.yaml` and copy the values into the file.
