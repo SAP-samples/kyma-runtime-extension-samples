@@ -3,5 +3,6 @@ URL=http\://localhost\:3000
 Name=localmock
 ProxyType=OnPremise
 Type=HTTP
-Authentication=PrincipalPropagation
+Authentication=BasicAuthentication
 Description=localmock
+User=kyma
