@@ -212,5 +212,11 @@ curl https://orders-srv-dev.<cluster domain>/orders/Orders --header 'Authorizati
 4. Call the CDS action which calls mocked service and creates an new order.
 
 ```shell
-curl https://orders-srv-dev.<cluster domain>/orders/external --header 'Authorization: Bearer '$ACCESSTOKEN -d '{"orderNo": 1231123}'
+curl -X POST  https://orders-srv-dev.<cluster domain>/orders/external --header 'Authorization: Bearer '$ACCESSTOKEN --header "Content-Type: application/json" -d '{"orderNo": 1231123}'
+```
+
+This should return a response similar to
+
+```
+{"@odata.context":"$metadata#OrdersService.return_OrdersService_external","affectedRows":1,"orders":[{"ID":"027e2eb5-8a22-4ad2-9ff9-abfd3bf6da4d"}]}
 ```
