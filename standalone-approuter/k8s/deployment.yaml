@@ -47,7 +47,7 @@ spec:
         resources: {}
         volumeMounts:
         - name: xs-app
-          mountPath: /usr/src/app/xs-app.json
+          mountPath: /app/xs-app.json
           subPath: xs-app.json
           readOnly: true
         - name: my-xsuaa-binding
