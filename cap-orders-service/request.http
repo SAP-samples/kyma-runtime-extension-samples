@@ -22,7 +22,7 @@ Content-type: application/json
 Authorization: Basic kyma:kyma
 
 
-### REMOTE: Get Access Token
+### REMOTE: Get Access Token -  use the values from the secret orders-srv-auth
 # @name accessTokenReq
 # @prompt URL
 # @prompt  CLIENTID
@@ -41,12 +41,12 @@ response_type=token
 GET {{API_URL}}/orders/Orders HTTP/1.1
 Authorization: Bearer {{accessTokenReq.response.body.access_token}}
 
-### REMOTE: Call CDS action which calls mocked service and creates an new order
+### REMOTE: Call CDS action which calls mocked service via the SAP Cloud Connector and creates an new order
 # @prompt API_URL
 POST {{API_URL}}/orders/external 
 Content-type: application/json
 Authorization: Bearer {{accessTokenReq.response.body.access_token}}
  
 {
-    "orderNo": 1231123
+    "orderNo": 2211
 }
