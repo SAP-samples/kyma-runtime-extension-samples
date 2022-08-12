@@ -31,13 +31,11 @@ As a simple backend, we will use an HttpBin application that returns the request
 
 ![scenario](assets/scenario.svg)
 
-> Note: Standalone approuter is deployed with 2 replicas. Session stickiness is acheived by configuring the [Destination rule](k8s/deployment.yaml)
+> Note: Standalone approuter is deployed with 2 replicas. Session stickiness is achieved by configuring the [Destination rule](k8s/deployment.yaml)
 
 ## Prerequisites
 
 - [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
-- [Docker](../prerequisites/#docker)
-- [make](https://www.gnu.org/software/make/)
 - [Kubernetes tooling](../prerequisites/#kubernetes)
 
 ## Steps
