@@ -39,8 +39,9 @@ spec:
         secret:
           secretName: my-xsuaa-binding
       containers:
-      - image: gabbi/approuter:0.0.1
+      - image: sapse/approuter:11.3.2
         name: my-approuter
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
         resources: {}
@@ -58,12 +59,6 @@ spec:
             configMapKeyRef:
               name: destinations
               key: destinations
-        - name: XS_APP_LOG_LEVEL
-          value: debug
-        - name: REQUEST_TRACE
-          value: "true"
-        - name: DEV_ENV_TRACES
-          value: "true"
 status: {}
 ---
 apiVersion: v1
