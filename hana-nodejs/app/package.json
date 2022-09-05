@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@sap/hana-client": "^2.13.22",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1"
   }
 }
