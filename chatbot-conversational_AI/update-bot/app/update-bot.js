@@ -192,9 +192,9 @@ async function stack_request(url, config) {
     }
     return result;
   } catch(err) {
-    console.log(`${new Date().toISOString()}: Error in stack_request!\nURL: ${url}\nError: ${err}`);
+    console.log(`${new Date().toISOString()}: Error in stack_request!\nURL: ${url}`);
     //await sendAlert(err, "Failed to stack_request");
-    await sendAlert(`${new Date().toISOString()}: Error in stack_request!\nURL: ${url}\nError: ${err}`, "Failed to stack_request");
+    await sendAlert(`${new Date().toISOString()}: Error in stack_request!\nURL: ${url}`, "Failed to stack_request");
     throw err;
   }
 }
@@ -293,10 +293,10 @@ async function add_caiAnswer(answerText, questionLink, access_token) {
     const result = await got.post(cai_request_url, cai_request_config);
     return [JSON.parse(result.body), null];
   } catch (err) {
-    console.log("An Error has occurred during adding an answer to SAP CAI: " + err);
+    console.log("An Error has occurred during adding an answer to SAP CAI");
     console.log(`cai_request_url=${cai_request_url}; finalAnswerString=${finalAnswerString}`);
     //await sendAlert(err, "Failed to add_caiAnswer");
-    await sendAlert("An Error has occurred during adding an answer to SAP CAI: " + err + `cai_request_url=${cai_request_url}; finalAnswerString=${finalAnswerString}`, "Failed to add_caiAnswer");
+    await sendAlert(`An Error has occurred during adding an answer to SAP CAI: cai_request_url=${cai_request_url}; finalAnswerString=${finalAnswerString}`, "Failed to add_caiAnswer");
     //throw err;
     return [null, err];
   }
