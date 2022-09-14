@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: connectivity-proxy-ldap
+  name: connectivity-proxy-ldap
+  namespace: kyma-system
+spec:
+  ports:
+    - name: ldap
+      port: 20001
+      protocol: TCP
+      targetPort: 20001
+  selector:
+    app: connectivity-proxy
+    release: connectivity-proxy
+  type: ClusterIP
+status:
+  loadBalancer: {}

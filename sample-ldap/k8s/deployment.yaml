@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sample-ldap
+  name: sample-ldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-ldap
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sample-ldap
+    spec:
+      containers:
+      - image: gabbi/sample-ldap:0.0.4
+        name: sample-ldap
+        ports:
+        - containerPort: 8080
+        resources: {}
+        env:
+          - name: PROXY_HOST
+            value: connectivity-proxy-ldap.kyma-system.svc.cluster.local
+          - name: VIA_PROXY
+            value: "true"
+        envFrom:
+          - secretRef:
+              name: ldap-config
+              optional: false
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sample-ldap
+  name: sample-ldap
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: sample-ldap
+status:
+  loadBalancer: {}
