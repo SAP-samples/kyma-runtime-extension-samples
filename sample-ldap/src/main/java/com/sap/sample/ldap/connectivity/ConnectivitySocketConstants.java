@@ -1,4 +1,4 @@
-package org.gabbi.connectivity;
+package com.sap.sample.ldap.connectivity;
 
 /**
  * Some constants for the socket communication.

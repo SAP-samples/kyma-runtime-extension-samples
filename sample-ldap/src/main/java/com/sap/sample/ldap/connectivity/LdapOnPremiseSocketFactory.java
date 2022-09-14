@@ -1,4 +1,4 @@
-package org.gabbi.connectivity;
+package com.sap.sample.ldap.connectivity;
 
 import javax.naming.ldap.LdapContext;
 import javax.net.SocketFactory;

@@ -1,6 +1,6 @@
-package org.gabbi.controllers;
+package com.sap.sample.ldap.controllers;
 
-import org.gabbi.services.LdapService;
+import com.sap.sample.ldap.services.LdapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

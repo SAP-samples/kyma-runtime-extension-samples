@@ -1,6 +1,4 @@
-package org.gabbi.utils;
-
-import org.gabbi.utils.EnvironmentUtils;
+package com.sap.sample.ldap.utils;
 
 public class ProxyUtils {
     private static final int DEFAULT_LDAP_PROXY_PORT = 20001;

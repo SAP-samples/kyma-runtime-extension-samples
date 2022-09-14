@@ -1,6 +1,6 @@
-package org.gabbi.services;
+package com.sap.sample.ldap.services;
 
-import org.gabbi.config.AppConfig;
+import com.sap.sample.ldap.config.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 import java.util.Properties;
 
-import static org.gabbi.utils.LdapUtils.*;
+import static com.sap.sample.ldap.utils.LdapUtils.*;
 
 @Component
 public class LdapService {

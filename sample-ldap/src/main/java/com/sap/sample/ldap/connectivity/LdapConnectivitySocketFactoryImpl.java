@@ -1,9 +1,8 @@
-package org.gabbi.connectivity;
+package com.sap.sample.ldap.connectivity;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

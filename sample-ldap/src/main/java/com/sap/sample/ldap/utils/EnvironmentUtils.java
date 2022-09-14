@@ -1,4 +1,4 @@
-package org.gabbi.utils;
+package com.sap.sample.ldap.utils;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
-package org.gabbi.connectivity;
+package com.sap.sample.ldap.connectivity;
 
-import org.gabbi.utils.ProxyUtils;
+import com.sap.sample.ldap.utils.ProxyUtils;
 
 import java.io.*;
 import java.net.*;
@@ -8,8 +8,6 @@ import java.nio.ByteBuffer;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static org.gabbi.connectivity.ConnectivitySocketConstants.PROTOCOL;
 
 public class ConnectivitySocket extends Socket {
 
@@ -77,7 +75,7 @@ public class ConnectivitySocket extends Socket {
             Properties properties = new Properties();
             properties.put(ConnectivitySocketConstants.PROPERTY_HOSTNAME, endpointInetAddress.getHostName());
             properties.put(ConnectivitySocketConstants.PROPERTY_PORT, Integer.toString(endpointInetAddress.getPort()));
-            properties.put(ConnectivitySocketConstants.PROPERTY_CONNECTION_PROTOCOL, PROTOCOL);
+            properties.put(ConnectivitySocketConstants.PROPERTY_CONNECTION_PROTOCOL, ConnectivitySocketConstants.PROTOCOL);
             properties.put(ConnectivitySocketConstants.PROPERTY_REQUEST_CONNECTION_INFO, Boolean.toString(Boolean.TRUE));
 
             properties.store(byteArraysStream, null);

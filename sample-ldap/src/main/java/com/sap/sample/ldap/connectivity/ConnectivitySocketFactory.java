@@ -1,4 +1,4 @@
-package org.gabbi.connectivity;
+package com.sap.sample.ldap.connectivity;
 
 import java.io.IOException;
 import java.net.Socket;

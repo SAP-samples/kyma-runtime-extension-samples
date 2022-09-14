@@ -1,8 +1,10 @@
-package org.gabbi.utils;
+package com.sap.sample.ldap.utils;
+
+import com.sap.sample.ldap.connectivity.LdapOnPremiseSocketFactory;
 
 public class LdapUtils {
     public static final String INITIAL_CONTEXT_FACTORY = "com.sun.jndi.ldap.LdapCtxFactory";
-    public static final String LDAP_ON_PREM_SOCKET_FACTORY = "org.gabbi.connectivity.LdapOnPremiseSocketFactory";
+    public static final String LDAP_ON_PREM_SOCKET_FACTORY = LdapOnPremiseSocketFactory.class.getName();
 
     public static String getSecurityAuthentication() {
         return EnvironmentUtils.getEnvironmentVariable("SECURITY_AUTHENTICATION")
