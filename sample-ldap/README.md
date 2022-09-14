@@ -28,9 +28,15 @@ In my sample, I have used [ApacheDS](https://directory.apache.org/apacheds/) as 
 
 * Set up environment variables
 
-  ```shell script
-  export NS={your-namespace}
-  ```
+  * OSX
+    ```shell script
+    export NS={your-namespace}
+    ```
+
+  * Windows PowerShell
+    ```powershell
+    $NS={your-namespace}
+    ```
 
 * Create Connectivity Service Instance in any namespace.
   >Note: Only one instance is required for the cluster. If you have deployed it previously, simply skip this step.
@@ -56,7 +62,7 @@ In my sample, I have used [ApacheDS](https://directory.apache.org/apacheds/) as 
   kubectl -n kyma-system apply -f k8s/connectivity-proxy-ldap-service.yaml
   ```
 
-* Create the secret with the required ldap configuration.
+* Create the secret with the required LDAP configuration. You can get these details from the LDAP server or request your admin for the LDAP server.
 
   ```shell script
   kubectl -n $NS create secret generic ldap-config --from-literal=LDAP_URL="ldap://{ldap-virtual-host}:{ldap-virtual-port}" \
