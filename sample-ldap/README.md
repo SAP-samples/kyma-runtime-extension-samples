@@ -56,15 +56,18 @@ In my sample, I have used [ApacheDS](https://directory.apache.org/apacheds/) as 
   kubectl -n kyma-system apply -f k8s/connectivity-proxy-ldap-service.yaml
   ```
 
-* Create the secret with ldap configuration.
+* Create the secret with the required ldap configuration.
 
   ```shell script
   kubectl -n $NS create secret generic ldap-config --from-literal=LDAP_URL="ldap://{ldap-virtual-host}:{ldap-virtual-port}" \
    --from-literal=SECURITY_CREDENTIALS="{ldap-secret}" --from-literal SECURITY_PRINCIPAL="{ldap-security-principal}" \
-   --from-literal=SECURITY_AUTHENTICATION="{ldap-security-authentication}"
+   --from-literal=SECURITY_AUTHENTICATION="{ldap-security-authentication}" \
+   --from-literal=SEARCH_CONTEXT="{ldap-search-context-for-users}"  
   ```
 
 * Deploy the Java Application that connects to the on premise LDAP Server via connectivity proxy.
+
+The [LdapService.java](src/main/java/com/sap/sample/ldap/services/LdapService.java) queries for users with filter `"(&(objectClass=account)(uid=" + userName + "))";` in the specified context
 
   ```shell script
   kubectl -n $NS apply -f k8s/deployment.yaml

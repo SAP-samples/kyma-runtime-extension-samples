@@ -18,7 +18,7 @@ spec:
         app: sample-ldap
     spec:
       containers:
-      - image: gabbi/sample-ldap:0.0.3
+      - image: gabbi/sample-ldap:0.0.4
         name: sample-ldap
         ports:
         - containerPort: 8080

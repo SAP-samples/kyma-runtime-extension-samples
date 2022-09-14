@@ -26,11 +26,12 @@ public class LdapService {
 
     public String SearchUser(String userName) throws NamingException {
         String filter = "(&(objectClass=account)(uid=" + userName + "))";
-        String[] attrIDs = {"uid", "objectClass"};
+
         SearchControls searchControls = new SearchControls();
-        searchControls.setReturningAttributes(attrIDs);
+        searchControls.setReturningAttributes(ATTR_IDS);
         searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-        NamingEnumeration<SearchResult> searchResults = context.search("ou=users,ou=system", filter, searchControls);
+
+        NamingEnumeration<SearchResult> searchResults = context.search(getSearchContext(), filter, searchControls);
         if (searchResults.hasMore()) {
             SearchResult result = searchResults.next();
             return result.toString();
