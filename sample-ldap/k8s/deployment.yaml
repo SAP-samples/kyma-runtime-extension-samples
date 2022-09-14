@@ -18,7 +18,7 @@ spec:
         app: sample-ldap
     spec:
       containers:
-      - image: gabbi/sample-ldap:0.0.2
+      - image: gabbi/sample-ldap:0.0.3
         name: sample-ldap
         ports:
         - containerPort: 8080
@@ -28,6 +28,10 @@ spec:
             value: connectivity-proxy-ldap.kyma-system.svc.cluster.local
           - name: VIA_PROXY
             value: "true"
+        envFrom:
+          - secretRef:
+              name: ldap-config
+              optional: false
 status: {}
 ---
 apiVersion: v1
