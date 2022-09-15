@@ -1,0 +1,19 @@
+# Default values for the chatbot kubernetes application
+
+# Declare the values for the variables for the given template files
+
+
+# This defines all the variables for the update-bot
+# This defines the values for the update-bot
+image:
+  repository: gabbi/bot-update
+  tag: latest
+
+# This defines all the values for the alert-notification
+alertnotification:
+  alertnotifsrv: aHR0cDovL2FsZXJ0LW5vdGlmLmthcmwta3ltYS5zdmMuY2x1c3Rlci5sb2NhbAo=
+  email: dGVzdHZhbHVlCg==
+  clusterdomain: dGVzdHZhbHVlCg==
+  url: dGVzdHZhbHVlCg==
+  slack:
+    webhook: dGVzdHZhbHVlCg==

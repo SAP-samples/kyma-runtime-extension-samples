@@ -1,0 +1,75 @@
+# Default values for the chatbot kubernetes application
+
+# Declare the values for the variables for the given template files
+
+
+# This defines all the variables for the update-bot
+# These are the values for the bot-observer-tool
+image:
+  repository: lasseurban/bot-observer-tool
+  tag: latest
+bot:
+  secret:
+    caicredentialsurl: <url>
+    caicredentialsid: <id>
+    caicredentialssecret: <secret>
+    boturl: <bot-url>
+    caixtoken: <token>
+    stackurl: <url>
+    stacktag: <tag>
+    stackkey: <key>
+    dbname: <name>
+    dbhost: <host>
+    dbusername: <name>
+    dbpassword: <password>
+  botobservertool:
+    apirule:
+      gateway: <gateway>
+      port: 3000
+    deployment:
+      containerport: 3000
+    service:
+      port: 3000
+      targetport: 3000
+
+
+# This defines all the variables for the api-mssql-function
+apimssqlfunction:
+  deployment:
+    env:
+      database: <database>
+      host: <hostname>
+      username: <username>
+      password: <password>
+    reference: <reference>
+    basedir: <basedir>
+  apirule:
+    gateway: <gateway>
+
+
+# This defines all the variables for the database-mssql
+databasemssql:
+  deployment:
+    image: lasseurban/bot-db
+    tag: latest
+    containerport: 1433
+  service:
+    port: 1433
+    targetport: 1433
+  secret:
+    username: <username>
+    password: <password>
+  pvc:
+    volumename: <volumename>
+    storageclassname: <storageclassname>
+
+# This defines all the variables for the alert notification
+alertnotification:
+  email: PGVtYWlsPgo=
+  secret:
+    anregion: <anregion>
+    clusterdomain: <clusterdomain>
+
+# This defines the secret for the container registry
+regsecret:
+  dockerconfigjson: <regcred> 

@@ -143,7 +143,7 @@ The FAQ chatbot can be connected to multiple communication platforms. In the pre
 
 ### 3. Deploy the Knowledge Database to Kyma
 
-The first step will be to deploy the knowledge database. Make sure that you have a running Docker installation and a Docker Hub account. The proceed with the following steps:
+The first step will be to deploy the knowledge database. Make sure that you have a running Docker installation and a Docker Hub account (In case of a private docker repository, you have to add a kubernetes secret called "regcred" that contains the given credentials). The proceed with the following steps:
 
 1. Switch to the directory `knowledge-database/database-mssql`.
 

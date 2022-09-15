@@ -1,9 +1,7 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: update-bot-job
-  labels:
-    app.kubernetes.io/managed-by: Helm
 spec:
   # Update intervall for new questions and answers
   schedule: "*/30 * * * *"     #change it to your schedule
@@ -15,7 +13,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: update-bot-container
-            image: <image-name> #gabbi/bot-update      #change it to your image
+            image: {{ .Values.bot.updatebot.cronjob.update.image }}:{{ .Values.bot.updatebot.cronjob.update.tag }}
             imagePullPolicy: Always
             env:
               - name: CAI_CREDENTIALS_URL
@@ -81,16 +79,14 @@ spec:
               - name: UPDATE_ALL
                 value: "N"
               - name: ALERT_NOTIF_SRV
-                value: "http://alert-notif.karl-kyma.svc.cluster.local"
+                value: {{ .Values.alertnotification.alertnotifsrv  | b64dec }}
           imagePullSecrets:
           - name: regcred
 ---
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: update-all-bot-job
-  labels:
-    app.kubernetes.io/managed-by: Helm
 spec:
   # update intervall for refreshing all questions
   schedule: "15 23 * * *"     #change it to your schedule
@@ -102,7 +98,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: update-bot-container
-            image: <image-name> #gabbi/bot-update      #change it to your image
+            image: {{ .Values.bot.updatebot.cronjob.updateall.image }}:{{ .Values.bot.updatebot.cronjob.updateall.tag }}
             imagePullPolicy: Always
             env:
               - name: CAI_CREDENTIALS_URL
@@ -168,6 +164,7 @@ spec:
               - name: UPDATE_ALL
                 value: "Y"
               - name: ALERT_NOTIF_SRV
-                value: "http://alert-notif.karl-kyma.svc.cluster.local"
+                value: {{ .Values.alertnotification.alertnotifsrv  | b64dec }}
           imagePullSecrets:
           - name: regcred
+

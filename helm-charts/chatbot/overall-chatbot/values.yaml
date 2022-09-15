@@ -1,0 +1,78 @@
+# Default values for the chatbot kubernetes application
+
+# Declare the values for the variables for the given template files
+
+
+# This defines all the variables for the update-bot
+bot:
+  secret:
+    caicredentialsurl: https://sapcai-community.authentication.eu10.hana.ondemand.com/oauth/token
+    caicredentialsid: xxxxxxxxx
+    caicredentialssecret: xxxxxxxxx
+    boturl: https://api.cai.tools.sap/train/v2/users/xxxxxxxxxxx/bots/xxxxxxxxxx/versions/xxxxxxxxxxxxxx/qna/topic/knowledge_sources/xxxxxxxxxxxxxxxxxxxxx/answers
+    caixtoken: xxxxxxxxx
+    stackurl: https://sap.stackenterprise.co/api/2.2
+    stacktag: kyma-runtime
+    stackkey: xxxxxxxxx
+    dbname: BotKnowledgeDB
+    dbhost: mssql.chatbot.svc.cluster.local
+    dbusername: sa
+    dbpassword: mfrCPTK3
+  updatebot:
+    cronjob:
+      update:
+        image: gabbi/bot-update
+        tag: latest
+      updateall:
+        image: gabbi/bot-update
+        tag: latest
+  botobservertool:
+    apirule: 
+      gateway: kyma-gateway.kyma-system.svc.cluster.local
+      port: 3000
+    deployment:
+      image: lasseurban/bot-observer-tool
+      tag: latest
+      containerport: 3000
+    service:
+      port: 3000
+      targetport: 3000
+
+# This defines all the variables for the api-mssql-function
+apimssqlfunction:
+  deployment:
+    env:
+      database: BotKnowledgeDB
+      host: mssql.chatbot.svc.cluster.local
+      username: sa
+      password: mfrCPTK3
+    reference: main
+    basedir: chatbot-conversational_AI/knowledge-database/api-mssql-function/function
+  apirule:
+    gateway: kyma-gateway.kyma-system.svc.cluster.local
+
+# This defines all the variables for the database-mssql
+databasemssql:
+  deployment:
+    image: lasseurban/bot-db
+    tag: latest
+    containerport: 1433
+  service:
+    port: 1433
+    targetport: 1433
+  secret:
+    username: c2E=
+    password: bWZyQ1BUSzM=
+
+# This defines all the variables for the alert notification
+alertnotification:
+  alertnotifsrv: aHR0cDovL2FsZXJ0LW5vdGlmLmthcmwta3ltYS5zdmMuY2x1c3Rlci5sb2NhbAo=
+  email: dGVzdHZhbHVlCg==
+  clusterdomain: dGVzdHZhbHVlCg==
+  url: dGVzdHZhbHVlCg==
+  slack:
+    webhook: dGVzdHZhbHVlCg==
+
+# This defines the secret for the container registry
+regsecret:
+  dockerconfigjson: xxxxxxxxx 

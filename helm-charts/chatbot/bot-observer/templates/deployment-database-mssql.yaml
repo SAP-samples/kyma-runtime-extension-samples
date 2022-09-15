@@ -4,7 +4,6 @@ metadata:
   name: mssql
   labels:
     app: mssql
-    app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   selector:
@@ -16,12 +15,14 @@ spec:
         app: mssql
     spec:
       terminationGracePeriodSeconds: 10
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: mssql
-          image: lasseurban/bot-db    #change it to your image
+          image: {{ .Values.databasemssql.deployment.image }}:{{ .Values.databasemssql.deployment.tag }} 
           imagePullPolicy: Always
           ports:
-            - containerPort: 1433
+            - containerPort: {{ .Values.databasemssql.deployment.containerport }} 
           env:
             - name: MSSQL_PID
               value: "Developer"
@@ -35,8 +36,6 @@ spec:
           volumeMounts:
             - name: mssqldb
               mountPath: /var/opt/mssql
-      imagePullSecrets:
-        - name: regcred
       volumes:
         - name: mssqldb
           persistentVolumeClaim:
@@ -48,11 +47,10 @@ metadata:
   name: mssql
   labels:
     app: mssql
-    app.kubernetes.io/managed-by: Helm
 spec:
   selector:
     app: mssql
   ports:
     - protocol: TCP
-      port: 1433
-      targetPort: 1433
+      port: {{ .Values.databasemssql.service.port }}
+      targetPort: {{ .Values.databasemssql.service.targetport }}

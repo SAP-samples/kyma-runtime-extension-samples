@@ -4,7 +4,6 @@ metadata:
   name: bot-observer-deployment
   labels:
     app: bot-observer
-    app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
   selector:
@@ -15,12 +14,15 @@ spec:
       labels:
         app: bot-observer
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
       - name: display-bot-knowledge
-        image: <image-name> #lasseurban/bot-observer-tool     #change it to your image
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: Always
         ports:
         - name: https
-          containerPort: 3000
+          containerPort: {{ .Values.bot.botobservertool.deployment.containerport }}
         env:
           - name: CAI_CREDENTIALS_URL
             valueFrom:
@@ -82,8 +84,6 @@ spec:
               secretKeyRef:
                 name: bot-secret
                 key: db-password
-      imagePullSecrets:
-      - name: regcred
 ---
 apiVersion: v1
 kind: Service
@@ -91,11 +91,10 @@ metadata:
   name: bot-observer-service 
   labels:
     app: bot-observer-service
-    app.kubernetes.io/managed-by: Helm
 spec:
   selector:
     app: bot-observer
   ports:
   - name: https
-    port: 3000
-    targetPort: 3000
+    port: {{ .Values.bot.botobservertool.service.port }} 
+    targetPort: {{ .Values.bot.botobservertool.service.targetport }}
