@@ -1,11 +1,10 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: httpbin
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
-  mutators:
-  - handler: noop  #forwards the headers from the gateway to microservice
+  host: httpbin
   rules:
   - accessStrategies:
     - config:
@@ -22,7 +21,8 @@ spec:
     - DELETE
     - HEAD
     path: /.*
-  service:
-    host: httpbin
-    name: httpbin
-    port: 8000
+    service:
+      name: httpbin
+      port: 8000
+    mutators:
+    - handler: noop  #forwards the headers from the gateway to microservice

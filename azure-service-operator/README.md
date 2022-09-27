@@ -2,7 +2,7 @@
 
 With Kyma 2.0, customers will get full access to the underlying Kubernetes cluster. This implies they can deploy CRDs and operators.
 
-Another significant change is the possiblity to use operators offered by hyperscalers such as Azure, AWS and GCP to consume their services.
+Another significant change is the possibility to use operators offered by hyperscalers such as Azure, AWS and GCP to consume their services.
 
 This is the recommended way forward as the Brokers previously used have been deprecated by hyperscalers in favor of operators.
 
@@ -12,7 +12,7 @@ We will look at one example of deploying the [Azure service operator](https://op
 
 Then we will use the deployed operator to provision Azure Redis Cache and use it in a Kyma function.
 
-> Here Azure Redis cache is used for the sake of simplicity. You can use the operator to provision any of the avaialble services on the list.
+> Here Azure Redis cache is used for the sake of simplicity. You can use the operator to provision any of the available services on the list.
 
 ## Prerequisites
 
@@ -85,9 +85,9 @@ This tutorial requires the following prerequisites:
     kubectl -n dev get rediscache
     ```
 
-    >Note: The provisoning can take a while depending upon how long does Azure takes to create the actual instance.
+    >Note: The provisioning can take a while depending upon how long does Azure takes to create the actual instance.
 
-    Once provisoned, you should see a result similiar to below.
+    Once provisioned, you should see a result similar to below.
 
     ```shell
     NAME                 PROVISIONED   MESSAGE
@@ -134,7 +134,7 @@ We will deploy a Kyma function which will connect to the Azure redis cache. The 
     curl -X POST -d '{"id" : "100", "description" : "100"}' -H 'Content-Type: application/json' https://use-azure-redis-cache.{your-cluster-domain}
     ```
 
-* Retreive the entry
+* Retrieve the entry
 
 ```shell
 curl https://use-azure-redis-cache.{your-cluster-domain}/100

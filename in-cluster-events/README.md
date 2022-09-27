@@ -80,7 +80,8 @@ In this sample, we will walk through a quick tutorial to set up and test the in-
     kubectl get pods -n in-cluster-events
     ```
 
-   Now from the list of pods, choose pod name for producer and consumer and replace below: 
+   Now from the list of pods, choose pod name for producer and consumer and replace below:
+
     ```shell
     kubectl -n in-cluster-events logs <producer_pod_name> function
     kubectl -n in-cluster-events logs <consumer_pod_name> function

@@ -1,9 +1,10 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: sample-angular-app
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: sample-angular-app
   rules:
   - accessStrategies:
     - config: {}
@@ -16,7 +17,6 @@ spec:
     - DELETE
     - HEAD
     path: /.*
-  service:
-    host: sample-angular-app
-    name: kyma-identity-propagation-spa
-    port: 80
+    service:
+      name: kyma-identity-propagation-spa
+      port: 80

@@ -59,14 +59,14 @@ spec:
           value: sap.kyma.custom.mp-gaurav-10-mock-ccv2.order.created.v1
   protocolsettings: {}
   sink: http://websocket-server.dev.svc.cluster.local:8888/events
-status: {}
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: websocket-server
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: websocket-server
   rules:
   - accessStrategies:
     - config: {}
@@ -79,8 +79,7 @@ spec:
     - DELETE
     - HEAD
     path: /.*
-  service:
-    host: websocket-server
-    name: websocket-server
-    port: 8888
+    service:
+      name: websocket-server
+      port: 8888
 status: {}

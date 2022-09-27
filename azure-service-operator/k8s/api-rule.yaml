@@ -1,9 +1,10 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: use-azure-redis-cache
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: use-azure-redis-cache
   rules:
   - path: /.*
     accessStrategies:
@@ -12,7 +13,6 @@ spec:
     methods:
     - GET
     - POST
-  service:
-    host: use-azure-redis-cache
-    name: use-azure-redis-cache
-    port: 80
+    service:
+      name: use-azure-redis-cache
+      port: 80

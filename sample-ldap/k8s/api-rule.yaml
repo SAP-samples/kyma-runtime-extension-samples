@@ -1,9 +1,10 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: sample-ldap
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: sample-ldap
   rules:
     - accessStrategies:
         - config: {}
@@ -11,7 +12,6 @@ spec:
       methods:
         - GET
       path: /.*
-  service:
-    host: sample-ldap
-    name: sample-ldap
-    port: 8080
+      service:
+        name: sample-ldap
+        port: 8080

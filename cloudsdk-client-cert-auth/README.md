@@ -75,9 +75,9 @@ The certificate for this sample has been retrieved from the [test site](https://
 
 ### Application
 
-The Java Spring Application has been generated using the [SAP Cloud SDK](https://sap.github.io/cloud-sdk/docs/overview/getting-started) 
+The Java Spring Application has been generated using the [SAP Cloud SDK](https://sap.github.io/cloud-sdk/docs/overview/getting-started)
 
-It has a [controller](./application/src/main/java/sample/kyma/client/cert/auth/controllers/ExternalServiceController.java) which 
+It has a [controller](./application/src/main/java/sample/kyma/client/cert/auth/controllers/ExternalServiceController.java) which
 
 * Loads the configured destination
 * Uses the retrieved credentials (in this case client certificate) to connect to the [external system](https://client.badssl.com/).
