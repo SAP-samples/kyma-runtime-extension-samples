@@ -1,15 +1,17 @@
-apiVersion: serverless.kyma-project.io/v1alpha1
+apiVersion: serverless.kyma-project.io/v1alpha2
 kind: Function
 metadata:
   name: producer
   labels:
     scenario: in-cluster-events
 spec:
-  baseDir: in-cluster-events/functions-javascript/producer
+  runtime: nodejs16
+  source:
+    gitRepository: 
+      url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
+      baseDir: /in-cluster-events/functions-javascript/producer
+      reference: main
   env:
   - name: PUBLISHER_URL
     value: http://eventing-event-publisher-proxy.kyma-system/publish
-  reference: main
-  runtime: nodejs14
-  source: in-cluster-events-functions
-  type: git
+

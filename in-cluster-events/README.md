@@ -28,12 +28,6 @@ In this sample, we will walk through a quick tutorial to set up and test the in-
     kubectl label namespaces in-cluster-events istio-injection=enabled
     ```
 
-* Setup a Git repository in Kyma
-
-    ```shell
-    kubectl -n in-cluster-events apply -f functions-javascript/k8s/git-repository.yaml
-    ```
-
 * Create a subscriber to consume the event
     The function code for the subscriber is defined in [consumer/handler.js](functions-javascript/consumer/handler.js)
 

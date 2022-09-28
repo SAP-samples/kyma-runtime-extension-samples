@@ -21,14 +21,14 @@ module.exports = {
             } else if (event.extensions.request.method === 'GET') {
                 const entry = await getEntry(event);
                 if (entry == null) {
-                    event.extensions.response.status(404).send("Entry does not exist");
+                    event.extensions.response.sendStatus(404);
                 }else {
                     return entry;
                 }
             }
         } catch (error) {
             console.log(error);
-            event.extensions.response.status(500).send("Error");
+            event.extensions.response.sendStatus(500);
         }
     }
 }
