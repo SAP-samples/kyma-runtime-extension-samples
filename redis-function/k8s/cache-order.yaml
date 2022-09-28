@@ -1,11 +1,9 @@
-apiVersion: serverless.kyma-project.io/v1alpha1
+apiVersion: serverless.kyma-project.io/v1alpha2
 kind: Function
 metadata:
   name: cache-order
 spec:
-  deps: "{ \n  \"name\": \"cache-order\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
-    {\n      \"axios\": \"^0.18.1\",\n      \"redis\":  \"^3.0.2\",\n      \"handy-redis\":
-    \"^2.0.0\"\n  }\n}"
+  runtime: nodejs16
   env:
   - name: SITE
     value: electronics
@@ -15,30 +13,24 @@ spec:
     value: kPppOZp2hC
   - name: REDIS_HOST
     value: redis.dev.svc.cluster.local
-  labels:
-  maxReplicas: 1
-  minReplicas: 1
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 50m
-      memory: 64Mi
-  source: "const axios = require(\"axios\");\nconst hredis = require(\"handy-redis\");\nconst
-    COMM_GATEWAY_URL = process.env[\"<REPLACE WITH GATEWAY_URL>\"];\n\nconst
-    client = hredis.createNodeRedisClient({\n  port:  process.env[\"REDIS_PORT\"],\n
-    \ host: process.env[\"REDIS_HOST\"],\n  password: process.env[\"REDIS_PASSWORD\"]\n});\n\nmodule.exports
-    = { \n  main: async function (event, context) {\n    const orderCode = event.data.orderCode\n
-    \   console.log(\"Processing event with orderCode: \", orderCode);\n    \n    const
-    response = await getOrderDetails(orderCode);\n    const orderValue = response.totalPriceWithTax.value;\n
-    \   console.log(\"Received order value of: \", orderValue, \" for orderCode: \",
-    orderCode);\n    \n    cacheOrder(orderCode, orderValue, client);\n  }\n}\n\nasync
-    function getOrderDetails(orderCode) {\n  const ordersUrl = `${COMM_GATEWAY_URL}/${process.env.SITE}/orders/${orderCode}`;\n
-    \ console.log(\"Getting ordering details via: %s\", ordersUrl, \" for orderCode:
-    \", orderCode);\n  const response = await axios.get(ordersUrl);\n  console.log(JSON.stringify(response.data,
-    null, 2));\n  return response.data;\n}\n\n\nfunction cacheOrder(orderCode, orderValue){\n
-    \ console.log(\"Caching data to redis for orderCode: \", orderCode);\n  var orderDate
-    = new Date();\n  return client.hmset(orderCode, [\"orderCode\", orderCode ], [\"Date\",
-    orderDate], [\"Value\", orderValue]);\n}"
-  type: ""
+  source:
+    inline:
+      dependencies: "{ \n  \"name\": \"cache-order\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+        {\n      \"axios\": \"^0.18.1\",\n      \"redis\":  \"^3.0.2\",\n      \"handy-redis\":
+        \"^2.0.0\"\n  }\n}"
+      source: "const axios = require(\"axios\");\nconst hredis = require(\"handy-redis\");\nconst
+        COMM_GATEWAY_URL = process.env[\"<REPLACE WITH GATEWAY_URL>\"];\n\nconst
+        client = hredis.createNodeRedisClient({\n  port:  process.env[\"REDIS_PORT\"],\n
+        \ host: process.env[\"REDIS_HOST\"],\n  password: process.env[\"REDIS_PASSWORD\"]\n});\n\nmodule.exports
+        = { \n  main: async function (event, context) {\n    const orderCode = event.data.orderCode\n
+        \   console.log(\"Processing event with orderCode: \", orderCode);\n    \n    const
+        response = await getOrderDetails(orderCode);\n    const orderValue = response.totalPriceWithTax.value;\n
+        \   console.log(\"Received order value of: \", orderValue, \" for orderCode: \",
+        orderCode);\n    \n    cacheOrder(orderCode, orderValue, client);\n  }\n}\n\nasync
+        function getOrderDetails(orderCode) {\n  const ordersUrl = `${COMM_GATEWAY_URL}/${process.env.SITE}/orders/${orderCode}`;\n
+        \ console.log(\"Getting ordering details via: %s\", ordersUrl, \" for orderCode:
+        \", orderCode);\n  const response = await axios.get(ordersUrl);\n  console.log(JSON.stringify(response.data,
+        null, 2));\n  return response.data;\n}\n\n\nfunction cacheOrder(orderCode, orderValue){\n
+        \ console.log(\"Caching data to redis for orderCode: \", orderCode);\n  var orderDate
+        = new Date();\n  return client.hmset(orderCode, [\"orderCode\", orderCode ], [\"Date\",
+        orderDate], [\"Value\", orderValue]);\n}"

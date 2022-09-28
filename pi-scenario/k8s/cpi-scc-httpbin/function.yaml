@@ -1,25 +1,27 @@
-apiVersion: serverless.kyma-project.io/v1alpha1
+apiVersion: serverless.kyma-project.io/v1alpha2
 kind: Function
 metadata:
   name: cpi-scc-httpbin
 spec:
-  deps: "{ \n  \"name\": \"cpi-scc-httpbin\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
-    {\n    \"axios\": \"^0.18.1\",\n    \"simple-oauth2\": \"^4.2.0\"\n  }\n}"
   env:
   - name: cpi_url
     value: https://<integration tenant>/http/httpbin/local
-  runtime: nodejs12
-  source: "const cpi_oauth = JSON.parse(process.env.oauth)\n\nconst config = {\n  client:
-    {\n    id: cpi_oauth.clientid,\n    secret: cpi_oauth.clientsecret\n  },\n  auth:
-    {\n    tokenHost: cpi_oauth.tokenurl\n  },\n  options:{\n    credentialsEncodingMode:
-    \"loose\"\n  }\n};\n\nconst { ClientCredentials } = require(\"simple-oauth2\")\nconst
-    axios = require(\"axios\");\n\nmodule.exports = { \n  main: async function (event,
-    context) {\n    try{\n      const auth = await getOAuthToken();\n      const body
-    = {\n        \"somedata\": \"1234\"\n      };\n\n      var result = await axios.post(process.env.cpi_url,
-    body, {\n          headers: {\n            Authorization: auth.token.token_type
-    + \" \" + auth.token.access_token,\n            \"Content-Type\": \"application/json\"\n
-    \         }\n        });\n      return result.data;\n    } catch (error) {\n      console.log(\"an
-    error occurred: \", error);\n      return \"an error occurred...\";\n    }\n  }\n}\n\nasync
-    function getOAuthToken() {\n  var resp = \"\";\n  const client = new ClientCredentials(config);\n\n
-    \ try {\n    resp = await client.getToken({})\n  } catch (error) {\n    throw
-    new Error(error);\n  }\n\n  return resp;\n}"
+  runtime: nodejs16
+  source:
+    inline:
+      dependencies: "{ \n  \"name\": \"cpi-scc-httpbin\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+        {\n    \"axios\": \"^0.18.1\",\n    \"simple-oauth2\": \"^4.2.0\"\n  }\n}"
+      source: "const cpi_oauth = JSON.parse(process.env.oauth)\n\nconst config = {\n  client:
+        {\n    id: cpi_oauth.clientid,\n    secret: cpi_oauth.clientsecret\n  },\n  auth:
+        {\n    tokenHost: cpi_oauth.tokenurl\n  },\n  options:{\n    credentialsEncodingMode:
+        \"loose\"\n  }\n};\n\nconst { ClientCredentials } = require(\"simple-oauth2\")\nconst
+        axios = require(\"axios\");\n\nmodule.exports = { \n  main: async function (event,
+        context) {\n    try{\n      const auth = await getOAuthToken();\n      const body
+        = {\n        \"somedata\": \"1234\"\n      };\n\n      var result = await axios.post(process.env.cpi_url,
+        body, {\n          headers: {\n            Authorization: auth.token.token_type
+        + \" \" + auth.token.access_token,\n            \"Content-Type\": \"application/json\"\n
+        \         }\n        });\n      return result.data;\n    } catch (error) {\n      console.log(\"an
+        error occurred: \", error);\n      return \"an error occurred...\";\n    }\n  }\n}\n\nasync
+        function getOAuthToken() {\n  var resp = \"\";\n  const client = new ClientCredentials(config);\n\n
+        \ try {\n    resp = await client.getToken({})\n  } catch (error) {\n    throw
+        new Error(error);\n  }\n\n  return resp;\n}"
