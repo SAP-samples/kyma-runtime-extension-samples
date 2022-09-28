@@ -36,6 +36,7 @@ The Spring Boot application implements a simple `Orders` API with CRUD operation
 
     ```shell
     kubectl create namespace dev
+    kubectl label namespaces dev istio-injection=enabled
     ```
 
 * Build and push the image to the Docker repository:

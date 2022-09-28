@@ -44,6 +44,7 @@ As a simple backend, we will use an HttpBin application that returns the request
 
     ```shell script
     kubectl create namespace dev
+    kubectl label namespaces dev istio-injection=enabled
     ```
 
 - Deploy the backend service

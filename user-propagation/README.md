@@ -84,6 +84,13 @@ In this example, `user_name` is mapped to the **Login name** attribute.
 
 ## Components for the sample
 
+Create Namespace
+
+```shell script
+kubectl create ns identity-propagation
+kubectl label namespaces identity-propagation istio-injection=enabled
+```
+
 ### httpbin
 
 httpbin is a service that returns all the request headers to the `/headers` endpoint.

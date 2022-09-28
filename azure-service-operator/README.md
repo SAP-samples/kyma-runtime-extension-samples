@@ -71,6 +71,7 @@ This tutorial requires the following prerequisites:
 
     ```shell
     kubectl create namespace dev
+    kubectl label namespaces dev istio-injection=enabled
     ```
 
 * Deploy the specification to request provisioning a resource group and redis cache.
@@ -102,10 +103,10 @@ The secret name will be `rediscache-{your-provided-name}`
 
 We will deploy a Kyma function which will connect to the Azure redis cache. The Kyma function will be deployed [using Git repository](https://kyma-project.io/docs/kyma/latest/03-tutorials/00-serverless/svls-02-create-git-function/)
 
-* Create a Git repository Custom resource
+* Create a Service Entry for accessing redis cache on Azure. Replace `{your-provided-name}` with the name specified when creating the azure redis cache.
 
     ```shell
-    kubectl -n dev apply -f k8s/git-repo.yaml
+    kubectl -n dev apply -f k8s/service-entry.yaml
     ```
 
 * Update the [my-function.yaml](./k8s/my-function.yaml). Replace `{your-provided-name}` with the name specified when creating the azure redis cache.

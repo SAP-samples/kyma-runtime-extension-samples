@@ -94,6 +94,8 @@ The microservice makes API calls to an S/4 System to perform various read/write 
     For reference, see the full [Deployment definition](k8s/deployment.yaml).
 
       ```shell
+        # only required once to enable istio sidecar. Ignore if done already
+        kubectl label namespaces {NAMESPACE-TO-DEPLOY} istio-injection=enabled
       kubectl -n {NAMESPACE-TO-DEPLOY} apply -f k8s/deployment.yaml
       ```
 

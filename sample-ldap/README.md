@@ -76,6 +76,9 @@ In my sample, I have used [ApacheDS](https://directory.apache.org/apacheds/) as 
 The [LdapService.java](src/main/java/com/sap/sample/ldap/services/LdapService.java) queries for users with filter `"(&(objectClass=account)(uid=" + userName + "))";` in the specified context
 
   ```shell script
+  # only required once to enable istio sidecar. Ignore if done already
+  kubectl label namespaces $NS istio-injection=enabled
+  
   kubectl -n $NS apply -f k8s/deployment.yaml
   ```
 

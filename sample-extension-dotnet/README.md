@@ -30,6 +30,7 @@ This sample demonstrates how to:
 
     ```shell
     kubectl create namespace dev
+    kubectl label namespaces dev istio-injection=enabled
     ```
 
 * Build and push the image to the Docker repository:

@@ -25,6 +25,7 @@ In this sample, we will walk through a quick tutorial to set up and test the in-
 
     ```shell
     kubectl create ns in-cluster-events
+    kubectl label namespaces in-cluster-events istio-injection=enabled
     ```
 
 * Setup a Git repository in Kyma

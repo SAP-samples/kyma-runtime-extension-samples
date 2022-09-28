@@ -23,7 +23,7 @@ In this sample, we will connect to an external system that is secured with **Cli
 
 ### Configuration
 
-1. Create an instance of SAP Destination service and Service binding. The Service binding will create the credentials for calling the destination service API. It will be used to upload the client certificate as well as by the SAP Cloud SDK to connect to the external system. 
+1. Create an instance of SAP Destination service and Service binding. The Service binding will create the credentials for calling the destination service API. It will be used to upload the client certificate as well as by the SAP Cloud SDK to connect to the external system.
 
     ```yaml
     apiVersion: servicecatalog.k8s.io/v1beta1
@@ -44,6 +44,9 @@ In this sample, we will connect to an external system that is secured with **Cli
     ```
 
     ```shell
+    # only required once to enable istio sidecar. Ignore if done already
+    kubectl label namespaces {your-namespace} istio-injection=enabled
+    
     kubectl -n {your-namespace} apply -f k8s/destination-service-instance.yaml
     ```
 
