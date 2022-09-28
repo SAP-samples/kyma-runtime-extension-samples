@@ -1,9 +1,13 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: cc-sample
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: cc-sample
+  service:
+    name: cc-sample
+    port: 80
   rules:
   - accessStrategies:
     - config: {}
@@ -16,7 +20,3 @@ spec:
     - PATCH
     - HEAD
     path: /.*
-  service:
-    host: cc-sample
-    name: cc-sample
-    port: 80

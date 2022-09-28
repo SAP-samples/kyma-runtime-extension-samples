@@ -1,9 +1,13 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: app-auth-proxy
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: app-auth-proxy
+  service:
+    name: app-auth-proxy
+    port: 80
   rules:
     - path: /.*
       accessStrategies:
@@ -16,7 +20,3 @@ spec:
         - DELETE
         - HEAD
         - PATCH
-  service:
-    host: app-auth-proxy
-    name: app-auth-proxy
-    port: 80

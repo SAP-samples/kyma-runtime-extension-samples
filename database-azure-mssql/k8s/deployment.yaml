@@ -29,7 +29,7 @@ spec:
     into Orders (order_id, description) values ('10000002', 'Sample Order 2')`);\n
     \ return result;\n}\n"
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: seed-db
@@ -37,6 +37,10 @@ metadata:
     app: seed-db
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: seed-db
+  service:
+    name: seed-db
+    port: 80
   rules:
     - path: /.*
       accessStrategies:
@@ -44,7 +48,3 @@ spec:
           handler: noop
       methods:
         - GET
-  service:
-    host: seed-db
-    name: seed-db
-    port: 80

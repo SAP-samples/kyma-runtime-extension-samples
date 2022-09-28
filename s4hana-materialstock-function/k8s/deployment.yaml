@@ -15,12 +15,16 @@ spec:
     \   return response;\n  }\n}\n\nasync function getMaterialStock() {\n  return
     vdm.MaterialStock.requestBuilder()\n      .getAll().execute(destConfig);\n}"
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: s4hana-materialstock
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: s4hana-materialstock
+  service:
+    name: s4hana-materialstock
+    port: 80
   rules:
     - path: /.*
       accessStrategies:
@@ -28,7 +32,3 @@ spec:
           handler: noop
       methods:
         - GET
-  service:
-    host: s4hana-materialstock
-    name: s4hana-materialstock
-    port: 80

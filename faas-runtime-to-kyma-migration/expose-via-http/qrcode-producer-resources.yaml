@@ -63,7 +63,7 @@ spec:
       response.set("content-type", ct);
     }
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   labels:
@@ -72,13 +72,13 @@ metadata:
   namespace: default
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: qrcode-producer
+  service:
+    name: qrcode-producer
+    port: 80
   rules:
   - accessStrategies:
     - handler: allow
     methods:
     - GET
     path: /.*
-  service:
-    host: qrcode-producer.kk-faas.wookiee.shoot.canary.k8s-hana.ondemand.com
-    name: qrcode-producer
-    port: 80

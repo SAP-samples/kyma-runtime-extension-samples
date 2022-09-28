@@ -79,20 +79,20 @@ spec:
       return process.env[env] || undefined;
     }
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: s3uploader
   namespace: default
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: s3uploader
+  service:
+    name: s3uploader
+    port: 80
   rules:
   - accessStrategies:
     - handler: allow
     methods:
     - POST
     path: /.*
-  service:
-    host: s3uploader
-    name: s3uploader
-    port: 80

@@ -1,9 +1,13 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: hanadb-nodejs
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: hanadb-nodejs
+  service:
+    name: hanadb-nodejs
+    port: 3000
   rules:
   - accessStrategies:
     - config: {}
@@ -16,7 +20,3 @@ spec:
     - DELETE
     - HEAD
     path: /.*
-  service:
-    host: hanadb-nodejs
-    name: hanadb-nodejs
-    port: 3000

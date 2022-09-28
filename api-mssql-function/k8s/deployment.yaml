@@ -51,12 +51,16 @@ spec:
     \   let result = await request.query(`delete from Orders where order_id = '${order_id}'`);\n
     \   return result.rowsAffected;\n  }catch(err){\n    throw err\n  }\n}\n"
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: api-mssql-function
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: api-mssql-function
+  service:
+    name: api-mssql-function
+    port: 80
   rules:
     - path: /orders|/orders/.*
       accessStrategies:
@@ -67,7 +71,3 @@ spec:
         - POST
         - PUT
         - DELETE
-  service:
-    host: api-mssql-function
-    name: api-mssql-function
-    port: 80
