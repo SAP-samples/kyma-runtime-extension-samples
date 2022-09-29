@@ -11,6 +11,7 @@ The following code is included in this sample:
 - Knowledge database: simple [MS SQL database](knowledge-database/database-mssql/app/setup.sql) that stores all IDs of the questions the bot can answer
 - Bot observer tool: [node.js server](bot-observer-tool/app/server.js) that displays the current bot knowledge, the Stack Overflow content, and the knowledge database content. This server can also be used to verify that everything was set up correctly.
 - Update functionality: [Kubernetes CronJob](update-bot/k8s/cronjob.yaml) and [JS-script](update-bot/app/update-bot.js) to update the bot automatically
+- Alert Notification when an error occurs: [Alert Notification](alert-notif/k8s/deployment.yaml)
 
 This sample demonstrates how to:
 
@@ -19,10 +20,13 @@ This sample demonstrates how to:
 - Deploy the SQL knowledge database to the Kyma runtime
 - Deploy the bot observer tool to the Kyma runtime and connect everything together
 - Deploy the Kubernetes CronJob to the Kyma runtime that updates the bot automatically
+- Deploy the Alert Notification that sends notifications when an error occurs
+- Deploy the knowledge database, the bot observer tool, the update functionality as well as the alert notification using a helm-chart
 
 ## Prerequisites
 
 - SAP BTP, Kyma runtime instance
+- Alert Notification Service set up in your SAP BTP Subaccount
 - [Docker](https://www.docker.com/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
 - [SAP Conversational AI](https://cai.tools.sap/)
@@ -140,6 +144,11 @@ The FAQ chatbot can be connected to multiple communication platforms. In the pre
 13. Click on the cluster of profile pictures at the top right. Go to the tab `Integrations`, click on `Add an App`, and search for the name of your bot. Then, simply click `Add` and the bot will be added to this channel.
 
 14. Verify that everything was set up correctly by sending some greeting like "*Hello*" and the question "*What is your name?*" in the Slack channel. The bot should respond to both messages.
+
+### Optional Deployment with Helm to Skip Steps 3 to 7
+
+Instead of following the steps 3 to 7 as described below, the deployment of all needed objects could also be handled via helm.
+If you decide to do the deployment with helm, follow [these instructions](https://github.com/SAP-samples/kyma-runtime-extension-samples/tree/main/helm-charts/chatbot#prerequisits).
 
 ### 3. Deploy the Knowledge Database to Kyma
 
@@ -337,8 +346,11 @@ Now, it is time to deploy the bot observer tool. This is a simple node.js server
       ```
 
       (should be empty at the moment)
+      
+### 6. Deploy the Alert Notification Functionality that sends messages when an error occurs
 
-### 6. Deploy the Kubernetes CronJob that updates the Bot
+
+### 7. Deploy the Kubernetes CronJob that updates the Bot
 
 1. Change to the directory `update-bot`.
 
@@ -403,6 +415,7 @@ Now, it is time to deploy the bot observer tool. This is a simple node.js server
         ```shell
         kubectl delete -f k8s/cronjob.yaml
         ```
+
 
 ## About the Contributor and the Project
 
