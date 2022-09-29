@@ -55,12 +55,16 @@ spec:
   selector:
     app: fe-react-mssql
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: fe-react-mssql
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: fe-react-mssql
+  service:
+    name: fe-react-mssql
+    port: 80
   rules:
     - path: /.*
       accessStrategies:
@@ -68,7 +72,3 @@ spec:
           handler: noop
       methods:
         - GET
-  service:
-    host: fe-react-mssql
-    name: fe-react-mssql
-    port: 80

@@ -1,9 +1,13 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
-  name: {{include "api-mssql-go.fullname" .}}
+  name: { { include "api-mssql-go.fullname" . } }
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: { { include "api-mssql-go.fullname" . } }
+  service:
+    name: { { include "api-mssql-go.fullname" . } }
+    port: { { .Values.service.port } }
   rules:
     - path: /orders|/orders/.*
       accessStrategies:
@@ -14,7 +18,3 @@ spec:
         - POST
         - PUT
         - DELETE
-  service:
-    host: {{include "api-mssql-go.fullname" .}}
-    name: {{include "api-mssql-go.fullname" .}}
-    port: {{.Values.service.port}}

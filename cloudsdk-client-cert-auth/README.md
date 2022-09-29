@@ -23,7 +23,7 @@ In this sample, we will connect to an external system that is secured with **Cli
 
 ### Configuration
 
-1. Create an instance of SAP Destination service and Service binding. The Service binding will create the credentials for calling the destination service API. It will be used to upload the client certificate as well as by the SAP Cloud SDK to connect to the external system. 
+1. Create an instance of SAP Destination service and Service binding. The Service binding will create the credentials for calling the destination service API. It will be used to upload the client certificate as well as by the SAP Cloud SDK to connect to the external system.
 
     ```yaml
     apiVersion: servicecatalog.k8s.io/v1beta1
@@ -44,6 +44,9 @@ In this sample, we will connect to an external system that is secured with **Cli
     ```
 
     ```shell
+    # only required once to enable istio sidecar. Ignore if done already
+    kubectl label namespaces {your-namespace} istio-injection=enabled
+    
     kubectl -n {your-namespace} apply -f k8s/destination-service-instance.yaml
     ```
 
@@ -75,9 +78,9 @@ The certificate for this sample has been retrieved from the [test site](https://
 
 ### Application
 
-The Java Spring Application has been generated using the [SAP Cloud SDK](https://sap.github.io/cloud-sdk/docs/overview/getting-started) 
+The Java Spring Application has been generated using the [SAP Cloud SDK](https://sap.github.io/cloud-sdk/docs/overview/getting-started)
 
-It has a [controller](./application/src/main/java/sample/kyma/client/cert/auth/controllers/ExternalServiceController.java) which 
+It has a [controller](./application/src/main/java/sample/kyma/client/cert/auth/controllers/ExternalServiceController.java) which
 
 * Loads the configured destination
 * Uses the retrieved credentials (in this case client certificate) to connect to the [external system](https://client.badssl.com/).

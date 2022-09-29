@@ -58,12 +58,13 @@ spec:
 status:
   loadBalancer: {}
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: cloudsdk-client-cert-auth
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: cloudsdk-client-cert-auth
   rules:
     - accessStrategies:
         - config: {}
@@ -71,8 +72,7 @@ spec:
       methods:
         - GET
       path: /.*
-  service:
-    host: cloudsdk-client-cert-auth
-    name: cloudsdk-client-cert-auth
-    port: 8080
+      service:
+        name: cloudsdk-client-cert-auth
+        port: 8080
 status: {}

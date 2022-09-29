@@ -89,6 +89,8 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
 
   ```shell script
   export NS={your-namespace}
+  # only required once to enable istio sidecar. Ignore if done already
+  kubectl label namespaces $NS istio-injection=enabled
   ```
 
 * Create Connectivity Service Instance in any namespace.

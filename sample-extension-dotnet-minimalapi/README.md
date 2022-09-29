@@ -35,6 +35,7 @@ This tutorial requires the following prerequisites:
 
 ```shell
 kubectl create namespace dotnetdev
+kubectl label namespaces dotnetdev istio-injection=enabled
 ```
 
 * Adjust the placeholder `DOCKER_ACCOUNT` in the [Makefile](Makefile) and then build and push the image to the Docker repository:

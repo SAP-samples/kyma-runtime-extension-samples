@@ -1,7 +1,7 @@
 const handler = require('./handler.js');
 const postReq = {
     data: {
-        id: '1',
+        id: `${process.env.ID}`,
         description: 'test'
     },
     extensions: {
@@ -15,7 +15,7 @@ const getReq = {
     extensions: {
         request: {
             method: 'GET',
-            url: 'https://x.y.com/1'
+            url: `https://x.y.com/${process.env.ID}`
         }
     }
 }

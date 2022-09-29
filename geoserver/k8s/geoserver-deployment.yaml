@@ -58,12 +58,18 @@ spec:
   selector:
     app: geoserver
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: geoserver
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: geoserver
+  service:
+    #virtual host nam should be unique for the whole cluster
+    #maybe include namespace in the virtual host name
+    name: geoserver
+    port: 8080
   rules:
   - accessStrategies:
     - config: {}
@@ -76,9 +82,3 @@ spec:
     - DELETE
     - HEAD
     path: /.*
-  service:
-    #virtual host nam should be unique for the whole cluster
-    #maybe include namespace in the virtual host name
-    host: geoserver
-    name: geoserver
-    port: 8080

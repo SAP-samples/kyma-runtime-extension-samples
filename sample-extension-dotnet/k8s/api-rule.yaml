@@ -1,9 +1,10 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: sample-extension-dotnet
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: sample-extension-dotnet
   rules:
     - accessStrategies:
         - config: {}
@@ -14,7 +15,6 @@ spec:
         - PUT
         - DELETE
       path: /.*
-  service:
-    host: sample-extension-dotnet
-    name: sample-extension-dotnet
-    port: 80
+      service:
+        name: sample-extension-dotnet
+        port: 80

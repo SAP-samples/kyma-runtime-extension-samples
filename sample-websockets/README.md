@@ -40,6 +40,9 @@ Kyma supports the upgrade of the HTTP connection to websocket connection out-of-
 ## Deploying the sample
 
 ```shell
+# only required once to enable istio sidecar. Ignore if done already
+kubectl label namespaces {provide-namespace} istio-injection=enabled
+
 kubectl -n {provide-namespace} apply -f k8s/server.yaml
 ```
 

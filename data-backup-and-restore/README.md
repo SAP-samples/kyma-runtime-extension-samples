@@ -17,6 +17,8 @@ As a next step, it demonstrates restoring the data from a volume snapshot.
 
     ```shell script
     kubectl create namespace dev
+    
+    kubectl label namespaces dev istio-injection=enabled
     ```
 
 * Create a stateful application. For this demo, we will deploy a busybox based [StatefulSet](k8s/statefulset.yaml) that has a PersistentVolumeClaim attached.

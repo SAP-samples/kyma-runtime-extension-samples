@@ -1,9 +1,10 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: sample-extension-java
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: sample-extension-java
   rules:
     - accessStrategies:
         - config: {}
@@ -14,7 +15,6 @@ spec:
         - PUT
         - DELETE
       path: /.*
-  service:
-    host: sample-extension-java
-    name: sample-extension-java
-    port: 8080
+      service:
+        name: sample-extension-java
+        port: 8080

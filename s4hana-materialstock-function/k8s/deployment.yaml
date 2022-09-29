@@ -1,26 +1,33 @@
-apiVersion: serverless.kyma-project.io/v1alpha1
+apiVersion: serverless.kyma-project.io/v1alpha2
 kind: Function
 metadata:
   name: s4hana-materialstock
   labels:
     app: s4hana-materialstock
 spec:
-  deps: "{ \n  \"name\": \"material-stock\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
-    {\n    \"@sap-cloud-sdk/core\": \"^1.24.1\",\n    \"@sap/cloud-sdk-vdm-material-stock-service\":
-    \"^1.19.2\"\n  }\n}"
-  source: "const vdm = require(\"@sap/cloud-sdk-vdm-material-stock-service\");\n\nconst
-    destConfig = {\n  \"url\": process.env.S4_URL,\n  \"authentication\": process.env.S4_Authentication,\n
-    \ \"username\": process.env.S4_User,\n  \"password\": process.env.S4_Password,\n}\n\nmodule.exports
-    = { \n  main: async function (event, context) {\n    const response = await getMaterialStock();\n
-    \   return response;\n  }\n}\n\nasync function getMaterialStock() {\n  return
-    vdm.MaterialStock.requestBuilder()\n      .getAll().execute(destConfig);\n}"
+  runtime: nodejs16
+  source:
+    inline:
+      dependencies: "{ \n  \"name\": \"material-stock\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+        {\n    \"@sap-cloud-sdk/core\": \"^1.24.1\",\n    \"@sap/cloud-sdk-vdm-material-stock-service\":
+        \"^1.19.2\"\n  }\n}"
+      source: "const vdm = require(\"@sap/cloud-sdk-vdm-material-stock-service\");\n\nconst
+        destConfig = {\n  \"url\": process.env.S4_URL,\n  \"authentication\": process.env.S4_Authentication,\n
+        \ \"username\": process.env.S4_User,\n  \"password\": process.env.S4_Password,\n}\n\nmodule.exports
+        = { \n  main: async function (event, context) {\n    const response = await getMaterialStock();\n
+        \   return response;\n  }\n}\n\nasync function getMaterialStock() {\n  return
+        vdm.MaterialStock.requestBuilder()\n      .getAll().execute(destConfig);\n}"
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: s4hana-materialstock
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: s4hana-materialstock
+  service:
+    name: s4hana-materialstock
+    port: 80
   rules:
     - path: /.*
       accessStrategies:
@@ -28,7 +35,3 @@ spec:
           handler: noop
       methods:
         - GET
-  service:
-    host: s4hana-materialstock
-    name: s4hana-materialstock
-    port: 80

@@ -34,6 +34,7 @@ The Scala Based Akka-HTTP microservice implements a simple `Orders` API with CRU
 
     ```shell
     kubectl create namespace dev
+    kubectl label namespaces dev istio-injection=enabled
     ```
 
 * Build and push the image to the Docker repository:

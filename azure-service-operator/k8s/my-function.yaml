@@ -1,16 +1,14 @@
-apiVersion: serverless.kyma-project.io/v1alpha1
+apiVersion: serverless.kyma-project.io/v1alpha2
 kind: Function
 metadata:
   name: use-azure-redis-cache
 spec:
-  baseDir: azure-service-operator/function
-  buildResources:
-    limits:
-      cpu: 1700m
-      memory: 1100Mi
-    requests:
-      cpu: 1100m
-      memory: 1100Mi
+  runtime: nodejs16
+  source:
+    gitRepository: 
+      url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
+      baseDir: /azure-service-operator/function
+      reference: main
   env:
     - name: REDIS_CACHE_KEY
       valueFrom:
@@ -19,17 +17,13 @@ spec:
           key: primaryKey
     - name: REDIS_CACHE_NAME
       value: {your-provided-name} #replace it with your redis cache name
-  maxReplicas: 1
-  minReplicas: 1
-  reference: main
-  resources:
-    limits:
-      cpu: 200m
-      memory: 256Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
-  runtime: nodejs14
-  source: kyma-runtime-extension-samples
-  type: git
+  resourceConfiguration:
+    function:
+      resources:
+        limits:
+          cpu: 200m
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
 status: {}
