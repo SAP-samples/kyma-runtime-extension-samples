@@ -29,6 +29,7 @@ This sample demonstrates how to:
 
    ```shell
    kubectl create namespace dev
+   kubectl label namespaces dev istio-injection=enabled
    ```
 
 2. Apply the Deployment:

@@ -89,7 +89,14 @@ The application loads at `http://localhost:4004`.
 
 3.  Once created choose the option View and copy the credentials.
 4.  Open the file `k8s/hana-db-secret.yaml` and copy the values into the file.
-5.  Apply the secret
+5.  Create a new `dev` Namespace:
+
+```shell
+kubectl create namespace dev
+kubectl label namespaces dev istio-injection=enabled
+```
+
+6.  Apply the secret
 
 ```shell
 kubectl -n dev apply -f ./k8s/hana-db-secret.yaml

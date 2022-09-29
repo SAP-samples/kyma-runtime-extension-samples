@@ -30,55 +30,56 @@ This sample demonstrates how to:
 
 2. Inside the directory, run:
 
-    ```shell
-    npm install
-    ```
+   ```shell
+   npm install
+   ```
 
 3. Adjust the value of the **API_URL** parameter in the `webapp/config.js` file to match your `orders` API URL.
 
 4. To start the application, run:
 
-    ```shell
-    npm run-script start
-    ```
+   ```shell
+   npm run-script start
+   ```
 
-    The application loads at `http://localhost:8080`.
+   The application loads at `http://localhost:8080`.
 
 ### Build the Docker image
 
 1. Build and push the image to your Docker repository:
 
-    ```shell
-    docker build -t {your-docker-account}/fe-ui5-mssql -f docker/Dockerfile .
-    docker push {your-docker-account}/fe-ui5-mssql
-    ```
+   ```shell
+   docker build -t {your-docker-account}/fe-ui5-mssql -f docker/Dockerfile .
+   docker push {your-docker-account}/fe-ui5-mssql
+   ```
 
 2. To run the image locally, adjust the value of the **API_URL** parameter in the `webapp/config.js` file and mount it into the image:
 
-    ```shell
-    docker run --mount type=bind,source=$(pwd)/webapp/config.json,target=/usr/share/nginx/html/config.json -p 8080:80 -d {your-docker-account}/fe-ui5-mssql:latest
-    ```
+   ```shell
+   docker run --mount type=bind,source=$(pwd)/webapp/config.json,target=/usr/share/nginx/html/config.json -p 8080:80 -d {your-docker-account}/fe-ui5-mssql:latest
+   ```
 
 ### Deploy the frontend
 
 1. Create a new `dev` Namespace:
 
-    ```shell
-    kubectl create namespace dev
-    ```
+   ```shell
+   kubectl create namespace dev
+   kubectl label namespaces dev istio-injection=enabled
+   ```
 
 2. Within the project open the file `k8s/configmap.yaml` and adjust the `API_URL` by replacing `<cluster domain>` to the match the Kyma runtime cluster domain.
 
 3. Apply the Resources:
 
-    ```shell
-    kubectl -n dev apply -f ./k8s/configmap.yaml
-    kubectl -n dev apply -f ./k8s/deployment.yaml
-    kubectl -n dev apply -f ./k8s/apirule.yaml
-    ```
+   ```shell
+   kubectl -n dev apply -f ./k8s/configmap.yaml
+   kubectl -n dev apply -f ./k8s/deployment.yaml
+   kubectl -n dev apply -f ./k8s/apirule.yaml
+   ```
 
 4. Use the APIRule to open the application:
-  
-    ```shell
-    https://fe-ui5-mssql.{cluster-domain}
-    ```
+
+   ```shell
+   https://fe-ui5-mssql.{cluster-domain}
+   ```

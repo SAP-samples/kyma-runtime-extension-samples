@@ -47,18 +47,19 @@ Choose `Cloud To On-Premise`
 
 1. Create a new `dev` Namespace:
 
-    ```shell
-    kubectl create namespace dev
-    ```
+   ```shell
+   kubectl create namespace dev
+   kubectl label namespaces dev istio-injection=enabled
+   ```
 
 ### Calling Integration From Kyma Setup
 
 1. Apply the Resources:
 
-    ```shell
-    kubectl -n dev apply -f ./k8s/cpi-scc-httpbin/function.yaml
-    kubectl -n dev apply -f ./k8s/cpi-scc-httpbin/apirule.yaml
-    ```
+   ```shell
+   kubectl -n dev apply -f ./k8s/cpi-scc-httpbin/function.yaml
+   kubectl -n dev apply -f ./k8s/cpi-scc-httpbin/apirule.yaml
+   ```
 
 2. Within the `dev` namespace choose the menu option `Service Management` -> `Catalog`
 3. Choose `Process Integration Runtime` service
@@ -66,13 +67,11 @@ Choose `Cloud To On-Premise`
 5. Choose the plan `integration-flow`
 6. Choose `Add parameters` and provide the role
 
-    ```json
-    {
-        "roles":[
-        "ESBMessaging.send"
-        ]
-    }
-    ```
+   ```json
+   {
+     "roles": ["ESBMessaging.send"]
+   }
+   ```
 
 7. Choose `Create`.
 8. Choose the menu option `Workloads` -> `Functions`.
@@ -85,17 +84,17 @@ Choose `Cloud To On-Premise`
 
 1. Apply the Resources:
 
-    ```shell
-    kubectl -n dev apply -f ./k8s/call-kyma-api/function.yaml
-    kubectl -n dev apply -f ./k8s/call-kyma-api/apirule.yaml
-    ```
+   ```shell
+   kubectl -n dev apply -f ./k8s/call-kyma-api/function.yaml
+   kubectl -n dev apply -f ./k8s/call-kyma-api/apirule.yaml
+   ```
 
 2. Within the `dev` namespace choose the menu option `Configuration` -> `OAuth Clients`.
 3. Choose `Create OAuth Client` and provide the values:
-    1. Name: cpi-client
-    2. Response types: Token
-    3. Grant types: Client credentials
-    4. Scope: read
+   1. Name: cpi-client
+   2. Response types: Token
+   3. Grant types: Client credentials
+   4. Scope: read
 4. Choose `Create`.
 5. Choose the `Decode` option to view the Client Id and Client Secret values. These will be needed in the Integration Setup.
 
@@ -118,15 +117,15 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 1. Within the Integration tenant choose the menu option `Monitor`.
 2. Choose the `Security Material` tile.
 3. Choose the `Create` drop down and choose `OAuth2 Client Credentials` and provide the values:
-    1. Name: kyma
-    2. Grant type: Client Credentials
-    3. Token Service URL: `https://oauth2.<kyma cluster>/oauth2/token`
-    4. Client ID: the value from the kyma oauth client
-    5. Client Secret: the value from the kyma oauth client
-    6. Client Authentication: Send as Request Header
-    7. Include Scope: enabled
-    8. Scope: read
-    9. Content Type: application/x-www-form-urlencoded
+   1. Name: kyma
+   2. Grant type: Client Credentials
+   3. Token Service URL: `https://oauth2.<kyma cluster>/oauth2/token`
+   4. Client ID: the value from the kyma oauth client
+   5. Client Secret: the value from the kyma oauth client
+   6. Client Authentication: Send as Request Header
+   7. Include Scope: enabled
+   8. Scope: read
+   9. Content Type: application/x-www-form-urlencoded
 4. Choose the `Deploy` option
 
 ### Configure the Integration Artifacts
@@ -149,18 +148,18 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 3. Choose the `Host` option for the `cpi-scc-httpbin` entry.
 4. A successful response should contain a json structure containing the data submitted in the request
 
-    ```json
-    {
-       "args":{},
-       "data":"{\"somedata\":\"1234\"}",
-       "files":{},
-       "form":{},
-       "headers":{
-          "Accept":"*/*",
-          "Host":"httpbin.local",
-          "Sap-Messageprocessinglogid"
-          ...
-    ```
+   ```json
+   {
+      "args":{},
+      "data":"{\"somedata\":\"1234\"}",
+      "files":{},
+      "form":{},
+      "headers":{
+         "Accept":"*/*",
+         "Host":"httpbin.local",
+         "Sap-Messageprocessinglogid"
+         ...
+   ```
 
 #### Get the Oauth Credentials
 
@@ -174,26 +173,26 @@ To setup trust between Integration and the Kyma runtime, the root certificate of
 
 1. These steps can be done with a tool such as Postman or using Curl as shown here.
 2. Grab the Integration Flow's URL by performing the following steps:
-    1. Within the Integration tenant choose the menu option `Monitor`.
-    2. Go to `Manage Integration Content` -> `Started` Tile
-    3. Verify that 'call-kyma-api' Integration Flow is in the started state. Copy the URL (https://`<tenant url>`/http/kyma/api) from the `Endpoints` tab.
+   1. Within the Integration tenant choose the menu option `Monitor`.
+   2. Go to `Manage Integration Content` -> `Started` Tile
+   3. Verify that 'call-kyma-api' Integration Flow is in the started state. Copy the URL (https://`<tenant url>`/http/kyma/api) from the `Endpoints` tab.
 3. Run the following command to set the values into environment variables:
 
-    ```shell
-    export INTEGRATION_FLOW_URL='<integration-flow deployed iflow url>'
-    export CLIENT_ID='<integration-flow client id>'
-    export CLIENT_SECRET='<integration-flow client secret>'
-    export ENCODED_CREDENTIALS=$(echo -n "$CLIENT_ID:$CLIENT_SECRET" | base64)
-    ```
+   ```shell
+   export INTEGRATION_FLOW_URL='<integration-flow deployed iflow url>'
+   export CLIENT_ID='<integration-flow client id>'
+   export CLIENT_SECRET='<integration-flow client secret>'
+   export ENCODED_CREDENTIALS=$(echo -n "$CLIENT_ID:$CLIENT_SECRET" | base64)
+   ```
 
 4. Send the request to validate the scenario:
 
-    ```shell
-    curl $INTEGRATION_FLOW_URL -H "Authorization: Basic $ENCODED_CREDENTIALS" -H "Content-Type: application/json"
-    ```
+   ```shell
+   curl $INTEGRATION_FLOW_URL -H "Authorization: Basic $ENCODED_CREDENTIALS" -H "Content-Type: application/json"
+   ```
 
-    A succesfully call should respond with
+   A succesfully call should respond with
 
-    ```shell
-    [{"orderid": "00000001", "description": "First sample order", "amount": "100.00"},{"orderid": "00000002", "description": "Second sample order", "amount": "102.00"},{"orderid": "00000003", "description": "Third sample order", "amount": "402.00"}]
-    ```
+   ```shell
+   [{"orderid": "00000001", "description": "First sample order", "amount": "100.00"},{"orderid": "00000002", "description": "Second sample order", "amount": "102.00"},{"orderid": "00000003", "description": "Third sample order", "amount": "402.00"}]
+   ```

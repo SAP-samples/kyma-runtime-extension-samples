@@ -31,6 +31,7 @@ This sample demonstrates how to:
 
    ```shell script
    kubectl create namespace dev
+   kubectl label namespaces dev istio-injection=enabled
    ```
 
 2. Open the file `k8s/xsuaa-instance.yaml` and adjust the value `<cluster domain>` and then apply the file

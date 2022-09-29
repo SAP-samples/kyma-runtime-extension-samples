@@ -16,6 +16,7 @@ This sample demonstrates how the SAP SAAS Provisioning service can be used to de
 
 ```shell
 kubectl create namespace saas
+kubectl label namespaces saas istio-injection=enabled
 ```
 
 ### Create XSUAA Service Instance

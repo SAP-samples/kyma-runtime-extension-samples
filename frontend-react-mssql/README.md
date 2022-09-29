@@ -30,53 +30,54 @@ This sample demonstrates how to:
 
 2. Inside the directory, run:
 
-    ```shell
-    yarn install
-    ```
+   ```shell
+   yarn install
+   ```
 
 3. Adjust the value of the **window.Config.API_URL** parameter in the `public/config.js` file to match your orders API URL.
 
 4. To start the application, run:
 
-    ```shell
-    yarn start
-    ```
+   ```shell
+   yarn start
+   ```
 
-    This command loads the application at `http://localhost:3000`.
+   This command loads the application at `http://localhost:3000`.
 
 ### Build the Docker image
 
 1. Build and push the image to your Docker repository:
 
-    ```shell
-    docker build -t {your-docker-account}/fe-react-mssql -f docker/Dockerfile .
-    docker push {your-docker-account}/fe-react-mssql
-    ```
+   ```shell
+   docker build -t {your-docker-account}/fe-react-mssql -f docker/Dockerfile .
+   docker push {your-docker-account}/fe-react-mssql
+   ```
 
 2. To run the image locally, adjust the value of the **window.Config.API_URL** parameter in the `public/config.js` file and mount it into the image:
 
-    ```shell
-    docker run --mount type=bind,source=$(pwd)/public/config.js,target=/usr/share/nginx/html/config.js -p 3000:80 -d {your-docker-account}/fe-react-mssql:latest
-    ```
+   ```shell
+   docker run --mount type=bind,source=$(pwd)/public/config.js,target=/usr/share/nginx/html/config.js -p 3000:80 -d {your-docker-account}/fe-react-mssql:latest
+   ```
 
 ### Deploy the frontend
 
 1. Create a new `dev` Namespace:
 
-    ```shell
-    kubectl create namespace dev
-    ```
+   ```shell
+   kubectl create namespace dev
+   kubectl label namespaces dev istio-injection=enabled
+   ```
 
 2. Adjust the ConfigMap. Within the `/k8s/deployment.yaml` file, adjust the value of the **window.Config.API_URL** parameter found in the ConfigMap to your API.
 
 3. Apply the Deployment:
 
-    ```shell
-    kubectl -n dev apply -f ./k8s/deployment.yaml
-    ```
+   ```shell
+   kubectl -n dev apply -f ./k8s/deployment.yaml
+   ```
 
 4. Use the APIRule to open the application:
 
-    ```shell
-    https://fe-react-mssql.{cluster-domain}
-    ```
+   ```shell
+   https://fe-react-mssql.{cluster-domain}
+   ```

@@ -24,40 +24,41 @@ This sample demonstrates how to:
 
 1. Create a new `dev` Namespace:
 
-    ```shell
-    kubectl create namespace dev
-    ```
+   ```shell
+   kubectl create namespace dev
+   kubectl label namespaces dev istio-injection=enabled
+   ```
 
 2. Build and push the image to your Docker repository:
 
-    ```shell
-    docker build -t {your-docker-account}/mssql -f docker/Dockerfile .
-    docker push {your-docker-account}/mssql
-    ```
+   ```shell
+   docker build -t {your-docker-account}/mssql -f docker/Dockerfile .
+   docker push {your-docker-account}/mssql
+   ```
 
 3. Apply the PersistentVolumeClaim:
 
-    ```shell
-    kubectl -n dev apply -f ./k8s/pvc.yaml
-    ```
+   ```shell
+   kubectl -n dev apply -f ./k8s/pvc.yaml
+   ```
 
 4. Apply the Secret:
 
-    ```shell
-    kubectl -n dev apply -f ./k8s/secret.yaml
-    ```
+   ```shell
+   kubectl -n dev apply -f ./k8s/secret.yaml
+   ```
 
 5. Apply the Deployment:
 
-    ```shell
-    kubectl -n dev apply -f ./k8s/deployment.yaml
-    ```
+   ```shell
+   kubectl -n dev apply -f ./k8s/deployment.yaml
+   ```
 
 6. Verify that the Pod is up and running:
 
-    ```shell
-    kubectl -n dev get po
-    ```
+   ```shell
+   kubectl -n dev get po
+   ```
 
 The expected result shows that the Pod for the `mssql` Deployment is running:
 

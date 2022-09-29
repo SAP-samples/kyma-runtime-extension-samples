@@ -47,6 +47,7 @@ Choose `Cloud To On-Premise`
 
 ```shell script
 kubectl create namespace dev
+kubectl label namespaces dev istio-injection=enabled
 ```
 
 ### Calling Integration From Kyma Setup

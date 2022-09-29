@@ -22,7 +22,13 @@ In order to configure the Connectivity Proxy within the Kyma Runtime you must fi
 
 The next step involves creating a service instance of the Connectivity Proxy and a service binding. Once the creation of the sevice binding is detected by the Kyma Control Plane, the Connectivity Proxy will be provisioned in the runtime into the namespace **kyma-system**. From within the Kyma runtime it will be accessible using the URL **connectivity-proxy.kyma-system.svc.cluster.local:20003**
 
-- Within your desired namespace
+- Within your desired namespace enable Istio if it is not already enabled.
+
+```shell
+kubectl label namespaces <your namespace> istio-injection=enabled
+```
+
+- Create the Connectivity Proxy Service Instance
 
 ```shell
 kubectl apply -f ./k8s/connectivity-proxy-instance.yaml -n <your namespace>
@@ -138,4 +144,5 @@ kubectl delete pod curl
 ```
 
 ### Principal propagation
+
 The topic of principal propagation is covered in [this blog](https://blogs.sap.com/2022/04/07/veridisquo.-reaching-sap-lob-destinations-with-connectivity-proxy-and-principal-propagation./) post and [this sample](../principal-prop-on-prem).
