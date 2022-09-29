@@ -29,21 +29,22 @@ This sample demonstrates how to:
 
 1. Create a new `dev` Namespace:
 
-    ```shell script
-    kubectl create namespace dev
-    ```
+   ```shell script
+   kubectl create namespace dev
+   kubectl label namespaces dev istio-injection=enabled
+   ```
 
 2. Apply the Deployment:
 
-    ```shell script
-    kubectl -n dev apply -f ./k8s/deployment.yaml
-    ```
+   ```shell script
+   kubectl -n dev apply -f ./k8s/deployment.yaml
+   ```
 
 3. Verify that the Function is up and running:
 
-    ```shell script
-    kubectl -n dev get function api-mssql-function
-    ```
+   ```shell script
+   kubectl -n dev get function api-mssql-function
+   ```
 
 4. Use the APIRule:
 
