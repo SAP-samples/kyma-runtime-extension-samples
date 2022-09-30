@@ -11,6 +11,7 @@ The following code is included in this sample:
 - Knowledge database: simple [MS SQL database](knowledge-database/database-mssql/app/setup.sql) that stores all IDs of the questions the bot can answer
 - Bot observer tool: [node.js server](bot-observer-tool/app/server.js) that displays the current bot knowledge, the Stack Overflow content, and the knowledge database content. This server can also be used to verify that everything was set up correctly.
 - Update functionality: [Kubernetes CronJob](update-bot/k8s/cronjob.yaml) and [JS-script](update-bot/app/update-bot.js) to update the bot automatically
+- Alert Notification when an error occurs: [Alert Notification](alert-notif/k8s/deployment.yaml)
 
 This sample demonstrates how to:
 
@@ -19,10 +20,13 @@ This sample demonstrates how to:
 - Deploy the SQL knowledge database to the Kyma runtime
 - Deploy the bot observer tool to the Kyma runtime and connect everything together
 - Deploy the Kubernetes CronJob to the Kyma runtime that updates the bot automatically
+- Deploy the Alert Notification that sends notifications when an error occurs
+- Deploy the knowledge database, the bot observer tool, the update functionality as well as the alert notification using a helm-chart
 
 ## Prerequisites
 
 - SAP BTP, Kyma runtime instance
+- Alert Notification Service set up in your SAP BTP Subaccount
 - [Docker](https://www.docker.com/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
 - [SAP Conversational AI](https://cai.tools.sap/)
@@ -140,6 +144,11 @@ The FAQ chatbot can be connected to multiple communication platforms. In the pre
 13. Click on the cluster of profile pictures at the top right. Go to the tab `Integrations`, click on `Add an App`, and search for the name of your bot. Then, simply click `Add` and the bot will be added to this channel.
 
 14. Verify that everything was set up correctly by sending some greeting like "*Hello*" and the question "*What is your name?*" in the Slack channel. The bot should respond to both messages.
+
+### Optional Deployment with Helm to Skip Steps 3 to 7
+
+Instead of following the steps 3 to 7 as described below, the deployment of all needed objects could also be handled via helm.
+If you decide to do the deployment with helm, follow [these instructions](https://github.com/SAP-samples/kyma-runtime-extension-samples/tree/main/helm-charts/chatbot#prerequisits).
 
 ### 3. Deploy the Knowledge Database to Kyma
 
@@ -337,8 +346,33 @@ Now, it is time to deploy the bot observer tool. This is a simple node.js server
       ```
 
       (should be empty at the moment)
+      
+### 6. Deploy the Alert Notification Functionality that sends messages when an error occurs
 
-### 6. Deploy the Kubernetes CronJob that updates the Bot
+To ensure that you get notified in case errors happen, you have to follow the following steps:
+
+1. Change to the directory `alert-notif/k8s`
+
+2. Open the file `deployment.yaml`
+
+3. For the ServiceInstance change the value of `spec.parameters.configuration.actions.properties.destination` for the e-mail action to an e-mail to which you would like to receive notifications. If you want to use slack instead of e-mail, then you should change the value `spec.parameters.configuration.actions.properties.destination` for the slack action to the webhook of a given slack channel. [Here](https://api.slack.com/messaging/webhooks) you will find more informations about how to set up a webhook for your slack channel. Furthermore, you have to mention the type of notification `email`or `slack` in the spec.parameters.configuration.subscriptions.actions` field.
+
+4. To allow proper association of the function in the cluster, you have to adjust two more values for the Functions.
+The environment variable `CLUSTER_DOMAIN` has to get the value of the domain of the cluster.
+The environment variable `url` should have the value of the url of the region 
+
+5. Now you can save and close the `deployment.yaml` file
+
+6. Finally, the alert notification has to be deployed to the cluster. For this you have to run the following command in the terminal:
+        
+        ```
+        kubectl apply -f deployment.yaml
+        ```
+        
+7. After some minutes the alert notification function should be up and running in your cluster.
+
+
+### 7. Deploy the Kubernetes CronJob that updates the Bot
 
 1. Change to the directory `update-bot`.
 
@@ -404,6 +438,8 @@ Now, it is time to deploy the bot observer tool. This is a simple node.js server
         kubectl delete -f k8s/cronjob.yaml
         ```
 
+
 ## About the Contributor and the Project
 
 The development of this chatbot and the tutorial was a project contributed by Lasse Urban, who is a vocational training student at SAP. He spent one rotation in the STAR (Student Training and Rotation) Program with the Kyma Runtime Adoption team from April 2021 until October 2021.
+Improvements of the chatbot were done by Alexander Weers, Cansu Doganay and Jano Hanzlik (STAR students that joined the department from April 2022 until October 2022).
