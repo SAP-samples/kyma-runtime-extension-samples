@@ -442,3 +442,4 @@ The environment variable `url` should have the value of the url of the region
 ## About the Contributor and the Project
 
 The development of this chatbot and the tutorial was a project contributed by Lasse Urban, who is a vocational training student at SAP. He spent one rotation in the STAR (Student Training and Rotation) Program with the Kyma Runtime Adoption team from April 2021 until October 2021.
+Improvements of the chatbot were done by Alexander Weers, Cansu Doganay and Jano Hanzlik (STAR students that joined the department from April 2022 until October 2022).
