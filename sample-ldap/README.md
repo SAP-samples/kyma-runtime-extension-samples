@@ -28,11 +28,13 @@ In my sample, I have used [ApacheDS](https://directory.apache.org/apacheds/) as 
 * Set up environment variables
 
   * OSX
+
     ```shell script
     export NS={your-namespace}
     ```
 
   * Windows PowerShell
+
     ```powershell
     $NS={your-namespace}
     ```
