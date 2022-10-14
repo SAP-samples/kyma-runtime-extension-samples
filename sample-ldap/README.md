@@ -8,7 +8,6 @@ In the sample flow, the users details are queried from the on-premise LDAP serve
 
 ![flow](assets/kyma-ldap-on-prem.png)
 
-
 ## Prerequisites
 
 * [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)

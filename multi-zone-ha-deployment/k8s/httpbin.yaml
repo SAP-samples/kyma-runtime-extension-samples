@@ -5,7 +5,7 @@ metadata:
     app: multi-zone-ha-httpbin
   name: multi-zone-ha-httpbin
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: multi-zone-ha-httpbin
