@@ -30,7 +30,7 @@ Highly Available despite Zone 3 going down
 
 ### Steps
 
-Let's deploy a sample application and understand how we cna configure an application to be highly available and resilient to zone failures.
+Let's deploy a sample application and understand how we can configure an application to be highly available and resilient to zone failures.
 
 We will deploy a simple [httpbin](k8s/httpbin.yaml) example. The key part is to specify the [topologySpreadConstraints](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/).
 
