@@ -1,0 +1,29 @@
+apiVersion: serverless.kyma-project.io/v1alpha2
+kind: Function
+metadata:
+  name: address-completion-here
+  labels:
+    scenario: address-completion
+spec:
+  runtime: nodejs16
+  source:
+    gitRepository:
+      url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
+      baseDir: /address-completion-c4c/sales-cloud-address-completion-here/function
+      reference: main
+  env:
+  - name: CENTRAL_GW_URL
+    valueFrom:
+      secretKeyRef:
+        name: address-completion-here
+        key: centralGwUrl
+  - name: HERE_API_KEY
+    valueFrom:
+      secretKeyRef: 
+        name: address-completion-here
+        key: apiKey
+  - name: HERE_API_URL
+    valueFrom:
+      secretKeyRef: 
+        name: address-completion-here
+        key: apiUrl
