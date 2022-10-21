@@ -1,0 +1,20 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: data-quality-service
+  labels:
+    scenario: address-completion
+spec:
+  externalName: data-quality-service
+  serviceOfferingName: dq-services
+  servicePlanName: standard
+---
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: data-quality-service-sb
+  labels:
+    scenario: address-completion
+spec:
+  secretName: data-quality-service-sb
+  serviceInstanceName: data-quality-service
