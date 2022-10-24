@@ -44,6 +44,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | [Sample SAP Customer Data Cloud Extension](./cdc-extension/README.md)    | This example includes a Kyma serverless function as cdc-extension exposed as an SAP Customer Data Cloud Extension endpoint          | [Post](https://blogs.sap.com/2021/11/10/deploying-an-sap-customer-data-cloud-extension-to-sap-btp-kyma-runtime/)                                                     |
 | [Sample SAP Customer Data Cloud Webhook](./cdc-webhook/README.md)        | This example includes a Kyma serverless function as cdc-subscription-webhook exposed as an SAP Customer Data Cloud Webhook endpoint | -                                                                                                                                                                    |
 | [Sample SAP Customer Data Platform Extension](./cdp-extension/README.md) | This example includes a Kyma Serverless Function as cdp-extension exposed as an SAP Customer Data Platform Extension endpoint       | [Post](https://blogs.sap.com/2021/11/24/enrich-contact-data-on-sap-customer-data-platform-with-master-data-from-sap-s-4hana-cloud-using-a-kyma-serverless-function/) |
+| [SAP Sales Cloud address completion](./address-completion-c4c/README.md) | Corrects the address for an account update or create in SAP Sales Cloud                                                             | -                                                                                                                                                                    |
 
 ## S/4HANA Extensions
 
@@ -65,7 +66,6 @@ Running various samples requires access to the Kyma runtime. There are also othe
 |[CAP Orders Service](./cap-orders-service/README.md) | This sample provides a secured CAP service application deployment onto HANA that utilizes the Destination Service, Connectivity Proxy and configured for Helm using Cloud Native Buildpacks
 | [CAP on Kyma - Cloud Native Buildpacks](./cap-service/README-CNB.md)|This sample provides a secured CAP Service application deployed onto HANA and configured for Helm using Cloud Native Buildpacks||
 | [CAP on Kyma](./cap-service/README.md) | This sample provides a CAP Service application configured with the sample `FAQs` APIs | [Tutorial](https://developers.sap.com/tutorials/cp-kyma-cap.html) |
-
 
 ## FAAS Migration
 

@@ -78,7 +78,7 @@ The certificate for this sample has been retrieved from the [test site](https://
 
 ### Application
 
-The Java Spring Application has been generated using the [SAP Cloud SDK](https://sap.github.io/cloud-sdk/docs/overview/getting-started)
+The Java Spring Application has been generated using the [SAP Cloud SDK](https://sap.github.io/cloud-sdk/docs/java/getting-started)
 
 It has a [controller](./application/src/main/java/sample/kyma/client/cert/auth/controllers/ExternalServiceController.java) which
 
