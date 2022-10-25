@@ -212,3 +212,7 @@ proxy:
   service:
     type: ClusterIP
 ```
+
+You can now log back in 
+
+<img src="./ias%2011.png" width= "250"/>
