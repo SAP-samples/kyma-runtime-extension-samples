@@ -1,0 +1,7 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: s4-busi-partner-sb
+spec:
+  secretName: s4-busi-partner-sb
+  serviceInstanceName: s4hana-bp-api

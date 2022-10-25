@@ -1,0 +1,24 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: kyma-event-mesh
+spec:
+  externalName: kyma-event-mesh
+  parameters:
+    emname: kybp
+    namespace: sap/s4.kyma/kybp
+    options:
+      management: true
+      messaging: true
+      messagingrest: true
+    rules:
+      queueRules:
+        subscribeFilter:
+          - '${namespace}/*'
+      topicRules:
+        subscribeFilter:
+          - '${namespace}/*'
+          - sap/S4HANAOD/s4bp/*
+    version: 1.1.0
+  serviceOfferingName: enterprise-messaging
+  servicePlanName: default

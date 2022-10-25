@@ -1,0 +1,9 @@
+{
+  "name": "s4-address-validation",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/cloud-sdk-vdm-business-partner-service": "^2.1.0",
+    "simple-oauth2": "^4.2.0",
+    "axios": "^1.1.3"
+  }
+}

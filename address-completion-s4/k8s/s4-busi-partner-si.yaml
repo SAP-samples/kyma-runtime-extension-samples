@@ -1,0 +1,39 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: s4hana-bp-api
+spec:
+  externalName: s4hana-bp-api
+  parameters:
+    systemName: <CMP System Name>
+    communicationArrangement:
+      communicationArrangementName: KYMA_BP_COMM_ARRANGEMENT
+      scenarioId: SAP_COM_0008
+      inboundAuthentication: BasicAuthentication
+      outboundAuthentication: BasicAuthentication
+      outboundServices:
+        - name: Replicate Customers from S/4 System to Client
+          isServiceActive: false
+        - name: Replicate Suppliers from S/4 System to Client
+          isServiceActive: false
+        - name: Replicate Company Addresses from S/4 System to Client
+          isServiceActive: false
+        - name: Replicate Workplace Addresses from S/4 System to Client
+          isServiceActive: false
+        - name: Replicate Personal Addresses from S/4 System to Client
+          isServiceActive: false
+        - name: Business Partner - Replicate from SAP S/4HANA Cloud to Client
+          isServiceActive: false
+        - name: Business Partner Relationship - Replicate from SAP S/4HANA Cloud to Client
+          isServiceActive: false
+        - name: Business Partner - Send Confirmation from SAP S/4HANA Cloud to Client
+          isServiceActive: false
+        - name: BP Relationship - Send Confirmation from SAP S/4HANA Cloud to Client
+          isServiceActive: false
+      communicationSystem:
+        communicationSystemHostname: default.com
+        outboundCommunicationUser:
+          username: DefaultUser
+          password: DefaultPassword
+  serviceOfferingName: s4-hana-cloud
+  servicePlanName: api-access

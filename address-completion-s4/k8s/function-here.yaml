@@ -1,0 +1,128 @@
+apiVersion: serverless.kyma-project.io/v1alpha2
+kind: Function
+metadata:
+  name: s4-address-validation
+spec:
+  env:
+  - name: HERE_APU_URL
+    value: https://geocode.search.hereapi.com/v1/geocode
+  - name: HERE_API_KEY
+  - name: s4.metadata
+    valueFrom:
+      secretKeyRef:
+        key: .metadata
+        name: s4-busi-partner-sb
+  - name: s4Authentication
+    valueFrom:
+      secretKeyRef:
+        key: Authentication
+        name: s4-busi-partner-sb
+  - name: s4Password
+    valueFrom:
+      secretKeyRef:
+        key: Password
+        name: s4-busi-partner-sb
+  - name: s4URL
+    valueFrom:
+      secretKeyRef:
+        key: URL
+        name: s4-busi-partner-sb
+  - name: s4User
+    valueFrom:
+      secretKeyRef:
+        key: User
+        name: s4-busi-partner-sb
+  - name: s4instance_guid
+    valueFrom:
+      secretKeyRef:
+        key: instance_guid
+        name: s4-busi-partner-sb
+  - name: s4instance_name
+    valueFrom:
+      secretKeyRef:
+        key: instance_name
+        name: s4-busi-partner-sb
+  - name: s4label
+    valueFrom:
+      secretKeyRef:
+        key: label
+        name: s4-busi-partner-sb
+  - name: s4plan
+    valueFrom:
+      secretKeyRef:
+        key: plan
+        name: s4-busi-partner-sb
+  - name: s4tags
+    valueFrom:
+      secretKeyRef:
+        key: tags
+        name: s4-busi-partner-sb
+  - name: s4type
+    valueFrom:
+      secretKeyRef:
+        key: type
+        name: s4-busi-partner-sb
+  runtime: nodejs14
+  source:
+    inline:
+      dependencies: "{ \n  \"name\": \"s4-address-validation-here2\",\n  \"version\":
+        \"1.0.0\",\n  \"dependencies\": {\n    \"country-iso-3-to-2\": \"^1.0.1\",\n
+        \   \"@sap/cloud-sdk-vdm-business-partner-service\": \"^2.1.0\",\n    \"axios\":
+        \"^1.1.3\"\n  }\n}"
+      source: "const { businessPartnerService} =\nrequire(\"@sap/cloud-sdk-vdm-business-partner-service\");\n\nconst
+        { businessPartnerApi, businessPartnerAddressApi, batch, changeset } =\nbusinessPartnerService();\n\nconst
+        axios = require(\"axios\");\n\nconst getCountryISO2 = require(\"country-iso-3-to-2\");\n\n\nconst
+        destConfig = {\n  url: process.env.s4URL,\n  authentication: process.env.s4Authentication,\n
+        \ username: process.env.s4User,\n  password: process.env.s4Password,\n};\n\nmodule.exports
+        = {\n    main: async function (event, context) {\n      try {\n        const
+        eventData = getEventData(event.data);\n        const key = eventData.data[\"BusinessPartner\"];\n
+        \       console.log(\"received data for BusinessPartner: \", key);\n        const
+        response = await getBPAddress(key);\n  \n        var bpAddress,\n          searchtext,\n
+        \         addressCorResult,\n          addressResult,\n          resultsArr
+        = [];\n        for (let i = 0; i < response.toBusinessPartnerAddress.length;
+        i++) {\n          bpAddress = response.toBusinessPartnerAddress[i];\n          searchtext
+        = createSearchString(bpAddress);\n          addressCorResult = await completeAddress(searchtext);\n
+        \ \n          if (isAddressCorrected(addressCorResult, bpAddress)) {\n            addressResult
+        = businessPartnerAddressApi\n              .entityBuilder()\n              .fromJson(addressCorResult);\n
+        \           addressResult.addressId =\n              response.toBusinessPartnerAddress[i].addressId;\n
+        \           addressResult.businessPartner =\n              response.toBusinessPartnerAddress[i].businessPartner;\n
+        \           resultsArr.push(addressResult);\n          }\n        }\n  \n
+        \       if (resultsArr.length > 0) {\n          return await updateBPAddress(resultsArr);\n
+        \       } else {\n          const msg =\n            \"No corrections were
+        necessary for the BusinessPartner addresses..\";\n          console.log(msg);\n
+        \         event.extensions.response.status(200).json({ message: msg });\n
+        \       }\n      } catch (err) {\n        console.log(\"An error occured...\");\n
+        \       console.log(err);\n        event.extensions.response\n          .status(200)\n
+        \         .json({ message: err.message, error: err });\n      }\n    },\n
+        \ };\n  \n  function getEventData(data) {\n    var dataObj;\n    try {\n      dataObj
+        = JSON.parse(data);\n    } catch (err) {\n      dataObj = data;\n    }\n    return
+        dataObj;\n  }\n  \n  async function getBPAddress(key) {\n    console.log(\"Getting
+        BusinessPartner: \", key);\n  \n    return businessPartnerApi\n      .requestBuilder()\n
+        \     .getByKey(key)\n      .select(\n        businessPartnerApi.schema.BUSINESS_PARTNER,\n
+        \       businessPartnerApi.schema.TO_BUSINESS_PARTNER_ADDRESS.select(\n          businessPartnerApi.schema.BUSINESS_PARTNER,\n
+        \         businessPartnerAddressApi.schema.ADDRESS_ID,\n          businessPartnerAddressApi.schema.COUNTRY,\n
+        \         businessPartnerAddressApi.schema.POSTAL_CODE,\n          businessPartnerAddressApi.schema.CITY_NAME,\n
+        \         businessPartnerAddressApi.schema.STREET_NAME,\n          businessPartnerAddressApi.schema.HOUSE_NUMBER,\n
+        \         businessPartnerAddressApi.schema.REGION\n        )\n      )\n      .execute(destConfig);\n
+        \ }\n  \n  function createSearchString(address) {\n    var searchtext = \"\";\n
+        \   for (var key in address) {\n      if (key !== \"addressId\" && key !==
+        \"businessPartner\") {\n        // ignore addressId and businessPartner\n
+        \       if (\n          typeof address[key] !== \"function\" &&\n          typeof
+        address[key] !== \"undefined\"\n        ) {\n          searchtext += \" \"
+        + address[key];\n        }\n      }\n    }\n    return searchtext;\n  }\n
+        \ \n  \n  function isAddressCorrected(correctedAdd, address) {\n    for (var
+        key in correctedAdd) {\n      if (address[key] !== correctedAdd[key]) {\n
+        \       return true;\n      }\n    }\n    return false;\n  }\n  \n  async
+        function updateBPAddress(addressArr) {\n    console.log(\"Corrections necessary
+        - updating BusinessPartner address...\");\n    const updateRequests = addressArr.map((address)
+        =>\n      businessPartnerAddressApi.requestBuilder().update(address)\n    );\n
+        \   const batchResponses = await batch(changeset(...updateRequests)).execute(\n
+        \     destConfig\n    );\n    return batchResponses[0];\n  }\n  \n  function
+        isElement(element, targetQualifier) {\n    return element.types.indexOf(targetQualifier)
+        > -1;\n  }\n\n  async function completeAddress(searchtext) {\n\n    const
+        res = await axios.get(process.env.HERE_APU_URL, { params: { q: searchtext,
+        apiKey: process.env.HERE_API_KEY } });\n\n    return {\n      cityName: res.data.items[0].address.city,\n
+        \     postalCode: res.data.items[0].address.postalCode,\n      houseNumber:
+        res.data.items[0].address.houseNumber,\n      streetName: res.data.items[0].address.street,\n
+        \     country: getCountryISO2(res.data.items[0].address.countryCode),\n      region:
+        res.data.items[0].address.stateCode\n    }\n  }"

@@ -1,0 +1,8 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: data-quality-service
+spec:
+  externalName: data-quality-service
+  serviceOfferingName: dq-services
+  servicePlanName: standard

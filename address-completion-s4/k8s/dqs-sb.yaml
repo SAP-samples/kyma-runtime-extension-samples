@@ -1,0 +1,7 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: data-quality-service-sb
+spec:
+  secretName: data-quality-service-sb
+  serviceInstanceName: data-quality-service

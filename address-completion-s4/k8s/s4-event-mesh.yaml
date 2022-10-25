@@ -1,0 +1,15 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: s4bpevents
+spec:
+  externalName: s4bpevents
+  parameters:
+    communicationArrangement:
+      communicationArrangementName: SAP_COM_0092_CA_EM
+      scenarioId: SAP_COM_0092
+    emClientId: s4bp
+    systemName: <CMP System Name>
+  serviceOfferingName: s4-hana-cloud
+  servicePlanName: messaging
+

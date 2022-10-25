@@ -1,0 +1,8 @@
+{
+  "name": "s4-address-validation",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/cloud-sdk-vdm-business-partner-service": "^2.1.0",
+    "@googlemaps/google-maps-services-js": "^3.1.4"
+  }
+}
