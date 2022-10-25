@@ -121,6 +121,12 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | [HandsOn DSAG Technology Days 2022](./dsagtt22/)                                                                              | This sample gives a walk-through setting up a scenario combining on prem systems with Kyma Functions and the Event Mesh                  | -                                                                                                                                                      |
 | [Query LDAP Users on on-premise](./sample-ldap/README.md)                                                                     | This sample queries the LDAP users from an on premise LDAP Server via SAP Connectivity proxy                  | -                                                                                                                                                      |
 
+## Integrated Open source solutions
+
+| Name | Description |
+| ---- | ----------- |
+| [JupyterHub](./sample-jupyter/README.md) | Multi user Jupyter lab environment. Authentication with SAP Identity Provider. Each user receives compute and storage capacity |
+
 ## Multitenancy and SaaS
 
 | Name                                                                     | Description                                                                                                    | References |
