@@ -175,7 +175,7 @@ kubectl apply -f ./k8s/apirule-oauth.yaml -n dev
 - Provide the name **kyma-bp-add-corr**
 - Set **Quality of Service** to 1
 - Toggle **Excempt Handshake** to **Yes**
-- Set the **Webhook URL** to **https://s4-address-validation.\<kyma domain\>**
+- Set the **Webhook URL** to **https://s4-address-validation.<kyma domain\>**
 - Set **Default Content-Type** to **application/json**
 - Set **Authentication** to **OAuth2ClientCredentials**
 - Provide the client_id and client_secret values from the oauth client **s4-busi-partner**, which can be obtained by running
@@ -185,7 +185,7 @@ kubectl get secret s4-busi-partner -n dev -o jsonpath='{.data.client_id}' | base
 kubectl get secret s4-busi-partner -n dev -o jsonpath='{.data.client_secret}' | base64 --decode
 ```
 
-- Set the **Token URL** to **https://oauth2.\<kyma domain\>/oauth2/token**
+- Set the **Token URL** to **https://oauth2.<kyma domain\>/oauth2/token**
 - Set the scope to **s4-bp-write**
 - Choose **Create**
 - Make sure **Subscription Status** is **Active**, otherwise in the **Action** menu choose **Resume**
