@@ -1,0 +1,19 @@
+hub:
+  extraConfig:
+    myConfig.py: |
+      from oauthenticator.generic import GenericOAuthenticator
+      #c.Application.log_level = 'DEBUG'
+      c.JupyterHub.authenticator_class = GenericOAuthenticator
+      c.GenericOAuthenticator.client_id = "bdc5f710-****-4152-9beb-*************"
+      c.GenericOAuthenticator.client_secret = "3GFVcw=6Ak-PN:MEBxhXWQY@**********"
+      c.GenericOAuthenticator.oauth_callback_url = "https://jupyter.******.kyma.ondemand.com/hub/oauth_callback"
+      c.GenericOAuthenticator.login_service = "SAP BTP OpenID Authentication"
+      #user name is the first part of the email address. 'remi.astier@sap.com' -> 'remi.astier'
+      c.GenericOAuthenticator.username_key = lambda r: r.get('mail').split('@')[0]
+      c.GenericOAuthenticator.authorize_url = "https://*****.accounts400.ondemand.com/oauth2/authorize"
+      c.GenericOAuthenticator.token_url = "https://******.accounts400.ondemand.com/oauth2/token"
+      c.GenericOAuthenticator.userdata_url = "https://******.accounts400.ondemand.com/oauth2/userinfo"
+      c.GenericOAuthenticator.scope = ['openid', 'profile']
+proxy:
+  service:
+    type: ClusterIP

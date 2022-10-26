@@ -1,0 +1,23 @@
+apiVersion: gateway.kyma-project.io/v1beta1
+kind: APIRule
+metadata:
+  name: jupyter
+  labels:
+    app.kubernetes.io/name: jupyter
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  host: jupyter
+  rules:
+    - accessStrategies:
+        - handler: allow
+      methods:
+        - GET
+        - POST
+        - DELETE
+        - PUT
+        - PATCH
+        - HEAD
+      path: /.*
+  service:
+    name: proxy-public
+    port: 80
