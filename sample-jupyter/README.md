@@ -101,7 +101,7 @@ spec:
   host: jupyter
   rules:
     - accessStrategies:
-        - handler: noop
+        - handler: allow
       methods:
         - GET
         - POST
