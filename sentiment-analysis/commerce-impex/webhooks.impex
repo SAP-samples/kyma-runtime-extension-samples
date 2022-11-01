@@ -1,0 +1,22 @@
+$destination_target=webhookServices
+$webhook_name=cc-customerproductreview-webhook
+#$endpoint_url=https://webhook.site/f112d768-42a5-4b59-bda7-e0094b0942c9
+$kyma_domain=c-81b58c5.kyma.shoot.live.k8s-hana.ondemand.com
+$endpoint_url=https://cusrevwh-o.$kyma_domain
+$oauth_url=https://oauth2.$kyma_domain/oauth2/token
+$oauth_client_id=46f5b585-0ba6-4737-b3ed-5c855fd9066b
+$oauth_client_secret=7NLFXHVnVOK3ykWPpdKnMixh.A
+
+
+INSERT_UPDATE Endpoint;id[unique=true];name;version[unique=true];description;specUrl;specData;extensionName
+;$webhook_name;"CC Customer Review Webhook v1";v1;"Customer Review Webhook";$endpoint_url;;odata2webservices
+
+INSERT_UPDATE ConsumedOAuthCredential; id[unique = true]          ; clientId; clientSecret; oAuthUrl
+; $webhook_name ;  $oauth_client_id    ; $oauth_client_secret ; $oauth_url
+
+INSERT_UPDATE ConsumedDestination; id[unique = true]                 ; url                    ; credential(id)                   ;destinationTarget(id)[unique = true,default=$destination_target] ; active[default=true]
+; $webhook_name       ; $endpoint_url ; $webhook_name ;
+
+INSERT_UPDATE WebhookConfiguration; integrationObject(code)[unique = true]; destination(id)[unique = true]; eventType
+; CustomerProductReview                             ; $webhook_name ; de.hybris.platform.webhookservices.event.ItemCreatedEvent
+

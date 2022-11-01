@@ -1,0 +1,8 @@
+{
+    "name": "sentiment-analysis",
+    "version": "1.0.0",
+    "dependencies": {
+      "axios": "^0.18.0",
+      "@slack/client": "^4.3.1"
+    }
+}

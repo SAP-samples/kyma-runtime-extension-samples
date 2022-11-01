@@ -1,0 +1,14 @@
+apiVersion: serverless.kyma-project.io/v1alpha2
+kind: Function
+metadata:
+  name: text-analysis
+spec:
+  runtime: python39
+  source:
+    gitRepository:
+      url: https://github.tools.sap/pscoec4f/demo-sentiment-analysis.git
+      baseDir: /lambdas/text-analysis
+      reference: ccv2-2205
+      auth:
+        type: basic
+        secretName: git-creds-basic
