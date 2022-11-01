@@ -41,13 +41,23 @@ The architecture diagram describes use case flow.
 
 - [Sentiment Analysis Function](lambdas/sentiment-analysis) - The main function that processes the event and calls downstream services to analyze text and update SAP Commerce and SAP Sales Cloud, and send notification messages to Slack
 
+## Prerequisites
+
+- An SAP BTP Kyma runtime instance is required.  The extension components run in a namespace named `sentiment-analysis` by default.
+
+- SAP Commerce environment connected to SAP BTP Kyma runtime.  
+
+- (Optional) SAP Sales Cloud (Cloud for Customer) connected to SAP BTP Kyma runtime if you enable the `c4cUpdateFlag` (see below)
+
+See [SAP Help](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html) for details on how to connect SAP Commerce and SAP Sales Cloud to SAP BTP Kyma runtime.
+
 ## Configuration
 
 The extension requires a `Secret` named `sentiment-analysis` configured in the Kyma namespace containing the following values:
 
 - `baseSite`:  The SAP Commerce baseSite value e.g. `electronics`, required by the SAP Commerce OCC API.
 
-- `c4cUpdateFlag`: Feature flag to enable the calls to SAP Sales Cloud to create customer and service ticket for negative reviews.
+- `c4cUpdateFlag`: Feature flag to enable the calls to SAP Sales Cloud to create customer and service ticket for negative reviews. If value is `true` then the feature is enabled.
 
 - `gateway_url_c4c` - URL for the SAP Sales Cloud API provided by the Kyma Central Application Gateway
 
