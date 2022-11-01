@@ -1,10 +1,5 @@
 # Product Review Sentiment Analysis with SAP Commerce and SAP BTP, Kyma runtime
 
-
-[Product Review Sentiment Analysis demo video](https://video.sap.com/media/t/1_4sjeouqb/116001292)
-
-TODO: Make video public - (microlearning.opensap.com?)
-
 ## Introduction
 
 Marketers strive to get feedback on their customers' sentiment regarding the products they sell. SAP Commerce is in a unique position to capture this data, analyze it and respond in real-time.  This example shows how to leverage the product review functionality of SAP Commerce with a **side-by-side extension** deployed in SAP BTP, Kyma runtime.  The benefit of this approach is that there are no code changes required in SAP Commerce.  All that is required is some configuration and data.  This **allows** the following:
