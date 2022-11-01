@@ -103,24 +103,34 @@ sap.ui.define(
           this.getRouter().getTargets().display("objectNotFound");
           return;
         }
-        var oResourceBundle = this.getResourceBundle(),
-          oObject = oView.getBindingContext().getObject(),
-          sObjectId = oObject.ID,
-          sObjectName = oObject.Orders;
 
-        oViewModel.setProperty("/busy", false);
-        oViewModel.setProperty(
-          "/shareSendEmailSubject",
-          oResourceBundle.getText("shareSendEmailObjectSubject", [sObjectId])
-        );
-        oViewModel.setProperty(
-          "/shareSendEmailMessage",
-          oResourceBundle.getText("shareSendEmailObjectMessage", [
-            sObjectName,
-            sObjectId,
-            location.href,
-          ])
-        );
+        var oResourceBundle = this.getResourceBundle();
+
+        oView
+          .getBindingContext()
+          .requestObject()
+          .then(
+            function (oObject) {
+              var sObjectId = oObject.ID,
+                sObjectName = oObject.OrderNo;
+
+              oViewModel.setProperty("/busy", false);
+              oViewModel.setProperty(
+                "/shareSendEmailSubject",
+                oResourceBundle.getText("shareSendEmailObjectSubject", [
+                  sObjectId,
+                ])
+              );
+              oViewModel.setProperty(
+                "/shareSendEmailMessage",
+                oResourceBundle.getText("shareSendEmailObjectMessage", [
+                  sObjectName,
+                  sObjectId,
+                  location.href,
+                ])
+              );
+            }.bind(this)
+          );
       },
     });
   }
