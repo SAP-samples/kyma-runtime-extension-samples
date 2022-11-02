@@ -272,7 +272,7 @@ cds add helm:html5_apps_deployer
 
    1. **Repository**: your docker/repository account
    2. **html5_apps_deployer.cloudService**: cpapp.service
-   3. **html5_apps_deployer.backendDestinations**:
+   3. **html5_apps_deployer.backendDestinations**: see code block
 
       ```
       html5_apps_deployer:
@@ -288,7 +288,7 @@ Update the helm chart, by running the following command in the directory `app`
 helm upgrade --install orders ./chart --namespace dev
 ```
 
-8. Once the chart installation completes you will find the UI5 application by opening the SAP CTP Cockpit and choosing `HTML5 Applications`. The application will be name `comkymademoorders`. Click on the application name to open it.
+8. Once the chart installation completes you will find the UI5 application by opening the SAP CTP Cockpit and choosing `HTML5 Applications`. The application will be named `comkymademoorders`. Click on the application name to open it.
 
 ### Add application to the SAP Launchpad
 
