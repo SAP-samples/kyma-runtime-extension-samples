@@ -1,0 +1,10 @@
+{
+  "name": "kyma-html5-app-deployer",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/html5-app-deployer": "3.1.0"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/html5-app-deployer/index.js"
+  }
+}

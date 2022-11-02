@@ -229,3 +229,65 @@ This should return a response similar to
 ```
 {"@odata.context":"$metadata#OrdersService.return_OrdersService_external","affectedRows":1,"orders":[{"ID":"027e2eb5-8a22-4ad2-9ff9-abfd3bf6da4d"}]}
 ```
+
+### Prepare the UI application
+
+Install UI5 tooling
+
+```
+npm install --global @sap/ux-ui5-tooling
+```
+
+To build the UI application run the following command in the directory `app/app/orders`
+
+```
+ui5 build --dest ../../../html5-deployer/resources/webapp --clean-dest true
+```
+
+////self-contained --all
+
+Copy the file `xs-app.json` into the directory `html5-deployer/resources`. Within the directory `app/app` run
+
+```
+cp xs-app.json ../../html5-deployer/resources/webapp
+```
+
+Within the directory `html5-deployer` run
+
+```
+pack build <dockerid>/orders-html5-deployer --buildpack gcr.io/paketo-buildpacks/nodejs --builder paketobuildpacks/builder:base
+```
+
+Push the image
+
+```
+docker push <dockerid>/orders-html5-deployer
+```
+
+Add the html5_apps_deployer feature to helm chart by running the following command in the `app` directory.
+
+```
+cds add helm:html5_apps_deployer
+```
+
+Configure the Helm chart
+
+1. Open the file `app/chart/values.yaml` and provide the values
+
+   1. **Repository**: your docker/repository account
+   2. **html5_apps_deployer.cloudService**: cpapp.service
+   3. **html5_apps_deployer.backendDestinations**:
+
+      ```
+      html5_apps_deployer:
+      cloudService: cpapp.service
+      backendDestinations:
+         srv-api:
+            service: srv
+      ```
+
+Update the helm chart, by running the following command in the directory `app`
+
+```
+helm upgrade --install orders ./chart --namespace dev
+```
