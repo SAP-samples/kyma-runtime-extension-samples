@@ -109,6 +109,6 @@ As you can see they are in different availability zones. This will ensure that i
 ## References
 
 - [Multiple Zones Best Practices](https://kubernetes.io/docs/setup/best-practices/multiple-zones/)
-- [Topology Spread Constraints](https://kubernetes.io/docs/concepts/scheduling-eviction/)topology-spread-constraints/
+- [Topology Spread Constraints](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 - [Kubernetes Blog about Topology Spread](https://kubernetes.io/blog/2020/05/introducing-podtopologyspread/)
 - [Topology Label](https://kubernetes.io/docs/reference/labels-annotations-taints/#topologykubernetesiozone)
