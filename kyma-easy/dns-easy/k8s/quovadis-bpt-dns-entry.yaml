@@ -1,0 +1,15 @@
+apiVersion: dns.gardener.cloud/v1alpha1
+kind: DNSEntry
+metadata:
+  name: quovadis-bpt-dns-entry
+  namespace: dpagent
+  labels:
+    app.kubernetes.io/name: quovadis-bpt-dns-entry
+  annotations:
+    dns.gardener.cloud/class: garden
+spec:
+  dnsName: '*.quovadis-btp.com'
+  targets:
+    - 
+  text: []
+  ttl: 600

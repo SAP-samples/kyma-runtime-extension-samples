@@ -1,0 +1,20 @@
+apiVersion: cert.gardener.cloud/v1alpha1
+kind: Issuer
+metadata:
+  name: quovadis-btp-ca-issuer
+  namespace: conn-proxy
+  labels:
+    app.kubernetes.io/name: quovadis-btp-ca-issuer
+spec:
+  requestsPerDayQuota: 0
+  acme:
+    server: 'https://acme-v02.api.letsencrypt.org/directory'
+    email: dummy@dummy.com
+    autoRegistration: true
+    privateKeySecretRef:
+      name: ''
+      namespace: conn-proxy
+    domains:
+      include:
+        - quovadis-btp.com
+        - '*.quovadis-btp.com'

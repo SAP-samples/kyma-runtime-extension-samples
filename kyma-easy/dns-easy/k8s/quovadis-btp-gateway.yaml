@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  labels:
+    app.kubernetes.io/name: quovadis-gateway
+  name: quovadis-gateway
+  namespace: conn-proxy
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - '*.quovadis-btp.com'
+      port:
+        name: quovadis-https
+        number: 443
+        protocol: HTTPS
+      tls:
+        credentialName: tls-quovadis-btp-cert
+        mode: SIMPLE
+    - hosts:
+        - '*.quovadis-btp.com'
+      port:
+        name: quovadis-http
+        number: 80
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
