@@ -232,47 +232,43 @@ This should return a response similar to
 
 ### Prepare the UI application
 
-Install UI5 tooling
+1. In this step a UI application will be added to the helm chart. The helm chart will generate a service instance of the `html5-apps-repo` which is used to push the UI application to the HTML5 Repository service. This can later be configured to use the SAP Lauchpad service. Start by installing the UI5 tooling which is used to build the UI5 application.
 
 ```
 npm install --global @sap/ux-ui5-tooling
 ```
 
-To build the UI application run the following command in the directory `app/app/orders`
+2. To build the UI application run the following command in the directory `app/app/orders`
 
 ```
 ui5 build --dest ../../../html5-deployer/resources/webapp --clean-dest true
 ```
 
-////self-contained --all
-
-Copy the file `xs-app.json` into the directory `html5-deployer/resources`. Within the directory `app/app` run
+3. Copy the file `xs-app.json` into the directory `html5-deployer/resources`. Within the directory `app/app` run
 
 ```
 cp xs-app.json ../../html5-deployer/resources/webapp
 ```
 
-Within the directory `html5-deployer` run
+4. Steps two and three will have added the built UI5 application and the `xs-app.json` to the directory `html5-deployer`. This directory defines the `html5-app-deployer` which is deployed as a Kubernetes job which publishes the UI5 application to the HTML5 Repository service. To build the container run
 
 ```
 pack build <dockerid>/orders-html5-deployer --buildpack gcr.io/paketo-buildpacks/nodejs --builder paketobuildpacks/builder:base
 ```
 
-Push the image
+5. Push the image to your container repository
 
 ```
 docker push <dockerid>/orders-html5-deployer
 ```
 
-Add the html5_apps_deployer feature to helm chart by running the following command in the `app` directory.
+6. Add the html5_apps_deployer feature to helm chart by running the following command in the `app` directory.
 
 ```
 cds add helm:html5_apps_deployer
 ```
 
-Configure the Helm chart
-
-1. Open the file `app/chart/values.yaml` and provide the values
+7. Configure the Helm chart by opening the file `app/chart/values.yaml` and provide the values
 
    1. **Repository**: your docker/repository account
    2. **html5_apps_deployer.cloudService**: cpapp.service
@@ -291,3 +287,29 @@ Update the helm chart, by running the following command in the directory `app`
 ```
 helm upgrade --install orders ./chart --namespace dev
 ```
+
+8. Once the chart installation completes you will find the UI5 application by opening the SAP CTP Cockpit and choosing `HTML5 Applications`. The application will be name `comkymademoorders`. Click on the application name to open it.
+
+### Add application to the SAP Launchpad
+
+1. Within your SAP BTP subaccount choose Service Marketplace. Select the Launchpad Service and choose Create.
+
+2. Assign the role for the Launchpad Service by choosing Security -> Users in the subaccount. Then choose your user and the option Assign Role Collection.
+
+3. Assign the value `Launchpad_Admin` to the user.
+
+4. Within the SAP BTP subaccount choose `Services` -> `Instances and Subscriptions`. Choose `Launchpad Service` found under `Subscriptions` and `Go to Application`.
+
+5. Choose `Create Site` and provide name `Kyma`. Choose the `<` at the top left to leave the Site Settings and navigate back to Site Directory.
+
+6. In the left hand menu choose `Channel Manager` . Under `Actions` choose the refresh option.
+
+7. Choose `Content Manager` and then `Content Explorer` at the top menu.
+
+8. Choose `HTML5 Apps` and select the application `Orders` and choose `Add to My Content`.
+
+9. Choose `My Content`and then `New` -> `Group`. Provide `Kyma` as the `Title` and assign `Orders` as the app. Choose `Save`.
+
+10. Choose the arrow button `<` to go back. Choose the role `Everyone` and choose `Edit` and assign `Orders` as the app and `Save`.
+
+11. Choose `Site Directory` and then the option to `Go to Site`.
