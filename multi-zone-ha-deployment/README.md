@@ -2,6 +2,8 @@
 
 As part of the effort to provide high availability (HA) for the SAP BTP Kyma runtime (AWS, Azure, GCP service plans), we have enabled multi-availability-zone worker groups for the Kyma runtime.
 
+> **Note:** The Zone here refers to hyperscalers availability zone. E.g. [Azure Availability Zones](https://learn.microsoft.com/en-us/azure/availability-zones/az-overview#availability-zones)
+
 The worker nodes(Virtual Machines) with the provided machine type and autoscaler parameters will be provisioned in three availability zones of the selected region.
 
 The NAT gateway created to route the public outbound traffic will be provisioned in a zone-redundant manner by all the Azure, AWS and GCP paid service plans.
