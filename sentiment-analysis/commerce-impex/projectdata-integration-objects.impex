@@ -1,32 +1,31 @@
-INSERT_UPDATE IntegrationObject; code[unique = true]; integrationType(code)
-; CustomerProductReview; INBOUND
-
-INSERT_UPDATE IntegrationObjectItem; integrationObject(code)[unique = true]; code[unique = true]; type(code); root[default = false]; itemTypeMatch(code)
-; CustomerProductReview	; CatalogVersion            	; CatalogVersion            	; 	; ALL_SUB_AND_SUPER_TYPES	;
-; CustomerProductReview	; CustomerReview            	; CustomerReview            	; true	; ALL_SUB_AND_SUPER_TYPES	;
-; CustomerProductReview	; User                      	; User                      	; 	; ALL_SUB_AND_SUPER_TYPES	;
-; CustomerProductReview	; Language                  	; Language                  	; 	; ALL_SUB_AND_SUPER_TYPES	;
-; CustomerProductReview	; Catalog                   	; Catalog                   	; 	; ALL_SUB_AND_SUPER_TYPES	;
-; CustomerProductReview	; Product                   	; Product                   	; 	; ALL_SUB_AND_SUPER_TYPES	;
-; CustomerProductReview	; CustomerReviewApprovalType	; CustomerReviewApprovalType	; 	; ALL_SUBTYPES           	;
-
-INSERT_UPDATE IntegrationObjectItemAttribute; integrationObjectItem(integrationObject(code), code)[unique = true]; attributeName[unique = true]; attributeDescriptor(enclosingType(code), qualifier); returnIntegrationObjectItem(integrationObject(code), code); unique[default = false]; autoCreate[default = false]
-; CustomerProductReview:CatalogVersion            	; catalog       	; CatalogVersion:catalog         	; CustomerProductReview:Catalog                   	; true	;
-; CustomerProductReview:CatalogVersion            	; version       	; CatalogVersion:version         	;                                                 	; true	;
-; CustomerProductReview:CustomerReview            	; language      	; CustomerReview:language        	; CustomerProductReview:Language                  	; 	;
-; CustomerProductReview:CustomerReview            	; creationtime  	; CustomerReview:creationtime    	;                                                 	; 	;
-; CustomerProductReview:CustomerReview            	; alias         	; CustomerReview:alias           	;                                                 	; 	;
-; CustomerProductReview:CustomerReview            	; approvalStatus	; CustomerReview:approvalStatus  	; CustomerProductReview:CustomerReviewApprovalType	; 	;
-; CustomerProductReview:CustomerReview            	; user          	; CustomerReview:user            	; CustomerProductReview:User                      	; 	;
-; CustomerProductReview:CustomerReview            	; product       	; CustomerReview:product         	; CustomerProductReview:Product                   	; 	;
-; CustomerProductReview:CustomerReview            	; comment       	; CustomerReview:comment         	;                                                 	; 	;
-; CustomerProductReview:CustomerReview            	; blocked       	; CustomerReview:blocked         	;                                                 	; 	;
-; CustomerProductReview:CustomerReview            	; code          	; CustomerReview:code            	;                                                 	; true	;
-; CustomerProductReview:CustomerReview            	; rating        	; CustomerReview:rating          	;                                                 	; 	;
-; CustomerProductReview:CustomerReview            	; headline      	; CustomerReview:headline        	;                                                 	; 	;
-; CustomerProductReview:User                      	; uid           	; User:uid                       	;                                                 	; true	;
-; CustomerProductReview:Language                  	; isocode       	; Language:isocode               	;                                                 	; true	;
-; CustomerProductReview:Catalog                   	; id            	; Catalog:id                     	;                                                 	; true	;
-; CustomerProductReview:Product                   	; code          	; Product:code                   	;                                                 	; true	;
-; CustomerProductReview:Product                   	; catalogVersion	; Product:catalogVersion         	; CustomerProductReview:CatalogVersion            	; true	;
-; CustomerProductReview:CustomerReviewApprovalType	; code          	; CustomerReviewApprovalType:code	;                                                 	; true	;
+INSERT_UPDATE IntegrationObject; code[unique = true]; integrationType(code) 
+; CustomerProductReview; INBOUND 
+ 
+INSERT_UPDATE IntegrationObjectItem; integrationObject(code)[unique = true]; code[unique = true]; type(code); root[default = false]; itemTypeMatch(code) 
+; CustomerProductReview	; Product                   	; Product                   	; 	; ALL_SUB_AND_SUPER_TYPES	;  
+; CustomerProductReview	; CustomerReviewApprovalType	; CustomerReviewApprovalType	; 	; ALL_SUBTYPES           	;  
+; CustomerProductReview	; User                      	; User                      	; 	; ALL_SUB_AND_SUPER_TYPES	;  
+; CustomerProductReview	; Language                  	; Language                  	; 	; ALL_SUB_AND_SUPER_TYPES	;  
+; CustomerProductReview	; CatalogVersion            	; CatalogVersion            	; 	; ALL_SUB_AND_SUPER_TYPES	;  
+; CustomerProductReview	; CustomerReview            	; CustomerReview            	; true	; ALL_SUB_AND_SUPER_TYPES	;  
+; CustomerProductReview	; Catalog                   	; Catalog                   	; 	; ALL_SUB_AND_SUPER_TYPES	;  
+ 
+INSERT_UPDATE IntegrationObjectItemAttribute; integrationObjectItem(integrationObject(code), code)[unique = true]; attributeName[unique = true]; attributeDescriptor(enclosingType(code), qualifier); returnIntegrationObjectItem(integrationObject(code), code); unique[default = false]; autoCreate[default = false] 
+; CustomerProductReview:Product                   	; code          	; Product:code                   	;                                                 	; true	;  
+; CustomerProductReview:Product                   	; catalogVersion	; Product:catalogVersion         	; CustomerProductReview:CatalogVersion            	; true	;  
+; CustomerProductReview:CustomerReviewApprovalType	; code          	; CustomerReviewApprovalType:code	;                                                 	; true	;  
+; CustomerProductReview:User                      	; uid           	; User:uid                       	;                                                 	; true	;  
+; CustomerProductReview:Language                  	; isocode       	; Language:isocode               	;                                                 	; true	;  
+; CustomerProductReview:CatalogVersion            	; version       	; CatalogVersion:version         	;                                                 	; true	;  
+; CustomerProductReview:CatalogVersion            	; catalog       	; CatalogVersion:catalog         	; CustomerProductReview:Catalog                   	; true	;  
+; CustomerProductReview:CustomerReview            	; alias         	; CustomerReview:alias           	;                                                 	; 	;  
+; CustomerProductReview:CustomerReview            	; user          	; CustomerReview:user            	; CustomerProductReview:User                      	; true	;  
+; CustomerProductReview:CustomerReview            	; approvalStatus	; CustomerReview:approvalStatus  	; CustomerProductReview:CustomerReviewApprovalType	; 	;  
+; CustomerProductReview:CustomerReview            	; headline      	; CustomerReview:headline        	;                                                 	; 	;  
+; CustomerProductReview:CustomerReview            	; comment       	; CustomerReview:comment         	;                                                 	; 	;  
+; CustomerProductReview:CustomerReview            	; product       	; CustomerReview:product         	; CustomerProductReview:Product                   	; true	;  
+; CustomerProductReview:CustomerReview            	; rating        	; CustomerReview:rating          	;                                                 	; 	;  
+; CustomerProductReview:CustomerReview            	; blocked       	; CustomerReview:blocked         	;                                                 	; 	;  
+; CustomerProductReview:CustomerReview            	; language      	; CustomerReview:language        	; CustomerProductReview:Language                  	; 	;  
+; CustomerProductReview:CustomerReview            	; creationtime  	; CustomerReview:creationtime    	;                                                 	; true	;  
+; CustomerProductReview:Catalog                   	; id            	; Catalog:id                     	;                                                 	; true	;  

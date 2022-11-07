@@ -9,8 +9,8 @@ INSERT_UPDATE Endpoint;id[unique=true];name;version[unique=true];description;spe
 INSERT_UPDATE InboundChannelConfiguration; integrationObject(code)[unique = true]; authenticationType(code);
 ;CustomerProductReview;OAUTH;
 
-INSERT_UPDATE IntegrationClientCredentialsDetails;clientId[unique = true];resourceIds;authorities;clientSecret;registeredRedirectUri;user(uid);
-;odatauser-client;hybris;ROLE_INTEGRATIONADMINGROUP;odata1234;{ccv2.services.api.url.0}/authorizationserver/oauth/token;ODATAUSER;
+INSERT_UPDATE IntegrationClientCredentialsDetails;clientId[unique = true];resourceIds;authorities;clientSecret;registeredRedirectUri;user(uid);oAuthUrl
+;odatauser-client;hybris;ROLE_INTEGRATIONADMINGROUP;odata1234;{ccv2.services.api.url.0}/authorizationserver/oauth/token;ODATAUSER;{ccv2.services.api.url.0}/authorizationserver/oauth/token
 
 INSERT_UPDATE ExposedOAuthCredential;id[unique=true];oAuthClientDetails(clientId);password
 ;odatauser-client;odatauser-client;odata1234
@@ -23,6 +23,7 @@ UserGroup ; integrationadmingroup        ;                ;          ;          
 ;                                        ;                ;          ; Product                        ; +    ; +      ; +      ; +      ; +
 ;                                        ;                ;          ; CustomerReviewApprovalType     ; +    ; +      ; +      ; +      ; +
 ;                                        ;                ;          ; Catalog                        ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; CatalogVersion                        ; +    ; +      ; +      ; +      ; +
 ;                                        ;                ;          ; Language                       ; +    ; +      ; +      ; +      ; +
 ;                                        ;                ;          ; User                           ; +    ; +      ; +      ; +      ; +
 ;                                        ;                ;          ; Address                        ; +    ; +      ; +      ; +      ; +
