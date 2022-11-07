@@ -5,7 +5,7 @@ A python based microservice to analyze text content for appropriateness.  It use
 ## Usage
 Post the content as json `text`:
 ```
-{"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
+{"text": "I hate this product. It is rubbish.  Throw it in the garbage." }
 ```
 
 Returns:
@@ -13,7 +13,7 @@ Returns:
 ```
   {
     "inappropriate": 1, 
-    "probability": 0.8899214457938968
+    "probability": 0.981441261984967
   }
 ```  
 

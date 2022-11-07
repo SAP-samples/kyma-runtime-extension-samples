@@ -4,14 +4,14 @@ This function provides an indication of the sentiment of the proviced text.
 
 Post the content as json `text`:
 ```
-{"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
+{"text": "I hate this product. It is rubbish.  Throw it in the garbage." }
 ```
 
 Returns 
 ```
 {
-    "polarity": -0.5,
-    "subjectivity": 1.0
+    "polarity": -0.8,
+    "subjectivity": 0.9
 }
 ```
 
