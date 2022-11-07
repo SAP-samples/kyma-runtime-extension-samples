@@ -1,5 +1,8 @@
 # Content Moderation Service
 
+A python based microservice to analyze text content for appropriateness.  It uses python library [alt-profanity-check](https://pypi.org/project/alt-profanity-check/) which based on this [machine learning model](https://victorzhou.com/blog/better-profanity-detection-with-scikit-learn/)
+
+## Usage
 Post the content as json `text`:
 ```
 {"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
@@ -38,7 +41,7 @@ The [k8s](k8s) directory contains the yaml file with the `Deployment` and `Servi
 
 [TextBlob](https://textblob.readthedocs.io/en/dev/quickstart.html#sentiment-analysis) sentiment analysis engine
 
-## Project setup
+## Project setup information
 
 [VS Code Python Tutorial](https://code.visualstudio.com/docs/python/python-tutorial)
 
