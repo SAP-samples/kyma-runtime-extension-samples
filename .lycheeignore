@@ -28,3 +28,5 @@ https://sample-cloudsdk-java.*
 https://sample-extension-dotnet.*
 http://schemas.xmlsoap.org/*
 https://sample-ldap.*
+https://s4-address-validation/*
+https://oauth2/*

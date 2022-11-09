@@ -7,8 +7,8 @@ It verifies and corrects the address data entered for the Account by using an ex
 
 ## Prerequisites
 
-* [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
-* [Kubernetes tooling](../prerequisites/#kubernetes)
+* [SAP BTP, Kyma runtime instance](../../prerequisites/#kyma)
+* [Kubernetes tooling](../../prerequisites/#kubernetes)
 * [SAP Sales Cloud Tenant](https://help.sap.com/learning-journeys/04f41f184f684b84b3d8ab0b4d7c4b18)
 * [SAP Sales Cloud paired with Kyma runtime](https://help.sap.com/viewer/d5fec61c279741048109d851d4d3d1ad/1908/en-US/a84a5e9266264af8ac32fe627de10bd7.html)
 * `Account.Root.Created` and `Account.Root.Updated` events are registered
