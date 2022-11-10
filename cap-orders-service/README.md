@@ -13,6 +13,8 @@ This sample provides a CAP Service application service which displays orders. Wi
   - Creating an XSUAA service instance
   - Creating a Destination service instance
   - Creating a Connectivity proxy service instanace
+  - Creating a HTML5 Repository service instance
+  - Configuration of the app in the Fiori Launchpad
 
 ## Prerequisites
 
@@ -23,6 +25,7 @@ This sample provides a CAP Service application service which displays orders. Wi
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime.
 - [Paketo](https://paketo.io/)
 - [SAP Cloud Connector](https://tools.eu1.hana.ondemand.com/#cloud)
+- [UI5 Tooling](https://sap.github.io/ui5-tooling/)
 
 ## Steps
 
