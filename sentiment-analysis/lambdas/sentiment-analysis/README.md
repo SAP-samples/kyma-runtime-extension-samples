@@ -15,7 +15,9 @@ This function requires a `Secret` named `sentiment-analysis` with entries descri
 
 [k8s/function.yaml](k8s/function.yaml) - `Function` configuration for the function.
 
-[k8s/subscription.yaml](k8s/subscription.yaml) - `Subscription` to enable the event trigger.  **NOTE** if you deploy the function into a namespace other than `sentiment-analysis` you will need to adjust the `sink` value in this file.
+[k8s/subscription.yaml](k8s/subscription.yaml) - `Subscription` to enable the event trigger.  
+
+**NOTE** if you deploy the function into a namespace other than `sentiment-analysis` you will need to adjust the `sink` value in this file.
 
 
 ## Deploy

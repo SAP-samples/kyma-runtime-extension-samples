@@ -2,7 +2,7 @@
 
 ## Overview
 
-A python based microservice to analyze text content for appropriateness.  It uses python library [alt-profanity-check](https://pypi.org/project/alt-profanity-check/) which based on this [machine learning model](https://victorzhou.com/blog/better-profanity-detection-with-scikit-learn/)
+A python based microservice to analyze text content for appropriateness.  It uses python library [alt-profanity-check](https://pypi.org/project/alt-profanity-check/) which is based on this [machine learning model](https://victorzhou.com/blog/better-profanity-detection-with-scikit-learn/)
 
 ## Usage
 Post the content as json `text`:

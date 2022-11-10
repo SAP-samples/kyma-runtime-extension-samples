@@ -4,7 +4,7 @@
 
 This function provides an indication of the sentiment of the provided text.  
 
-See [TextBlob](https://textblob.readthedocs.io/en/dev/quickstart.html#sentiment-analysis) sentiment analysis engine - for more details.
+See [TextBlob](https://textblob.readthedocs.io/en/dev/quickstart.html#sentiment-analysis) sentiment analysis engine for more details.
 
 It uses the `python39` function runtime .  
 

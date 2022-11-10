@@ -26,9 +26,11 @@ Contains the configuration to enable the outbound webhook processing to call our
 
 **NOTE** The beginning of this file has 3 variables that should be adjusted to allow the webhook to successfully call the Kyma API. See [api-access.yaml](../lambdas/customer-review-webhook/k8s/api-access.yaml)
 
-`$kyma_domain`: The domain of your Kyma cluster
-`$oauth_client_id`: The client ID generated for the Kyma `OAuth2Client` named `sentiment-analysis-client` 
-`$oauth_client_secret`: The client secret generated for the same `OAuth2Client`
+- `$kyma_domain`: The domain of your Kyma cluster
+
+- `$oauth_client_id`: The client ID generated for the Kyma `OAuth2Client` named `sentiment-analysis-client` 
+
+- `$oauth_client_secret`: The client secret generated for the same `OAuth2Client`
 
 
 ## Deploy
@@ -67,7 +69,7 @@ curl -X POST -d "client_id=odatauser-client&client_secret=$CLIENT_SECRET&grant_t
 
 ## Extract access_token from response
 
-curl -L -X GET https://$CCHOST/odata2webservices/CustomerProductReview/CustomerReviews -H 'Accept: application/json' -H 'Authorization: Bearer
+curl -L -X GET https://$CCHOST/odata2webservices/CustomerProductReview/CustomerReviews -H 'Accept: application/json' -H 'Authorization: Bearer {your access_token}'
 ```
 
 Test the Webhook using the **Validate Webhook Configuration** feature in SAP Commerce Cloud Backoffice. See [Validating Webhook Configurations](https://help.sap.com/docs/SAP_COMMERCE/50c996852b32456c96d3161a95544cdb/4a9ca4a5e2984375bc7d0b600dc26c47.html) in SAP Commerce Cloud Help.

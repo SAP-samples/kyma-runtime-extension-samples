@@ -8,7 +8,7 @@ It uses the `nodejs16` function runtime and creates a `CloudEvent` from the webh
 
 This API is protected with OAuth2 which also must be configured in SAP Commerce. 
 
-It is configured to pull the source code directly from Git.  The 
+It is configured to pull the source code directly from Git. 
 
 [handler.js](handler.js) - Javscript source code for the webhook handler
 
@@ -16,7 +16,8 @@ It is configured to pull the source code directly from Git.  The
 
 [k8s/function.yaml](k8s/function.yaml) - `Function` configuration for the handler.
 
-[k8s/api-access.yaml](k8s/api-access.yaml) - `APIRule` to expose the function and a `OAuth2Client` to provide the OAuth2 authentication token.  
+[k8s/api-access.yaml](k8s/api-access.yaml) - `APIRule` to expose the function and a `OAuth2Client` to provide the OAuth2 authentication token. 
+
 **NOTE** - Update [k8s/api-access.yaml](k8s/api-access.yaml) with the proper host name for your cluster. 
 
 ## Deploy
@@ -51,7 +52,7 @@ kubectl apply -n $NS -f k8s/api-access.yaml
 
 Call the API using the API Rule endpoint
 
-cusrevwh-o.<your-cluster>.kyma.shoot.live.k8s-hana.ondemand.com
+cusrevwh-o.{your-cluster}.kyma.shoot.live.k8s-hana.ondemand.com
 
 Send a POST request with the OData payload from Commerce.
 

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Marketers strive to get feedback on their customers' sentiment regarding the products they sell. SAP Commerce Cloud is in a unique position to capture this data, analyze it and respond in real-time.  This example shows how to leverage the product review functionality of SAP Commerce Cloudwith a **side-by-side extension** deployed in SAP BTP, Kyma runtime.  The benefit of this approach is that there are no code changes required in SAP Commerce.  All that is required is some configuration and data.  This **allows** the following:
+Marketers strive to get feedback on their customers' sentiment regarding the products they sell. SAP Commerce Cloud is in a unique position to capture this data, analyze it and respond in real-time.  This example shows how to leverage the product review functionality of SAP Commerce Cloud with a **side-by-side extension** deployed in SAP BTP, Kyma runtime.  The benefit of this approach is that there are no code changes required in SAP Commerce Cloud.  All that is required is some configuration and data.  This **allows** the following:
 
 - Event driven business process decoupled from the core SAP Commerce Cloud processing
 
@@ -29,13 +29,13 @@ The architecture diagram describes use case flow.
 
 ## Components
 
-- [SAP Commerce Cloud configuration](commerce-impex) - Impex files to configure the Integration API, webhook, exposed and consumed destinations and OAuth2 credentials for SAP Commerce.
+- [SAP Commerce Cloud configuration](commerce-impex) - Impex files to configure the Integration API, webhook, exposed and consumed destinations and OAuth2 credentials for SAP Commerce Cloud.
 
 - [Content moderation service](services/content-moderation) - Microservice to provide an indication if the text content is appropriate for publication on the storefront website.
 
 ### Functions
 
-- [Customer Review Webhook Handler](lambdas/customer-review-webhook) - Handler function for the outbound webhook configured in SAP Commerce.  It creates an internal CloudEvent to trigger downstream processing.
+- [Customer Review Webhook Handler](lambdas/customer-review-webhook) - Handler function for the outbound webhook configured in SAP Commerce Cloud.  It creates an internal CloudEvent to trigger downstream processing.
 
 - [Text Analysis Function](lambdas/text-analysis) - Function that analyzes text input and provides an indication of positive or negative sentiment.
 
@@ -85,7 +85,7 @@ Deployment steps are described in each component's README.md file.
 
     - [Sentiment Analysis Function](lambdas/sentiment-analysis)
 
-- Deploy `webhooks.impex` file in [commerce-impex](commerce-impex)
+- Deploy `webhooks.impex` file in [commerce-impex](commerce-impex) with updated client-id and client-secret from `OAuth2Client` created in [Customer Review Webhook Handler](lambdas/customer-review-webhook/k8s/api-access.yaml) step
 
 ## Verify
 
