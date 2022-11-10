@@ -16,7 +16,7 @@ metadata:
   name: sentiment-analysis-api-rule
 spec:
   gateway: kyma-system/kyma-gateway
-  host: cusrevwh-o.c-81b58c5.kyma.shoot.live.k8s-hana.ondemand.com
+  host: cusrevwh-o.<your-cluster>.kyma.shoot.live.k8s-hana.ondemand.com
   service:
     name: customer-review-webhook
     port: 80

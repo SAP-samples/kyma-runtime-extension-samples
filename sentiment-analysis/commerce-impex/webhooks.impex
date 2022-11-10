@@ -1,7 +1,6 @@
 $destination_target=webhookServices
 $webhook_name=cc-customerproductreview-webhook
-#$endpoint_url=https://webhook.site/f112d768-42a5-4b59-bda7-e0094b0942c9
-$kyma_domain=c-81b58c5.kyma.shoot.live.k8s-hana.ondemand.com
+$kyma_domain=c-<your-kyma-domain
 $endpoint_url=https://cusrevwh-o.$kyma_domain
 $oauth_url=https://oauth2.$kyma_domain/oauth2/token
 $oauth_client_id=46f5b585-0ba6-4737-b3ed-5c855fd9066b

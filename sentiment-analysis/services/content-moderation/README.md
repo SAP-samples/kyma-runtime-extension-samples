@@ -1,5 +1,7 @@
 # Content Moderation Service
 
+## Overview
+
 A python based microservice to analyze text content for appropriateness.  It uses python library [alt-profanity-check](https://pypi.org/project/alt-profanity-check/) which based on this [machine learning model](https://victorzhou.com/blog/better-profanity-detection-with-scikit-learn/)
 
 ## Usage
@@ -28,10 +30,34 @@ Build the image, then push to Dockerhub:
 
 `docker push <dockerhub-id>/content-moderation:latest`
 
-## Deployment
+## Deploy
 The [k8s](k8s) directory contains the yaml file with the `Deployment` and `Service` configuration. Apply the configuration as follows:
 
-`kubectl apply -n <your namespace> -f k8s/content-moderation.yaml`
+
+* Set up environment variables
+
+  * OSX
+
+    ```shell script
+    export NS={your-namespace}
+    ```
+
+  * Windows PowerShell
+
+    ```powershell
+    $NS={your-namespace}
+    ```
+
+
+`kubectl apply -n $NS -f k8s/content-moderation.yaml`
+
+## Verify
+
+The API is available within the namespace in the Kyma cluster via the URL 
+
+http://content-moderation
+
+Send a POST request with the payload described above in **Usage**
 
 ## Resources
 

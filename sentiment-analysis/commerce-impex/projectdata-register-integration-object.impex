@@ -1,6 +1,9 @@
+$oAuthUser=ODATAUSER
+$oAuthPassword=odata1234
+
 
 INSERT_UPDATE Employee;uid[unique=true];password;groups(uid);
-;ODATAUSER;odata1234;integrationadmingroup;
+;$oAuthUser;$oAuthPassword;integrationadmingroup;
 
 INSERT_UPDATE Endpoint;id[unique=true];name;version[unique=true];description;specUrl;specData;extensionName
 ;cc-customerreview;CC Customer Review v1;v1;"Commerce Cloud OData Customer Review Service v1";{ccv2.services.api.url.0}/odata2webservices/CustomerProductReview/$metadata;;odata2webservices
@@ -10,10 +13,10 @@ INSERT_UPDATE InboundChannelConfiguration; integrationObject(code)[unique = true
 ;CustomerProductReview;OAUTH;
 
 INSERT_UPDATE IntegrationClientCredentialsDetails;clientId[unique = true];resourceIds;authorities;clientSecret;registeredRedirectUri;user(uid);oAuthUrl
-;odatauser-client;hybris;ROLE_INTEGRATIONADMINGROUP;odata1234;{ccv2.services.api.url.0}/authorizationserver/oauth/token;ODATAUSER;{ccv2.services.api.url.0}/authorizationserver/oauth/token
+;odatauser-client;hybris;ROLE_INTEGRATIONADMINGROUP;$oAuthPassword;{ccv2.services.api.url.0}/authorizationserver/oauth/token;$oAuthUser;{ccv2.services.api.url.0}/authorizationserver/oauth/token
 
 INSERT_UPDATE ExposedOAuthCredential;id[unique=true];oAuthClientDetails(clientId);password
-;odatauser-client;odatauser-client;odata1234
+;odatauser-client;odatauser-client;$oAuthPassword
 
 $START_USERRIGHTS; ; ; ; ; ; ; ; ;
 Type      ; UID                          ; MemberOfGroups ; Password ; Target                         ; read ; change ; create ; remove ; change_perm

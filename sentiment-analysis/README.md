@@ -1,10 +1,10 @@
-# Product Review Sentiment Analysis with SAP Commerce and SAP BTP, Kyma runtime
+# Product Review Sentiment Analysis with SAP Commerce Cloud and SAP BTP, Kyma runtime
 
 ## Introduction
 
-Marketers strive to get feedback on their customers' sentiment regarding the products they sell. SAP Commerce is in a unique position to capture this data, analyze it and respond in real-time.  This example shows how to leverage the product review functionality of SAP Commerce with a **side-by-side extension** deployed in SAP BTP, Kyma runtime.  The benefit of this approach is that there are no code changes required in SAP Commerce.  All that is required is some configuration and data.  This **allows** the following:
+Marketers strive to get feedback on their customers' sentiment regarding the products they sell. SAP Commerce Cloud is in a unique position to capture this data, analyze it and respond in real-time.  This example shows how to leverage the product review functionality of SAP Commerce Cloudwith a **side-by-side extension** deployed in SAP BTP, Kyma runtime.  The benefit of this approach is that there are no code changes required in SAP Commerce.  All that is required is some configuration and data.  This **allows** the following:
 
-- Event driven business process decoupled from the core commerce processing
+- Event driven business process decoupled from the core SAP Commerce Cloud processing
 
 - Increased agility to build and deploy the extension, and to adapt it as as requirements change.
 
@@ -18,7 +18,7 @@ The following things are **avoided** with SAP Commerce Cloud:
 
 - Runtime impact due to additional processing
 
-- Extension delivery tied to core SAP Commerce deployment schedule
+- Extension delivery tied to core SAP Commerce Cloud deployment schedule
 
 ## Architecture
 
@@ -39,23 +39,23 @@ The architecture diagram describes use case flow.
 
 - [Text Analysis Function](lambdas/text-analysis) - Function that analyzes text input and provides an indication of positive or negative sentiment.
 
-- [Sentiment Analysis Function](lambdas/sentiment-analysis) - The main function that processes the event and calls downstream services to analyze text and update SAP Commerce and SAP Sales Cloud, and send notification messages to Slack
+- [Sentiment Analysis Function](lambdas/sentiment-analysis) - The main function that processes the event and calls downstream services to analyze text and update SAP Commerce Cloud and SAP Sales Cloud, and send notification messages to Slack
 
 ## Prerequisites
 
 - An SAP BTP Kyma runtime instance is required.  The extension components run in a namespace named `sentiment-analysis` by default.
 
-- SAP Commerce environment connected to SAP BTP Kyma runtime.  
+- SAP Commerce Cloud environment connected to SAP BTP Kyma runtime.  
 
 - (Optional) SAP Sales Cloud (Cloud for Customer) connected to SAP BTP Kyma runtime if you enable the `c4cUpdateFlag` (see below)
 
-See [SAP Help](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html) for details on how to connect SAP Commerce and SAP Sales Cloud to SAP BTP Kyma runtime.
+See [SAP Help](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html) for details on how to connect SAP Commerce Cloud and SAP Sales Cloud to SAP BTP Kyma runtime.
 
 ## Configuration
 
 The extension requires a `Secret` named `sentiment-analysis` configured in the Kyma namespace containing the following values:
 
-- `baseSite`:  The SAP Commerce baseSite value e.g. `electronics`, required by the SAP Commerce OCC API.
+- `baseSite`:  The SAP Commerce Cloud baseSite value e.g. `electronics`, required by the SAP Commerce Cloud OCC API.
 
 - `c4cUpdateFlag`: Feature flag to enable the calls to SAP Sales Cloud to create customer and service ticket for negative reviews. If value is `true` then the feature is enabled.
 
@@ -69,3 +69,65 @@ The extension requires a `Secret` named `sentiment-analysis` configured in the K
 
 - `svcUrlTextAnalysis` - URL for the local [Text Analysis function](lambdas/text-analysis)
 
+## Deploy
+
+Deployment steps are described in each component's README.md file.
+
+- Deploy `projectdata-integration-objects.impex` and `projectdata-register-integration-object.impex` files in [commerce-impex](commerce-impex)
+
+- Deploy the [content-moderation](services/content-moderation) service
+
+- Deploy each function:
+
+    - [Customer Review Webhook Handler](lambdas/customer-review-webhook) 
+    
+    - [Text Analysis Function](lambdas/text-analysis)
+
+    - [Sentiment Analysis Function](lambdas/sentiment-analysis)
+
+- Deploy `webhooks.impex` file in [commerce-impex](commerce-impex)
+
+## Verify
+
+In SAP Commerce Cloud storefront (Spartacus or Accelerator), log in as a user and create a product review.  
+
+### Example Payload
+
+```
+{
+    "d": {
+        "__metadata": {
+            "id": "https://backoffice.<your-env>.model-t.cc.commerce.ondemand.com:443/odata2webservices/CustomerProductReview/CustomerReviews('Online%7CapparelProductCatalog%7C1667409165852%7C29533%7Creviewer1%2540hybris.com')",
+            "uri": "https://backoffice.<your-env>.model-t.cc.commerce.ondemand.com:443/odata2webservices/CustomerProductReview/CustomerReviews('Online%7CapparelProductCatalog%7C1667409165852%7C29533%7Creviewer1%2540hybris.com')",
+            "type": "HybrisCommerceOData.CustomerReview"
+        },
+        "alias": null,
+        "headline": "This is a fantastic product, did everything I wanted it to do.",
+        "blocked": false,
+        "comment": "Best product ever!",
+        "creationtime": "/Date(1667409165852)/",
+        "rating": "5.0",
+        "integrationKey": "Online|apparelProductCatalog|1667409165852|29533|reviewer1%40hybris.com",
+        "product": {
+            "__deferred": {
+                "uri": "https://backoffice.<your-env>.model-t.cc.commerce.ondemand.com:443/odata2webservices/CustomerProductReview/CustomerReviews('Online%7CapparelProductCatalog%7C1667409165852%7C29533%7Creviewer1%2540hybris.com')/product"
+            }
+        },
+        "approvalStatus": {
+            "__deferred": {
+                "uri": "https://backoffice.<your-env>.model-t.cc.commerce.ondemand.com:443/odata2webservices/CustomerProductReview/CustomerReviews('Online%7CapparelProductCatalog%7C1667409165852%7C29533%7Creviewer1%2540hybris.com')/approvalStatus"
+            }
+        },
+        "language": {
+            "__deferred": {
+                "uri": "https://backoffice.<your-env>.model-t.cc.commerce.ondemand.com:443/odata2webservices/CustomerProductReview/CustomerReviews('Online%7CapparelProductCatalog%7C1667409165852%7C29533%7Creviewer1%2540hybris.com')/language"
+            }
+        },
+        "user": {
+            "__deferred": {
+                "uri": "https://backoffice.<your-env>.model-t.cc.commerce.ondemand.com:443/odata2webservices/CustomerProductReview/CustomerReviews('Online%7CapparelProductCatalog%7C1667409165852%7C29533%7Creviewer1%2540hybris.com')/user"
+            }
+        }
+    }
+}
+```

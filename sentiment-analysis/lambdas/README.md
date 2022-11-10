@@ -1,6 +1,6 @@
 # Lambdas
 
-This directory contains the following `Functions` for processing events from SAP Commerce and performing sentiment analysis and updating downstream systems such as SAP Service Cloud and Slack
+This directory contains the following `Functions` for processing events from SAP Commerce Cloud and performing sentiment analysis and updating downstream systems such as SAP Service Cloud and Slack
 
 Each function contains a handler file and a dependencies file depending on the Function runtime selected (Node or Python).
 

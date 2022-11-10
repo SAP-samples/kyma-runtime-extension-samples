@@ -42,7 +42,7 @@ module.exports = {
         //** GET REVIEW TEXT FROM Integration Object
         
         //Review details are now provided in the event data since we are using the 
-        //Commerce webhook method instead of a custom commerce event.
+        //SAP Commerce Cloud webhook method instead of a custom SAP Commerce Cloud event.
         
         //let reviewDetails = await getReviewDetails(reviewCode, traceCtxHeaders);
         let reviewDetails = event.data.reviewdetails;
@@ -151,7 +151,7 @@ async function getUserDetails(userId, isAnonymous, traceCtxHeaders) {
 }
 
 // getReviewDetails() not needed since we now get the review details in the event.  
-// This method is retained to show how to access a Commerce Integration API from Kyma.
+// This method is retained to show how to access a SAP Commerce Cloud Integration API from Kyma.
 async function getReviewDetails(reviewCode, traceCtxHeaders) {
 
     var url = `${reviewServiceURL}('${reviewCode}')`;

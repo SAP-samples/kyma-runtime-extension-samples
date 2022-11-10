@@ -1,6 +1,20 @@
 # text-analysis
 
-This function provides an indication of the sentiment of the proviced text.  
+## Overview
+
+This function provides an indication of the sentiment of the provided text.  
+
+See [TextBlob](https://textblob.readthedocs.io/en/dev/quickstart.html#sentiment-analysis) sentiment analysis engine - for more details.
+
+It uses the `python39` function runtime .  
+
+[handler.py](handler.py) - Javscript source code for the function
+
+[requirements.txt](package.json) - Dependencies for the function
+
+[k8s/function.yaml](k8s/function.yaml) - `Function` configuration for the function
+
+## Usage
 
 Post the content as json `text`:
 ```
@@ -19,12 +33,35 @@ Returns
 
 `subjectivity`: float between 0 and 1 indicating the degree of **subjectivity** of the text.
 
-See [TextBlob](https://textblob.readthedocs.io/en/dev/quickstart.html#sentiment-analysis) sentiment analysis engine - for more details.
+## Deploy
+The [k8s](k8s) directory contains the yaml file with the `Function` configuration. 
 
-It uses the `python39` function runtime .  
+Apply the configuration as follows:
 
-[handler.py](handler.py) - Javscript source code for the function
 
-[requirements.txt](package.json) - Dependencies for the function
+* Set up environment variables
 
-[k8s/function.yaml](k8s/function.yaml) - `Function` configuration for the function
+  * OSX
+
+    ```shell script
+    export NS={your-namespace}
+    ```
+
+  * Windows PowerShell
+
+    ```powershell
+    $NS={your-namespace}
+    ```
+
+
+```
+kubectl apply -n $NS -f k8s/function.yaml
+```
+
+## Verify
+
+The API is available within the namespace in the Kyma cluster via the URL 
+
+http://content-moderation
+
+Send a POST request with the payload described above in **Usage**
