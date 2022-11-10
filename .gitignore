@@ -2,6 +2,7 @@
 node_modules
 .pnp
 .pnp.js
+*/html5-deployer/resources
 
 # testing
 coverage
@@ -27,3 +28,5 @@ grpc-python/kyma.pem
 grpc-python/__pycache__/orders_pb2_grpc.cpython-38.pyc
 grpc-python/__pycache__/orders_pb2.cpython-38.pyc
 .vscode
+
+cap-orders-service/*/chart

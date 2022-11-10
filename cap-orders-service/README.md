@@ -13,6 +13,8 @@ This sample provides a CAP Service application service which displays orders. Wi
   - Creating an XSUAA service instance
   - Creating a Destination service instance
   - Creating a Connectivity proxy service instanace
+  - Creating a HTML5 Repository service instance
+  - Configuration of the app in the Fiori Launchpad
 
 ## Prerequisites
 
@@ -23,6 +25,7 @@ This sample provides a CAP Service application service which displays orders. Wi
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime.
 - [Paketo](https://paketo.io/)
 - [SAP Cloud Connector](https://tools.eu1.hana.ondemand.com/#cloud)
+- [UI5 Tooling](https://sap.github.io/ui5-tooling/)
 
 ## Steps
 
@@ -229,3 +232,87 @@ This should return a response similar to
 ```
 {"@odata.context":"$metadata#OrdersService.return_OrdersService_external","affectedRows":1,"orders":[{"ID":"027e2eb5-8a22-4ad2-9ff9-abfd3bf6da4d"}]}
 ```
+
+### Prepare the UI application
+
+1. In this step a UI application will be added to the helm chart. The helm chart will generate a service instance of the `html5-apps-repo` which is used to push the UI application to the HTML5 Repository service. This can later be configured to use the SAP Lauchpad service. Start by installing the UI5 tooling which is used to build the UI5 application.
+
+```
+npm install --global @sap/ux-ui5-tooling
+```
+
+2. To build the UI application run the following command in the directory `app/app/orders`
+
+```
+ui5 build --dest ../../../html5-deployer/resources/webapp --clean-dest true
+```
+
+3. Copy the file `xs-app.json` into the directory `html5-deployer/resources`. Within the directory `app/app` run
+
+```
+cp xs-app.json ../../html5-deployer/resources/webapp
+```
+
+4. Steps two and three will have added the built UI5 application and the `xs-app.json` to the directory `html5-deployer`. This directory defines the `html5-app-deployer` which is deployed as a Kubernetes job which publishes the UI5 application to the HTML5 Repository service. To build the container run
+
+```
+pack build <dockerid>/orders-html5-deployer --buildpack gcr.io/paketo-buildpacks/nodejs --builder paketobuildpacks/builder:base
+```
+
+5. Push the image to your container repository
+
+```
+docker push <dockerid>/orders-html5-deployer
+```
+
+6. Add the html5_apps_deployer feature to helm chart by running the following command in the `app` directory.
+
+```
+cds add helm:html5_apps_deployer
+```
+
+7. Configure the Helm chart by opening the file `app/chart/values.yaml` and provide the values
+
+   1. **Repository**: your docker/repository account
+   2. **html5_apps_deployer.cloudService**: cpapp.service
+   3. **html5_apps_deployer.backendDestinations**: see code block
+
+      ```
+      html5_apps_deployer:
+      cloudService: cpapp.service
+      backendDestinations:
+         srv-api:
+            service: srv
+      ```
+
+Update the helm chart, by running the following command in the directory `app`
+
+```
+helm upgrade --install orders ./chart --namespace dev
+```
+
+8. Once the chart installation completes you will find the UI5 application by opening the SAP CTP Cockpit and choosing `HTML5 Applications`. The application will be named `comkymademoorders`. Click on the application name to open it.
+
+### Add application to the SAP Launchpad
+
+1. Within your SAP BTP subaccount choose Service Marketplace. Select the Launchpad Service and choose Create.
+
+2. Assign the role for the Launchpad Service by choosing Security -> Users in the subaccount. Then choose your user and the option Assign Role Collection.
+
+3. Assign the value `Launchpad_Admin` to the user.
+
+4. Within the SAP BTP subaccount choose `Services` -> `Instances and Subscriptions`. Choose `Launchpad Service` found under `Subscriptions` and `Go to Application`.
+
+5. Choose `Create Site` and provide name `Kyma`. Choose the `<` at the top left to leave the Site Settings and navigate back to Site Directory.
+
+6. In the left hand menu choose `Channel Manager` . Under `Actions` choose the refresh option.
+
+7. Choose `Content Manager` and then `Content Explorer` at the top menu.
+
+8. Choose `HTML5 Apps` and select the application `Orders` and choose `Add to My Content`.
+
+9. Choose `My Content`and then `New` -> `Group`. Provide `Kyma` as the `Title` and assign `Orders` as the app. Choose `Save`.
+
+10. Choose the arrow button `<` to go back. Choose the role `Everyone` and choose `Edit` and assign `Orders` as the app and `Save`.
+
+11. Choose `Site Directory` and then the option to `Go to Site`.
