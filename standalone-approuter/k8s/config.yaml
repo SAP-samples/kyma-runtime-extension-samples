@@ -31,7 +31,7 @@ data:
             {
             "source": "^/(.*)$",
             "destination": "httpbin",
-            "target": "/",
+            "target": "$1",
             "authenticationType": "xsuaa"
         }
         ]
