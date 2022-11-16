@@ -71,25 +71,85 @@ The extension requires a `Secret` named `sentiment-analysis` configured in the K
 
 ## Deploy
 
-Deployment steps are described in each component's README.md file.
+Detailed deployment steps are described in each component's README.md file.
 
-- Deploy `projectdata-integration-objects.impex` and `projectdata-register-integration-object.impex` files in [commerce-impex](commerce-impex)
+- Set up environment variables
 
-- Deploy the [content-moderation](services/content-moderation) service
+  - OSX
 
-- Deploy each function:
+    ```shell script
+    export NS={your-namespace}
+    ```
 
-    - [Customer Review Webhook Handler](lambdas/customer-review-webhook) 
+  - Windows PowerShell
+
+    ```powershell
+    $NS={your-namespace}
+    ```
+
+
+### SAP Commerce Cloud Integration API
+
+Import the following files in [commerce-impex](commerce-impex) in your SAP Commerce Cloud environment via the Adminstration Cockpit (hAC) or alternative method.  
+
+```
+commerce-impex/projectdata-integration-objects.impex commerce-impex/projectdata-register-integration-object.impex
+```
+
+See the SAP Commmerce Help topic on  [Data Management with Impex](https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/1b6dd3451fc04c3aa8e95937e9ef2471.html?q=impex).
+
+Add the Integration Object to the registered Kyma Destination Target using SAP Commerce Cloud Backoffice as described in **Expose Your API – Existing Destination Target** section in this [blog post](https://blogs.sap.com/2022/10/14/commerce-cloud-exposing-integration-apis-to-sap-btp-kyma-runtime-with-oauth2/) on SAP Community
+
+### Content Moderation Service
+
+Deploy the [content-moderation](services/content-moderation) service
+
+`kubectl apply -n $NS -f services/content-moderation/k8s/content-moderation.yaml`
+
+### Functions
+
+Deploy each function:
+
+[Customer Review Webhook Handler](lambdas/customer-review-webhook) 
     
-    - [Text Analysis Function](lambdas/text-analysis)
+```
+kubectl apply -n $NS -f functions/customer-review-webhook/k8s/function.yaml
+kubectl apply -n $NS -f functions/customer-review-webhook/k8s/api-access.yaml
+```
+Retrieve `client_id` & `client_secret` from the secret created by the **OAuth2Client** `sentiment-analysis-client`
 
-    - [Sentiment Analysis Function](lambdas/sentiment-analysis)
+```
+kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
+kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
+```
 
-- Deploy `webhooks.impex` file in [commerce-impex](commerce-impex) with updated client-id and client-secret from `OAuth2Client` created in [Customer Review Webhook Handler](lambdas/customer-review-webhook/k8s/api-access.yaml) step
+[Text Analysis Function](lambdas/text-analysis)
+
+```
+kubectl apply -n $NS -f k8s/function.yaml
+```
+
+[Sentiment Analysis Function](lambdas/sentiment-analysis)
+
+```
+kubectl apply -n $NS -f k8s/function.yaml
+kubectl apply -n $NS -f k8s/subscription.yaml
+```
+
+### Webhook
+
+Update the following variables in `commerce-impex/webhooks.impex` with the values extracted above from `sentiment-analysis-client`.
+
+```
+$oauth_client_id
+$oauth_client_secret
+```
+
+Deploy `commerce-impex/webhooks.impex` into SAP Commerce Cloud.
 
 ## Verify
 
-In SAP Commerce Cloud storefront (Spartacus or Accelerator), log in as a user and create a product review.  
+In SAP Commerce Cloud storefront (Spartacus or Accelerator), log in as a user and create a product review on the Reviews tab of the product detail page.  
 
 ### Example Payload
 

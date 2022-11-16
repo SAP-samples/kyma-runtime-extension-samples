@@ -1,10 +1,10 @@
 $destination_target=webhookServices
 $webhook_name=cc-customerproductreview-webhook
-$kyma_domain=c-<your-kyma-domain
+$kyma_domain={your-kyma-domain}
 $endpoint_url=https://cusrevwh-o.$kyma_domain
 $oauth_url=https://oauth2.$kyma_domain/oauth2/token
-$oauth_client_id=46f5b585-0ba6-4737-b3ed-5c855fd9066b
-$oauth_client_secret=7NLFXHVnVOK3ykWPpdKnMixh.A
+$oauth_client_id={client_id}
+$oauth_client_secret={client_secret}
 
 
 INSERT_UPDATE Endpoint;id[unique=true];name;version[unique=true];description;specUrl;specData;extensionName

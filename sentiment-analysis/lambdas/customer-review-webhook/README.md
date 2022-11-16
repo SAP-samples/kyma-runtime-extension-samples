@@ -48,6 +48,13 @@ kubectl apply -n $NS -f k8s/function.yaml
 kubectl apply -n $NS -f k8s/api-access.yaml
 ```
 
+Retrieve `client_id` & `client_secret` from the secret created by the **OAuth2Client** `sentiment-analysis-client`.  This will be needed by the Webhook service in SAP Commerce Cloud.
+
+```
+kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
+kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
+```
+
 ## Verify
 
 Call the API using the API Rule endpoint
