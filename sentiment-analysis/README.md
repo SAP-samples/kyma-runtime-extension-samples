@@ -43,13 +43,13 @@ The architecture diagram describes use case flow.
 
 ## Prerequisites
 
-- An SAP BTP Kyma runtime instance is required.  The extension components run in a namespace named `sentiment-analysis` by default.
+- [SAP BTP, Kyma runtime instance](../../prerequisites/#kyma)
 
-- SAP Commerce Cloud environment connected to SAP BTP Kyma runtime.  
+- [Kubernetes tooling](../../prerequisites/#kubernetes)
 
-- (Optional) SAP Sales Cloud (Cloud for Customer) connected to SAP BTP Kyma runtime if you enable the `c4cUpdateFlag` (see below)
+- [SAP Commerce Cloud environment connected to SAP BTP Kyma runtime.](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html)  
 
-See [SAP Help](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html) for details on how to connect SAP Commerce Cloud and SAP Sales Cloud to SAP BTP Kyma runtime.
+- (Optional) [SAP Sales Cloud (Cloud for Customer) connected to SAP BTP Kyma runtime](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html) if you enable the `c4cUpdateFlag` (see below)
 
 ## Configuration
 
@@ -105,7 +105,9 @@ Add the Integration Object to the registered Kyma Destination Target using SAP C
 
 Deploy the [content-moderation](services/content-moderation) service
 
-`kubectl apply -n $NS -f services/content-moderation/k8s/content-moderation.yaml`
+```
+kubectl apply -n $NS -f services/content-moderation/k8s/content-moderation.yaml
+```
 
 ### Functions
 
@@ -114,9 +116,10 @@ Deploy each function:
 [Customer Review Webhook Handler](lambdas/customer-review-webhook) 
     
 ```
-kubectl apply -n $NS -f functions/customer-review-webhook/k8s/function.yaml
-kubectl apply -n $NS -f functions/customer-review-webhook/k8s/api-access.yaml
+kubectl apply -n $NS -f lambdas/customer-review-webhook/k8s/function.yaml
+kubectl apply -n $NS -f lambdas/customer-review-webhook/k8s/api-access.yaml
 ```
+
 Retrieve `client_id` & `client_secret` from the secret created by the **OAuth2Client** `sentiment-analysis-client`. This will be needed by the Webhook service in SAP Commerce Cloud (below).
 
 ```
@@ -127,14 +130,14 @@ kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_i
 [Text Analysis Function](lambdas/text-analysis)
 
 ```
-kubectl apply -n $NS -f k8s/function.yaml
+kubectl apply -n $NS -f lambdas/text-analysis/k8s/function.yaml
 ```
 
 [Sentiment Analysis Function](lambdas/sentiment-analysis)
 
 ```
-kubectl apply -n $NS -f k8s/function.yaml
-kubectl apply -n $NS -f k8s/subscription.yaml
+kubectl apply -n $NS -f lambdas/sentiment-analysis/k8s/function.yaml
+kubectl apply -n $NS -f lambdas/sentiment-analysis/k8s/subscription.yaml
 ```
 
 ### Webhook
