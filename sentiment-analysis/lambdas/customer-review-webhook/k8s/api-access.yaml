@@ -1,0 +1,29 @@
+apiVersion: hydra.ory.sh/v1alpha1
+kind: OAuth2Client
+metadata:
+  name: sentiment-analysis-client
+spec:
+  grantTypes:
+    - "client_credentials"
+  scope: "read write"
+  secretName: sentiment-analysis-client
+  
+---
+
+apiVersion: gateway.kyma-project.io/v1beta1
+kind: APIRule
+metadata:
+  name: sentiment-analysis-api-rule
+spec:
+  gateway: kyma-system/kyma-gateway
+  host: cusrevwh-o.<your-cluster>.kyma.shoot.live.k8s-hana.ondemand.com
+  service:
+    name: customer-review-webhook
+    port: 80
+  rules:
+    - path: /.*
+      methods: ["POST"]
+      accessStrategies:
+        - handler: oauth2_introspection
+          config:
+            required_scope: []

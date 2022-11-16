@@ -1,0 +1,37 @@
+$oAuthUser=ODATAUSER
+$oAuthPassword=odata1234
+
+
+INSERT_UPDATE Employee;uid[unique=true];password;groups(uid);
+;$oAuthUser;$oAuthPassword;integrationadmingroup;
+
+INSERT_UPDATE Endpoint;id[unique=true];name;version[unique=true];description;specUrl;specData;extensionName
+;cc-customerreview;CC Customer Review v1;v1;"Commerce Cloud OData Customer Review Service v1";{ccv2.services.api.url.0}/odata2webservices/CustomerProductReview/$metadata;;odata2webservices
+
+
+INSERT_UPDATE InboundChannelConfiguration; integrationObject(code)[unique = true]; authenticationType(code);
+;CustomerProductReview;OAUTH;
+
+INSERT_UPDATE IntegrationClientCredentialsDetails;clientId[unique = true];resourceIds;authorities;clientSecret;registeredRedirectUri;user(uid);oAuthUrl
+;odatauser-client;hybris;ROLE_INTEGRATIONADMINGROUP;$oAuthPassword;{ccv2.services.api.url.0}/authorizationserver/oauth/token;$oAuthUser;{ccv2.services.api.url.0}/authorizationserver/oauth/token
+
+INSERT_UPDATE ExposedOAuthCredential;id[unique=true];oAuthClientDetails(clientId);password
+;odatauser-client;odatauser-client;$oAuthPassword
+
+$START_USERRIGHTS; ; ; ; ; ; ; ; ;
+Type      ; UID                          ; MemberOfGroups ; Password ; Target                         ; read ; change ; create ; remove ; change_perm
+UserGroup ; integrationadmingroup        ;                ;          ;                                ;      ;        ;        ;        ;
+# Access Rights for integrationadmingroup Users ;;;;;;;;;
+;                                        ;                ;          ; CustomerReview                 ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; Product                        ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; CustomerReviewApprovalType     ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; Catalog                        ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; CatalogVersion                        ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; Language                       ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; User                           ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; Address                        ; +    ; +      ; +      ; +      ; +
+$END_USERRIGHTS; ; ; ; ;
+
+## Update to the correct url and destinationTarget values
+INSERT_UPDATE ExposedDestination;id[unique=true];url;endpoint(id)[unique=true];additionalProperties(key,value)[map-delimiter=|];destinationTarget(id)[default=Default_Template];active[default=true];credential(id)
+;cc-customerproductreview;{ccv2.services.api.url.0}/odata2webservices/CustomerProductReview;cc-customerreview;;;;odatauser-client

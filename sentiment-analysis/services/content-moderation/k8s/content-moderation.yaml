@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: content-moderation
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+      matchLabels:
+         app: content-moderation
+  template:
+    metadata:
+      labels:
+        app: content-moderation
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - name: content-moderation
+        image: "arthurperry/content-moderation:latest"
+        imagePullPolicy: Always
+        resources: {}
+        ports:
+        - name: http
+          containerPort: 5002
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: content-moderation
+  labels:
+    app: content-moderation
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5002
+  selector:
+    app: content-moderation

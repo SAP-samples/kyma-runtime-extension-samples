@@ -1,0 +1,20 @@
+apiVersion: serverless.kyma-project.io/v1alpha2
+kind: Function
+metadata:
+  name: customer-review-webhook
+spec:
+  runtime: nodejs16
+  source:
+    gitRepository:
+      url: https://github.tools.sap/pscoec4f/demo-sentiment-analysis.git
+      baseDir: /lambdas/customer-review-webhook
+      reference: ccv2-2205
+      auth:
+        type: basic
+        secretName: git-creds-basic
+  env:
+    - name: PUBLISHER_URL
+      value: 'http://eventing-event-publisher-proxy.kyma-system/publish'
+    - name: EVENT_NAME
+      value: 'sap.kyma.custom.internal.product.reviewsubmitted.v1'
+
