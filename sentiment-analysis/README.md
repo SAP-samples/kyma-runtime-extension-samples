@@ -93,7 +93,8 @@ Detailed deployment steps are described in each component's README.md file.
 Import the following files in [commerce-impex](commerce-impex) in your SAP Commerce Cloud environment via the Adminstration Cockpit (hAC) or alternative method.  
 
 ```
-commerce-impex/projectdata-integration-objects.impex commerce-impex/projectdata-register-integration-object.impex
+commerce-impex/projectdata-integration-objects.impex 
+commerce-impex/projectdata-register-integration-object.impex
 ```
 
 See the SAP Commmerce Help topic on  [Data Management with Impex](https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/1b6dd3451fc04c3aa8e95937e9ef2471.html?q=impex).
@@ -116,7 +117,7 @@ Deploy each function:
 kubectl apply -n $NS -f functions/customer-review-webhook/k8s/function.yaml
 kubectl apply -n $NS -f functions/customer-review-webhook/k8s/api-access.yaml
 ```
-Retrieve `client_id` & `client_secret` from the secret created by the **OAuth2Client** `sentiment-analysis-client`
+Retrieve `client_id` & `client_secret` from the secret created by the **OAuth2Client** `sentiment-analysis-client`. This will be needed by the Webhook service in SAP Commerce Cloud (below).
 
 ```
 kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
