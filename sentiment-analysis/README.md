@@ -105,7 +105,9 @@ Add the Integration Object to the registered Kyma Destination Target using SAP C
 
 Deploy the [content-moderation](services/content-moderation) service
 
-`kubectl apply -n $NS -f services/content-moderation/k8s/content-moderation.yaml`
+```
+kubectl apply -n $NS -f services/content-moderation/k8s/content-moderation.yaml
+```
 
 ### Functions
 
@@ -114,9 +116,10 @@ Deploy each function:
 [Customer Review Webhook Handler](lambdas/customer-review-webhook) 
     
 ```
-kubectl apply -n $NS -f functions/customer-review-webhook/k8s/function.yaml
-kubectl apply -n $NS -f functions/customer-review-webhook/k8s/api-access.yaml
+kubectl apply -n $NS -f lambdas/customer-review-webhook/k8s/function.yaml
+kubectl apply -n $NS -f lambdas/customer-review-webhook/k8s/api-access.yaml
 ```
+
 Retrieve `client_id` & `client_secret` from the secret created by the **OAuth2Client** `sentiment-analysis-client`. This will be needed by the Webhook service in SAP Commerce Cloud (below).
 
 ```
@@ -127,14 +130,14 @@ kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_i
 [Text Analysis Function](lambdas/text-analysis)
 
 ```
-kubectl apply -n $NS -f k8s/function.yaml
+kubectl apply -n $NS -f lambdas/text-analysis/k8s/function.yaml
 ```
 
 [Sentiment Analysis Function](lambdas/sentiment-analysis)
 
 ```
-kubectl apply -n $NS -f k8s/function.yaml
-kubectl apply -n $NS -f k8s/subscription.yaml
+kubectl apply -n $NS -f lambdas/sentiment-analysis/k8s/function.yaml
+kubectl apply -n $NS -f lambdas/sentiment-analysis/k8s/subscription.yaml
 ```
 
 ### Webhook
