@@ -44,7 +44,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: saas-prov-xsuaa-binding
-                key: xsappname
+                key: identityzone
           ports:
             - name: http
               containerPort: 8000
