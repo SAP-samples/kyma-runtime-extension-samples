@@ -15,7 +15,7 @@ Jupyter [Hub](https://z2jh.jupyter.org/en/stable/) is a multi user Jupyter envir
 
 Install command line tools
 * [kubectl](https://kubernetes.io/docs/tasks/tools/) 
-* [kubectl plugin](https://github.com/int128/kubelogin)
+* [kubectl plugin for certificate sign on](https://github.com/int128/kubelogin)
 * [helm](https://helm.sh/docs/intro/install/)
 
 Access the Kyma instance as specified [in the doc](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/3e25944e491049b2aeec68c562a5ee48.html).
