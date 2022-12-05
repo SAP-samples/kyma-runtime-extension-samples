@@ -11,12 +11,8 @@ spec:
   rules:
     - path: /.*
       accessStrategies:
-        - config: 
-            jwks_urls:
-            - https://sap-provisioning.authentication.sap.hana.ondemand.com/token_keys
-            trusted_issuers:
-            - http://sap-provisioning.localhost:8080/uaa/oauth/token
-          handler: jwt
+        - config: {}
+          handler: allow
       methods:
         - PUT
         - DELETE
