@@ -6,7 +6,7 @@ spec:
   serviceOfferingName: saas-registry
   servicePlanName: application
   parameters:
-    xsappname: "saas-provisioning-demo-app22"
+    xsappname: "saas-provisioning-demo-app"
     displayName: "Kyma SAAS Provisioning Demo"
     description: "A Kyma SAAS Provisioning Demo Sample App"
     category: "Kyma Demo"

@@ -160,19 +160,19 @@ cds add helm
 2. Within the directory `app`, run the command to add the XSUAA feature to the project. This will result in an XSUAA instance being created when the helm chart is deployed.
 
 ```shell
-cds add helm:xsuaa
+cds add xsuaa
 ```
 
 3. Within the directory `app`, run the command to add the Connectivity feature to the project. This will result in an Connectivity Proxy instance being created when the helm chart is deployed. The the Connecitivity Proxy is used to communicate to the SAP Cloud Connector.
 
 ```shell
-cds add helm:connectivity
+cds add connectivity
 ```
 
 4. Within the directory `app`, run the command to add the Destinations feature to the project. This will result in an Destinations instance being created when the helm chart is deployed. This is used to obtain the details of the **localmock** destination.
 
 ```shell
-cds add helm:destinations
+cds add destinations
 ```
 
 ### Configure the Helm chart
@@ -181,7 +181,7 @@ cds add helm:destinations
 
    1. **Domain**: your kyma cluster-domain
    2. **Repository**: your docker/repository account
-   3. **imagePullSecret.name**: if using a secured docker/repository account provide the secret name, otherwise use **notused**
+   3. **imagePullSecret.name**: if using a secured docker/repository account provide the secret name, otherwise leave as defined
    4. **srv.bindings.db.fromsecret**: orders-db
    5. **hana_deployer.bindings.hana.fromSecret**: orders-db
 
@@ -268,7 +268,7 @@ docker push <dockerid>/orders-html5-deployer
 6. Add the html5_apps_deployer feature to helm chart by running the following command in the `app` directory.
 
 ```
-cds add helm:html5_apps_deployer
+cds add html5-repo
 ```
 
 7. Configure the Helm chart by opening the file `app/chart/values.yaml` and provide the values
