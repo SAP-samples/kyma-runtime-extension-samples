@@ -47,7 +47,7 @@ The architecture diagram describes use case flow.
 
 - [Kubernetes tooling](../../prerequisites/#kubernetes)
 
-- [SAP Commerce Cloud environment connected to SAP BTP Kyma runtime.](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html)  
+- [SAP Commerce Cloud environment connected to SAP BTP Kyma runtime.](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html)  v2011 or greater in order to use the Webhooks feature.
 
 - (Optional) [SAP Sales Cloud (Cloud for Customer) connected to SAP BTP Kyma runtime](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html) if you enable the `c4cUpdateFlag` (see below)
 

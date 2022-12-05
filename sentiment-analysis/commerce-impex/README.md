@@ -4,6 +4,10 @@
 
 This directory contains **Impex** files to configure components in SAP Commerce. For information on how to import the data into SAP Commerce, see the SAP Commmerce Help topic on  [Data Management with Impex](https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/1b6dd3451fc04c3aa8e95937e9ef2471.html?q=impex)
 
+## Prerequisites
+
+- SAP Commerce Cloud v2011 or greater - in order to use the Webhook feature
+
 ## Impex Files
 
 [projectdata-integration-objects.impex](projectdata-integration-objects.impex)
