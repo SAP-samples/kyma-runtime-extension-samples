@@ -43,7 +43,7 @@ The architecture diagram describes use case flow.
 
 ## Prerequisites
 
-- [SAP BTP, Kyma runtime instance](../../prerequisites/#kyma)
+- [SAP BTP, Kyma runtime instance](../../prerequisites#kyma)
 
 - [Kubernetes tooling](../../prerequisites/#kubernetes)
 
