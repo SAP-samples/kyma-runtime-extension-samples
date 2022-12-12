@@ -30,3 +30,4 @@ http://schemas.xmlsoap.org/*
 https://sample-ldap.*
 https://s4-address-validation/*
 https://oauth2/*
+https://saas-demo/
