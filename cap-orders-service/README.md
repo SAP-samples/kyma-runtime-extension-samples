@@ -273,16 +273,16 @@ cds add html5-repo
 
 7. Configure the Helm chart by opening the file `app/chart/values.yaml` and provide the values
 
-   1. **Repository**: your docker/repository account
+   1. **html5_apps_deployer.image.repository**: your docker/repository account
    2. **html5_apps_deployer.cloudService**: cpapp.service
    3. **html5_apps_deployer.backendDestinations**: see code block
 
       ```
       html5_apps_deployer:
-      cloudService: cpapp.service
-      backendDestinations:
-         srv-api:
-            service: srv
+        cloudService: cpapp.service
+        backendDestinations:
+           srv-api:
+              service: srv
       ```
 
 Update the helm chart, by running the following command in the directory `app`
