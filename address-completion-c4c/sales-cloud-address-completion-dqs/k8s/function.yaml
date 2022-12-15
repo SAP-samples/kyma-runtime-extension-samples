@@ -20,10 +20,10 @@ spec:
   - name: DQS_UAA
     valueFrom:
       secretKeyRef: 
-        name: data-quality-service-sb
+        name: sap-dqs-kyma-demo
         key: uaa
   - name: URI
     valueFrom:
       secretKeyRef:
-        name: data-quality-service-sb
+        name: sap-dqs-kyma-demo
         key: uri
