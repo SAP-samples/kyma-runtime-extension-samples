@@ -253,7 +253,7 @@ ui5 build --dest ../../../html5-deployer/resources/webapp --clean-dest true
 cp xs-app.json ../../html5-deployer/resources/webapp
 ```
 
-4. Steps two and three will have added the built UI5 application and the `xs-app.json` to the directory `html5-deployer`. This directory defines the `html5-app-deployer` which is deployed as a Kubernetes job which publishes the UI5 application to the HTML5 Repository service. To build the container run
+4. Steps two and three will have added the built UI5 application and the `xs-app.json` to the directory `html5-deployer`. This directory defines the `html5-app-deployer` which is deployed as a Kubernetes job which publishes the UI5 application to the HTML5 Repository service. To build the container run the following command in the `html5-deployer` directory.
 
 ```
 pack build <dockerid>/orders-html5-deployer --buildpack gcr.io/paketo-buildpacks/nodejs --builder paketobuildpacks/builder:base
