@@ -256,7 +256,7 @@ cp xs-app.json ../../html5-deployer/resources/webapp
 4. Steps two and three will have added the built UI5 application and the `xs-app.json` to the directory `html5-deployer`. This directory defines the `html5-app-deployer` which is deployed as a Kubernetes job which publishes the UI5 application to the HTML5 Repository service. To build the container run the following command in the `html5-deployer` directory.
 
 ```
-pack build <dockerid>/orders-html5-deployer --buildpack gcr.io/paketo-buildpacks/nodejs --builder paketobuildpacks/builder:base
+pack build <dockerid>/orders-html5-deployer --workspace app --buildpack gcr.io/paketo-buildpacks/nodejs --builder paketobuildpacks/builder:base
 ```
 
 5. Push the image to your container repository
