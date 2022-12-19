@@ -184,6 +184,7 @@ cds add destinations
    3. **imagePullSecret.name**: if using a secured docker/repository account provide the secret name, otherwise leave as defined
    4. **srv.bindings.db.fromsecret**: orders-db
    5. **hana_deployer.bindings.hana.fromSecret**: orders-db
+   6. **srv.bindings.destinations.serviceInstanceName**: destination
 
 2. Open the file `app/chart/charts/web-application` and adjust the value
    1. **port**: 4004
