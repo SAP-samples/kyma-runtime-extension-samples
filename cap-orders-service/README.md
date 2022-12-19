@@ -39,7 +39,7 @@ This sample provides a CAP Service application service which displays orders. Wi
 npm install
 ```
 
-3. Install the CAP tools
+3. Install the CAP tools - version @sap/cds-dk@6.3.0 was used at the time of creating this example
 
 ```shell
 npm i -g @sap/cds-dk
