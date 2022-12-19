@@ -294,7 +294,7 @@ helm upgrade --install orders ./chart --namespace dev
 
 8. Once the chart installation completes you will find the UI5 application by opening the SAP CTP Cockpit and choosing `HTML5 Applications`. The application will be named `comkymademoorders`. Click on the application name to open it.
 
-### Deploy approuter to Kyma
+### Access HTML5 via approuter running in Kyma
 
 1. Undeploy the example
 
