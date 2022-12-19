@@ -39,7 +39,7 @@ This sample provides a CAP Service application service which displays orders. Wi
 npm install
 ```
 
-3. Install the CAP tools - version @sap/cds-dk@6.3.0 was used at the time of creating this example
+3. Install the CAP tools - version @sap/cds-dk@6.3.2 was used at the time of creating this example
 
 ```shell
 npm i -g @sap/cds-dk
@@ -293,6 +293,65 @@ helm upgrade --install orders ./chart --namespace dev
 ```
 
 8. Once the chart installation completes you will find the UI5 application by opening the SAP CTP Cockpit and choosing `HTML5 Applications`. The application will be named `comkymademoorders`. Click on the application name to open it.
+
+### Deploy approuter to Kyma
+
+1. Undeploy the example
+
+```
+helm uninstall orders --namespace dev
+```
+2. Open the file `app/chart/values.yaml` and add the property
+
+  1. **xsuaa.parameters.tenant-mode**: dedicated
+
+3. Open the file `app/chart/xs-security.json` and add the property `oauth2-configuration`, replacing the value `{CLUSTER_DOMAIN}` with your cluster domain as shown
+
+```
+{
+  "scopes": [],
+  "attributes": [],
+  "role-templates": [],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://orders-srv-cap-approuter.{CLUSTER_DOMAIN}/**"
+    ]
+  }
+}
+```
+
+4. Redeploy the example
+
+```
+helm upgrade --install orders ./chart --namespace dev
+```
+
+5. Create the service instance and binding for the `html5-apps-runtime`
+
+```
+kubectl apply -f k8s/app-router-html5-repo.yaml -n dev
+```
+
+6. Deploy the app router deployment
+
+```
+kubectl apply -f k8s/app-router.yaml -n dev
+```
+
+7. Open the file `k8s/app-router-apirule.yaml` add replace `{CLUSTER_DOMAIN}` with your cluster domain. Apply the apirule
+
+```
+kubectl apply -f k8s/app-router-apirule.yaml -n dev
+```
+
+8. Verify that the contents of the `data.xs-app.json` property found in `k8s/app-router-cm.yaml` match those found in `app/app/xs-app.json`, otherwise these should be corrected. Apply the config map
+
+```
+kubectl apply -f k8s/app-router-cm.yaml -n dev
+```
+9. Once started the application will be available at
+
+https://orders-srv-cap-approuter.{CLUSTER_DOMAIN}/comkymademoorders/index.html
 
 ### Add application to the SAP Launchpad
 
