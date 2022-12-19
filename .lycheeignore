@@ -31,4 +31,4 @@ https://sample-ldap.*
 https://s4-address-validation/*
 https://oauth2/*
 https://saas-demo/
- https://orders-srv-cap-approuter*
+https://orders-srv-cap-approuter/*
