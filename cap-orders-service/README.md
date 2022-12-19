@@ -14,6 +14,7 @@ This sample provides a CAP Service application service which displays orders. Wi
   - Creating a Destination service instance
   - Creating a Connectivity proxy service instanace
   - Creating a HTML5 Repository service instance
+  - Configuration of the app in an approuter instance running in Kyma
   - Configuration of the app in the Fiori Launchpad
 
 ## Prerequisites
