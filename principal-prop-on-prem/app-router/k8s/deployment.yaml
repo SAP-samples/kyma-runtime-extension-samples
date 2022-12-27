@@ -30,20 +30,20 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: app-router
     spec:
       containers:
-      - image: gabbi/app-router-minimal:0.0.1
+      - image: sapse/approuter:11.3.2
         name: app-router
         ports:
         - containerPort: 5000
         resources: {}
         volumeMounts:
         - name: approuter-config-volume
-          mountPath: /usr/src/app/xs-app.json
+          mountPath: /app/xs-app.json
           subPath: xs-app.json
+          readOnly: true
         - name: xsuaa-credentials
           mountPath: /etc/secrets/sapcp/xsuaa/principal-prop-on-prem-xsuaa
           readOnly: true
@@ -89,7 +89,6 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
   labels:
     app: app-router
     sample: principal-prop-on-prem
