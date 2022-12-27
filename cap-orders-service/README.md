@@ -88,39 +88,50 @@ Following the instructions to configure the localmock application within the SAP
 
 1. In the SAP BTP global account choose Entitlements -> Entity Assignments. Choose your subaccount and choose Go. This will list all assigned entitlements.
 2. Choose Configure Entitlements and Add Service Plans to select additional entitlements.
-3. For the Entitlement choose **SAP HANA Cloud** and choose the Plan **hana**
-4. Creat the Instance by choosing within the the subaccount view, open Cloud Foundry -> Spaces and select the dev space and choose the menu item SAP HANA Cloud. Choose Create -> SAP HANA Database.
-5. In SAP HANA Cloud Central, select as Type the entry SAP HANA Cloud, SAP HANA Database. Choose Next Step at the bottom right.
+3. For the Entitlement choose
+  - **SAP HANA Cloud** and choose the Plan **tools**
+  - **SAP HANA Schemas & HDI Containers** and choose the Plan **hdi-shared**
+4. Create the HANA Cloud Instance by choosing within the the subaccount view, open Services -> Service Marketplace
+5. Choose **Create** and choose the Plan **tools**
+6. Assign the Role Collection **SAP HANA Cloud Administrator** to your user
+7. Open Services -> Instances and Subscriptions and choose the **SAP HANA Cloud** application which opens the SAP HANA Cloud Central
+8. Choose the option to **Create Instance** and choose...
+  1. **SAP HANA Cloud, SAP HANA Database**, choose **Next**
+  2. Provide an Instance Name and a Password, choose **Next**
+  3. Choose **Next**
+  4. Choose **Next**
+  5. SAP HANA Database Advanced Settings - set **Allowed connections** to **Allow all IP addresses**, choose **Next**
+  6. Choose **Review and Create**
+  7. Choose **Create Instance**
 
-6. Provide the following values:
-   1. Instance Name: kyma
-   2. Administrator Password: Any value
-   3. Chose Next Step and keep the default values of the next two screens by choosing Next Step twice.
-   4. On the SAP HANA Database Advanced Settings choose the option Allow all IP addresses and choose Next Step.
-   5. Lastly, choose Review and Create and then Create Instance.
 
-### Provising the SAP HANA Schemas & HDI Containers
+### Map Kyma Instance to the HANA DB
+
+For this we will need the Environment Instance ID of the Kyma runtime environment. 
+
+1. In the Kyma dashboard choose the menu option **Namespaces** and open the Namespace **kyma-system**
+2. Choose the menu option **Configuration -> Config Maps**, and search for **sap-btp-operator-config**
+3. Open the config map and copy the value **CLUSTER_ID**
+4. In the SAP HANA Cloud Central, choose the ellipse of your Instance and choose **Manage Configuration**
+5. Choose **Edit** found at the top right, then choose the tab **Instance Mapping**
+6. Choose **Add Mapping**, choose **Kyma** for the Environment Type, provide the Cluster ID copied from step three and provide the namespace **dev** from the Environment Group
+7. Choose **Save**
+
+### Create the SAP HANA Schemas & HDI Container
 
 ⚠ NOTE: The step requires that the creation of the SAP HANA Cloud has completed.
 
-1.  Within your SAP BTP subaccount choose Service Marketplace and select SAP HANA Schemas & HDI Containers. Choose Create with the options
-    1. **Plan**: hdi-shared
-    2. **Instance Name**: orders-db
-2.  Choose Create and select the option View Instance. Once the instance is created, open the instance and choose the option Create under Service Keys. Provide the service Key Name **kyma** and choose Create.
-
-3.  Once created choose the option View and copy the credentials.
-4.  Open the file `k8s/hana-db-secret.yaml` and copy the values into the file.
-5.  Create a new `dev` Namespace:
+1. Create a new `dev` Namespace:
 
 ```shell script
 kubectl create namespace dev
 kubectl label namespaces dev istio-injection=enabled
 ```
 
-6.  Apply the secret
+2. Create the schema instance and binding by running
 
 ```shell
-kubectl -n dev apply -f ./k8s/hana-db-secret.yaml
+kubectl -n dev apply -f ./k8s/hana-db-schema.yaml
 ```
 
 ### Prepare the app for deployment
