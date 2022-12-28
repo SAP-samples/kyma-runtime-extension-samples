@@ -17,12 +17,11 @@ This sample demonstrates how to:
 
 ## Prerequisites
 
-* SAP BTP, Kyma runtime instance
-* [Docker](https://www.docker.com/)
-* [make](https://www.gnu.org/software/make/)
-* [Gradle](https://gradle.org/)
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime
-* [Java 11+](https://openjdk.java.net/projects/jdk/11/)
+* [SAP BTP, Kyma runtime instance](../prerequisites#kyma)
+* [Kubernetes tooling](../prerequisites#kubernetes)
+* [Docker](../prerequisites#docker)
+* [make](../prerequisites#build-tooling)
+* [Gradle](../prerequisites#java)
 
 ## Application
 
