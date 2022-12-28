@@ -133,8 +133,6 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
   kubectl -n $NS apply -f app-router/k8s/deployment.yaml
   ```
 
-  >Note: The application router image is based on the [stand-alone application router sample](../standalone-approuter/README.md)
-
 * Expose it over internet using API Rule. Update the [app-router/k8s/api-rule.yaml](app-router/k8s/api-rule.yaml) to provide `{your-cluster-domain}`
 
   ```shell script
