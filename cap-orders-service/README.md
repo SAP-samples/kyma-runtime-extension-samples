@@ -100,7 +100,11 @@ Following the instructions to configure the localmock application within the SAP
   2. Provide an Instance Name and a Password, choose **Next**
   3. Choose **Next**
   4. Choose **Next**
-  5. SAP HANA Database Advanced Settings - set **Allowed connections** to **Allow all IP addresses**, choose **Next**
+  5. SAP HANA Database Advanced Settings - set **Allowed connections** to **Allow all IP addresses**, choose **Next**. To restrict IP access, the following command can be used to determine the IP addresses of Kyma
+      ```
+      kubectl run -i --tty busybox --image=yauritux/busybox-curl --restart=Never 
+      curl ifconfig.me/all
+      ```
   6. Choose **Review and Create**
   7. Choose **Create Instance**
 
