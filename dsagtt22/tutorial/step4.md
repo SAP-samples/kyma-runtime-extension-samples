@@ -87,7 +87,7 @@ In the pop-up **"Create Service Instance"** enter the following data in the tab 
 Now switch to the **"Advanced"** tab and copy the following values in the parameters section:
 
   ```JSON
-  parameters:  {
+   {
     "emname": "dsagtt22<userID>",
     "namespace": "default/dsagtt22<userID>.kyma/eventing.demo",
     "version": "1.1.0",
