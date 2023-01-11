@@ -2,14 +2,14 @@ name: Links Watcher
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
     types: [opened, edited, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pull-requests: write
+  issues: write 
 
 jobs:
   links-watcher:
@@ -22,7 +22,15 @@ jobs:
         id: lychee
         uses: lycheeverse/lychee-action@v1.5.4
         with:
-          fail: true
-          args: --verbose --no-progress --exclude-file .lycheeignore --exclude-mail --exclude-all-private **/*.md
+          args: --verbose --no-progress --max-concurrency 2 --exclude-mail --exclude-loopback './**/*.md'
+          output: ./lychee/out.md
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      
+      - name: Create issue when fail
+        uses: peter-evans/create-issue-from-file@v4
+        if: ${{ steps.lychee.outputs.exit_code }} != 0
+        with:
+          title: Link Checker Report
+          content-filepath: ./lychee/out.md
+          labels: broken link, automated issue
