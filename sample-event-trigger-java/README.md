@@ -6,7 +6,7 @@ This sample demonstrates how to build and deploy a Java-based microservice as an
 
 The sample uses the CloudEvents SDK to deserialize events. Kyma eventing dispatches the CloudEvents to the Spring Boot microservice. The controller uses `io.cloudevents:cloudevents-spring` to deserialize the event.
 
-You can find further details in the [Spring documentation]( https://cloudevents.github.io/sdk-java/spring.html)
+You can find further details in the [Spring documentation](https://github.com/cloudevents/sdk-java/tree/main/spring)
 
 The `order.created` event from SAP Commerce Cloud is used as an example of a trigger.
 
