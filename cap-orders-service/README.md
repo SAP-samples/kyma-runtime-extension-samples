@@ -89,29 +89,30 @@ Following the instructions to configure the localmock application within the SAP
 1. In the SAP BTP global account choose Entitlements -> Entity Assignments. Choose your subaccount and choose Go. This will list all assigned entitlements.
 2. Choose Configure Entitlements and Add Service Plans to select additional entitlements.
 3. For the Entitlement choose
-  - **SAP HANA Cloud** and choose the Plan **tools**
-  - **SAP HANA Schemas & HDI Containers** and choose the Plan **hdi-shared**
+
+- **SAP HANA Cloud** and choose the Plan **tools**
+- **SAP HANA Schemas & HDI Containers** and choose the Plan **hdi-shared**
+
 4. Create the HANA Cloud Instance by choosing within the the subaccount view, open Services -> Service Marketplace
 5. Choose **Create** and choose the Plan **tools**
 6. Assign the Role Collection **SAP HANA Cloud Administrator** to your user
 7. Open Services -> Instances and Subscriptions and choose the **SAP HANA Cloud** application which opens the SAP HANA Cloud Central
 8. Choose the option to **Create Instance** and choose...
-  1. **SAP HANA Cloud, SAP HANA Database**, choose **Next**
-  2. Provide an Instance Name and a Password, choose **Next**
-  3. Choose **Next**
-  4. Choose **Next**
-  5. SAP HANA Database Advanced Settings - set **Allowed connections** to **Allow all IP addresses**, choose **Next**. To restrict IP access, the following command can be used to determine the IP addresses of Kyma
-      ```
-      kubectl run -i --tty busybox --image=yauritux/busybox-curl --restart=Never 
-      curl ifconfig.me/all
-      ```
-  6. Choose **Review and Create**
-  7. Choose **Create Instance**
-
+9. **SAP HANA Cloud, SAP HANA Database**, choose **Next**
+10. Provide an Instance Name and a Password, choose **Next**
+11. Choose **Next**
+12. Choose **Next**
+13. SAP HANA Database Advanced Settings - set **Allowed connections** to **Allow all IP addresses**, choose **Next**. To restrict IP access, the following command can be used to determine the IP addresses of Kyma
+    ```
+    kubectl run -i --tty busybox --image=yauritux/busybox-curl --restart=Never
+    curl ifconfig.me/all
+    ```
+14. Choose **Review and Create**
+15. Choose **Create Instance**
 
 ### Map Kyma Instance to the HANA DB
 
-For this we will need the Environment Instance ID of the Kyma runtime environment. 
+For this we will need the Environment Instance ID of the Kyma runtime environment.
 
 1. In the Kyma dashboard choose the menu option **Namespaces** and open the Namespace **kyma-system**
 2. Choose the menu option **Configuration -> Config Maps**, and search for **sap-btp-operator-config**
@@ -317,11 +318,12 @@ helm upgrade --install orders ./chart --namespace dev
 ```
 helm uninstall orders --namespace dev
 ```
+
 2. Open the file `app/chart/values.yaml` and add the property
 
-  1. **xsuaa.parameters.tenant-mode**: dedicated
+1. **xsuaa.parameters.tenant-mode**: dedicated
 
-3. Open the file `app/chart/xs-security.json` and add the property `oauth2-configuration`, replacing the value `{CLUSTER_DOMAIN}` with your cluster domain as shown
+1. Open the file `app/chart/xs-security.json` and add the property `oauth2-configuration`, replacing the value `{CLUSTER_DOMAIN}` with your cluster domain as shown
 
 ```
 {
@@ -360,14 +362,15 @@ kubectl apply -f k8s/app-router.yaml -n dev
 kubectl apply -f k8s/app-router-apirule.yaml -n dev
 ```
 
-8. Verify that the contents of the `data.xs-app.json` property found in `k8s/app-router-cm.yaml`. Apply the config map
+8. Verify that the contents of the `data.xs-app.json` property found in `k8s/app-router-cm.yaml`. Notice that the target entry for `html5-apps-repo-rt` is targeting the html5 application `comkymademoorders` Apply the config map
 
 ```
 kubectl apply -f k8s/app-router-cm.yaml -n dev
 ```
+
 9. Once started the application will be available at
 
-https://orders-srv-cap-approuter.{CLUSTER_DOMAIN}/comkymademoorders/index.html
+https://orders-srv-cap-approuter.{CLUSTER_DOMAIN}/
 
 ### Add application to the SAP Launchpad
 
