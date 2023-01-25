@@ -360,7 +360,7 @@ kubectl apply -f k8s/app-router.yaml -n dev
 kubectl apply -f k8s/app-router-apirule.yaml -n dev
 ```
 
-8. Verify that the contents of the `data.xs-app.json` property found in `k8s/app-router-cm.yaml` match those found in `app/app/xs-app.json`, otherwise these should be corrected. Apply the config map
+8. Verify that the contents of the `data.xs-app.json` property found in `k8s/app-router-cm.yaml`. Apply the config map
 
 ```
 kubectl apply -f k8s/app-router-cm.yaml -n dev
