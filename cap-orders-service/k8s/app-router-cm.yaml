@@ -29,7 +29,7 @@ data:
         },
         {
           "source": "^(.*)$",
-          "target": "$1",
+          "target": "/comkymademoorders/$1",
           "service": "html5-apps-repo-rt",
           "authenticationType": "xsuaa"
         }
