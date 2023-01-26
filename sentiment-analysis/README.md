@@ -59,6 +59,8 @@ The extension requires a `Secret` named `sentiment-analysis` configured in the K
 
 - `c4cUpdateFlag`: Feature flag to enable the calls to SAP Sales Cloud to create customer and service ticket for negative reviews. If value is `true` then the feature is enabled.
 
+- `gateway_url_occ` - URL for the SAP Commerce Cloud OCC API provided by the Kyma Central Application Gateway
+
 - `gateway_url_c4c` - URL for the SAP Sales Cloud API provided by the Kyma Central Application Gateway
 
 - `gateway_url_review` - URL for the SAP Commerce Cloud Integration API for Customer Reviews provided by the Kyma Central Application Gateway
