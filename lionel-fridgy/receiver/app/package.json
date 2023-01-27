@@ -11,7 +11,8 @@
   "dependencies": {
     "axios": "^0.27.2",
     "express": "4.18.1",
-    "mssql": "^9.0.1"
+    "mssql": "^9.0.1",
+    "xss-escape": "*"
   },
   "license": "ISC"
 }

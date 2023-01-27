@@ -1,6 +1,7 @@
 const express = require('express');
 const sql = require('mssql');
 const axios = require('axios');
+const xssEscape = require('xss-escape');
 
 const PORT = process.env.PORT || 3000;
 const NUMBER_OF_FLOORS = process.env.NR_OF_FLOORS;
@@ -21,7 +22,7 @@ const app = express();
 app.use(express.json());
 
 app.post('/', async (req, res) => {
-    var fridge_state = req.body;
+    var fridge_state = xssEscape(req.body);
     const [is_valid, message] = validate_fridge_state_json(fridge_state);
     
     if(!is_valid) {
@@ -48,7 +49,9 @@ async function writeSQL(fridge_object) {
     for(let floor = 0; floor < NUMBER_OF_FLOORS; floor++) {
         for(let sensor = 0; sensor < SENSORS_PER_FLOOR; sensor++) {
             query_string += "floor" + (floor+1) + (sensor+1);
-            values_string += "'" + fridge_object.fridge.floors[floor].sensor_input[sensor] + "'";
+
+            sql.input("floor" + floor + "sensor" + sensor, sql.Int, fridge_object.fridge.floors[floor].sensor_input[sensor]);
+            values_string += "'" + "@floor" + floor + "sensor" + sensor + "'";
 
             if(sensor < SENSORS_PER_FLOOR-1) {
                 query_string += ", ";
