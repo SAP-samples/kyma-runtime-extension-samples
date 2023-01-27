@@ -1,0 +1,17 @@
+specVersion: "2.5"
+metadata:
+  name: webapp.lionelfridgy.webapp
+type: application
+framework:
+  name: SAPUI5
+  version: 1.106.0
+  libraries:
+    - name: sap.m
+    - name: sap.ui.core
+    - name: sap.f
+    - name: sap.suite.ui.generic.template
+    - name: sap.ui.comp
+    - name: sap.ui.generic.app
+    - name: sap.ui.table
+    - name: sap.ushell
+    - name: themelib_sap_horizon

@@ -1,0 +1,42 @@
+<mvc:View
+	controllerName="webapp.lionelfridgy.webapp.controller.Main"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:core="sap.ui.core"
+	xmlns:m="sap.m"
+    xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    height="100%">
+<m:Page id="page" title="{i18n>title}">
+    <m:content>
+        <Table
+            selectionMode="None"
+            visibleRowCountMode="Fixed"
+            visibleRowCount="4"
+            rows="{/}">
+            <rowSettingsTemplate>
+                <RowSettings highlight="{HighlightColor}" highlightText="{Bottles}"/>
+            </rowSettingsTemplate>
+            <columns>
+                <Column width="11rem">
+                    <m:Label text="Floor level" />
+                    <template>
+                        <m:Text text="{Floor}" />
+                    </template>
+                </Column>
+                <Column width="11rem">
+                    <m:Label text="Bottles left" />
+                    <template>
+                        <m:Text text="{Bottles}">
+                        </m:Text>
+                    </template>
+                </Column>
+            </columns>
+        </Table>
+        <m:Text text="" id="timestampText">
+        </m:Text>
+        <m:Image src="../images/fridge.png" width="140px" height="140px" id="image0"/>
+    </m:content>
+    </m:Page>
+</mvc:View>

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: receiver-deployment
+  labels:
+    app: receiver
+spec:
+  replicas: 1 #{{ .Values.pod.replicas }}
+  selector:
+    matchLabels:
+      app: receiver
+  template:
+    metadata:
+      labels:
+        app: receiver
+    spec:
+      containers:
+      - name: receiver-bot
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - name: https
+          containerPort: {{ .Values.pod.port }}
+        env:
+          - name: NR_OF_FLOORS
+            value: "{{ .Values.fridge.nr_of_floors }}"
+          - name: SENSORS_PER_FLOOR
+            value: "{{ .Values.fridge.sensors_per_floor }}"
+          - name: PORT
+            value: "{{ .Values.pod.port }}"
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: lionel-fridgy-secret
+                key: db-name
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: lionel-fridgy-secret
+                key: db-host
+          - name: DB_PW
+            valueFrom:
+              secretKeyRef:
+                name: lionel-fridgy-secret
+                key: db-password
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: lionel-fridgy-secret
+                key: db-username
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: receiver-service 
+  labels:
+    app: receiver-service
+spec:
+  selector:
+    app: receiver
+  ports:
+  - name: https
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.pod.port }}

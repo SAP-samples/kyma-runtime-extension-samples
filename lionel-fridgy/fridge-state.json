@@ -1,0 +1,35 @@
+{
+    "fridge": {
+        "floors": [
+            {
+                "number": 0,
+                "sensor_input": [
+                    743,
+                    765
+                ]
+            },
+            {
+                "number": 1,
+                "sensor_input": [
+                    1334,
+                    1355
+                ]
+            },
+            {
+                "number": 2,
+                "sensor_input": [
+                    1543,
+                    1544
+                ]
+            },
+            {
+                "number": 3,
+                "sensor_input": [
+                    1900,
+                    1872
+                ]
+            }
+        ]
+    },
+    "timestamp": 1657634300
+}

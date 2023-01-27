@@ -1,0 +1,5 @@
+# These are the values used for the helm-chart
+
+image:
+  repository: <repository>
+  tag: <tag>

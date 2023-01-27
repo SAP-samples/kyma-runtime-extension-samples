@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: computation-unit-deployment
+  labels:
+    app: computation-unit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: computation-unit
+  template:
+    metadata:
+      labels:
+        app: computation-unit
+    spec:
+      containers:
+      - name: computation-unit-container
+        image: <image-name> #change it to your image
+        ports:
+        - name: https
+          containerPort: 3000
+        env:
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: lionel-fridgy-secret
+                key: db-name
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: lionel-fridgy-secret
+                key: db-host
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: lionel-fridgy-secret
+                key: db-username
+          - name: DB_PW
+            valueFrom:
+              secretKeyRef:
+                name: lionel-fridgy-secret
+                key: db-password
+          - name: SLACK_EVENTING_URL
+            valueFrom:
+              secretKeyRef:
+                name: lionel-fridgy-webhook-secret
+                key: slack-eventing-url
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: computation-unit-service 
+  labels:
+    app: computation-unit-service
+spec:
+  selector:
+    app: computation-unit
+  ports:
+  - name: https
+    port: 3000
+    targetPort: 3000

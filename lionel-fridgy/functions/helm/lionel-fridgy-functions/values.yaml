@@ -1,0 +1,8 @@
+#These are the helm values that will be used for the deployment of the slack messenger
+#Currently the values are overwritten in the CICD pipeline to avoid privacy issues
+slack:
+  webhook: <slack-webhook>
+  eventing:
+    url: <slack-eventing-url>
+webui:
+  url: <webui-url>

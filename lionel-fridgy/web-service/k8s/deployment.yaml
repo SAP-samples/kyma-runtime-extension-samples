@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lionel-fridgy-web-ui-deployment
+  labels:
+    app: lionel-fridgy-web-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lionel-fridgy-web-ui
+  template:
+    metadata:
+      labels:
+        app: lionel-fridgy-web-ui
+    spec:
+      containers:
+        - name: lionel-fridgy-web-ui
+          image: <image:name>
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lionel-fridgy-web-ui-service
+  labels:
+    app: lionel-fridgy-web-ui
+spec:
+  ports:
+    - name: http
+      port: 80
+  selector:
+    app: lionel-fridgy-web-ui
