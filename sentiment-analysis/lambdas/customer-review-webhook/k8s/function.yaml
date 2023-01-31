@@ -13,8 +13,6 @@ spec:
         type: basic
         secretName: git-creds-basic
   env:
-    - name: PUBLISHER_URL
-      value: 'http://eventing-event-publisher-proxy.kyma-system/publish'
     - name: EVENT_NAME
       value: 'sap.kyma.custom.internal.product.reviewsubmitted.v1'
 
