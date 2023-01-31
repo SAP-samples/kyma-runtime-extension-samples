@@ -30,3 +30,11 @@ http://schemas.xmlsoap.org/*
 https://sample-ldap.*
 https://s4-address-validation/*
 https://oauth2/*
+https://saas-demo/
+https://orders-srv-cap-approuter/*
+https://dash.cloudflare.com*
+file:///home/runner/work/kyma-runtime-extension-samples/kyma-runtime-extension-samples/*
+http://content-moderation/*
+https://conference-registration-app.c-871077d.kyma.shoot.live.k8shana.ondemand.com/
+https://community.cloudflare.com/*
+https://twitter.com/*

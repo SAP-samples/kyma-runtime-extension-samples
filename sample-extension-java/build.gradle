@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.sap.kyma.sample'
-sourceCompatibility = '17'
+sourceCompatibility = '19'
 
 repositories {
     mavenCentral()

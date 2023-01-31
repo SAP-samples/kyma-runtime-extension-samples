@@ -1,4 +1,4 @@
-FROM openjdk:17-alpine
+FROM sapmachine:19.0.1
 MAINTAINER Gaurav Abbi <gaurav.abbi@sap.com>
 
 WORKDIR /var/app

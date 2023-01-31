@@ -1,0 +1,15 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: orders-db
+spec:
+  serviceOfferingName: hana
+  servicePlanName: hdi-shared
+---
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: orders-db-binding
+spec:
+  secretName: orders-db
+  serviceInstanceName: orders-db

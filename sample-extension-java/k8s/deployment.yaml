@@ -20,8 +20,16 @@ spec:
         app: sample-extension-java
         kyma-grafana: enabled
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+      volumes:
+        - name: tmp
+          emptyDir: {}
       containers:
-      - image: gabbi/sample-extension-java:0.0.20
+      - image: gauravsap/sample-extension-java:0.0.21
         name: sample-extension-java
         ports:
           - containerPort: 8080
@@ -29,6 +37,19 @@ spec:
           - secretRef:
               name: sample-extension-java
               optional: true
+        resources:
+          requests:
+            memory: 1024M
+            cpu: 200m
+          limits:
+            memory: 1024M
+            cpu: 500m
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+        volumeMounts:
+          - mountPath: /tmp
+            name: tmp
 status: {}
 ---
 apiVersion: v1
