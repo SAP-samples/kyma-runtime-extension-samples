@@ -5,9 +5,9 @@
 This repository is dedicated to a recent series of SAP Community blog posts under a single theme of *Power of serverless with SAP BTP, Kyma runtime*, namely:  .  
 
 
-  * [Base image override.](https://blogs.sap.com/2023/01/29/power-of-serverless-with-sap-btp-kyma-runtime.-base-image-override./)
-  * [Secrets mounted as volumes](https://blogs.sap.com/2023/02/06/power-of-serverless-with-sap-btp-kyma-runtime.-secrets-mounted-as-volumes./).
-  * [Kyma functions with GitRepository source with SSH authentication.](https://blogs.sap.com/2021/12/08/kyma-functions-with-gitrepository-source-with-ssh-authentication./)
+  * [Base image override. | SAP Blogs](https://blogs.sap.com/2023/01/29/power-of-serverless-with-sap-btp-kyma-runtime.-base-image-override./)
+  * [Secrets mounted as volumes. | SAP Blogs](https://blogs.sap.com/2023/02/06/power-of-serverless-with-sap-btp-kyma-runtime.-secrets-mounted-as-volumes./).
+  * [Kyma functions with GitRepository source with SSH authentication. | SAP Blogs](https://blogs.sap.com/2021/12/08/kyma-functions-with-gitrepository-source-with-ssh-authentication./)
 
 
 ## Requirements and disclaimers
