@@ -13,9 +13,9 @@ ISTIO_GATEWAY=kyma-gateway.kyma-system.svc.cluster.local
 
 RSA_KEY= $(shell ls ~/.ssh/id_rsa)
 GIT_KEY=git-ssh-secret
-GIT_URL=git@github.com:ptesny/k8s-samples.git
-GIT_DIR=/k8s-samples/faas/fun/fun-srv/
-GIT_BRANCH=main
+GIT_URL=git@github.com:SAP-samples/kyma-runtime-extension-samples.git
+GIT_DIR=/kyma-runtime-extension-samples/kyma-serverless/fun/fun-srv/
+GIT_BRANCH=secretMounts
 
 PORT=8080 ##PORT=5000 ### or PORT=${RANDOM} 
 
