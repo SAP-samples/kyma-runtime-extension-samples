@@ -42,7 +42,6 @@ This repository is dedicated to a recent series of SAP Community blog posts unde
 
 Disclaimer:
 <ul>
-  <li>The ideas presented herein are personal insights thus are not necessarily endorsed by SAP.</li>
   <li>Images/data contained herein is from personal testbeds including my own SAP BTP Free Tier account. Any resemblance to real data is purely coincidental.</li>
   <li>Access to some online resources referenced in this repository may be subject to a contractual relationship with SAP and a S-user login may be required.</li>
 </ul>
