@@ -7,7 +7,7 @@ services:
     name: fun-srv
     port: '80'
     runtime: nodejs16 ## nodejs14
-    runtimeImageOverride: tiosouji/hc:bullseye-slim16 ## tiosouji/hc:bullseye-slim16
+    runtimeImageOverride: tiosouji/hc:bullseye-slim16 ## tiosouji/hc:bullseye-slim14
   gitRepository:
     url:
     baseDir:
@@ -26,7 +26,7 @@ services:
     bindingNamex509: fun-dest-x509-binding
     bindingSecretNamex509: fun-dest-binding-x509-secret        
     ApplicationInterfaceKey: saptest0
-    APIKey: MxCaGtLAykQFybXn3Frf2iWs1HmZyIUU
+    APIKey: 
   hdi:
     name: fun-hdi
     bindingName: fun-hdi-binding
