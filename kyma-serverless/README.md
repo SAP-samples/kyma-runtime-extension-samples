@@ -51,7 +51,7 @@ Disclaimer:
 </table>
 
 ## Download and Installation
-It is recommended to use a SAP BTP Free Tier account as both SAP BTP. Kyma runtime and SAP HANA Cloud are vailable there as free tier services.  
+It is recommended to use a SAP BTP Free Tier account as both SAP BTP. Kyma runtime and SAP HANA Cloud are available there as free tier services.  
 
   * In order to avoid incurring any unwanted charges, please always read the "small print" when provisioning services on your SAP BTP Free Tier account.  
   * You can follow the consumption of both free and paid services via [SAP for me](https://me.sap.com) portal.
