@@ -1,0 +1,14 @@
+ttlDaysAfterFinished: 1
+jobs:
+  db:
+    name: fun-db
+    src: fun-db-src
+    image:
+      dockerID: hanaacademy
+      repository: hdi-deploy
+      tag: "latest"
+      pullPolicy: Always
+  hdi:
+    name: fun-hdi
+    bindingName: fun-hdi-binding
+    bindingSecretName: fun-hdi-binding-secret

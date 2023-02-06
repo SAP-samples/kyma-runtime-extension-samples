@@ -1,0 +1,51 @@
+apiVersion: serverless.kyma-project.io/v1alpha2
+kind: Function
+metadata:
+  name: {{ .Values.services.srv.name }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+    app: {{ .Values.services.srv.name }}
+spec:
+  runtime: {{ .Values.services.srv.runtime }}
+  runtimeImageOverride: {{ .Values.services.srv.runtimeImageOverride }}
+  scaleConfig:
+    maxReplicas: 1
+    minReplicas: 1
+  resourceConfiguration:
+    function:
+      resources:
+        limits:
+          cpu: 100m
+          memory: 256Mi
+        requests:
+          cpu: 50m
+          memory: 128Mi
+    build:
+      resources:
+        limits:
+          cpu: 0.4
+          memory: 1Gi
+        requests:
+          cpu: 0.2
+          memory: 800Mi
+  env:
+    - name: SERVICE_BINDING_ROOT
+      value: /bindings
+    - name: DEBUG
+      value: 'fun-srv:*'
+
+  secretMounts:
+    - secretName: {{ .Values.services.uaa.bindingSecretName }}
+      mountPath: "/bindings/fun-uaa"
+    - secretName: {{ .Values.services.dest.bindingSecretNamex509 }}
+      mountPath: "/bindings/fun-dest-x509"
+    - secretName: {{ .Values.services.hdi.bindingSecretName }}
+      mountPath: "/bindings/fun-hdi"
+  source:
+    gitRepository:
+      url: {{ .Values.services.gitRepository.url }}
+      baseDir: {{ .Values.services.gitRepository.baseDir }}
+      reference: {{ .Values.services.gitRepository.reference }}
+      auth:
+        type: {{ .Values.services.gitRepository.auth.type }}
+        secretName: {{ .Values.services.gitRepository.auth.secretName }}

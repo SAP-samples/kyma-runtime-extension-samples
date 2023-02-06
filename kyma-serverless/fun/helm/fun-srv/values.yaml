@@ -1,0 +1,33 @@
+clusterDomain:
+gateway:
+services:
+  app:
+    name: fun-app
+  srv:
+    name: fun-srv
+    port: '80'
+    runtime: nodejs16 ## nodejs14
+    runtimeImageOverride: tiosouji/hc:bullseye-slim16 ## tiosouji/hc:bullseye-slim16
+  gitRepository:
+    url:
+    baseDir:
+    reference:
+    auth:
+      type: key
+      secretName:
+
+  uaa:
+    name: fun-uaa
+    xsappname: fun
+    bindingName: fun-uaa-binding
+    bindingSecretName: fun-uaa-binding-secret
+  dest:
+    name: fun-dest
+    bindingNamex509: fun-dest-x509-binding
+    bindingSecretNamex509: fun-dest-binding-x509-secret        
+    ApplicationInterfaceKey: saptest0
+    APIKey: MxCaGtLAykQFybXn3Frf2iWs1HmZyIUU
+  hdi:
+    name: fun-hdi
+    bindingName: fun-hdi-binding
+    bindingSecretName: fun-hdi-binding-secret
