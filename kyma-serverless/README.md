@@ -18,28 +18,8 @@ Please look up first the global [project](https://github.com/SAP-samples/kyma-ru
 <table style="border-collapse: collapse; width: 100%;" border="1">
 <tbody>
 <tr>
-<td style="width: 100%;">Pre-requisistes:
-
-<strong>SAP BTP, Kyma runtime</strong> (SKR):
-<ul>
-  <li>admin access to SAP BTP sub-account of the SKR cluster installation</li>
-  <li>cluster-admin access to SAP BTP, Kyma Runtime (<strong>SKR</strong>) kubernetes cluster</li>
-  <li>admin access to any other SAP BTP sub-account (in the same or in a different Global Account) where you have the BTP Service Manager entitlement</li>
-</ul>
-<strong>SAP HANA Cloud</strong> (with SAP HANA Cloud multi-env tools):
-<ul>
-  <li>have access to a SAP HANA Cloud database instance on any BTP sub-account</li>
-</ul>
-<strong>OS Kyma on Gardener</strong>:
-<ul>
-  <li><a href="https://gardener.cloud/docs/gardener/#setting-up-your-own-gardener-landscape-in-the-cloud">bring your own gardener cluster</a> with:
-<ul>
-  <li>the <a href="https://github.com/kyma-project/kyma/releases">latest release of open source kyma project</a> and</li>
-  <li>the latest release of <a href="https://github.com/kyma-incubator/sap-btp-service-operator">SAP BTP service operator</a> from the kyma incubator <a href="https://github.com/kyma-incubator">project</a>.</li>
-</ul>
-</li>
-  <li>have admin access to any SAP BTP sub-account where you have the BTP Service Manager entitlement with the <em>service-operator-access</em> service plan.</li>
-</ul>
+<td style="width: 100%;">
+  
 
 <hr />
 
