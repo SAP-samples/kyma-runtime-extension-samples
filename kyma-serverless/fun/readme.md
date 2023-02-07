@@ -3,10 +3,10 @@ Power of serverless with SAP BTP, Kyma runtime. Dockerless and serverless
 
 ### Pre-requisites
 
-Please look up first the global [project](https://github.com/SAP-samples/kyma-runtime-extension-samples) pre-requisistes [here](https://github.com/SAP-samples/kyma-runtime-extension-samples/tree/main/prerequisites)
+Please make sure you comply with the global [project](https://github.com/SAP-samples/kyma-runtime-extension-samples) pre-requisistes [here](https://github.com/SAP-samples/kyma-runtime-extension-samples/tree/main/prerequisites)
 
 
-This sample may additionally require that you:  
+Additionally, this sample may require that you:  
 1. Have your Free Tier SAP HANA Cloud database instance ready and up and running
 2. Have your Free Tier SAP Kyma, BTP runtime provisioned
 3. Prepare your own Github account SSH key.  
