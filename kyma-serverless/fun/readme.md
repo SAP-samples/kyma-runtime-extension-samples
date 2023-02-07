@@ -3,9 +3,13 @@ Power of serverless with SAP BTP, Kyma runtime. Dockerless and serverless
 
 ### Pre-requisites
 
+You may look up ouur SAP Samples [project](https://github.com/SAP-samples/kyma-runtime-extension-samples) pre-requisistes [here](https://github.com/SAP-samples/kyma-runtime-extension-samples/tree/main/prerequisites)
+
+
+This sample may additionally require that you:  
 1. Have your Free Tier SAP HANA Cloud database instance ready and up and running
 2. Have your Free Tier SAP Kyma, BTP runtime provisioned
-3. Prepare your Github account SSH key.  
+3. Prepare your own Github account SSH key.  
   * you may refer to this [blog post of mine](https://blogs.sap.com/2021/12/08/kyma-functions-with-gitrepository-source-with-ssh-authentication./) that describes how to enable SSH for your github account: 
   * the source code needs to be stored in an *internet-facing* github repository thus other Github authentication methods are *strongly* discouraged
   * furthermore, SSH may be the only way to access the source code in the github repositories with 2FA activated even the public ones.
