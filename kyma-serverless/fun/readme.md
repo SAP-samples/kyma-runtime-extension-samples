@@ -72,7 +72,8 @@ The communication channel between the approuter frontend and the backend is via 
 
 ### **Usage**:
 
-1. fork this public repository to yours or clone this repository and then push it yours
+As the focus is on the SSH secure communiction between your github repository and a kyma cluster you may need to have this sample either forked or cloned to your own repository.  
+1. either fork this public repository to yours as a public one or clone this repository to your local dosk and then push it your private/public repository
 2. clone your github repository
 
 ```
