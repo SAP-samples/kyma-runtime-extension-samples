@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.app.name }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+    app: {{ .Values.services.app.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.services.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.app.name }}
+    spec:
+      containers:
+        - image: "{{ .Values.services.app.image.dockerID }}/{{ .Values.services.app.image.repository }}:{{ .Values.services.app.image.tag }}"
+          name: {{ .Values.services.app.name }}
+          imagePullPolicy: {{ .Values.services.app.image.pullPolicy }}
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+          ports:
+            - name: http
+              containerPort: {{ .Values.services.app.image.port }}
+          env:
+            - name: SERVICE_BINDING_ROOT
+              value: /bindings
+            - name: PORT
+              value: '{{ .Values.services.app.image.port }}'     
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.services.app.name }}
+          volumeMounts:
+            - name: xs-app
+              mountPath: "/app/xs-app.json"
+              subPath: "xs-app.json"
+              readOnly: true
+            - name: resources
+              mountPath: "/app/resources/index.html"
+              subPath: "index.html"
+              readOnly: true
+            - name: fun-uaa
+              mountPath: "/bindings/fun-uaa"
+              readOnly: true
+      volumes:
+        - name: xs-app
+          configMap:
+            name:  {{ .Values.services.app.xsapp }}
+        - name: resources
+          configMap:
+            name: {{ .Values.services.app.resources }}
+        - name: fun-uaa
+          secret:
+            secretName: {{ .Values.services.uaa.bindingSecretName }}

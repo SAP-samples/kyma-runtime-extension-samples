@@ -1,0 +1,25 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: '{{ .Values.services.uaa.name }}'
+  labels:
+    app.kubernetes.io/name: '{{ .Values.services.uaa.name }}'
+spec:
+  externalName: '{{ .Values.services.uaa.name }}'
+  serviceOfferingName: xsuaa
+  servicePlanName: application
+  parameters:
+    xsappname: '{{ .Values.services.uaa.xsappname }}-{{ .Release.Namespace }}'
+    tenant-mode: dedicated
+    scopes:
+      - name: uaa.user
+        description: Token Exchange
+    role-templates:
+      - name: TOKEN_EXCHANGE
+        description: User
+        scope-references:
+          - uaa.user
+    oauth2-configuration:
+      redirect-uris:
+        - 'https://{{ .Values.services.app.name }}-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/login/callback'
+        - 'https://{{ .Values.services.app.name }}-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/**'
