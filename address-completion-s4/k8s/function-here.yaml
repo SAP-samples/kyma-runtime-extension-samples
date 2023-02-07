@@ -4,78 +4,80 @@ metadata:
   name: s4-address-validation
 spec:
   env:
-  - name: HERE_APU_URL
-    value: https://geocode.search.hereapi.com/v1/geocode
-  - name: HERE_API_KEY
-  - name: s4.metadata
-    valueFrom:
-      secretKeyRef:
-        key: .metadata
-        name: s4-busi-partner-sb
-  - name: s4Authentication
-    valueFrom:
-      secretKeyRef:
-        key: Authentication
-        name: s4-busi-partner-sb
-  - name: s4Password
-    valueFrom:
-      secretKeyRef:
-        key: Password
-        name: s4-busi-partner-sb
-  - name: s4URL
-    valueFrom:
-      secretKeyRef:
-        key: URL
-        name: s4-busi-partner-sb
-  - name: s4User
-    valueFrom:
-      secretKeyRef:
-        key: User
-        name: s4-busi-partner-sb
-  - name: s4instance_guid
-    valueFrom:
-      secretKeyRef:
-        key: instance_guid
-        name: s4-busi-partner-sb
-  - name: s4instance_name
-    valueFrom:
-      secretKeyRef:
-        key: instance_name
-        name: s4-busi-partner-sb
-  - name: s4label
-    valueFrom:
-      secretKeyRef:
-        key: label
-        name: s4-busi-partner-sb
-  - name: s4plan
-    valueFrom:
-      secretKeyRef:
-        key: plan
-        name: s4-busi-partner-sb
-  - name: s4tags
-    valueFrom:
-      secretKeyRef:
-        key: tags
-        name: s4-busi-partner-sb
-  - name: s4type
-    valueFrom:
-      secretKeyRef:
-        key: type
-        name: s4-busi-partner-sb
+    - name: HERE_APU_URL
+      value: https://geocode.search.hereapi.com/v1/geocode
+    - name: HERE_API_KEY
+    - name: s4.metadata
+      valueFrom:
+        secretKeyRef:
+          key: .metadata
+          name: s4-busi-partner-sb
+    - name: s4Authentication
+      valueFrom:
+        secretKeyRef:
+          key: Authentication
+          name: s4-busi-partner-sb
+    - name: s4Password
+      valueFrom:
+        secretKeyRef:
+          key: Password
+          name: s4-busi-partner-sb
+    - name: s4URL
+      valueFrom:
+        secretKeyRef:
+          key: URL
+          name: s4-busi-partner-sb
+    - name: s4User
+      valueFrom:
+        secretKeyRef:
+          key: User
+          name: s4-busi-partner-sb
+    - name: s4instance_guid
+      valueFrom:
+        secretKeyRef:
+          key: instance_guid
+          name: s4-busi-partner-sb
+    - name: s4instance_name
+      valueFrom:
+        secretKeyRef:
+          key: instance_name
+          name: s4-busi-partner-sb
+    - name: s4label
+      valueFrom:
+        secretKeyRef:
+          key: label
+          name: s4-busi-partner-sb
+    - name: s4plan
+      valueFrom:
+        secretKeyRef:
+          key: plan
+          name: s4-busi-partner-sb
+    - name: s4tags
+      valueFrom:
+        secretKeyRef:
+          key: tags
+          name: s4-busi-partner-sb
+    - name: s4type
+      valueFrom:
+        secretKeyRef:
+          key: type
+          name: s4-busi-partner-sb
   runtime: nodejs14
   source:
     inline:
-      dependencies: "{ \n  \"name\": \"s4-address-validation-here2\",\n  \"version\":
+      dependencies:
+        "{ \n  \"name\": \"s4-address-validation-here2\",\n  \"version\":
         \"1.0.0\",\n  \"dependencies\": {\n    \"country-iso-3-to-2\": \"^1.0.1\",\n
         \   \"@sap/cloud-sdk-vdm-business-partner-service\": \"^2.1.0\",\n    \"axios\":
         \"^1.1.3\"\n  }\n}"
-      source: "const { businessPartnerService} =\nrequire(\"@sap/cloud-sdk-vdm-business-partner-service\");\n\nconst
+      source:
+        "const { businessPartnerService} =\nrequire(\"@sap/cloud-sdk-vdm-business-partner-service\");\n\nconst
         { businessPartnerApi, businessPartnerAddressApi, batch, changeset } =\nbusinessPartnerService();\n\nconst
         axios = require(\"axios\");\n\nconst getCountryISO2 = require(\"country-iso-3-to-2\");\n\n\nconst
         destConfig = {\n  url: process.env.s4URL,\n  authentication: process.env.s4Authentication,\n
         \ username: process.env.s4User,\n  password: process.env.s4Password,\n};\n\nmodule.exports
         = {\n    main: async function (event, context) {\n      try {\n        const
-        eventData = getEventData(event.data);\n        const key = eventData.data[\"BusinessPartner\"];\n
+        eventData = getEventData(event.data);\n        const key = eventData[\"BusinessPartner\"];\n
         \       console.log(\"received data for BusinessPartner: \", key);\n        const
         response = await getBPAddress(key);\n  \n        var bpAddress,\n          searchtext,\n
         \         addressCorResult,\n          addressResult,\n          resultsArr
