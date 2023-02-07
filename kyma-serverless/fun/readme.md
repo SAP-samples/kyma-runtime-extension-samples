@@ -3,7 +3,7 @@ Power of serverless with SAP BTP, Kyma runtime. Dockerless and serverless
 
 ### Pre-requisites
 
-You may look up ouur SAP Samples [project](https://github.com/SAP-samples/kyma-runtime-extension-samples) pre-requisistes [here](https://github.com/SAP-samples/kyma-runtime-extension-samples/tree/main/prerequisites)
+Please look up first the global [project](https://github.com/SAP-samples/kyma-runtime-extension-samples) pre-requisistes [here](https://github.com/SAP-samples/kyma-runtime-extension-samples/tree/main/prerequisites)
 
 
 This sample may additionally require that you:  
