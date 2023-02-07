@@ -129,7 +129,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | Name                                                                     | Description                                                                                                    | References |
 | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- | ---------- |
 | [SAAS Provisioning Sample](./saas-provisioning/README.md)                | This sample demonstrates how the SAP SAAS Provisioning service can be used to develop a mulitenant application | -          |
-| [Sample Mutitanenat Extension](./sample-multitenant-extension/README.md) | This sample demonstrates how to build a multitenant extension                                                  | -          |
+| [Sample Mutitanenat Extension](./sample-multitenant-extension/README.md) | This sample demonstrates how to build a multitenant extension                                                  | [Post](https://blogs.sap.com/2023/02/06/power-of-serverless-with-sap-btp-kyma-runtime.-secrets-mounted-as-volumes./)          |
 
 ## Authentication and Authorization
 
