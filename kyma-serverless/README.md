@@ -12,6 +12,9 @@ This repository is dedicated to a recent series of SAP Community blog posts unde
 
 ## Requirements and disclaimers
 
+Please look up first the global [project](https://github.com/SAP-samples/kyma-runtime-extension-samples) pre-requisistes [here](https://github.com/SAP-samples/kyma-runtime-extension-samples/tree/main/prerequisites)
+
+
 <table style="border-collapse: collapse; width: 100%;" border="1">
 <tbody>
 <tr>
