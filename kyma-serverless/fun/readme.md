@@ -68,12 +68,12 @@ The communication channel between the approuter frontend and the backend is via 
 
 ### **Usage**:
 
-1. fork this public repository to yours or clone my repository and then push it yours
+1. fork this public repository to yours or clone this repository and then push it yours
 2. clone your github repository
 
 ```
 gh repo clone <repo>
-cd k8s/faas/fun/
+cd kyma-runtime-extension-samples/kyma-serverless/fun/
 ```
 3. running **make** in the fun directory of the project will display the list of the available targets, as follows:
 
