@@ -84,11 +84,11 @@ Add the Integration Object to the registered Kyma Destination Target using SAP C
 
 Deploy the function:
 
-[handler.js](lambda/order-validation.js) 
+[handler.js](lambda/handler.js) 
     
 ```
-kubectl apply -n $NS -f lambdas/order-validation.yaml
-kubectl apply -n $NS -f lambdas/api-access.yaml
+kubectl apply -n $NS -f lambdas/k8s/function.yaml
+kubectl apply -n $NS -f lambdas/k8s/subscription.yaml
 ```
 
 ## Verify
