@@ -14,6 +14,7 @@ This sample provides a CAP Service application service which displays orders. Wi
   - Creating a Destination service instance
   - Creating a Connectivity proxy service instanace
   - Creating a HTML5 Repository service instance
+  - Configuration of the app in an approuter instance running in Kyma
   - Configuration of the app in the Fiori Launchpad
 
 ## Prerequisites
@@ -39,7 +40,7 @@ This sample provides a CAP Service application service which displays orders. Wi
 npm install
 ```
 
-3. Install the CAP tools
+3. Install the CAP tools - version @sap/cds-dk@6.3.2 was used at the time of creating this example
 
 ```shell
 npm i -g @sap/cds-dk
@@ -87,39 +88,55 @@ Following the instructions to configure the localmock application within the SAP
 
 1. In the SAP BTP global account choose Entitlements -> Entity Assignments. Choose your subaccount and choose Go. This will list all assigned entitlements.
 2. Choose Configure Entitlements and Add Service Plans to select additional entitlements.
-3. For the Entitlement choose **SAP HANA Cloud** and choose the Plan **hana**
-4. Creat the Instance by choosing within the the subaccount view, open Cloud Foundry -> Spaces and select the dev space and choose the menu item SAP HANA Cloud. Choose Create -> SAP HANA Database.
-5. In SAP HANA Cloud Central, select as Type the entry SAP HANA Cloud, SAP HANA Database. Choose Next Step at the bottom right.
+3. For the Entitlement choose
 
-6. Provide the following values:
-   1. Instance Name: kyma
-   2. Administrator Password: Any value
-   3. Chose Next Step and keep the default values of the next two screens by choosing Next Step twice.
-   4. On the SAP HANA Database Advanced Settings choose the option Allow all IP addresses and choose Next Step.
-   5. Lastly, choose Review and Create and then Create Instance.
+- **SAP HANA Cloud** and choose the Plan **tools**
+- **SAP HANA Schemas & HDI Containers** and choose the Plan **hdi-shared**
 
-### Provising the SAP HANA Schemas & HDI Containers
+4. Create the HANA Cloud Instance by choosing within the the subaccount view, open Services -> Service Marketplace
+5. Choose **Create** and choose the Plan **tools**
+6. Assign the Role Collection **SAP HANA Cloud Administrator** to your user
+7. Open Services -> Instances and Subscriptions and choose the **SAP HANA Cloud** application which opens the SAP HANA Cloud Central
+8. Choose the option to **Create Instance** and choose...
+9. **SAP HANA Cloud, SAP HANA Database**, choose **Next**
+10. Provide an Instance Name and a Password, choose **Next**
+11. Choose **Next**
+12. Choose **Next**
+13. SAP HANA Database Advanced Settings - set **Allowed connections** to **Allow all IP addresses**, choose **Next**. To restrict IP access, the following command can be used to determine the IP addresses of Kyma
+    ```
+    kubectl run -i --tty busybox --image=yauritux/busybox-curl --restart=Never
+    curl ifconfig.me/all
+    ```
+14. Choose **Review and Create**
+15. Choose **Create Instance**
+
+### Map Kyma Instance to the HANA DB
+
+For this we will need the Environment Instance ID of the Kyma runtime environment.
+
+1. In the Kyma dashboard choose the menu option **Namespaces** and open the Namespace **kyma-system**
+2. Choose the menu option **Configuration -> Config Maps**, and search for **sap-btp-operator-config**
+3. Open the config map and copy the value **CLUSTER_ID**
+4. In the SAP HANA Cloud Central, choose the ellipse of your Instance and choose **Manage Configuration**
+5. Choose **Edit** found at the top right, then choose the tab **Instance Mapping**
+6. Choose **Add Mapping**, choose **Kyma** for the Environment Type, provide the Cluster ID copied from step three and provide the namespace **dev** from the Environment Group
+7. Choose **Save**
+
+### Create the SAP HANA Schemas & HDI Container
 
 ⚠ NOTE: The step requires that the creation of the SAP HANA Cloud has completed.
 
-1.  Within your SAP BTP subaccount choose Service Marketplace and select SAP HANA Schemas & HDI Containers. Choose Create with the options
-    1. **Plan**: hdi-shared
-    2. **Instance Name**: orders-db
-2.  Choose Create and select the option View Instance. Once the instance is created, open the instance and choose the option Create under Service Keys. Provide the service Key Name **kyma** and choose Create.
-
-3.  Once created choose the option View and copy the credentials.
-4.  Open the file `k8s/hana-db-secret.yaml` and copy the values into the file.
-5.  Create a new `dev` Namespace:
+1. Create a new `dev` Namespace:
 
 ```shell script
 kubectl create namespace dev
 kubectl label namespaces dev istio-injection=enabled
 ```
 
-6.  Apply the secret
+2. Create the schema instance and binding by running
 
 ```shell
-kubectl -n dev apply -f ./k8s/hana-db-secret.yaml
+kubectl -n dev apply -f ./k8s/hana-db-schema.yaml
 ```
 
 ### Prepare the app for deployment
@@ -184,6 +201,7 @@ cds add destinations
    3. **imagePullSecret.name**: if using a secured docker/repository account provide the secret name, otherwise leave as defined
    4. **srv.bindings.db.fromsecret**: orders-db
    5. **hana_deployer.bindings.hana.fromSecret**: orders-db
+   6. **srv.bindings.destinations.serviceInstanceName**: destination
 
 2. Open the file `app/chart/charts/web-application` and adjust the value
    1. **port**: 4004
@@ -253,10 +271,10 @@ ui5 build --dest ../../../html5-deployer/resources/webapp --clean-dest true
 cp xs-app.json ../../html5-deployer/resources/webapp
 ```
 
-4. Steps two and three will have added the built UI5 application and the `xs-app.json` to the directory `html5-deployer`. This directory defines the `html5-app-deployer` which is deployed as a Kubernetes job which publishes the UI5 application to the HTML5 Repository service. To build the container run
+4. Steps two and three will have added the built UI5 application and the `xs-app.json` to the directory `html5-deployer`. This directory defines the `html5-app-deployer` which is deployed as a Kubernetes job which publishes the UI5 application to the HTML5 Repository service. To build the container run the following command in the `html5-deployer` directory.
 
 ```
-pack build <dockerid>/orders-html5-deployer --buildpack gcr.io/paketo-buildpacks/nodejs --builder paketobuildpacks/builder:base
+pack build <dockerid>/orders-html5-deployer --workspace app --buildpack gcr.io/paketo-buildpacks/nodejs --builder paketobuildpacks/builder:base
 ```
 
 5. Push the image to your container repository
@@ -273,16 +291,16 @@ cds add html5-repo
 
 7. Configure the Helm chart by opening the file `app/chart/values.yaml` and provide the values
 
-   1. **Repository**: your docker/repository account
+   1. **html5_apps_deployer.image.repository**: your docker/repository account
    2. **html5_apps_deployer.cloudService**: cpapp.service
    3. **html5_apps_deployer.backendDestinations**: see code block
 
       ```
       html5_apps_deployer:
-      cloudService: cpapp.service
-      backendDestinations:
-         srv-api:
-            service: srv
+        cloudService: cpapp.service
+        backendDestinations:
+           srv-api:
+              service: srv
       ```
 
 Update the helm chart, by running the following command in the directory `app`
@@ -292,6 +310,67 @@ helm upgrade --install orders ./chart --namespace dev
 ```
 
 8. Once the chart installation completes you will find the UI5 application by opening the SAP CTP Cockpit and choosing `HTML5 Applications`. The application will be named `comkymademoorders`. Click on the application name to open it.
+
+### Access HTML5 via approuter running in Kyma
+
+1. Undeploy the example
+
+```
+helm uninstall orders --namespace dev
+```
+
+2. Open the file `app/chart/values.yaml` and add the property
+
+1. **xsuaa.parameters.tenant-mode**: dedicated
+
+1. Open the file `app/chart/xs-security.json` and add the property `oauth2-configuration`, replacing the value `{CLUSTER_DOMAIN}` with your cluster domain as shown
+
+```
+{
+  "scopes": [],
+  "attributes": [],
+  "role-templates": [],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://orders-srv-cap-approuter.{CLUSTER_DOMAIN}/**"
+    ]
+  }
+}
+```
+
+4. Redeploy the example
+
+```
+helm upgrade --install orders ./chart --namespace dev
+```
+
+5. Create the service instance and binding for the `html5-apps-runtime`
+
+```
+kubectl apply -f k8s/app-router-html5-repo.yaml -n dev
+```
+
+6. Deploy the app router deployment
+
+```
+kubectl apply -f k8s/app-router.yaml -n dev
+```
+
+7. Open the file `k8s/app-router-apirule.yaml` add replace `{CLUSTER_DOMAIN}` with your cluster domain. Apply the apirule
+
+```
+kubectl apply -f k8s/app-router-apirule.yaml -n dev
+```
+
+8. Verify that the contents of the `data.xs-app.json` property found in `k8s/app-router-cm.yaml`. Notice that the target entry for `html5-apps-repo-rt` is targeting the html5 application `comkymademoorders` Apply the config map
+
+```
+kubectl apply -f k8s/app-router-cm.yaml -n dev
+```
+
+9. Once started the application will be available at
+
+https://orders-srv-cap-approuter.{CLUSTER_DOMAIN}/
 
 ### Add application to the SAP Launchpad
 

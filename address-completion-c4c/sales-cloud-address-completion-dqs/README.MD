@@ -31,10 +31,17 @@ It verifies and corrects the address data entered for the Account by using an ex
     ```
 
 * Create an instance of the SAP Data Quality Management Service
+  SAP Data Quality Management Service is available only in selected regions. See the [pricing and region availability details](https://discovery-center.cloud.sap/serviceCatalog/data-quality-services?region=all&tab=service_plan) and it is currently available for CF environments.
+  
+  * Set up a subaccount, CF environment and space in the regions where you want the service instance (e.g. AWS: Europe (Frankfurt))
+  * Create an instance named `sap-dqs-kyma-demo` of `Data Quality Services` in that subaccount.
+  * Create a Service Key.
+  * Copy the credentials and create a secret in kubernetes using the [secret-from-cf-service-key](../../secret-from-cf-service-key/README.md).
 
-   ```shell script
-   kubectl -n $NS apply -f k8s/dqs_service.yaml
-   ```
+      ```bash
+      node create-k8s-secret-from-cf-service-key.js sap-dqs-kyma-demo {your-service-key-name} | kubectl -n {your-namespace} apply -f
+
+      ```
 
 * Create a secret containing central gateway url
 
