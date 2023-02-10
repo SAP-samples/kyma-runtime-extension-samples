@@ -28,7 +28,7 @@ SAP Commerce Cloud is highly extensible and includes a very flexible dynamic bus
 
 ## Configuration
 
-Ensure the Commerce system has the kymaintegrsation, odata2webservices and adminapi extensions.
+Ensure the Commerce system has the `kymaintegrationservices`, `odata2webservices` and `adminapi` extensions.
 
 The extension requires a `Secret` named `order-validation` configured in the Kyma namespace containing the following values:
 
@@ -68,7 +68,7 @@ kubectl apply -n $NS -f subscription.yaml
 
 ### SAP Commerce Cloud Integration API
 
-Import the following files in [commerce](commerce) in your SAP Commerce Cloud environment via the Adminstration Cockpit (hAC) or alternative method.  
+Import the following files in [commerce-impex](commerce-impex) in your SAP Commerce Cloud environment via the Adminstration Cockpit (hAC) or alternative method.  
 
 ```
 commerce/businessprocess.impex 
@@ -84,7 +84,7 @@ Add the Integration Object to the registered Kyma Destination Target using SAP C
 
 Deploy the function:
 
-[order-validation.js](lambda/order-validation.js) 
+[handler.js](lambda/order-validation.js) 
     
 ```
 kubectl apply -n $NS -f lambdas/order-validation.yaml

@@ -46,6 +46,8 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | [Sample SAP Customer Data Platform Extension](./cdp-extension/README.md) | This example includes a Kyma Serverless Function as cdp-extension exposed as an SAP Customer Data Platform Extension endpoint       | [Post](https://blogs.sap.com/2021/11/24/enrich-contact-data-on-sap-customer-data-platform-with-master-data-from-sap-s-4hana-cloud-using-a-kyma-serverless-function/) |
 | [SAP Sales Cloud address completion](./address-completion-c4c/README.md) | Corrects the address for an account update or create in SAP Sales Cloud                                                             | -                                                                                                                                                                    |
 | [Product Review Sentiment Analysis with SAP Commerce Cloud](./sentiment-analysis/README.md) | Automated sentiment analysis and content moderation for customer product reviews in SAP Commerce Cloud | -                                                                                                                                                    |
+| [Order Validation with SAP Commerce Cloud](./order-validation/README.md) | Automated order validation with external fraud check service running SAP BTP, Kyma runtime  | 
+-
 
 ## S/4HANA Extensions
 
