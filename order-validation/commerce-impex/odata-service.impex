@@ -1,0 +1,66 @@
+$oAuthUser=ODATAUSER
+$oAuthPassword=odata1234
+
+INSERT_UPDATE IntegrationObject; code[unique = true];
+; FraudReport 
+ 
+INSERT_UPDATE IntegrationObjectItem; integrationObject(code)[unique=true]; code[unique = true]; type(code) ; root[default = false]; itemTypeMatch(code)
+; FraudReport	; OrderStatus        	; OrderStatus         ; 	; ALL_SUBTYPES	;
+; FraudReport	; Order              	; Order               ; 	; ALL_SUB_AND_SUPER_TYPES	;
+; FraudReport	; FraudReport        	; FraudReport         ; true; ALL_SUB_AND_SUPER_TYPES	;
+; FraudReport	; FraudSymptomScoring	; FraudSymptomScoring ; 	; ALL_SUB_AND_SUPER_TYPES	;
+; FraudReport	; FraudStatus        	; FraudStatus         ; 	; ALL_SUBTYPES	;
+ 
+INSERT_UPDATE IntegrationObjectItemAttribute; integrationObjectItem(integrationObject(code), code)[unique = true]; attributeName[unique = true]; attributeDescriptor(enclosingType(code), qualifier); returnIntegrationObjectItem(integrationObject(code), code); unique[default = false] 
+; FraudReport:OrderStatus        	; code                 	; OrderStatus:code                	;                                	; true 
+; FraudReport:Order              	; code                 	; Order:code                      	;                                	; true 
+; FraudReport:Order              	; versionID            	; Order:versionID                 	;                                	; true 
+; FraudReport:Order              	; status               	; Order:status                    	; FraudReport:OrderStatus        	;  
+; FraudReport:Order              	; potentiallyFraudulent	; Order:potentiallyFraudulent     	;                                	;  
+; FraudReport:Order              	; fraudulent           	; Order:fraudulent                	;                                	;  
+; FraudReport:FraudReport        	; provider             	; FraudReport:provider            	;                                	;  
+; FraudReport:FraudReport        	; status               	; FraudReport:status              	; FraudReport:FraudStatus        	;  
+; FraudReport:FraudReport        	; explanation          	; FraudReport:explanation         	;                                	;  
+; FraudReport:FraudReport        	; code                 	; FraudReport:code                	;                                	; true 
+; FraudReport:FraudReport        	; fraudSymptomScorings 	; FraudReport:fraudSymptomScorings	; FraudReport:FraudSymptomScoring	;  
+; FraudReport:FraudReport        	; timestamp            	; FraudReport:timestamp           	;                                	;  
+; FraudReport:FraudReport        	; order                	; FraudReport:order               	; FraudReport:Order              	; true 
+; FraudReport:FraudSymptomScoring	; name                 	; FraudSymptomScoring:name        	;                                	; true 
+; FraudReport:FraudSymptomScoring	; fraudReport          	; FraudSymptomScoring:fraudReport 	; FraudReport:FraudReport        	; true 
+; FraudReport:FraudSymptomScoring	; explanation          	; FraudSymptomScoring:explanation 	;                                	;  
+; FraudReport:FraudSymptomScoring	; score                	; FraudSymptomScoring:score       	;                                	;  
+; FraudReport:FraudStatus        	; code                 	; FraudStatus:code                	;                                	; true 
+
+INSERT_UPDATE Employee;uid[unique=true];password;groups(uid);
+;ODATAUSER;odata1234;integrationadmingroup;
+
+#INSERT_UPDATE BasicCredential;id[unique=true];username;password
+#;odatauser-credential;ODATAUSER;odata1234
+
+INSERT_UPDATE IntegrationClientCredentialsDetails;clientId[unique = true];resourceIds;authorities;clientSecret;registeredRedirectUri;user(uid);
+;odatauser-client;hybris;ROLE_INTEGRATIONADMINGROUP;odata1234;{ccv2.services.api.url.0}/authorizationserver/oauth/token;ODATAUSER;
+
+INSERT_UPDATE InboundChannelConfiguration; integrationObject(code)[unique = true]; authenticationType(code);
+;FraudReport;OAUTH;
+
+INSERT_UPDATE ExposedOAuthCredential;id[unique=true];oAuthClientDetails(clientId);password
+;odatauser-client;odatauser-client;$oAuthPassword
+
+INSERT_UPDATE Endpoint;id[unique=true];name;version[unique=true];description;specUrl;specData;extensionName
+;ec-fraudreport;Fraud Report;v1;"OData Fraud Report Service";{ccv2.services.api.url.0}/odata2webservices/FraudReport/$metadata;;odata2webservices
+
+
+INSERT_UPDATE ExposedDestination;id[unique=true];url;endpoint(id)[unique=true];additionalProperties(key,value)[map-delimiter=|];destinationTarget(id)[default=Default_Template];active[default=true];credential(id)
+;ec-fraudreport;{ccv2.services.api.url.0}/odata2webservices/FraudReport;ec-fraudreport;;;;odatauser-client
+
+
+$START_USERRIGHTS; ; ; ; ; ; ; ; ;
+Type      ; UID                          ; MemberOfGroups ; Password ; Target                         ; read ; change ; create ; remove ; change_perm
+UserGroup ; integrationadmingroup        ;                ;          ;                                ;      ;        ;        ;        ;
+# Access Rights for integrationadmingroup Users ;;;;;;;;;
+;                                        ;                ;          ; OrderStatus                 ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; Order                        ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; FraudReport     ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; FraudSymptomScoring                        ; +    ; +      ; +      ; +      ; +
+;                                        ;                ;          ; FraudStatus                        ; +    ; +      ; +      ; +      ; +
+$END_USERRIGHTS; ; ; ; ;

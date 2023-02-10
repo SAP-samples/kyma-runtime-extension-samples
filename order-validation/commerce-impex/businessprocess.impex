@@ -1,0 +1,114 @@
+INSERT_UPDATE DynamicProcessDefinition;code[unique=true];active;content
+;order-process;true;"<process xmlns='http://www.hybris.de/xsd/processdefinition' start='checkOrder'
+name='order-process' processClass='de.hybris.platform.orderprocessing.model.OrderProcessModel'>
+
+    <!-- Check Order -->
+    <action id='checkOrder' bean='checkOrderAction'>
+        <transition name='OK' to='fraudCheck'/>
+        <transition name='NOK' to='error'/>
+    </action>
+
+	<!-- Fraud Check -->
+	<action id='fraudCheck' bean='dynamicProcessEventAction'>
+    	<parameter name='BUSINESSEVENT' value='FraudCheckEvent' />
+    	<transition name='OK' to='waitForExternalFraudCheck'/>
+	</action>
+
+    <wait id='waitForExternalFraudCheck' then='error'>
+    <case event='externalFraudCheckEvent'>
+        <choice id='OK' then='sendOrderPlacedNotification'/>
+        <choice id='POTENTIAL' then='manualOrderCheckCSA'/>
+        <choice id='FRAUD' then='cancelOrder'/>
+    </case>
+	</wait>
+
+	<!-- Fraud Check : OK -->
+	<action id='sendOrderPlacedNotification' bean='sendOrderPlacedNotificationAction'>
+		<transition name='OK' to='geocodeShippingAddress'/>
+	</action>
+
+	<!-- Fraud Check : FRAUD -->
+	<action id='cancelOrder' bean='cancelOrderAction'>
+		<transition name='OK' to='notifyCustomer'/>
+	</action>
+    
+	<action id='notifyCustomer' bean='notifyCustomerAboutFraudAction'>
+		<transition name='OK' to='failed'/>
+	</action>
+    
+	<!-- Fraud Check : POTENTIAL -->
+	<action id='manualOrderCheckCSA' bean='prepareOrderForManualCheckAction'>
+		<transition name='OK' to='waitForManualOrderCheckCSA'/>
+	</action>
+
+	<wait id='waitForManualOrderCheckCSA' then='orderManualChecked' prependProcessCode='true'>
+		<event>CSAOrderVerified</event>
+	</wait>
+
+    <action id='orderManualChecked' bean='orderManualCheckedAction'>
+        <transition name='OK' to='sendOrderPlacedNotification'/>
+        <transition name='NOK' to='cancelOrder'/>
+        <transition name='CANCELLED' to='success'/>
+    </action>
+
+	<!-- Sourcing and Allocation -->
+	<action id='geocodeShippingAddress' bean='geocodeShippingAddressAction'>
+		<transition name='OK' to='sourceOrder'/>
+	</action>
+
+	<action id='sourceOrder' bean='sourceOrderAction'>
+		<transition name='OK' to='waitForOrderAction'/>
+	</action>
+	
+	<!-- Wait to perform action on Order -->
+	<wait id='waitForOrderAction' prependProcessCode='true' then='failed'>
+		<case event='OrderActionEvent'>
+			<choice id='consignmentProcessEnded' then='verifyOrderCompletion'/>
+			<choice id='cancelOrder' then='processOrderCancellation'/>
+			<choice id='cancelled' then='success'/>
+			<choice id='reSource' then='sourceOrder'/>
+			<choice id='putOnHold' then='putOrderOnHold'/>
+		</case>
+	</wait>
+
+	<!-- Wait for order cancellation to be completed -->
+	<action id='processOrderCancellation' bean='processOrderCancellationAction'>
+		<transition name='OK' to='verifyOrderCompletion'/>
+		<transition name='WAIT' to='waitForOrderAction'/>
+		<transition name='SOURCING' to='sourceOrder'/>
+	</action>
+
+	<action id='verifyOrderCompletion' bean='verifyOrderCompletionAction'>
+		<transition name='OK' to='postTaxes'/>
+		<transition name='WAIT' to='waitForOrderAction'/>
+		<transition name='CANCELLED' to='success'/>
+	</action>
+
+	<action id='putOrderOnHold' bean='putOrderOnHoldAction'>
+		<transition name='OK' to='waitForOrderAction'/>
+	</action>
+
+	<!-- Tax and Payment -->
+	<action id='postTaxes' bean='postTaxesAction'>
+		<transition name='OK' to='takePayment'/>
+	</action>
+
+	<action id='takePayment' bean='takePaymentAction'>
+		<transition name='OK' to='completeOrder'/>
+		<transition name='NOK' to='sendPaymentFailedNotification'/>
+	</action>
+
+	<action id='completeOrder' bean='completeOrderAction'>
+		<transition name='OK' to='success'/>
+	</action>
+
+	<action id='sendPaymentFailedNotification' bean='sendPaymentFailedNotificationAction'>
+		<transition name='OK' to='failed'/>
+	</action>
+
+	<end id='error' state='ERROR'>Order process error.</end>
+	<end id='failed' state='FAILED'>Order process failed.</end>
+	<end id='success' state='SUCCEEDED'>Order process completed.</end>
+
+
+</process>"
