@@ -13,4 +13,4 @@ spec:
         property: type
         type: exact
         value: sap.kyma.custom.<ccv2-application>.order.fraudcheck.v1
-  sink: http://order-validation.commerce-demo.svc.cluster.local
+  sink: http://order-validation.order-validation.svc.cluster.local

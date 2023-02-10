@@ -6,9 +6,9 @@ spec:
   runtime: nodejs16
   source:
     gitRepository:
-      url: https://github.tools.sap/kyma/kyma-runtime-samples.git
+      url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
       baseDir: /order-validation/lambda
-      reference: master
+      reference: main
       auth:
         type: basic
         secretName: git-creds-basic
