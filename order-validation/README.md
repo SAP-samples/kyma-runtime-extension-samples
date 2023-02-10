@@ -13,11 +13,11 @@ The example fraud check function performs the following checks:
 - Total order value (e.g. > $500) 
 
 
-[SAP Help Portal - Extending BPM Processes](https://help.sap.com/docs/SAP_COMMERCE_CLOUD_PUBLIC_CLOUD/bad9b0b66bac476f8a4a5c4a08e4ab6b/adbcae53f43942d0b30c936c4c97762b.html?q=dynamic%20business%20process)
+For more information about extending commerce business processes please see the [SAP Help Portal - Extending BPM Processes](https://help.sap.com/docs/SAP_COMMERCE_CLOUD_PUBLIC_CLOUD/bad9b0b66bac476f8a4a5c4a08e4ab6b/adbcae53f43942d0b30c936c4c97762b.html?q=dynamic%20business%20process)
 
 ## Architecture
 
-![Architecture Diagram](diagram.jpg "Architecture Diagram")
+![Architecture Diagram](diagram.png "Architecture Diagram")
 
 
 The architecture diagram describes use case flow.
