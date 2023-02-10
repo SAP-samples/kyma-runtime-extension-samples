@@ -4,7 +4,23 @@
 
 SAP Commerce Cloud is highly extensible and includes a very flexible dynamic business process module.  The order fulfillment process leverages this module heavily to allow organizations to customize their fullfillment process to their business needs.  This example shows an example of an external fraud check process running in the SAP BTP, Kyma runtime that is invoked asyncronously via the dynamic business process for order management.
 
+The example fraud check function performs the following checks:
+
+- Email address validation using external email validation service
+
+- Number of customer orders
+
+- Total order value (e.g. > $500) 
+
+
 [SAP Help Portal - Extending BPM Processes](https://help.sap.com/docs/SAP_COMMERCE_CLOUD_PUBLIC_CLOUD/bad9b0b66bac476f8a4a5c4a08e4ab6b/adbcae53f43942d0b30c936c4c97762b.html?q=dynamic%20business%20process)
+
+## Architecture
+
+![Architecture Diagram](diagram.jpg "Architecture Diagram")
+
+
+The architecture diagram describes use case flow.
 
 ## Videos
 
