@@ -145,4 +145,4 @@ Access the sales data for the logged-in user <https://principal-prop-on-prem.{yo
 
 ## Troubleshooting
 
-* [Issues with connectivity-proxy/on-prem calls](../troubleshooting/README.md/#on-premise-connectivity)
+* [Issues with connectivity-proxy/on-prem calls](../troubleshooting/#on-premise-connectivity)
