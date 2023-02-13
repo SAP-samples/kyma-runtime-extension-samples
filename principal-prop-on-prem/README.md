@@ -139,6 +139,10 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
   kubectl -n $NS apply -f app-router/k8s/api-rule.yaml
   ```
 
-### Test
+## Test
 
 Access the sales data for the logged-in user <https://principal-prop-on-prem.{your-cluster-domain}/sap/com/onprem/mysales>
+
+## Troubleshooting
+
+* [Issues with connectivity-proxy/on-prem calls](../troubleshooting/README.md/#on-premise-connectivity)
