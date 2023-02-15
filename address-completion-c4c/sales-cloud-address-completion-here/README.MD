@@ -48,6 +48,10 @@ It verifies and corrects the address data entered for the Account by using an ex
 
    Update `{provide-your-application-name-as-shown-in-kyma}` and `{your-namespace}` in [k8s/subscription.yaml](k8s/subscription.yaml)
 
+   ```shell script
+   kubectl -n $NS apply -f k8s/subscription.yaml
+   ```
+
 ## Verify
 
 * Login to your SAP Sales Cloud Tenant
