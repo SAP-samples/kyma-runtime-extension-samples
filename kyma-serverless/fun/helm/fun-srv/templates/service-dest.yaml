@@ -1,0 +1,21 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: {{ .Values.services.dest.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.services.dest.name }}
+spec:
+  externalName: '{{ .Values.services.dest.name }}-{{ .Release.Namespace }}'
+  serviceOfferingName: destination
+  servicePlanName: lite
+  parameters:
+    init_data:
+      instance:
+        existing_destinations_policy: ignore
+        destinations:
+          - Name: fun-nw
+            Description: Northwind
+            URL: https://services.odata.org/v2/Northwind/Northwind.svc
+            Type: HTTP
+            ProxyType: Internet
+            Authentication: NoAuthentication

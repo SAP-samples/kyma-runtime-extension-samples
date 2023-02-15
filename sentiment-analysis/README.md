@@ -47,7 +47,7 @@ The architecture diagram describes use case flow.
 
 - [Kubernetes tooling](../prerequisites/README.md#kubernetes)
 
-- [SAP Commerce Cloud environment connected to SAP BTP Kyma runtime.](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html)  
+- [SAP Commerce Cloud environment connected to SAP BTP Kyma runtime.](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html)  v2011 or greater in order to use the Webhooks feature.
 
 - (Optional) [SAP Sales Cloud (Cloud for Customer) connected to SAP BTP Kyma runtime](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html) if you enable the `c4cUpdateFlag` (see below)
 
@@ -58,6 +58,8 @@ The extension requires a `Secret` named `sentiment-analysis` configured in the K
 - `baseSite`:  The SAP Commerce Cloud baseSite value e.g. `electronics`, required by the SAP Commerce Cloud OCC API.
 
 - `c4cUpdateFlag`: Feature flag to enable the calls to SAP Sales Cloud to create customer and service ticket for negative reviews. If value is `true` then the feature is enabled.
+
+- `gateway_url_occ` - URL for the SAP Commerce Cloud OCC API provided by the Kyma Central Application Gateway
 
 - `gateway_url_c4c` - URL for the SAP Sales Cloud API provided by the Kyma Central Application Gateway
 

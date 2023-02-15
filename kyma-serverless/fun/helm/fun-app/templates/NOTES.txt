@@ -1,0 +1,1 @@
+Thank you for installing {{ .Chart.Name }}. Your release is named {{ .Release.Name }} and was deployed to the namespace {{ .Release.Namespace }}.

@@ -26,8 +26,8 @@ module.exports = {
 
         var traceCtxHeaders = extractTraceHeaders(event.extensions.request.headers);
 
-        var reviewCode = event.data.reviewcode;
-        var userId = event.data.user;
+        var reviewCode = event.data.integrationKey;
+        var userId = event.data.user.uid;
         console.log(`userId: ${userId}`);
         var anonymous = false;
 
@@ -45,7 +45,7 @@ module.exports = {
         //SAP Commerce Cloud webhook method instead of a custom SAP Commerce Cloud event.
         
         //let reviewDetails = await getReviewDetails(reviewCode, traceCtxHeaders);
-        let reviewDetails = event.data.reviewdetails;
+        let reviewDetails = event.data;
 
         var reviewHeadline = reviewDetails.headline;
         var reviewComment = reviewDetails.comment;

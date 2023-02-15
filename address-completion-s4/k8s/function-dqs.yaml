@@ -100,7 +100,7 @@ spec:
         secretKeyRef:
           key: type
           name: s4-busi-partner-sb
-  source: 
+  source:
     inline:
       dependencies: |-
         { 
@@ -146,7 +146,7 @@ spec:
           main: async function (event, context) {
             try {
               const eventData = getEventData(event.data);
-              const key = eventData.data["BusinessPartner"];
+              const key = eventData["BusinessPartner"];
               console.log("received data for BusinessPartner: ", key);
               const response = await getBPAddress(key);
 

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.services.app.name }}
+data:
+  destinations: |
+    [
+      {
+        "name": "srv",
+        "url": "http://{{ .Values.services.srv.name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.services.srv.service.port }}"
+        ,"forwardAuthToken": true
+      }
+    ]
