@@ -1,4 +1,4 @@
-RELEASE?=0.0.21
+RELEASE?=0.0.22
 APP?=sample-extension-java
 DOCKER_ACCOUNT?=gauravsap
 CONTAINER_IMAGE?=${DOCKER_ACCOUNT}/${APP}:${RELEASE}
@@ -20,3 +20,6 @@ build-image: clean build
 
 push-image: build-image
 	docker push $(CONTAINER_IMAGE)
+
+update-gradle-version:
+	./gradlew wrapper --gradle-version $(version)
