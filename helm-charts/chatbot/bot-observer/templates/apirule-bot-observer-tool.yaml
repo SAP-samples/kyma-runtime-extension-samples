@@ -1,9 +1,10 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: bot-observer-apirule
 spec:
   gateway: {{ .Values.bot.botobservertool.apirule.gateway }}
+  host: bot-observer
   rules:
   - accessStrategies:
     - config: {}
@@ -11,7 +12,6 @@ spec:
     methods:
     - GET
     path: /.*
-  service:
-    host: bot-observer
-    name: bot-observer-service
-    port: {{ .Values.bot.botobservertool.apirule.port }}
+    service:
+      name: bot-observer-service
+      port: {{ .Values.bot.botobservertool.apirule.port }}
