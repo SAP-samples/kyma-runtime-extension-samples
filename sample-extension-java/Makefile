@@ -1,4 +1,4 @@
-RELEASE?=0.0.22
+RELEASE?=0.0.23
 APP?=sample-extension-java
 DOCKER_ACCOUNT?=gauravsap
 CONTAINER_IMAGE?=${DOCKER_ACCOUNT}/${APP}:${RELEASE}
@@ -13,12 +13,17 @@ clean:
 build:
 	./gradlew -Pversion=$(RELEASE) -Pname=$(APP) clean build
 
-build-image: clean build
+build-image-using-pack: clean build
+	pack build $(CONTAINER_IMAGE) --path . \
+		--builder paketobuildpacks/builder:tiny \
+		--env BP_JVM_VERSION=17
+
+build-image-using-docker: clean build
 	cp build/libs/$(APP)-$(RELEASE).jar docker
 	docker build -t $(CONTAINER_IMAGE) --no-cache --rm docker
 	rm docker/$(APP)-*.jar
 
-push-image: build-image
+push-image:
 	docker push $(CONTAINER_IMAGE)
 
 update-gradle-version:

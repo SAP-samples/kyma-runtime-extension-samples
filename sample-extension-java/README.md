@@ -22,6 +22,7 @@ This sample demonstrates how to:
 * [Docker](../prerequisites#docker)
 * [make](../prerequisites#build-tooling)
 * [Gradle](../prerequisites#java)
+* [Pack](../prerequisites/pack) if building images using buildpacks
 
 ## Application
 
@@ -38,7 +39,21 @@ The Spring Boot application implements a simple `Orders` API with CRUD operation
     kubectl label namespaces dev istio-injection=enabled
     ```
 
-* Build and push the image to the Docker repository:
+* Build the image
+
+  * Using Dockerfile
+
+    ```shell
+    DOCKER_ACCOUNT={your-docker-account} make build-image-using-docker
+    ```
+
+  * or, alternatively Using Buildpacks
+
+    ```shell
+    DOCKER_ACCOUNT={your-docker-account} make build-image-using-pack
+    ```
+
+* Push the image
 
     ```shell
     DOCKER_ACCOUNT={your-docker-account} make push-image
