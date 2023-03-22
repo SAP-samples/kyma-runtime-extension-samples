@@ -14,7 +14,8 @@ build:
 	./gradlew -Pversion=$(RELEASE) -Pname=$(APP) clean build
 
 build-image-using-pack: clean build
-	pack build $(CONTAINER_IMAGE) --path . \
+	pack build $(APP) --tag $(CONTAINER_IMAGE) \
+		--path . \
 		--builder paketobuildpacks/builder:tiny \
 		--env BP_JVM_VERSION=17
 
