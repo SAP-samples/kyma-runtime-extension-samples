@@ -1,4 +1,4 @@
-apiVersion: serverless.kyma-project.io/v1alpha1
+apiVersion: serverless.kyma-project.io/v1alpha2
 kind: Function
 metadata:
   name: mssql-api-function
@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
 spec:
   type: git
-  runtime: nodejs14
+  runtime: nodejs16
   reference: main
   baseDir: lionel-fridgy/functions/mssql-api/app
   source: github-internal-repo
