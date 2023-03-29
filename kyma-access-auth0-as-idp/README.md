@@ -24,7 +24,7 @@ This sample can be used as a reference for achieving the same when using other i
    - Application Login URI: `IAS tenant`
    - Allowed Callback URLs: `Assertion Consumer Service Endpoint`. This can be discovered under `Tenant Settings -> SAML 2.0 Configuration`.
    ![application-uris](assets/auth0-application-uris.png)
-5. Download the SAML metadata xml file.
+5. Download the SAML metadata XML file.
    ![saml metadata](assets/auth0-download-saml-metadata.png)
    ![saml metatadata2](assets/auth0-download-saml-metadata-2.png)
 6. Configure one or more users in Auth0. They will be your default administrators of the Kyma runtime. Later, you can set up other users with [role-based access control (RBAC)](#configuring-role-based-access-control-rbac).
@@ -36,7 +36,7 @@ The following steps are based on the Identity Authentication documentation about
 1. In your IAS tenant, create a new corporate identity provider.
    ![new-idp](assets/ias-new-idp.png)
 2. Configure the identity provider type to be `SAML 2.0 Compliant`.
-3. Under **SAML 2.0 Configuration**, upload the SAML metadata xml file that you downloaded previously, and save the configuration.
+3. Under **SAML 2.0 Configuration**, upload the SAML metadata XML file that you downloaded previously, and save the configuration.
    ![ias-upload-saml-metadata](assets/ias-upload-saml-metadata.png)
 
 ### Create application in IAS
@@ -46,13 +46,13 @@ The following steps are based on the Identity Authentication documentation about
 2. Select `Protocol` as `OpenID Connect`.
 3. In **Open ID Configuration**, provide the URI for the Kyma Dashboard <https://dashboard.kyma.cloud.sap/>. Additionally, add a local URI <http://localhost:8000>. This will be used for `kubectl` access.
 
-   >Note: If your localhost 8000 port is already bound, provide another port. Then you will need to adjust your Kubeconfig accordingly.
+   >Note: If your localhost 8000 port is already bound, provide another port and adjust your Kubeconfig accordingly.
 
    ![ias-openid-config](assets/ias-openid-config.png)
 
 ### Provision or update Kyma runtime
 
-While provisioning the Kyma runtime, provide the oidc details among other parameters. Use the similar configuration if you are updating the Kyma runtime.
+While provisioning the Kyma runtime, provide the oidc details among other parameters. Use a similar configuration if you are updating the Kyma runtime.
 
 ```json
 {
@@ -79,7 +79,7 @@ While provisioning the Kyma runtime, provide the oidc details among other parame
 
 ### Accessing the Kyma runtime
 
-Once Kyma runtime provisioning is finished, the administrators can open the Kyma Dashboard. They will be redirected to the Auth0 login and once that is successful, they can view the Kyma Dashboard.
+Once Kyma runtime provisioning is finished, the administrators can open the Kyma Dashboard. They will be redirected to the Auth0 log-in and once that is successful, they can view the Kyma Dashboard.
 
 The same flow applies to kubectl access.
 
@@ -89,7 +89,7 @@ For non-admin users, such as developers, you might want to limit the access to t
 
 You will create a dev namespace and provide `cluster-admin` access to a group called `kyma-dev-ns` for this namespace.
 
-In the following example, I am using the default role `cluster-admin`. If required, you can create a customized role.
+In the following example, I am using the default role `cluster-admin`. If you want, you can copy and customize the default role.
 
 ### Kyma configuration for RBAC
 
@@ -120,7 +120,7 @@ The groups configured in Auth0 are manifest as a string array for assertion attr
    - `Value`: ${http://schemas.xmlsoap.org/claims/Group}
    ![ias-enrich-attribute](assets/ias-enrich-attribute.png)
 2. In your application in IAS, verify the following:
-   - `groups` is a assertion attribute.
+   - `groups` is an assertion attribute.
      ![ias-application-attribute](assets/ias-application-attribute.png)
    - The `E-mail` user attribute is mapped to the `sub` assertion attribute.
 
