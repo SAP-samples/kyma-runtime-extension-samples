@@ -141,13 +141,13 @@ It is interesting to notice that all these deployment configurations are auto-ge
 - Check the hana deployer logs
 
     ```shell
-    kubectl logs -l app.kubernetes.io/name= hana-deployer
+    kubectl -n ${NAMESPACE} logs -l app.kubernetes.io/name=hana-deployer
     ```
 
 - Check the logs for the CAP application
 
     ```shell
-    kubectl logs -l app.kubernetes.io/name= srv
+    kubectl -n ${NAMESPACE} logs -l app.kubernetes.io/name=srv
     ```
 
 - Access the application at the displayed URL after deploy. It will be of the form <https://cap-bookshop-srv-{your-kyma-namespace}.{your-kyma-cluster-domain}>
