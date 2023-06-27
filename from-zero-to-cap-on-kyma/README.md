@@ -8,6 +8,16 @@ In this sample, we will start from scratch / zero to deploying an [CAP](https://
 
 > Note: For simplification most of the commands have been defined using the [Makefile](Makefile). In case you want to understand what the actual command is, run `make <command> --just-print`
 
+## Prerequisites
+
+- [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
+- [Docker](../prerequisites/#docker)
+- [make](https://www.gnu.org/software/make/)
+- [Kubernetes tooling](../prerequisites/#kubernetes)
+- [Pack](../prerequisites/#pack)
+- [SAP CAP](../prerequisites/#sap-cap)
+- [NodeJS 18 or higher](https://nodejs.org/en/download/)
+
 ## Pre-setup
 
 - Set up required environment variables
