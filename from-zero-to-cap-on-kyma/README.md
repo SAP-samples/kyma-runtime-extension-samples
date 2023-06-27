@@ -17,6 +17,8 @@ In this sample, we will start from scratch / zero to deploying an [CAP](https://
 - [Pack](../prerequisites/#pack)
 - [SAP CAP](../prerequisites/#sap-cap)
 - [NodeJS 18 or higher](https://nodejs.org/en/download/)
+- SAP Hana Cloud Instance
+- [SAP Hana Cloud Instance mapped to Kyma](https://blogs.sap.com/2022/12/15/consuming-sap-hana-cloud-from-the-kyma-environment/)
 
 ## Pre-setup
 
