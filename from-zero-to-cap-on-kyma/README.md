@@ -50,8 +50,8 @@ In this sample, we will start from scratch / zero to deploying an [CAP](https://
 
 Let's take a minute to inspect our cap application. It is a simple Bookshop sample where you can access Book entries via API calls.
 
-- Data model defined in [data-model.cds](./bookshop/db/data-model.cds)
-- Core Data Service defined in [cat-service.cds](./bookshop/srv/cat-service.cds)
+- Data model defined in [./bookshop/db/data-model.cds](./bookshop/db/data-model.cds)
+- Core Data Service defined in [./bookshop/srv/cat-service.cds](./bookshop/srv/cat-service.cds)
 
 Directly from CAP website, CAP promotes getting started with minimal upfront setup, based on convention over configuration, and a grow-as-you-go approach, adding settings and tools later on, only when you need them.
 
