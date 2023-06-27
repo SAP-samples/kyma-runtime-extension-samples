@@ -64,11 +64,12 @@ Running various samples requires access to the Kyma runtime. There are also othe
 
 ## CAP
 
-| Name                                   | Description                                                                            | References                                                        |
-| -------------------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-|[CAP Orders Service](./cap-orders-service/README.md) | This sample provides a secured CAP service application deployment onto HANA that utilizes the Destination Service, Connectivity Proxy and configured for Helm using Cloud Native Buildpacks
-| [CAP on Kyma - Cloud Native Buildpacks](./cap-service/README-CNB.md)|This sample provides a secured CAP Service application deployed onto HANA and configured for Helm using Cloud Native Buildpacks||
-| [CAP on Kyma](./cap-service/README.md) | This sample provides a CAP Service application configured with the sample `FAQs` APIs | [Tutorial](https://developers.sap.com/tutorials/cp-kyma-cap.html) |
+| Name                                                                 | Description                                                                                                                                                                                 | References                                                        |
+|----------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| [CAP Orders Service](./cap-orders-service/README.md)                 | This sample provides a secured CAP service application deployment onto HANA that utilizes the Destination Service, Connectivity Proxy and configured for Helm using Cloud Native Buildpacks |                                                                   |
+| [CAP on Kyma - Cloud Native Buildpacks](./cap-service/README-CNB.md) | This sample provides a secured CAP Service application deployed onto HANA and configured for Helm using Cloud Native Buildpacks                                                             |                                                                   |
+| [CAP on Kyma](./cap-service/README.md)                               | This sample provides a CAP Service application configured with the sample `FAQs` APIs                                                                                                       | [Tutorial](https://developers.sap.com/tutorials/cp-kyma-cap.html) |
+| [From Zero to CAP on Kyma](./from-zero-to-cap-on-kyma/README.md)     | Starting from scratch build a CAP application and deploy it to Kyma runtime                                                                                                                 |                                                                   |
 
 ## FAAS Migration
 
