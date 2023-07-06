@@ -1,6 +1,8 @@
 # Overview
 
-In this sample, we will start from scratch / zero to deploying an [CAP](https://cap.cloud.sap/docs/) application on Kyma runtime.
+In this sample, we will start from scratch / zero to deploying an [CAP](https://cap.cloud.sap/docs/) NodeJS application on Kyma runtime.
+
+![cap-bookshop](assets/cap-booksop.png)
 
 - You will create a sample Node.JS based CAP application (Bookshop)
 - Using cds, you will create the necessary artifacts and configurations required to deploy on Kyma.
@@ -15,8 +17,8 @@ In this sample, we will start from scratch / zero to deploying an [CAP](https://
 - [make](https://www.gnu.org/software/make/)
 - [Kubernetes tooling](../prerequisites/#kubernetes)
 - [Pack](../prerequisites/#pack)
-- [SAP CAP](../prerequisites/#sap-cap)
 - [NodeJS 18 or higher](https://nodejs.org/en/download/)
+- [SAP CAP](../prerequisites/#sap-cap)
 - SAP Hana Cloud Instance
 - [SAP Hana Cloud Instance mapped to Kyma](https://blogs.sap.com/2022/12/15/consuming-sap-hana-cloud-from-the-kyma-environment/)
 
@@ -76,6 +78,20 @@ Directly from CAP website, CAP promotes getting started with minimal upfront set
 
 ## Build Docker images
 
+On Kyma runtime, application run as docker containers. They require a docker image to be created out of the application code / binaries.
+
+The docker image will be stored on the SAP Internet facing artifactory. Access is restricted with credentials.
+
+We will use pack to build the docker images.
+
+- Checkout what is happening when building the docker image
+
+    ```shell
+    make build-hana-deployer --just-print
+    ```
+
+You will notice that `pack` intelligently identifies how to pack the source code and create the necessary artifacts. The same is also true for Java applications.
+
 - Build and push the Hana deployer image
 
     ```shell
@@ -91,6 +107,12 @@ Directly from CAP website, CAP promotes getting started with minimal upfront set
     ```
 
 ## Deploy to Kyma runtime
+
+Now that we have our artifacts in place, lets shift our focus to deploying the application.
+
+First we need the configurations to tell Kyma what and how we want to deploy.
+
+We will use [Helm Charts](https://helm.sh/) to define  the required configurations and then deploy them on Kyma runtime.
 
 ### Create Helm chart
 
@@ -159,3 +181,9 @@ make undeploy
 ```
 
 This will delete the helm chart. Thereby all deployed applications, service instances and their bindings will be cleaned.
+
+## Takeaway
+
+*CAP supports grow-as-you-go model. Once you have familiarized yourself with CAP basics, you can go further and add capabilities such as authentication, multitenancy, extensibility, messaging and many more.*
+
+You can explore CAP further on <https://cap.cloud.sap/docs/>

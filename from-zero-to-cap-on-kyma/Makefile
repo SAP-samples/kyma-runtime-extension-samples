@@ -51,6 +51,7 @@ deploy-dry-run:
     		--set hana-deployer.image.tag=${APP_VERSION} \
     		--set hana-deployer.image.repository=${HANA_DEPLOYER_IMAGE_REPO} \
     		--set srv.image.tag=${APP_VERSION} \
+			--set srv.replicaCount=3 \
     		--set srv.image.repository=${CAP_SRV_IMAGE_REPO} \
     		--set global.domain=${CLUSTER_DOMAIN}
 
@@ -59,6 +60,7 @@ deploy:
     		--set hana-deployer.image.tag=${APP_VERSION} \
     		--set hana-deployer.image.repository=${HANA_DEPLOYER_IMAGE_REPO} \
     		--set srv.image.tag=${APP_VERSION} \
+			--set srv.replicaCount=3 \
     		--set srv.image.repository=${CAP_SRV_IMAGE_REPO} \
     		--set global.domain=${CLUSTER_DOMAIN}
 
