@@ -44,67 +44,94 @@ In this sample, we will start from scratch / zero to deploying an [CAP](https://
     $ENV:CLUSTER_DOMAIN=$(kubectl get cm -n kube-system shoot-info -ojsonpath='{.data.domain}')
     ```
 
+- For mac users, export the DOCKER_HOST
+
+```shell
+export DOCKER_HOST=unix://${HOME}/.docker/run/docker.sock
+```
+
 ## CAP Application
 
 - Initialize the Cap Bookshop sample
 
-    ```shell
-    make init
-    ```
+```shell
+make init
+```
 
 Let's take a minute to inspect our cap application. It is a simple Bookshop sample where you can access Book entries via API calls.
 
 - Data model defined in [./bookshop/db/data-model.cds](./bookshop/db/data-model.cds)
 - Core Data Service defined in [./bookshop/srv/cat-service.cds](./bookshop/srv/cat-service.cds)
 
-Directly from CAP website, CAP promotes getting started with minimal upfront setup, based on convention over configuration, and a grow-as-you-go approach, adding settings and tools later on, only when you need them.
+Directly from CAP website, *CAP promotes getting started with minimal upfront setup, based on convention over configuration, and a grow-as-you-go approach, adding settings and tools later on, only when you need them.*
 
-- Run Local
+- Run the application locally
 
-    ```shell
-    make run-local
-    ```
+```shell
+make run-local
+```
 
 - Access the CAP Srv at <http://localhost:4004>
 - Terminate the local running app with `^C`
 
 ## Add Hana cloud
 
-- Add Hana for production deployment
+The local run uses sqlite for storing data. For productive deployment, we would like to use Hana Cloud.
 
-    ```shell
-    make add-hana
-    ```
+- Let's add Hana Cloud for production deployment
+
+```shell
+make add-hana
+```
+
+## Add Required Libraries
+
+We need to add certain libraries to our NodeJs project for production
+
+```shell
+make add-required-libs
+```
 
 ## Build Docker images
 
 On Kyma runtime, application run as docker containers. They require a docker image to be created out of the application code / binaries.
 
-The docker image will be stored on the SAP Internet facing artifactory. Access is restricted with credentials.
+The docker image can be stored on the public docker registry. It can be a private docker registry where access is restricted with credentials.
 
 We will use pack to build the docker images.
 
 - Checkout what is happening when building the docker image
 
-    ```shell
-    make build-hana-deployer --just-print
-    ```
+```shell
+make build-hana-deployer --just-print
+```
 
 You will notice that `pack` intelligently identifies how to pack the source code and create the necessary artifacts. The same is also true for Java applications.
 
 - Build and push the Hana deployer image
 
-    ```shell
-    make build-hana-deployer
-    make push-hana-deployer
-    ```
+```shell
+make build-hana-deployer
+make push-hana-deployer
+```
 
 - Build and push the CAP Srv image
 
-    ```shell
-    make build-cap-srv
-    make push-cap-srv
-    ```
+```shell
+make build-cap-srv
+make push-cap-srv
+```
+
+### Prepare for Kyma deployment
+
+Let's do a bit of groundwork before we deploy our Helm Chart. In Kyma/Kubernetes, the workloads and required configurations will be deployed in namespaces.
+
+We will create a namespace and enable istio-injection.
+You can skip this step if you already have a namespace and have enabled istio-injection.
+
+```shell
+make prepare-kyma-for-deployment
+```
 
 ## Deploy to Kyma runtime
 
@@ -120,9 +147,9 @@ We will use [Helm Charts](https://helm.sh/) to define  the required configuratio
 
 - Create Helm chart
 
-    ```shell
-    make create-helm-chart
-    ```
+```shell
+make create-helm-chart
+```
 
 Now take a moment to understand the generated Helm chart in the [chart](./chart) directory.
 
@@ -135,17 +162,17 @@ Now take a moment to understand the generated Helm chart in the [chart](./chart)
 
 - Check the make command by running
 
-    ```shell
-    make deploy-dry-run --just-print
-    ```
+```shell
+make deploy-dry-run --just-print
+```
 
 You will notice that we are overriding a various properties defined in `chart/values.yaml`. This is standard helm feature where you can override your values by specifying them in the command line. This obviates the need to modify the `values.yaml` file. Of course, you can also update the `values.yaml` directly.
 
 - Run the command to do a dry run
 
-    ```shell
-    make deploy-dry-run
-    ```
+```shell
+make deploy-dry-run
+```
 
 Take some time to understand what all will be deployed and how does the configuration looks like.
 It is interesting to notice that all these deployment configurations are auto-generated via cds.
@@ -154,25 +181,35 @@ It is interesting to notice that all these deployment configurations are auto-ge
 
 - You can now proceed to do the actual deployment
   
-    ```shell
-    make deploy
-    ```
+```shell
+make deploy
+```
 
 ### Verify your deployment
 
+- Check the state of the application pods. **Wait until pods are in running state.**
+
+```shell
+make check-pods
+```
+
 - Check the hana deployer logs
 
-    ```shell
-    kubectl -n ${NAMESPACE} logs -l app.kubernetes.io/name=hana-deployer
-    ```
+```shell
+make check-hana-deployer-logs
+```
 
 - Check the logs for the CAP application
 
-    ```shell
-    kubectl -n ${NAMESPACE} logs -l app.kubernetes.io/name=srv
-    ```
+```shell
+make check-cap-srv-logs
+```
 
 - Access the application at the displayed URL after deploy. It will be of the form <https://cap-bookshop-srv-{your-kyma-namespace}.{your-kyma-cluster-domain}>
+
+```shell
+make open-deployed-app
+```
 
 ### Cleanup
 

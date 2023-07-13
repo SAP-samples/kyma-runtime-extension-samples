@@ -13,13 +13,16 @@ CAP_SRV_IMAGE_REPO=${DOCKER_ACCOUNT}/${CAP_SRV}
 CAP_SRV_IMAGE=${CAP_SRV_IMAGE_REPO}:${APP_VERSION}
 
 init:
-	cds init bookshop --add samples,nodejs
+	cds init bookshop --add tiny-sample,nodejs
 
 run-local:
 	cds watch bookshop
 
 add-hana:
 	cd bookshop && cds add hana --for production && cd -
+
+add-required-libs:
+	cd bookshop && npm i passport && npm i @sap/xssec && cd -
 
 build-hana-deployer:
 	cds build -in bookshop --production
@@ -43,6 +46,10 @@ build-cap-srv:
 push-cap-srv:
 	docker push ${CAP_SRV_IMAGE}
 
+prepare-kyma-for-deployment:
+	kubectl create namespace ${NAMESPACE}
+	kubectl label namespace ${NAMESPACE} istio-injection=enabled
+
 create-helm-chart:
 	cd bookshop && cds add helm && cd -
 
@@ -51,7 +58,6 @@ deploy-dry-run:
     		--set hana-deployer.image.tag=${APP_VERSION} \
     		--set hana-deployer.image.repository=${HANA_DEPLOYER_IMAGE_REPO} \
     		--set srv.image.tag=${APP_VERSION} \
-			--set srv.replicaCount=3 \
     		--set srv.image.repository=${CAP_SRV_IMAGE_REPO} \
     		--set global.domain=${CLUSTER_DOMAIN}
 
@@ -60,12 +66,21 @@ deploy:
     		--set hana-deployer.image.tag=${APP_VERSION} \
     		--set hana-deployer.image.repository=${HANA_DEPLOYER_IMAGE_REPO} \
     		--set srv.image.tag=${APP_VERSION} \
-			--set srv.replicaCount=3 \
     		--set srv.image.repository=${CAP_SRV_IMAGE_REPO} \
     		--set global.domain=${CLUSTER_DOMAIN}
 
 check-pods:
 	kubectl get po --namespace ${NAMESPACE}
 
+check-hana-deployer-logs:
+	kubectl -n ${NAMESPACE} logs -l app.kubernetes.io/name=hana-deployer
+
+check-cap-srv-logs:
+	kubectl -n ${NAMESPACE} logs -l app.kubernetes.io/name=srv
+
+open-deployed-app:
+	open https://cap-bookshop-srv-${NAMESPACE}.${CLUSTER_DOMAIN}
+
 undeploy:
 	helm del cap-bookshop --namespace ${NAMESPACE}
+	rm -rf bookshop
