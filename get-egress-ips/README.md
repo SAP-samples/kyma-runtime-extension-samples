@@ -15,6 +15,12 @@ The script intelligently runs the curl pod in each of the different availability
 
 - On MacOS or Linux, run the following command
 
-```shell
-./get-egress-ips.sh
-```
+  ```shell
+  ./get-egress-ips.sh
+  ```
+
+- On Windows (or MacOS or Linux if you have PowerShell installed), run the following command:
+
+  ```pwsh
+  ./get-egress-ips.ps1
+  ```
