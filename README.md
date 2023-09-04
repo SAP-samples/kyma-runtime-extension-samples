@@ -46,8 +46,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | [Sample SAP Customer Data Platform Extension](./cdp-extension/README.md) | This example includes a Kyma Serverless Function as cdp-extension exposed as an SAP Customer Data Platform Extension endpoint       | [Post](https://blogs.sap.com/2021/11/24/enrich-contact-data-on-sap-customer-data-platform-with-master-data-from-sap-s-4hana-cloud-using-a-kyma-serverless-function/) |
 | [SAP Sales Cloud address completion](./address-completion-c4c/README.md) | Corrects the address for an account update or create in SAP Sales Cloud                                                             | -                                                                                                                                                                    |
 | [Product Review Sentiment Analysis with SAP Commerce Cloud](./sentiment-analysis/README.md) | Automated sentiment analysis and content moderation for customer product reviews in SAP Commerce Cloud | -                                                                                                                                                    |
-| [Order Validation with SAP Commerce Cloud](./order-validation/README.md) | Automated order validation with external fraud check service running SAP BTP, Kyma runtime  | 
--
+| [Order Validation with SAP Commerce Cloud](./order-validation/README.md) | Automated order validation with external fraud check service running SAP BTP, Kyma runtime  |
 
 ## S/4HANA Extensions
 
@@ -127,6 +126,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | [Query LDAP Users on on-premise](./sample-ldap/README.md)                                                                     | This sample queries the LDAP users from an on premise LDAP Server via SAP Connectivity proxy                  | -                                                                                                                                                      |
 | [Deploy Highly Available Workloads](./multi-zone-ha-deployment/README.md)                                                                     | This sample demonstrates deploying highly available workloads in Kyma runtime                  | -                                                                                                                                                      |
 | [Power of serverless with SAP BTP, Kyma runtime.](./kyma-serverless/README.md)                                                                     | This sample demonstrates how to leverage latest features of kyma functions with SAP HANA Cloud and SAP libraries                  | [Post](https://blogs.sap.com/2023/02/06/power-of-serverless-with-sap-btp-kyma-runtime.-secrets-mounted-as-volumes./)                                                                                                                                                   |
+| [Using on-premise docker registry with Kyma runtime](./on-premise-docker-registry/README.md) | This sample demonstrates how to pull images from an on-premise docker registry for applications deployed on Kyma runtime | -  |
 
 ## Multitenancy and SaaS
 
