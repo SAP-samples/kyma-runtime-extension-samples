@@ -14,7 +14,7 @@ Although this is a reliable option, many a time, customers do not wish to store 
 - Security and compliance requirements that prohibit storing artifacts on public clouds
 - Customers wishing to use the bundled on-premise Docker registry licenses with their source versioning offerings.
 - Customers who do not wish to set up contract with public cloud vendor.
-- others...
+- other reasons...
 
 For these customers, they can consider leveraging on-premise docker registry. Docker images are pulled then using connectivity proxy and cloud connector.
 
