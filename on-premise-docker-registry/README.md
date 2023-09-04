@@ -144,7 +144,7 @@ make create-test-image
 make create-secret-to-pull-image
 ```
 
-- Deploy the test workload. In the [deployment file](./test-image-deployment/deployment.yaml), you will notice the image is specified as `localhost:30930/....`. This is the localhost wrt to Kubernetes worker node and the port is the NodePort of the nginx reverse proxy service.
+- Deploy the test workload. Notice that in the [deployment file](./test-image-deployment/deployment.yaml), the image is specified as `localhost:30930/....`. This is the localhost wrt to the Kubernetes worker node, and the port is the NodePort of the nginx reverse proxy service.
 
 ```shell
 make deploy-test-workload
