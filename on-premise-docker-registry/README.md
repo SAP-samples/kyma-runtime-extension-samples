@@ -33,6 +33,7 @@ Here nginx as a reverse proxy is used to forward the HTTP requests for pulling d
 - [make](https://www.gnu.org/software/make/)
 - [Kubernetes tooling](../prerequisites/#kubernetes)
 - [Cloud Connector on your laptop or test system](../prerequisites/#sap-cloud-connector)
+- [Connectivity Proxy instance configured in Kyma](https://help.sap.com/docs/btp/sap-business-technology-platform/configure-sap-btp-connectivity-in-kyma-environment)
 - [OpenSSL](https://www.openssl.org/) or another similiar tool to generate the certificates
 - [htpasswd](https://httpd.apache.org/docs/2.4/programs/htpasswd.html) installed
 
