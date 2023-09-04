@@ -150,7 +150,7 @@ make create-secret-to-pull-image
 make deploy-test-workload
 ```
 
-- You can wait until the pod is up and running. Check the status using the command
+- Wait until the Pod is up and running. Check the status using the following command:
 
 ```shell
 make check-test-workload
