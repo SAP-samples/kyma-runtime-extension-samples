@@ -39,11 +39,14 @@ Here nginx as a reverse proxy is used to forward the HTTP requests for pulling d
 
 ## Setup
 
+The commands have been verified on OXS. However, it should be possible to adapt them for a windows laptop.
+
 ### Environment variables
 
 - Export the following environment variables
 
 ```shell
+export KUBECONFIG=<path-to-kubeconfig>
 export NAMESPACE={kyma-namespace-used-for-this-sample}
 export CLUSTER_DOMAIN={kyma-cluster-domain}
 export REG_USER_NAME={docker-registry-user}
@@ -97,6 +100,13 @@ It will be exposed as `NodePort` service. This will expose the Service on the Ku
 When creating a deployment, we will specify the docker registry as `localhost:{NodePort}`. This will be the address of the nginx reverse proxy. The nginx reverse proxy will then forward the call to the on-premise docker registry via connectivity proxy and cloud connector.
 
 In this sample, I am using a simple configuration with nginx as a reverse proxy. You are free to use any other reverse proxy implementation based on your on-premise docker registry behavior and APIs.
+
+- Create namespace and enable istio sidecar injection if not done earlier.
+
+```shell
+kubectl create namespace ${NAMESPACE}
+kubectl label namespace ${NAMESPACE} istio-injection=enabled
+```
 
 - Deploy the nginx as a reverse proxy. Following components will be deployed
   - [ConfigMap](./k8s/configmap.yaml) for nginx configuration
