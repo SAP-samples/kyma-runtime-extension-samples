@@ -156,7 +156,7 @@ make deploy-test-workload
 make check-test-workload
 ```
 
-- Once pod is up and running, you can access the application
+- Once the Pod is up and running, you can access the application
 
 ```shell
 make access-test-workload
