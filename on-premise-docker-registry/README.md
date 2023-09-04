@@ -147,7 +147,7 @@ make create-test-image
 
 - Update the [deployment.yaml for test workload](./test-image-deployment/deployment.yaml).
   - Replace `{nginx-reverse-proxy-node-port}` with the `NGINX_NODE_PORT` value.
-  - Replace `{generate-image-tag}` with the tag of generated image.
+  - Replace `{generate-image-tag}` with the tag of the generated image.
 
 - Create Kubernetes Secret with credentials to pull the Docker image.
 
