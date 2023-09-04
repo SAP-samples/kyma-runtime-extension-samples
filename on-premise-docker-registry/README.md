@@ -16,23 +16,23 @@ Although this is a reliable option, many a time, customers do not wish to store 
 - Customers who do not wish to set up contract with public cloud vendor.
 - other reasons...
 
-For these customers, they can consider leveraging on-premise docker registry. Docker images are pulled then using connectivity proxy and cloud connector.
+These customers can consider leveraging the on-premise Docker registry. Docker images are pulled then using connectivity proxy and Cloud Connector.
 
-Below is a sample flow how this can be possibly achieved
+See the following sample flow of how this can be achieved
 
 ![flow](assets/on-prem-docker-reg.png)
 
-Here nginx as a reverse proxy is used to forward the HTTP requests for pulling docker images from on-premise docker registry via connectivity proxy and cloud connector.
+Here, nginx as a reverse proxy is used to forward the HTTP requests for pulling Docker images from the on-premise Docker registry using connectivity proxy and Cloud Connector.
 
->Note: In this sample, nginx as a reverse proxy is used to pull the images from an on-premise docker registry. The setup relies on docker registry API v2 and proves the concept. This can be replaced with another reverse-proxy or a custom implementation based on API and requirements.
+>**NOTE:** In this sample, nginx as a reverse proxy is used to pull the images from an on-premise Docker registry. The setup relies on the Docker registry API v2 and proves the concept. This can be replaced with another reverse proxy or a custom implementation based on API and requirements.
 
 ## Prerequisites
 
 - [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
 - [Docker](../prerequisites/#docker)
-- [make](https://www.gnu.org/software/make/)
+- [GNU Make](https://www.gnu.org/software/make/)
 - [Kubernetes tooling](../prerequisites/#kubernetes)
-- [Cloud Connector on your laptop or test system](../prerequisites/#sap-cloud-connector)
+- [Cloud Connector on your machine or test system](../prerequisites/#sap-cloud-connector)
 - [Connectivity Proxy instance configured in Kyma](https://help.sap.com/docs/btp/sap-business-technology-platform/configure-sap-btp-connectivity-in-kyma-environment)
 - [OpenSSL](https://www.openssl.org/) or another similar tool to generate the certificates
 - [htpasswd](https://httpd.apache.org/docs/2.4/programs/htpasswd.html) installed
@@ -43,7 +43,7 @@ The commands have been verified on OXS. However, it should be possible to adapt 
 
 ### Environment variables
 
-- Export the following environment variables
+- Export the following environment variables:
 
 ```shell
 export KUBECONFIG=<path-to-kubeconfig>
@@ -56,50 +56,50 @@ export EMAIL={your-email}
 
 ### On-premise Docker registry
 
-In this sample, we will setup a simple docker registry running on your laptop. This can be replaced with a productive alternate deployed in your corporate network. The only requirement is that it should be reachable via cloud connector.
+In this sample, we set up a simple Docker registry running on your machine. This can be replaced with a productive alternate deployed in your corporate network. The only requirement is that it should be reachable using Cloud Connector.
 
-- Generate the self-signed certificate for enabling HTTPS for docker registry. Be sure to specify the `CN` as `myregistry.kyma`
+- Generate the self-signed certificate for enabling HTTPS for the Docker registry. Be sure to specify the `CN` as `myregistry.kyma`
 
 ```shell
 make generate-self-signed-cert
 ```
 
-- Configure trust for the generated self signed certificate
+- Configure trust for the generated self-signed certificate
 
 ```shell
 make trust-self-signed-cert
 ```
 
-- Generate the `htpasswd`. This will be used for authenticating access to on-premise docker registry.
+- Generate the `htpasswd`. This is used for authenticating access to the on-premise Docker registry.
 
 ```shell
 make generate-htpasswd
 ```
 
-- Start the docker registry server
+- Start the Docker registry server
 
 ```shell
 make start-docker-registry
 ```
 
-- Add DNS entry to `/etc/hosts` file
+- Add DNS entry to the `/etc/hosts` file
 
 ```shell
 127.0.0.1 myregistry.kyma
 ```
 
-- Configure cloud connector to access on-premise docker registry.
+- Configure Cloud Connector to access the on-premise Docker registry.
   ![cc-config](assets/cc-config.png)
 
-## Nginx as reverse proxy
+## nginx as reverse proxy
 
-We will be using nginx as a reverse proxy to forward the HTTP requests for pulling docker images from on-premise docker registry via connectivity proxy and cloud connector.
+We use nginx as a reverse proxy to forward the HTTP requests for pulling docker images from the on-premise Docker registry using connectivity proxy and Cloud Connector.
 
-It will be exposed as `NodePort` service. This will expose the Service on the Kubernetes worker node on a port. Kubelet is a component running on each Kubernetes worker node. Among other tasks it is responsible for pulling the docker images.
+It is exposed as the `NodePort` service. This exposes the Service on the Kubernetes worker node on a port. Kubelet is a component running on each Kubernetes worker node. Among other tasks, it is responsible for pulling the Docker images.
 
-When creating a deployment, we will specify the docker registry as `localhost:{NodePort}`. This will be the address of the nginx reverse proxy. The nginx reverse proxy will then forward the call to the on-premise docker registry via connectivity proxy and cloud connector.
+When creating a deployment, we specify the Docker registry as `localhost:{NodePort}`. This is the address of the nginx reverse proxy. The nginx reverse proxy then forwards the call to the on-premise Docker registry using connectivity proxy and Cloud Connector.
 
-In this sample, I am using a simple configuration with nginx as a reverse proxy. You are free to use any other reverse proxy implementation based on your on-premise docker registry behavior and APIs.
+This sample shows a simple configuration with nginx as a reverse proxy. You can use any other reverse proxy implementation based on your on-premise Docker registry behavior and APIs.
 
 - Create namespace and enable istio sidecar injection if not done earlier.
 
@@ -108,22 +108,22 @@ kubectl create namespace ${NAMESPACE}
 kubectl label namespace ${NAMESPACE} istio-injection=enabled
 ```
 
-- Deploy the nginx as a reverse proxy. Following components will be deployed
+- Deploy the nginx as a reverse proxy. The following components will be deployed:
   - [ConfigMap](./k8s/configmap.yaml) for nginx configuration
   - [Deployment and Service](./k8s/deployment.yaml)
-  - [PeerAuthentication](./k8s/peer-authentication.yaml) set to permissive to allow communication between kubelet and nginx reverse proxy.
+  - [PeerAuthentication](./k8s/peer-authentication.yaml) set to `PERMISSIVE` to allow for communication between kubelet and the nginx reverse proxy.
 
 ```shell
 make deploy-nginx-reverse-proxy
 ```
 
-- Wait for the Nginx reverse proxy to be up and running
+- Wait for the nginx reverse proxy to be up and running
 
 ```shell
 make check-nginx-reverse-proxy
 ```
 
-- Export the NodePort for Nginx reverse proxy as environment variable
+- Export NodePort for the nginx reverse proxy as an environment variable
 
 ```shell
 export NGINX_NODE_PORT=$(kubectl get svc nginx -o jsonpath='{.spec.ports[0].nodePort}')
@@ -131,25 +131,25 @@ export NGINX_NODE_PORT=$(kubectl get svc nginx -o jsonpath='{.spec.ports[0].node
 
 ## Test workload
 
-Let's deploy a sample workload that will use an image from the on-premise docker registry.
+Let's deploy a sample workload that will use an image from the on-premise Docker registry.
 
-- Do a docker login to the created on-premise docker registry
+- Log in to the created on-premise docker registry
 
 ```shell
 make docker-login
 ```
 
-- Create and store a sample docker image in on-premise docker registry. It uses an image tag based on current time.
+- Create and store a sample Docker image in the on-premise Docker registry. It uses an image tag based on the current time.
 
 ```shell
 make create-test-image
 ```
 
 - Update the [deployment.yaml for test workload](./test-image-deployment/deployment.yaml).
-  - Replace `{nginx-reverse-proxy-node-port}` with NGINX_NODE_PORT value.
+  - Replace `{nginx-reverse-proxy-node-port}` with the `NGINX_NODE_PORT` value.
   - Replace `{generate-image-tag}` with the tag of generated image.
 
-- Create Kubernetes secret with credentials to pull the docker image.
+- Create Kubernetes Secret with credentials to pull the Docker image.
 
 ```shell
 make create-secret-to-pull-image
