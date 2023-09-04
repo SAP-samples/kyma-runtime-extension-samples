@@ -170,4 +170,4 @@ make access-test-workload
 make cleanup
 ```
 
-- Remove the entry fom the cloud connector.
+- Remove the entry from Cloud Connector.
