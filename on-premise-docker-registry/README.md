@@ -164,7 +164,7 @@ make access-test-workload
 
 ## Cleanup
 
-- Remove the test workload, nginx reverse proxy and local docker registry
+- Remove the test workload, the nginx reverse proxy, and the local Docker registry
 
 ```shell
 make cleanup
