@@ -1,6 +1,6 @@
 # Overview
 
-Many a times customers would like to innovate by building applications and deploying on Kyma runtime. Since Kyma is based on Kubernetes, the will need to package their application binaries as docker images. These images then need to be stored on a docker registry server.
+Many a time, customers would like to innovate by building applications and deploying them on Kyma runtime. Since Kyma is based on Kubernetes, they must package their application binaries as Docker images. These images then need to be stored on a Docker registry server.
 
 The customers have the option to use a third party docker registry hosted on public clouds such as:
 
