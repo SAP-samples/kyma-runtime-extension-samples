@@ -182,3 +182,10 @@ make cleanup
 ```
 
 - Remove the entry from Cloud Connector.
+
+## Takeaways
+
+- It is possible to have a setup to pull docker images from an on-premise docker registry for applications deployed on SAP BTP Kyma runtime
+- Docker images are pulled using connectivity proxy and Cloud Connector.
+- A reverse proxy component would need to be installed from the customer side. This will adapt and forward the requests to on-premise docker registry via connectivity proxy.
+- The reverse proxy can be an off the shelf component such as nginx or a custom implementation depending upon what APIs and behavior is supported by on-premise docker registry.
