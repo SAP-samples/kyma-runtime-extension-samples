@@ -47,7 +47,7 @@ check-nginx-reverse-proxy:
 	kubectl -n ${NAMESPACE} get po -l app=nginx
 
 follow-nginx-reverse-proxy-logs:
-	kubectl -n ${NAMESPACE} logs -l app=nginx -c log-sidecar -f
+	kubectl -n ${NAMESPACE} logs -l app=nginx -c nginx -f
 
 follow-docker-registry-logs:
 	docker logs ${DOCKER_REG_CONTAINER_NAME} -f

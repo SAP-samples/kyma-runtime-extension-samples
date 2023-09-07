@@ -1,6 +1,6 @@
 # Overview
 
-Many a time, customers would like to innovate by building applications and deploying them on Kyma runtime. Since Kyma is based on Kubernetes, they must package their application binaries as Docker images. These images then need to be stored on a Docker registry server.
+Often customers would like to innovate by building applications and deploying them on Kyma runtime. Since Kyma is based on Kubernetes, they must package their application binaries as Docker images. These images then need to be stored on a Docker registry server.
 
 The customers have the option to use a third-party Docker registry hosted on public clouds such as:
 
@@ -16,13 +16,13 @@ Although this is a reliable option, customers do not wish to store their artifac
 - Customers who do not wish to set up contract with public cloud vendor.
 - other reasons...
 
-These customers can consider leveraging a Docker registry running on-premise. Docker images are pulled then by connecting the Kubernetes cluster to the registry using connectivity proxy and Cloud Connector.
+These customers can consider leveraging a Docker registry running on-premise. Docker images are pulled then by connecting the Kubernetes cluster to the registry using Connectivity Proxy and Cloud Connector.
 
 See the following sample flow of how this can be achieved
 
 ![flow](assets/on-prem-docker-reg.png)
 
-Here, nginx as a reverse proxy is used to forward the HTTP requests for pulling Docker images from the on-premise Docker registry using connectivity proxy and Cloud Connector.
+Here, nginx as a reverse proxy is used to forward the HTTP requests for pulling Docker images from the on-premise Docker registry using Connectivity Proxy and Cloud Connector.
 
 >**NOTE:** In this sample, nginx as a reverse proxy is used to pull the images from an on-premise Docker registry. The setup relies on the Docker registry API v2 and proves the concept. This can be replaced with another reverse proxy or a custom implementation based on API and requirements.
 
@@ -93,11 +93,11 @@ make start-docker-registry
 
 ## nginx as reverse proxy
 
-We use Nginx as a reverse proxy to forward the HTTP requests for pulling Docker images from the on-premise Docker registry using connectivity proxy and Cloud Connector.
+We use Nginx as a reverse proxy to forward the HTTP requests for pulling Docker images from the on-premise Docker registry using Connectivity Proxy and Cloud Connector.
 
 It is exposed as the `NodePort` service. This exposes the Service on the Kubernetes worker node on a port. Kubelet is a component running on each Kubernetes worker node. Among other tasks, it is responsible for pulling the Docker images.
 
-When creating a deployment, we specify the Docker registry as `localhost:{NodePort}`. This is the address of the nginx reverse proxy. The nginx reverse proxy then forwards the call to the on-premise Docker registry using connectivity proxy and Cloud Connector.
+When creating a deployment, we specify the Docker registry as `localhost:{NodePort}`. This is the address of the nginx reverse proxy. The nginx reverse proxy then forwards the call to the on-premise Docker registry using Connectivity Proxy and Cloud Connector.
 
 This sample shows a simple configuration with nginx as a reverse proxy. You can use any other reverse proxy implementation based on your on-premise Docker registry behavior and APIs.
 
@@ -186,6 +186,6 @@ make cleanup
 ## Takeaways
 
 - It is possible to have a setup to pull Docker images from the on-premise Docker registry for applications deployed on SAP BTP, Kyma runtime
-- Docker images are pulled using connectivity proxy and Cloud Connector.
-- The reverse proxy component must be installed from the customer side. This will adapt and forward the requests to the on-premise Docker registry using connectivity proxy.
+- Docker images are pulled using Connectivity Proxy and Cloud Connector.
+- The reverse proxy component must be installed from the customer side. This will adapt and forward the requests to the on-premise Docker registry using Connectivity Proxy.
 - The reverse proxy can be an off-the-shelf component such as nginx or a custom implementation depending upon what APIs and behavior are supported by the on-premise Docker registry.
