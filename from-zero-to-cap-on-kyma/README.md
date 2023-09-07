@@ -211,6 +211,8 @@ make check-cap-srv-logs
 make open-deployed-app
 ```
 
+> Note: In the sample for the sake of simplicity, [mocked authentication](https://cap.cloud.sap/docs/node.js/authentication#mocked) is used. If credentials are required, you can check the link.
+
 ### Cleanup
 
 ```shell
