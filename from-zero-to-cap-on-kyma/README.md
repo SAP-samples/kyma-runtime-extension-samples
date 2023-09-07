@@ -151,7 +151,7 @@ We will use [Helm Charts](https://helm.sh/) to define  the required configuratio
 make create-helm-chart
 ```
 
-Now take a moment to understand the generated Helm chart in the [chart](./chart) directory.
+Now take a moment to understand the generated Helm chart in the [chart](./bookshop/chart) directory.
 
 ![helm-chart](assets/helm-chart.png)
 
