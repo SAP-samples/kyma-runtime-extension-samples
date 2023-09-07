@@ -4,7 +4,7 @@ Many a time, customers would like to innovate by building applications and deplo
 
 The customers have the option to use a third-party Docker registry hosted on public clouds such as:
 
-- Google Container Registry
+- Google Artifact Registry
 - Azure Container Registry
 - AWS Elastic Container Registry
 - and other vendor offerings
