@@ -9,7 +9,7 @@ The customers have the option to use a third-party Docker registry hosted on pub
 - AWS Elastic Container Registry
 - and other vendor offerings
 
-Although this is a reliable option, many a time, customers do not wish to store their artifacts on public clouds. This could be due to various reasons, such as:
+Although this is a reliable option, customers do not wish to store their artifacts on public clouds. This could be due to various reasons, such as:
 
 - Security and compliance requirements that prohibit storing artifacts on public clouds
 - Customers wishing to use the bundled on-premise Docker registry licenses with their source versioning offerings.
