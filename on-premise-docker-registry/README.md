@@ -16,7 +16,7 @@ Although this is a reliable option, customers do not wish to store their artifac
 - Customers who do not wish to set up contract with public cloud vendor.
 - other reasons...
 
-These customers can consider leveraging the on-premise Docker registry. Docker images are pulled then using connectivity proxy and Cloud Connector.
+These customers can consider leveraging a Docker registry running on-premise. Docker images are pulled then by connecting the Kubernetes cluster to the registry using connectivity proxy and Cloud Connector.
 
 See the following sample flow of how this can be achieved
 
@@ -39,7 +39,7 @@ Here, nginx as a reverse proxy is used to forward the HTTP requests for pulling 
 
 ## Setup
 
-The commands have been verified on OXS. However, it should be possible to adapt them for a windows laptop.
+The commands have been verified on OSX. However, it should be possible to adapt them for a windows laptop.
 
 ### Environment variables
 
@@ -64,13 +64,13 @@ In this sample, we set up a simple Docker registry running on your machine. This
 make generate-self-signed-cert
 ```
 
-- Configure trust for the generated self-signed certificate
+- Add the newly created certificate to your trust storage
 
 ```shell
 make trust-self-signed-cert
 ```
 
-- Generate the `htpasswd`. This is used for authenticating access to the on-premise Docker registry.
+- Generate the `htpasswd`. This is used for accessing the on-premise Docker registry.
 
 ```shell
 make generate-htpasswd
@@ -93,7 +93,7 @@ make start-docker-registry
 
 ## nginx as reverse proxy
 
-We use nginx as a reverse proxy to forward the HTTP requests for pulling docker images from the on-premise Docker registry using connectivity proxy and Cloud Connector.
+We use Nginx as a reverse proxy to forward the HTTP requests for pulling Docker images from the on-premise Docker registry using connectivity proxy and Cloud Connector.
 
 It is exposed as the `NodePort` service. This exposes the Service on the Kubernetes worker node on a port. Kubelet is a component running on each Kubernetes worker node. Among other tasks, it is responsible for pulling the Docker images.
 
