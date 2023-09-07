@@ -40,7 +40,7 @@ spec:
             drop:
               - ALL
           privileged: false
-          readOnlyRootFilesystem: false
+          readOnlyRootFilesystem: true
           runAsNonRoot: true
           runAsUser: 1006
           seccompProfile:
