@@ -16,9 +16,9 @@ See the following sample flow of how this can be achieved:
 
 ![flow](assets/on-prem-docker-reg.png)
 
-Here, nginx as a reverse proxy forwards the HTTP requests for pulling Docker images from the on-premise Docker registry using Connectivity Proxy and Cloud Connector.
+Here, Nginx as a reverse proxy forwards the HTTP requests for pulling Docker images from the on-premise Docker registry using Connectivity Proxy and Cloud Connector.
 
-> **NOTE:** In this sample, nginx as a reverse proxy pulls the images from an on-premise Docker registry. The setup relies on the Docker registry API v2 and proves the concept. You can replace it with another reverse proxy or a custom implementation based on API and requirements.
+> **NOTE:** In this sample, Nginx as a reverse proxy pulls the images from an on-premise Docker registry. The setup relies on the Docker registry API v2 and proves the concept. You can replace it with another reverse proxy or a custom implementation based on API and requirements.
 
 ## Prerequisites
 
@@ -90,15 +90,15 @@ In this sample, you set up a simple Docker registry running on your machine. You
    - Principal Type: None
    - Host In Request Header: Use Internal Host
 
-## nginx as reverse proxy
+## Nginx as reverse proxy
 
-This sample uses nginx as a reverse proxy to forward the HTTP requests for pulling Docker images from the on-premise Docker registry with Connectivity Proxy and Cloud Connector.
+This sample uses Nginx as a reverse proxy to forward the HTTP requests for pulling Docker images from the on-premise Docker registry with Connectivity Proxy and Cloud Connector.
 
-nginx is exposed as the `NodePort` service. This exposes the Service on the Kubernetes worker Node on a port. On each worker Node, [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/) runs as the component that pulls the Docker images (among other tasks).
+Nginx is exposed as the `NodePort` service. This exposes the Service on the Kubernetes worker Node on a port. On each worker Node, [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/) runs as the component that pulls the Docker images (among other tasks).
 
-When creating a deployment, specify the Docker registry as `localhost:{NodePort}`. This is the address of the nginx reverse proxy. Then, the nginx reverse proxy forwards the call to the on-premise Docker registry with Connectivity Proxy and Cloud Connector.
+When creating a Deployment, specify the Docker registry as `localhost:{NodePort}`. This is the address of the Nginx reverse proxy. Then, the Nginx reverse proxy forwards the call to the on-premise Docker registry with Connectivity Proxy and Cloud Connector.
 
-This sample shows a simple configuration with nginx as a reverse proxy. You can use any other reverse proxy implementation based on your on-premise Docker registry behavior and APIs.
+This sample shows a simple configuration with Nginx as a reverse proxy. You can use any other reverse proxy implementation based on your on-premise Docker registry behavior and APIs.
 
 1. Create a Namespace and make sure Istio sidecar injection is enabled.
 
@@ -107,24 +107,24 @@ This sample shows a simple configuration with nginx as a reverse proxy. You can 
    kubectl label namespace ${NAMESPACE} istio-injection=enabled
    ```
 
-2. Deploy nginx as a reverse proxy:
+2. Deploy Nginx as a reverse proxy:
 
    ```shell
    make deploy-nginx-reverse-proxy
    ```
 
    The following components are deployed:
-   - [ConfigMap](./k8s/configmap.yaml) for nginx configuration
+   - [ConfigMap](./k8s/configmap.yaml) for Nginx configuration
    - [Deployment and Service](./k8s/deployment.yaml)
-   - [PeerAuthentication](./k8s/peer-authentication.yaml) set to `PERMISSIVE`, which allows communication between kubelet and the nginx reverse proxy
+   - [PeerAuthentication](./k8s/peer-authentication.yaml) set to `PERMISSIVE`, which allows communication between kubelet and the Nginx reverse proxy
 
-3. Wait for the nginx reverse proxy to be up and running. To check the status, run:
+3. Wait for the Nginx reverse proxy to be up and running. To check the status, run:
 
    ```shell
    make check-nginx-reverse-proxy
    ```
 
-4. Export NodePort for the nginx reverse proxy as an environment variable:
+4. Export NodePort for the Nginx reverse proxy as an environment variable:
 
    ```shell
    export NGINX_NODE_PORT=$(kubectl get svc nginx -o jsonpath='{.spec.ports[0].nodePort}')
@@ -158,7 +158,7 @@ To test the setup, deploy a sample workload that uses an image from the on-premi
    ```
 
 5. Deploy the test workload.
-   > **NOTE:** In the [deployment file](./test-image-deployment/deployment.yaml), the image is specified as `localhost:30930/....`. This is the localhost wrt to the Kubernetes worker node, and the port is the NodePort of the nginx reverse proxy service.
+   > **NOTE:** In the [deployment file](./test-image-deployment/deployment.yaml), the image is specified as `localhost:30930/....`. This is the localhost wrt to the Kubernetes worker node, and the port is the NodePort of the Nginx reverse proxy service.
 
    ```shell
    make deploy-test-workload
@@ -178,7 +178,7 @@ To test the setup, deploy a sample workload that uses an image from the on-premi
 
 ## Cleanup
 
-1. Remove the test workload, the nginx reverse proxy, and the local Docker registry:
+1. Remove the test workload, the Nginx reverse proxy, and the local Docker registry:
 
    ```shell
    make cleanup
@@ -191,4 +191,4 @@ To test the setup, deploy a sample workload that uses an image from the on-premi
 - You can have a setup to pull Docker images from the on-premise Docker registry for applications deployed on SAP BTP, Kyma runtime.
 - Docker images are pulled using Connectivity Proxy and Cloud Connector.
 - The reverse proxy component must be installed from the customer side. This will adapt and forward the requests to the on-premise Docker registry using Connectivity Proxy.
-- The reverse proxy can be an off-the-shelf component such as nginx or a custom implementation depending upon what APIs and behavior are supported by the on-premise Docker registry.
+- The reverse proxy can be an off-the-shelf component such as Nginx or a custom implementation depending upon what APIs and behavior are supported by the on-premise Docker registry.
