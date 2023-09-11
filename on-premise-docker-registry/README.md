@@ -37,7 +37,7 @@ The commands have been verified on OSX. However, it should be possible to adapt 
 
 ### Environment variables
 
-- Export the following environment variables:
+Export the following environment variables:
 
 ```shell
 export KUBECONFIG=<path-to-kubeconfig>
@@ -107,7 +107,10 @@ This sample shows a simple configuration with nginx as a reverse proxy. You can 
    ```shell
    make deploy-nginx-reverse-proxy
    ```
-
+   The following components are deployed:
+   - [ConfigMap](./k8s/configmap.yaml) for nginx configuration
+   - [Deployment and Service](./k8s/deployment.yaml)
+   - [PeerAuthentication](./k8s/peer-authentication.yaml) set to `PERMISSIVE`, which allows communication between kubelet and the nginx reverse proxy
    The following components are deployed:
 
    - [ConfigMap](./k8s/configmap.yaml) for nginx configuration
