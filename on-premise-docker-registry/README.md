@@ -83,7 +83,12 @@ In this sample, you set up a simple Docker registry running on your machine. You
    ```
 
 6. To access the on-premise Docker registry, configure Cloud Connector:
-  ![cc-config](assets/cc-config.png)
+   - Back-end type: Non-SAP System
+   - Protocol: HTTPS
+   - Internal Host: `myregistry.kyma`
+   - Internal Port: `25002`
+   - Principal Type: None
+   - Host In Request Header: Use Internal Host
 
 ## nginx as reverse proxy
 
