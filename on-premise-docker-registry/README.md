@@ -127,7 +127,7 @@ This sample shows a simple configuration with Nginx as a reverse proxy. You can 
 4. Export NodePort for the Nginx reverse proxy as an environment variable:
 
    ```shell
-   export NGINX_NODE_PORT=$(kubectl get svc nginx -o jsonpath='{.spec.ports[0].nodePort}')
+   export NGINX_NODE_PORT=$(kubectl -n ${NAMESPACE} get svc nginx -o jsonpath='{.spec.ports[0].nodePort}')
    ```
 
 ## Test workload
