@@ -4,7 +4,6 @@ If you want to build applications and deploy them on SAP BTP, Kyma runtime, you 
 
 You can use a third-party Docker registry hosted on public clouds, such as Google Artifact Registry, Azure Container Registry, or AWS Elastic Container Registry.
 
-
 However, due to various reasons public cloud might not be suitable for your use case, for example:
 
 - Security and compliance requirements that prohibit storing artifacts on public clouds
@@ -57,26 +56,31 @@ In this sample, you set up a simple Docker registry running on your machine. You
 
    ```shell
    make generate-self-signed-cert
+   ```
 
 2. Add the newly created certificate to your trust storage.
 
    ```shell
    make trust-self-signed-cert
+   ```
 
 3. To access the on-premise Docker registry, generate the `htpasswd`.
 
    ```shell
    make generate-htpasswd
+   ```
 
 4. Start the Docker registry server:
 
    ```shell
    make start-docker-registry
+   ```
 
 5. Add the DNS entry to the `/etc/hosts` file:
 
    ```shell
    127.0.0.1 myregistry.kyma
+   ```
 
 6. To access the on-premise Docker registry, configure Cloud Connector:
   ![cc-config](assets/cc-config.png)
@@ -93,31 +97,34 @@ This sample shows a simple configuration with nginx as a reverse proxy. You can 
 
 1. Create a Namespace and make sure Istio sidecar injection is enabled.
 
-```shell
-kubectl create namespace ${NAMESPACE}
-kubectl label namespace ${NAMESPACE} istio-injection=enabled
-```
+   ```shell
+   kubectl create namespace ${NAMESPACE}
+   kubectl label namespace ${NAMESPACE} istio-injection=enabled
+   ```
 
 2. Deploy nginx as a reverse proxy:
 
-```shell
-make deploy-nginx-reverse-proxy
-```
+   ```shell
+   make deploy-nginx-reverse-proxy
+   ```
+
    The following components are deployed:
+
    - [ConfigMap](./k8s/configmap.yaml) for nginx configuration
    - [Deployment and Service](./k8s/deployment.yaml)
    - [PeerAuthentication](./k8s/peer-authentication.yaml) set to `PERMISSIVE`, which allows communication between kubelet and the nginx reverse proxy
+
 3. Wait for the nginx reverse proxy to be up and running. To check the status, run:
 
-```shell
-make check-nginx-reverse-proxy
-```
+   ```shell
+   make check-nginx-reverse-proxy
+   ```
 
 4. Export NodePort for the nginx reverse proxy as an environment variable:
 
-```shell
-export NGINX_NODE_PORT=$(kubectl get svc nginx -o jsonpath='{.spec.ports[0].nodePort}')
-```
+   ```shell
+   export NGINX_NODE_PORT=$(kubectl get svc nginx -o jsonpath='{.spec.ports[0].nodePort}')
+   ```
 
 ## Test workload
 
@@ -125,52 +132,53 @@ To test the setup, deploy a sample workload that uses an image from the on-premi
 
 1. Log in to the created on-premise Docker registry:
 
-```shell
-make docker-login
-```
+   ```shell
+   make docker-login
+   ```
 
 2. Create and store a sample Docker image in the on-premise Docker registry. It uses an image tag based on the current time.
 
-```shell
-make create-test-image
-```
+   ```shell
+   make create-test-image
+   ```
 
 3. In the [deployment.yaml for test workload](./test-image-deployment/deployment.yaml), replace the following placeholders:
-  - For `{nginx-reverse-proxy-node-port}`, enter the `NGINX_NODE_PORT` value.
-  - For `{generate-image-tag}`, enter the tag of the generated image.
+
+   - For `{nginx-reverse-proxy-node-port}`, enter the `NGINX_NODE_PORT` value.
+   - For `{generate-image-tag}`, enter the tag of the generated image.
 
 4. Create a Kubernetes Secret with credentials to pull the Docker image.
 
-```shell
-make create-secret-to-pull-image
-```
+   ```shell
+   make create-secret-to-pull-image
+   ```
 
-5. Deploy the test workload. 
+5. Deploy the test workload.
    > **NOTE:** In the [deployment file](./test-image-deployment/deployment.yaml), the image is specified as `localhost:30930/....`. This is the localhost wrt to the Kubernetes worker node, and the port is the NodePort of the nginx reverse proxy service.
 
-```shell
-make deploy-test-workload
-```
+   ```shell
+   make deploy-test-workload
+   ```
 
 6. Wait until the Pod is up and running. Check the status with the following command:
 
-```shell
-make check-test-workload
-```
+   ```shell
+   make check-test-workload
+   ```
 
 7. When the Pod is up and running, access the application:
 
-```shell
-make access-test-workload
-```
+   ```shell
+   make access-test-workload
+   ```
 
 ## Cleanup
 
 1. Remove the test workload, the nginx reverse proxy, and the local Docker registry:
 
-```shell
-make cleanup
-```
+   ```shell
+   make cleanup
+   ```
 
 2. Remove the entry from Cloud Connector.
 
