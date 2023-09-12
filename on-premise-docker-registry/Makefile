@@ -60,7 +60,7 @@ create-test-image:
 	docker push ${IMAGE_NAME}
 
 create-secret-to-pull-image:
-	kubectl create secret docker-registry on-premise-reg \
+	kubectl -n ${NAMESPACE} create secret docker-registry on-premise-reg \
       --docker-username=${REG_USER_NAME} \
       --docker-password=${REG_USER_PASSWD} \
       --docker-email=${EMAIL} \

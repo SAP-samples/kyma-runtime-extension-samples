@@ -42,7 +42,7 @@ Export the following environment variables:
 ```shell
 export KUBECONFIG=<path-to-kubeconfig>
 export NAMESPACE={kyma-namespace-used-for-this-sample}
-export CLUSTER_DOMAIN={kyma-cluster-domain}
+export CLUSTER_DOMAIN=$(kubectl get cm -n kube-system shoot-info -ojsonpath='{.data.domain}')
 export REG_USER_NAME={docker-registry-user}
 export REG_USER_PASSWD={docker-registry-password}
 export EMAIL={your-email}
@@ -100,7 +100,7 @@ When creating a Deployment, specify the Docker registry as `localhost:{NodePort}
 
 This sample shows a simple configuration with Nginx as a reverse proxy. You can use any other reverse proxy implementation based on your on-premise Docker registry behavior and APIs.
 
-1. Create a Namespace and make sure Istio sidecar injection is enabled.
+1. Create a Namespace if not already created and make sure Istio sidecar injection is enabled.
 
    ```shell
    kubectl create namespace ${NAMESPACE}
