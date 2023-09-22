@@ -14,9 +14,4 @@ spec:
         name: app-router
         port: 5000
       accessStrategies:
-        - handler: noop
-      mutators:
-        - handler: header
-          config:
-            headers:
-              x-forwarded-host: "principal-prop-on-prem.{your-cluster-domain}"
+        - handler: allow
