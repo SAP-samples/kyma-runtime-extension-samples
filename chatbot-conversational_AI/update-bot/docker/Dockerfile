@@ -6,15 +6,10 @@ ENV VERSION 1.0.0
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the container
-COPY chatbot-conversational_AI/update-bot/app/package*.json ./
-
-# Install app dependencies
-RUN npm install
-
-# Copy the rest of the application code to the container
+# Copy the application to the container
 COPY chatbot-conversational_AI/update-bot/app .
 
+# Installing app dependencies
+RUN npm install
 
 CMD [ "npm", "start" ]
-
