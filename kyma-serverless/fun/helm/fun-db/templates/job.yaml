@@ -1,0 +1,74 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.jobs.db.name }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+    app: {{ .Values.jobs.db.name }}
+spec:
+  ttlSecondsAfterFinished: {{ mul .Values.ttlDaysAfterFinished 24 60 60 }}
+  parallelism: 1
+  completions: 1
+  manualSelector: false
+  
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.jobs.db.name }}
+        sidecar.istio.io/inject: "false"
+      annotations:
+    spec:
+      restartPolicy: OnFailure
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+        - image: "{{ .Values.jobs.db.image.dockerID }}/{{ .Values.jobs.db.image.repository }}:{{ .Values.jobs.db.image.tag }}"
+          name: {{ .Values.jobs.db.name }}
+          imagePullPolicy: {{ .Values.jobs.db.image.pullPolicy }}
+          env:
+            - name: SERVICE_BINDING_ROOT
+              value: /bindings
+            - name: EXIT
+              value: 'true'
+            - name: EXIT_PROCESS_AFTER_UPLOAD
+              value: "true"
+          volumeMounts:
+            - name: hdi
+              mountPath: "/bindings/{{ .Values.jobs.hdi.name }}"
+              readOnly: true
+            - name: src
+              mountPath: "/workspace/src/.hdinamespace"
+              subPath: ".hdinamespace"
+              readOnly: true
+            - name: src
+              mountPath: "/workspace/src/.hdiconfig"
+              subPath: ".hdiconfig"
+              readOnly: true
+            - name: src
+              mountPath: "/workspace/src/sales.hdbtable"
+              subPath: "sales.hdbtable"
+              readOnly: true
+            - name: src
+              mountPath: "/workspace/src/TT_TopSales.hdbtabletype"
+              subPath: "TT_TopSales.hdbtabletype"
+              readOnly: true
+            - name: src
+              mountPath: "/workspace/src/SP_TopSales.hdbprocedure"
+              subPath: "SP_TopSales.hdbprocedure"
+              readOnly: true
+            - name: src
+              mountPath: "/workspace/src/sales.hdbtabledata"
+              subPath: "sales.hdbtabledata"
+              readOnly: true
+            - name: src
+              mountPath: "/workspace/src/sales.csv"
+              subPath: "sales.csv"
+              readOnly: true
+      volumes:
+        - name: hdi
+          secret:
+            secretName: {{ .Values.jobs.hdi.bindingSecretName }}
+        - name: src
+          configMap:
+            name: {{ .Values.jobs.db.src }}

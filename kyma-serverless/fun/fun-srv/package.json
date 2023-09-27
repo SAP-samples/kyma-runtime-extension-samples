@@ -1,0 +1,17 @@
+{
+  "name": "fun-srv",
+  "version": "0.0.1",
+  "dependencies": {
+    "debug": "latest"
+    ,
+    "@sap/xsenv": "latest"
+    ,
+    "@sap/xssec": "latest"
+    ,
+    "@sap/hana-client": "latest"
+    ,
+    "@sap-cloud-sdk/http-client": "latest"
+    ,
+    "@sap-cloud-sdk/connectivity": "latest"
+  }
+}

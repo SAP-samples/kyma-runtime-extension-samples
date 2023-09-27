@@ -30,6 +30,12 @@ It verifies and corrects the address data entered for the Account by using an ex
     $NS={your-namespace}
     ```
 
+* Enable istio sidecar injection if not already done
+
+   ```shell script
+   kubectl label namespace $NS istio-injection=enabled
+   ```
+
 * Create a secret containing [here geocode api](https://developer.here.com/documentation/geocoding-search-api/dev_guide/topics/endpoint-geocode-brief.html) , credentials and central gateway url
 
    ![central-gw-url](assets/central-gw-url.png)
@@ -47,6 +53,10 @@ It verifies and corrects the address data entered for the Account by using an ex
 * Create event subscription to `Account.Root.Created` and `Account.Root.Updated` events from SAP Sales Cloud
 
    Update `{provide-your-application-name-as-shown-in-kyma}` and `{your-namespace}` in [k8s/subscription.yaml](k8s/subscription.yaml)
+
+   ```shell script
+   kubectl -n $NS apply -f k8s/subscription.yaml
+   ```
 
 ## Verify
 

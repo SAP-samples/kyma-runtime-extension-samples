@@ -18,11 +18,15 @@ spec:
         app: c4c-extension-with-user-context
     spec:
       containers:
-      - image: gabbi/c4c-extension-with-user-context:0.0.4
+      - image: gabbi/c4c-extension-with-user-context:0.0.6
         name: c4c-extension-with-user-context
         resources: {}
         ports:
           - containerPort: 8080
+        envFrom:
+          - secretRef:
+              name: identity-propagation-destination
+              optional: false
         env:
           - name: DESTINATION_OAUTH_TOKEN_URL
             value: $(url)/oauth/token

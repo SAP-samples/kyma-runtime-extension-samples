@@ -15,10 +15,6 @@ spec:
       handler: jwt
     methods:
     - GET
-    - POST
-    - PUT
-    - PATCH
-    - DELETE
     - HEAD
     path: /.*
     service:

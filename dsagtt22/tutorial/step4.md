@@ -161,7 +161,7 @@ This finalizes the setup of the Event Mesh, we will later come back to the appli
 
 ## Option 2 - Setup via the BTP Setup Automator
 
-To provision the event mesh you can also use the [BTP setup automator](https://github.com/SAP-samples/btp-setup-automator). You find a description on how to use this tool as well as predefined configuration files in the directory [dsag/2022-technologydays](https://github.com/SAP-samples/btp-setup-automator/tree/main/usecases/other/dsag/2022-technologydays) of the GitHub Repository.
+To provision the event mesh you can also use the [BTP setup automator](https://github.com/SAP-samples/btp-setup-automator). You find a description on how to use this tool as well as predefined configuration files in the directory [dsag/2022-technologydays](https://github.com/SAP-samples/btp-setup-automator/tree/main/usecases/released/dsag/2022-technologydays) of the GitHub Repository.
 
 ## Summary
 

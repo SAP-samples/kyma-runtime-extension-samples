@@ -1,0 +1,23 @@
+clusterDomain:
+gateway:
+services:
+  app:
+    name: fun-app
+    xsapp: fun-app-xs-app
+    resources: fun-app-resources
+    image:
+      dockerID: sapse
+      repository: approuter
+      tag: "13.1.1"
+      pullPolicy: Always
+      port: 8080
+    service:
+      port: 8080
+  srv:
+    name: fun-srv
+    service:
+      port: 80
+  uaa:
+    name: fun-uaa
+    bindingName: fun-uaa-binding
+    bindingSecretName: fun-uaa-binding-secret

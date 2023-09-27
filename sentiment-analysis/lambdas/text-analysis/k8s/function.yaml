@@ -6,9 +6,9 @@ spec:
   runtime: python39
   source:
     gitRepository:
-      url: https://github.tools.sap/pscoec4f/demo-sentiment-analysis.git
-      baseDir: /lambdas/text-analysis
-      reference: ccv2-2205
+      url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
+      baseDir: /sentiment-analysis/lambdas/text-analysis
+      reference: main
       auth:
         type: basic
         secretName: git-creds-basic

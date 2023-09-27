@@ -1,0 +1,10 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: {{ .Values.jobs.hdi.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.jobs.hdi.name }}
+spec:
+  externalName: {{ .Values.jobs.hdi.name }}
+  serviceOfferingName: hana
+  servicePlanName: hdi-shared

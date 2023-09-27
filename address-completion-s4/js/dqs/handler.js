@@ -31,7 +31,7 @@ module.exports = {
   main: async function (event, context) {
     try {
       const eventData = getEventData(event.data);
-      const key = eventData.data["BusinessPartner"];
+      const key = eventData["BusinessPartner"];
       console.log("received data for BusinessPartner: ", key);
       const response = await getBPAddress(key);
 

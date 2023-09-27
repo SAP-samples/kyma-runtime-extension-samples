@@ -1,10 +1,16 @@
-apiVersion: serverless.kyma-project.io/v1alpha1
+apiVersion: serverless.kyma-project.io/v1alpha2
 kind: Function
 metadata:
   name: api-mssql-function
   labels:
     app: api-mssql-function
 spec:
+  runtime: nodejs16
+  source:
+    gitRepository:
+      url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
+      baseDir: /chatbot-conversational_AI/knowledge-database/api-mssql-function/function
+      reference: main
   env:
     - name: database
       value: {{ .Values.apimssqlfunction.deployment.env.database }}
@@ -14,18 +20,14 @@ spec:
       value: {{ .Values.apimssqlfunction.deployment.env.password }}
     - name: username
       value: {{ .Values.apimssqlfunction.deployment.env.username }}
-  type: git
-  runtime: nodejs14
-  source: github-repo
-  reference: {{ .Values.apimssqlfunction.deployment.reference }}
-  baseDir: {{ .Values.apimssqlfunction.deployment.basedir }} 
 ---
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: api-mssql-function
 spec:
   gateway: {{ .Values.apimssqlfunction.apirule.gateway }}
+  host: api-mssql-function
   rules:
     - path: /.*
       accessStrategies:
@@ -35,7 +37,6 @@ spec:
         - GET
         - POST
         - DELETE
-  service:
-    host: api-mssql-function
-    name: api-mssql-function
-    port: 80
+      service:
+        name: api-mssql-function
+        port: 80

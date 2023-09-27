@@ -1,11 +1,10 @@
-apiVersion: gateway.kyma-project.io/v1alpha1
+apiVersion: gateway.kyma-project.io/v1beta1
 kind: APIRule
 metadata:
   name: c4c-extension-with-user-context
 spec:
   gateway: kyma-gateway.kyma-system.svc.cluster.local
-  mutators:
-  - handler: noop
+  host: c4c-extension-with-user-context
   rules:
   - accessStrategies:
     - config:
@@ -22,8 +21,9 @@ spec:
     - DELETE
     - HEAD
     path: /.*
-  service:
-    host: c4c-extension-with-user-context
-    name: c4c-extension-with-user-context
-    port: 8080
+    service:
+      name: c4c-extension-with-user-context
+      port: 8080
+    mutators:
+      - handler: noop
 status: {}

@@ -6,9 +6,9 @@ spec:
   runtime: nodejs16
   source:
     gitRepository:
-      url: https://github.tools.sap/pscoec4f/demo-sentiment-analysis.git
-      baseDir: /lambdas/customer-review-webhook
-      reference: ccv2-2205
+      url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
+      baseDir: /sentiment-analysis/lambdas/customer-review-webhook
+      reference: main
       auth:
         type: basic
         secretName: git-creds-basic

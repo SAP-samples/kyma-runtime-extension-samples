@@ -1,0 +1,4 @@
+srv:
+  env:
+  - name: CDS_CONFIG
+    value:  '{"requires":{"[production]": {"auth": "mocked"}}}'

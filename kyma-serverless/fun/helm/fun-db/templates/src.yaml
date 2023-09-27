@@ -1,0 +1,215 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.jobs.db.src }}
+data:
+  sales.hdbtable: |
+    COLUMN TABLE "fun.db::sales" 
+      (
+        "id" INTEGER, 
+        "region" VARCHAR(100),
+        "country" VARCHAR(100),
+        "amount" INTEGER,
+        PRIMARY KEY ("id") 
+      )
+  TT_TopSales.hdbtabletype: |
+    TYPE "fun.db::TT_TopSales" AS TABLE (
+      "country" VARCHAR(100),
+      "amount" INTEGER
+    )
+  SP_TopSales.hdbprocedure: |
+    PROCEDURE "fun.db::SP_TopSales" (IN amount INTEGER, OUT result "fun.db::TT_TopSales")
+      LANGUAGE SQLSCRIPT
+      SQL SECURITY INVOKER
+      READS SQL DATA
+      AS
+    BEGIN
+      result = select "country", "amount" 
+                from "fun.db::sales"
+                where "amount" >= :amount
+                order by "amount" desc
+                ;
+    END
+  sales.hdbtabledata: |
+    {
+      "format_version": 1,
+      "imports": [
+        {
+          "target_table": "fun.db::sales",
+          "source_data": {
+            "data_type": "CSV",
+            "file_name": "fun.db::sales.csv",
+            "has_header": true,
+            "type_config": {
+              "delimiter": ",",
+              "do_quote": true
+            }
+          },
+          "import_settings": {
+            "import_columns": [
+              "id",
+              "region",
+              "country",
+              "amount"
+            ]
+          }
+        }
+      ]
+    }
+  sales.csv: |
+    id,region,country,amount
+    1,Europe,France,123
+    2,Europe,UK,323
+    3,Europe,Germany,413
+    4,Europe,Italy,143
+    5,Europe,Finland,521
+    6,Europe,Ireland,253
+    7,Europe,Spain,273
+    8,Europe,Portugal,190
+    9,North America,USA,763
+    10,North America,Mexico,465
+    11,North America,Canada,349
+    12,Asia,Japan,732
+    13,Asia,Malaysia,233
+    14,Asia,China,821
+    15,Asia,India,692
+  .hdinamespace: |-
+    {
+      "name": "fun.db",
+      "subfolder": "append"
+    }
+  .hdiconfig: |-
+    {
+      "minimum_feature_version": "1000",
+      "file_suffixes": {
+        "hdbapplicationtime": {
+          "plugin_name": "com.sap.hana.di.applicationtime"
+        },
+        "hdbcalculationview": {
+          "plugin_name": "com.sap.hana.di.calculationview"
+        },
+        "hdbconstraint": {
+          "plugin_name": "com.sap.hana.di.constraint"
+        },
+        "txt": {
+          "plugin_name": "com.sap.hana.di.copyonly"
+        },
+        "hdbdropcreatetable": {
+          "plugin_name": "com.sap.hana.di.dropcreatetable"
+        },
+        "hdbflowgraph": {
+          "plugin_name": "com.sap.hana.di.flowgraph"
+        },
+        "hdbfunction": {
+          "plugin_name": "com.sap.hana.di.function"
+        },
+        "hdbgraphworkspace": {
+          "plugin_name": "com.sap.hana.di.graphworkspace"
+        },
+        "hdbindex": {
+          "plugin_name": "com.sap.hana.di.index"
+        },
+        "hdblibrary": {
+          "plugin_name": "com.sap.hana.di.library"
+        },
+        "hdblogicalschema": {
+          "plugin_name": "com.sap.hana.di.logicalschema"
+        },
+        "hdbprocedure": {
+          "plugin_name": "com.sap.hana.di.procedure"
+        },
+        "hdbprojectionview": {
+          "plugin_name": "com.sap.hana.di.projectionview"
+        },
+        "hdbprojectionviewconfig": {
+          "plugin_name": "com.sap.hana.di.projectionview.config"
+        },
+        "hdbreptask": {
+          "plugin_name": "com.sap.hana.di.reptask"
+        },
+        "hdbresultcache": {
+          "plugin_name": "com.sap.hana.di.resultcache"
+        },
+        "hdbrole": {
+          "plugin_name": "com.sap.hana.di.role"
+        },
+        "hdbroleconfig": {
+          "plugin_name": "com.sap.hana.di.role.config"
+        },
+        "hdbsearchruleset": {
+          "plugin_name": "com.sap.hana.di.searchruleset"
+        },
+        "hdbsequence": {
+          "plugin_name": "com.sap.hana.di.sequence"
+        },
+        "hdbanalyticprivilege": {
+          "plugin_name": "com.sap.hana.di.analyticprivilege"
+        },
+        "hdbview": {
+          "plugin_name": "com.sap.hana.di.view"
+        },
+        "hdbstatistics": {
+          "plugin_name": "com.sap.hana.di.statistics"
+        },
+        "hdbstructuredprivilege": {
+          "plugin_name": "com.sap.hana.di.structuredprivilege"
+        },
+        "hdbsynonym": {
+          "plugin_name": "com.sap.hana.di.synonym"
+        },
+        "hdbsynonymconfig": {
+          "plugin_name": "com.sap.hana.di.synonym.config"
+        },
+        "hdbsystemversioning": {
+          "plugin_name": "com.sap.hana.di.systemversioning"
+        },
+        "hdbtable": {
+          "plugin_name": "com.sap.hana.di.table"
+        },
+        "hdbmigrationtable": {
+          "plugin_name": "com.sap.hana.di.table.migration"
+        },
+        "hdbtabletype": {
+          "plugin_name": "com.sap.hana.di.tabletype"
+        },
+        "hdbtabledata": {
+          "plugin_name": "com.sap.hana.di.tabledata"
+        },
+        "csv": {
+          "plugin_name": "com.sap.hana.di.tabledata.source"
+        },
+        "properties": {
+          "plugin_name": "com.sap.hana.di.tabledata.properties"
+        },
+        "tags": {
+          "plugin_name": "com.sap.hana.di.tabledata.properties"
+        },
+        "hdbtrigger": {
+          "plugin_name": "com.sap.hana.di.trigger"
+        },
+        "hdbvirtualfunction": {
+          "plugin_name": "com.sap.hana.di.virtualfunction"
+        },
+        "hdbvirtualfunctionconfig": {
+          "plugin_name": "com.sap.hana.di.virtualfunction.config"
+        },
+        "hdbvirtualpackagehadoop": {
+          "plugin_name": "com.sap.hana.di.virtualpackage.hadoop"
+        },
+        "hdbvirtualpackagesparksql": {
+          "plugin_name": "com.sap.hana.di.virtualpackage.sparksql"
+        },
+        "hdbvirtualprocedure": {
+          "plugin_name": "com.sap.hana.di.virtualprocedure"
+        },
+        "hdbvirtualprocedureconfig": {
+          "plugin_name": "com.sap.hana.di.virtualprocedure.config"
+        },
+        "hdbvirtualtable": {
+          "plugin_name": "com.sap.hana.di.virtualtable"
+        },
+        "hdbvirtualtableconfig": {
+          "plugin_name": "com.sap.hana.di.virtualtable.config"
+        }
+      }
+    }
