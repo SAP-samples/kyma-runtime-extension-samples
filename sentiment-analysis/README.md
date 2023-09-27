@@ -51,11 +51,13 @@ The architecture diagram describes use case flow.
 
 - (Optional) [SAP Sales Cloud (Cloud for Customer) connected to SAP BTP Kyma runtime](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/83df31ad3b634c0783ced522107d2e73.html) if you enable the `c4cUpdateFlag` (see below)
 
+- A namespace created with [Sidecar Injection](https://kyma-project.io/#/istio/user/02-operation-guides/operations/02-20-enable-sidecar-injection) enabled.
+
 ## Configuration
 
 The extension requires a `Secret` named `sentiment-analysis` configured in the Kyma namespace containing the following values:
 
-- `baseSite`:  The SAP Commerce Cloud baseSite value e.g. `electronics`, required by the SAP Commerce Cloud OCC API.
+- `baseSite`:  The SAP Commerce Cloud baseSite value e.g. `electronics`, required by the SAP Commerce Cloud OCC API. Note that due to the OCC API endpoint being used for User data, only B2C channel baseSite are supported. 
 
 - `c4cUpdateFlag`: Feature flag to enable the calls to SAP Sales Cloud to create customer and service ticket for negative reviews. If value is `true` then the feature is enabled.
 
@@ -101,7 +103,7 @@ commerce-impex/projectdata-register-integration-object.impex
 
 See the SAP Commmerce Help topic on  [Data Management with Impex](https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/1b6dd3451fc04c3aa8e95937e9ef2471.html?q=impex).
 
-Add the Integration Object to the registered Kyma Destination Target using SAP Commerce Cloud Backoffice as described in **Expose Your API – Existing Destination Target** section in this [blog post](https://blogs.sap.com/2022/10/14/commerce-cloud-exposing-integration-apis-to-sap-btp-kyma-runtime-with-oauth2/) on SAP Community
+Add the Integration Object to the registered Kyma Destination Target using SAP Commerce Cloud Backoffice as described in **Expose Your API – Existing Destination Target** section in this [blog post](https://blogs.sap.com/2022/10/14/commerce-cloud-exposing-integration-apis-to-sap-btp-kyma-runtime-with-oauth2/) on SAP Community.  Once the Integration Object API is registered with the System in BTP and the Application in Kyma, extract the Central Application Gateway URL from the corresponding Application in Kyma and update the `gateway_url_review` value in the `sentiment-analysis` secret.
 
 ### Content Moderation Service
 
@@ -126,7 +128,7 @@ Retrieve `client_id` & `client_secret` from the secret created by the **OAuth2Cl
 
 ```
 kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
-kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
+kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_secret}}' | base64 -D
 ```
 
 [Text Analysis Function](lambdas/text-analysis)
@@ -144,9 +146,10 @@ kubectl apply -n $NS -f lambdas/sentiment-analysis/k8s/subscription.yaml
 
 ### Webhook
 
-Update the following variables in `commerce-impex/webhooks.impex` with the values extracted above from `sentiment-analysis-client`.
+Update the following variables in `commerce-impex/webhooks.impex` with the kyma domain and the values extracted above from `sentiment-analysis-client`.
 
 ```
+$kyma_domain
 $oauth_client_id
 $oauth_client_secret
 ```
