@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.services.app.resources }}
+data:
+  index.html: |
+    <!DOCTYPE HTML>
+    <html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>fun</title>
+    </head>
+
+    <body>
+        <h2>fun</h2>
+        <h3>Home</h3>
+        <a href="/srv/">Home</a><br />
+        <h3>User</h3>
+        <a href="/srv/user">User</a><br />
+        <h3>Destinations</h3>
+        <a href="/srv/dest?destination=fun-nw&path=Customers?$top=1">Customers (Northwind)</a><br />
+        <h3>SAP HANA Cloud</h3>
+        <a href="/srv/sales">Sales</a><br />
+        <a href="/srv/topSales?amount=500">Top Sales</a><br />
+        <h3>Admin</h3>
+        <a href="/srv/session">Session</a><br />
+        <a href="/srv/db">Database</a><br />
+        <a href="/srv/connections">Connections</a><br />
+
+    </body>
+
+    </html>

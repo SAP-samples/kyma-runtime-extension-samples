@@ -1,16 +1,17 @@
-FROM golang:1.15 as builder
+FROM golang:1.21 as builder
 
-ENV GO111MODULE=on
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on
 
 WORKDIR /app
 COPY go.mod .
 
-RUN go mod download
-
 COPY main.go .
 COPY internal internal
 
-RUN CGO_ENABLED=0 GOOS=linux go build -v -a -installsuffix cgo -o c4c-extension-with-user-context .
+RUN go mod download
+RUN go mod tidy
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o c4c-extension-with-user-context .
 
 FROM scratch
 WORKDIR /app

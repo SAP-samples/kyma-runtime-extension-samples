@@ -1,0 +1,24 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: {{ .Values.services.dest.bindingNamex509 }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.services.dest.bindingNamex509 }}
+spec:
+  serviceInstanceName: {{ .Values.services.dest.name }}
+  externalName: {{ .Values.services.dest.bindingNamex509 }}
+  secretName: {{ .Values.services.dest.bindingSecretNamex509 }}
+  credentialsRotationPolicy:
+    enabled: true
+    rotatedBindingTTL: 600s
+    rotationFrequency: 3600s
+
+  parameters:
+    xsuaa:
+      credential-type: x509
+      x509:
+        key-length: 4096
+        validity: 7
+        validity-type: DAYS
+
+  parametersFrom: []

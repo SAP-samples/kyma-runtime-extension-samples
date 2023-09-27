@@ -29,7 +29,7 @@ spec:
         - name: tmp
           emptyDir: {}
       containers:
-      - image: gauravsap/sample-extension-java:0.0.21
+      - image: gauravsap/sample-extension-java:0.0.23
         name: sample-extension-java
         ports:
           - containerPort: 8080

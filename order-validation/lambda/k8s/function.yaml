@@ -1,0 +1,45 @@
+apiVersion: serverless.kyma-project.io/v1alpha2
+kind: Function
+metadata:
+  name: order-validation
+spec:
+  runtime: nodejs16
+  source:
+    gitRepository:
+      url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
+      baseDir: /order-validation/lambda
+      reference: main
+      auth:
+        type: basic
+        secretName: git-creds-basic
+  env:
+    - name: SLACK_URL
+      valueFrom:
+        secretKeyRef:
+          name: order-validation
+          key: slackUrl
+    - name: BASE_SITE
+      valueFrom:
+        secretKeyRef:
+          name: order-validation
+          key: baseSite
+    - name: GATEWAY_URL_OCC
+      valueFrom:
+        secretKeyRef:
+          name: order-validation
+          key: gateway_url_occ
+    - name: GATEWAY_URL_FRAUDREPORT
+      valueFrom:
+        secretKeyRef:
+          name: order-validation
+          key: gateway_url_fraudreport
+    - name: GATEWAY_URL_ADMINAPI
+      valueFrom:
+        secretKeyRef:
+          name: order-validation
+          key: gateway_url_adminapi
+    - name: URL_EMAIL_CHECK_SERVICE
+      valueFrom:
+        secretKeyRef:
+          name: order-validation
+          key: url_email_check_service

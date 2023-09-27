@@ -30,6 +30,12 @@ It verifies and corrects the address data entered for the Account by using an ex
     $NS={your-namespace}
     ```
 
+* Enable istio sidecar injection if not already done
+
+   ```shell script
+   kubectl label namespace $NS istio-injection=enabled
+   ```
+
 * Create an instance of the SAP Data Quality Management Service
   SAP Data Quality Management Service is available only in selected regions. See the [pricing and region availability details](https://discovery-center.cloud.sap/serviceCatalog/data-quality-services?region=all&tab=service_plan) and it is currently available for CF environments.
   
@@ -62,6 +68,10 @@ It verifies and corrects the address data entered for the Account by using an ex
 * Create event subscription to `Account.Root.Created` and `Account.Root.Updated` events from SAP Sales Cloud
 
    Update `{provide-your-application-name-as-shown-in-kyma}` and `{your-namespace}` in [k8s/subscription.yaml](k8s/subscription.yaml)
+
+   ```shell script
+   kubectl -n $NS apply -f k8s/subscription.yaml
+   ```
 
 ## Verify
 

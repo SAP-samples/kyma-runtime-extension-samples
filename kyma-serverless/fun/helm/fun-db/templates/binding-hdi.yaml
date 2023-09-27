@@ -1,0 +1,12 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: {{ .Values.jobs.hdi.bindingName }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.jobs.hdi.bindingName }}
+spec:
+  serviceInstanceName: {{ .Values.jobs.hdi.name }}
+  externalName: {{ .Values.jobs.hdi.name }}
+  secretName: {{ .Values.jobs.hdi.bindingSecretName }}
+  parameters: {}
+  parametersFrom: []

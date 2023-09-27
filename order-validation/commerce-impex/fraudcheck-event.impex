@@ -1,0 +1,8 @@
+$destination_target=Default_Template
+INSERT_UPDATE ProcessEventConfiguration; eventClass[unique = true]; destinationTarget(id)[unique = true, default = $destination_target]; version[unique = true, default = 1]; exportFlag; priority(code); exportName       ; converterBean; description ; extensionName; process
+                                       ; FraudCheckEvent          ;                                                            ;                                    ; true      ; MEDIUM        ; order.fraudcheck ;              ; "Order Fraud Check v1" ; processing   ; de.hybris.platform.orderprocessing.model.OrderProcessModel
+ 
+INSERT_UPDATE EventPropertyConfiguration; eventConfiguration(eventClass, destinationTarget(id[default = $destination_target]), version[default = 1])[unique = true]; propertyName[unique = true]; propertyMapping      ; title                   ; description; examples(key, value)[map-delimiter = |]; required[default = true]; type[default = 'string']
+                                        ; FraudCheckEvent                                                                                                  ; processCode                ; "process.code"       ; "Business Process Code" ; Business Process Code ; processCode->customerRegistrationEmailProcess-john.doe@john.doe-1536837535539
+                                        ; FraudCheckEvent                                                                                                  ; orderCode                  ; "process.order.code" ; "Order Code"            ; Order Code            ; orderCode->76272727
+ 

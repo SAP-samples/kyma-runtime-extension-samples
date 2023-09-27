@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.services.app.xsapp }}
+data:
+  xs-app.json: |-
+    {
+      "welcomeFile": "index.html",
+      "authenticationMethod": "route",
+      "routes": [
+        {
+          "source": "^/srv/(.*)$",
+          "authenticationType": "xsuaa",
+          "destination": "srv"
+        }
+        ,
+        {
+          "source": "/(.*)",
+          "authenticationType": "xsuaa",
+          "localDir": "resources"
+        }
+      ]
+    }

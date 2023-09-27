@@ -9,6 +9,9 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            sidecar.istio.io/inject: "false"
         spec:
           restartPolicy: Never
           containers:
@@ -94,6 +97,9 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            sidecar.istio.io/inject: "false"
         spec:
           restartPolicy: Never
           containers:

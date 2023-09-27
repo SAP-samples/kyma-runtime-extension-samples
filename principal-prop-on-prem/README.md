@@ -133,12 +133,16 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
   kubectl -n $NS apply -f app-router/k8s/deployment.yaml
   ```
 
-* Expose it over internet using API Rule. Update the [app-router/k8s/api-rule.yaml](app-router/k8s/api-rule.yaml) to provide `{your-cluster-domain}`
+* Expose it over internet using API Rule.
 
   ```shell script
   kubectl -n $NS apply -f app-router/k8s/api-rule.yaml
   ```
 
-### Test
+## Test
 
 Access the sales data for the logged-in user <https://principal-prop-on-prem.{your-cluster-domain}/sap/com/onprem/mysales>
+
+## Troubleshooting
+
+* [Issues with connectivity-proxy/on-prem calls](../troubleshooting#on-premise-connectivity)
