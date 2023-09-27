@@ -52,7 +52,7 @@ Retrieve `client_id` & `client_secret` from the secret created by the **OAuth2Cl
 
 ```
 kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
-kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
+kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_secret}}' | base64 -D
 ```
 
 ## Verify
