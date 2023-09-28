@@ -5,7 +5,7 @@ metadata:
   labels:
     scenario: address-completion
 spec:
-  runtime: nodejs16
+  runtime: nodejs18
   source:
     gitRepository:
       url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
@@ -20,10 +20,10 @@ spec:
   - name: DQS_UAA
     valueFrom:
       secretKeyRef: 
-        name: sap-dqs-kyma-demo
+        name: data-quality-service-sb
         key: uaa
   - name: URI
     valueFrom:
       secretKeyRef:
-        name: sap-dqs-kyma-demo
+        name: data-quality-service-sb
         key: uri
