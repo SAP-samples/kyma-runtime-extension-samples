@@ -3,15 +3,12 @@ kind: Function
 metadata:
   name: customer-review-webhook
 spec:
-  runtime: nodejs16
+  runtime: nodejs18
   source:
     gitRepository:
       url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
       baseDir: /sentiment-analysis/lambdas/customer-review-webhook
       reference: main
-      auth:
-        type: basic
-        secretName: git-creds-basic
   env:
     - name: EVENT_NAME
       value: 'sap.kyma.custom.internal.product.reviewsubmitted.v1'

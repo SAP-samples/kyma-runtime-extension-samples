@@ -9,6 +9,3 @@ spec:
       url: https://github.com/SAP-samples/kyma-runtime-extension-samples.git
       baseDir: /sentiment-analysis/lambdas/text-analysis
       reference: main
-      auth:
-        type: basic
-        secretName: git-creds-basic

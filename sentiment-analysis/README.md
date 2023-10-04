@@ -33,7 +33,7 @@ The architecture diagram describes use case flow.
 
 - [Content moderation service](services/content-moderation) - Microservice to provide an indication if the text content is appropriate for publication on the storefront website.
 
-### Functions
+### Function Details
 
 - [Customer Review Webhook Handler](lambdas/customer-review-webhook) - Handler function for the outbound webhook configured in SAP Commerce Cloud.  It creates an internal CloudEvent to trigger downstream processing.
 
@@ -89,12 +89,11 @@ Detailed deployment steps are described in each component's README.md file.
     $NS={your-namespace}
     ```
 
-
 ### SAP Commerce Cloud Integration API
 
 Import the following files in [commerce-impex](commerce-impex) in your SAP Commerce Cloud environment via the Adminstration Cockpit (hAC) or alternative method.  
 
-```
+```shell
 commerce-impex/projectdata-integration-objects.impex 
 commerce-impex/projectdata-register-integration-object.impex
 ```
@@ -107,7 +106,7 @@ Add the Integration Object to the registered Kyma Destination Target using SAP C
 
 Deploy the [content-moderation](services/content-moderation) service
 
-```
+```shell
 kubectl apply -n $NS -f services/content-moderation/k8s/content-moderation.yaml
 ```
 
@@ -115,38 +114,37 @@ kubectl apply -n $NS -f services/content-moderation/k8s/content-moderation.yaml
 
 Deploy each function:
 
-[Customer Review Webhook Handler](lambdas/customer-review-webhook) 
-    
-```
+- [Customer Review Webhook Handler](lambdas/customer-review-webhook)
+
+Update the IDP issuer details in [lambdas/customer-review-webhook/k8s/api-access.yaml](lambdas/customer-review-webhook/k8s/api-access.yaml)
+
+```shell
 kubectl apply -n $NS -f lambdas/customer-review-webhook/k8s/function.yaml
 kubectl apply -n $NS -f lambdas/customer-review-webhook/k8s/api-access.yaml
 ```
 
-Retrieve `client_id` & `client_secret` from the secret created by the **OAuth2Client** `sentiment-analysis-client`. This will be needed by the Webhook service in SAP Commerce Cloud (below).
+- [Text Analysis Function](lambdas/text-analysis)
 
-```
-kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
-kubectl get secret -n $NS sentiment-analysis-client --template='{{.data.client_id}}' | base64 -D
-```
-
-[Text Analysis Function](lambdas/text-analysis)
-
-```
+```shell
 kubectl apply -n $NS -f lambdas/text-analysis/k8s/function.yaml
 ```
 
-[Sentiment Analysis Function](lambdas/sentiment-analysis)
+- [Sentiment Analysis Function](lambdas/sentiment-analysis)
 
-```
+Update namespace in [lambdas/sentiment-analysis/k8s/subscription.yaml](lambdas/sentiment-analysis/k8s/subscription.yaml)
+
+```shell
 kubectl apply -n $NS -f lambdas/sentiment-analysis/k8s/function.yaml
 kubectl apply -n $NS -f lambdas/sentiment-analysis/k8s/subscription.yaml
 ```
 
 ### Webhook
 
-Update the following variables in `commerce-impex/webhooks.impex` with the values extracted above from `sentiment-analysis-client`.
+- Retrieve `client_id` & `client_secret` from your IDP. It will be used with the [webhook impex](./commerce-impex/webhooks.impex)
 
-```
+- Update the following variables in `commerce-impex/webhooks.impex` with the `client_id` & `client_secret`
+
+```shell
 $oauth_client_id
 $oauth_client_secret
 ```
@@ -159,7 +157,7 @@ In SAP Commerce Cloud storefront (Spartacus or Accelerator), log in as a user an
 
 ### Example Payload
 
-```
+```json
 {
     "d": {
         "__metadata": {
