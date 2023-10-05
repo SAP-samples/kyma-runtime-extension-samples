@@ -85,6 +85,9 @@ In this sample, you set up a simple Docker registry running on your machine. You
 6. To access the on-premise Docker registry, configure Cloud Connector:
    ![cc-config](assets/cc-config.png)
 
+7. Configure the resources to path and all sub-paths
+   ![cc-config-resources](assets/cc-config-resources.png)
+
 ## Nginx as reverse proxy
 
 This sample uses Nginx as a reverse proxy to forward the HTTP requests for pulling Docker images from the on-premise Docker registry with Connectivity Proxy and Cloud Connector.

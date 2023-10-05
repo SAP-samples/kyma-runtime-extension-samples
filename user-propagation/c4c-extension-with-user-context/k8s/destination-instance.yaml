@@ -1,0 +1,14 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+  name: identity-propagation-destination
+spec:
+  serviceOfferingName: destination
+  servicePlanName: lite
+---
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+  name: identity-propagation-destination
+spec:
+  serviceInstanceName: identity-propagation-destination

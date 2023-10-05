@@ -144,11 +144,9 @@ Use the `URL + /oauth/token ` as the token endpoint and client id and client sec
 
 - Create a Destination Service instance in the Kyma Service Catalog. This will be used to get the credentials to make the call to the Destination Service.
 
-  ![create instance](assets/create-destination-instance.png)
-
-- Create credentials for the instance.
-
-  ![kyma destination service instance](assets/destination-service-kyma-instance.png)
+  ```shell
+  kubectl -n identity-propagation apply -f c4c-extension-with-user-context/k8s/destination-instance.yaml
+  ```
 
 - Deploy the extension with user propagation.
 
@@ -157,11 +155,8 @@ Use the `URL + /oauth/token ` as the token endpoint and client id and client sec
   - Deploy the extension.
 
       ```shell
-        kubectl apply -f c4c-extension-with-user-context/k8s/deployment.yaml
+        kubectl -n identity-propagation apply -f c4c-extension-with-user-context/k8s/deployment.yaml
       ```
-
-- Bind the extension to the Destination Service instance.
-  ![bind instance](assets/bind-application.png)
 
 - Expose it with an [API rule](c4c-extension-with-user-context/k8s/api-rule.yaml). Similarly to `httpbin`, the API rule is configured to forward headers, such as `Bearer Token`, to the microservice.
 
@@ -170,7 +165,7 @@ Use the `URL + /oauth/token ` as the token endpoint and client id and client sec
   - Deploy the API rule.
 
       ```shell
-        kubectl -n identity-propagation apply -f c4c-extension-with-user-context/k8s/apirule.yaml
+        kubectl -n identity-propagation apply -f c4c-extension-with-user-context/k8s/api-rule.yaml
       ```
 
 ### Angular app

@@ -1,16 +1,13 @@
-apiVersion: eventing.kyma-project.io/v1alpha1
+apiVersion: eventing.kyma-project.io/v1alpha2
 kind: Subscription
 metadata:
   name: sentiment-analysis
+  labels:
+    app.kubernetes.io/name: sentiment-analysis
+  annotations: {}
 spec:
-  filter:
-    filters:
-    - eventSource:
-        property: source
-        type: exact
-        value: ""
-      eventType:
-        property: type
-        type: exact
-        value: sap.kyma.custom.internal.product.reviewsubmitted.v1
-  sink: http://sentiment-analysis.sentiment-analysis.svc.cluster.local
+  typeMatching: exact
+  sink: http://sentiment-analysis.{your-namespace}.svc.cluster.local
+  source: ""
+  types:
+    - sap.kyma.custom.internal.product.reviewsubmitted.v1

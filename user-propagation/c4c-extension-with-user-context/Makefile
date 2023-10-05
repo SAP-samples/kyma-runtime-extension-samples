@@ -1,4 +1,4 @@
-RELEASE?=0.0.4
+RELEASE?=0.0.6
 APP?=c4c-extension-with-user-context
 GOOS?=linux
 GOARCH?=amd64
@@ -20,7 +20,7 @@ build: clean vet test
 		-o ${APP}
 
 build-image: build
-	docker build -t $(CONTAINER_IMAGE) --label "CHANGE=$(CHANGE)" .
+	docker build --platform=linux/amd64 -t $(CONTAINER_IMAGE) --label "CHANGE=$(CHANGE)" .
 
 push-image:
 	docker push $(CONTAINER_IMAGE)

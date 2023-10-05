@@ -7,7 +7,7 @@ metadata:
 spec:
   externalName: data-quality-service
   serviceOfferingName: dq-services
-  servicePlanName: standard
+  servicePlanName: free
 ---
 apiVersion: services.cloud.sap.com/v1
 kind: ServiceBinding
