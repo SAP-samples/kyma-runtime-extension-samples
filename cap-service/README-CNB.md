@@ -26,8 +26,8 @@ This sample demonstrates how to:
 
 ### CAP Resources
 
-- [CAP hints for SQLite on windows](https://cap.cloud.sap/docs/resources/troubleshooting#how-do-i-install-sqlite-on-windows)
-- [Troubleshooting guide](https://cap.cloud.sap/docs/resources/troubleshooting#npm-installation) for CAP.
+- [CAP hints for SQLite on windows](https://cap.cloud.sap/docs/advanced/troubleshooting#how-do-i-install-sqlite-on-windows)
+- [Troubleshooting guide](https://cap.cloud.sap/docs/advanced/troubleshooting#npm-installation) for CAP.
 
 ## Steps
 

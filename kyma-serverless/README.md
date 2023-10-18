@@ -49,7 +49,8 @@ As aforementioned, both Kyma and Gardener are available as open source projects.
     <li><a href="https://gardener.cloud/docs/gardener/#setting-up-your-own-gardener-landscape-in-the-cloud">bring your own gardener cluster</a> with:
   <ul>
     <li>the <a href="https://github.com/kyma-project/kyma/releases">latest release of open source kyma project</a> and</li>
-    <li>the latest release of <a href="https://github.com/kyma-incubator/sap-btp-service-operator">SAP BTP service operator</a> from the kyma incubator <a href="https://github.com/kyma-incubator">project</a>.</li>
+    <li>the latest release of <a href="https://github.com/SAP/sap-btp-service-operator">SAP BTP service operator.
+    </li>
   </ul>
   </li>
     <li>have admin access to any SAP BTP sub-account where you have the BTP Service Manager entitlement with the <em>service-operator-access</em> service plan.</li>

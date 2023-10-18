@@ -31,7 +31,7 @@ This example includes a **Kyma Serverless Function**, *cdp-extension*, that is e
 
 ## Pre-requisites
 
-* Provision [SAP Customer Data Platform](https://www.sap.com/canada/products/customer-data-platform.html).
+* Provision [SAP Customer Data Platform](https://www.sap.com/products/crm/customer-data-platform.html).
 * [Get a Free Account on SAP BTP Trial](https://developers.sap.com/tutorials/hcp-create-trial-account.html).
 * [Enable SAP BTP, Kyma Runtime](https://developers.sap.com/tutorials/cp-kyma-getting-started.html).
 * [Download and install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html#d81e7789-ced4-4df6-b4a0-132d8c637077).

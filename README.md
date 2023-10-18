@@ -59,7 +59,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | Name                                                      | Description                                                                                  | References                                                                       |
 | --------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | [React frontend MS SQL](./frontend-react-mssql/README.md) | This sample provides a frontend React UI application configured with the sample `Order` APIs | -                                                                                |
-| [UI5 frontend MS SQL](./frontend-ui5-mssql/README.md)     | This sample provides a frontend SAPUI5 application configured with the sample `Order` APIs   | [Tutorial](https://developers.sap.com/tutorials/cp-kyma-frontend-ui5-mssql.html) |
+| [UI5 frontend MS SQL](./frontend-ui5-mssql/README.md)     | This sample provides a frontend SAPUI5 application configured with the sample `Order` APIs   | - |
 
 ## CAP
 
@@ -67,7 +67,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 |----------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
 | [CAP Orders Service](./cap-orders-service/README.md)                 | This sample provides a secured CAP service application deployment onto HANA that utilizes the Destination Service, Connectivity Proxy and configured for Helm using Cloud Native Buildpacks |                                                                   |
 | [CAP on Kyma - Cloud Native Buildpacks](./cap-service/README-CNB.md) | This sample provides a secured CAP Service application deployed onto HANA and configured for Helm using Cloud Native Buildpacks                                                             |                                                                   |
-| [CAP on Kyma](./cap-service/README.md)                               | This sample provides a CAP Service application configured with the sample `FAQs` APIs                                                                                                       | [Tutorial](https://developers.sap.com/tutorials/cp-kyma-cap.html) |
+| [CAP on Kyma](./cap-service/README.md)                               | This sample provides a CAP Service application configured with the sample `FAQs` APIs                                                                                                       | - |
 | [From Zero to CAP on Kyma](./from-zero-to-cap-on-kyma/README.md)     | Starting from scratch build a CAP application and deploy it to Kyma runtime                                                                                                                 |                                                                   |
 
 ## FAAS Migration
