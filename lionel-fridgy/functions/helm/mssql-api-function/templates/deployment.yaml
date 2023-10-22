@@ -1,0 +1,34 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: mssql-api-function
+  labels:
+    app: mssql-api-function
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: git
+  runtime: nodejs14
+  reference: main
+  baseDir: lionel-fridgy/functions/mssql-api/app
+  source: github-internal-repo
+  env:
+    - name: DB_NAME
+      valueFrom:
+        secretKeyRef:
+          name: lionel-fridgy-secret
+          key: db-name
+    - name: DB_HOST
+      valueFrom:
+        secretKeyRef:
+          name: lionel-fridgy-secret
+          key: db-host
+    - name: DB_PW
+      valueFrom:
+        secretKeyRef:
+          name: lionel-fridgy-secret
+          key: db-password
+    - name: DB_USER
+      valueFrom:
+        secretKeyRef:
+          name: lionel-fridgy-secret
+          key: db-username

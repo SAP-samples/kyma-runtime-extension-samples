@@ -1,0 +1,24 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata:
+  name: slack-messenger-function
+  labels:
+    app: slack-messenger-function
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: git
+  runtime: nodejs14
+  reference: main
+  baseDir: lionel-fridgy/functions/slack-messenger/app
+  source: github-internal-repo
+  env:
+    - name: WEBHOOK_URL
+      valueFrom:
+        secretKeyRef:
+          key: slack-webhook-url
+          name: lionel-fridgy-webhook-secret
+    - name: WEBUI_URL
+      valueFrom:
+        secretKeyRef:
+          key: web-ui-url
+          name: lionel-fridgy-webhook-secret
