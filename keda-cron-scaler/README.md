@@ -1,4 +1,4 @@
-# SAP BTP Kyma Runtime: Shifting to a More Flexible, Modular Architecture with KEDA
+# SAP BTP Kyma Runtime: Leveraging KEDA module capabilities for efficient cost-effective scaling
 
 SAP Business Technology Platform (BTP) Kyma runtime is currently in the process of undergoing a pivotal change as it transitions to a modular architecture. This transformation will provide customers with the advantage of a la carte selection of components or capabilities, thereby reducing unnecessary overhead and complexity. One of the first modules to emerge within this novel framework is KEDA (Kubernetes Event-driven Autoscaling).
 
