@@ -1,25 +1,73 @@
-# SAP BTP Kyma Runtime: Transitioning to a Modular Architecture with KEDA
+# SAP BTP Kyma Runtime: Shifting to a More Flexible, Modular Architecture with KEDA
 
-SAP Business Technology Platform (BTP) Kyma runtime is undergoing a significant change: it's transitioning to a modular architecture. With the new modular architecture, customers will have the flexibility to pick and choose the component / capabilities they need, reducing unnecessary bloat and complexity. One of the early modules to be introduced in this new structure is KEDA (Kubernetes Event-driven Autoscaling).
+SAP Business Technology Platform (BTP) Kyma runtime is currently in the process of undergoing a pivotal change as it transitions to a modular architecture. This transformation will provide customers with the advantage of a la carte selection of components or capabilities, thereby reducing unnecessary overhead and complexity. One of the first modules to emerge within this novel framework is KEDA (Kubernetes Event-driven Autoscaling).
 
-## What is KEDA?
+## Introduction to KEDA
 
-[KEDA](https://keda.sh/) is an open-source project that provides event-driven autoscaling for Kubernetes workloads. It was initially created by Microsoft and Red Hat, and now it's a CNCF sandbox project. KEDA focuses on autoscaling applications based on events from various sources, such as Kafka, RabbitMQ, or cloud-specific services like Azure Service Bus and Google Pub/Sub.
+[KEDA](https://keda.sh/), an open-source initiative that facilitates event-driven autoscaling for Kubernetes workloads, was originally developed by Microsoft and Red Hat. It has since become a sandbox project under the Cloud Native Computing Foundation (CNCF). KEDA focuses on autoscaling applications in response to events sourced from a variety of platforms, including Kafka, RabbitMQ, and cloud-specific services such as Azure Service Bus and Google Pub/Sub.
 
-## What does KEDA provide?
+## The Benefits of KEDA
 
-KEDA brings a new level of flexibility and efficiency to the autoscaling game. It extends Kubernetes to enable fine-grained autoscaling for event-driven workloads. With KEDA, you can scale your deployments from zero to n depending on the number of events they have to process.
+KEDA ushers in a new era of flexibility and efficiency in autoscaling. It enhances Kubernetes' capacity to support fine-grained autoscaling for event-driven workloads. Leveraging KEDA, you can dynamically scale your deployments from zero to any arbitrary number, contingent on the volume of events they are designed to process.
 
-## Enabling the KEDA module in SAP BTP Kyma runtime
+## Activating the KEDA Module in SAP BTP Kyma Runtime
 
-KEDA can be enabled as any other module by following the official instructions to [enable and disable a module](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module)
+You can activate KEDA like any other module by adhering to the official guidelines on how to [enable and disable a module](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module).
 
-## KEDA Cron-based Scaler
+## KEDA's Cron-Based Scaler
 
-KEDA supports a wide array of scaling strategies. One of them is the cron-based scaler. With this scaler, you can schedule scaling actions based on the time of day. This feature is extremely useful for handling predictable variations in workload.
+KEDA offers a broad range of scaling strategies, one of which is the cron-based scaler. This scaler allows you to schedule scaling actions according to the time of day, an invaluable feature for managing predictable fluctuations in workload.
 
-For example, you can:
+As an illustration, the cron-based scaler enables you to:
 
-- **Handle Peaks in Traffic and Request Volume**: With the cron-based scaler, you can schedule your applications to scale up during peak hours or during high-traffic events like Black Friday and New Year sales. You can also set your applications to scale up during off-hours for batch processing tasks.
+- **Manage High Traffic and Request Volume Peaks**: With the cron-based scaler, you can program your applications to upscale during peak hours or during high-traffic events, such as Black Friday or New Year sales. The same functionality can be used to schedule your applications to upscale during off-peak hours for batch processing tasks.
 
-- **Optimize Resource Usage and Save Cost**: The cron-based scaler can help you save resources and reduce costs by scheduling your applications to scale down during off-work hours or when the demand is predictably low.
+- **Maximize Resource Efficiency and Minimize Costs**: The cron-based scaler can be utilized to conserve resources and cut costs by scheduling your applications to downscale during non-working hours or periods of predictably low demand.
+
+## Scenario
+
+Lets put cron based scaler to action.
+
+Assume we have a **development cluster** where we want to run workload only during work hours.
+
+Lets say **Monday - Friday, 8 AM to 6 PM**
+
+- Create a sample workload
+
+```shell
+kubectl -n ${NS} apply -f k8s/deployment.yaml
+```
+
+- Apply the KEDA cron based scaling to it
+
+```shell
+kubectl -n ${NS} apply -f k8s/keda-cron-scaler.yaml
+```
+
+In the cron scaler, we want to have the workload running only during the working hours
+
+```yaml
+  triggers:
+    - type: cron
+      metadata:
+        # The acceptable values would be a value from the IANA Time Zone Database.
+        timezone: Europe/Berlin  
+        # At 08:00 AM, Monday through Friday
+        start: 0 8 * * 1-5
+        # At 06:00 PM, Monday through Friday
+        end: 0 18 * * 1-5
+        # ie. Your MINIMUM replica count for this workload
+        desiredReplicas: "1"
+```
+
+### View the events
+
+```shell
+LAST SEEN   TYPE      REASON                       OBJECT                                       MESSAGE
+7m34s       Normal    Killing                      pod/test-keda-cron-nginx-86b78b79df-r42zd    Stopping container istio-proxy
+7m34s       Normal    Killing                      pod/test-keda-cron-nginx-86b78b79df-r42zd    Stopping container nginx
+7m31s       Warning   Unhealthy                    pod/test-keda-cron-nginx-86b78b79df-r42zd    Readiness probe failed: HTTP probe failed with statuscode: 503
+7m34s       Normal    SuccessfulDelete             replicaset/test-keda-cron-nginx-86b78b79df   Deleted pod: test-keda-cron-nginx-86b78b79df-r42zd
+7m34s       Normal    KEDAScaleTargetDeactivated   scaledobject/test-keda-cron-nginx            Deactivated apps/v1.Deployment demos/test-keda-cron-nginx from 1 to 0
+7m34s       Normal    ScalingReplicaSet            deployment/test-keda-cron-nginx              Scaled down replica set test-keda-cron-nginx-86b78b79df to 0 from 1
+```
