@@ -16,7 +16,7 @@ You can activate KEDA like any other module by adhering to the official guidelin
 
 ## KEDA's Cron-Based Scaler
 
-KEDA offers a broad range of scaling strategies, one of which is the cron-based scaler. This scaler allows you to schedule scaling actions according to the time of day, an invaluable feature for managing predictable fluctuations in workload.
+KEDA offers a broad range of scaling strategies, one of which is the **cron-based scaler**. This scaler allows you to schedule scaling actions according to the time of day, an invaluable feature for managing predictable fluctuations in workload.
 
 As an illustration, the cron-based scaler enables you to:
 
