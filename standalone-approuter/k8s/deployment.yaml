@@ -39,7 +39,7 @@ spec:
         secret:
           secretName: my-xsuaa-binding
       containers:
-      - image: sapse/approuter:11.3.2
+      - image: sapse/approuter:15.0.0
         name: my-approuter
         imagePullPolicy: Always
         ports:

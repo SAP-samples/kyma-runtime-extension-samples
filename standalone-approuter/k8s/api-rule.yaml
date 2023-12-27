@@ -14,9 +14,4 @@ spec:
         name: my-approuter
         port: 5000
       accessStrategies:
-        - handler: noop
-      mutators:
-        - handler: header
-          config:
-            headers:
-              x-forwarded-host: "my-approuter.{CLUSTER_DOMAIN}"
+        - handler: allow

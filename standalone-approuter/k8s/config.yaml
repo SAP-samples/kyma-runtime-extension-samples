@@ -7,7 +7,7 @@ data:
     [
         {
           "name": "httpbin",
-          "url": "http://httpbin.dev.svc.cluster.local:8000",
+          "url": "http://httpbin:8000",
           "forwardAuthToken": true
         }
     ]

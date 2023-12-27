@@ -40,44 +40,48 @@ As a simple backend, we will use an HttpBin application that returns the request
 
 ## Steps
 
-- Create a namespace dev
+- Export environment variables
 
-    ```shell script
-    kubectl create namespace dev
-    kubectl label namespaces dev istio-injection=enabled
-    ```
+```shell
+export NS={your-namespace}
+```
+
+- Create the namespace and enable istio-injection if not already done.
+
+```shell
+kubectl create namespace ${NS}
+kubectl label namespaces ${NS} istio-injection=enabled
+```
 
 - Deploy the backend service
 
-    ```shell script
-    kubectl -n dev apply -f k8s/httpbin.yaml
-    ```
+```shell
+kubectl -n ${NS} apply -f k8s/httpbin.yaml
+```
 
-- Create the XSUAA Instance.
-  - Update the [service instance definition](k8s/xsuaa-service-instance.yaml). Replace {CLUSTER_DOMAIN} with the domain of your cluster.
+- Create the XSUAA Instance. Update the [service instance definition](k8s/xsuaa-service-instance.yaml). Replace {CLUSTER_DOMAIN} with the domain of your cluster.
 
-   ```shell script
-    kubectl -n dev apply -f k8s/xsuaa-service-instance.yaml
-    ```
+```shell
+kubectl -n ${NS} apply -f k8s/xsuaa-service-instance.yaml
+```
 
 - Create the destinations and routes configurations for the approuter
 
-    ```shell script
-    kubectl -n dev apply -f k8s/config.yaml
-    ```
+```shell
+kubectl -n ${NS} apply -f k8s/config.yaml
+```
 
 - Deploy the approuter
 
-    ```shell script
-    kubectl -n dev apply -f k8s/deployment.yaml
-    ```
+```shell
+kubectl -n ${NS} apply -f k8s/deployment.yaml
+```
 
-- Expose the approuter via APIRule
-  - Update the [APIRule](k8s/api-rule.yaml). Replace {CLUSTER_DOMAIN} with the domain of your cluster.
+- Expose the approuter via APIRule.
 
-    ```shell script
-    kubectl -n dev apply -f k8s/api-rule.yaml
-    ```
+```shell
+kubectl -n ${NS} apply -f k8s/api-rule.yaml
+```
 
 ## Accessing the Application
 
