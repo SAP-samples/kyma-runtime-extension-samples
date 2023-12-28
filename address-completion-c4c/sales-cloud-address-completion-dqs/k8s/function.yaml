@@ -5,6 +5,9 @@ metadata:
   labels:
     scenario: address-completion
 spec:
+  scaleConfig:
+    minReplicas: 1
+    maxReplicas: 1
   runtime: nodejs18
   source:
     gitRepository:

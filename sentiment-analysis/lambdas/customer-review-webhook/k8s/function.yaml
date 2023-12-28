@@ -3,6 +3,9 @@ kind: Function
 metadata:
   name: customer-review-webhook
 spec:
+  scaleConfig:
+    minReplicas: 1
+    maxReplicas: 1
   runtime: nodejs18
   source:
     gitRepository:

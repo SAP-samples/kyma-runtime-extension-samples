@@ -3,6 +3,9 @@ kind: Function
 metadata:
   name: text-analysis
 spec:
+  scaleConfig:
+    minReplicas: 1
+    maxReplicas: 1
   runtime: python39
   source:
     gitRepository:
