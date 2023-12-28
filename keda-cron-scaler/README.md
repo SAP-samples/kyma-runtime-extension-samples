@@ -22,7 +22,7 @@ As an illustration, the cron-based scaler enables you to:
 
 - **Manage High Traffic and Request Volume Peaks**: With the cron-based scaler, you can program your applications to upscale during peak hours or during high-traffic events, such as Black Friday or New Year sales. The same functionality can be used to schedule your applications to upscale during off-peak hours for batch processing tasks.
 
-- **Maximize Resource Efficiency and Minimize Costs**: The cron-based scaler can be utilized to conserve resources and cut costs by scheduling your applications to downscale during non-working hours or periods of predictably low demand.
+- **Optimize Resource Utilization and Reduce Expenses**: The cron-based scaler offers a solution to optimize resource utilization and reduce costs by allowing you to schedule your applications to downscale during non-working hours. This feature is useful for your dev/stage/QA clusters, which are not required during off-working hours. It is important to note that this only applies when your workloads require more resources than the base setup. The [current base setup](https://kyma-project.github.io/price-calculator/) consists of 3 VMs, each with 4 CPU and 16 GB of RAM. Therefore, if you need to deploy your workloads on 4 or more VMs, this feature can provide benefits to control costs.
 
 ## Scenario
 
