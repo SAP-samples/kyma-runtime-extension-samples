@@ -1,0 +1,19 @@
+apiVersion: serverless.kyma-project.io/v1alpha2
+kind: Function
+metadata:
+  name: test-keda-cron-function
+  labels:
+    app: test-keda-cron-function
+spec:
+  runtime: nodejs18
+  source:
+    inline:
+      source: |
+        module.exports = {
+          main: function(event, context) {
+            console.log('I only run during work hours!!');
+          }
+        }
+  scaleConfig:
+    minReplicas: 1
+    maxReplicas: 1

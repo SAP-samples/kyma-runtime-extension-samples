@@ -26,7 +26,7 @@ As an illustration, the cron-based scaler enables you to:
 
 - **Optimize Resource Utilization and Reduce Expenses**: The cron-based scaler offers a solution to optimize resource utilization and reduce costs by allowing you to schedule your applications to downscale during non-working hours. This feature is useful for your **dev/stage/QA** clusters, which are not required during off-working hours.
 
-  > It is important to note that this only applies when your workloads require more resources than the base setup. The [current base setup](https://kyma-project.github.io/price-calculator/) consists of 3 VMs, each with 4 CPU and 16 GB of RAM. Therefore, if you need to deploy your workloads on 4 or more VMs, this feature can provide benefits to control costs.
+  > **Note:** This only benefits when your workloads require more resources than the base setup. The [current base setup](https://kyma-project.github.io/price-calculator/) consists of 3 VMs, each with 4 CPU and 16 GB of RAM. Therefore, *if you your workloads need 4 or more VMs to be provisioned, this feature can provide benefits to control costs during off-work hours.*
 
 ![off-work](assets/keda-scale-off-work.png)
 
@@ -34,23 +34,42 @@ As an illustration, the cron-based scaler enables you to:
 
 Lets put cron based scaler to action.
 
-Assume we have a **development cluster** where we want to run workload only during work hours.
+Assume we have a **development cluster** where we want to run workloads only during work hours.
 
 Lets say **Monday - Friday, 8 AM to 6 PM**
 
-- Create a sample workload
+### Prerequisites
+
+- [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
+- [Kubernetes tooling](../prerequisites/#kubernetes)
+- [KEDA and Serverless Modules enabled in Kyma]((https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module))
+
+### Steps
+
+- Export environment variables
+
+```shell
+export NS={your-namespace}
+```
+
+- Create sample workloads. One deployment and one function
 
 ```shell
 kubectl -n ${NS} apply -f k8s/deployment.yaml
+kubectl -n ${NS} apply -f k8s/function.yaml
 ```
 
-- Apply the KEDA cron based scaling to it
+- Apply the KEDA cron based scaling to these workloads
 
 ```shell
 kubectl -n ${NS} apply -f k8s/keda-cron-scaler.yaml
 ```
 
-In the cron scaler, we want to have the workload running only during the working hours
+### How it works
+
+KEDA scaledobject resource can be configured with a trigger of type cron.
+
+In the cron scaler, we can then specify to have the workloads running only during the working hours.
 
 ```yaml
   triggers:
@@ -66,7 +85,31 @@ In the cron scaler, we want to have the workload running only during the working
         desiredReplicas: "1"
 ```
 
+For each type of workload, the **scaleTargetRef** can be specified
+
+```yaml
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: test-keda-cron-nginx
+```
+
+```yaml
+spec:
+  scaleTargetRef:
+    apiVersion: serverless.kyma-project.io/v1alpha2
+    kind: Function
+    name: test-keda-cron-function
+```
+
 ### View the events
+
+Check the events during the trigger start or end time
+
+```shell
+kubectl -n ${NS} get events
+```
 
 ```shell
 LAST SEEN   TYPE      REASON                       OBJECT                                       MESSAGE
@@ -77,3 +120,5 @@ LAST SEEN   TYPE      REASON                       OBJECT                       
 7m34s       Normal    KEDAScaleTargetDeactivated   scaledobject/test-keda-cron-nginx            Deactivated apps/v1.Deployment demos/test-keda-cron-nginx from 1 to 0
 7m34s       Normal    ScalingReplicaSet            deployment/test-keda-cron-nginx              Scaled down replica set test-keda-cron-nginx-86b78b79df to 0 from 1
 ```
+
+> Note: Events are only available until after 1 hour of trigger.
