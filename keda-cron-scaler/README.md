@@ -1,4 +1,4 @@
-# SAP BTP Kyma Runtime: Leveraging KEDA module capabilities for efficient cost-effective scaling
+# SAP BTP Kyma Runtime: Leveraging KEDA module capabilities for efficient and cost-effective scaling
 
 SAP Business Technology Platform (BTP) Kyma runtime is currently in the process of undergoing a pivotal change as it transitions to a modular architecture. This transformation will provide customers with the advantage of a la carte selection of components or capabilities, thereby reducing unnecessary overhead and complexity. One of the first modules to emerge within this novel framework is KEDA (Kubernetes Event-driven Autoscaling).
 
@@ -52,6 +52,14 @@ Lets say **Monday - Friday, 8 AM to 6 PM**
 export NS={your-namespace}
 ```
 
+- Create namespace and enable istio injection if not already done
+
+```shell
+kubectl create ns ${NS}
+# only required once to enable istio sidecar. Ignore if done already
+kubectl label namespaces ${NS} istio-injection=enabled
+```
+
 - Create sample workloads. One deployment and one function
 
 ```shell
@@ -67,7 +75,7 @@ kubectl -n ${NS} apply -f k8s/keda-cron-scaler.yaml
 
 ### How it works
 
-KEDA scaledobject resource can be configured with a trigger of type cron.
+KEDA `scaledobject` resource can be configured with a trigger of type cron.
 
 In the cron scaler, we can then specify to have the workloads running only during the working hours.
 
@@ -85,7 +93,7 @@ In the cron scaler, we can then specify to have the workloads running only durin
         desiredReplicas: "1"
 ```
 
-For each type of workload, the **scaleTargetRef** can be specified
+For each type of workload, the **scaleTargetRef** need to be specified
 
 ```yaml
 spec:
@@ -105,7 +113,7 @@ spec:
 
 ### View the events
 
-Check the events during the trigger start or end time
+Check the events during the trigger start or end time. Here you can see KEDA scaling down the replicas
 
 ```shell
 kubectl -n ${NS} get events
@@ -122,3 +130,15 @@ LAST SEEN   TYPE      REASON                       OBJECT                       
 ```
 
 > Note: Events are only available until after 1 hour of trigger.
+
+### First hand experience
+
+I applied the KEDA cron scaler to all my custom workloads in my Kyma cluster.
+
+All my deployment replicas scaled down to zero
+
+![dep-off](assets/keda-off-hours.png)
+
+and number of nodes (VMs) reduced from 4 to 3
+
+![nodes-off](assets/nodes-off-hours.png)
