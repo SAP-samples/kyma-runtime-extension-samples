@@ -142,3 +142,8 @@ All my deployment replicas scaled down to zero
 and number of nodes (VMs) reduced from 4 to 3
 
 ![nodes-off](assets/nodes-off-hours.png)
+
+## References
+
+- <https://medium.com/@CloudifyOps/optimizing-kubernetes-workloads-with-keda-custom-metric-driven-pod-autoscaling-7332e674fdc6>
+- <https://doc.kaas.thalesdigital.io/docs/Features/keda>
