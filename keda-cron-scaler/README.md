@@ -1,6 +1,6 @@
-# SAP BTP Kyma Runtime: Leveraging KEDA module capabilities for efficient and cost-effective scaling
+# SAP BTP, Kyma Runtime: Leveraging KEDA module capabilities for efficient and cost-effective scaling
 
-SAP Business Technology Platform (BTP) Kyma runtime is currently in the process of undergoing a pivotal change as it transitions to a modular architecture. This transformation will provide customers with the advantage of a la carte selection of components or capabilities, thereby reducing unnecessary overhead and complexity. One of the first modules to emerge within this novel framework is KEDA (Kubernetes Event-driven Autoscaling).
+SAP Business Technology Platform (BTP), Kyma runtime is currently in the process of undergoing a pivotal change as it transitions to a modular architecture. This transformation will provide customers with the advantage of a la carte selection of components or capabilities, thereby reducing unnecessary overhead and complexity. One of the first modules to emerge within this novel framework is KEDA (Kubernetes Event-driven Autoscaling).
 
 ## Introduction to KEDA
 
@@ -26,7 +26,7 @@ As an illustration, the cron-based scaler enables you to:
 
 - **Optimize Resource Utilization and Reduce Expenses**: The cron-based scaler offers a solution to optimize resource utilization and reduce costs by allowing you to schedule your applications to downscale during non-working hours. This feature is useful for your **dev/stage/QA** clusters, which are not required during off-working hours.
 
-  > **Note:** This only benefits when your workloads require more resources than the base setup. The [current base setup](https://kyma-project.github.io/price-calculator/) consists of 3 VMs, each with 4 CPU and 16 GB of RAM. Therefore, *if you your workloads need 4 or more VMs to be provisioned, this feature can provide benefits to control costs during off-work hours.*
+  > **Note:** This only benefits when your workloads require more resources than the base setup. The [current base setup](https://kyma-project.github.io/price-calculator/) consists of 3 VMs, each with 4 CPU and 16 GB of RAM. Therefore, if your workloads need 4 or more VMs to be provisioned, this feature can provide benefits to control costs during off-work hours.
 
 ![off-work](assets/keda-scale-off-work.png)
 
@@ -42,32 +42,30 @@ Lets say **Monday - Friday, 8 AM to 6 PM**
 
 - [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
 - [Kubernetes tooling](../prerequisites/#kubernetes)
-- [KEDA and Serverless Modules enabled in Kyma]((https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module))
+- [KEDA and Serverless Modules enabled in Kyma](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module)
 
 ### Steps
 
-- Export environment variables
+1. Export your namespace's name as an environment variable.
 
 ```shell
 export NS={your-namespace}
 ```
 
-- Create namespace and enable istio injection if not already done
+2. Create the namespace. If you haven't done so already, enable Istio injection.
 
 ```shell
 kubectl create ns ${NS}
-# only required once to enable istio sidecar. Ignore if done already
 kubectl label namespaces ${NS} istio-injection=enabled
-```
 
-- Create sample workloads. One deployment and one function
+3. Create a Function and a Deployment as sample workloads.
 
 ```shell
 kubectl -n ${NS} apply -f k8s/deployment.yaml
 kubectl -n ${NS} apply -f k8s/function.yaml
 ```
 
-- Apply the KEDA cron based scaling to these workloads
+4. Apply KEDA cron-based scaling to these workloads.
 
 ```shell
 kubectl -n ${NS} apply -f k8s/keda-cron-scaler.yaml
@@ -75,25 +73,23 @@ kubectl -n ${NS} apply -f k8s/keda-cron-scaler.yaml
 
 ### How it works
 
-KEDA `scaledobject` resource can be configured with a trigger of type cron.
-
-In the cron scaler, we can then specify to have the workloads running only during the working hours.
+The KEDA `scaledobject` resource can be configured with a trigger of type `cron`. Within the cron scaler, you can specify that the workloads should only run during working hours.
 
 ```yaml
   triggers:
     - type: cron
       metadata:
-        # The acceptable values would be a value from the IANA Time Zone Database.
+        # You must use values from the IANA Time Zone Database.
         timezone: Europe/Berlin  
-        # At 08:00 AM, Monday through Friday
+        # At 08:00 AM, from Monday to Friday
         start: 0 8 * * 1-5
-        # At 06:00 PM, Monday through Friday
+        # At 06:00 PM, from Monday to Friday
         end: 0 18 * * 1-5
-        # ie. Your MINIMUM replica count for this workload
+        # Your minimum replica count for the workload
         desiredReplicas: "1"
 ```
 
-For each type of workload, the **scaleTargetRef** need to be specified
+For each type of workload, you must specify **scaleTargetRef**.
 
 ```yaml
 spec:
@@ -113,7 +109,7 @@ spec:
 
 ### View the events
 
-Check the events during the trigger start or end time. Here you can see KEDA scaling down the replicas
+Check the events occurring at the start or end time of the trigger. In the following example, you can see KEDA scaling down the replicas:
 
 ```shell
 kubectl -n ${NS} get events
@@ -129,17 +125,17 @@ LAST SEEN   TYPE      REASON                       OBJECT                       
 7m34s       Normal    ScalingReplicaSet            deployment/test-keda-cron-nginx              Scaled down replica set test-keda-cron-nginx-86b78b79df to 0 from 1
 ```
 
-> Note: Events are only available until after 1 hour of trigger.
+> Note: Events are only available for one hour after the trigger.
 
-### First hand experience
+### First-hand experience
 
-I applied the KEDA cron scaler to all my custom workloads in my Kyma cluster.
+I applied the KEDA cron scaler to all custom workloads in my Kyma cluster.
 
-All my deployment replicas scaled down to zero
+All my deployment replicas were scaled down to zero.
 
 ![dep-off](assets/keda-off-hours.png)
 
-and number of nodes (VMs) reduced from 4 to 3
+Additionally, the number of nodes (VMs) was reduced from 4 to 3.
 
 ![nodes-off](assets/nodes-off-hours.png)
 
