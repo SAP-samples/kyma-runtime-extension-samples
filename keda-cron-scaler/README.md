@@ -28,13 +28,15 @@ As an illustration, the cron-based scaler enables you to:
 
   > **Note:** This only benefits when your workloads require more resources than the base setup. The [current base setup](https://kyma-project.github.io/price-calculator/) consists of 3 VMs, each with 4 CPU and 16 GB of RAM. Therefore, if your workloads need 4 or more VMs to be provisioned, this feature can provide benefits to control costs during off-work hours.
 
+  > **Note:** The cron scheduling is applicable to only customer workloads and **not kyma components**.
+
 ![off-work](assets/keda-scale-off-work.png)
 
 ## Scenario
 
 Lets put cron based scaler to action.
 
-Assume we have a **development cluster** where we want to run workloads only during work hours.
+Assume we have a **development cluster** where we want to run customer workloads only during work hours.
 
 Lets say **Monday - Friday, 8 AM to 6 PM**
 
