@@ -26,7 +26,7 @@ As an illustration, the cron-based scaler enables you to:
 
 - **Optimize Resource Utilization and Reduce Expenses**: The cron-based scaler offers a solution to optimize resource utilization and reduce costs by allowing you to schedule your applications to downscale during non-working hours. This feature is useful for your **dev/stage/QA** clusters, which are not required during off-working hours.
 
-  > **Note:** This benefits when your workloads require more resources than the base setup. The [current base setup](https://kyma-project.github.io/price-calculator/) consists of 3 VMs, each with 4 CPU and 16 GB of RAM. Therefore, if your workloads need 4 or more VMs to be provisioned, this feature can provide benefits to control costs during off-work hours.
+  > **Note:** This benefits when your workloads require more resources than the base setup. The [current base setup](https://kyma-project.github.io/price-calculator/) consists of 3 VMs, each with 4 CPU and 16 GB of RAM. Therefore, if your workloads need 4 or more VMs to be provisioned, this feature can provide benefits to control costs and keep them to base setup during off-work hours.
 
   > **Note:** The cron scheduling is applicable to only customer workloads and **not kyma components**.
 
