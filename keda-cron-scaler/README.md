@@ -133,7 +133,7 @@ LAST SEEN   TYPE      REASON                       OBJECT                       
 
 I applied the KEDA cron scaler to all custom workloads in my Kyma cluster.
 
-All my deployment replicas were scaled down to zero.
+All my microservices and functions replicas were scaled down to zero.
 
 ![dep-off](assets/keda-off-hours.png)
 
