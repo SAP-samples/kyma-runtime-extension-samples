@@ -30,3 +30,7 @@ grpc-python/__pycache__/orders_pb2.cpython-38.pyc
 .vscode
 
 cap-orders-service/*/chart
+
+target/
+bin/
+.gradle/

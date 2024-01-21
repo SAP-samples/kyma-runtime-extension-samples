@@ -57,11 +57,12 @@ Let's put the cron-based scaler into action and assume we have a **development c
   kubectl label namespaces ${NS} istio-injection=enabled
   ```
 
-3. Create a Function and a Deployment as sample workloads.
+3. Create a Function, a Deployment and a StatefulSet as sample workloads.
 
   ```shell
   kubectl -n ${NS} apply -f k8s/deployment.yaml
   kubectl -n ${NS} apply -f k8s/function.yaml
+  kubectl -n ${NS} apply -f k8s/statefulset.yaml
   ```
 
 4. Apply KEDA cron-based scaling to these workloads.

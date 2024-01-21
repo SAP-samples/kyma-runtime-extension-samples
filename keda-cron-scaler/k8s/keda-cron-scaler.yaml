@@ -16,7 +16,7 @@ spec:
     - type: cron
       metadata:
         # The acceptable values would be a value from the IANA Time Zone Database.
-        timezone: Europe/Berlin  
+        timezone: Europe/Berlin
         # At 08:00 AM, Monday through Friday
         start: 0 8 * * 1-5
         # At 06:00 PM, Monday through Friday
@@ -42,7 +42,33 @@ spec:
     - type: cron
       metadata:
         # The acceptable values would be a value from the IANA Time Zone Database.
-        timezone: Europe/Berlin  
+        timezone: Europe/Berlin
+        # At 08:00 AM, Monday through Friday
+        start: 0 8 * * 1-5
+        # At 06:00 PM, Monday through Friday
+        end: 0 18 * * 1-5
+        # ie. Your MINIMUM replica count for this workload
+        desiredReplicas: "1"
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: test-keda-cron-ss-busybox
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: test-keda-cron-ss-busybox
+  pollingInterval: 10
+  # immediately scale down the workload
+  cooldownPeriod: 0
+  # The workload is ASLEEP by DEFAULT, otherwise, it's Awake.
+  minReplicaCount: 0
+  triggers:
+    - type: cron
+      metadata:
+        # The acceptable values would be a value from the IANA Time Zone Database.
+        timezone: Europe/Berlin
         # At 08:00 AM, Monday through Friday
         start: 0 8 * * 1-5
         # At 06:00 PM, Monday through Friday

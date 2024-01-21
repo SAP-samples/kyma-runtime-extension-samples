@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: test-keda-cron-ss-busybox
+  name: test-keda-cron-ss-busybox
+spec:
+  serviceName: test-keda-cron-ss-busybox
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-keda-cron-ss-busybox
+  template:
+    metadata:
+      labels:
+        app: test-keda-cron-ss-busybox
+    spec:
+      containers:
+      - image: busybox
+        name: test-keda-cron-ss-busybox
+        resources:
+          requests:
+            memory: 50Mi
+            cpu: 20m
+          limits:
+            memory: 50Mi
+            cpu: 20m
+        volumeMounts:
+        - name: storage
+          mountPath: /data
+        command:
+        - sleep
+        - infinity
+  volumeClaimTemplates:
+  - metadata:
+      name: storage
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
