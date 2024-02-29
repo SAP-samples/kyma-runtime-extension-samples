@@ -1,4 +1,4 @@
-RELEASE?=0.0.23
+RELEASE?=0.0.24
 APP?=sample-extension-java
 DOCKER_ACCOUNT?=gauravsap
 CONTAINER_IMAGE?=${DOCKER_ACCOUNT}/${APP}:${RELEASE}

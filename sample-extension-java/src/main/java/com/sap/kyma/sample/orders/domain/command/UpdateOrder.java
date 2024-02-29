@@ -1,6 +1,6 @@
 package com.sap.kyma.sample.orders.domain.command;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class UpdateOrder {
     @NotBlank

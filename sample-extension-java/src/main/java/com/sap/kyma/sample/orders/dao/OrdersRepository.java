@@ -1,11 +1,12 @@
 package com.sap.kyma.sample.orders.dao;
 
 import com.sap.kyma.sample.orders.domain.model.Order;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import javax.transaction.Transactional;
+
 
 public interface OrdersRepository extends JpaRepository<Order, Long> {
 

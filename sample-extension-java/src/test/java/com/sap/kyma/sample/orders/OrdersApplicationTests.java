@@ -67,7 +67,7 @@ class OrdersApplicationTests {
 
     private Order verifyCreate(CreateOrder order) throws JSONException {
         HttpEntity<String> requestBody = map(order);
-        Order respObj = restTemplate.postForObject(BASE_PATH + "/", requestBody, Order.class);
+        Order respObj = restTemplate.postForObject(BASE_PATH , requestBody, Order.class);
         assertThat(respObj.getCreated()).isNotNull();
         assertThat(respObj.getDescription()).isEqualTo(order.getDescription());
         assertThat(respObj.getOrderId()).isNotNull();
