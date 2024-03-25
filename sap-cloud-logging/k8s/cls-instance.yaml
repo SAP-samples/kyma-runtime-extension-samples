@@ -1,0 +1,23 @@
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceInstance
+metadata:
+    name: my-cls
+spec:
+    serviceOfferingName: cloud-logging
+    servicePlanName: dev
+    parameters:
+      retentionPeriod: 7
+      esApiEnabled: false
+      ingest_otlp:
+        enabled: true
+---
+apiVersion: services.cloud.sap.com/v1
+kind: ServiceBinding
+metadata:
+    name: my-cls-binding
+spec:
+  serviceInstanceName: my-cls
+  credentialsRotationPolicy:
+    enabled: true
+    rotationFrequency: "720h"
+    rotatedBindingTTL: "24h"
