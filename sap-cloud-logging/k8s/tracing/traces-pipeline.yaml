@@ -1,0 +1,26 @@
+apiVersion: telemetry.kyma-project.io/v1alpha1
+kind: TracePipeline
+metadata:
+  name: my-cls-trace-pipeline
+spec:
+  output:
+    otlp:
+      endpoint:
+        valueFrom:
+          secretKeyRef:
+            name: my-cls-binding
+            namespace: cls
+            key: ingest-otlp-endpoint
+      tls:
+        cert:
+          valueFrom:
+            secretKeyRef:
+              name: my-cls-binding
+              namespace: cls
+              key: ingest-otlp-cert
+        key:
+          valueFrom:
+            secretKeyRef:
+              name: my-cls-binding
+              namespace: cls
+              key: ingest-otlp-key
