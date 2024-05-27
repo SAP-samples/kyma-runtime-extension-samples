@@ -42,7 +42,9 @@ You can refer to the [official SAP documentation](https://help.sap.com/docs/clou
 - Export your namespace's name as an environment variable.
 
 ```shell
-export NS={your-namespace}
+# In the instructions, all resources are created in cls namespace. If you want to use a different namespace, adjust the files appropriately
+export NS=cls
+kubectl create ns ${NS}
 ```
 
 - To provision an instance of SAP Cloud Logging, create an instance of SAP Cloud Logging and a service binding:
