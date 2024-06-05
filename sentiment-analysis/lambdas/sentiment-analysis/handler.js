@@ -158,7 +158,7 @@ async function updateReview(isNegative, isRude, content) {
         status = { "code": "rejected" };
     }
     content.approvalStatus = status;
-
+    console.log(`updateReviewURL: ${reviewServiceURL}`);
     let response = await axios.post(`${reviewServiceURL}`, content)
         .catch(function (error) {
             console.log('Error on updateReview:' + error);
