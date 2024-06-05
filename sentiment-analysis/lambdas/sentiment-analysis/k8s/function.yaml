@@ -53,4 +53,19 @@ spec:
         secretKeyRef:
           name: sentiment-analysis
           key: c4cUpdateFlag
+    - name: SALES_CLOUD_V2_GATEWAY_URL
+      valueFrom:
+        secretKeyRef:
+          name: sentiment-analysis
+          key: salesCloudV2GatewayUrl
+    - name: SALES_CLOUD_V2_USER
+      valueFrom:
+        secretKeyRef:
+          name: sentiment-analysis
+          key: salesCloudV2User
+    - name: SALES_CLOUD_V2_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: sentiment-analysis
+          key: salesCloudV2Password
 

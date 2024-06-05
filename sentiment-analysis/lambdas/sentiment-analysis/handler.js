@@ -1,5 +1,6 @@
+const createSalesCloudCase = require('./sales-cloud-v2.js');
+
 const axios = require("axios");
-const traceHeaders = ['x-request-id', 'x-b3-traceid', 'x-b3-spanid', 'x-b3-parentspanid', 'x-b3-sampled', 'x-b3-Flags', 'x-ot-span-context'];
 
 const gatewayURL = process.env.GATEWAY_URL_OCC;
 var baseSite = process.env.BASE_SITE;
@@ -8,23 +9,16 @@ const reviewGatewayURL = process.env.GATEWAY_URL_REVIEW;
 const reviewODataPath = "/CustomerReviews";
 const reviewServiceURL = reviewGatewayURL + reviewODataPath;
 
-const c4cgatewayurl = process.env['GATEWAY_URL_C4C'];
-const customerODataPath = "/IndividualCustomerCollection";
-const ticketODataPath = "/ServiceRequestCollection";
-
 module.exports = {
     main: async function (event, context) {
 
-        var rightnow = new Date().toISOString();
-        console.log(`*********** Current time: ${rightnow}`);
+        var rightNow = new Date().toISOString();
+        console.log(`*********** Current time: ${rightNow}`);
         console.log('*********** Event Data:');
         console.log(event.data);
 
         console.log('********** URLs:');
         console.log(reviewGatewayURL);
-
-
-        var traceCtxHeaders = extractTraceHeaders(event.extensions.request.headers);
 
         var reviewCode = event.data.integrationKey;
         var userId = event.data.user.uid;
@@ -36,15 +30,15 @@ module.exports = {
         }
 
         //GET CUSTOMER INFO FROM OCC
-        let customerDetails = await getUserDetails(userId, anonymous, traceCtxHeaders);
+        let customerDetails = await getUserDetails(userId, anonymous);
         console.log("customerDetails email: " + customerDetails.Email);
 
         //** GET REVIEW TEXT FROM Integration Object
-        
+
         //Review details are now provided in the event data since we are using the 
         //SAP Commerce Cloud webhook method instead of a custom SAP Commerce Cloud event.
-        
-        //let reviewDetails = await getReviewDetails(reviewCode, traceCtxHeaders);
+
+        //let reviewDetails = await getReviewDetails(reviewCode);
         let reviewDetails = event.data;
 
         var reviewHeadline = reviewDetails.headline;
@@ -54,7 +48,7 @@ module.exports = {
         console.log("reviewDetails: " + comment);
 
         //DETERMINE REVIEW SENTIMENT
-        let negative = await isNegative(comment, traceCtxHeaders);
+        let negative = await isNegative(comment);
         var rude = false;
 
         if (negative) {
@@ -63,7 +57,7 @@ module.exports = {
             var message = "Negative review posted by " + customerDetails.Email + ": " + comment;
             await axios.post(process.env.SLACK_URL, { text: message });
 
-            rude = await isNaughty(comment, traceCtxHeaders);
+            rude = await isNaughty(comment);
             if (rude) {
                 console.log("Customer comment is rude: ", comment);
                 var message = "Rude review posted by " + customerDetails.Email + ": " + comment;
@@ -75,16 +69,9 @@ module.exports = {
                 await axios.post(process.env.SLACK_URL, { text: message });
             }
             const c4cUpdateFlag = process.env['C4C_UPDATE_FLAG']
-            if(c4cUpdateFlag === "true") {
-                //Create C4C Customer
-                let customerID = await createC4CCustomer(customerDetails, traceCtxHeaders);
-                console.log("customerID: " + customerID);
-                
-                if (customerID !== '') {
-                //Create C4C Ticket
-                     await createC4CTicket(customerID, customerDetails, comment, traceCtxHeaders);
-                 }
-             }
+            if (c4cUpdateFlag === "true") {
+                const salesCloudCase = await createSalesCloudCase(customerDetails.Email, comment);
+            }
         }
         else {
             console.log("Customer sentiment is positive");
@@ -94,7 +81,7 @@ module.exports = {
             await axios.post(process.env.SLACK_URL, { text: message });
             // Trigger follow-up action
 
-            rude = await isNaughty(comment, traceCtxHeaders);
+            rude = await isNaughty(comment);
             if (rude) {
                 console.log("Customer comment is rude: ", comment);
                 var message = "Rude review posted by " + customerDetails.Email + ": " + comment;
@@ -112,15 +99,15 @@ module.exports = {
         }
 
         //Update Review status
-        await updateReview(negative, rude, reviewDetails, traceCtxHeaders);
-        
+        await updateReview(negative, rude, reviewDetails);
+
 
         console.log("returning processing complete.");
         return "processing complete";
     }
 };
 
-async function getUserDetails(userId, isAnonymous, traceCtxHeaders) {
+async function getUserDetails(userId, isAnonymous) {
     console.log(`userId: ${userId}`);
     var firstName = "Anonymous";
     var lastName = "Anonymous";
@@ -129,7 +116,7 @@ async function getUserDetails(userId, isAnonymous, traceCtxHeaders) {
     if (!isAnonymous) {
         var url = `${gatewayURL}/${baseSite}/users/${userId}?fields=FULL`;
         console.log(`get user details: ${url}`);
-        let response = await axios.get(url, { headers: traceCtxHeaders })
+        let response = await axios.get(url)
             .catch(function (error) {
                 console.log('Error on getUserDetails');
             });
@@ -152,10 +139,10 @@ async function getUserDetails(userId, isAnonymous, traceCtxHeaders) {
 
 // getReviewDetails() not needed since we now get the review details in the event.  
 // This method is retained to show how to access a SAP Commerce Cloud Integration API from Kyma.
-async function getReviewDetails(reviewCode, traceCtxHeaders) {
+async function getReviewDetails(reviewCode) {
 
     var url = `${reviewServiceURL}('${reviewCode}')`;
-    let response = await axios.get(url, { headers: traceCtxHeaders })
+    let response = await axios.get(url)
         .catch(function (error) {
             console.log('Error on getReviewDetails:' + error);
         });
@@ -163,7 +150,7 @@ async function getReviewDetails(reviewCode, traceCtxHeaders) {
     return response.data.d;
 }
 
-async function updateReview(isNegative, isRude, content, traceCtxHeaders) {
+async function updateReview(isNegative, isRude, content) {
 
     var status = { "code": "approved" };
     if (isNegative || isRude) {
@@ -172,38 +159,38 @@ async function updateReview(isNegative, isRude, content, traceCtxHeaders) {
     }
     content.approvalStatus = status;
 
-    let response = await axios.post(`${reviewServiceURL}`, content, { headers: traceCtxHeaders })
+    let response = await axios.post(`${reviewServiceURL}`, content)
         .catch(function (error) {
             console.log('Error on updateReview:' + error);
         });
 }
 
-async function isNegative(comment, traceCtxHeaders) {
+async function isNegative(comment) {
     var url = process.env.SVC_URL_TEXT_ANALYSIS
     var headers = {
         'Content-Type': 'application/json',
     }
-    Object.assign(headers,traceCtxHeaders);
+
     requestJson = `{"text": "${comment}"}`
 
-    let response = await axios.post(url, requestJson, { headers: headers })
+    let response = await axios.post(url, requestJson)
         .catch(function (error) {
             console.log('Error on isNegative:' + error);
         });
-        console.log("Sentiment score: polarity: " + response.data.polarity + " pubjectivity: " + response.data.subjectivity);
+    console.log("Sentiment score: polarity: " + response.data.polarity + " pubjectivity: " + response.data.subjectivity);
     return response.data.polarity < 0.1
 }
 
-async function isNaughty(comment, traceCtxHeaders) {
+async function isNaughty(comment) {
 
     var url = process.env.SVC_URL_CONTENT_MODERATION;
     var headers = {
         'Content-Type': 'application/json',
     }
-    Object.assign(headers,traceCtxHeaders);
+
     requestJson = `{"text": "${comment}"}`
 
-    let response = await axios.post(url, requestJson, { headers: headers })
+    let response = await axios.post(url, requestJson)
         .catch(function (error) {
             console.log('Error on isNaughty:' + error);
         });
@@ -211,100 +198,4 @@ async function isNaughty(comment, traceCtxHeaders) {
     console.log("Content moderation inappropriate: " + response.data.inappropriate + " probability: " + response.data.probability);
 
     return response.data.inappropriate > 0;
-}
-
-async function sendToSlack(message, boolPositive) {
-    var channelName = "#product-reviews-neg";
-    if (boolPositive) {
-        channelName = "#product-reviews-pos";
-    }
-    web.chat.postMessage({ channel: channelName, as_user: true, text: message })
-        .then((res) => {
-            console.log('Message sent to Slack: ', res.ts);
-        })
-        .catch(function (error) {
-            console.log('Error on sendToSlack');
-        });
-}
-
-async function sendToSlackClean(message, boolPositive) {
-    var channelName = "#product-reviews-naughty";
-    if (boolPositive) {
-        channelName = "#product-reviews-clean";
-    }
-    web.chat.postMessage({ channel: channelName, as_user: true, text: message })
-        .then((res) => {
-            console.log('Message sent to SlackClean: ', res.ts);
-        })
-        .catch(function (error) {
-            console.log('Error on sendToSlackClean');
-        });
-}
-
-async function createC4CCustomer(customerDetails, traceCtxHeaders) {
-
-   var customersUrl = c4cgatewayurl + customerODataPath;
-
-	let response = await axios.get(customersUrl + "?$filter=Email eq '" + customerDetails.Email + "'", {headers:traceCtxHeaders})
-    .catch(function(error) {
-        console.log('Error on createC4CCustomer:' + error);
-        return '';
-    });
-
-	if (response.data.d.results[0]) {
-        console.log("Found existing IndividualCustomer, doing nothing");
-
-console.log(JSON.stringify(response.data.d.results[0]));
-        var customerID = response.data.d.results[0].CustomerID;
-
-        return customerID;
-}
-    else {
-        console.log("Inside else, create new customer...");
-        let response = await axios.post(customersUrl, customerDetails, {headers:traceCtxHeaders})
-        .catch(function(error) {
-            console.log('Error on createC4CCustomer: ' + error);
-        });
-
-console.log(JSON.stringify(response.data.d.results));
-        var customerID = response.data.d.results.CustomerID;
-
-        return customerID;
-    }
-
-}
-
-async function createC4CTicket(customerID, customerDetails, comment, traceCtxHeaders) {
-
-	var ticketUrl = c4cgatewayurl + ticketODataPath;
-
-    var ticketDetailsC4C = {
-    	"ServicePriorityCode" : "2",
-        "ProcessingTypeCode": "SRRQ",
-        "Name" : "Negative product review from " + customerDetails.Email,
-        "BuyerPartyID": customerID,
-        "ServiceRequestTextCollection" :[{
-        "TypeCode": "10004",
-           "Text": comment
-        }]
-    };
-
-    let response = await axios.post(ticketUrl, ticketDetailsC4C, {headers:traceCtxHeaders})
-    .catch(function(error) {
-        console.log('Error on createC4CTicket: ' + error);
-    });
-}
-
-function extractTraceHeaders(headers) {
-
-    var map = {};
-    for (var i in traceHeaders) {
-        h = traceHeaders[i]
-        headerVal = headers[h]
-        if (headerVal !== undefined) {
-            map[h] = headerVal
-        }
-    }
-    return map;
-
 }
