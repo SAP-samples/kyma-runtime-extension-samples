@@ -173,7 +173,7 @@ async function isNegative(comment) {
 
     requestJson = `{"text": "${comment}"}`
 
-    let response = await axios.post(url, requestJson)
+    let response = await axios.post(url, requestJson, { headers: headers})
         .catch(function (error) {
             console.log('Error on isNegative:' + error);
         });
@@ -190,7 +190,7 @@ async function isNaughty(comment) {
 
     requestJson = `{"text": "${comment}"}`
 
-    let response = await axios.post(url, requestJson)
+    let response = await axios.post(url, requestJson, { headers: headers })
         .catch(function (error) {
             console.log('Error on isNaughty:' + error);
         });
