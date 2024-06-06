@@ -1,5 +1,4 @@
 const createSalesCloudCase = require('./sales-cloud-v2.js');
-const traceHeaders = ['x-request-id', 'x-b3-traceid', 'x-b3-spanid', 'x-b3-parentspanid', 'x-b3-sampled', 'x-b3-Flags', 'x-ot-span-context'];
 
 const axios = require("axios");
 
@@ -17,8 +16,6 @@ module.exports = {
         console.log(`*********** Current time: ${rightNow}`);
         console.log('*********** Event Data:');
         console.log(event.data);
-
-        var traceCtxHeaders = extractTraceHeaders(event.extensions.request.headers);
 
         console.log('********** URLs:');
         console.log(reviewGatewayURL);
@@ -102,7 +99,7 @@ module.exports = {
         }
 
         //Update Review status
-        await updateReview(negative, rude, reviewDetails, traceCtxHeaders);
+        await updateReview(negative, rude, reviewDetails);
 
 
         console.log("returning processing complete.");
@@ -153,7 +150,7 @@ async function getReviewDetails(reviewCode) {
     return response.data.d;
 }
 
-async function updateReview(isNegative, isRude, content, traceCtxHeaders) {
+async function updateReview(isNegative, isRude, content) {
 
     var status = { "code": "approved" };
     if (isNegative || isRude) {
@@ -162,7 +159,7 @@ async function updateReview(isNegative, isRude, content, traceCtxHeaders) {
     }
     content.approvalStatus = status;
     console.log(`updateReviewURL: ${reviewServiceURL}`);
-    let response = await axios.post(`${reviewServiceURL}`, content, { headers: traceCtxHeaders })
+    let response = await axios.post(`${reviewServiceURL}`, content)
         .catch(function (error) {
             console.log('Error on updateReview:' + error);
         });
@@ -203,16 +200,3 @@ async function isNaughty(comment) {
     return response.data.inappropriate > 0;
 }
 
-function extractTraceHeaders(headers) {
-
-    var map = {};
-    for (var i in traceHeaders) {
-        h = traceHeaders[i]
-        headerVal = headers[h]
-        if (headerVal !== undefined) {
-            map[h] = headerVal
-        }
-    }
-    return map;
-
-}
