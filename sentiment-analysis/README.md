@@ -22,7 +22,7 @@ The following things are **avoided** with SAP Commerce Cloud:
 
 ## Architecture
 
-![Architecture Diagram](diagram.jpg "Architecture Diagram")
+![Architecture Diagram](./assets/flow-diagram-sales-cloud-v2.png "Architecture Diagram")
 
 
 The architecture diagram describes use case flow.
