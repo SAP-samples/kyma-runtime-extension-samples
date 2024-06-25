@@ -7,7 +7,6 @@ spec:
     servicePlanName: dev
     parameters:
       retentionPeriod: 7
-      esApiEnabled: false
       ingest_otlp:
         enabled: true
 ---
