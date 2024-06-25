@@ -130,6 +130,12 @@ Running various samples requires access to the Kyma runtime. There are also othe
 | [KEDA Cron based scaler](./keda-cron-scaler/README.md)                                                                        | This sample demonstrates how to leverage KEDA Cron scaler for efficient scaling strategies.                                              | -                                                                                                                                                      |
 | [SAP Cloud Logging](./sap-cloud-logging/README.md)                                                                        | This sample explains how to integrate SAP Cloud Loghing with Kyma runtime and ship logs, metrics and traces.                                              | -                                                                                                                                                      |
 
+## Integrated Open source solutions
+
+| Name | Description |
+| ---- | ----------- |
+| [JupyterHub](./sample-jupyter/README.md) | Multi user Jupyter lab environment. Authentication with SAP Identity Provider. Each user receives compute and storage capacity |
+
 ## Multitenancy and SaaS
 
 | Name                                                                     | Description                                                                                                    | References |
