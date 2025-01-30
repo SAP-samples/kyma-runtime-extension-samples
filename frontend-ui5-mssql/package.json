@@ -13,7 +13,7 @@
     "build": "rimraf dist && ui5 build --a"
   },
   "devDependencies": {
-    "@ui5/cli": "^2.2.6",
+    "@ui5/cli": "^2.14.20",
     "eslint": "^4.19.1",
     "karma": "^5.1.0",
     "karma-chrome-launcher": "^3.1.0",

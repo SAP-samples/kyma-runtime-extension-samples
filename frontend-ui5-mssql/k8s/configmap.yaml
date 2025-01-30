@@ -7,5 +7,5 @@ metadata:
 data:
   config.json: |-
     {
-      "API_URL": "https://api-mssql-go.<cluster domain>"
+      "API_URL": "https://api-mssql-go.b18ed85.kyma.ondemand.com"
     }
