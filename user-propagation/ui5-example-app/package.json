@@ -1,16 +1,21 @@
 {
-  "name": "userprop",
+  "name": "com.sample.userprop",
   "version": "0.0.1",
   "scripts": {
-    "start": "ui5 serve -o",
     "serve-dist": "ui5 serve --config ui5-dist.yaml -o",
-    "build": "ui5 build self-contained --clean-dest",
     "build-all": "ui5 build self-contained -a --clean-dest",
     "build-preload": "ui5 build --clean-dest",
-    "build-preload-all": "ui5 build -a --clean-dest"
+    "build-preload-all": "ui5 build -a --clean-dest",
+    "start_old": "ui5 serve -o",
+    "build_old": "ui5 build self-contained --clean-dest",
+    "start": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#app-tile\"",
+    "start-noflp": "fiori run --open \"index.html?sap-ui-xx-viewCache=false\"",
+    "start-variants-management": "fiori run --open \"preview.html?sap-ui-xx-viewCache=false&fiori-tools-rta-mode=true&sap-ui-rta-skip-flex-validation=true#preview-app\"",
+    "build": "ui5 build -a --clean-dest --include-task=generateCachebusterInfo",
+    "deploy": "fiori verify",
+    "deploy-config": "fiori add deploy-config"
   },
   "devDependencies": {
-    "@ui5/cli": "^2.8.1",
     "eslint": "^7.18.0",
     "karma": "^6.3.16",
     "karma-chrome-launcher": "^3.1.0",
@@ -18,7 +23,10 @@
     "karma-ui5": "^2.3.2",
     "npm-run-all": "^4.1.5",
     "shx": "^0.3.3",
-    "ui5-middleware-livereload": "^0.5.1"
+    "ui5-middleware-livereload": "^0.5.1",
+    "@ui5/cli": "^3.0.0",
+    "@sap/ux-ui5-tooling": "1",
+    "rimraf": "3.0.2"
   },
   "ui5": {
     "dependencies": [
@@ -28,5 +36,14 @@
   },
   "dependencies": {
     "oidc-client": "^1.11.5"
-  }
+  },
+  "private": true,
+  "sapuxLayer": "CUSTOMER_BASE",
+  "description": "",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html"
 }
