@@ -1,18 +1,11 @@
-apiVersion: eventing.kyma-project.io/v1alpha1
+apiVersion: eventing.kyma-project.io/v1alpha2
 kind: Subscription
 metadata:
   name: api-mssql-go-event-sub
+  namespace: dev
 spec:
-  filter:
-    filters:
-    - eventSource:
-        property: source
-        type: exact
-        value: ""
-      eventType:
-        property: type
-        type: exact
-        value: sap.kyma.custom.mp-commerce-mock.order.created.v1
-  protocol: ""
-  protocolsettings: {}
-  sink: http://api-mssql-go.dev.svc.cluster.local:80/orderCodeEvent 
+  typeMatching: exact
+  source: ""
+  types:
+    - sap.kyma.custom.mp-commerce-mock.order.created.v1
+  sink: http://api-mssql-go.dev.svc.cluster.local:80/orderCodeEvent
