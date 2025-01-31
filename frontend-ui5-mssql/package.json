@@ -22,14 +22,14 @@
     "int-tests": "fiori run --open 'test/integration/opaTests.qunit.html'"
   },
   "devDependencies": {
-    "eslint": "^9.10.0",
-    "karma": "^6.4.2",
+    "eslint": "^9.19.0",
+    "karma": "^6.4.4",
     "karma-chrome-launcher": "^3.2.0",
     "karma-coverage": "^2.2.1",
-    "karma-ui5": "^3.0.0",
-    "@ui5/cli": "^3.0.0",
-    "@sap/ux-ui5-tooling": "1",
-    "rimraf": "3.0.2"
+    "karma-ui5": "^4.1.0",
+    "@ui5/cli": "^4.0.13",
+    "@sap/ux-ui5-tooling": "^1.16.2",
+    "rimraf": "^6.0.1"
   },
   "sapuxLayer": "CUSTOMER_BASE",
   "keywords": [
