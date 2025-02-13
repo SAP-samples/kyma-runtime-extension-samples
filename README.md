@@ -22,7 +22,7 @@ Running various samples requires access to the Kyma runtime. There are also othe
 
 | Year | Repository                                                                                               | Description                                                                                                       | References                                                                                                          |
 | ---- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| 2021 | [DEV261 - Build Extensions with SAP BTP, Kyma Runtime](https://github.com/SAP-samples/teched2021-DEV261) | This is a full setup including many other SAP BTP Services and a CI/CD setup with the respective SAP BTP service. | [Recording](https://reg.sapevents.sap.com/flow/sap/sapteched2021/portal/page/sessions/session/16303673698250013Mdn) |
+| 2021 | [DEV261 - Build Extensions with SAP BTP, Kyma Runtime](https://github.com/SAP-samples/teched2021-DEV261) | This is a full setup including many other SAP BTP Services and a CI/CD setup with the respective SAP BTP service. | Recording no longer available |
 
 ## Sample Extensions
 
