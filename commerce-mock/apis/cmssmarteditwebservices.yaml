@@ -1,0 +1,914 @@
+---
+swagger: "2.0"
+info:
+  description: These enhanced services manage CMS-related items specifically designed
+    for SmartEdit.
+  version: "1.0"
+  title: CMS SmartEdit Webservices
+  license:
+    name: Use of this file is subject to the terms of your agreement with SAP SE or
+      its affiliates respecting the use of the SAP product for which this file relates.
+x-sap-api-type: REST
+x-sap-shortText: Manage CMS-related items specifically designed for SmartEdit.
+x-sap-stateInfo:
+  state: Active
+x-servers:
+- templates:
+    url:
+      description: SAP Commerce Cloud server URL where the application is deployed.
+  description: CMS SmartEdit Webservices REST API endpoint.
+  url: https://{url}/cmssmarteditwebservices
+host: hostname
+basePath: /cmssmarteditwebservices
+tags:
+- name: catalogs
+  description: Catalog Controller
+- name: categories
+  description: Category Controller
+- name: inbox
+  description: Inbox Controller
+- name: page operations
+  description: Page Operations Controller
+- name: products
+  description: Product Controller
+- name: synchronizations
+  description: Synchronization Controller
+- name: workflows
+  description: Workflow Editable Items Controller
+produces:
+- application/json
+security:
+- oauth2_password:
+  - basic
+- oauth2_client_credentials:
+  - extended
+paths:
+  /v1/catalogs/{catalogId}/versions/{versionId}/workfloweditableitems:
+    get:
+      tags:
+      - workflows
+      summary: Retrieves the list of objects that tells whether a particular item
+        is editable in any workflow or not
+      description: Retrieves the list of objects that tells whether a particular item
+        is editable in any workflow or not
+      operationId: getEditableWorkflowItemsUsingGET
+      parameters:
+      - name: catalogId
+        in: path
+        description: The uid of the catalog
+        required: true
+        type: string
+      - name: itemUids
+        in: query
+        description: List of item uids
+        required: true
+        type: array
+        items:
+          type: string
+        collectionFormat: multi
+        allowEmptyValue: false
+      - name: versionId
+        in: path
+        description: The uid of the catalog version
+        required: true
+        type: string
+      responses:
+        200:
+          description: The dto containing the list of objects that tells whether a
+            particular item is editable in any workflow or not.
+          schema:
+            $ref: '#/definitions/CMSWorkflowEditableItemListWsDTO'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        404:
+          description: When no cms item is found matching the given uid (UnknownIdentifierException).
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/inbox/workflowtasks:
+    get:
+      tags:
+      - inbox
+      summary: Retrieves all workflow tasks for the current user that are yet to be
+        acted upon
+      description: Endpoint that retrieves all workflow tasks for the current user
+      operationId: getWorkflowTasksUsingGET
+      parameters:
+      - name: currentPage
+        in: query
+        description: The requested page number
+        required: false
+        type: string
+        default: "0"
+      - name: pageSize
+        in: query
+        description: The maximum number of elements in the result list.
+        required: false
+        type: string
+        default: "10"
+      - name: sort
+        in: query
+        description: The string field the results will be sorted with
+        required: false
+        type: string
+      responses:
+        200:
+          description: The dto containing the workflow tasks
+          schema:
+            $ref: '#/definitions/CMSWorkflowTaskListWsDTO'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/productcatalogs/{catalogId}/versions/{versionId}/categories:
+    get:
+      tags:
+      - categories
+      summary: Find product categories by text or mask
+      description: Endpoint to find product categories using a free text search field.
+      operationId: findProductCategoriesByTextOrMaskUsingGET
+      parameters:
+      - name: catalogId
+        in: path
+        description: The uid of the catalog
+        required: true
+        type: string
+      - name: currentPage
+        in: query
+        description: The requested page number
+        required: false
+        type: string
+        default: "0"
+      - name: langIsoCode
+        in: query
+        description: The language iso code used to filter products
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: mask
+        in: query
+        description: The string value on which products will be filtered if no text
+          value is provided
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: pageSize
+        in: query
+        description: The maximum number of elements in the result list.
+        required: false
+        type: string
+        default: "10"
+      - name: sort
+        in: query
+        description: The string field the results will be sorted with
+        required: false
+        type: string
+      - name: text
+        in: query
+        description: The string value on which products will be filtered
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: versionId
+        in: path
+        description: The uid of the catalog version
+        required: true
+        type: string
+      responses:
+        200:
+          description: DTO which serves as a wrapper object that contains a list of
+            CategoryData, never null
+          schema:
+            $ref: '#/definitions/CategorySearchResultWsDTO'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/productcatalogs/{catalogId}/versions/{versionId}/products:
+    get:
+      tags:
+      - products
+      summary: Find products by text or mask
+      description: Endpoint to retrieve products using a free text search field.
+      operationId: findProductsByTextOrMaskUsingGET
+      parameters:
+      - name: catalogId
+        in: path
+        description: The uid of the catalog
+        required: true
+        type: string
+      - name: currentPage
+        in: query
+        description: The requested page number
+        required: false
+        type: string
+        default: "0"
+      - name: langIsoCode
+        in: query
+        description: The language iso code by which products will be filtered
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: mask
+        in: query
+        description: The string value on which products will be filtered if no text
+          value is provided
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: pageSize
+        in: query
+        description: The maximum number of elements in the result list.
+        required: false
+        type: string
+        default: "10"
+      - name: sort
+        in: query
+        description: The string field the results will be sorted with
+        required: false
+        type: string
+      - name: text
+        in: query
+        description: The string value on which products will be filtered
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: versionId
+        in: path
+        description: The uid of the catalog version
+        required: true
+        type: string
+      responses:
+        200:
+          description: DTO which serves as a wrapper object that contains a list of
+            ProductData, never null
+          schema:
+            $ref: '#/definitions/ProductSearchResultWsDTO'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/sites/{baseSiteId}/catalogs/{catalogId}/pages/{pageId}/operations:
+    post:
+      tags:
+      - page operations
+      summary: Perform different operations on the page item.
+      description: Endpoint to perform different operations on the page item such
+        as delete a page etc.
+      operationId: performUsingPOST
+      consumes:
+      - application/json
+      parameters:
+      - name: baseSiteId
+        in: path
+        description: Base site identifier
+        required: true
+        type: string
+      - name: catalogId
+        in: path
+        description: The uid of the catalog
+        required: true
+        type: string
+      - in: body
+        name: dto
+        description: The DTO object containing all the information about operation
+          to be performed
+        required: true
+        schema:
+          $ref: '#/definitions/CMSPageOperationWsDTO'
+      - name: pageId
+        in: path
+        description: The uid of the page to be updated
+        required: true
+        type: string
+      responses:
+        200:
+          description: The page operation item.
+          schema:
+            $ref: '#/definitions/CMSPageOperationWsDTO'
+        400:
+          description: When the payload does not have the 'operation' property. (IllegalArgumentException)
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        404:
+          description: 'When the item has not been found (UnknownIdentifierException) '
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/sites/{baseSiteId}/catalogs/{catalogId}/versions/{versionId}/synchronizations/versions/{targetCatalogVersion}:
+    post:
+      tags:
+      - synchronizations
+      summary: Perform synchronization
+      description: Will perform synchronization status on a list of item identifier
+        by their ItemSynchronizationWsDTO.
+      operationId: performSyncUsingPOST
+      consumes:
+      - application/json
+      parameters:
+      - name: baseSiteId
+        in: path
+        description: Base site identifier
+        required: true
+        type: string
+      - name: catalogId
+        in: path
+        description: The catalog uid
+        required: true
+        type: string
+      - in: body
+        name: synchronizationWsDTO
+        description: The SynchronizationWsDTO containing the list of requested synchronizations
+        required: true
+        schema:
+          $ref: '#/definitions/SynchronizationWsDTO'
+      - name: targetCatalogVersion
+        in: path
+        description: The target catalog version from a synchronization perspective
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The source catalog version from a synchronization perspective
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/sites/{baseSiteId}/catalogs/{catalogId}/versions/{versionId}/synchronizations/versions/{targetCatalogVersion}/pages/{pageId}:
+    get:
+      tags:
+      - synchronizations
+      summary: Get synchronization status
+      description: Will build the synchronization status of a page including detailed
+        status of its content slots and their cms components.
+      operationId: getSyncStatusUsingGET
+      parameters:
+      - name: baseSiteId
+        in: path
+        description: Base site identifier
+        required: true
+        type: string
+      - name: catalogId
+        in: path
+        description: The catalog uid
+        required: true
+        type: string
+      - name: pageId
+        in: path
+        description: The uid of the page from which to retrieve the synchronization
+          status
+        required: true
+        type: string
+      - name: targetCatalogVersion
+        in: path
+        description: The target catalog version from a synchronization perspective
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The source catalog version from a synchronization perspective
+        required: true
+        type: string
+      responses:
+        200:
+          description: DTO containing the complex synchronization status of the AbstractPageModel
+            page
+          schema:
+            $ref: '#/definitions/syncItemStatus'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/sites/{baseSiteId}/categories/{code}:
+    get:
+      tags:
+      - categories
+      summary: Get category by code (uuid)
+      description: Endpoint to retrieve a category that matches the given product
+        category code uuid.
+      operationId: getCategoryByCodeUsingGET
+      parameters:
+      - name: baseSiteId
+        in: path
+        description: Base site identifier
+        required: true
+        type: string
+      - name: code
+        in: path
+        description: Category code (uuid)
+        required: true
+        type: string
+      responses:
+        200:
+          description: Category data
+          schema:
+            $ref: '#/definitions/CategoryWsDTO'
+        400:
+          description: When the item has not been found (CMSItemNotFoundException)
+            or when there was problem during conversion (ConversionException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/sites/{baseSiteId}/contentcatalogs:
+    get:
+      tags:
+      - catalogs
+      summary: Get content catalogs
+      description: Endpoint to retrieve content catalog information including the
+        related catalog versions for all catalogs for a given site.
+      operationId: getContentCatalogsUsingGET
+      parameters:
+      - name: baseSiteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/CatalogListWsDTO'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/sites/{baseSiteId}/productcatalogs:
+    get:
+      tags:
+      - catalogs
+      summary: Get product catalogs
+      description: Endpoint to retrieve product catalog information including the
+        related catalog versions for all catalogs for a given site
+      operationId: getProductCatalogsUsingGET
+      parameters:
+      - name: baseSiteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/CatalogListWsDTO'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/sites/{baseSiteId}/products/{code}:
+    get:
+      tags:
+      - products
+      summary: Get product by code (uuid)
+      description: Endpoint to retrieve a product that matches the given product code
+        uuid.
+      operationId: getProductByCodeUsingGET
+      parameters:
+      - name: baseSiteId
+        in: path
+        description: Base site identifier
+        required: true
+        type: string
+      - name: code
+        in: path
+        description: Product code (uuid)
+        required: true
+        type: string
+      responses:
+        200:
+          description: Product data
+          schema:
+            $ref: '#/definitions/ProductWsDTO'
+        400:
+          description: When the item has not been found (CMSItemNotFoundException)
+            or when there was problem during conversion (ConversionException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+securityDefinitions:
+  oauth2_client_credentials:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: application
+    scopes:
+      extended: ""
+  oauth2_password:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: password
+    scopes:
+      basic: ""
+definitions:
+  AbstractPageWsDTO:
+    type: object
+    properties:
+      catalogVersionUuid:
+        type: string
+      cloneComponents:
+        type: boolean
+      creationtime:
+        type: string
+        format: date-time
+      defaultPage:
+        type: boolean
+      modifiedtime:
+        type: string
+        format: date-time
+      name:
+        type: string
+      onlyOneRestrictionMustApply:
+        type: boolean
+      pk:
+        type: string
+      restrictions:
+        type: array
+        items:
+          type: string
+      template:
+        type: string
+      title:
+        type: object
+        additionalProperties:
+          type: string
+      typeCode:
+        type: string
+      uid:
+        type: string
+    title: AbstractPageWsDTO
+  CMSPageOperationWsDTO:
+    type: object
+    properties:
+      catalogId:
+        type: string
+      operation:
+        type: string
+      sourceCatalogVersion:
+        type: string
+      targetCatalogVersion:
+        type: string
+    title: CMSPageOperationWsDTO
+  CMSWorkflowActionWsDTO:
+    type: object
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+      isCurrentUserParticipant:
+        type: boolean
+      modifiedtime:
+        type: string
+        format: date-time
+      name:
+        type: string
+      startedAgoInMillis:
+        type: integer
+        format: int64
+      status:
+        type: string
+    title: CMSWorkflowActionWsDTO
+  CMSWorkflowAttachmentData:
+    type: object
+    properties:
+      catalogId:
+        type: string
+      catalogName:
+        type: string
+      catalogVersion:
+        type: string
+      pageName:
+        type: string
+      pageUid:
+        type: string
+    title: CMSWorkflowAttachmentData
+  CMSWorkflowEditableItemListWsDTO:
+    type: object
+    properties:
+      editableItems:
+        type: array
+        items:
+          $ref: '#/definitions/CMSWorkflowEditableItemWsDTO'
+    title: CMSWorkflowEditableItemListWsDTO
+  CMSWorkflowEditableItemWsDTO:
+    type: object
+    properties:
+      editableByUser:
+        type: boolean
+        description: Indicates whether the session user can edit the item from a workflow
+          or not.
+      editableInWorkflow:
+        type: string
+        description: Contains the workflow code where item can be edited. It either
+          contains the code of the oldest workflow that contains item or null if there
+          is no workflow. Is used by SmartEdit ui to restrict user from editing an
+          item in a workflow that is not the oldest one.
+      uid:
+        type: string
+      uuid:
+        type: string
+    title: CMSWorkflowEditableItemWsDTO
+    description: Contains information about whether the item from a workflow is editable
+      by session user or not.
+  CMSWorkflowTaskListWsDTO:
+    type: object
+    properties:
+      pagination:
+        $ref: '#/definitions/pagination'
+      tasks:
+        type: array
+        items:
+          $ref: '#/definitions/CMSWorkflowTaskWsDTO'
+    title: CMSWorkflowTaskListWsDTO
+  CMSWorkflowTaskWsDTO:
+    type: object
+    properties:
+      action:
+        $ref: '#/definitions/CMSWorkflowActionWsDTO'
+      attachments:
+        type: array
+        items:
+          $ref: '#/definitions/CMSWorkflowAttachmentData'
+    title: CMSWorkflowTaskWsDTO
+  CatalogListWsDTO:
+    type: object
+    properties:
+      catalogs:
+        type: array
+        items:
+          $ref: '#/definitions/catalog'
+    title: CatalogListWsDTO
+    description: List of catalogs
+  CategorySearchResultWsDTO:
+    type: object
+    properties:
+      pagination:
+        $ref: '#/definitions/pagination'
+      productCategories:
+        type: array
+        items:
+          $ref: '#/definitions/CategoryWsDTO'
+    title: CategorySearchResultWsDTO
+    description: DTO which serves as a wrapper object that contains a list of CategoryData
+  CategoryWsDTO:
+    type: object
+    properties:
+      catalogId:
+        type: string
+      catalogVersion:
+        type: string
+      code:
+        type: string
+      description:
+        type: object
+        additionalProperties:
+          type: string
+      name:
+        type: object
+        additionalProperties:
+          type: string
+      thumbnail:
+        $ref: '#/definitions/MediaWsDTO'
+      uid:
+        type: string
+    title: CategoryWsDTO
+  DisplayConditionData:
+    type: object
+    properties:
+      options:
+        type: array
+        items:
+          $ref: '#/definitions/OptionData'
+      typecode:
+        type: string
+    title: DisplayConditionData
+  MediaWsDTO:
+    type: object
+    properties:
+      altText:
+        type: string
+      catalogId:
+        type: string
+      catalogVersion:
+        type: string
+      code:
+        type: string
+      description:
+        type: string
+      downloadUrl:
+        type: string
+      mime:
+        type: string
+      url:
+        type: string
+    title: MediaWsDTO
+  OptionData:
+    type: object
+    properties:
+      id:
+        type: string
+      label:
+        type: string
+    title: OptionData
+  ProductSearchResultWsDTO:
+    type: object
+    properties:
+      pagination:
+        $ref: '#/definitions/pagination'
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/ProductWsDTO'
+    title: ProductSearchResultWsDTO
+  ProductWsDTO:
+    type: object
+    properties:
+      catalogId:
+        type: string
+      catalogVersion:
+        type: string
+      code:
+        type: string
+      description:
+        type: object
+        additionalProperties:
+          type: string
+      name:
+        type: object
+        additionalProperties:
+          type: string
+      thumbnail:
+        $ref: '#/definitions/MediaWsDTO'
+      uid:
+        type: string
+    title: ProductWsDTO
+  SynchronizationWsDTO:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/itemSynchronization'
+    title: SynchronizationWsDTO
+  catalog:
+    type: object
+    properties:
+      catalogId:
+        type: string
+      name:
+        type: object
+        additionalProperties:
+          type: string
+      versions:
+        type: array
+        items:
+          $ref: '#/definitions/catalogVersion'
+    title: catalog
+    description: Catalog DTO
+  catalogVersion:
+    type: object
+    properties:
+      active:
+        type: boolean
+      homepage:
+        $ref: '#/definitions/homepage'
+      pageDisplayConditions:
+        type: array
+        items:
+          $ref: '#/definitions/DisplayConditionData'
+      thumbnailUrl:
+        type: string
+      uuid:
+        type: string
+      version:
+        type: string
+    title: catalogVersion
+  homepage:
+    type: object
+    properties:
+      current:
+        $ref: '#/definitions/AbstractPageWsDTO'
+      fallback:
+        $ref: '#/definitions/AbstractPageWsDTO'
+      old:
+        $ref: '#/definitions/AbstractPageWsDTO'
+    title: homepage
+  itemSynchronization:
+    type: object
+    properties:
+      itemId:
+        type: string
+      itemType:
+        type: string
+    title: itemSynchronization
+  itemType:
+    type: object
+    properties:
+      i18nKey:
+        type: string
+      itemType:
+        type: string
+    title: itemType
+  pagination:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int32
+        description: Number of elements on this page
+      hasNext:
+        type: boolean
+        description: Indicates if there is next page
+      hasPrevious:
+        type: boolean
+        description: Indicates if there is previous page
+      page:
+        type: integer
+        format: int32
+        description: Current page number
+      totalCount:
+        type: integer
+        format: int64
+        description: Total number of elements
+      totalPages:
+        type: integer
+        format: int32
+        description: Total number of pages
+    title: pagination
+    description: Pagination info
+  syncItemStatus:
+    type: object
+    properties:
+      catalogVersionUuid:
+        type: string
+      dependentItemTypesOutOfSync:
+        type: array
+        items:
+          $ref: '#/definitions/itemType'
+      itemId:
+        type: string
+      itemType:
+        type: string
+      lastModifiedDate:
+        type: integer
+        format: int64
+      lastSyncStatus:
+        type: integer
+        format: int64
+      name:
+        type: string
+      selectedDependencies:
+        type: array
+        items:
+          $ref: '#/definitions/syncItemStatus'
+      sharedDependencies:
+        type: array
+        items:
+          $ref: '#/definitions/syncItemStatus'
+      status:
+        type: string
+      unavailableDependencies:
+        type: array
+        items:
+          $ref: '#/definitions/syncItemStatus'
+    title: syncItemStatus
+    description: DTO that contains the complex synchronization status of the page

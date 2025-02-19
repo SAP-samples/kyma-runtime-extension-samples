@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_INTERACTION_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="InteractionInterest" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="InteractionInterestUUID"/>
+                </Key>
+                <Property Name="InteractionInterestUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:heading="Universally Unique Identifier" sap:quickinfo="UUID for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Interaction UUID" sap:quickinfo="Interaction UUID for API-Service" sap:updatable="false"/>
+                <Property Name="ItemOfInterest" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Item of Interest" sap:updatable="false"/>
+                <Property Name="InteractionIntrstWeightingFctr" Type="Edm.Int16" sap:unicode="false" sap:label="Weighting Factor" sap:updatable="false"/>
+                <Property Name="InteractionIntrstSentimentVal" Type="Edm.Int16" sap:unicode="false" sap:label="Sentiment" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="InteractionProductCategory" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="InteractionProductCategoryUUID"/>
+                </Key>
+                <Property Name="InteractionProductCategoryUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:heading="Universally Unique Identifier" sap:quickinfo="UUID for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Interaction UUID" sap:quickinfo="Interaction UUID for API-Service" sap:updatable="false"/>
+                <Property Name="ProductCategoryUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Prod. Category UUID" sap:heading="Product Category UUID" sap:quickinfo="Product Category UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductCategoryHierarchy" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Prod. Cat. Hier. ID" sap:heading="Product Category Hierarchy ID" sap:quickinfo="Product Category Hierarchy ID for API-Service" sap:updatable="false"/>
+                <Property Name="ProductCategory" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Product Category ID" sap:quickinfo="Product Category ID for API-Service" sap:updatable="false"/>
+                <Property Name="IntactnProdCatWeightingFctr" Type="Edm.Int16" sap:unicode="false" sap:label="Weighting Factor" sap:updatable="false"/>
+                <Property Name="InteractionProdCatSentimentVal" Type="Edm.Int16" sap:unicode="false" sap:label="Sentiment" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="InteractionDigitalAsset" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="InteractionDigitalAssetUUID"/>
+                </Key>
+                <Property Name="InteractionDigitalAssetUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:heading="Universally Unique Identifier" sap:quickinfo="UUID for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Interaction UUID" sap:quickinfo="Interaction UUID for API-Service" sap:updatable="false"/>
+                <Property Name="SourceSystem" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Source System ID" sap:quickinfo="Interaction Source System ID" sap:updatable="false"/>
+                <Property Name="DigitalAsset" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Digital Asset ID" sap:quickinfo="Digital Asset ID for API-Service" sap:updatable="false"/>
+                <Property Name="DigitalAssetName" Type="Edm.String" MaxLength="120" sap:unicode="false" sap:label="Digital Asset" sap:quickinfo="Digital Asset Name" sap:updatable="false"/>
+                <Property Name="DigitalAssetMimeType" Type="Edm.String" MaxLength="256" sap:unicode="false" sap:label="Dgtl Asset Mime Type" sap:heading="Digital Asset Mime Type" sap:quickinfo="Digital Asset Mime Type for API-Service" sap:updatable="false"/>
+                <Property Name="DigitalAssetURL" Type="Edm.String" MaxLength="1333" sap:unicode="false" sap:label="Digital Asset URL" sap:quickinfo="Digital Asset URL for API-Services" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="CampaignID" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Campaign ID" sap:quickinfo="Campaign ID without Conversion Exit" sap:updatable="false"/>
+                <Property Name="IntactnDgtlAssetWeightingFctr" Type="Edm.Int16" sap:unicode="false" sap:label="Weighting Factor" sap:updatable="false"/>
+                <Property Name="IntactnDgtlAssetSentimentVal" Type="Edm.Int16" sap:unicode="false" sap:label="Sentiment" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="InteractionOffer" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="InteractionOfferUUID"/>
+                </Key>
+                <Property Name="InteractionOfferUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:heading="Universally Unique Identifier" sap:quickinfo="UUID for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Interaction UUID" sap:quickinfo="Interaction UUID for API-Service" sap:updatable="false"/>
+                <Property Name="ExternalOfferOrigin" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Origin of Offer" sap:updatable="false"/>
+                <Property Name="MarketingOffer" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Marketing Offer ID" sap:updatable="false"/>
+                <Property Name="MarketingOfferContent" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="Marketing Offer Content" sap:updatable="false"/>
+                <Property Name="OfferRecommendationScenario" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Scenario ID" sap:heading="Recommendation Scenario ID" sap:quickinfo="Recommendation Scenario ID" sap:updatable="false">
+                    <Documentation>
+                        <Summary>A freely defined identifier for the predictive scenario.</Summary>
+                        <LongDescription>Note: The value you supply as the Recommendation Scenario ID must not contain any spaces or special characters.</LongDescription>
+                    </Documentation>
+                </Property>
+            </EntityType>
+            <EntityType Name="InteractionAdditionalObject" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="InteractionAdditionalObjUUID"/>
+                </Key>
+                <Property Name="InteractionAdditionalObjUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:heading="Universally Unique Identifier" sap:quickinfo="UUID for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Interaction UUID" sap:quickinfo="Interaction UUID for API-Service" sap:updatable="false"/>
+                <Property Name="MarketingObjectType" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Mktg Object Type" sap:heading="Marketing Object Type" sap:quickinfo="Marketing Object Type for API-Service" sap:updatable="false"/>
+                <Property Name="MarketingObject" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Marketing Object ID" sap:quickinfo="Marketing Object ID for API-Service" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="Interaction" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="InteractionUUID"/>
+                </Key>
+                <Property Name="InteractionUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:heading="Universally Unique Identifier" sap:quickinfo="UUID for API-Service" sap:updatable="false"/>
+                <Property Name="InteractionContactOrigin" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Origin of Contact" sap:heading="Origin of Interaction Contact" sap:quickinfo="Origin of Interaction Contact Data">
+                    <Documentation>
+                        <Summary>This is the origin of the contact ID that is required to capture and query interactions.</Summary>
+                        <LongDescription>The origin indicates the source of an ID. By defining the origin you determine that a contact with an ID associated to a source is eligible to be analyzed in SAP hybris Marketing RecommendationYou can maintain the origins to choose from in the Define Origins of Contact ID Customizing activity.For example, in a Web shop scenario, a consumer chooses a recommended product returned by SAP hybris Marketing Recommendation to examine the product details. This interaction can be considered for future recommendations.</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="InteractionContactId" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="External Contact ID" sap:heading="Ext. Interaction Contact Data ID" sap:quickinfo="External ID of Interaction Contact Data"/>
+                <Property Name="CommunicationMedium" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Communication Medium"/>
+                <Property Name="InteractionType" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Interaction Type"/>
+                <Property Name="InteractionTimeStampUTC" Type="Edm.DateTimeOffset" Precision="7" sap:unicode="false" sap:label="UTC Timestamp" sap:quickinfo="UTC Timestamp for API-Services"/>
+                <Property Name="InteractionSourceObjectType" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Source Object Type" sap:quickinfo="Source Object Type for API-Service"/>
+                <Property Name="InteractionSourceObject" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Source Object ID" sap:quickinfo="Source Object ID for API-Service"/>
+                <Property Name="MarketingArea" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID">
+                    <Documentation>
+                        <Summary>Identifies an area of responsibility, or an organizational unit.</Summary>
+                        <LongDescription>You use a marketing area to restrict the access to instances of an object, such as campaign, campaign content, content template, or target group.</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="CampaignID" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Campaign ID" sap:quickinfo="Campaign ID without Conversion Exit"/>
+                <Property Name="MarketingLocationOrigin" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Origin of Location" sap:heading="Origin of Marketing Location" sap:quickinfo="Origin of Marketing Location"/>
+                <Property Name="MarketingLocation" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Location ID" sap:quickinfo="Marketing Location ID"/>
+                <Property Name="DigitalAccountType" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Digital Account Type"/>
+                <Property Name="DigitalAccount" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Digital Account ID">
+                    <Documentation>
+                        <Summary>Indicates the WeChat ID of a WeChat official account.</Summary>
+                        <LongDescription/>
+                    </Documentation>
+                </Property>
+                <Property Name="MKT_AgreementOrigin" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Agreement Origin">
+                    <Documentation>
+                        <Summary>Shows the ID of the system, where the agreement was originally maintained.</Summary>
+                        <LongDescription>The agreement origin and the agreement external ID are semantic keys of an agreement and are used for external access.</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="MKT_AgreementExternalID" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Agreement ID" sap:heading="Agreement External ID" sap:quickinfo="Agreement External ID">
+                    <Documentation>
+                        <Summary>Shows the ID of an agreement from the system, where it was originally maintained.</Summary>
+                        <LongDescription>The agreement origin and the agreement external ID are semantical keys for the agreement and are used for external access.</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="CampaignContent" Type="Edm.Int32" sap:unicode="false" sap:label="Campaign Content ID" sap:quickinfo="Campaign Content ID for API-Service"/>
+                <Property Name="InteractionWeightingFactor" Type="Edm.Int16" sap:unicode="false" sap:label="Weighting Factor"/>
+                <Property Name="InteractionSentimentValue" Type="Edm.Int16" sap:unicode="false" sap:label="Sentiment"/>
+                <Property Name="InteractionStatus" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Status" sap:quickinfo="Status for API-Services"/>
+                <Property Name="InteractionReason" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Reason" sap:quickinfo="Reason for API-Services"/>
+                <Property Name="InteractionLanguage" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Language" sap:quickinfo="Language Key">
+                    <Documentation>
+                        <Summary>The language key indicates</Summary>
+                        <LongDescription>- the language in which texts are displayed,- the language in which you enter texts,- the language in which the system prints texts.</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="InteractionIsAnonymous" Type="Edm.Boolean" sap:unicode="false" sap:label="Is Anonymous" sap:heading="Is Anonymous Indicator" sap:quickinfo="Is Anonymous Indicator for API-Service"/>
+                <Property Name="InteractionAmount" Type="Edm.Decimal" Precision="31" Scale="14" sap:unicode="false" sap:unit="InteractionCurrency" sap:label="Amount"/>
+                <Property Name="InteractionCurrency" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Currency" sap:quickinfo="Currency Code"/>
+                <Property Name="InteractionLatitude" Type="Edm.Decimal" Precision="21" Scale="10" sap:unicode="false" sap:label="Latitude" sap:semantics="geo-lat"/>
+                <Property Name="InteractionLongitude" Type="Edm.Decimal" Precision="21" Scale="10" sap:unicode="false" sap:label="Longitude" sap:semantics="geo-lon"/>
+                <Property Name="SpatialReferenceSystem" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Spatial Ref ID" sap:heading="Spatial Reference Identifier" sap:quickinfo="Spatial Reference Identifier"/>
+                <Property Name="DeviceType" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Device Type"/>
+                <Property Name="InteractionDeviceName" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Device"/>
+                <Property Name="PrecedingInteractionUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Preceding IA UUID" sap:heading="Preceding Interaction UUID" sap:quickinfo="Preceding Interaction UUID for API-Service"/>
+                <Property Name="SourceSystemType" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Source System Type" sap:quickinfo="Interaction Source System Type">
+                    <Documentation>
+                        <Summary>A source system type, for example, a Web shop or a register.</Summary>
+                        <LongDescription>Identifies the type of system the interaction occured in.</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="SourceSystem" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Source System ID" sap:quickinfo="Interaction Source System ID"/>
+                <Property Name="InteractionSourceObjectAddlID" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Addl Source Obj ID" sap:heading="Additional Source Object ID" sap:quickinfo="Additional Source Object ID for API-Service"/>
+                <Property Name="InteractionSourceObjectStatus" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Business Doc. Status" sap:heading="Business Document Status Code" sap:quickinfo="Business Document Status Code"/>
+                <Property Name="InteractionSourceDataURL" Type="Edm.String" sap:unicode="false" sap:label="Source Data URL" sap:quickinfo="Source Data URL for API-Services" sap:sortable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="InteractionSourceTimeStampUTC" Type="Edm.DateTimeOffset" Precision="7" sap:unicode="false" sap:label="Source UTC Timestamp" sap:quickinfo="Source UTC Timestamp in Long Form"/>
+                <Property Name="CampaignContentLinkURL" Type="Edm.String" sap:unicode="false" sap:label="Cmpgn Cntnt Link URL" sap:heading="Campaign Content Link URL" sap:quickinfo="Campaign Content Link URL for API-Services" sap:sortable="false" sap:filterable="false" sap:semantics="url"/>
+                <Property Name="CampaignContentLinkName" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Cmpgn Cntnt Link Txt" sap:heading="Campaign Content Link Text" sap:quickinfo="Campaign Content Link Text for API-Service"/>
+                <Property Name="InteractionContactUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Contact UUID" sap:heading="Interaction Contact Universally Unique Identifier" sap:quickinfo="Interaction Contact UUID for API-Service"/>
+                <Property Name="InteractionLastChangedDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:unicode="false" sap:label="Last Change Date Time" sap:quickinfo="Last Change Date Time for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionLastChangedByUser" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Last Changed By User" sap:quickinfo="Last Changed By User for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionContentSubject" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Content Subject" sap:heading="Interaction Content Subject" sap:quickinfo="Interaction Content Subject"/>
+                <Property Name="InteractionContent" Type="Edm.String" sap:unicode="false" sap:label="Content" sap:heading="Interaction Content" sap:quickinfo="Interaction Content" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="InteractionInterests" Relationship="API_MKT_INTERACTION_SRV.InteractionInteractionInterest" FromRole="FromRole_InteractionInteractionInterest" ToRole="ToRole_InteractionInteractionInterest"/>
+                <NavigationProperty Name="InteractionProductCategories" Relationship="API_MKT_INTERACTION_SRV.InteractionInteractionProductCategory" FromRole="FromRole_InteractionInteractionProductCategory" ToRole="ToRole_InteractionInteractionProductCategory"/>
+                <NavigationProperty Name="InteractionDigitalAssets" Relationship="API_MKT_INTERACTION_SRV.InteractionInteractionDigitalAsset" FromRole="FromRole_InteractionInteractionDigitalAsset" ToRole="ToRole_InteractionInteractionDigitalAsset"/>
+                <NavigationProperty Name="InteractionOffers" Relationship="API_MKT_INTERACTION_SRV.InteractionInteractionOffer" FromRole="FromRole_InteractionInteractionOffer" ToRole="ToRole_InteractionInteractionOffer"/>
+                <NavigationProperty Name="InteractionAdditionalObjects" Relationship="API_MKT_INTERACTION_SRV.InteractionInteractionAdditionalObject" FromRole="FromRole_InteractionInteractionAdditionalObject" ToRole="ToRole_InteractionInteractionAdditionalObject"/>
+                <NavigationProperty Name="InteractionProducts" Relationship="API_MKT_INTERACTION_SRV.InteractionInteractionProduct" FromRole="FromRole_InteractionInteractionProduct" ToRole="ToRole_InteractionInteractionProduct"/>
+                <NavigationProperty Name="InteractionTags" Relationship="API_MKT_INTERACTION_SRV.InteractionInteractionTag" FromRole="FromRole_InteractionInteractionTag" ToRole="ToRole_InteractionInteractionTag"/>
+            </EntityType>
+            <EntityType Name="InteractionProduct" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="InteractionProductUUID"/>
+                </Key>
+                <Property Name="InteractionProductUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:heading="Universally Unique Identifier" sap:quickinfo="UUID for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Interaction UUID" sap:quickinfo="Interaction UUID for API-Service" sap:updatable="false"/>
+                <Property Name="ProductUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Product UUID" sap:quickinfo="Product" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductOrigin" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Origin of Product" sap:heading="Origin of Product Data" sap:quickinfo="Origin of Product Data" sap:updatable="false"/>
+                <Property Name="Product" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Product ID" sap:updatable="false"/>
+                <Property Name="InteractionProdWeightingFactor" Type="Edm.Int16" sap:unicode="false" sap:label="Weighting Factor" sap:updatable="false"/>
+                <Property Name="InteractionProductSentimentVal" Type="Edm.Int16" sap:unicode="false" sap:label="Sentiment" sap:updatable="false"/>
+                <Property Name="InteractionProductAmount" Type="Edm.Decimal" Precision="31" Scale="2" sap:unicode="false" sap:label="Amount" sap:updatable="false"/>
+                <Property Name="InteractionProductQuantity" Type="Edm.Decimal" Precision="23" Scale="5" sap:unicode="false" sap:unit="InteractionProductUnit" sap:label="Quantity" sap:updatable="false"/>
+                <Property Name="InteractionProductUnit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Unit of Measure" sap:updatable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="ProductRecommendationModelType" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Model Type ID" sap:heading="Recommendation Model Type ID" sap:quickinfo="Recommendation Model Type ID" sap:updatable="false">
+                    <Documentation>
+                        <Summary>The model ID of the recommender system that recommends the item, for example, CROSSSELL.</Summary>
+                        <LongDescription>Identifies the model from the recommender system that gerenated the recommendation.</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="InteractionProductStatus" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Status" sap:quickinfo="Status for API-Services" sap:updatable="false"/>
+                <Property Name="InteractionProductReason" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Reason" sap:quickinfo="Reason for API-Services" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="InteractionTag" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="InteractionTagUUID"/>
+                </Key>
+                <Property Name="InteractionTagUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:heading="Universally Unique Identifier" sap:quickinfo="UUID for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Interaction UUID" sap:quickinfo="Interaction UUID for API-Service" sap:updatable="false"/>
+                <Property Name="TagOrigin" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Origin of Tag" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TagType" Type="Edm.String" MaxLength="75" sap:unicode="false" sap:label="Tag Type" sap:updatable="false"/>
+                <Property Name="TagName" Type="Edm.String" MaxLength="200" sap:unicode="false" sap:label="Tag" sap:heading="Tag Name" sap:quickinfo="Tag Name" sap:updatable="false"/>
+            </EntityType>
+            <Association Name="InteractionInteractionProductCategory" sap:content-version="1">
+                <End Type="API_MKT_INTERACTION_SRV.Interaction" Multiplicity="1" Role="FromRole_InteractionInteractionProductCategory"/>
+                <End Type="API_MKT_INTERACTION_SRV.InteractionProductCategory" Multiplicity="*" Role="ToRole_InteractionInteractionProductCategory"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_InteractionInteractionProductCategory">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_InteractionInteractionProductCategory">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InteractionInteractionDigitalAsset" sap:content-version="1">
+                <End Type="API_MKT_INTERACTION_SRV.Interaction" Multiplicity="1" Role="FromRole_InteractionInteractionDigitalAsset"/>
+                <End Type="API_MKT_INTERACTION_SRV.InteractionDigitalAsset" Multiplicity="*" Role="ToRole_InteractionInteractionDigitalAsset"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_InteractionInteractionDigitalAsset">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_InteractionInteractionDigitalAsset">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InteractionInteractionOffer" sap:content-version="1">
+                <End Type="API_MKT_INTERACTION_SRV.Interaction" Multiplicity="1" Role="FromRole_InteractionInteractionOffer"/>
+                <End Type="API_MKT_INTERACTION_SRV.InteractionOffer" Multiplicity="*" Role="ToRole_InteractionInteractionOffer"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_InteractionInteractionOffer">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_InteractionInteractionOffer">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InteractionInteractionAdditionalObject" sap:content-version="1">
+                <End Type="API_MKT_INTERACTION_SRV.Interaction" Multiplicity="1" Role="FromRole_InteractionInteractionAdditionalObject"/>
+                <End Type="API_MKT_INTERACTION_SRV.InteractionAdditionalObject" Multiplicity="*" Role="ToRole_InteractionInteractionAdditionalObject"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_InteractionInteractionAdditionalObject">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_InteractionInteractionAdditionalObject">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InteractionInteractionProduct" sap:content-version="1">
+                <End Type="API_MKT_INTERACTION_SRV.Interaction" Multiplicity="1" Role="FromRole_InteractionInteractionProduct"/>
+                <End Type="API_MKT_INTERACTION_SRV.InteractionProduct" Multiplicity="*" Role="ToRole_InteractionInteractionProduct"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_InteractionInteractionProduct">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_InteractionInteractionProduct">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InteractionInteractionTag" sap:content-version="1">
+                <End Type="API_MKT_INTERACTION_SRV.Interaction" Multiplicity="1" Role="FromRole_InteractionInteractionTag"/>
+                <End Type="API_MKT_INTERACTION_SRV.InteractionTag" Multiplicity="*" Role="ToRole_InteractionInteractionTag"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_InteractionInteractionTag">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_InteractionInteractionTag">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InteractionInteractionInterest" sap:content-version="1">
+                <End Type="API_MKT_INTERACTION_SRV.Interaction" Multiplicity="1" Role="FromRole_InteractionInteractionInterest"/>
+                <End Type="API_MKT_INTERACTION_SRV.InteractionInterest" Multiplicity="*" Role="ToRole_InteractionInteractionInterest"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_InteractionInteractionInterest">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_InteractionInteractionInterest">
+                        <PropertyRef Name="InteractionUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_INTERACTION_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="InteractionInterests" EntityType="API_MKT_INTERACTION_SRV.InteractionInterest" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="InteractionProductCategories" EntityType="API_MKT_INTERACTION_SRV.InteractionProductCategory" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="InteractionDigitalAssets" EntityType="API_MKT_INTERACTION_SRV.InteractionDigitalAsset" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="InteractionOffers" EntityType="API_MKT_INTERACTION_SRV.InteractionOffer" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="InteractionAdditionalObjects" EntityType="API_MKT_INTERACTION_SRV.InteractionAdditionalObject" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="Interactions" EntityType="API_MKT_INTERACTION_SRV.Interaction" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="InteractionProducts" EntityType="API_MKT_INTERACTION_SRV.InteractionProduct" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="InteractionTags" EntityType="API_MKT_INTERACTION_SRV.InteractionTag" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <AssociationSet Name="InteractionInteractionDigitalAssets" Association="API_MKT_INTERACTION_SRV.InteractionInteractionDigitalAsset" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Interactions" Role="FromRole_InteractionInteractionDigitalAsset"/>
+                    <End EntitySet="InteractionDigitalAssets" Role="ToRole_InteractionInteractionDigitalAsset"/>
+                </AssociationSet>
+                <AssociationSet Name="InteractionInteractionInterests" Association="API_MKT_INTERACTION_SRV.InteractionInteractionInterest" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Interactions" Role="FromRole_InteractionInteractionInterest"/>
+                    <End EntitySet="InteractionInterests" Role="ToRole_InteractionInteractionInterest"/>
+                </AssociationSet>
+                <AssociationSet Name="InteractionInteractionTags" Association="API_MKT_INTERACTION_SRV.InteractionInteractionTag" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Interactions" Role="FromRole_InteractionInteractionTag"/>
+                    <End EntitySet="InteractionTags" Role="ToRole_InteractionInteractionTag"/>
+                </AssociationSet>
+                <AssociationSet Name="InteractionInteractionAdditionalObjects" Association="API_MKT_INTERACTION_SRV.InteractionInteractionAdditionalObject" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Interactions" Role="FromRole_InteractionInteractionAdditionalObject"/>
+                    <End EntitySet="InteractionAdditionalObjects" Role="ToRole_InteractionInteractionAdditionalObject"/>
+                </AssociationSet>
+                <AssociationSet Name="InteractionInteractionProductCategories" Association="API_MKT_INTERACTION_SRV.InteractionInteractionProductCategory" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Interactions" Role="FromRole_InteractionInteractionProductCategory"/>
+                    <End EntitySet="InteractionProductCategories" Role="ToRole_InteractionInteractionProductCategory"/>
+                </AssociationSet>
+                <AssociationSet Name="InteractionInteractionProducts" Association="API_MKT_INTERACTION_SRV.InteractionInteractionProduct" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Interactions" Role="FromRole_InteractionInteractionProduct"/>
+                    <End EntitySet="InteractionProducts" Role="ToRole_InteractionInteractionProduct"/>
+                </AssociationSet>
+                <AssociationSet Name="InteractionInteractionOffers" Association="API_MKT_INTERACTION_SRV.InteractionInteractionOffer" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Interactions" Role="FromRole_InteractionInteractionOffer"/>
+                    <End EntitySet="InteractionOffers" Role="ToRole_InteractionInteractionOffer"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://host:port/sap/opu/odata/sap/API_MKT_INTERACTION_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://host:port/sap/opu/odata/sap/API_MKT_INTERACTION_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

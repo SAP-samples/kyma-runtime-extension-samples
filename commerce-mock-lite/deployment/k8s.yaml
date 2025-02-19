@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: commerce-mock-lite
+  labels:
+    app: commerce-mock-lite
+spec:
+  selector:
+    matchLabels:
+      app: commerce-mock-lite
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: commerce-mock-lite
+    spec:
+      containers:
+      - image: ghcr.io/sap-samples/xf-application-mocks/commerce-mock-lite:latest
+        imagePullPolicy: Always
+        name: mock
+        ports:
+        - name: http
+          containerPort: 10000
+        env:
+        - name: DEBUG
+          value: "true"
+        - name: RENEWCERT_JOB_CRON
+          value: "00 00 */12 * * *"
+        volumeMounts:
+        - mountPath: "/app/keys"
+          name: mock-volume
+        resources:
+          requests:
+            memory: "150Mi"
+            cpu: "50m"
+          limits:
+            memory: "250Mi"
+            cpu: "100m"
+      volumes:
+      - name: mock-volume
+        persistentVolumeClaim:
+          claimName: commerce-mock-lite
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: commerce-mock-lite
+  labels:
+    app: commerce-mock-lite
+spec:
+  ports:
+  - name: http
+    port: 10000
+  selector:
+    app: commerce-mock-lite
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: commerce-mock-lite
+  labels:
+    app: commerce-mock-lite
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

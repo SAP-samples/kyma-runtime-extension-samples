@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="CUAN_BUSINESS_PARTNER_IMPORT_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="InteractionContact" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                    <PropertyRef Name="IdOrigin"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="ID of Interaction Contact" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsEndOfPurposeBlocked" Type="Edm.Boolean" sap:unicode="false" sap:label="End of Purpose Reached" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IdOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Interaction Contact" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Full Name" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FirstName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="First name" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LastName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Last name" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TitleCode" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Title Code" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CountryCode" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Country Code" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RegionCode" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Region Code" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="City" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="City" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Postal Code" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Street" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Street" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="House Number" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LanguageCode" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Language Code" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="GenderCode" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Gender Code" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MaritalStatusCode" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Marital Status Code" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IndustryCode" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Industry Code" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DepartmentCode" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Department Code" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FunctionCode" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Function Code" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="241" sap:unicode="false" sap:label="Email Address" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Phone Number" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MobilePhoneNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Mobile Phone Number" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Fax Number" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DateOfBirth" Type="Edm.DateTime" Precision="7" sap:display-format="Date" sap:unicode="false" sap:label="Date of Birth" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsContact" Type="Edm.Boolean" sap:unicode="false" sap:label="Is Contact" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsMainContact" Type="Edm.Boolean" sap:unicode="false" sap:label="Is Main Contact" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsConsumer" Type="Edm.Boolean" sap:unicode="false" sap:label="Is Consumer" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Obsolete" Type="Edm.Boolean" sap:unicode="false" sap:label="Obsolete" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WebUri" Type="Edm.String" MaxLength="1000" sap:unicode="false" sap:label="Web Site" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Latitude" Type="Edm.Decimal" Precision="20" Scale="10" sap:unicode="false" sap:label="Latitude" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Longitude" Type="Edm.Decimal" Precision="20" Scale="10" sap:unicode="false" sap:label="Longitude" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IcType" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Interaction Contact Type" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyId" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="ID of Company" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompanyIdOrigin" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Origin of Company" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MatchId" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="ID of matched Entity" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MatchIdOrigin" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Origin of matched Entity" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="YY1_AverageRevenue_MCP" Type="Edm.Decimal" Precision="30" Scale="2" sap:label="Average Revenue" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_Presence_MCP" Type="Edm.String" MaxLength="40" sap:label="Presence" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_DoorType_MCP" Type="Edm.String" MaxLength="40" sap:label="Door Type" sap:filterable="false" sap:is-extension-field="true"/>
+                <NavigationProperty Name="MarketingAttributes" Relationship="CUAN_BUSINESS_PARTNER_IMPORT_SRV.InteractionContactMarketingAttribute" FromRole="FromRole_InteractionContactMarketingAttribute" ToRole="ToRole_InteractionContactMarketingAttribute"/>
+                <NavigationProperty Name="MarketingAreas" Relationship="CUAN_BUSINESS_PARTNER_IMPORT_SRV.InteractionContactMarketingArea" FromRole="FromRole_InteractionContactMarketingArea" ToRole="ToRole_InteractionContactMarketingArea"/>
+            </EntityType>
+            <EntityType Name="MarketingAttribute" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CategoryId"/>
+                    <PropertyRef Name="Value"/>
+                </Key>
+                <Property Name="CategoryId" Type="Edm.String" Nullable="false" MaxLength="75" sap:unicode="false" sap:label="Mkt. Category" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Mkt. Value" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="MarketingArea" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                    <PropertyRef Name="IdOrigin"/>
+                    <PropertyRef Name="MarketingAreaId"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="ID of Interaction Contact" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IdOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Interaction Contact" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingAreaId" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="InteractionContactMarketingArea" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_PARTNER_IMPORT_SRV.InteractionContact" Multiplicity="1" Role="FromRole_InteractionContactMarketingArea"/>
+                <End Type="CUAN_BUSINESS_PARTNER_IMPORT_SRV.MarketingArea" Multiplicity="*" Role="ToRole_InteractionContactMarketingArea"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_InteractionContactMarketingArea">
+                        <PropertyRef Name="Id"/>
+                        <PropertyRef Name="IdOrigin"/>
+                    </Principal>
+                    <Dependent Role="ToRole_InteractionContactMarketingArea">
+                        <PropertyRef Name="Id"/>
+                        <PropertyRef Name="IdOrigin"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InteractionContactMarketingAttribute" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_PARTNER_IMPORT_SRV.InteractionContact" Multiplicity="1" Role="FromRole_InteractionContactMarketingAttribute"/>
+                <End Type="CUAN_BUSINESS_PARTNER_IMPORT_SRV.MarketingAttribute" Multiplicity="*" Role="ToRole_InteractionContactMarketingAttribute"/>
+            </Association>
+            <EntityContainer Name="CUAN_BUSINESS_PARTNER_IMPORT_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="InteractionContacts" EntityType="CUAN_BUSINESS_PARTNER_IMPORT_SRV.InteractionContact" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketingAttributes" EntityType="CUAN_BUSINESS_PARTNER_IMPORT_SRV.MarketingAttribute" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketingAreas" EntityType="CUAN_BUSINESS_PARTNER_IMPORT_SRV.MarketingArea" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <AssociationSet Name="InteractionContactMarketingAttributeSet" Association="CUAN_BUSINESS_PARTNER_IMPORT_SRV.InteractionContactMarketingAttribute" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="InteractionContacts" Role="FromRole_InteractionContactMarketingAttribute"/>
+                    <End EntitySet="MarketingAttributes" Role="ToRole_InteractionContactMarketingAttribute"/>
+                </AssociationSet>
+                <AssociationSet Name="InteractionContactMarketingArea_AssocSet" Association="CUAN_BUSINESS_PARTNER_IMPORT_SRV.InteractionContactMarketingArea" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="InteractionContacts" Role="FromRole_InteractionContactMarketingArea"/>
+                    <End EntitySet="MarketingAreas" Role="ToRole_InteractionContactMarketingArea"/>
+                </AssociationSet>
+                <FunctionImport Name="DeleteMarketingAttributes" ReturnType="CUAN_BUSINESS_PARTNER_IMPORT_SRV.InteractionContact" EntitySet="InteractionContacts" m:HttpMethod="POST" sap:action-for="CUAN_BUSINESS_PARTNER_IMPORT_SRV.InteractionContact">
+                    <Parameter Name="Id" Type="Edm.String" Mode="In" MaxLength="255"/>
+                    <Parameter Name="IdOrigin" Type="Edm.String" Mode="In" MaxLength="20"/>
+                </FunctionImport>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/CUAN_BUSINESS_PARTNER_IMPORT_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/CUAN_BUSINESS_PARTNER_IMPORT_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

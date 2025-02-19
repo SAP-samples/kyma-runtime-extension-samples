@@ -1,0 +1,2242 @@
+---
+swagger: "2.0"
+info:
+  description: These services create and manage customizations targeted at specific
+    users and can integrate personalization with other systems.
+  version: 1.0.0
+  title: Personalization Webservices
+  license:
+    name: Use of this file is subject to the terms of your agreement with SAP SE or
+      its affiliates respecting the use of the SAP product for which this file relates.
+x-sap-api-type: REST
+x-sap-shortText: Create and manage customizations targeted at specific users and integrate
+  personalization with other systems.
+x-sap-stateInfo:
+  state: Active
+x-servers:
+- templates:
+    url:
+      description: SAP Commerce Cloud server URL where the application is deployed.
+  description: Personalization REST API endpoint.
+  url: https://{url}/personalizationwebservices
+host: hostname
+basePath: /personalizationwebservices
+tags:
+- name: Actions
+  description: Operations for actions in variations
+- name: Customer Segmentations
+  description: Operations for customer and segment relation
+- name: Customization Packages
+  description: Operations for customization with related objects
+- name: Customizations
+  description: Operations for customizations
+- name: Query
+  description: Query operations
+- name: Segments
+  description: Operations for segments
+- name: Triggers
+  description: Operations for triggers
+- name: Variations
+  description: Operations for variations in customization
+produces:
+- application/json
+- application/xml
+paths:
+  /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/actions:
+    get:
+      tags:
+      - Actions
+      summary: Gets list of actions that fulfill search criteria with information
+        about variation and customization
+      operationId: getActionInCatalog
+      parameters:
+      - name: actionCode
+        in: query
+        description: Customization code. Supported by CXCMSACTION type.
+        required: false
+        type: string
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: catalogs
+        in: query
+        description: Filter for action catalog. Supported by CXCMSACTION type.
+        required: false
+        type: string
+        enum:
+        - CURRENT
+        - PARENTS
+        - ALL
+      - name: componentCatalog
+        in: query
+        description: Catalog of the action component. Supported by CXCMSACTION type.
+        required: false
+        type: string
+      - name: componentId
+        in: query
+        description: Id of the component used by the action. Supported by CXCMSACTION
+          type.
+        required: false
+        type: string
+      - name: containerId
+        in: query
+        description: Id of the container used by the action. Supported by CXCMSACTION
+          type.
+        required: false
+        type: string
+      - name: currentPage
+        in: query
+        description: Current page number
+        required: false
+        type: integer
+        format: int32
+      - name: customizationCode
+        in: query
+        description: Customization code. Supported by CXCMSACTION type.
+        required: false
+        type: string
+      - name: customizationName
+        in: query
+        description: Customization name. Supported by CXCMSACTION type.
+        required: false
+        type: string
+      - name: customizationStatus
+        in: query
+        description: 'Comma separated customization statuses. Available statuses :
+          ENABLED, DISABLED, DELETED. Supported by CXCMSACTION type.'
+        required: false
+        type: string
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: needsTotal
+        in: query
+        description: Request total count
+        required: false
+        type: boolean
+      - name: pageCatalogId
+        in: query
+        description: Catalog of the page action is affecting. Ignored if pageId is
+          not provided. Supported by CXCMSACTION type.
+        required: false
+        type: string
+      - name: pageId
+        in: query
+        description: Id of the page affected by the action. Supported by CXCMSACTION
+          type.
+        required: false
+        type: string
+      - name: pageSize
+        in: query
+        description: Page size
+        required: false
+        type: integer
+        format: int32
+      - name: type
+        in: query
+        description: Type of action. CXCMSACTION requires personalizationcms extension.
+        required: true
+        type: string
+        allowEmptyValue: false
+        enum:
+        - CXCMSACTION
+      - name: variationCode
+        in: query
+        description: Variation code. Supported by CXCMSACTION type.
+        required: false
+        type: string
+      - name: variationName
+        in: query
+        description: Variation name. Supported by CXCMSACTION type.
+        required: false
+        type: string
+      - name: variationStatus
+        in: query
+        description: 'Comma separated variation statuses. Available statuses : ENABLED,
+          DISABLED, DELETED. Supported by CXCMSACTION type.'
+        required: false
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/ActionFullList'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/customizationpackages:
+    post:
+      tags:
+      - CustomizationPackages
+      summary: Creates customization with related objects like variations and triggers
+      operationId: createCustomizationInPackage
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - in: body
+        name: customization
+        description: Customization with related objects
+        required: true
+        schema:
+          $ref: '#/definitions/Customization'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/Customization'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog with given id doesn't exist
+        409:
+          description: Conflict - customization with given code already exists
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/customizationpackages/{customizationCode}:
+    put:
+      tags:
+      - CustomizationPackages
+      summary: Updates customization and related objects
+      operationId: updateCustomizationInPackage
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - in: body
+        name: customization
+        description: Customization data for update
+        required: true
+        schema:
+          $ref: '#/definitions/Customization'
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Customization'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog or customization with given id doesn't exist
+        409:
+          description: Conflict - customization code in request body and url do not
+            match
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/customizations:
+    get:
+      tags:
+      - Customizations
+      summary: Returns all customizations
+      operationId: getCustomizations
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: catalogs
+        in: query
+        description: Filter for customization catalog. Requires personalizationcms
+          extension.
+        required: false
+        type: string
+        enum:
+        - CURRENT
+        - PARENTS
+        - ALL
+      - name: code
+        in: query
+        description: Filter for customization identifier. This filter don't work together
+          with other filters (pageId, statuses, name)
+        required: false
+        type: string
+      - name: currentPage
+        in: query
+        description: Current page number
+        required: false
+        type: integer
+        format: int32
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: name
+        in: query
+        description: Filter for customization name. This require also 'statuses' parameter
+          to be set
+        required: false
+        type: string
+      - name: needsTotal
+        in: query
+        description: Request total count
+        required: false
+        type: boolean
+      - name: negatePageId
+        in: query
+        description: Flag to return customizations not related to page with 'pageId'.
+          Requires personalizationcms extension.
+        required: false
+        type: boolean
+      - name: pageCatalogId
+        in: query
+        description: Page catalog identifier. Requires personalizationcms extension.
+        required: false
+        type: string
+      - name: pageId
+        in: query
+        description: Page identifier. This require also 'statuses' parameter to be
+          set. Requires personalizationcms extension.
+        required: false
+        type: string
+      - name: pageSize
+        in: query
+        description: Page size
+        required: false
+        type: integer
+        format: int32
+      - name: statuses
+        in: query
+        description: 'Comma separated customization statuses. Available statuses :
+          ENABLED, DISABLED, DELETED'
+        required: false
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/CustomizationList'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: 'Catalog version not found (catalogId : {catalogId} catalogVersionId
+            : {catalogVersionId})'
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    post:
+      tags:
+      - Customizations
+      summary: Creates a customization
+      operationId: createCustomization
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - in: body
+        name: customization
+        description: Customization to create
+        required: true
+        schema:
+          $ref: '#/definitions/Customization'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/Customization'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog with given id doesn't exist
+        409:
+          description: Conflict - customization with given code already exists
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/customizations/{customizationCode}:
+    get:
+      tags:
+      - Customizations
+      summary: Get a customization
+      operationId: getCustomization
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Customization'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog or customization with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    put:
+      tags:
+      - Customizations
+      summary: Updates a customization
+      operationId: updateCustomization
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - in: body
+        name: customization
+        description: Customization data for update
+        required: true
+        schema:
+          $ref: '#/definitions/Customization'
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Customization'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog or customization with given id doesn't exist
+        409:
+          description: Conflict - customization code in request body and url do not
+            match
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    delete:
+      tags:
+      - Customizations
+      summary: Deletes a customization
+      operationId: deleteCustomization
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog or customization with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/customizations/{customizationCode}/variations:
+    get:
+      tags:
+      - Variations
+      summary: Returns all variations for a given customization
+      operationId: getVariations
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/VariationList'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog or customization with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    post:
+      tags:
+      - Variations
+      summary: Creates a new variations part of a given customization
+      operationId: createVariation
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - in: body
+        name: variation
+        description: Variation data to create
+        required: true
+        schema:
+          $ref: '#/definitions/Variation'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/Variation'
+        400:
+          description: Bad Request e.g. incorrect request body, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog or customization with given id doesn't exist
+        409:
+          description: Conflict - variation with given code already exists
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/customizations/{customizationCode}/variations/{variationCode}:
+    get:
+      tags:
+      - Variations
+      summary: Returns an existing variation
+      operationId: getVariation
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Variation'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization or variation with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    put:
+      tags:
+      - Variations
+      summary: Updates an existing variation
+      operationId: updateVariation
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - in: body
+        name: variation
+        description: Variation data for update
+        required: true
+        schema:
+          $ref: '#/definitions/Variation'
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Variation'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization or variation with given id doesn't exist
+        409:
+          description: Conflict - variation code in request body and url do not match
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    delete:
+      tags:
+      - Variations
+      summary: Delete an existing variation
+      operationId: deleteVariation
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization or variation with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/customizations/{customizationCode}/variations/{variationCode}/actions:
+    get:
+      tags:
+      - Actions
+      summary: Returns all actions for a given customization and variation
+      operationId: getActions
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/ActionList'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization or variation with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    post:
+      tags:
+      - Actions
+      summary: Creates an action
+      operationId: createAction
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - in: body
+        name: action
+        description: Action to create
+        required: true
+        schema:
+          $ref: '#/definitions/Action'
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/Action'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization or variation with given id doesn't exist
+        409:
+          description: Conflict - action with given code already exists
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    delete:
+      tags:
+      - Actions
+      summary: Deletes a set of actions in given variation and customization
+      operationId: deleteActions
+      parameters:
+      - in: body
+        name: actionCodes
+        description: Identifiers of actions to delete e.g. ["id1","id2"] for application/json
+          content type
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request e.g. incorrect request body data
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization or variation with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    patch:
+      tags:
+      - Actions
+      summary: Creates set of actions in given variation and customization
+      operationId: createActions
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - in: body
+        name: actionList
+        description: Actions to create
+        required: true
+        schema:
+          $ref: '#/definitions/ActionList'
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/ActionList'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization or variation with given id doesn't exist
+        409:
+          description: Conflict - action with given code already exists
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  ? /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/customizations/{customizationCode}/variations/{variationCode}/actions/{actionCode}
+  : get:
+      tags:
+      - Actions
+      summary: Get an existing action for a given customization and variation
+      operationId: getAction
+      parameters:
+      - name: actionCode
+        in: path
+        description: Action identifier
+        required: true
+        type: string
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Action'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization, variation or action with given id doesn't
+            exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    put:
+      tags:
+      - Actions
+      summary: Updates an existing action for a given customization and variation
+      operationId: updateAction
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - in: body
+        name: action
+        description: Action data to update
+        required: true
+        schema:
+          $ref: '#/definitions/Action'
+      - name: actionCode
+        in: path
+        description: Action identifier
+        required: true
+        type: string
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Action'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization, variation or action with given id doesn't
+            exist
+        409:
+          description: Conflict - action code in request body and url do not match
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    delete:
+      tags:
+      - Actions
+      summary: Deletes an existing action for a given customization and variation
+      operationId: deleteAction
+      parameters:
+      - name: actionCode
+        in: path
+        description: Action identifier
+        required: true
+        type: string
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization, variation or action with given id doesn't
+            exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/customizations/{customizationCode}/variations/{variationCode}/triggers:
+    get:
+      tags:
+      - Triggers
+      summary: Get triggers for a given variation
+      operationId: getTriggers
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/TriggerList'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization or variation with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    post:
+      tags:
+      - Triggers
+      summary: Create a trigger for a given variation
+      operationId: createTrigger
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - in: body
+        name: data
+        description: Trigger to create
+        required: true
+        schema:
+          $ref: '#/definitions/Trigger'
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/Trigger'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization or variation with given id doesn't exist
+        409:
+          description: Conflict - trigger with given code already exists
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  ? /v1/catalogs/{catalog}/catalogVersions/{catalogVersion}/customizations/{customizationCode}/variations/{variationCode}/triggers/{triggerCode}
+  : get:
+      tags:
+      - Triggers
+      summary: Get a specific trigger
+      operationId: getTrigger
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: triggerCode
+        in: path
+        description: Trigger identifier
+        required: true
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Trigger'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization, variation or trigger with given id
+            doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    put:
+      tags:
+      - Triggers
+      summary: Updates a trigger
+      operationId: updateTrigger
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - in: body
+        name: data
+        description: Trigger data for update
+        required: true
+        schema:
+          $ref: '#/definitions/Trigger'
+      - name: triggerCode
+        in: path
+        description: Trigger identifier
+        required: true
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Trigger'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization, variation or trigger with given id
+            doesn't exist
+        409:
+          description: Conflict - trigger code in request body and url do not match
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    delete:
+      tags:
+      - Triggers
+      summary: Deletes a trigger
+      operationId: deleteTrigger
+      parameters:
+      - name: catalog
+        in: path
+        description: Catalog identifier
+        required: true
+        type: string
+      - name: catalogVersion
+        in: path
+        description: Catalog version identifier
+        required: true
+        type: string
+      - name: customizationCode
+        in: path
+        description: Customization identifier
+        required: true
+        type: string
+      - name: triggerCode
+        in: path
+        description: Trigger identifier
+        required: true
+        type: string
+      - name: variationCode
+        in: path
+        description: Variation identifier
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method or catalog with given
+            id
+        404:
+          description: Catalog, customization, variation or trigger with given id
+            doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/customersegmentations:
+    get:
+      tags:
+      - CustomerSegmentations
+      summary: Returns customer segmentations
+      description: This endpoint returns list segmententations matching customer id
+        and segment id passed as parameters. In default security configuration this
+        endpoint is forbidden
+      operationId: getCustomerSegmentations
+      parameters:
+      - name: baseSite
+        in: query
+        description: Basesite identifier
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: currentPage
+        in: query
+        description: Current page number
+        required: false
+        type: integer
+        format: int32
+      - name: customerId
+        in: query
+        description: 'Customer identifier. At least one of parameters is required
+          : customerId, segmentId '
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: needsTotal
+        in: query
+        description: Request total count
+        required: false
+        type: boolean
+      - name: pageSize
+        in: query
+        description: Page size
+        required: false
+        type: integer
+        format: int32
+      - name: segmentId
+        in: query
+        description: 'Segment identifier. At least one of parameters is required :
+          customerId, segmentId'
+        required: false
+        type: string
+        allowEmptyValue: false
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/CustomerSegmentationList'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    post:
+      tags:
+      - CustomerSegmentations
+      summary: Creates a customer segmentation
+      description: This endpoint creates a relation between customer and segment.
+        In default security configuration this endpoint is forbidden
+      operationId: create
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - in: body
+        name: customerSegmentation
+        description: DTO object which contains customer and segment identifiers
+        required: true
+        schema:
+          $ref: '#/definitions/CustomerSegmentation'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/CustomerSegmentation'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Customer, segment or basesite with given id doesn't exist
+        409:
+          description: Conflict - relation between customer and segment already exists
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/customersegmentations/{segmentationId}:
+    get:
+      tags:
+      - CustomerSegmentations
+      summary: Get a customer segmentation
+      description: This endpoint returns a relation between a customer and a segment.
+        In default security configuration this endpoint is forbidden
+      operationId: getCustomerSegmentation
+      parameters:
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: segmentationId
+        in: path
+        description: Relation identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/CustomerSegmentation'
+        400:
+          description: Bad Request e.g. incorrect identifier or parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Relation between customer and segment doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    put:
+      tags:
+      - CustomerSegmentations
+      summary: Updates a customer segmentation
+      description: This endpoint updates a relation between a customer and  segment.
+        In default security configuration this endpoint is forbidden
+      operationId: update
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - in: body
+        name: data
+        description: DTO object which contains customer and segment identifiers
+        required: true
+        schema:
+          $ref: '#/definitions/CustomerSegmentation'
+      - name: segmentationId
+        in: path
+        description: Relation identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/CustomerSegmentation'
+        400:
+          description: Bad Request e.g. incorrect identifier
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Relation between customer and segment doesn't exist
+        409:
+          description: Conflict - CustomerSegmentation code in request body and url
+            do not match.
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    delete:
+      tags:
+      - CustomerSegmentations
+      summary: Deletes a customer segmentation
+      description: This endpoint deletes a relation between a customer and segment.
+        In default security configuration this endpoint is forbidden
+      operationId: delete
+      parameters:
+      - name: segmentationId
+        in: path
+        description: segmentationId
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request e.g. incorrect identifier
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Relation between customer and segment doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/query/{name}:
+    post:
+      tags:
+      - Query
+      summary: Executes a query with given parameters.
+      description: 'The available queries depend on which extensions are included
+        in your installation. Examples : cxpromotionsforcatalog, cxReplaceComponentWithContainer,
+        etc...'
+      operationId: executeQuery
+      consumes:
+      - application/json
+      parameters:
+      - name: name
+        in: path
+        description: Query name
+        required: true
+        type: string
+      - in: body
+        name: params
+        description: Parameter for query
+        required: true
+        schema:
+          $ref: '#/definitions/QueryParams'
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Query with given name doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/segments:
+    get:
+      tags:
+      - Segments
+      summary: Get all the segments
+      description: Endpoint returns all segments from the system
+      operationId: getSegments
+      parameters:
+      - name: code
+        in: query
+        description: Filter for segment identifier
+        required: false
+        type: string
+      - name: currentPage
+        in: query
+        description: Current page number
+        required: false
+        type: integer
+        format: int32
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: needsTotal
+        in: query
+        description: Request total count
+        required: false
+        type: boolean
+      - name: pageSize
+        in: query
+        description: Page size
+        required: false
+        type: integer
+        format: int32
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/SegmentList'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    post:
+      tags:
+      - Segments
+      summary: Creates segment
+      description: In default security configuration this endpoint is forbidden
+      operationId: createSegment
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - in: body
+        name: segment
+        description: Segment to create
+        required: true
+        schema:
+          $ref: '#/definitions/Segment'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/Segment'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        409:
+          description: Conflict - segment with given code already exists
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/segments/{segmentCode}:
+    get:
+      tags:
+      - Segments
+      summary: Get a segment
+      operationId: getSegment
+      parameters:
+      - name: fields
+        in: query
+        description: Response configuration (list of fields, which should be returned
+          in response)
+        required: false
+        type: string
+      - name: segmentCode
+        in: path
+        description: Segment identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Segment'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Segment with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    put:
+      tags:
+      - Segments
+      summary: Updates a segment
+      description: In default security configuration this endpoint is forbidden
+      operationId: updateSegment
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - in: body
+        name: segment
+        description: Segment data to update
+        required: true
+        schema:
+          $ref: '#/definitions/Segment'
+      - name: segmentCode
+        in: path
+        description: Segment identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Segment'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Segment with given id doesn't exist
+        409:
+          description: Conflict - segment code in request body and url do not match
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    delete:
+      tags:
+      - Segments
+      summary: Deletes a segment
+      description: In default security configuration this endpoint is forbidden
+      operationId: deleteSegment
+      parameters:
+      - name: segmentCode
+        in: path
+        description: Segment identifier
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Segment with given id doesn't exist
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+securityDefinitions:
+  oauth2_client_credentials:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: application
+  oauth2_password:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: password
+definitions:
+  ActionFullList:
+    type: object
+    properties:
+      actions:
+        type: array
+        description: List of actions
+        items:
+          $ref: '#/definitions/Action'
+      pagination:
+        $ref: '#/definitions/Pagination'
+    title: ActionFullList
+    description: List of actions
+  ActionList:
+    type: object
+    properties:
+      actions:
+        type: array
+        description: List of actions
+        items:
+          $ref: '#/definitions/Action'
+    title: ActionList
+    description: List of actions
+  CustomerSegmentationList:
+    type: object
+    properties:
+      customerSegmentations:
+        type: array
+        description: List of customer segmentations
+        items:
+          $ref: '#/definitions/CustomerSegmentation'
+      pagination:
+        $ref: '#/definitions/Pagination'
+    title: CustomerSegmentationList
+    description: List of customer segmentations
+  CustomizationList:
+    type: object
+    properties:
+      customizations:
+        type: array
+        description: List of customizations
+        items:
+          $ref: '#/definitions/Customization'
+      pagination:
+        $ref: '#/definitions/Pagination'
+    title: CustomizationList
+    description: List of customizations
+  QueryParams:
+    type: object
+    properties:
+      params:
+        type: object
+        example:
+          entry:
+          - key: key1
+            value: value1
+          - key: key2
+            value: value2
+        description: Parameters map
+        additionalProperties:
+          type: string
+    title: QueryParams
+    description: Generic parameters for query endpoint
+  SegmentList:
+    type: object
+    properties:
+      pagination:
+        $ref: '#/definitions/Pagination'
+      segments:
+        type: array
+        description: List of segments
+        items:
+          $ref: '#/definitions/Segment'
+    title: SegmentList
+    description: List of segments
+  TriggerList:
+    type: object
+    properties:
+      triggers:
+        type: array
+        description: List of customer triggers
+        items:
+          $ref: '#/definitions/Trigger'
+    title: TriggerList
+    description: List of triggers
+  VariationList:
+    type: object
+    properties:
+      variations:
+        type: array
+        description: List of variations
+        items:
+          $ref: '#/definitions/Variation'
+    title: VariationList
+    description: List of variations
+  Action:
+    type: object
+    properties:
+      catalog:
+        type: string
+        description: Catalog name
+      catalogVersion:
+        type: string
+        description: Catalog version
+      code:
+        type: string
+        description: Action code
+      rank:
+        type: integer
+        format: int32
+        description: Priority of the action
+    title: Action
+    description: Action
+  Customer:
+    type: object
+    properties:
+      segmentLinks:
+        type: array
+        description: List of customer's segmentation details
+        items:
+          $ref: '#/definitions/CustomerSegmentation'
+      uid:
+        type: string
+        description: ID of the customer
+    title: Customer
+    description: Customer details
+  CustomerSegmentation:
+    type: object
+    properties:
+      affinity:
+        type: number
+        description: Affinity of the customer to the segment
+      baseSite:
+        type: string
+        description: Basesite identifier
+      code:
+        type: string
+        description: Customer segmentation code
+      customer:
+        $ref: '#/definitions/Customer'
+      provider:
+        type: string
+        description: Provider identifier
+      segment:
+        $ref: '#/definitions/Segment'
+    title: CustomerSegmentation
+    description: Customer segmentation
+  Customization:
+    type: object
+    properties:
+      active:
+        type: boolean
+        description: Dynamic attribute describing whether the customization affects
+          the experience
+      catalog:
+        type: string
+        description: Catalog name
+      catalogVersion:
+        type: string
+        description: Catalog version
+      code:
+        type: string
+        description: Customization code
+      description:
+        type: string
+        description: Customization description
+      enabledEndDate:
+        type: string
+        format: date-time
+        example: yyyy-MM-ddTHH:mm:ssZ
+        description: Point in time when the customization will deactivate
+      enabledStartDate:
+        type: string
+        format: date-time
+        example: yyyy-MM-ddTHH:mm:ssZ
+        description: Point in time when the customization will activate, if it's enabled
+      name:
+        type: string
+        description: Customization name
+      rank:
+        type: integer
+        format: int32
+        description: Priority of the customization
+      status:
+        type: string
+        description: Status of the customization
+        enum:
+        - ENABLED
+        - DISABLED
+        - DELETED
+      variations:
+        type: array
+        description: Details of the variations in this customization
+        items:
+          $ref: '#/definitions/Variation'
+    title: Customization
+    description: Customization
+  Pagination:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int32
+        description: Number of elements on this page
+      hasNext:
+        type: boolean
+        description: Indicates if there is next page
+      hasPrevious:
+        type: boolean
+        description: Indicates if there is previous page
+      page:
+        type: integer
+        format: int32
+        description: Current page number
+      totalCount:
+        type: integer
+        format: int64
+        description: Total number of elements
+      totalPages:
+        type: integer
+        format: int32
+        description: Total number of pages
+    title: Pagination
+    description: Pagination info
+  Segment:
+    type: object
+    properties:
+      code:
+        type: string
+        description: Segment code
+      customerLinks:
+        type: array
+        description: Customer segmentation details
+        items:
+          $ref: '#/definitions/CustomerSegmentation'
+      description:
+        type: string
+        description: Segment description
+      segmentTriggers:
+        type: array
+        description: Segment trigger details
+        items:
+          $ref: '#/definitions/SegmentTrigger'
+    title: Segment
+    description: Segment details
+  SegmentTrigger:
+    type: object
+    properties:
+      catalog:
+        type: string
+        description: Catalog name
+      catalogVersion:
+        type: string
+        description: Catalog version
+      code:
+        type: string
+        description: Trigger code
+      groupBy:
+        type: string
+        description: Logical operator connecting the segments
+        enum:
+        - AND
+        - OR
+      segments:
+        type: array
+        description: Details of the segments
+        items:
+          $ref: '#/definitions/Segment'
+      variation:
+        $ref: '#/definitions/Variation'
+    title: SegmentTrigger
+    description: Segment trigger
+  Trigger:
+    type: object
+    properties:
+      catalog:
+        type: string
+        description: Catalog name
+      catalogVersion:
+        type: string
+        description: Catalog version
+      code:
+        type: string
+        description: Trigger code
+      variation:
+        $ref: '#/definitions/Variation'
+    title: Trigger
+    description: Trigger
+  Variation:
+    type: object
+    properties:
+      actions:
+        type: array
+        description: Details of the variation actions
+        items:
+          $ref: '#/definitions/Action'
+      active:
+        type: boolean
+        description: Dynamic attribute describing whether the variation affects the
+          experience
+      catalog:
+        type: string
+        description: Catalog name
+      catalogVersion:
+        type: string
+        description: Catalog version
+      code:
+        type: string
+        description: Variation code
+      customization:
+        $ref: '#/definitions/Customization'
+      enabled:
+        type: boolean
+        description: This is deprecated field (use status field instead)
+      name:
+        type: string
+        description: Variation name
+      rank:
+        type: integer
+        format: int32
+        description: Priority of the variation
+      status:
+        type: string
+        description: Status of the variation
+        enum:
+        - ENABLED
+        - DISABLED
+        - DELETED
+      triggers:
+        type: array
+        description: Details of the variation triggers
+        items:
+          $ref: '#/definitions/Trigger'
+    title: Variation
+    description: Variation

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_EXPORT_DEFINITION_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ObjectFile" m:HasStream="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CampaignID"/>
+                    <PropertyRef Name="FileName"/>
+                </Key>
+                <Property Name="CampaignID" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Object ID" sap:heading="Generic Object ID" sap:quickinfo="Generic Object ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="FileName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Component name" sap:quickinfo="Relative storage location of physical document" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="DateFrom" Type="Edm.DateTime" Precision="0" sap:unicode="false" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)" sap:creatable="false" sap:updatable="false">
+                    <Documentation>
+                        <Summary>The UTC timestamp is the date and time relative to the UTC (Universal coordinated time).</Summary>
+                        <LongDescription>To normalize local times in a UTC time stamp and make them comparable, they must be converted using their time zone and the ABAP command convert.
+Although the time zone for the conversion can be fetched from customizing or master data, you should save it redundantly.
+The internal structure of the UTC time stamp is logically divided into a date and time part in packed number format &lt;YYYYMMDDhhmmss&gt;. There is also a high resolution UTC time stamp (10^-7 seconds).</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="CmpgnTrgtGrpExportFileURL" Type="Edm.String" Nullable="false" MaxLength="1024" sap:unicode="false" sap:label="URI" sap:heading="Uniform Resource Identifier" sap:quickinfo="Uniform Resource Identifier" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MimeType" Type="Edm.String" Nullable="false" MaxLength="256" sap:unicode="false" sap:label="MIME Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityContainer Name="API_MKT_EXPORT_DEFINITION_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ObjectFiles" EntityType="API_MKT_EXPORT_DEFINITION_SRV.ObjectFile" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="true" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link rel="self" href="https://host:port/sap/opu/odata/sap/API_MKT_EXPORT_DEFINITION_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://host:port/sap/opu/odata/sap/API_MKT_EXPORT_DEFINITION_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

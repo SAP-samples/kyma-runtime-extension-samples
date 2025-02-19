@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_LOYALTY_SRV_01" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="LoyaltyMembersType" sap:label="Marketing: Loyalty Program Member" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="LoyaltyMemberUUID"/>
+                </Key>
+                <Property Name="LoyaltyMemberUUID" Type="Edm.Guid" Nullable="false" sap:label="Member UUID" sap:quickinfo="Loyalty - Member UUID"/>
+                <Property Name="LoyaltyProgramUUID" Type="Edm.Guid" sap:label="Program UUID" sap:quickinfo="Loyalty - Program UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LoyaltyMemberFirstName" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Member First Name" sap:quickinfo="Loyalty - Member First Name"/>
+                <Property Name="LoyaltyMemberLastName" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Member Last Name" sap:quickinfo="Loyalty - Member Last Name"/>
+                <Property Name="LoyaltyMemberEmailAddress" Type="Edm.String" MaxLength="255" sap:display-format="UpperCase" sap:label="Member Email Address" sap:quickinfo="Loyalty - Member Email Address"/>
+                <Property Name="LoyaltyMemberMobilePhoneNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Loy Mbr Mobile No." sap:quickinfo="Loyalty - Member Mobile Number"/>
+                <Property Name="LoyaltyMemberType" Type="Edm.String" MaxLength="32" sap:display-format="UpperCase" sap:label="Member Type" sap:quickinfo="Loyalty - Member Type"/>
+                <Property Name="LoyaltyIdOrigin" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Member ID Origin" sap:quickinfo="Loyalty - Member ID Origin"/>
+                <Property Name="LoyaltyMemberExternalID" Type="Edm.String" MaxLength="255" sap:display-format="UpperCase" sap:label="Member External ID" sap:quickinfo="Loyalty - Member External ID"/>
+                <Property Name="LoyaltyMemberGroup" Type="Edm.String" MaxLength="38" sap:display-format="UpperCase" sap:label="Member Group" sap:quickinfo="Loyalty - Member Group"/>
+                <Property Name="LoyaltyMemberStatus" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Member Status" sap:quickinfo="Loyalty - Member Status"/>
+                <Property Name="NumberOfTotalLoyaltyPoints" Type="Edm.Decimal" Precision="20" Scale="2" sap:label="Total Balance Points"/>
+                <Property Name="LoyaltyTier" Type="Edm.Guid" sap:label="Tier External Key" sap:quickinfo="Loyalty Tier External Key as Universal Unique Identifier"/>
+                <Property Name="LoyaltyMembershipNumber" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" sap:label="Membership Number" sap:quickinfo="Loyalty - Membership Number"/>
+                <Property Name="LoyaltyExternalIdOrigin" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Origin of Contact" sap:quickinfo="Origin of Interaction Contact Data"/>
+                <Property Name="LoyaltyMemberIsPrimary" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="TRUE" sap:quickinfo="Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"/>
+                <Property Name="LoyaltyMemberJoiningDate" Type="Edm.DateTimeOffset" Precision="0" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+                <Property Name="LoyaltyMemberLastActivityDate" Type="Edm.DateTimeOffset" Precision="0" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+                <Property Name="LoyaltyMemberPreferredLanguage" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="R/2 table"/>
+                <Property Name="LoyaltyMemberReferralCode" Type="Edm.String" MaxLength="255" sap:display-format="UpperCase" sap:label="Referral Code" sap:quickinfo="Loyalty - Referral Code"/>
+            </EntityType>
+            <EntityType Name="LoyaltyProgramsType" sap:label="Marketing : Loyalty Program" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="LoyaltyProgramUUID"/>
+                </Key>
+                <Property Name="LoyaltyProgramUUID" Type="Edm.Guid" Nullable="false" sap:label="Program UUID" sap:quickinfo="Loyalty - Program UUID"/>
+                <Property Name="LoyaltyProgramName" Type="Edm.String" MaxLength="60" sap:display-format="UpperCase" sap:label="Program Name" sap:quickinfo="Loyalty - Program Name"/>
+                <Property Name="LoyaltyProgram" Type="Edm.Guid" sap:label="Program ID" sap:quickinfo="Loyalty - Program ID"/>
+                <Property Name="MarketingArea" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Marketing Area ID"/>
+                <NavigationProperty Name="to_LoyaltyMember" Relationship="API_MKT_LOYALTY_SRV_01.assoc_5CB5789E7C7F6EA589FED38BFC6D55EA" FromRole="FromRole_assoc_5CB5789E7C7F6EA589FED38BFC6D55EA" ToRole="ToRole_assoc_5CB5789E7C7F6EA589FED38BFC6D55EA"/>
+                <NavigationProperty Name="to_LoyaltyTier" Relationship="API_MKT_LOYALTY_SRV_01.assoc_F4534CAA20C4500F7CA3BEC452DE8EE6" FromRole="FromRole_assoc_F4534CAA20C4500F7CA3BEC452DE8EE6" ToRole="ToRole_assoc_F4534CAA20C4500F7CA3BEC452DE8EE6"/>
+            </EntityType>
+            <EntityType Name="LoyaltyTiersType" sap:label="Marketing: Loyalty Tier" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="LoyaltyTierUUID"/>
+                </Key>
+                <Property Name="LoyaltyTierUUID" Type="Edm.Guid" Nullable="false" sap:label="Tier UUID" sap:quickinfo="Loyalty - Tier UUID"/>
+                <Property Name="LoyaltyProgramUUID" Type="Edm.Guid" sap:label="Program UUID" sap:quickinfo="Loyalty - Program UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LoyaltyTierName" Type="Edm.String" MaxLength="100" sap:display-format="UpperCase" sap:label="Tier Name" sap:quickinfo="Loyalty - Tier Name"/>
+                <Property Name="LoyaltyTier" Type="Edm.Guid" sap:label="Tier External Key" sap:quickinfo="Loyalty Tier External Key as Universal Unique Identifier"/>
+            </EntityType>
+            <Association Name="assoc_F4534CAA20C4500F7CA3BEC452DE8EE6" sap:content-version="1">
+                <End Type="API_MKT_LOYALTY_SRV_01.LoyaltyProgramsType" Multiplicity="1" Role="FromRole_assoc_F4534CAA20C4500F7CA3BEC452DE8EE6">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="API_MKT_LOYALTY_SRV_01.LoyaltyTiersType" Multiplicity="*" Role="ToRole_assoc_F4534CAA20C4500F7CA3BEC452DE8EE6"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_F4534CAA20C4500F7CA3BEC452DE8EE6">
+                        <PropertyRef Name="LoyaltyProgramUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_F4534CAA20C4500F7CA3BEC452DE8EE6">
+                        <PropertyRef Name="LoyaltyProgramUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_5CB5789E7C7F6EA589FED38BFC6D55EA" sap:content-version="1">
+                <End Type="API_MKT_LOYALTY_SRV_01.LoyaltyProgramsType" Multiplicity="1" Role="FromRole_assoc_5CB5789E7C7F6EA589FED38BFC6D55EA">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="API_MKT_LOYALTY_SRV_01.LoyaltyMembersType" Multiplicity="*" Role="ToRole_assoc_5CB5789E7C7F6EA589FED38BFC6D55EA"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_5CB5789E7C7F6EA589FED38BFC6D55EA">
+                        <PropertyRef Name="LoyaltyProgramUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_5CB5789E7C7F6EA589FED38BFC6D55EA">
+                        <PropertyRef Name="LoyaltyProgramUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_LOYALTY_SRV_01_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="LoyaltyMembers" EntityType="API_MKT_LOYALTY_SRV_01.LoyaltyMembersType" sap:content-version="1"/>
+                <EntitySet Name="LoyaltyPrograms" EntityType="API_MKT_LOYALTY_SRV_01.LoyaltyProgramsType" sap:content-version="1"/>
+                <EntitySet Name="LoyaltyTiers" EntityType="API_MKT_LOYALTY_SRV_01.LoyaltyTiersType" sap:content-version="1"/>
+                <AssociationSet Name="assoc_5CB5789E7C7F6EA589FED38BFC6D55EA" Association="API_MKT_LOYALTY_SRV_01.assoc_5CB5789E7C7F6EA589FED38BFC6D55EA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="LoyaltyPrograms" Role="FromRole_assoc_5CB5789E7C7F6EA589FED38BFC6D55EA"/>
+                    <End EntitySet="LoyaltyMembers" Role="ToRole_assoc_5CB5789E7C7F6EA589FED38BFC6D55EA"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_F4534CAA20C4500F7CA3BEC452DE8EE6" Association="API_MKT_LOYALTY_SRV_01.assoc_F4534CAA20C4500F7CA3BEC452DE8EE6" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="LoyaltyPrograms" Role="FromRole_assoc_F4534CAA20C4500F7CA3BEC452DE8EE6"/>
+                    <End EntitySet="LoyaltyTiers" Role="ToRole_assoc_F4534CAA20C4500F7CA3BEC452DE8EE6"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="API_MKT_LOYALTY_SRV_01.API_MKT_LOYALTY_SRV_01_Entities" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_LOYALTY_SRV_01.LoyaltyMembersType/LoyaltyIdOrigin" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_LOYALTY_SRV_01.LoyaltyMembersType/LoyaltyMembershipNumber" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_LOYALTY_SRV_01.LoyaltyMembersType/LoyaltyTier" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_LOYALTY_SRV_01.LoyaltyProgramsType/LoyaltyProgram" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_LOYALTY_SRV_01.LoyaltyTiersType/LoyaltyTier" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_LOYALTY_SRV_01.LoyaltyTiersType/LoyaltyTierName" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_LOYALTY_SRV_01.LoyaltyMembersType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>LoyaltyMembershipNumber</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_LOYALTY_SRV_01.LoyaltyProgramsType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>LoyaltyProgramName</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_LOYALTY_SRV_01.LoyaltyTiersType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>LoyaltyTierName</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_LOYALTY_SRV_01/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_LOYALTY_SRV_01/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

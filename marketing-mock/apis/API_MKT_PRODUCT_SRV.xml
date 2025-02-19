@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_PRODUCT_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ProductOriginData" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductOrigin"/>
+                    <PropertyRef Name="ProductID"/>
+                </Key>
+                <Property Name="ProductOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Product"/>
+                <Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Product ID"/>
+                <Property Name="ProductImageURL" Type="Edm.String" MaxLength="1333" sap:unicode="false" sap:label="Product URL" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WebsiteURL" Type="Edm.String" MaxLength="1333" sap:unicode="false" sap:label="Website URL" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Brand" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Brand"/>
+                <Property Name="IsBaseProduct" Type="Edm.Boolean" sap:unicode="false" sap:label="Is Base Product"/>
+                <Property Name="BaseProductID" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Base Product ID"/>
+                <Property Name="BaseProductOrigin" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Base Product Origin"/>
+                <Property Name="ProductValidEndDate" Type="Edm.DateTime" Precision="0" sap:unicode="false" sap:label="Valid To"/>
+                <NavigationProperty Name="Product" Relationship="API_MKT_PRODUCT_SRV.ProductOriginDataProduct" FromRole="FromRole_ProductOriginDataProduct" ToRole="ToRole_ProductOriginDataProduct"/>
+                <NavigationProperty Name="ProductCategoryAssignments" Relationship="API_MKT_PRODUCT_SRV.ProductOriginDataProdCategoryAssignment" FromRole="FromRole_ProductOriginDataProdCategoryAssignment" ToRole="ToRole_ProductOriginDataProdCategoryAssignment"/>
+                <NavigationProperty Name="ProductNames" Relationship="API_MKT_PRODUCT_SRV.ProductOriginDataProductOriginDataName" FromRole="FromRole_ProductOriginDataProductOriginDataName" ToRole="ToRole_ProductOriginDataProductOriginDataName"/>
+            </EntityType>
+            <EntityType Name="ProductOriginDataName" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductOrigin"/>
+                    <PropertyRef Name="ProductID"/>
+                    <PropertyRef Name="Language"/>
+                </Key>
+                <Property Name="ProductDescription" Type="Edm.String" MaxLength="512" sap:unicode="false" sap:label="Long Desc."/>
+                <Property Name="ProductOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Product"/>
+                <Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Product ID"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="120" sap:unicode="false" sap:label="Product Name"/>
+            </EntityType>
+            <EntityType Name="ProductCategoryAssignment" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductOrigin"/>
+                    <PropertyRef Name="ProductID"/>
+                    <PropertyRef Name="ProductCategoryHierarchyID"/>
+                    <PropertyRef Name="ProductCategoryID"/>
+                </Key>
+                <Property Name="ProductOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Product"/>
+                <Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Product ID"/>
+                <Property Name="ProductCategoryHierarchyID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Hierarchy ID"/>
+                <Property Name="ProductCategoryID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Category ID"/>
+            </EntityType>
+            <EntityType Name="Product" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductUUID"/>
+                </Key>
+                <Property Name="ProductUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Product UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ProductOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Product" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Product ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductImageURL" Type="Edm.String" MaxLength="1333" sap:unicode="false" sap:label="Product URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WebsiteURL" Type="Edm.String" MaxLength="1333" sap:unicode="false" sap:label="Website URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Brand" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Brand" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsBaseProduct" Type="Edm.Boolean" sap:unicode="false" sap:label="Is Base Product" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BaseProductID" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Base Product ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BaseProductOrigin" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Base Product Origin" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductValidEndDate" Type="Edm.DateTime" Precision="0" sap:unicode="false" sap:label="Valid To" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="ProductNames" Relationship="API_MKT_PRODUCT_SRV.ProductProductName" FromRole="FromRole_ProductProductName" ToRole="ToRole_ProductProductName"/>
+                <NavigationProperty Name="ProductCategoryAssignments" Relationship="API_MKT_PRODUCT_SRV.ProductProductCategoryAssignment" FromRole="FromRole_ProductProductCategoryAssignment" ToRole="ToRole_ProductProductCategoryAssignment"/>
+                <NavigationProperty Name="ProductOriginDataSet" Relationship="API_MKT_PRODUCT_SRV.ProductProductOriginData" FromRole="FromRole_ProductProductOriginData" ToRole="ToRole_ProductProductOriginData"/>
+            </EntityType>
+            <EntityType Name="ProductName" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductUUID"/>
+                    <PropertyRef Name="Language"/>
+                </Key>
+                <Property Name="ProductUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Product UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="120" sap:unicode="false" sap:label="Product Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="512" sap:unicode="false" sap:label="Product Desc." sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="AdditionalID" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductOrigin"/>
+                    <PropertyRef Name="ProductID"/>
+                    <PropertyRef Name="AdditionalProductOrigin"/>
+                    <PropertyRef Name="AdditionalProductID"/>
+                </Key>
+                <Property Name="ProductOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Product" sap:updatable="false"/>
+                <Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Product ID" sap:updatable="false"/>
+                <Property Name="AdditionalProductOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Add. Origin" sap:updatable="false"/>
+                <Property Name="AdditionalProductID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Add. Product ID" sap:updatable="false"/>
+            </EntityType>
+            <Association Name="ProductProductCategoryAssignment" sap:content-version="1">
+                <End Type="API_MKT_PRODUCT_SRV.Product" Multiplicity="1" Role="FromRole_ProductProductCategoryAssignment"/>
+                <End Type="API_MKT_PRODUCT_SRV.ProductCategoryAssignment" Multiplicity="*" Role="ToRole_ProductProductCategoryAssignment"/>
+            </Association>
+            <Association Name="ProductProductOriginData" sap:content-version="1">
+                <End Type="API_MKT_PRODUCT_SRV.Product" Multiplicity="1" Role="FromRole_ProductProductOriginData"/>
+                <End Type="API_MKT_PRODUCT_SRV.ProductOriginData" Multiplicity="*" Role="ToRole_ProductProductOriginData"/>
+            </Association>
+            <Association Name="ProductProductName" sap:content-version="1">
+                <End Type="API_MKT_PRODUCT_SRV.Product" Multiplicity="1" Role="FromRole_ProductProductName"/>
+                <End Type="API_MKT_PRODUCT_SRV.ProductName" Multiplicity="*" Role="ToRole_ProductProductName"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProductProductName">
+                        <PropertyRef Name="ProductUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProductProductName">
+                        <PropertyRef Name="ProductUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProductOriginDataProductOriginDataName" sap:content-version="1">
+                <End Type="API_MKT_PRODUCT_SRV.ProductOriginData" Multiplicity="1" Role="FromRole_ProductOriginDataProductOriginDataName"/>
+                <End Type="API_MKT_PRODUCT_SRV.ProductOriginDataName" Multiplicity="*" Role="ToRole_ProductOriginDataProductOriginDataName"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProductOriginDataProductOriginDataName">
+                        <PropertyRef Name="ProductID"/>
+                        <PropertyRef Name="ProductOrigin"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProductOriginDataProductOriginDataName">
+                        <PropertyRef Name="ProductID"/>
+                        <PropertyRef Name="ProductOrigin"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProductOriginDataProdCategoryAssignment" sap:content-version="1">
+                <End Type="API_MKT_PRODUCT_SRV.ProductOriginData" Multiplicity="1" Role="FromRole_ProductOriginDataProdCategoryAssignment"/>
+                <End Type="API_MKT_PRODUCT_SRV.ProductCategoryAssignment" Multiplicity="*" Role="ToRole_ProductOriginDataProdCategoryAssignment"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProductOriginDataProdCategoryAssignment">
+                        <PropertyRef Name="ProductOrigin"/>
+                        <PropertyRef Name="ProductID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProductOriginDataProdCategoryAssignment">
+                        <PropertyRef Name="ProductOrigin"/>
+                        <PropertyRef Name="ProductID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProductOriginDataProduct" sap:content-version="1">
+                <End Type="API_MKT_PRODUCT_SRV.ProductOriginData" Multiplicity="1" Role="FromRole_ProductOriginDataProduct"/>
+                <End Type="API_MKT_PRODUCT_SRV.Product" Multiplicity="1" Role="ToRole_ProductOriginDataProduct"/>
+            </Association>
+            <EntityContainer Name="API_MKT_PRODUCT_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ProductOriginDataSet" EntityType="API_MKT_PRODUCT_SRV.ProductOriginData" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductOriginDataNames" EntityType="API_MKT_PRODUCT_SRV.ProductOriginDataName" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductCategoryAssignments" EntityType="API_MKT_PRODUCT_SRV.ProductCategoryAssignment" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="Products" EntityType="API_MKT_PRODUCT_SRV.Product" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductNames" EntityType="API_MKT_PRODUCT_SRV.ProductName" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="AdditionalIDs" EntityType="API_MKT_PRODUCT_SRV.AdditionalID" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <AssociationSet Name="ProductProductCategoryAssignments" Association="API_MKT_PRODUCT_SRV.ProductProductCategoryAssignment" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Products" Role="FromRole_ProductProductCategoryAssignment"/>
+                    <End EntitySet="ProductCategoryAssignments" Role="ToRole_ProductProductCategoryAssignment"/>
+                </AssociationSet>
+                <AssociationSet Name="ProductOriginDataProducts" Association="API_MKT_PRODUCT_SRV.ProductOriginDataProduct" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProductOriginDataSet" Role="FromRole_ProductOriginDataProduct"/>
+                    <End EntitySet="Products" Role="ToRole_ProductOriginDataProduct"/>
+                </AssociationSet>
+                <AssociationSet Name="ProductProductNames" Association="API_MKT_PRODUCT_SRV.ProductProductName" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Products" Role="FromRole_ProductProductName"/>
+                    <End EntitySet="ProductNames" Role="ToRole_ProductProductName"/>
+                </AssociationSet>
+                <AssociationSet Name="ProductProductCategories" Association="API_MKT_PRODUCT_SRV.ProductOriginDataProdCategoryAssignment" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProductOriginDataSet" Role="FromRole_ProductOriginDataProdCategoryAssignment"/>
+                    <End EntitySet="ProductCategoryAssignments" Role="ToRole_ProductOriginDataProdCategoryAssignment"/>
+                </AssociationSet>
+                <AssociationSet Name="ProductProductOriginData" Association="API_MKT_PRODUCT_SRV.ProductProductOriginData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Products" Role="FromRole_ProductProductOriginData"/>
+                    <End EntitySet="ProductOriginDataSet" Role="ToRole_ProductProductOriginData"/>
+                </AssociationSet>
+                <AssociationSet Name="ProductOriginDataProductOriginDataNames" Association="API_MKT_PRODUCT_SRV.ProductOriginDataProductOriginDataName" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProductOriginDataSet" Role="FromRole_ProductOriginDataProductOriginDataName"/>
+                    <End EntitySet="ProductOriginDataNames" Role="ToRole_ProductOriginDataProductOriginDataName"/>
+                </AssociationSet>
+                <FunctionImport Name="DeleteProductCategoryAssignments" ReturnType="API_MKT_PRODUCT_SRV.ProductOriginData" EntitySet="ProductOriginDataSet" m:HttpMethod="POST" sap:label="Delete Product Category Assignments" sap:action-for="API_MKT_PRODUCT_SRV.ProductOriginData">
+                    <Parameter Name="HierarchyID" Type="Edm.String" Mode="In" MaxLength="50"/>
+                    <Parameter Name="ProductID" Type="Edm.String" Mode="In" MaxLength="50"/>
+                    <Parameter Name="ProductOrigin" Type="Edm.String" Mode="In" MaxLength="30"/>
+                </FunctionImport>
+                <FunctionImport Name="MergeProductOriginData" ReturnType="API_MKT_PRODUCT_SRV.ProductOriginData" EntitySet="ProductOriginDataSet" m:HttpMethod="POST" sap:label="Merge Product Origin Data" sap:action-for="API_MKT_PRODUCT_SRV.ProductOriginData">
+                    <Parameter Name="ProductOrigin" Type="Edm.String" Mode="In" MaxLength="30"/>
+                    <Parameter Name="ProductID" Type="Edm.String" Mode="In" MaxLength="50"/>
+                    <Parameter Name="AdditionalProductOrigin" Type="Edm.String" Mode="In" MaxLength="30"/>
+                    <Parameter Name="AdditionalProductID" Type="Edm.String" Mode="In" MaxLength="50"/>
+                </FunctionImport>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_PRODUCT_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_PRODUCT_SRV;v=2/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

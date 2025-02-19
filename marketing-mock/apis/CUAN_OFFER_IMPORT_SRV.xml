@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="CUAN_OFFER_IMPORT_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="MarketingLocationOrigin" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingLocationOriginId"/>
+                </Key>
+                <Property Name="MarketingLocationOriginId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Location" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationOriginDescription" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Origin Desc." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="MarketingLocationAssignment" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferIdExt"/>
+                    <PropertyRef Name="OfferIdOrigin"/>
+                    <PropertyRef Name="MarketingLocationOriginId"/>
+                    <PropertyRef Name="MarketingLocationId"/>
+                </Key>
+                <Property Name="OfferIdExt" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="External ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferIdOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Offer Origin ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationOriginId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Location" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Location ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ProductOrigin" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductOriginId"/>
+                </Key>
+                <Property Name="ProductOriginId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Product" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProductOriginDescription" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Origin Dscr." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ProductAssignment" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferIdExt"/>
+                    <PropertyRef Name="OfferIdOrigin"/>
+                    <PropertyRef Name="ProductId"/>
+                    <PropertyRef Name="ProductOriginId"/>
+                </Key>
+                <Property Name="OfferIdExt" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="External ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferIdOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Offer Origin ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProductId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Product ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProductOriginId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Product" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ProductCategoryAssignment" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferIdExt"/>
+                    <PropertyRef Name="OfferIdOrigin"/>
+                    <PropertyRef Name="HierarchyId"/>
+                    <PropertyRef Name="CategoryId"/>
+                </Key>
+                <Property Name="OfferIdExt" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="External ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferIdOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Offer Origin ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="HierarchyId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Object ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CategoryId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Object ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Offer" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferIdExt"/>
+                    <PropertyRef Name="OfferIdOrigin"/>
+                </Key>
+                <Property Name="OfferIdExt" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="External ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferIdOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Offer Origin ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingOffer" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Name" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="1000" sap:unicode="false" sap:label="Description" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingAreaDescription" Type="Edm.String" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingAreaID" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="StartDate" Type="Edm.DateTimeOffset" Precision="7" sap:unicode="false" sap:label="Start Date" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EndDate" Type="Edm.DateTimeOffset" Precision="7" sap:unicode="false" sap:label="End Date" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExternalStatus" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="External Status ID" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExternalStatusDescription" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="External Status" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferIsFundedBySupplier" Type="Edm.Boolean" sap:unicode="false" sap:label="Funded By Supplier" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProjectedGrossMarginInPercent" Type="Edm.Decimal" Precision="8" Scale="1" sap:unicode="false" sap:label="Proj. Gross Marg. %" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TargetGroupManagedExternally" Type="Edm.Boolean" sap:unicode="false" sap:label="TG Managed External." sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CouponManagedExternally" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Coupons Manag. Ext." sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentManagedExternally" Type="Edm.Boolean" sap:unicode="false" sap:label="Content Is Managed Externally" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="MarketingLocations" Relationship="CUAN_OFFER_IMPORT_SRV.OfferMarketingLocationAssignment" FromRole="FromRole_OfferMarketingLocationAssignment" ToRole="ToRole_OfferMarketingLocationAssignment"/>
+                <NavigationProperty Name="ProductCategories" Relationship="CUAN_OFFER_IMPORT_SRV.OfferProductCategoryAssignment" FromRole="FromRole_OfferProductCategoryAssignment" ToRole="ToRole_OfferProductCategoryAssignment"/>
+                <NavigationProperty Name="Products" Relationship="CUAN_OFFER_IMPORT_SRV.OfferProductAssignment" FromRole="FromRole_OfferProductAssignment" ToRole="ToRole_OfferProductAssignment"/>
+                <NavigationProperty Name="TargetGroups" Relationship="CUAN_OFFER_IMPORT_SRV.OfferTargetGroupAssignment" FromRole="FromRole_OfferTargetGroupAssignment" ToRole="ToRole_OfferTargetGroupAssignment"/>
+                <NavigationProperty Name="Coupons" Relationship="CUAN_OFFER_IMPORT_SRV.OfferCouponAssignment" FromRole="FromRole_OfferCouponAssignment" ToRole="ToRole_OfferCouponAssignment"/>
+                <NavigationProperty Name="OfferContent" Relationship="CUAN_OFFER_IMPORT_SRV.OfferOfferContent" FromRole="FromRole_OfferOfferContent" ToRole="ToRole_OfferOfferContent"/>
+            </EntityType>
+            <EntityType Name="ImportHeader" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="GUID 16" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Timestamp" Type="Edm.DateTimeOffset" Precision="7" sap:unicode="false" sap:label="Time Stamp" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UserName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Alias" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SourceSystemType" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Source System" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SourceSystemId" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Source Sys. ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProcessAllOrNothing" Type="Edm.Boolean" sap:unicode="false" sap:label="All or Nothing" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ImportMode" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Import Mode" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Offers" Relationship="CUAN_OFFER_IMPORT_SRV.HeaderOffer" FromRole="FromRole_HeaderOffer" ToRole="ToRole_HeaderOffer"/>
+            </EntityType>
+            <EntityType Name="CouponAssignment" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferIdExt"/>
+                    <PropertyRef Name="OfferIdOrigin"/>
+                    <PropertyRef Name="CouponUUID"/>
+                </Key>
+                <Property Name="OfferIdExt" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="External ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferIdOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Offer Origin ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CouponUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Coupon UUID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="OfferContent" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferIdExt"/>
+                    <PropertyRef Name="OfferIdOrigin"/>
+                    <PropertyRef Name="MarketingOfferContent"/>
+                    <PropertyRef Name="LanguageISOCode"/>
+                    <PropertyRef Name="OfferContentType"/>
+                    <PropertyRef Name="CommunicationMedium"/>
+                </Key>
+                <Property Name="OfferIdExt" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="External ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferIdOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Offer Origin ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingOfferContent" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Content Item No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LanguageISOCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Lang. (ISO)" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentType" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Content Type ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentTypeName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Content Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMedium" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Communication Medium" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMediumName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentPosition" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Position" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentSourceURL" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Source" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentSourceURLDesc" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Content Description" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentTargetURL" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Target" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentTargetURLDesc" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Target Description" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="CommunicationMediumType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CommunicationMedium"/>
+                </Key>
+                <Property Name="CommunicationMedium" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMediumName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="OfferContentTypeType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferContentType"/>
+                    <PropertyRef Name="CommunicationMedium"/>
+                </Key>
+                <Property Name="OfferContentType" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Content Type ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentTypeName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Content Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMedium" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMediumName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="TargetGroupAssignment" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferIdExt"/>
+                    <PropertyRef Name="OfferIdOrigin"/>
+                    <PropertyRef Name="TargetGroupUUID"/>
+                </Key>
+                <Property Name="OfferIdExt" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="External ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferIdOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Offer Origin ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TargetGroupUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="NodeID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Language" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="LanguageISOCode"/>
+                </Key>
+                <Property Name="LanguageISOCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Lang. (ISO)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LanguageName" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="OfferContentPositionType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferContentPosition"/>
+                </Key>
+                <Property Name="OfferContentPosition" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Position" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMedium" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMediumName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="MarketingArea" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingAreaId"/>
+                </Key>
+                <Property Name="MarketingAreaId" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="MarketingAreaDescription" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ExternalOfferStatus" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ExternalStatus"/>
+                </Key>
+                <Property Name="ExternalStatus" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="External Status ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExternalStatusDescription" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="External Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="OfferProductAssignment" sap:content-version="1">
+                <End Type="CUAN_OFFER_IMPORT_SRV.Offer" Multiplicity="1" Role="FromRole_OfferProductAssignment"/>
+                <End Type="CUAN_OFFER_IMPORT_SRV.ProductAssignment" Multiplicity="*" Role="ToRole_OfferProductAssignment"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferProductAssignment">
+                        <PropertyRef Name="OfferIdExt"/>
+                        <PropertyRef Name="OfferIdOrigin"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferProductAssignment">
+                        <PropertyRef Name="OfferIdExt"/>
+                        <PropertyRef Name="OfferIdOrigin"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferProductCategoryAssignment" sap:content-version="1">
+                <End Type="CUAN_OFFER_IMPORT_SRV.Offer" Multiplicity="1" Role="FromRole_OfferProductCategoryAssignment"/>
+                <End Type="CUAN_OFFER_IMPORT_SRV.ProductCategoryAssignment" Multiplicity="*" Role="ToRole_OfferProductCategoryAssignment"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferProductCategoryAssignment">
+                        <PropertyRef Name="OfferIdExt"/>
+                        <PropertyRef Name="OfferIdOrigin"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferProductCategoryAssignment">
+                        <PropertyRef Name="OfferIdExt"/>
+                        <PropertyRef Name="OfferIdOrigin"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferTargetGroupAssignment" sap:content-version="1">
+                <End Type="CUAN_OFFER_IMPORT_SRV.Offer" Multiplicity="1" Role="FromRole_OfferTargetGroupAssignment"/>
+                <End Type="CUAN_OFFER_IMPORT_SRV.TargetGroupAssignment" Multiplicity="*" Role="ToRole_OfferTargetGroupAssignment"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferTargetGroupAssignment">
+                        <PropertyRef Name="OfferIdOrigin"/>
+                        <PropertyRef Name="OfferIdExt"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferTargetGroupAssignment">
+                        <PropertyRef Name="OfferIdOrigin"/>
+                        <PropertyRef Name="OfferIdExt"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferCouponAssignment" sap:content-version="1">
+                <End Type="CUAN_OFFER_IMPORT_SRV.Offer" Multiplicity="1" Role="FromRole_OfferCouponAssignment"/>
+                <End Type="CUAN_OFFER_IMPORT_SRV.CouponAssignment" Multiplicity="0..1" Role="ToRole_OfferCouponAssignment"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferCouponAssignment">
+                        <PropertyRef Name="OfferIdOrigin"/>
+                        <PropertyRef Name="OfferIdExt"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferCouponAssignment">
+                        <PropertyRef Name="OfferIdOrigin"/>
+                        <PropertyRef Name="OfferIdExt"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferOfferContent" sap:content-version="1">
+                <End Type="CUAN_OFFER_IMPORT_SRV.Offer" Multiplicity="1" Role="FromRole_OfferOfferContent"/>
+                <End Type="CUAN_OFFER_IMPORT_SRV.OfferContent" Multiplicity="*" Role="ToRole_OfferOfferContent"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferOfferContent">
+                        <PropertyRef Name="OfferIdOrigin"/>
+                        <PropertyRef Name="OfferIdExt"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferOfferContent">
+                        <PropertyRef Name="OfferIdOrigin"/>
+                        <PropertyRef Name="OfferIdExt"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferMarketingLocationAssignment" sap:content-version="1">
+                <End Type="CUAN_OFFER_IMPORT_SRV.Offer" Multiplicity="1" Role="FromRole_OfferMarketingLocationAssignment"/>
+                <End Type="CUAN_OFFER_IMPORT_SRV.MarketingLocationAssignment" Multiplicity="*" Role="ToRole_OfferMarketingLocationAssignment"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferMarketingLocationAssignment">
+                        <PropertyRef Name="OfferIdOrigin"/>
+                        <PropertyRef Name="OfferIdExt"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferMarketingLocationAssignment">
+                        <PropertyRef Name="OfferIdOrigin"/>
+                        <PropertyRef Name="OfferIdExt"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="HeaderOffer" sap:content-version="1">
+                <End Type="CUAN_OFFER_IMPORT_SRV.ImportHeader" Multiplicity="1" Role="FromRole_HeaderOffer"/>
+                <End Type="CUAN_OFFER_IMPORT_SRV.Offer" Multiplicity="*" Role="ToRole_HeaderOffer"/>
+            </Association>
+            <EntityContainer Name="CUAN_OFFER_IMPORT_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="MarketingLocationOrigins" EntityType="CUAN_OFFER_IMPORT_SRV.MarketingLocationOrigin" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketingLocationAssignments" EntityType="CUAN_OFFER_IMPORT_SRV.MarketingLocationAssignment" sap:updatable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductOrigins" EntityType="CUAN_OFFER_IMPORT_SRV.ProductOrigin" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductAssignments" EntityType="CUAN_OFFER_IMPORT_SRV.ProductAssignment" sap:updatable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductCategoryAssignments" EntityType="CUAN_OFFER_IMPORT_SRV.ProductCategoryAssignment" sap:updatable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Offers" EntityType="CUAN_OFFER_IMPORT_SRV.Offer" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ImportHeaders" EntityType="CUAN_OFFER_IMPORT_SRV.ImportHeader" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CouponAssignments" EntityType="CUAN_OFFER_IMPORT_SRV.CouponAssignment" sap:updatable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferContents" EntityType="CUAN_OFFER_IMPORT_SRV.OfferContent" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CommunicationMediums" EntityType="CUAN_OFFER_IMPORT_SRV.CommunicationMediumType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferContentTypes" EntityType="CUAN_OFFER_IMPORT_SRV.OfferContentTypeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="TargetGroupAssignments" EntityType="CUAN_OFFER_IMPORT_SRV.TargetGroupAssignment" sap:updatable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Languages" EntityType="CUAN_OFFER_IMPORT_SRV.Language" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferContentPositions" EntityType="CUAN_OFFER_IMPORT_SRV.OfferContentPositionType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketingAreas" EntityType="CUAN_OFFER_IMPORT_SRV.MarketingArea" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ExternalOfferStatus" EntityType="CUAN_OFFER_IMPORT_SRV.ExternalOfferStatus" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="OfferCouponAssignments" Association="CUAN_OFFER_IMPORT_SRV.OfferCouponAssignment" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferCouponAssignment"/>
+                    <End EntitySet="CouponAssignments" Role="ToRole_OfferCouponAssignment"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferMarketingLocationAssignments" Association="CUAN_OFFER_IMPORT_SRV.OfferMarketingLocationAssignment" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferMarketingLocationAssignment"/>
+                    <End EntitySet="MarketingLocationAssignments" Role="ToRole_OfferMarketingLocationAssignment"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferProductAssignments" Association="CUAN_OFFER_IMPORT_SRV.OfferProductAssignment" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferProductAssignment"/>
+                    <End EntitySet="ProductAssignments" Role="ToRole_OfferProductAssignment"/>
+                </AssociationSet>
+                <AssociationSet Name="HeaderOffer_AssocSet" Association="CUAN_OFFER_IMPORT_SRV.HeaderOffer" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ImportHeaders" Role="FromRole_HeaderOffer"/>
+                    <End EntitySet="Offers" Role="ToRole_HeaderOffer"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferTargetGroupAssignments" Association="CUAN_OFFER_IMPORT_SRV.OfferTargetGroupAssignment" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferTargetGroupAssignment"/>
+                    <End EntitySet="TargetGroupAssignments" Role="ToRole_OfferTargetGroupAssignment"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferOfferContents" Association="CUAN_OFFER_IMPORT_SRV.OfferOfferContent" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferOfferContent"/>
+                    <End EntitySet="OfferContents" Role="ToRole_OfferOfferContent"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferProductCategoryAssignments" Association="CUAN_OFFER_IMPORT_SRV.OfferProductCategoryAssignment" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferProductCategoryAssignment"/>
+                    <End EntitySet="ProductCategoryAssignments" Role="ToRole_OfferProductCategoryAssignment"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/CUAN_OFFER_IMPORT_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/CUAN_OFFER_IMPORT_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
