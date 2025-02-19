@@ -1,0 +1,142 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:s="http://schemas.sap.com/commerce" Namespace="HybrisCommerceOData" s:schema-version="1">
+            <EntityType Name="B2BUnit">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="uid" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="B2BUnit_uid"/>
+            </EntityType>
+            <EntityType Name="Address">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="dateOfBirth" Nullable="true" Type="Edm.DateTime"/>
+                <Property Name="contactAddress" Nullable="true" Type="Edm.Boolean"/>
+                <Property Name="firstname" Nullable="true" Type="Edm.String"/>
+                <Property Name="lastname" Nullable="true" Type="Edm.String"/>
+                <Property Name="duplicate" Nullable="true" Type="Edm.Boolean"/>
+                <Property Name="cellphone" Nullable="true" Type="Edm.String"/>
+                <Property Name="phone1" Nullable="true" Type="Edm.String"/>
+                <Property Name="publicKey" Nullable="true" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="department" Nullable="true" Type="Edm.String"/>
+                <Property Name="fax" Nullable="true" Type="Edm.String"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Address_publicKey"/>
+                <NavigationProperty FromRole="Address" Name="title" Nullable="true" Relationship="HybrisCommerceOData.FK_Address_title" ToRole="Title"/>
+                <NavigationProperty FromRole="Address" Name="gender" Nullable="true" Relationship="HybrisCommerceOData.FK_Address_gender" ToRole="Gender"/>
+            </EntityType>
+            <EntityType Name="Language">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="isocode" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Language_isocode"/>
+            </EntityType>
+            <EntityType Name="Title">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Title_code"/>
+            </EntityType>
+            <EntityType Name="Gender">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Gender_code"/>
+            </EntityType>
+            <EntityType Name="B2BCustomer">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="customerID" Nullable="true" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="email" Nullable="false" Type="Edm.String"/>
+                <Property Name="name" Nullable="true" Type="Edm.String"/>
+                <Property Name="uid" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="sapIsReplicated" Nullable="true" Type="Edm.Boolean"/>
+                <Property Name="sapBusinessPartnerID" Nullable="true" Type="Edm.String"/>
+                <Property Name="loginDisabled" Nullable="true" Type="Edm.Boolean"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="B2BCustomer_customerID|B2BCustomer_uid"/>
+                <NavigationProperty FromRole="B2BCustomer" Name="defaultB2BUnit" Nullable="true" Relationship="HybrisCommerceOData.FK_B2BCustomer_defaultB2BUnit" ToRole="B2BUnit"/>
+                <NavigationProperty FromRole="B2BCustomer" Name="sessionLanguage" Nullable="true" Relationship="HybrisCommerceOData.FK_B2BCustomer_sessionLanguage" ToRole="Language"/>
+                <NavigationProperty FromRole="B2BCustomer" Name="groups" Nullable="true" Relationship="HybrisCommerceOData.FK_B2BCustomer_groups" ToRole="UserGroup"/>
+                <NavigationProperty FromRole="B2BCustomer" Name="addresses" Nullable="true" Relationship="HybrisCommerceOData.FK_B2BCustomer_addresses" ToRole="Address" s:IsAutoCreate="true" s:IsPartOf="true"/>
+                <NavigationProperty FromRole="B2BCustomer" Name="title" Nullable="true" Relationship="HybrisCommerceOData.FK_B2BCustomer_title" ToRole="Title"/>
+            </EntityType>
+            <EntityType Name="UserGroup">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="uid" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="UserGroup_uid"/>
+            </EntityType>
+            <Association Name="FK_Address_title">
+                <End Multiplicity="0..1" Role="Address" Type="HybrisCommerceOData.Address"/>
+                <End Multiplicity="0..1" Role="Title" Type="HybrisCommerceOData.Title"/>
+            </Association>
+            <Association Name="FK_Address_gender">
+                <End Multiplicity="0..1" Role="Address" Type="HybrisCommerceOData.Address"/>
+                <End Multiplicity="0..1" Role="Gender" Type="HybrisCommerceOData.Gender"/>
+            </Association>
+            <Association Name="FK_B2BCustomer_defaultB2BUnit">
+                <End Multiplicity="0..1" Role="B2BCustomer" Type="HybrisCommerceOData.B2BCustomer"/>
+                <End Multiplicity="0..1" Role="B2BUnit" Type="HybrisCommerceOData.B2BUnit"/>
+            </Association>
+            <Association Name="FK_B2BCustomer_sessionLanguage">
+                <End Multiplicity="0..1" Role="B2BCustomer" Type="HybrisCommerceOData.B2BCustomer"/>
+                <End Multiplicity="0..1" Role="Language" Type="HybrisCommerceOData.Language"/>
+            </Association>
+            <Association Name="FK_B2BCustomer_groups">
+                <End Multiplicity="0..1" Role="B2BCustomer" Type="HybrisCommerceOData.B2BCustomer"/>
+                <End Multiplicity="*" Role="UserGroup" Type="HybrisCommerceOData.UserGroup"/>
+            </Association>
+            <Association Name="FK_B2BCustomer_addresses">
+                <End Multiplicity="0..1" Role="B2BCustomer" Type="HybrisCommerceOData.B2BCustomer"/>
+                <End Multiplicity="*" Role="Address" Type="HybrisCommerceOData.Address"/>
+            </Association>
+            <Association Name="FK_B2BCustomer_title">
+                <End Multiplicity="0..1" Role="B2BCustomer" Type="HybrisCommerceOData.B2BCustomer"/>
+                <End Multiplicity="0..1" Role="Title" Type="HybrisCommerceOData.Title"/>
+            </Association>
+            <EntityContainer Name="Container" m:IsDefaultEntityContainer="true">
+                <EntitySet EntityType="HybrisCommerceOData.B2BUnit" Name="B2BUnits"/>
+                <EntitySet EntityType="HybrisCommerceOData.Address" Name="Addresses"/>
+                <EntitySet EntityType="HybrisCommerceOData.Language" Name="Languages"/>
+                <EntitySet EntityType="HybrisCommerceOData.Title" Name="Titles"/>
+                <EntitySet EntityType="HybrisCommerceOData.Gender" Name="Genders"/>
+                <EntitySet EntityType="HybrisCommerceOData.B2BCustomer" Name="B2BCustomers"/>
+                <EntitySet EntityType="HybrisCommerceOData.UserGroup" Name="UserGroups"/>
+                <AssociationSet Association="HybrisCommerceOData.FK_Address_title" Name="Address_Titles">
+                    <End EntitySet="Addresses" Role="Address"/>
+                    <End EntitySet="Titles" Role="Title"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_Address_gender" Name="Address_Genders">
+                    <End EntitySet="Addresses" Role="Address"/>
+                    <End EntitySet="Genders" Role="Gender"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_B2BCustomer_defaultB2BUnit" Name="B2BCustomer_B2BUnits">
+                    <End EntitySet="B2BCustomers" Role="B2BCustomer"/>
+                    <End EntitySet="B2BUnits" Role="B2BUnit"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_B2BCustomer_sessionLanguage" Name="B2BCustomer_Languages">
+                    <End EntitySet="B2BCustomers" Role="B2BCustomer"/>
+                    <End EntitySet="Languages" Role="Language"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_B2BCustomer_groups" Name="B2BCustomer_UserGroups">
+                    <End EntitySet="B2BCustomers" Role="B2BCustomer"/>
+                    <End EntitySet="UserGroups" Role="UserGroup"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_B2BCustomer_addresses" Name="B2BCustomer_Addresses">
+                    <End EntitySet="B2BCustomers" Role="B2BCustomer"/>
+                    <End EntitySet="Addresses" Role="Address"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_B2BCustomer_title" Name="B2BCustomer_Titles">
+                    <End EntitySet="B2BCustomers" Role="B2BCustomer"/>
+                    <End EntitySet="Titles" Role="Title"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

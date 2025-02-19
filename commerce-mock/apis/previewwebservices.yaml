@@ -1,0 +1,209 @@
+---
+swagger: "2.0"
+info:
+  description: These services create a preview ticket that contains session settings
+    such as the catalog version, user data, or language data.
+  version: "1.0"
+  title: Preview Webservices
+  license:
+    name: Use of this file is subject to the terms of your agreement with SAP SE or
+      its affiliates respecting the use of the SAP product for which this file relates.
+host: hostname
+basePath: /previewwebservices
+tags:
+- name: Preview
+  description: Operation for preview ticket
+produces:
+- application/xml
+- application/json
+security:
+- oauth2_Password:
+  - basic
+- oauth2_client_credentials:
+  - extended
+paths:
+  /v1/preview:
+    post:
+      tags:
+      - Preview
+      summary: Creates a new preview ticket.
+      operationId: createPreviewTicket
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - in: body
+        name: previewTicketInformation
+        description: Preview ticket to be created
+        required: true
+        schema:
+          $ref: '#/definitions/previewTicket'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/previewTicket'
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Not Found
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/preview/{ticketId}:
+    get:
+      tags:
+      - Preview
+      summary: Returns a preview ticket data.
+      operationId: getPreviewTicket
+      parameters:
+      - name: ticketId
+        in: path
+        description: Preview ticket identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/previewTicket'
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Ticket with given id doesn't exist
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    put:
+      tags:
+      - Preview
+      summary: Updates an existing preview ticket.
+      operationId: replacePreviewTicket
+      consumes:
+      - application/xml
+      - application/json
+      parameters:
+      - in: body
+        name: previewTicketInformation
+        description: Details of the ticket to be updated
+        required: true
+        schema:
+          $ref: '#/definitions/previewTicket'
+      - name: ticketId
+        in: path
+        description: Preview ticket identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/previewTicket'
+        201:
+          description: Created
+        400:
+          description: Bad Request e.g. incorrect request body data, missing parameters
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this method
+        404:
+          description: Ticket with given id doesn't exist
+        409:
+          description: Conflict - ticket code in request body and url do not match
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+securityDefinitions:
+  oauth2_Password:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: password
+    scopes:
+      basic: ""
+  oauth2_client_credentials:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: application
+    scopes:
+      extended: ""
+definitions:
+  catalogVersion:
+    type: object
+    required:
+    - catalog
+    - catalogVersion
+    properties:
+      catalog:
+        type: string
+        description: Catalog ID
+      catalogVersion:
+        type: string
+        description: Catalog version
+    title: catalogVersion
+  previewTicket:
+    type: object
+    required:
+    - resourcePath
+    properties:
+      catalogVersions:
+        type: array
+        description: Catalog version list
+        items:
+          $ref: '#/definitions/catalogVersion'
+      evaluateRestrictions:
+        type: boolean
+        description: Set to true to evaluate the restrictions against all matching
+          pages.
+      language:
+        type: string
+        description: Language of the preview ticket
+      pageId:
+        type: string
+        description: CMS page ID to use for the preview
+      resourcePath:
+        type: string
+        description: Resource path.
+      siteId:
+        type: string
+        description: UID of the site
+      ticketId:
+        type: string
+        description: Preview ticket ID
+      time:
+        type: string
+        format: date-time
+        description: Time of the preview ticket
+      user:
+        type: string
+        description: User of the preview ticket
+      userGroup:
+        type: string
+        description: User group of the preview ticket
+      versionId:
+        type: string
+        description: CMS version ID to use for the preview
+    title: previewTicket
+    description: Preview Ticket.
+x-sap-api-type: REST
+x-sap-shortText: Manage Preview-related items.
+x-sap-stateInfo:
+  state: Active
+x-servers:
+- templates:
+    url:
+      description: SAP Commerce Cloud server URL where the application is deployed.
+  description: Preview Webservices REST API endpoint.
+  url: https://{url}/previewwebservices
+

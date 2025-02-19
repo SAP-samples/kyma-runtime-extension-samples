@@ -1,0 +1,157 @@
+---
+asyncapi: 1.0.0
+info:
+  title: Events
+  version: v1
+  description: Set of events emitted typically by SAP Commerce Cloud
+topics:
+  customer.created.v1:
+    subscribe:
+      summary: Customer Register Event v2
+      payload:
+        type: object
+        required:
+        - storeUid
+        - customerId
+        - customerUid
+        properties:
+          customerUid:
+            type: string
+            example: adam@hybris.com
+            description: Email of a Customer
+            title: Customer uid
+          storeUid:
+            type: string
+            example: 4caad296
+            description: Unique id of a Store
+            title: StoreUid
+          customerId:
+            type: string
+            example: 0ed118f9474e
+            description: Unique id of a Customer
+            title: Customer uid
+  order.completed.v1:
+    subscribe:
+      summary: Order Completed Event v1
+      payload:
+        type: object
+        required:
+        - orderCode
+        - orderStatus
+        properties:
+          orderStatus:
+            type: string
+            example: CHECKED_INVALID
+            description: Status of Order
+            title: Order Status
+          orderCode:
+            type: string
+            example: '76272727'
+            description: Code of Order
+            title: Order Code
+  order.processing.v1:
+    subscribe:
+      summary: Order Processing Event v1
+      payload:
+        type: object
+        required:
+        - orderCode
+        - orderStatus
+        properties:
+          orderStatus:
+            type: string
+            example: CHECKED_INVALID
+            description: Status of Order
+            title: Order Status
+          orderCode:
+            type: string
+            example: '76272727'
+            description: Code of Order
+            title: Order Code
+  order.placed.v1:
+    subscribe:
+      summary: Order Placed Event v1
+      payload:
+        type: object
+        required:
+        - orderCode
+        - orderStatus
+        properties:
+          orderStatus:
+            type: string
+            example: CHECKED_INVALID
+            description: Status of Order
+            title: Order Status
+          orderCode:
+            type: string
+            example: '76272727'
+            description: Code of Order
+            title: Order Code
+  order.paymentfailed.v1:
+    subscribe:
+      summary: Payment Failed for Order Event v1
+      payload:
+        type: object
+        required:
+        - orderCode
+        - orderStatus
+        properties:
+          orderStatus:
+            type: string
+            example: CHECKED_INVALID
+            description: Status of Order
+            title: Order Status
+          orderCode:
+            type: string
+            example: '76272727'
+            description: Code of Order
+            title: Order Code
+  order.refund.v1:
+    subscribe:
+      summary: Order Refund Event v1
+      payload:
+        type: object
+        required:
+        - orderCode
+        - orderStatus
+        properties:
+          orderStatus:
+            type: string
+            example: CHECKED_INVALID
+            description: Status of Order
+            title: Order Status
+          orderCode:
+            type: string
+            example: '76272727'
+            description: Code of Order
+            title: Order Code
+  order.cancelled.v1:
+    subscribe:
+      summary: Order Cancelled Event v1
+      payload:
+        type: object
+        required:
+        - orderCode
+        - orderStatus
+        properties:
+          orderStatus:
+            type: string
+            example: CHECKED_INVALID
+            description: Status of Order
+            title: Order Status
+          orderCode:
+            type: string
+            example: '76272727'
+            description: Code of Order
+            title: Order Code
+  order.created.v1:
+    subscribe:
+      summary: Submit Order Event
+      payload:
+        type: object
+        properties:
+          orderCode:
+            type: string
+            example: '76272727'
+            description: Code of an Order
+            title: Order code

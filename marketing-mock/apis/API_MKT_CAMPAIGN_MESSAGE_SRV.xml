@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_CAMPAIGN_MESSAGE_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="MessageEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MessageUUID"/>
+                </Key>
+                <Property Name="MessageUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Message" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Message ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MessageName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Message Name" sap:updatable="false"/>
+                <Property Name="MessageStatus" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MessageStatusName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Message Status Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MessageType" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Type" sap:updatable="false"/>
+                <Property Name="MessageTypeName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Type Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Creation Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Last Change Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Created By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUserName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Created By Username" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Last Changed By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUserName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Last Changed By Username" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingArea" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:updatable="false"/>
+                <Property Name="MarketingAreaName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DefaultLanguage" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Default Language" sap:updatable="false"/>
+                <Property Name="DefaultLanguageName" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Default Language" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsTemplate" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Template" sap:updatable="false"/>
+                <NavigationProperty Name="AssignedMarketingAgencies" Relationship="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageMarketingAgency" FromRole="FromRole_MessageMarketingAgency" ToRole="ToRole_MessageMarketingAgency"/>
+                <NavigationProperty Name="MessageContents" Relationship="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageContent" FromRole="FromRole_MessageContent" ToRole="ToRole_MessageContent"/>
+            </EntityType>
+            <EntityType Name="MessageContentEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MessageUUID"/>
+                    <PropertyRef Name="LanguageCode"/>
+                </Key>
+                <Property Name="MessageUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Message UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="LanguageCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Lang. (ISO)" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="LanguageName" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MessageContentHTMLString" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Block HTML" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="MessageBlocks" Relationship="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageBlock" FromRole="FromRole_MessageBlock" ToRole="ToRole_MessageBlock"/>
+            </EntityType>
+            <EntityType Name="BlockEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BlockUUID"/>
+                </Key>
+                <Property Name="BlockUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Block UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ParentBlockUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Block UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MessageUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Message UUID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LanguageCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Lang. (ISO)" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Block" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="UID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockType" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Block Type" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockReuseType" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Reuse Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="MessageBlockContents" Relationship="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageBlockContent" FromRole="FromRole_MessageBlockContent" ToRole="ToRole_MessageBlockContent"/>
+            </EntityType>
+            <EntityType Name="BlockContentEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BlockContentUUID"/>
+                </Key>
+                <Property Name="BlockContentUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Message Content UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Block UUID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MessageUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Message UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LanguageCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Lang. (ISO)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockContentConditionID" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Condition Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockContentConditionName" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Condition Name" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockContentHTMLString" Type="Edm.String" sap:unicode="false" sap:label="Block HTML" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockContentType" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Block Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockPosition" Type="Edm.Int16" Nullable="false" sap:unicode="false" sap:label="Block Sort Order" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockContentStyleClasses" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Style Classes" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockControl" Type="Edm.String" sap:unicode="false" sap:label="Object ID" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BlockControlName" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Object Name" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="MarketingAgencyEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MessageUUID"/>
+                    <PropertyRef Name="MarketingAgencyUUID"/>
+                </Key>
+                <Property Name="MessageUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingAgencyUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="NodeID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingAgency" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Agency ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingAgencyName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Agency Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EmailAddress" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:label="Email Address" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ValueHelp" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ObjectType"/>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Filter" Type="API_MKT_CAMPAIGN_MESSAGE_SRV.ValueHelpFilterCT" Nullable="false"/>
+                <Property Name="ObjectType" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Object Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Object ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Generic Code Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <ComplexType Name="PersonalizedMessage">
+                <Property Name="MessageContentText" Type="Edm.String" Nullable="false" sap:label="Message Content" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </ComplexType>
+            <ComplexType Name="ValueHelpFilterCT">
+                <Property Name="Context1" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Generic Context Value 1" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Context2" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Generic Context Value 2" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Context3" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Generic Context Value 3" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Context4" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Generic Context Value 4" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Context5" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Generic Context Value 5" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Context6" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Generic Context Value 6" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Context7" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Generic Context Value 7" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </ComplexType>
+            <Association Name="MessageBlockContent" sap:content-version="1">
+                <End Type="API_MKT_CAMPAIGN_MESSAGE_SRV.BlockEntityType" Multiplicity="1" Role="FromRole_MessageBlockContent"/>
+                <End Type="API_MKT_CAMPAIGN_MESSAGE_SRV.BlockContentEntityType" Multiplicity="*" Role="ToRole_MessageBlockContent"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_MessageBlockContent">
+                        <PropertyRef Name="BlockUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_MessageBlockContent">
+                        <PropertyRef Name="BlockUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="MessageBlock" sap:content-version="1">
+                <End Type="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageContentEntityType" Multiplicity="1" Role="FromRole_MessageBlock"/>
+                <End Type="API_MKT_CAMPAIGN_MESSAGE_SRV.BlockEntityType" Multiplicity="*" Role="ToRole_MessageBlock"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_MessageBlock">
+                        <PropertyRef Name="MessageUUID"/>
+                        <PropertyRef Name="LanguageCode"/>
+                    </Principal>
+                    <Dependent Role="ToRole_MessageBlock">
+                        <PropertyRef Name="MessageUUID"/>
+                        <PropertyRef Name="LanguageCode"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="MessageMarketingAgency" sap:content-version="1">
+                <End Type="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageEntityType" Multiplicity="1" Role="FromRole_MessageMarketingAgency"/>
+                <End Type="API_MKT_CAMPAIGN_MESSAGE_SRV.MarketingAgencyEntityType" Multiplicity="0..1" Role="ToRole_MessageMarketingAgency"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_MessageMarketingAgency">
+                        <PropertyRef Name="MessageUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_MessageMarketingAgency">
+                        <PropertyRef Name="MessageUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="MessageContent" sap:content-version="1">
+                <End Type="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageEntityType" Multiplicity="1" Role="FromRole_MessageContent"/>
+                <End Type="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageContentEntityType" Multiplicity="*" Role="ToRole_MessageContent"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_MessageContent">
+                        <PropertyRef Name="MessageUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_MessageContent">
+                        <PropertyRef Name="MessageUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_CAMPAIGN_MESSAGE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ValueHelps" EntityType="API_MKT_CAMPAIGN_MESSAGE_SRV.ValueHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Messages" EntityType="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageEntityType" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="MessageContents" EntityType="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageContentEntityType" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="Blocks" EntityType="API_MKT_CAMPAIGN_MESSAGE_SRV.BlockEntityType" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="BlockContents" EntityType="API_MKT_CAMPAIGN_MESSAGE_SRV.BlockContentEntityType" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketingAgencies" EntityType="API_MKT_CAMPAIGN_MESSAGE_SRV.MarketingAgencyEntityType" sap:updatable="false" sap:content-version="1"/>
+                <AssociationSet Name="MessageBlockContentSet" Association="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageBlockContent" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Blocks" Role="FromRole_MessageBlockContent"/>
+                    <End EntitySet="BlockContents" Role="ToRole_MessageBlockContent"/>
+                </AssociationSet>
+                <AssociationSet Name="MessageBlockSet" Association="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageBlock" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="MessageContents" Role="FromRole_MessageBlock"/>
+                    <End EntitySet="Blocks" Role="ToRole_MessageBlock"/>
+                </AssociationSet>
+                <AssociationSet Name="MessageMarketingAgencies" Association="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageMarketingAgency" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Messages" Role="FromRole_MessageMarketingAgency"/>
+                    <End EntitySet="MarketingAgencies" Role="ToRole_MessageMarketingAgency"/>
+                </AssociationSet>
+                <AssociationSet Name="MessageContentSet" Association="API_MKT_CAMPAIGN_MESSAGE_SRV.MessageContent" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Messages" Role="FromRole_MessageContent"/>
+                    <End EntitySet="MessageContents" Role="ToRole_MessageContent"/>
+                </AssociationSet>
+                <FunctionImport Name="GetPersonalizedMessage" ReturnType="API_MKT_CAMPAIGN_MESSAGE_SRV.PersonalizedMessage" m:HttpMethod="GET">
+                    <Parameter Name="CampaignOutbound" Type="Edm.String" Mode="In" MaxLength="255"/>
+                    <Parameter Name="LinkTrackingIsDisabled" Type="Edm.Boolean" Mode="In"/>
+                </FunctionImport>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_CAMPAIGN_MESSAGE_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_CAMPAIGN_MESSAGE_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

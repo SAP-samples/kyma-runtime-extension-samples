@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_PROGRAM_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Program" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingProgramUUID"/>
+                </Key>
+                <Property Name="MarketingProgramUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Program Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramID" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Program" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Program Name" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramMarketingArea" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Mktg Area of Program" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgProgramMktgAreaName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Mktg Area of Program" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramValidFromDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="Start Date Mktg Prog" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramValidToDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="End Date Mktg Prog." sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingPlanUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Marketing Plan Key" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgProgramDetailDimension" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Det.Dimension" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgProgramTimeDimension" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Time Dimension" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgProgramCreationDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Mktg Pgm Crtd On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgProgramCreatedByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgProgramLastChgdDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Mktg Pgm Chgd On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgProgramLastChgdByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgProgramCreatedByUserName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Mktg Pgm Created By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingPlanName" Type="Edm.String" Nullable="false" MaxLength="125" sap:unicode="false" sap:label="Marketing Plan" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Mkgt Program Crcy" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <NavigationProperty Name="ProgramMediaTypeSpend" Relationship="API_MKT_PROGRAM_SRV.ProgramMediaTypeSpend" FromRole="FromRole_ProgramMediaTypeSpend" ToRole="ToRole_ProgramMediaTypeSpend"/>
+                <NavigationProperty Name="ProgramHeaderProposedSpend" Relationship="API_MKT_PROGRAM_SRV.ProgramHeaderProposedSpend" FromRole="FromRole_ProgramHeaderProposedSpend" ToRole="ToRole_ProgramHeaderProposedSpend"/>
+                <NavigationProperty Name="Phase" Relationship="API_MKT_PROGRAM_SRV.Phase" FromRole="FromRole_Phase" ToRole="ToRole_Phase"/>
+            </EntityType>
+            <EntityType Name="MediaTypeSpend" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingProgramMediaTypeUUID"/>
+                </Key>
+                <Property Name="MarketingProgramMediaTypeUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Media Type Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Program Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramMediaType" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Media Type" sap:creatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MediaTypeName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Media Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgProgramMediaTypeStartDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="Start Date" sap:creatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgProgramMediaTypeEndDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="End Date" sap:creatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramPhaseUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Phase Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramPhaseName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Phase Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="TimeSplit" Relationship="API_MKT_PROGRAM_SRV.TimeSplit" FromRole="FromRole_TimeSplit" ToRole="ToRole_TimeSplit"/>
+            </EntityType>
+            <EntityType Name="MediaTypeSpendTimeSplit" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingProgramMediaTypeUUID"/>
+                    <PropertyRef Name="CalendarYear"/>
+                    <PropertyRef Name="CalendarMonth"/>
+                </Key>
+                <Property Name="MarketingProgramMediaTypeUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Media Type Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Program Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CalendarYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Calendar Year" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CalendarMonth" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Calendar Month" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgSpendCalendarMonthName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Calendar Month Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Mkgt Program Crcy" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="ProposedMktgSpendAmt" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:label="Proposed Mktg Spend" sap:creatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ProgramPhase" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingProgramPhaseUUID"/>
+                </Key>
+                <Property Name="MarketingProgramPhaseUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Phase Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Program Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramPhaseName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Phase" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramPhaseStartDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="Start Date of Phase" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramPhaseEndDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="End Date of Phase" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="PhaseMediaTypeSpend" Relationship="API_MKT_PROGRAM_SRV.PhaseMediaTypeSpend" FromRole="FromRole_PhaseMediaTypeSpend" ToRole="ToRole_PhaseMediaTypeSpend"/>
+            </EntityType>
+            <EntityType Name="HeaderProposedSpend" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingProgramPlngDataUUID"/>
+                </Key>
+                <Property Name="MarketingProgramPlngDataUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Mktg Prog Plng Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Program Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProposedMktgSpendAmt" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:unit="MarketingProgramCurrency" sap:label="Proposed Mktg Spend" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramCurrency" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Mkgt Program Crcy" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+            </EntityType>
+            <Association Name="PhaseMediaTypeSpend" sap:content-version="1">
+                <End Type="API_MKT_PROGRAM_SRV.ProgramPhase" Multiplicity="1" Role="FromRole_PhaseMediaTypeSpend"/>
+                <End Type="API_MKT_PROGRAM_SRV.MediaTypeSpend" Multiplicity="*" Role="ToRole_PhaseMediaTypeSpend"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_PhaseMediaTypeSpend">
+                        <PropertyRef Name="MarketingProgramPhaseUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_PhaseMediaTypeSpend">
+                        <PropertyRef Name="MarketingProgramPhaseUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Phase" sap:content-version="1">
+                <End Type="API_MKT_PROGRAM_SRV.Program" Multiplicity="1" Role="FromRole_Phase"/>
+                <End Type="API_MKT_PROGRAM_SRV.ProgramPhase" Multiplicity="*" Role="ToRole_Phase"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Phase">
+                        <PropertyRef Name="MarketingProgramUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Phase">
+                        <PropertyRef Name="MarketingProgramUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProgramHeaderProposedSpend" sap:content-version="1">
+                <End Type="API_MKT_PROGRAM_SRV.Program" Multiplicity="1" Role="FromRole_ProgramHeaderProposedSpend"/>
+                <End Type="API_MKT_PROGRAM_SRV.HeaderProposedSpend" Multiplicity="1" Role="ToRole_ProgramHeaderProposedSpend"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProgramHeaderProposedSpend">
+                        <PropertyRef Name="MarketingProgramUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProgramHeaderProposedSpend">
+                        <PropertyRef Name="MarketingProgramUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProgramMediaTypeSpend" sap:content-version="1">
+                <End Type="API_MKT_PROGRAM_SRV.Program" Multiplicity="1" Role="FromRole_ProgramMediaTypeSpend"/>
+                <End Type="API_MKT_PROGRAM_SRV.MediaTypeSpend" Multiplicity="*" Role="ToRole_ProgramMediaTypeSpend"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProgramMediaTypeSpend">
+                        <PropertyRef Name="MarketingProgramUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProgramMediaTypeSpend">
+                        <PropertyRef Name="MarketingProgramUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="TimeSplit" sap:content-version="1">
+                <End Type="API_MKT_PROGRAM_SRV.MediaTypeSpend" Multiplicity="1" Role="FromRole_TimeSplit"/>
+                <End Type="API_MKT_PROGRAM_SRV.MediaTypeSpendTimeSplit" Multiplicity="*" Role="ToRole_TimeSplit"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_TimeSplit">
+                        <PropertyRef Name="MarketingProgramMediaTypeUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_TimeSplit">
+                        <PropertyRef Name="MarketingProgramMediaTypeUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_PROGRAM_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Programs" EntityType="API_MKT_PROGRAM_SRV.Program" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="MediaTypeSpends" EntityType="API_MKT_PROGRAM_SRV.MediaTypeSpend" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="MediaTypeTimeSplits" EntityType="API_MKT_PROGRAM_SRV.MediaTypeSpendTimeSplit" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ProgramPhases" EntityType="API_MKT_PROGRAM_SRV.ProgramPhase" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="HeaderProposedSpends" EntityType="API_MKT_PROGRAM_SRV.HeaderProposedSpend" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="Phases" Association="API_MKT_PROGRAM_SRV.Phase" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Programs" Role="FromRole_Phase"/>
+                    <End EntitySet="ProgramPhases" Role="ToRole_Phase"/>
+                </AssociationSet>
+                <AssociationSet Name="ProgramHeaderProposedSpends" Association="API_MKT_PROGRAM_SRV.ProgramHeaderProposedSpend" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Programs" Role="FromRole_ProgramHeaderProposedSpend"/>
+                    <End EntitySet="HeaderProposedSpends" Role="ToRole_ProgramHeaderProposedSpend"/>
+                </AssociationSet>
+                <AssociationSet Name="TimeSplit_AssocSet" Association="API_MKT_PROGRAM_SRV.TimeSplit" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="MediaTypeSpends" Role="FromRole_TimeSplit"/>
+                    <End EntitySet="MediaTypeTimeSplits" Role="ToRole_TimeSplit"/>
+                </AssociationSet>
+                <AssociationSet Name="ProgramMediaTypeSpends" Association="API_MKT_PROGRAM_SRV.ProgramMediaTypeSpend" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Programs" Role="FromRole_ProgramMediaTypeSpend"/>
+                    <End EntitySet="MediaTypeSpends" Role="ToRole_ProgramMediaTypeSpend"/>
+                </AssociationSet>
+                <AssociationSet Name="PhaseMediaTypeSpends" Association="API_MKT_PROGRAM_SRV.PhaseMediaTypeSpend" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProgramPhases" Role="FromRole_PhaseMediaTypeSpend"/>
+                    <End EntitySet="MediaTypeSpends" Role="ToRole_PhaseMediaTypeSpend"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_PROGRAM_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_PROGRAM_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

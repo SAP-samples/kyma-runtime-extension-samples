@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_PRODCAT_HIERARCHY_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ProductHierarchy" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductHierarchyID"/>
+                </Key>
+                <Property Name="ProductHierarchyID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Hierarchy ID"/>
+                <NavigationProperty Name="ProductHierarchyNames" Relationship="API_MKT_PRODCAT_HIERARCHY_SRV.ProdHierarchyProdHierarchyName" FromRole="FromRole_ProdHierarchyProdHierarchyName" ToRole="ToRole_ProdHierarchyProdHierarchyName"/>
+                <NavigationProperty Name="ProductCategories" Relationship="API_MKT_PRODCAT_HIERARCHY_SRV.ProductHierarchyProductCategory" FromRole="FromRole_ProductHierarchyProductCategory" ToRole="ToRole_ProductHierarchyProductCategory"/>
+            </EntityType>
+            <EntityType Name="ProductHierarchyName" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductHierarchyID"/>
+                    <PropertyRef Name="Language"/>
+                </Key>
+                <Property Name="ProductHierarchyID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Hierarchy ID"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="120" sap:unicode="false" sap:label="Prod Hier Name"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="512" sap:unicode="false" sap:label="Prod. Cat. Desc."/>
+            </EntityType>
+            <EntityType Name="ProductCategory" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductHierarchyID"/>
+                    <PropertyRef Name="ProductCategoryID"/>
+                </Key>
+                <Property Name="ProductHierarchyID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Hierarchy ID"/>
+                <Property Name="ProductCategoryID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Category ID"/>
+                <Property Name="ParentProductCategoryID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Parent Cat. ID"/>
+                <NavigationProperty Name="ProductCategoryNames" Relationship="API_MKT_PRODCAT_HIERARCHY_SRV.ProductCategoryProductCategoryName" FromRole="FromRole_ProductCategoryProductCategoryName" ToRole="ToRole_ProductCategoryProductCategoryName"/>
+            </EntityType>
+            <EntityType Name="ProductCategoryName" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductHierarchyID"/>
+                    <PropertyRef Name="Language"/>
+                    <PropertyRef Name="ProductCategoryID"/>
+                </Key>
+                <Property Name="ProductHierarchyID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Hierarchy ID"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language"/>
+                <Property Name="ProductCategoryID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Category ID"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="120" sap:unicode="false" sap:label="Prod. Cat. Name"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="512" sap:unicode="false" sap:label="Prod. Cat. Desc."/>
+            </EntityType>
+            <Association Name="ProductHierarchyProductCategory" sap:content-version="1">
+                <End Type="API_MKT_PRODCAT_HIERARCHY_SRV.ProductHierarchy" Multiplicity="1" Role="FromRole_ProductHierarchyProductCategory"/>
+                <End Type="API_MKT_PRODCAT_HIERARCHY_SRV.ProductCategory" Multiplicity="*" Role="ToRole_ProductHierarchyProductCategory"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProductHierarchyProductCategory">
+                        <PropertyRef Name="ProductHierarchyID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProductHierarchyProductCategory">
+                        <PropertyRef Name="ProductHierarchyID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProdHierarchyProdHierarchyName" sap:content-version="1">
+                <End Type="API_MKT_PRODCAT_HIERARCHY_SRV.ProductHierarchy" Multiplicity="1" Role="FromRole_ProdHierarchyProdHierarchyName"/>
+                <End Type="API_MKT_PRODCAT_HIERARCHY_SRV.ProductHierarchyName" Multiplicity="*" Role="ToRole_ProdHierarchyProdHierarchyName"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProdHierarchyProdHierarchyName">
+                        <PropertyRef Name="ProductHierarchyID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProdHierarchyProdHierarchyName">
+                        <PropertyRef Name="ProductHierarchyID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProductCategoryProductCategoryName" sap:content-version="1">
+                <End Type="API_MKT_PRODCAT_HIERARCHY_SRV.ProductCategory" Multiplicity="1" Role="FromRole_ProductCategoryProductCategoryName"/>
+                <End Type="API_MKT_PRODCAT_HIERARCHY_SRV.ProductCategoryName" Multiplicity="*" Role="ToRole_ProductCategoryProductCategoryName"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProductCategoryProductCategoryName">
+                        <PropertyRef Name="ProductHierarchyID"/>
+                        <PropertyRef Name="ProductCategoryID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProductCategoryProductCategoryName">
+                        <PropertyRef Name="ProductHierarchyID"/>
+                        <PropertyRef Name="ProductCategoryID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_PRODCAT_HIERARCHY_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ProductHierarchies" EntityType="API_MKT_PRODCAT_HIERARCHY_SRV.ProductHierarchy" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductHierarchyNames" EntityType="API_MKT_PRODCAT_HIERARCHY_SRV.ProductHierarchyName" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductCategories" EntityType="API_MKT_PRODCAT_HIERARCHY_SRV.ProductCategory" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductCategoryNames" EntityType="API_MKT_PRODCAT_HIERARCHY_SRV.ProductCategoryName" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="ProdHierarchyProdHierarchyNameSet" Association="API_MKT_PRODCAT_HIERARCHY_SRV.ProdHierarchyProdHierarchyName" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProductHierarchies" Role="FromRole_ProdHierarchyProdHierarchyName"/>
+                    <End EntitySet="ProductHierarchyNames" Role="ToRole_ProdHierarchyProdHierarchyName"/>
+                </AssociationSet>
+                <AssociationSet Name="ProductHierarchyProductCategorySet" Association="API_MKT_PRODCAT_HIERARCHY_SRV.ProductHierarchyProductCategory" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProductHierarchies" Role="FromRole_ProductHierarchyProductCategory"/>
+                    <End EntitySet="ProductCategories" Role="ToRole_ProductHierarchyProductCategory"/>
+                </AssociationSet>
+                <AssociationSet Name="ProductCategoryProductCategoryNameSet" Association="API_MKT_PRODCAT_HIERARCHY_SRV.ProductCategoryProductCategoryName" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProductCategories" Role="FromRole_ProductCategoryProductCategoryName"/>
+                    <End EntitySet="ProductCategoryNames" Role="ToRole_ProductCategoryProductCategoryName"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_PRODCAT_HIERARCHY_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_PRODCAT_HIERARCHY_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

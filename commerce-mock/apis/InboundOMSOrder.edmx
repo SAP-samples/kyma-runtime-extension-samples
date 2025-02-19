@@ -1,0 +1,20 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:s="http://schemas.sap.com/commerce" Namespace="HybrisCommerceOData" s:schema-version="1">
+            <EntityType Name="SAPOrder">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="orderEntryNumber" Nullable="true" Type="Edm.Int32"/>
+                <Property Name="goodsIssueDate" Nullable="true" Type="Edm.DateTime"/>
+                <Property Name="code" Nullable="true" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="rejectionReason" Nullable="true" Type="Edm.String"/>
+                <Property Name="quantity" Nullable="true" Type="Edm.Int32"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="SAPOrder_code"/>
+            </EntityType>
+            <EntityContainer Name="Container" m:IsDefaultEntityContainer="true">
+                <EntitySet EntityType="HybrisCommerceOData.SAPOrder" Name="SAPOrders"/>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

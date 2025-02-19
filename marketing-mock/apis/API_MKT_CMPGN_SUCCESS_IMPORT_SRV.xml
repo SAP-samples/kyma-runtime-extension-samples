@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_CMPGN_SUCCESS_IMPORT_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Success" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CampaignSuccessUUID"/>
+                </Key>
+                <Property Name="CampaignSuccessUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Campaign UUID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignID" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignCategoryID" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Category ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExternalCampaignID" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Ext. Campaign ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExternalCampaignName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Ext. Campaign Name" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Advertiser" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Advertiser ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AdvertiserName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Advertiser Name" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExternalCmpgnManagingParty" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Managing Party" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExternalCmpgnManagingPartyName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Managing Party Name" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMedium" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Communication Medium" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SuccessDataDate" Type="Edm.DateTime" Precision="0" sap:unicode="false" sap:label="Date" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SuccessDataDateTimeZone" Type="Edm.String" MaxLength="6" sap:unicode="false" sap:label="Timezone" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="YearWeek" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Year Week" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="YearMonth" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Year Month" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AdServingSpendAmount" Type="Edm.Decimal" Nullable="false" Precision="32" Scale="3" sap:unicode="false" sap:label="Spend Amount" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SuggestedAdServingSpendAmount" Type="Edm.Decimal" Nullable="false" Precision="32" Scale="3" sap:unicode="false" sap:label="Suggested Spend" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AdServingSpendAmtCrcyISOCode" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Spend Currency" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="AgeRangeLowerLimit" Type="Edm.Byte" Nullable="false" sap:unicode="false" sap:label="Age Range Low" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AgeRangeUpperLimit" Type="Edm.Byte" Nullable="false" sap:unicode="false" sap:label="Age Range High" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="GenderFreeText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Gender" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CountryFreeText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Country" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RegionFreeText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Region" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="InteractionStatus" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Interaction Status" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="InteractionReason" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Interaction Reason" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="InteractionType" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Interaction Type" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignContent" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Campaign Content ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignContentName" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Content Name" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignContentLinkName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Content Link Name" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DeviceFreeText" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Device" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AdNetworkFreeText" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Ad Network" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PaidSearchKeywordText" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Baidu Paid Search Key Word" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PaidSearchSearchTermText" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Baidu Paid Search Search Term" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignReach" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Reach" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignReachInPercent" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="2" sap:unicode="false" sap:label="Reach in Percent" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfImpressions" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Impressions" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfClicks" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Clicks" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfUniqueClicks" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Unique Clicks" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfPageLikes" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Page Likes" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfPostEngagements" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Page Post Eng." sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfOfferClaims" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Offer Claims" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfVideoViews" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Video Views" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfWebsiteConversions" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Website Conversions" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfAppInstalls" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="App Installs" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfAppEngagements" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="App Engagements" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfEventResponses" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Event Responses" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfRejectedMessages" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Rejected Messages" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfSentMessages" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Sent Messages" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfDeliveredMessages" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Delivered Messages" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfOpenedMessages" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Opened Messages" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfHardBounces" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Hard Bounces" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfSoftBounces" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Soft Bounces" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfOrders" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Number of Orders" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OrderAmount" Type="Edm.Decimal" Nullable="false" Precision="32" Scale="3" sap:unicode="false" sap:label="Order Amount" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MultiTouchAttributedOrderAmt" Type="Edm.Decimal" Nullable="false" Precision="32" Scale="3" sap:unicode="false" sap:label="Multi Touch Ord Amt" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProjectedOrderAmount" Type="Edm.Decimal" Nullable="false" Precision="32" Scale="3" sap:unicode="false" sap:label="Projected Order Amt" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OrderAmountCurrencyISOCode" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Order Currency" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="NrOfMultiTchAttrCnvrsns" Type="Edm.Decimal" Nullable="false" Precision="19" Scale="9" sap:unicode="false" sap:label="Multi Touch Cnvrsns" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProjectedNumberOfConversions" Type="Edm.Decimal" Nullable="false" Precision="19" Scale="9" sap:unicode="false" sap:label="Projected Cnvrsns" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfRegistrations" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Registrations" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfDownloads" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Downloads" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="VideoViewedAverageInPercent" Type="Edm.Decimal" Nullable="false" Precision="5" Scale="2" sap:unicode="false" sap:label="Per. Video Viewed" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="GrossRatingPoints" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:label="Gross Rating Points" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="GrossRatingPointBase" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="GRP Base" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfLeads" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="No. of Leads" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfOpportunities" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="No. of Opportunities" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OpportunityAmount" Type="Edm.Decimal" Nullable="false" Precision="32" Scale="3" sap:unicode="false" sap:label="Opportunity Amount" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OpportunityAmountCrcyISOCode" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Opportunity Currency" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="NumberOfPhoneCalls" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Phone Calls" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfAppointments" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Appointments" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfFailedInteractions" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Failed Interactions" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfMarketingOfferViews" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Offer Views" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfEmailComplaints" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Email Complaints" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NmbrOfOpenChannelInteractions" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Open Channel Interac" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfExecutedInteractions" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Executed Interact." sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfTasks" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Tasks" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityContainer Name="API_MKT_CMPGN_SUCCESS_IMPORT_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Successes" EntityType="API_MKT_CMPGN_SUCCESS_IMPORT_SRV.Success" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_CMPGN_SUCCESS_IMPORT_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_CMPGN_SUCCESS_IMPORT_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

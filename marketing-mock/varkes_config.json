@@ -1,0 +1,247 @@
+{
+    "application": "SAP Marketing Cloud",
+    "provider": "SAP",
+    "logo": "logo.svg",
+    "package": "SAP Marketing Cloud",
+    "events": [
+        {
+            "specification": "apis/events.json"
+        }
+    ],
+    "apis": [
+        {
+            "name": "Campaigns",
+            "description": "Marketing Campaigns API - This service enables external applications to access Campaign information from SAP Marketing Cloud.",
+            "specification": "apis/API_MKT_CAMPAIGN_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_CAMPAIGN_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Campaign Templates",
+            "description": "Marketing Campaign Templates API - API to read the available Campaign Templates, inclusive of SAP delivered templates and custom templates. These can be used further to Create Campaigns referencing the template.",
+            "specification": "apis/API_MKT_CAMPAIGN_TEMPLATE_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_CAMPAIGN_TEMPLATE_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Contact",
+            "description": "Marketing Contact API - This API service should be used for reading and writing master data about natural persons only",
+            "specification": "apis/API_MKT_CONTACT_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_CONTACT_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Export Definition",
+            "description": "Marketing Export Definition API - Read Content of Export Files in Campaigns - This service can be consumed by external applications to read the file name and content of an export file created during campaign execution.",
+            "specification": "apis/API_MKT_EXPORT_DEFINITION_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_EXPORT_DEFINITION_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Interactions",
+            "description": "Marketing Interactions API - This service enables external applications to access Interaction information from SAP Hybris Marketing Cloud.",
+            "specification": "apis/API_MKT_INTERACTION_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_INTERACTION_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Interaction Contacts",
+            "description": "Marketing Interaction Contacts API - to read and write Cookie IDs or reading ‘unknowns’, these are entities which can’t be classified as natural or legal person",
+            "specification": "apis/API_MKT_INTERACTION_CONTACT_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_INTERACTION_CONTACT_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Target Groups",
+            "description": "Marketing Target Groups API - The API can be consumed by external applications to get a list of Static, Dynamic, and Live target groups.",
+            "specification": "apis/API_MKT_TARGET_GROUP_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_TARGET_GROUP_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Business Documents Import",
+            "description": "Marketing Business Documents Import API - Imports business documents such as sales orders, leads, opportunities and so on.",
+            "specification": "apis/CUAN_BUSINESS_DOCUMENT_IMP_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/CUAN_BUSINESS_DOCUMENT_IMP_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Offer Discovery",
+            "description": "Marketing Offer Discovery API - This service enables external applications to find suitable offers for a consumer.",
+            "specification": "apis/CUAN_OFFER_DISCOVERY_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/CUAN_OFFER_DISCOVERY_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Agreements",
+            "description": "Marketing Agreements API - This service can be used to replicate customer agreements from different source systems.",
+            "specification": "apis/API_MKT_AGREEMENT_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_AGREEMENT_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Products",
+            "description": "Marketing Products API - This service can be used to create SAP Marketing Cloud products from any source system. In contrast to OData service CUAN_IMPORT, OData service API_MKT_PRODUCT_SRV supports the change of products. Each product is identified by the key of the product in the external system.",
+            "specification": "apis/API_MKT_PRODUCT_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_PRODUCT_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Programs",
+            "description": "Marketing Programs API - This service enables external applications to access marketing program information from SAP Marketing Cloud.",
+            "specification": "apis/API_MKT_PROGRAM_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_PROGRAM_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Scores",
+            "description": "Marketing Scores API - API to read computed Scores and import Scores from External sources.",
+            "specification": "apis/API_MKT_SCORE_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_SCORE_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Business Partner Import",
+            "description": "Marketing Business Partner Import API - You use this generic interface to import business partners from various source systems (such as ERP, C4C, etc.).",
+            "specification": "apis/CUAN_BUSINESS_PARTNER_IMPORT_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/CUAN_BUSINESS_PARTNER_IMPORT_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Product Categories Import",
+            "description": "Marketing Product Categories Import API - The service can be consumed by external applications to: Handle $batch requests for import product hierarchies and it's descriptions in multiple languages via http operation POST. Handle $batch requests for import product categories via http operation PATCH/MERGE. Handle $batch requests for import descriptions of the product categories via http operation POST.",
+            "specification": "apis/API_MKT_PRODCAT_HIERARCHY_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_PRODCAT_HIERARCHY_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Corporate Account",
+            "description": "Marketing Corporate Account API - This API service should be used for reading and writing master data about corporate accounts only.",
+            "specification": "apis/API_MKT_CORPORATE_ACCOUNT_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_CORPORATE_ACCOUNT_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Loyalty",
+            "description": "Marketing Loyalty API - This service provides loyalty data such as loyalty program, tier, and member data for further processing in SAP Marketing Cloud. The member data enriches the consumer profile and the loyalty attributes (program, tier, member, and balance points) are available for segmentat",
+            "specification": "apis/API_MKT_LOYALTY_SRV_01.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_LOYALTY_SRV_01",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "SAP Marketing Cloud - Coupons",
+            "description": "Marketing Coupons API - This service enables external applications to access Coupon information from SAP Marketing Cloud.",
+            "specification": "apis/API_MKT_COUPON_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_COUPON_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Offer Import",
+            "description": "Marketing Offer Import API - This service enables external applications to import offers into SAP Marketing Cloud.",
+            "specification": "apis/CUAN_OFFER_IMPORT_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/CUAN_OFFER_IMPORT_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Master Data Import",
+            "description": "Marketing Master Data Import API - Imports contacts, interactions, products, product categories, and items of interest into SAP Marketing Cloud.",
+            "specification": "apis/CUAN_IMPORT_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/CUAN_IMPORT_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Campaign Messages",
+            "description": "Marketing Campaign Messages API - API to read Existing Campaign Content, it’s building blocks and create the Campaign Content",
+            "specification": "apis/API_MKT_CAMPAIGN_MESSAGE_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_CAMPAIGN_MESSAGE_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Campaign Success Import",
+            "description": "Marketing Campaign Success Import API - This integration service allows you to aggregated success data from external systems and write the data to campaigns in SAP Marketing Cloud.",
+            "specification": "apis/API_MKT_CMPGN_SUCCESS_IMPORT_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_CMPGN_SUCCESS_IMPORT_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Locations",
+            "description": "Marketing Locations API - A marketing location is defined as any physical or virtual location where a marketing activity can be conducted. It can be a brick and mortar store, a mall, a kiosk, a Web store, or even a beach area where marketers can distribute their coupons.",
+            "specification": "apis/API_MKT_LOCATION_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_LOCATION_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Offers",
+            "description": "Marketing Offers API - API to read Offers and dependent objects from SAP Marketing Cloud.",
+            "specification": "apis/API_MKT_OFFER_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_OFFER_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "External Recommendation",
+            "description": "Marketing External Recommendation API - This service enables external applications to create, read and update Recommendations in the SAP Marketing Cloud.",
+            "specification": "apis/API_MKT_EXTERNAL_RECMDN_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/API_MKT_EXTERNAL_RECMDN_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        },
+        {
+            "name": "Surveys",
+            "description": "Marketing Surveys API - The API can be consumed by external applications to: Get a list of surveys. Get a specific survey. Create a survey. Get list of questions of a survey. Get a specific question of a survey. Create a survey question. Get list of responses of all surveys. Get a response of a specific survey. Create a survey response.",
+            "specification": "apis/CUAN_SURVEY_IMPORT_SRV.xml",
+            "basepath":"/sap/opu/odata/sap/CUAN_SURVEY_IMPORT_SRV",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        }
+    ]
+}
