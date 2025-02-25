@@ -1,0 +1,3943 @@
+---
+swagger: "2.0"
+info:
+  description: These client-independent services manage CMS-related items.
+  version: "1.0"
+  title: CMS Webservices
+  license:
+    name: Use of this file is subject to the terms of your agreement with SAP SE or
+      its affiliates respecting the use of the SAP product for which this file relates.
+host: hostname
+basePath: /cmswebservices
+tags:
+- name: catalog version media
+  description: Controller that provides media.
+- name: catalog version synchronization
+  description: Controller that handles synchronization of catalogs
+- name: catalog versions
+  description: Controller that provides an API to retrieve a catalog version information.
+- name: cmsitems
+  description: Generic controller to deal with CMS items (Components, Pages, Restrictions).
+- name: item synchronization
+  description: Controller to retrieve a synchronization status to perform synchronization
+- name: languages
+  description: Controller to deal with languages.
+- name: media
+  description: Controller that handles searching for media.
+- name: navigation
+  description: Controller to deal with navigation objects
+- name: page restrictions
+  description: Controller that provides an API to retrieve all pages and their restrictions.
+- name: page slot components
+  description: Controller that provides an API to update components either between
+    slots, or within a single slot.
+- name: page slot containers
+  description: Controller that provides an API to retrieve information about containers
+    in content slots in a page.
+- name: page slot restrictions
+  description: Controller that provides type restrictions for CMS content slots.
+- name: page slots
+  description: Controller that provides an API to retrieve all pages where a given
+    content slot is present.
+- name: page templates
+  description: Controller to deal with page template objects
+- name: page type restrictions
+  description: Controller that provides an API to retrieve all pages types and their
+    restrictions types.
+- name: page types
+  description: Controller to get page types.
+- name: pages
+  description: Controller to deal with an abstract page model objects
+- name: product categories
+  description: Controller to retrieve and search products within a Product Catalog
+    Version.
+- name: products
+  description: Product Controller
+- name: restriction types
+  description: Controller to get restriction types.
+- name: sites
+  description: Controller to support the sites end point.
+- name: types
+  description: Controller to deal with component types.
+- name: user groups
+  description: Controller to retrieve and search for user groups.
+- name: users
+  description: User Controller
+- name: versions
+  description: Controller to deal with versions
+- name: workflow actions
+  description: Controller to manage workflow actions.
+- name: workflow operations
+  description: Controller that provides an API to perform different operations on
+    workflows.
+- name: workflow templates
+  description: Controller that provides an API to retrieve workflow templates for
+    a given catalog version.
+- name: workflows
+  description: Controller to manage workflows for CMS Items.
+produces:
+- application/json
+security:
+- oauth2_Password:
+  - basic
+- oauth2_client_credentials:
+  - extended
+paths:
+  /v1/catalogs/{catalogId}/synchronizations/targetversions/{targetVersionId}:
+    get:
+      tags:
+      - catalog version synchronization
+      summary: Gets last synchronization by target catalog.
+      description: Retrieves the status of the last synchronization job. Information is
+        retrieved based on the catalog version target.
+      operationId: getLastSynchronizationByCatalog
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: targetVersionId
+        in: path
+        description: Catalog version destination to be synchronized
+        required: true
+        type: string
+      responses:
+        200:
+          description: The synchronization status
+          schema:
+            $ref: '#/definitions/SyncJobData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/catalogs/{catalogId}/versions/{sourceVersionId}/synchronizations/versions/{targetVersionId}:
+    get:
+      tags:
+      - catalog version synchronization
+      summary: Gets synchronization status.
+      description: Retrieves the status of the last synchronization for a catalog. Information is
+        retrieved based on a given catalog, source version and target version ids.
+      operationId: getSynchronizationByCatalog
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: sourceVersionId
+        in: path
+        description: Catalog version used as a starting point in this synchronization
+        required: true
+        type: string
+      - name: targetVersionId
+        in: path
+        description: Catalog version destination to be synchronized
+        required: true
+        type: string
+      responses:
+        200:
+          description: The synchronization status
+          schema:
+            $ref: '#/definitions/SyncJobData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    post:
+      tags:
+      - catalog version synchronization
+      summary: Creates a catalog synchronization.
+      description: Generates a new synchronization status. The status is generated based on a given catalog, source version and target version ids.
+      operationId: createNewSynchronizationByCatalog
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: sourceVersionId
+        in: path
+        description: Catalog version used as a starting point in this synchronization
+        required: true
+        type: string
+      - name: targetVersionId
+        in: path
+        description: Catalog version destination to be synchronized
+        required: true
+        type: string
+      responses:
+        200:
+          description: The synchronization status
+          schema:
+            $ref: '#/definitions/SyncJobData'
+        400:
+          description: When one of the catalogs does not exist (CMSItemNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    put:
+      tags:
+      - catalog version synchronization
+      summary: Creates a catalog synchronization.
+      description: Generates a new synchronization status. The status is generated based on a given catalog, source version and target version ids.
+      operationId: replaceSynchronizationByCatalog
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: sourceVersionId
+        in: path
+        description: Catalog version used as a starting point in this synchronization
+        required: true
+        type: string
+      - name: targetVersionId
+        in: path
+        description: Catalog version destination to be synchronized
+        required: true
+        type: string
+      responses:
+        200:
+          description: The synchronization status
+          schema:
+            $ref: '#/definitions/SyncJobData'
+        400:
+          description: When one of the catalogs does not exist (CMSItemNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: true
+  /v1/catalogs/{catalogId}/versions/{versionId}/media:
+    post:
+      tags:
+      - catalog version media
+      summary: Uploads media.
+      description: Provides a new multipart media item for a given catalogId.
+      operationId: doUploadMultipartMedia
+      consumes:
+      - multipart/form-data
+      parameters:
+      - name: altText
+        in: query
+        description: The alternative text to use for the newly created media.
+        required: true
+        type: string
+      - name: catalogId
+        in: path
+        description: The unique identifier of the catalog for which to link the new
+          media.
+        required: true
+        type: string
+      - name: code
+        in: query
+        description: The code to use for the newly created media.
+        required: true
+        type: string
+      - name: description
+        in: query
+        description: The description to use for the newly created media.
+        required: true
+        type: string
+      - name: file
+        in: formData
+        description: The file representing the actual binary contents of the media
+          to be created.
+        required: true
+        type: file
+      - name: mime
+        in: query
+        description: Internet Media Type for the media file.
+        required: false
+        type: string
+      - name: versionId
+        in: path
+        description: The specific catalog version to which the new media will be associated
+          to.
+        required: true
+        type: string
+      responses:
+        200:
+          description: The newly created Media item
+          schema:
+            $ref: '#/definitions/MediaData'
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/MediaData'
+        400:
+          description: When an error occurs parsing the MultipartFile (IOException)
+            or when the media query parameters provided contain validation errors
+            (WebserviceValidationException)
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/catalogs/{catalogId}/versions/{versionId}/pages/{pageId}/contentslots/{slotId}/typerestrictions:
+    get:
+      tags:
+      - page slot restrictions
+      summary: Gets type restrictions for content slot.
+      description: Retrieves a list of available type restrictions for a given page id and content slot id.
+      operationId: getTypeRestrictionForContentSlot
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: pageId
+        in: path
+        description: The page identifier
+        required: true
+        type: string
+      - name: slotId
+        in: path
+        description: The slot identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: item providing the mapping
+          schema:
+            $ref: '#/definitions/ContentSlotTypeRestrictionsData'
+        400:
+          description: When the page/slot cannot be found (CMSItemNotFoundException)
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/catalogs/{catalogId}/versions/{versionId}/workflows:
+    get:
+      tags:
+      - workflows
+      summary: Finds all workflows containing the given attachments.
+      description: Retrieves a list of available workflow instances that has the given CMSItem uuids as
+        an attachment to the workflow.
+      operationId: getAllWorkflowsForAttachments
+      parameters:
+      - name: attachment
+        in: query
+        description: The uuid of the CMSItem attached to the workflow
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: catalogId
+        in: path
+        description: The id of the catalog
+        required: true
+        type: string
+      - name: currentPage
+        in: query
+        description: Catalog on which to search
+        required: true
+        type: string
+      - name: pageSize
+        in: query
+        description: Page size for paging
+        required: true
+        type: string
+      - name: sort
+        in: query
+        description: The requested ordering for the search results.
+        required: false
+        type: string
+      - name: statuses
+        in: query
+        description: The list of workflow statues. When none provided, the default
+          statuses are set to RUNNING and PAUSED. This will return all active workflows.
+        required: false
+        type: array
+        items:
+          type: string
+        collectionFormat: multi
+        allowEmptyValue: false
+      - name: versionId
+        in: path
+        description: The version of the catalog
+        required: true
+        type: string
+      responses:
+        200:
+          description: The list of items containing the workflow info. Never null.
+          schema:
+            $ref: '#/definitions/CMSWorkflowData'
+        400:
+          description: If there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    post:
+      tags:
+      - workflows
+      summary: Creates and start a new workflow.
+      description: Generates a workflow instance containing CmsItems. The workflow is automatically started upon generation.
+      operationId: doCreateWorkflow
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The id of the catalog
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The version of the catalog
+        required: true
+        type: string
+      - in: body
+        name: workflowInfo
+        description: The item object containing all the information about the workflow
+          to create
+        required: true
+        schema:
+          $ref: '#/definitions/CMSWorkflowData'
+      responses:
+        201:
+          description: The item containing the workflow info.
+          schema:
+            $ref: '#/definitions/CMSWorkflowData'
+        400:
+          description: If there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/catalogs/{catalogId}/versions/{versionId}/workflows/{workflowCode}:
+    get:
+      tags:
+      - workflows
+      summary: Gets a workflow item.
+      description: Retrieves a specific instance of the workflow for a given workflow code.
+      operationId: getWorkflowByCode
+      parameters:
+      - name: catalogId
+        in: path
+        description: The id of the catalog
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The version of the catalog
+        required: true
+        type: string
+      - name: workflowCode
+        in: path
+        description: The code of the workflow
+        required: true
+        type: string
+      responses:
+        200:
+          description: The item containing the workflow.
+          schema:
+            $ref: '#/definitions/CMSWorkflowData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        404:
+          description: When no workflow is found matching the given code (UnknownIdentifierException).
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    put:
+      tags:
+      - workflows
+      summary: Updates an existing workflow.
+      description: Provides a new workflow information for an existing workflow item.
+      operationId: replaceWorkflow
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The id of the catalog
+        required: true
+        type: string
+      - in: body
+        name: workflowData
+        description: The item object containing all the information about the workflow
+          to edit
+        required: true
+        schema:
+          $ref: '#/definitions/CMSWorkflowData'
+      - name: versionId
+        in: path
+        description: The version of the catalog
+        required: true
+        type: string
+      - name: workflowCode
+        in: path
+        description: The code of the workflow
+        required: true
+        type: string
+      responses:
+        200:
+          description: The item containing the workflow info.
+          schema:
+            $ref: '#/definitions/CMSWorkflowData'
+        400:
+          description: If there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        404:
+          description: When no workflow is found matching the given code (UnknownIdentifierException).
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/catalogs/{catalogId}/versions/{versionId}/workflows/{workflowCode}/actions:
+    get:
+      tags:
+      - workflow actions
+      summary: Gets a list of actions.
+      description: Retrieves a list of available actions for a given workflow item, catalog and version ids.
+      operationId: getActionsByWorkflowCode
+      parameters:
+      - name: catalogId
+        in: path
+        description: The id of the catalog
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The version of the catalog
+        required: true
+        type: string
+      - name: workflowCode
+        in: path
+        description: The code of the workflow
+        required: true
+        type: string
+      responses:
+        200:
+          description: The item containing the workflow items actions and decisions.
+          schema:
+            $ref: '#/definitions/CMSWorkflowData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        404:
+          description: When no workflow is found matching the given code (UnknownIdentifierException).
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/catalogs/{catalogId}/versions/{versionId}/workflows/{workflowCode}/actions/{actionCode}/comments:
+    get:
+      tags:
+      - workflow actions
+      summary: Gets workflow action comments.
+      description: Retrieves a list of available workflow action comments for a specific workflow item.
+      operationId: getActionComments
+      parameters:
+      - name: actionCode
+        in: path
+        description: The code of the workflow action
+        required: true
+        type: string
+      - name: catalogId
+        in: path
+        description: The id of the catalog
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The version of the catalog
+        required: true
+        type: string
+      - name: workflowCode
+        in: path
+        description: The code of the workflow
+        required: true
+        type: string
+      responses:
+        200:
+          description: The item containing the workflow action comments.
+          schema:
+            $ref: '#/definitions/CMSCommentListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        404:
+          description: When no workflow or workflow action is found matching the given
+            code (UnknownIdentifierException).
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/catalogs/{catalogId}/versions/{versionId}/workflows/{workflowId}/operations:
+    post:
+      tags:
+      - workflow operations
+      summary: Performs different operations on the workflow item.
+      description: Executes various actions, such as canceling a workflow, on the workflow item.
+      operationId: doPerfomActionOnWorkflow
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog identifier
+        required: true
+        type: string
+      - in: body
+        name: workflowOperatioData
+        description: The item object containing all the information about operation
+          to be performed
+        required: true
+        schema:
+          $ref: '#/definitions/CMSWorkflowOperationData'
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      - name: workflowId
+        in: path
+        description: The code of the workflow
+        required: true
+        type: string
+      responses:
+        200:
+          description: The workflow item.
+          schema:
+            $ref: '#/definitions/CMSWorkflowData'
+        400:
+          description: When the payload does not have the 'operation' property. (IllegalArgumentException)
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        404:
+          description: 'When the item has not been found (UnknownIdentifierException) '
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/catalogs/{catalogId}/versions/{versionId}/workflowtemplates:
+    get:
+      tags:
+      - workflow templates
+      summary: Gets Workflow templates for catalog version.
+      description: Retrieves the list of available workflow templates for given catalogId
+        and versionId.
+      operationId: getWorkflowTemplatesForCatalogVersion
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/WorkflowTemplateListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/media:
+    get:
+      tags:
+      - media
+      summary: Gets media by query.
+      description: Retrieves a specific media item. Information is retrieved based on named query.
+      operationId: getMediaByQuery
+      parameters:
+      - name: currentPage
+        in: query
+        description: The index of the requested page (index 0 means page 1).
+        required: false
+        type: string
+      - name: namedQuery
+        in: query
+        description: The name of the named query to use for the search.
+        required: true
+        type: string
+      - name: pageSize
+        in: query
+        description: The number of results per page.
+        required: true
+        type: string
+      - name: params
+        in: query
+        description: |-
+          The list of the filtering parameters for the namedQuery.
+          Ex:"catalogId:catalogIdValue,catalogVersion:catalogVersionValue,code:codeValue"
+        required: true
+        type: string
+      - name: sort
+        in: query
+        description: The requested ordering for the search results.
+        required: true
+        type: string
+      responses:
+        200:
+          description: A single page of query results as a list of media or an empty
+            list (WebserviceValidationException).
+          schema:
+            $ref: '#/definitions/MediaListData'
+        400:
+          description: When the named query parameters provide contain validation
+            errors
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/media/uuids:
+    post:
+      tags:
+      - media
+      summary: Gets a list of media by uuids.
+      description: Retrieves a list of media items that match the given uuids by POSTing the uuids in the
+        request body
+      operationId: getMediaByUuids
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: uuids
+        description: List of uuids representing the media to retrieve
+        required: true
+        schema:
+          $ref: '#/definitions/CMSItemUuidListData'
+      responses:
+        200:
+          description: A list of media data
+          schema:
+            $ref: '#/definitions/MediaListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        404:
+          description: When one of the media cannot be found (MediaNotFoundException).
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/media/{uuid}:
+    get:
+      tags:
+      - media
+      summary: Gets media by uuid.
+      description:  Finds a specific media item that matches given uuid.
+      operationId: getMediaByUuid
+      parameters:
+      - name: uuid
+        in: path
+        description: The universally unique identifier of the media item
+        required: true
+        type: string
+      responses:
+        200:
+          description: Media data
+          schema:
+            $ref: '#/definitions/MediaData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        404:
+          description: When no media is found matching the given uuid (MediaNotFoundException).
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/pagetypes:
+    get:
+      tags:
+      - page types
+      summary: Finds all page types.
+      description: Retrieves a list of available page types.
+      operationId: getAllPageTypes
+      parameters: []
+      responses:
+        200:
+          description: The list of page types
+          schema:
+            $ref: '#/definitions/PageTypeListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/pagetypesrestrictiontypes:
+    get:
+      tags:
+      - page type restrictions
+      summary: Gets restriction types by page type.
+      description: Retrieves a list of available restrictions types for a given page type.
+      operationId: getRestictionTypesByPageType
+      parameters: []
+      responses:
+        200:
+          description: item which serves as a wrapper object that contains a list of
+            PageRestrictionListData, never null.
+          schema:
+            $ref: '#/definitions/PageTypeRestrictionTypeListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/productcatalogs/{catalogId}/versions/{versionId}/categories:
+    get:
+      tags:
+      - product categories
+      summary: Finds product categories by text.
+      description: Retrieves a list of available product categories that match a free text search field.
+      operationId: getProductCategoriesByText
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: currentPage
+        in: query
+        description: The requested page number
+        required: false
+        type: string
+      - name: mask
+        in: query
+        description: The string value on which products will be filtered
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: pageSize
+        in: query
+        description: The maximum number of elements in the result list.
+        required: true
+        type: string
+      - name: sort
+        in: query
+        description: The string field the results will be sorted with
+        required: false
+        type: string
+      - name: text
+        in: query
+        description: The string value on which products will be filtered. Deprecated,
+          use mask instead!
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: item which serves as a wrapper object that contains a list of
+            CategoryData, never null.
+          schema:
+            $ref: '#/definitions/CategoryDataListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/productcatalogs/{catalogId}/versions/{versionId}/categories/{code}:
+    get:
+      tags:
+      - product categories
+      summary: Gets category by code.
+      description: Finds a specific category that matches given product category code.
+      operationId: getCategoryByCode
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: code
+        in: path
+        description: Category code
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: CategoryData
+          schema:
+            $ref: '#/definitions/CategoryData'
+        400:
+          description: When the item has not been found (CMSItemNotFoundException)
+            or when there was problem during conversion (ConversionException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/productcatalogs/{catalogId}/versions/{versionId}/products:
+    get:
+      tags:
+      - products
+      summary: Gets products by text.
+      description: Finds a list of available products that match a free text search field.
+      operationId: getProductsByText
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - name: currentPage
+        in: query
+        description: The requested page number
+        required: false
+        type: string
+      - name: mask
+        in: query
+        description: The string value on which products will be filtered
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: pageSize
+        in: query
+        description: The maximum number of elements in the result list.
+        required: true
+        type: string
+      - name: sort
+        in: query
+        description: The string field the results will be sorted with
+        required: false
+        type: string
+      - name: text
+        in: query
+        description: The string value on which products will be filtered. Deprecated,
+          use mask instead!
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: item which serves as a wrapper object that contains a list of
+            ProductData, never null.
+          schema:
+            $ref: '#/definitions/ProductDataListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/productcatalogs/{catalogId}/versions/{versionId}/products/{code}:
+    get:
+      tags:
+      - products
+      summary: Gets product by code.
+      description: Retrieves a specific product item that matches given product code.
+      operationId: getProductByCode
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - name: code
+        in: path
+        description: Product code
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: ProductData
+          schema:
+            $ref: '#/definitions/ProductData'
+        400:
+          description: When the item has not been found (CMSItemNotFoundException)
+            or when there was problem during conversion (ConversionException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/restrictiontypes:
+    get:
+      tags:
+      - restriction types
+      summary: Finds all restriction types.
+      description: Retrieves a list of available restriction types.
+      operationId: getAllRestrictionTypes
+      parameters: []
+      responses:
+        200:
+          description: List of restriction types
+          schema:
+            $ref: '#/definitions/RestrictionTypeListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites:
+    get:
+      tags:
+      - sites
+      summary: Gets all sites.
+      description: Retrieves a list of available sites.
+      operationId: getAllSites
+      parameters: []
+      responses:
+        200:
+          description: A list of all sites configured, never null.
+          schema:
+            $ref: '#/definitions/SiteListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/catalogs:
+    post:
+      tags:
+      - sites
+      summary: Gets sites for catalogs by ids.
+      description: Retrieves a list of available sites that match given list of catalog ids by posting the
+        catalogIds in the request body.
+      operationId: searchSitesByCatalogs
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: catalogDataListInfo
+        description: List of catalog identifiers
+        required: true
+        schema:
+          $ref: '#/definitions/CatalogDataListData'
+      responses:
+        200:
+          description: List of all sites for the given list of catalog ids, never
+            null
+          schema:
+            $ref: '#/definitions/SiteListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/navigations:
+    get:
+      tags:
+      - navigation
+      summary: Finds all navigation nodes.
+      description: Retrieves a list of available navigation nodes that match provided parentUid.
+      operationId: getNavigationNodesByParentUId
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - name: parentUid
+        in: query
+        description: The parent navigation node Uid
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: List of navigation nodes
+          schema:
+            $ref: '#/definitions/NavigationNodeListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    post:
+      tags:
+      - navigation
+      summary: Creates navigation node.
+      description: Adds a new navigation node for a given catalog id.
+      operationId: createNavigationNodeById
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - in: body
+        name: navigationNode
+        description: The navigation node data to be added.
+        required: true
+        schema:
+          $ref: '#/definitions/NavigationNodeData'
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: The navigation node data created.
+          schema:
+            $ref: '#/definitions/NavigationNodeData'
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/NavigationNodeData'
+        400:
+          description: If the parentUid does not exist (CMSItemNotFoundException)
+            or if there is any validation error (WebserviceValidationException)
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: true
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/navigations/{uid}:
+    get:
+      tags:
+      - navigation
+      summary: Finds navigation node.
+      description: Retrieves a specific navigation node item. Information is retrieved based on a given site and catalog ids.
+      operationId: getNavigationNodeById
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: uid
+        in: path
+        description: The navigation node's unique identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: The navigation node identified by uid.
+          schema:
+            $ref: '#/definitions/NavigationNodeData'
+        400:
+          description: When the Navigation Node has not been found (CMSItemNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: true
+    put:
+      tags:
+      - navigation
+      summary: Updates navigation node.
+      description: Provides new information to the navigation node for a given.navigation node uid. Deprecated
+        since 1811, please use CMSItemController controller instead.
+      operationId: replaceNavigationNodeById
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - in: body
+        name: navigationNode
+        description: The navigation node data
+        required: true
+        schema:
+          $ref: '#/definitions/NavigationNodeData'
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: uid
+        in: path
+        description: The navigation node uid to be updated.
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/NavigationNodeData'
+        400:
+          description: When the Navigation Node has not been found (CMSItemNotFoundException)
+            or if there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: true
+    delete:
+      tags:
+      - navigation
+      summary: Deletes navigation node.
+      description: Removes a specific instance of the navigation node that matches a given site id. Deprecated since
+        1811, please use DELETE /v1/sites/{siteId}/cmsitems/{uuid} instead.
+      operationId: removeNavigationNodeById
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: uid
+        in: path
+        description: The navigation node's uid.
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: When the Navigation Node has not been found (CMSItemNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: true
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pages:
+    get:
+      tags:
+      - pages
+      summary: Finds pages by type.
+      description: Gets all default or variation pages that matches the given page
+        type. Deprecated since 6.6, please use GET /v1/sites/{siteId}/cmsitems{?mask,typeCode,catalogId,catalogVersion,itemSearchParams,sort,pageSize,currentPage}
+        instead.
+      operationId: getPagesByType
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - name: defaultPage
+        in: query
+        description: Setting this to true will find all default pages; otherwise find
+          all variation pages
+        required: true
+        type: boolean
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: typeCode
+        in: query
+        description: The type code of a page
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: All default or variation pages for a given page type
+          schema:
+            $ref: '#/definitions/PageListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: true
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pages/{pageId}:
+    get:
+      tags:
+      - pages
+      summary: Gets page by uid.
+      description: Retrieves a specific page instance that matches given page uid. Deprecated since
+        6.6, please use GET /v1/sites/{siteId}/cmsitems/{uuid} instead.
+      operationId: getPageByUid
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: pageId
+        in: path
+        description: Page identifier
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: Page data object
+          schema:
+            $ref: '#/definitions/AbstractPageData'
+        400:
+          description: When the page cannot be found (CMSItemNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: true
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pages/{pageId}/fallbacks:
+    get:
+      tags:
+      - pages
+      summary: Finds fallback pages.
+      description: Retrieves a list of available fallback pages for a given page.
+      operationId: getFallbackPages
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - name: pageId
+        in: path
+        description: The page identifier
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: All fallback pages uid for a given page; empty if the given
+            page is already a fallback page; never null
+          schema:
+            $ref: '#/definitions/UidListData'
+        400:
+          description: When the pageId is invalid (CMSItemNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pages/{pageId}/variations:
+    get:
+      tags:
+      - pages
+      summary: Finds variation pages.
+      description: Retrieves a list of available variation pages uid for a given page.
+      operationId: getVariationPages
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - name: pageId
+        in: path
+        description: The page identifier
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: All variation pages uid for a given page; empty if the given
+            page is already a variation page; never null.
+          schema:
+            $ref: '#/definitions/UidListData'
+        400:
+          description: When the pageId is invalid (CMSItemNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pagescontentslots:
+    get:
+      tags:
+      - page slots
+      summary: Gets content slots by page.
+      description: Retrieves a list of available content slots defined on the page specified by the
+        page id.
+      operationId: getContentSlotByPage
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: pageId
+        in: query
+        description: Identifier of the page
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: item which serves as a wrapper object that contains a list of
+            PageContentSlotListData, never null.
+          schema:
+            $ref: '#/definitions/PageContentSlotListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pagescontentslotscomponents:
+    get:
+      tags:
+      - page slot components
+      summary: Gets components by page.
+      description: Retrieves a list of available components for a given page.
+      operationId: getComponentByPage
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: pageId
+        in: query
+        description: Identifier of the page
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: List of components defined for a given page
+          schema:
+            $ref: '#/definitions/PageContentSlotComponentListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    post:
+      tags:
+      - page slot components
+      summary: Adds component to slot.
+      description: Inserts a new content component item to a slot for a given catalog and site ids.
+      operationId: doAddComponentToSlot
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - in: body
+        name: pageContentSlotComponentData
+        description: PageContentSlotComponentData
+        required: true
+        schema:
+          $ref: '#/definitions/PageContentSlotComponentData'
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: PageContentSlotComponentData
+          schema:
+            $ref: '#/definitions/PageContentSlotComponentData'
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/PageContentSlotComponentData'
+        400:
+          description: When component item does not exist (CMSItemNotFoundException)
+            or when validation errors are found (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  ? /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pagescontentslotscomponents/contentslots/{slotId}/components/{componentId}
+  : delete:
+      tags:
+      - page slot components
+      summary: Removes component.
+      description: Deletes a specific component item from a content slot for a given catalog and site ids.
+      operationId: removeComponent
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: componentId
+        in: path
+        description: Component identifier of the component to be removed
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: slotId
+        in: path
+        description: Content slot identifier containing the component to be removed
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: When the component or slot cannot be found (CMSItemNotFoundException)
+            or when the component slot does not contain the component (ComponentNotFoundInSlotException)
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  ? /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pagescontentslotscomponents/pages/{pageId}/contentslots/{slotId}/components/{componentId}
+  : put:
+      tags:
+      - page slot components
+      summary: Moves component.
+      description: Relocates a specific component instance to a different content slot by changing its
+        position within the content slot on a given page.
+      operationId: replaceComponent
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: componentId
+        in: path
+        description: Component identifier
+        required: true
+        type: string
+      - in: body
+        name: pageContentSlotComponent
+        description: PageContentSlotComponentData
+        required: true
+        schema:
+          $ref: '#/definitions/PageContentSlotComponentData'
+      - name: pageId
+        in: path
+        description: Page identifier
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: slotId
+        in: path
+        description: Content slot identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: The updated PageContentSlotComponentData
+          schema:
+            $ref: '#/definitions/PageContentSlotComponentData'
+        400:
+          description: If it cannot find the content item (CMSItemNotFoundException)
+            or if there is any validation error (WebserviceValidationException) or
+            if component is not allowed in slot (ComponentNotAllowedInSlotException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pagescontentslotscontainers:
+    get:
+      tags:
+      - page slot containers
+      summary: Gets containers by page.
+      description: Fetches a list of available containers on a given page.
+      operationId: getContainersByPage
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: pageId
+        in: query
+        description: The page identifier
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: The list of page content slot containers
+          schema:
+            $ref: '#/definitions/PageContentSlotContainerListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pagesrestrictions:
+    get:
+      tags:
+      - page restrictions
+      summary: Gets restrictions for page ids.
+      description: Retrieves a list of available restrictions that belong to the page for the given
+        page ids.
+      operationId: getAllPagesRestrictionsByPageIds
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - name: pageIds
+        in: query
+        description: The list of page identifiers
+        required: true
+        type: array
+        items:
+          type: string
+        collectionFormat: multi
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: item which serves as a wrapper object that contains a list of
+            PageRestrictionListData, never null
+          schema:
+            $ref: '#/definitions/PageRestrictionListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: true
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pagesrestrictions/pages/{pageId}:
+    put:
+      tags:
+      - page restrictions
+      summary: Updates page restrictions.
+      description: Replaces an existing list of page-restriction relations with a new relations for the given page
+        id.
+      operationId: replacePageRestrictionListData
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog name
+        required: true
+        type: string
+      - name: pageId
+        in: path
+        description: Page identifier
+        required: true
+        type: string
+      - in: body
+        name: pageRestrictionListData
+        description: List of PageRestrictionData
+        required: true
+        schema:
+          $ref: '#/definitions/PageRestrictionListData'
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: item which serves as a wrapper object that contains the updated
+            list of PageRestrictionListData, never null.
+          schema:
+            $ref: '#/definitions/PageRestrictionListData'
+        400:
+          description: If it cannot find the component (CMSItemNotFoundException)
+            or if there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: true
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/pagetemplates:
+    get:
+      tags:
+      - page templates
+      summary: Finds page templates by page type.
+      description: Returns a holder of a collection of PageTemplateData filtered on
+        the given data passed as query string.
+      operationId: getPageTemplatesByPageType
+      parameters:
+      - name: active
+        in: query
+        description: When set to TRUE, filter the results for active templates
+        required: false
+        type: string
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: pageTypeCode
+        in: query
+        description: Item type of a page
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The catalog version identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: List of page templates
+          schema:
+            $ref: '#/definitions/PageTemplateListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/synchronizations/versions/{targetCatalogVersion}:
+    post:
+      tags:
+      - item synchronization
+      summary: Performs sync.
+      description: Executes status synchronization on a list of ItemModel identifier
+        by their ItemSynchronization properties.
+      operationId: doPerformSync
+      consumes:
+      - application/json
+      parameters:
+      - name: catalogId
+        in: path
+        description: The source catalog version from a synchronization perspective
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - in: body
+        name: synchronizationData
+        description: The catalog id
+        required: true
+        schema:
+          $ref: '#/definitions/SynchronizationData'
+      - name: targetCatalogVersion
+        in: path
+        description: The SynchronizationData containing the list of requested synchronizations
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The target catalog version from a synchronization perspective
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  ? /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/synchronizations/versions/{targetCatalogVersion}/items/{componentId}
+  : get:
+      tags:
+      - item synchronization
+      summary: Gets component synchronization status.
+      description: Builds the synchronization status of a AbstractCMSComponentModel
+        component.
+      operationId: getComponentSynchronizationStatus
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: componentId
+        in: path
+        description: The uid of the component from which to retrieve the synchronization
+          status
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: targetCatalogVersion
+        in: path
+        description: The target catalog version from a synchronization perspective
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The source catalog version from a synchronization perspective
+        required: true
+        type: string
+      responses:
+        200:
+          description: item containing the complex synchronization status of the AbstractCMSComponentModel
+            page
+          schema:
+            $ref: '#/definitions/SyncItemStatusData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/synchronizations/versions/{targetCatalogVersion}/pages/{pageId}:
+    get:
+      tags:
+      - item synchronization
+      summary: Gets page synchronization status.
+      description: Builds the synchronization status of a AbstractPageModel page.
+      operationId: getPageSynchronizationStatus
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: pageId
+        in: path
+        description: The uid of the page from which to retrieve the synchronization
+          status
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: targetCatalogVersion
+        in: path
+        description: The target catalog version from a synchronization perspective
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The source catalog version from a synchronization perspective
+        required: true
+        type: string
+      responses:
+        200:
+          description: item containing the complex synchronization status of the AbstractPageModel
+            page
+          schema:
+            $ref: '#/definitions/SyncItemStatusData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/synchronizations/versions/{targetCatalogVersion}/slots/{slotId}:
+    get:
+      tags:
+      - item synchronization
+      summary: Gets slot synchronization status.
+      description: Builds the synchronization status of a ContentSlotModel slot.
+      operationId: getSlotSynchronizationStatus
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: slotId
+        in: path
+        description: The uid of the slot from which to retrieve the synchronization
+          status
+        required: true
+        type: string
+      - name: targetCatalogVersion
+        in: path
+        description: The target catalog version from a synchronization perspective
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The source catalog version from a synchronization perspective
+        required: true
+        type: string
+      responses:
+        200:
+          description: item containing the complex synchronization status of the ContentSlotModel
+            page
+          schema:
+            $ref: '#/definitions/SyncItemStatusData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/catalogs/{catalogId}/versions/{versionId}/targets:
+    get:
+      tags:
+      - catalog versions
+      summary: Gets writable content catalog versions.
+      description: Retrieves a target content catalog versions by mode. For mode =
+        "cloneableTo" returns the list of content catalog versions (which are used
+        as targets for page clone operations) for a given catalog or all child catalogs.
+      operationId: getWritableContentCatalogVersion
+      parameters:
+      - name: catalogId
+        in: path
+        description: The catalog id
+        required: true
+        type: string
+      - name: mode
+        in: query
+        description: The mode to filter the result
+        required: true
+        type: string
+        x-example: cloneableTo
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The version of the catalog
+        required: true
+        type: string
+      responses:
+        200:
+          description: The list of content catalog versions.
+          schema:
+            $ref: '#/definitions/CatalogVersionListData'
+        400:
+          description: When the catalog and/or version specified is not valid (CMSItemNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/cmsitems:
+    get:
+      tags:
+      - cmsitems
+      summary: Finds CMS items.
+      description: Retrieves a list of available CMS items that match pages search.
+      operationId: getCMSItemByPagedSearch
+      parameters:
+      - name: catalogId
+        in: query
+        description: The catalog id
+        required: true
+        type: string
+      - name: catalogVersion
+        in: query
+        description: CatalogVersion on which to search
+        required: true
+        type: string
+      - name: currentPage
+        in: query
+        description: The current result page requested
+        required: true
+        type: string
+      - name: itemSearchParams
+        in: query
+        description: Search on additional fields using a comma separated list of field
+          name and value pairs which are separated by a colon. Exact matches only.
+          You can use {@code null} as value.
+        required: false
+        type: string
+      - name: mask
+        in: query
+        description: Search mask applied to the UID and NAME fields, Uses partial
+          matching
+        required: false
+        type: string
+      - name: pageSize
+        in: query
+        description: Page size for paging
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: sort
+        in: query
+        description: The requested ordering for the search results.
+        required: false
+        type: string
+      - name: typeCode
+        in: query
+        description: TypeCode filter. Exact matches only. Either typeCode or typeCodes
+          can be set.
+        required: false
+        type: string
+      - name: typeCodes
+        in: query
+        description: Search using a comma separated list of type code. Either typeCode
+          or typeCodes can be set.
+        required: false
+        type: string
+      responses:
+        200:
+          description: A map of paging info and results. Results are in the form of
+            Map&lt;String, Object&gt;, each representing a CMSItem. Never null.
+          schema:
+            type: object
+        400:
+          description: If the required fields are missing (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    post:
+      tags:
+      - cmsitems
+      summary: Validates CMS Item for creation.
+      description: Performs validation on the specific instance of the CMS Item in a Dry Run mode.
+      operationId: validateCMSItemForCreation
+      consumes:
+      - application/json
+      parameters:
+      - name: dryRun
+        in: query
+        description: When set to TRUE, the request is executed in Dry Run mode
+        required: true
+        type: boolean
+        default: true
+      - in: body
+        name: inputMap
+        description: Map representing the CMS item to create in Dry Run mode
+        required: true
+        schema:
+          type: object
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: The multi-level Map representing the validated CMS Item.
+          schema:
+            type: object
+        400:
+          description: If it cannot find the content item (CMSItemNotFoundException)
+            or if there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/cmsitems/uuids:
+    post:
+      tags:
+      - cmsitems
+      summary: Finds cms items by uuids in body.
+      description: Retrieves a list of available CMSItems matching the given uuids by POSTing the uuids in
+        the request body.
+      operationId: searchCMSItemByUUId
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: UuidList
+        description: CMSItemUuidListData
+        required: true
+        schema:
+          $ref: '#/definitions/CMSItemUuidListData'
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: A map list of elements in the form of Map&lt;String, Object&gt;,
+            each representing a CMSItem.
+          schema:
+            type: object
+        400:
+          description: If it cannot find one of the items (CMSItemNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/cmsitems/{itemUUID}/versions:
+    get:
+      tags:
+      - versions
+      summary: Gets all versions for an item filtered by a mask.
+      description: Retrieves a list of available CMSVersions by a search mask for the item identified
+        by its itemUUID.
+      operationId: getVersionsForItem
+      parameters:
+      - name: itemUUID
+        in: path
+        description: The uuid of the item
+        required: true
+        type: string
+      - name: mask
+        in: query
+        description: Search mask applied to the LABEL field only. Uses partial matching.
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: item which serves as a wrapper object that contains a list of
+            CMSVersionData; never null
+          schema:
+            $ref: '#/definitions/CMSVersionListData'
+        400:
+          description: When the item has not been found (CMSItemNotFoundException)
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    post:
+      tags:
+      - versions
+      summary: Creates a CMSVersion for an item.
+      description: Generates a new instance of the CMSVersion for the item identified by its itemUUID.
+      operationId: createVersion
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: versionData
+        description: The item object containing the label and description
+        required: true
+        schema:
+          $ref: '#/definitions/CMSVersionData'
+      - name: itemUUID
+        in: path
+        description: The uuid of the item
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      responses:
+        201:
+          description: The item containing version info.
+          schema:
+            $ref: '#/definitions/CMSVersionData'
+        400:
+          description: If there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/cmsitems/{itemUUID}/versions/{versionId}:
+    get:
+      tags:
+      - versions
+      summary: Gets a specific version for an item.
+      description: Retrieves a CMSVersion identified by its uid and for the item identified
+        by its itemUUID.
+      operationId: getVersion
+      parameters:
+      - name: itemUUID
+        in: path
+        description: The uuid of the item
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The uid of the cms version.
+        required: true
+        type: string
+      responses:
+        200:
+          description: The item containing version info.
+          schema:
+            $ref: '#/definitions/CMSVersionData'
+        400:
+          description: When the version has not been found (CMSVersionNotFoundException)
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    put:
+      tags:
+      - versions
+      summary: Updates a CMSVersion for an item.
+      description: Replaces an existing CMSVersion identified by its uid for the item identified
+        by its itemUUID.
+      operationId: replaceVersion
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: versionData
+        description: The item object containing the label and description
+        required: true
+        schema:
+          $ref: '#/definitions/CMSVersionData'
+      - name: itemUUID
+        in: path
+        description: The uuid of the item
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The uid of the cms version.
+        required: true
+        type: string
+      responses:
+        200:
+          description: The item containing version info.
+          schema:
+            $ref: '#/definitions/CMSVersionData'
+        400:
+          description: If there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    delete:
+      tags:
+      - versions
+      summary: Deletes a CMSVersion for an item.
+      description: Removes a specific instance of the CMSVersion identified by its uid and for the item identified
+        by its itemUUID.
+      operationId: removeVersion
+      parameters:
+      - name: itemUUID
+        in: path
+        description: The uuid of the item
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The uid of the cms version.
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: If there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/cmsitems/{itemUUID}/versions/{versionId}/rollbacks:
+    post:
+      tags:
+      - versions
+      summary: Rolls back an item to a specific CMSVersion.
+      description: Sets a CMSversion of the item identified by its itemUUID to a previously
+        saved CMSVersion.
+      operationId: doRollbackVersion
+      consumes:
+      - application/json
+      parameters:
+      - name: itemUUID
+        in: path
+        description: The uuid of the item
+        required: true
+        type: string
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: versionId
+        in: path
+        description: The uid of the cms version.
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: If there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/cmsitems/{uuid}:
+    get:
+      tags:
+      - cmsitems
+      summary: Gets CMS Item by uuid.
+      description: Retrieves an item that matches the given item uuid (Universally
+        Unique Identifier).
+      operationId: getCMSItemByUUIdAndVersion
+      parameters:
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: uuid
+        in: path
+        description: The universally unique identifier of the item. The uuid is a
+          composed key formed by the cms item uid + the catalog + the catalog version.
+        required: true
+        type: string
+      - name: versionId
+        in: query
+        description: The uid of the cms version.
+        required: false
+        type: string
+      responses:
+        200:
+          description: Map&lt;String, Object&gt; representation of the CMS Item object.
+          schema:
+            type: object
+        400:
+          description: ' If there is any validation error (WebserviceValidationException).'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    put:
+      tags:
+      - cmsitems
+      summary: Validates CMS Item for update.
+      description: Performs validation steps on a CMS Item in a Dry Run mode.
+      operationId: validateCMSItemForUpdate
+      consumes:
+      - application/json
+      parameters:
+      - name: dryRun
+        in: query
+        description: When set to TRUE, the request is executed in Dry Run mode
+        required: true
+        type: boolean
+        default: true
+      - in: body
+        name: inputMap
+        description: Map representing the CMS item to validate
+        required: true
+        schema:
+          type: object
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: uuid
+        in: path
+        description: Unique Identifier of a CMS Item
+        required: true
+        type: string
+      responses:
+        200:
+          description: The multi-level Map representing the validated CMS Item.
+          schema:
+            type: object
+        400:
+          description: If it cannot find the content item (CMSItemNotFoundException)
+            or if there is any validation error (WebserviceValidationException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+    delete:
+      tags:
+      - cmsitems
+      summary: Removes CMS Item.
+      description: Deletes a specific instance of the content item (CMSItem) from the system by uuid.
+      operationId: removeCMSItemByUUId
+      parameters:
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      - name: uuid
+        in: path
+        description: The universally unique identifier of the item
+        required: true
+        type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: If it cannot find the content item (CMSItemNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/sites/{siteId}/languages:
+    get:
+      tags:
+      - languages
+      summary: Gets languages.
+      description: Retrieves a list of available languages supported by a storefront.
+      operationId: getLanguages
+      parameters:
+      - name: siteId
+        in: path
+        description: The site identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: List of languages.
+          schema:
+            $ref: '#/definitions/LanguageListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/types:
+    get:
+      tags:
+      - types
+      summary: Gets component type by code and mode.
+      description: Retrieves a specific instance of the CMS component type by code and mode.
+      operationId: getComponentTypeByCodeAndMode
+      parameters:
+      - name: code
+        in: query
+        description: Component type code
+        required: true
+        type: string
+      - name: mode
+        in: query
+        description: The mode of the structure type
+        required: true
+        type: string
+      - name: readOnly
+        in: query
+        description: Read only mode for attributes
+        required: false
+        type: boolean
+        default: false
+        allowEmptyValue: false
+      responses:
+        200:
+          description: item which serves as a wrapper object that contains a ComponentTypeData
+            item; or and empty list if the type and mode are not found.
+          schema:
+            $ref: '#/definitions/ComponentTypeListData'
+        400:
+          description: When the code provided does not match any existing type (ComponentTypeNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/types/{code}:
+    get:
+      tags:
+      - types
+      summary: Gets component type by code.
+      description: Retrieves a specific instance of the CMS component type for a given code.
+      operationId: getComponentTypeByCode
+      parameters:
+      - name: code
+        in: path
+        description: Component type code
+        required: true
+        type: string
+      - name: readOnly
+        in: query
+        description: Read only mode for attributes
+        required: false
+        type: boolean
+        default: false
+        allowEmptyValue: false
+      responses:
+        200:
+          description: item which serves as a wrapper object that contains a ComponentTypeData
+            item
+          schema:
+            $ref: '#/definitions/ComponentTypeData'
+        400:
+          description: When the code provided does not match any existing type(ComponentTypeNotFoundException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/usergroups:
+    get:
+      tags:
+      - user groups
+      summary: Finds user group by text.
+      description: Retrieves a list of available user groups using a free text search field.
+      operationId: getUserGroupsByText
+      parameters:
+      - name: currentPage
+        in: query
+        description: The requested page number
+        required: false
+        type: string
+      - name: mask
+        in: query
+        description: The string value on which products will be filtered
+        required: false
+        type: string
+        allowEmptyValue: false
+      - name: pageSize
+        in: query
+        description: The maximum number of elements in the result list.
+        required: true
+        type: string
+      - name: sort
+        in: query
+        description: The string field the results will be sorted with
+        required: false
+        type: string
+      responses:
+        200:
+          description: item which serves as a wrapper object that contains a list of
+            UserGroupData; never null
+          schema:
+            $ref: '#/definitions/UserGroupListData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/usergroups/{userGroupId}:
+    get:
+      tags:
+      - user groups
+      summary: Gets user group by id.
+      description: Retrieves a specific user group instance that matches given id.
+      operationId: getUserGroupById
+      parameters:
+      - name: userGroupId
+        in: path
+        description: The unique identifier of the user group
+        required: true
+        type: string
+      responses:
+        200:
+          description: UserGroupData
+          schema:
+            $ref: '#/definitions/UserGroupData'
+        400:
+          description: When the user group was not found (CMSItemNotFoundException)
+            or when there was problem during conversion (ConversionException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+  /v1/users/{userId}:
+    get:
+      tags:
+      - users
+      summary: Gets user by id.
+      description: Retrieves a specific user instance that matches given id.
+      operationId: getUserDataById
+      parameters:
+      - name: userId
+        in: path
+        description: The unique identifier of the user
+        required: true
+        type: string
+      responses:
+        200:
+          description: UserDataInfo
+          schema:
+            $ref: '#/definitions/UserDataData'
+        400:
+          description: When the user was not found (CMSItemNotFoundException) or when
+            there was a problem during conversion (ConversionException).
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+      security:
+      - oauth2_Password: []
+      - oauth2_client_credentials: []
+      deprecated: false
+securityDefinitions:
+  oauth2_Password:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: password
+    scopes:
+      basic: ""
+  oauth2_client_credentials:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: application
+    scopes:
+      extended: ""
+definitions:
+  AbstractPageData:
+    type: object
+    properties:
+      creationtime:
+        type: string
+        format: date-time
+        example: yyyy-MM-dd HH:mm:ss.SSSZ
+      defaultPage:
+        type: boolean
+        example: true
+      modifiedtime:
+        type: string
+        format: date-time
+        example: yyyy-MM-dd HH:mm:ss.SSSZ
+      name:
+        type: string
+        example: homepage
+      onlyOneRestrictionMustApply:
+        type: boolean
+        example: false
+      pk:
+        type: string
+        example: "8796093056052"
+      template:
+        type: string
+        example: LandingPageTemplate
+      title:
+        type: object
+        example:
+          EN: Homepage
+          DE: Startseite
+        additionalProperties:
+          type: string
+      typeCode:
+        type: string
+        example: ContentPage
+      uid:
+        type: string
+      uuid:
+        type: string
+    title: AbstractPageData
+    description: Specifies properties of the page.
+  CMSCommentListData:
+    type: object
+    properties:
+      comments:
+        type: array
+        items:
+          $ref: '#/definitions/CMSCommentData'
+      pagination:
+        $ref: '#/definitions/pagination'
+    title: CMSCommentListData
+    description: Specifies a list of available CMS comments.
+  CMSCommentData:
+    type: object
+    properties:
+      authorName:
+        type: string
+      code:
+        type: string
+      createdAgoInMillis:
+        type: integer
+        format: int64
+        example: 128334524
+      creationtime:
+        type: string
+        format: date-time
+      decisionCode:
+        type: string
+      decisionName:
+        type: string
+      originalActionCode:
+        type: string
+      text:
+        type: string
+    title: CMSCommentData
+    description: Specifies properties of the CMS comment.
+  CMSItemUuidListData:
+    type: object
+    properties:
+      uuids:
+        type: array
+        items:
+          type: string
+    title: CMSItemUuidListData
+    description: Specifies a list of available uuid for CMS item.
+  CMSVersionListData:
+    type: object
+    properties:
+      pagination:
+        $ref: '#/definitions/pagination'
+      results:
+        type: array
+        example:
+        - creationtime: 2019-12-23T19:35:35+0000
+          itemUUID: eyJpd
+          label: newVersion
+          uid: "00000000"
+        items:
+          $ref: '#/definitions/CMSVersionData'
+    title: CMSVersionListData
+    description: Specifies a list of available CMS versions.
+  CMSVersionData:
+    type: object
+    properties:
+      creationtime:
+        type: string
+        format: date-time
+        example: yyyy-MM-dd HH:mm:ss.SSSZ
+      description:
+        type: string
+      itemUUID:
+        type: string
+      label:
+        type: string
+        example: "2.0"
+      uid:
+        type: string
+        example: "00000000"
+    title: CMSVersionData
+    description: Specifies properties of the CMS version.
+  CMSWorkflowActionData:
+    type: object
+    properties:
+      actionType:
+        type: string
+        example: START
+      code:
+        type: string
+        example: 0000000C
+      decisions:
+        type: array
+        example:
+        - code: PageTranslationSendDEForReview
+          description: Decision for sending DE language for review
+          name: Send for Review
+        items:
+          $ref: '#/definitions/CMSWorkflowDecisionData'
+      description:
+        type: string
+        example: Decision for approving content
+      isCurrentUserParticipant:
+        type: boolean
+        example: true
+      name:
+        type: string
+        example: Approve
+      startedAgoInMillis:
+        type: integer
+        format: int64
+        example: 5283
+      status:
+        type: string
+        example: IN_PROGRESS
+    title: CMSWorkflowActionData
+    description: Specifies properties of the CMS workflow action.
+  CMSWorkflowDecisionData:
+    type: object
+    properties:
+      code:
+        type: string
+        example: PageTranslationSendDEForReview
+      description:
+        type: string
+        example: Decision for sending DE language for review
+      name:
+        type: string
+        example: Send for Review
+    title: CMSWorkflowDecisionData
+    description: Specifies properties of the CMS workflow decision.
+  CMSWorkflowOperationData:
+    type: object
+    properties:
+      actionCode:
+        type: string
+        example: 000001JR
+      comment:
+        type: string
+      createVersion:
+        type: boolean
+      decisionCode:
+        type: string
+        example: 000000RS
+      label:
+        type: string
+      operation:
+        type: string
+    title: CMSWorkflowOperationData
+    description: Specifies properties of the CMS workflow operation.
+  CMSWorkflowData:
+    type: object
+    properties:
+      actions:
+        type: array
+        items:
+          $ref: '#/definitions/CMSWorkflowActionData'
+      attachments:
+        type: array
+        items:
+          type: string
+      canModifyItemInWorkflow:
+        type: boolean
+        example: true
+      createVersion:
+        type: boolean
+      description:
+        type: string
+      isAvailableForCurrentPrincipal:
+        type: boolean
+        example: true
+      label:
+        type: string
+      status:
+        type: string
+        example: RUNNING
+      templateCode:
+        type: string
+        example: PageTranslation
+      workflowCode:
+        type: string
+        example: 000000RV
+    title: CMSWorkflowData
+    description: Specifies properties of the CMS workflow.
+  CatalogDataListData:
+    type: object
+    properties:
+      catalogIds:
+        type: array
+        example:
+        - electronicsContentCatalog
+        - electronicsProductCatalog
+        items:
+          type: string
+    title: CatalogDataListData
+    description: Specifies a list of available catalog data.
+  CatalogVersionData:
+    type: object
+    properties:
+      active:
+        type: boolean
+      homepage:
+        $ref: '#/definitions/HomePageData'
+      name:
+        type: object
+        additionalProperties:
+          type: string
+      pageDisplayConditions:
+        type: array
+        items:
+          $ref: '#/definitions/DisplayConditionData'
+      thumbnailUrl:
+        type: string
+      uuid:
+        type: string
+      version:
+        type: string
+    title: CatalogVersionData
+  CatalogVersionListData:
+    type: object
+    properties:
+      versions:
+        type: array
+        items:
+          $ref: '#/definitions/CatalogVersionData'
+    title: CatalogVersionListData
+    description: Specifies a list of available catalog versions.
+  CategoryDataListData:
+    type: object
+    properties:
+      pagination:
+        $ref: '#/definitions/pagination'
+      productCategories:
+        type: array
+        items:
+          $ref: '#/definitions/CategoryData'
+    title: CategoryDataListData
+    description: Specifies a list of available product categories.
+  CategoryData:
+    type: object
+    properties:
+      catalogId:
+        type: string
+        example: electronicsContentCatalog
+      catalogVersion:
+        type: string
+        example: Staged
+      code:
+        type: string
+        example: ProductPage
+      description:
+        type: object
+        additionalProperties:
+          type: string
+      name:
+        type: object
+        additionalProperties:
+          type: string
+      thumbnailMediaCode:
+        type: string
+    title: CategoryData
+    description: Specifies properties for the category.
+  ComponentTypeAttributeData:
+    type: object
+    properties:
+      cmsStructureEnumType:
+        type: string
+      cmsStructureType:
+        type: string
+        example: ShortString
+      collection:
+        type: boolean
+        example: false
+      containedTypes:
+        type: array
+        example:
+        - MediaFormat
+        - MediaContainer
+        items:
+          type: string
+      dependsOn:
+        type: string
+      editable:
+        type: boolean
+        example: false
+      i18nKey:
+        type: string
+        example: type.searchboxcomponent.name
+      idAttribute:
+        type: string
+        example: value
+      labelAttributes:
+        type: array
+        example:
+        - label
+        items:
+          type: string
+      localized:
+        type: boolean
+        example: false
+      options:
+        type: array
+        items:
+          $ref: '#/definitions/OptionData'
+      paged:
+        type: boolean
+        example: false
+      params:
+        type: object
+        example:
+          typeCode: AbstractRestriction
+        additionalProperties:
+          type: string
+      placeholder:
+        type: string
+        example: Select or create an entry
+      qualifier:
+        type: string
+        example: cmsComponents
+      required:
+        type: boolean
+        example: false
+      subTypes:
+        type: object
+        example:
+          CMSUserGroupRestriction: type.cmsusergrouprestriction.name
+          CMSCampaignRestriction: type.cmscampaignrestriction.name
+        additionalProperties:
+          type: string
+      uri:
+        type: string
+    title: ComponentTypeAttributeData
+    description: Specifies properties of the component type attribute.
+  ComponentTypeData:
+    type: object
+    properties:
+      attributes:
+        type: array
+        items:
+          $ref: '#/definitions/ComponentTypeAttributeData'
+      category:
+        type: string
+        example: Page
+      code:
+        type: string
+        example: ContentPage
+      i18nKey:
+        type: string
+        example: type.searchboxcomponent.name
+      name:
+        type: string
+        example: Link
+      type:
+        type: string
+    title: ComponentTypeData
+    description: Specifies properties of the component type.
+  ComponentTypeListData:
+    type: object
+    properties:
+      componentTypes:
+        type: array
+        items:
+          $ref: '#/definitions/ComponentTypeData'
+    title: ComponentTypeListData
+    description: Specifies a list of available component types.
+  ContentSlotTypeRestrictionsData:
+    type: object
+    properties:
+      contentSlotUid:
+        type: string
+        example: Section1Slot-Homepage
+      validComponentTypes:
+        type: array
+        example:
+        - ProductFeatureComponent
+        - CategoryFeatureComponent
+        items:
+          type: string
+    title: ContentSlotTypeRestrictionsData
+    description: Specifies a list of valid component types for a given content slot.
+  DisplayConditionData:
+    type: object
+    properties:
+      options:
+        type: array
+        items:
+          $ref: '#/definitions/OptionData'
+      typecode:
+        type: string
+    title: DisplayConditionData
+  HomePageData:
+    type: object
+    properties:
+      current:
+        $ref: '#/definitions/AbstractPageData'
+      fallback:
+        $ref: '#/definitions/AbstractPageData'
+      old:
+        $ref: '#/definitions/AbstractPageData'
+    title: HomePageData
+  ItemSynchronizationData:
+    type: object
+    properties:
+      itemId:
+        type: string
+      itemType:
+        type: string
+        example: ContentSlot
+    title: ItemSynchronizationData
+    description: Specifies properties of the item synchronization.
+  ItemTypeData:
+    type: object
+    properties:
+      i18nKey:
+        type: string
+        example: type.searchboxcomponent.name
+      itemType:
+        type: string
+        example: ContentSlot
+    title: ItemTypeData
+    description: Specifies properties of the item type.
+  LanguageData:
+    type: object
+    properties:
+      active:
+        type: boolean
+      isocode:
+        type: string
+      name:
+        type: string
+      nativeName:
+        type: string
+      required:
+        type: boolean
+    title: LanguageData
+  LanguageListData:
+    type: object
+    properties:
+      languages:
+        type: array
+        items:
+          $ref: '#/definitions/LanguageData'
+    title: LanguageListData
+    description: Specifies a list of available languages.
+  MediaData:
+    type: object
+    properties:
+      altText:
+        type: string
+        example: Text to display if media can't be loaded.
+      catalogId:
+        type: string
+        example: electronicsContentCatalog
+      catalogVersion:
+        type: string
+        example: Online
+      code:
+        type: string
+        example: PreviewData
+      description:
+        type: string
+        example: Text that describes a media.
+      downloadUrl:
+        type: string
+      mime:
+        type: string
+        example: image/png
+      url:
+        type: string
+      uuid:
+        type: string
+    title: MediaData
+    description: Specifies properties of a specific media.
+  MediaListData:
+    type: object
+    properties:
+      media:
+        type: array
+        items:
+          $ref: '#/definitions/MediaData'
+    title: MediaListData
+    description: Specifies a list of available media.
+  NavigationEntryData:
+    type: object
+    properties:
+      itemId:
+        type: string
+        example: DigitalCompactsCategoryLink
+      itemSuperType:
+        type: string
+        example: AbstractCMSComponent
+      itemType:
+        type: string
+        example: CMSNavigationNode
+      name:
+        type: string
+        example: My Account
+    title: NavigationEntryData
+    description: Specifies properties of the navigation entry.
+  NavigationNodeData:
+    type: object
+    properties:
+      entries:
+        type: array
+        items:
+          $ref: '#/definitions/NavigationEntryData'
+      hasChildren:
+        type: boolean
+        example: false
+      itemType:
+        type: string
+        example: CMSNavigationNode
+      name:
+        type: string
+        example: My Account
+      parentUid:
+        type: string
+        example: SiteRootNode
+      position:
+        type: integer
+        format: int32
+        example: 3
+      title:
+        type: object
+        example:
+          EN: Homepage
+          DE: Startseite
+        additionalProperties:
+          type: string
+      uid:
+        type: string
+        example: ElectronicsNavNode
+      uuid:
+        type: string
+    title: NavigationNodeData
+    description: Specifies properties of the navigation node.
+  NavigationNodeListData:
+    type: object
+    properties:
+      navigationNodes:
+        type: array
+        items:
+          $ref: '#/definitions/NavigationNodeData'
+    title: NavigationNodeListData
+    description: Specifies a list of available navigation nodes.
+  OptionData:
+    type: object
+    properties:
+      id:
+        type: string
+      label:
+        type: string
+    title: OptionData
+  PageContentSlotComponentData:
+    type: object
+    properties:
+      componentId:
+        type: string
+        example: AbstractCMSComponent
+      componentUuid:
+        type: string
+      pageId:
+        type: string
+        example: homepage
+      position:
+        type: integer
+        format: int32
+        example: 1
+      slotId:
+        type: string
+        example: Section1Slot-Homepage
+    title: PageContentSlotComponentData
+    description: Specifies properties of the page content slot component.
+  PageContentSlotComponentListData:
+    type: object
+    properties:
+      pageContentSlotComponentList:
+        type: array
+        items:
+          $ref: '#/definitions/PageContentSlotComponentData'
+    title: PageContentSlotComponentListData
+    description: Specifies a list of available page content slot components.
+  PageContentSlotContainerListData:
+    type: object
+    properties:
+      pageContentSlotContainerList:
+        type: array
+        items:
+          $ref: '#/definitions/PageContentSlotContainerData'
+    title: PageContentSlotContainerListData
+    description: Specifies a list of available content slot containers.
+  PageContentSlotContainerData:
+    type: object
+    properties:
+      components:
+        type: array
+        items:
+          type: string
+      containerId:
+        type: string
+      containerType:
+        type: string
+      pageId:
+        type: string
+        example: homepage
+      slotId:
+        type: string
+        example: Section1Slot-Homepage
+    title: PageContentSlotContainerData
+    description: Specifies properties of the page content slot container.
+  PageContentSlotData:
+    type: object
+    properties:
+      pageId:
+        type: string
+        example: homepage
+      position:
+        type: integer
+        format: int32
+        example: 1
+      slotId:
+        type: string
+        example: Section1Slot-Homepage
+      slotShared:
+        type: boolean
+        example: true
+      slotStatus:
+        type: string
+    title: PageContentSlotData
+    description: Specifies properties of the page content slot.
+  PageContentSlotListData:
+    type: object
+    properties:
+      pageContentSlotList:
+        type: array
+        items:
+          $ref: '#/definitions/PageContentSlotData'
+    title: PageContentSlotListData
+    description: Specifies a list of available page content slots.
+  PageListData:
+    type: object
+    properties:
+      pages:
+        type: array
+        items:
+          $ref: '#/definitions/AbstractPageData'
+      pagination:
+        $ref: '#/definitions/pagination'
+    title: PageListData
+    description: Specifies a list of available pages.
+  PageRestrictionData:
+    type: object
+    properties:
+      pageId:
+        type: string
+        example: homepage
+      restrictionId:
+        type: string
+    title: PageRestrictionData
+    description: Specifies properties of the page restriction.
+  PageRestrictionListData:
+    type: object
+    properties:
+      pageRestrictionList:
+        type: array
+        items:
+          $ref: '#/definitions/PageRestrictionData'
+    title: PageRestrictionListData
+    description: Specifies a list of available page restrictions.
+  PageTemplateData:
+    type: object
+    properties:
+      frontEndName:
+        type: string
+        example: product/productLayout2Page
+      name:
+        type: string
+        example: homepage
+      previewIcon:
+        type: string
+      uid:
+        type: string
+        example: ProductDetailsPageTemplate
+      uuid:
+        type: string
+    title: PageTemplateData
+    description: Specifies properties of the page template.
+  PageTemplateListData:
+    type: object
+    properties:
+      templates:
+        type: array
+        items:
+          $ref: '#/definitions/PageTemplateData'
+    title: PageTemplateListData
+    description: Specifies a list of available page templates.
+  PageTypeData:
+    type: object
+    properties:
+      code:
+        type: string
+        example: 000000RW
+      description:
+        type: object
+        additionalProperties:
+          type: string
+      name:
+        type: object
+        additionalProperties:
+          type: string
+      type:
+        type: string
+        example: ContentPage
+    title: PageTypeData
+    description: Specifies property of the page type.
+  PageTypeListData:
+    type: object
+    properties:
+      pageTypes:
+        type: array
+        items:
+          $ref: '#/definitions/PageTypeData'
+    title: PageTypeListData
+    description: Specifies a list of available page types.
+  PageTypeRestrictionTypeData:
+    type: object
+    properties:
+      pageType:
+        type: string
+        example: ContentPage
+      restrictionType:
+        type: string
+        example: CMSUserGroupRestriction
+    title: PageTypeRestrictionTypeData
+    description: Specifies a restriction type that can be applied to a given page
+      type.
+  PageTypeRestrictionTypeListData:
+    type: object
+    properties:
+      pageTypeRestrictionTypeList:
+        type: array
+        items:
+          $ref: '#/definitions/PageTypeRestrictionTypeData'
+    title: PageTypeRestrictionTypeListData
+    description: Specifies a list of available restriction types for a given page
+      type.
+  ProductDataListData:
+    type: object
+    properties:
+      pagination:
+        $ref: '#/definitions/pagination'
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/ProductData'
+    title: ProductDataListData
+    description: Specifies a list of available products.
+  ProductData:
+    type: object
+    properties:
+      catalogId:
+        type: string
+        example: electronicsContentCatalog
+      catalogVersion:
+        type: string
+        example: Online
+      code:
+        type: string
+        example: "489702"
+      description:
+        type: object
+        additionalProperties:
+          type: string
+      name:
+        type: object
+        additionalProperties:
+          type: string
+      thumbnailMediaCode:
+        type: string
+    title: ProductData
+    description: Specifies properties of the product.
+  RestrictionTypeData:
+    type: object
+    properties:
+      code:
+        type: string
+        example: 000000RW
+      description:
+        type: object
+        additionalProperties:
+          type: string
+      name:
+        type: object
+        additionalProperties:
+          type: string
+    title: RestrictionTypeData
+    description: Specifies properties of the restriction type.
+  RestrictionTypeListData:
+    type: object
+    properties:
+      restrictionTypes:
+        type: array
+        items:
+          $ref: '#/definitions/RestrictionTypeData'
+    title: RestrictionTypeListData
+    description: Specifies a list of available restriction types.
+  SiteData:
+    type: object
+    properties:
+      contentCatalogs:
+        type: array
+        example:
+        - apparel-deContentCatalog
+        items:
+          type: string
+      name:
+        type: object
+        example:
+          en: Apparel Site DE
+          de: Bekleidungs-Website DE
+        additionalProperties:
+          type: string
+      previewUrl:
+        type: string
+        example: /storefront/?site=apparel-de
+      uid:
+        type: string
+        example: apparel-de
+    title: SiteData
+    description: Specifies properties of the site.
+  SiteListData:
+    type: object
+    properties:
+      sites:
+        type: array
+        items:
+          $ref: '#/definitions/SiteData'
+    title: SiteListData
+    description: Specified a list of available sites.
+  SyncItemStatusData:
+    type: object
+    properties:
+      dependentItemTypesOutOfSync:
+        type: array
+        items:
+          $ref: '#/definitions/ItemTypeData'
+      itemId:
+        type: string
+      itemType:
+        type: string
+        example: ContentSlot
+      lastModifiedDate:
+        type: integer
+        format: int64
+        example: 1575388910281
+      lastSyncStatus:
+        type: integer
+        format: int64
+        example: 1575389256116
+      name:
+        type: string
+        example: SearchBoxSlot
+      selectedDependencies:
+        type: array
+        items:
+          $ref: '#/definitions/SyncItemStatusData'
+      sharedDependencies:
+        type: array
+        items:
+          $ref: '#/definitions/SyncItemStatusData'
+      status:
+        type: string
+        example: NOT_SYNC
+    title: SyncItemStatusData
+    description: Specifies properties of the synchronization item status.
+  SyncJobData:
+    type: object
+    properties:
+      code:
+        type: string
+        example: ProductPage
+      creationDate:
+        type: string
+        format: date-time
+        example: yyyy-MM-dd HH:mm:ss.SSSZ
+      endDate:
+        type: string
+        format: date-time
+        example: yyyy-MM-dd HH:mm:ss.SSSZ
+      lastModifiedDate:
+        type: string
+        format: date-time
+        example: yyyy-MM-dd HH:mm:ss.SSSZ
+      sourceCatalogVersion:
+        type: string
+        example: electronicsContentCatalog/Staged
+      startDate:
+        type: string
+        format: date-time
+        example: yyyy-MM-dd HH:mm:ss.SSSZ
+      syncResult:
+        type: string
+        example: SUCCESS
+      syncStatus:
+        type: string
+        example: IN_SYNC
+      targetCatalogVersion:
+        type: string
+        example: electronicsContentCatalog/Online
+    title: SyncJobData
+    description: Specifies properties of the synchronization job.
+  SynchronizationData:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/ItemSynchronizationData'
+    title: SynchronizationData
+    description: Specifies a list of available synchronization items.
+  UidListData:
+    type: object
+    properties:
+      uids:
+        type: array
+        items:
+          type: string
+    title: UidListData
+    description: Specifies a list of available uids.
+  UserDataData:
+    type: object
+    properties:
+      readableLanguages:
+        type: array
+        example:
+        - de
+        - hi
+        items:
+          type: string
+      uid:
+        type: string
+      writeableLanguages:
+        type: array
+        example:
+        - de
+        - hi
+        items:
+          type: string
+    title: UserDataData
+    description: Specifies properties of the user data.
+  UserGroupListData:
+    type: object
+    properties:
+      pagination:
+        $ref: '#/definitions/pagination'
+      userGroups:
+        type: array
+        items:
+          $ref: '#/definitions/UserGroupData'
+    title: UserGroupListData
+    description: Specifies a list of available user groups.
+  UserGroupData:
+    type: object
+    properties:
+      name:
+        type: object
+        additionalProperties:
+          type: string
+      uid:
+        type: string
+        example: admin
+    title: UserGroupData
+    description: Specifies properties of the user group.
+  WorkflowTemplateListData:
+    type: object
+    properties:
+      templates:
+        type: array
+        items:
+          $ref: '#/definitions/WorkflowTemplateData'
+    title: WorkflowTemplateListData
+    description: Specifies a list of available workflow templates.
+  WorkflowTemplateData:
+    type: object
+    properties:
+      code:
+        type: string
+        example: 000000RS
+      name:
+        type: string
+        example: Page Translation
+    title: WorkflowTemplateData
+    description: Specifies properties of the workflow template.
+  pagination:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int32
+        description: Number of elements on this page
+      hasNext:
+        type: boolean
+        description: Indicates if there is next page
+      hasPrevious:
+        type: boolean
+        description: Indicates if there is previous page
+      page:
+        type: integer
+        format: int32
+        description: Current page number
+      totalCount:
+        type: integer
+        format: int64
+        description: Total number of elements
+      totalPages:
+        type: integer
+        format: int32
+        description: Total number of pages
+    title: pagination
+    description: Pagination info
+x-sap-api-type: REST
+x-sap-shortText: Manage CMS-related Webservices.
+x-sap-stateInfo:
+  state: Active
+x-servers:
+- templates:
+    url:
+      description: SAP Commerce Cloud server URL where the application is deployed.
+  description: CMS Webservices REST API endpoint.
+  url: https://{url}/cmswebservices
+

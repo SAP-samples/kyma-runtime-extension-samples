@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_LOCATION_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Location" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingLocationUUID"/>
+                </Key>
+                <Property Name="MarketingLocationUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingLocationName" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Marketing Loc. Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Company Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingLocationMallName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Mall ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingArea" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingAreaName" Type="Edm.String" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingLocationType" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Loc. Type" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingLocationTypeName" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Type Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Country" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CountryName" Type="Edm.String" MaxLength="15" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="AddressRegion" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Region" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RegionName" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Region Desc." sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Postal Code" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="AddressStreetName" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Street" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="AddressHouseNumber" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="House Number" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Building" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Building Code" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Floor" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Floor" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RoomNumber" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Room Number" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Phone" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Fax" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="241" sap:unicode="false" sap:label="Email Address" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="WebsiteURL" Type="Edm.String" sap:unicode="false" sap:label="Website URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ImageURL" Type="Edm.String" sap:unicode="false" sap:label="Image URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Loc. Valid From Date" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Valid To Date" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Latitude" Type="Edm.Decimal" Precision="20" Scale="10" sap:unicode="false" sap:label="Latitude" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Longitude" Type="Edm.Decimal" Precision="20" Scale="10" sap:unicode="false" sap:label="Longitude" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SpatialReferenceSystem" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Spatial Ref ID" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="LocationLocationsOriginData" Relationship="API_MKT_LOCATION_SRV.LocationLocationOriginData" FromRole="FromRole_LocationLocationOriginData" ToRole="ToRole_LocationLocationOriginData"/>
+                <NavigationProperty Name="LocationsLocationInfo" Relationship="API_MKT_LOCATION_SRV.LocationLocationInfo" FromRole="FromRole_LocationLocationInfo" ToRole="ToRole_LocationLocationInfo"/>
+            </EntityType>
+            <EntityType Name="LocationOriginData" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingLocationID"/>
+                    <PropertyRef Name="MarketingLocationOrigin"/>
+                </Key>
+                <Property Name="MarketingLocationUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingLocationID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Location ID"/>
+                <Property Name="MarketingLocationOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Location"/>
+                <Property Name="MarketingLocationName" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Marketing Loc. Name"/>
+                <Property Name="CompanyName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Company Name"/>
+                <Property Name="MarketingLocationMallName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Mall ID"/>
+                <Property Name="MarketingArea" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID"/>
+                <Property Name="MarketingAreaName" Type="Edm.String" MaxLength="120" sap:unicode="false" sap:label="Marketing Area"/>
+                <Property Name="MarketingLocationType" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Loc. Type"/>
+                <Property Name="MarketingLocationTypeName" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Type Description"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Country"/>
+                <Property Name="CountryName" Type="Edm.String" MaxLength="15" sap:unicode="false" sap:label="Name"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="City"/>
+                <Property Name="AddressRegion" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Region"/>
+                <Property Name="RegionName" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Description"/>
+                <Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Postal Code"/>
+                <Property Name="AddressStreetName" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Street"/>
+                <Property Name="AddressHouseNumber" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="House Number"/>
+                <Property Name="Building" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Building Code"/>
+                <Property Name="Floor" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Floor"/>
+                <Property Name="RoomNumber" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Room Number"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Phone"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Fax"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="241" sap:unicode="false" sap:label="Email Address"/>
+                <Property Name="WebsiteURL" Type="Edm.String" sap:unicode="false" sap:label="Website URL" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ImageURL" Type="Edm.String" sap:unicode="false" sap:label="Image URL" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Loc. Valid From Date"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Valid To Date"/>
+                <Property Name="Latitude" Type="Edm.Decimal" Precision="20" Scale="10" sap:unicode="false" sap:label="Latitude"/>
+                <Property Name="Longitude" Type="Edm.Decimal" Precision="20" Scale="10" sap:unicode="false" sap:label="Longitude"/>
+                <Property Name="SpatialReferenceSystem" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Spatial Ref ID"/>
+                <NavigationProperty Name="LocationOriginDataLocationOriginDataInfo" Relationship="API_MKT_LOCATION_SRV.LocationOriginDataLocationOriginDataInfo" FromRole="FromRole_LocationOriginDataLocationOriginDataInfo" ToRole="ToRole_LocationOriginDataLocationOriginDataInfo"/>
+            </EntityType>
+            <EntityType Name="LocationInfo" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingLocationUUID"/>
+                    <PropertyRef Name="Language"/>
+                </Key>
+                <Property Name="MarketingLocationUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingLocationCategories" Type="Edm.String" sap:unicode="false" sap:label="Location Categories" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationIntroduction" Type="Edm.String" sap:unicode="false" sap:label="Location Intro." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationAdditionalinformation" Type="Edm.String" sap:unicode="false" sap:label="Loc. Addntl Info." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationSpecials" Type="Edm.String" sap:unicode="false" sap:label="Location Special" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationOpeningHours" Type="Edm.String" sap:unicode="false" sap:label="Location Open Hours" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="LocationOriginDataInfo" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingLocationID"/>
+                    <PropertyRef Name="MarketingLocationOrigin"/>
+                    <PropertyRef Name="Language"/>
+                </Key>
+                <Property Name="MarketingLocationID" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Location ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Location" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingLocationCategories" Type="Edm.String" sap:unicode="false" sap:label="Location Categories" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationIntroduction" Type="Edm.String" sap:unicode="false" sap:label="Location Intro." sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocAdditionalInfo" Type="Edm.String" sap:unicode="false" sap:label="Loc. Addntl Info." sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationSpecials" Type="Edm.String" sap:unicode="false" sap:label="Location Special" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingLocationOpeningHours" Type="Edm.String" sap:unicode="false" sap:label="Location Open Hours" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="LocationLocationInfo" sap:content-version="1">
+                <End Type="API_MKT_LOCATION_SRV.Location" Multiplicity="1" Role="FromRole_LocationLocationInfo"/>
+                <End Type="API_MKT_LOCATION_SRV.LocationInfo" Multiplicity="*" Role="ToRole_LocationLocationInfo"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_LocationLocationInfo">
+                        <PropertyRef Name="MarketingLocationUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_LocationLocationInfo">
+                        <PropertyRef Name="MarketingLocationUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="LocationLocationOriginData" sap:content-version="1">
+                <End Type="API_MKT_LOCATION_SRV.Location" Multiplicity="1" Role="FromRole_LocationLocationOriginData"/>
+                <End Type="API_MKT_LOCATION_SRV.LocationOriginData" Multiplicity="*" Role="ToRole_LocationLocationOriginData"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_LocationLocationOriginData">
+                        <PropertyRef Name="MarketingLocationUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_LocationLocationOriginData">
+                        <PropertyRef Name="MarketingLocationUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="LocationOriginDataLocationOriginDataInfo" sap:content-version="1">
+                <End Type="API_MKT_LOCATION_SRV.LocationOriginData" Multiplicity="1" Role="FromRole_LocationOriginDataLocationOriginDataInfo"/>
+                <End Type="API_MKT_LOCATION_SRV.LocationOriginDataInfo" Multiplicity="*" Role="ToRole_LocationOriginDataLocationOriginDataInfo"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_LocationOriginDataLocationOriginDataInfo">
+                        <PropertyRef Name="MarketingLocationID"/>
+                        <PropertyRef Name="MarketingLocationOrigin"/>
+                    </Principal>
+                    <Dependent Role="ToRole_LocationOriginDataLocationOriginDataInfo">
+                        <PropertyRef Name="MarketingLocationID"/>
+                        <PropertyRef Name="MarketingLocationOrigin"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_LOCATION_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Locations" EntityType="API_MKT_LOCATION_SRV.Location" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="LocationsOriginData" EntityType="API_MKT_LOCATION_SRV.LocationOriginData" sap:content-version="1"/>
+                <EntitySet Name="LocationsInfo" EntityType="API_MKT_LOCATION_SRV.LocationInfo" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="LocationsOriginDataInfo" EntityType="API_MKT_LOCATION_SRV.LocationOriginDataInfo" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="LocationOriginDataLocationsOriginDataInf" Association="API_MKT_LOCATION_SRV.LocationOriginDataLocationOriginDataInfo" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="LocationsOriginData" Role="FromRole_LocationOriginDataLocationOriginDataInfo"/>
+                    <End EntitySet="LocationsOriginDataInfo" Role="ToRole_LocationOriginDataLocationOriginDataInfo"/>
+                </AssociationSet>
+                <AssociationSet Name="LocationLocationsOriginData" Association="API_MKT_LOCATION_SRV.LocationLocationOriginData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Locations" Role="FromRole_LocationLocationOriginData"/>
+                    <End EntitySet="LocationsOriginData" Role="ToRole_LocationLocationOriginData"/>
+                </AssociationSet>
+                <AssociationSet Name="LocationLocationsInfo" Association="API_MKT_LOCATION_SRV.LocationLocationInfo" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Locations" Role="FromRole_LocationLocationInfo"/>
+                    <End EntitySet="LocationsInfo" Role="ToRole_LocationLocationInfo"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_LOCATION_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_LOCATION_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

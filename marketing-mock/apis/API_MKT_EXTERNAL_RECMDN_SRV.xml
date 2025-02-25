@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_EXTERNAL_RECMDN_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ContactToRecmdnClstrAssgmtsType" sap:label="Marketing: Contact to Recommendation Cluster Assignment" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CntctToRecmdnClstrAssgmtUUID"/>
+                </Key>
+                <Property Name="CntctToRecmdnClstrAssgmtUUID" Type="Edm.Guid" Nullable="false" sap:label="Cluster to Contact Relationship UUID" sap:quickinfo="External Data Set: Cluster to Contact Relationship UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RecommendationClusterUUID" Type="Edm.Guid" sap:label="Cluster UUID" sap:quickinfo="External Data Set: Cluster UUID" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="ExternalRecommendationUUID" Type="Edm.Guid" sap:label="External Data Set UUID" sap:quickinfo="External Data Set: UUID" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="RecommendationCluster" Type="Edm.String" MaxLength="32" sap:display-format="UpperCase" sap:label="Cluster" sap:quickinfo="External Data Set: Cluster" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RecmdnInteractionContactType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Recommendation Contact Type" sap:quickinfo="External Recommendation: Interaction Contact Type" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionContactUUID" Type="Edm.String" MaxLength="50" sap:label="Interaction Contact UUID" sap:quickinfo="External Recommendation: Interaction Contact UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionContactId" Type="Edm.String" MaxLength="255" sap:label="External Contact ID" sap:quickinfo="External ID of Interaction Contact Data"/>
+                <Property Name="InteractionContactOrigin" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Origin of Contact" sap:quickinfo="Origin of Interaction Contact Data"/>
+                <NavigationProperty Name="to_ExternalRecommendation" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_8F1436A2584115CC9638B4CD9CF59F07" FromRole="FromRole_assoc_8F1436A2584115CC9638B4CD9CF59F07" ToRole="ToRole_assoc_8F1436A2584115CC9638B4CD9CF59F07"/>
+                <NavigationProperty Name="to_RecommendationCluster" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7" FromRole="ToRole_assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7" ToRole="FromRole_assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7"/>
+            </EntityType>
+            <EntityType Name="ExternalRecmdnVersionsType" sap:label="Marketing: External Recommendation Version" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ExtRecommendationVersionUUID"/>
+                </Key>
+                <Property Name="ExtRecommendationVersionUUID" Type="Edm.Guid" Nullable="false" sap:label="Version UUID of External Data Set" sap:quickinfo="External Data Set: Version UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ExternalRecommendationUUID" Type="Edm.Guid" sap:label="External Data Set UUID" sap:quickinfo="External Data Set: UUID" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="ExternalRecommendation" Type="Edm.String" MaxLength="32" sap:display-format="UpperCase" sap:label="External Data Set" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ExtRecmdnExternalVersion" Type="Edm.String" MaxLength="32" sap:label="External Version" sap:quickinfo="External Data Set: External Version"/>
+                <Property Name="ValidityStartDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Valid From" sap:quickinfo="External Data Set: Valid From Timestamp"/>
+                <Property Name="IsDeleted" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Cluster Data Is Deleted" sap:quickinfo="External Recommendation: Indicator for Deleted Cluster Data" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By User" sap:quickinfo="Created By User for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Creation Date Time" sap:quickinfo="Creation Date Time for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Last Change Date Time" sap:quickinfo="Last Change Date Time for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Last Changed By User" sap:quickinfo="Last Changed By User for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUserName" Type="Edm.String" MaxLength="80" sap:label="Created By Username" sap:quickinfo="Created By User Name for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUserName" Type="Edm.String" MaxLength="80" sap:label="Last Changed By Username" sap:quickinfo="Last Changed By User Name for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="to_RecommendationCluster" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_A3FE313B148C0DA5A95EF7A72EAA5986" FromRole="FromRole_assoc_A3FE313B148C0DA5A95EF7A72EAA5986" ToRole="ToRole_assoc_A3FE313B148C0DA5A95EF7A72EAA5986"/>
+                <NavigationProperty Name="to_ExternalRecommendation" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_EDA9160111E2F27B32C524F4474C615A" FromRole="ToRole_assoc_EDA9160111E2F27B32C524F4474C615A" ToRole="FromRole_assoc_EDA9160111E2F27B32C524F4474C615A"/>
+            </EntityType>
+            <EntityType Name="ExternalRecommendationsType" sap:label="Marketing: External Recommendation" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ExternalRecommendationUUID"/>
+                </Key>
+                <Property Name="ExternalRecommendationUUID" Type="Edm.Guid" Nullable="false" sap:label="External Data Set UUID" sap:quickinfo="External Data Set: UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ExternalRecommendation" Type="Edm.String" MaxLength="32" sap:display-format="UpperCase" sap:label="External Data Set"/>
+                <Property Name="ExternalRecommendationName" Type="Edm.String" MaxLength="120" sap:label="External Data Set Name" sap:quickinfo="External Data Set: Name"/>
+                <Property Name="ExternalRecommendationType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="External Data Set Type" sap:quickinfo="External Data Set: Type"/>
+                <Property Name="RecommendationResultItemType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Result Item Type" sap:quickinfo="External Recommendation: Result Item Type"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By User" sap:quickinfo="Created By User for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Creation Date Time" sap:quickinfo="Creation Date Time for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Last Change Date Time" sap:quickinfo="Last Change Date Time for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Last Changed By User" sap:quickinfo="Last Changed By User for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUserName" Type="Edm.String" MaxLength="80" sap:label="Created By Username" sap:quickinfo="Created By User Name for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUserName" Type="Edm.String" MaxLength="80" sap:label="Last Changed By Username" sap:quickinfo="Last Changed By User Name for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="to_ExternalRecmdnVersion" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_EDA9160111E2F27B32C524F4474C615A" FromRole="FromRole_assoc_EDA9160111E2F27B32C524F4474C615A" ToRole="ToRole_assoc_EDA9160111E2F27B32C524F4474C615A"/>
+            </EntityType>
+            <EntityType Name="RecmdnClusterForLeadingItemsType" sap:label="Marketing: Recommendation Cluster for Leading Item" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="RecommendationItemUUID"/>
+                </Key>
+                <Property Name="RecommendationItemUUID" Type="Edm.Guid" Nullable="false" sap:label="Recommendation Item UUID" sap:quickinfo="External Data Set: Item UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RecommendationClusterUUID" Type="Edm.Guid" sap:label="Cluster UUID" sap:quickinfo="External Data Set: Cluster UUID" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="ExternalRecommendationUUID" Type="Edm.Guid" sap:label="External Data Set UUID" sap:quickinfo="External Data Set: UUID" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="RecommendationCluster" Type="Edm.String" MaxLength="32" sap:display-format="UpperCase" sap:label="Cluster" sap:quickinfo="External Data Set: Cluster" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RecommendationLeadingItemType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Leading Item Type" sap:quickinfo="External Recommendation: Leading Item Type"/>
+                <Property Name="RecommendationLeadingItemUUID" Type="Edm.String" MaxLength="50" sap:label="Leading Item UUID" sap:quickinfo="External Recommendation: Leading Item UUID"/>
+                <Property Name="RecommendationLeadingItem" Type="Edm.String" MaxLength="50" sap:label="Leading Item ID" sap:quickinfo="External Recommendation: Leading Item ID"/>
+                <Property Name="RecommendationLeadingItemOrign" Type="Edm.String" MaxLength="50" sap:label="Leading Item Origin" sap:quickinfo="External Data Set: Leading Item Origin"/>
+                <Property Name="RecommendationResultItemType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Result Item Type" sap:quickinfo="External Recommendation: Result Item Type"/>
+                <Property Name="RecommendationResultItemUUID" Type="Edm.String" MaxLength="50" sap:label="Result Item UUID" sap:quickinfo="External Recommendation: Result Item UUID"/>
+                <Property Name="RecommendationResultItem" Type="Edm.String" MaxLength="50" sap:label="Result Item ID" sap:quickinfo="External Recommendation: Result Item ID"/>
+                <Property Name="RecommendationResultItemOrigin" Type="Edm.String" MaxLength="50" sap:label="Result Item Origin" sap:quickinfo="External Data Set: Result Item Origin"/>
+                <Property Name="RecommendationItemScore" Type="Edm.Int32" sap:label="Score" sap:quickinfo="Recommendation Score"/>
+                <NavigationProperty Name="to_ExternalRecommendation" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_7747D5A67D57437D983BEBD957B3DA9E" FromRole="FromRole_assoc_7747D5A67D57437D983BEBD957B3DA9E" ToRole="ToRole_assoc_7747D5A67D57437D983BEBD957B3DA9E"/>
+                <NavigationProperty Name="to_RecommendationCluster" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_2E056198749271FF8A957BC978393AB4" FromRole="ToRole_assoc_2E056198749271FF8A957BC978393AB4" ToRole="FromRole_assoc_2E056198749271FF8A957BC978393AB4"/>
+            </EntityType>
+            <EntityType Name="RecmdnClusterItemAssignmentsType" sap:label="Marketing: Recommendation Cluster Result Item Assignment" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="RecommendationItemUUID"/>
+                </Key>
+                <Property Name="RecommendationItemUUID" Type="Edm.Guid" Nullable="false" sap:label="Recommendation Item UUID" sap:quickinfo="External Data Set: Item UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RecommendationClusterUUID" Type="Edm.Guid" sap:label="Cluster UUID" sap:quickinfo="External Data Set: Cluster UUID" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="ExternalRecommendationUUID" Type="Edm.Guid" sap:label="External Data Set UUID" sap:quickinfo="External Data Set: UUID" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="RecommendationCluster" Type="Edm.String" MaxLength="32" sap:display-format="UpperCase" sap:label="Cluster" sap:quickinfo="External Data Set: Cluster" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RecommendationResultItemType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Result Item Type" sap:quickinfo="External Recommendation: Result Item Type"/>
+                <Property Name="RecommendationResultItemUUID" Type="Edm.String" MaxLength="50" sap:label="Result Item UUID" sap:quickinfo="External Recommendation: Result Item UUID"/>
+                <Property Name="RecommendationResultItem" Type="Edm.String" MaxLength="50" sap:label="Result Item ID" sap:quickinfo="External Recommendation: Result Item ID"/>
+                <Property Name="RecommendationResultItemOrigin" Type="Edm.String" MaxLength="50" sap:label="Result Item Origin" sap:quickinfo="External Data Set: Result Item Origin"/>
+                <Property Name="RecommendationItemScore" Type="Edm.Int32" sap:label="Score" sap:quickinfo="Recommendation Score"/>
+                <NavigationProperty Name="to_ExternalRecommendation" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_3BAA8AACD2158ADF6472B8E6D912312F" FromRole="FromRole_assoc_3BAA8AACD2158ADF6472B8E6D912312F" ToRole="ToRole_assoc_3BAA8AACD2158ADF6472B8E6D912312F"/>
+                <NavigationProperty Name="to_RecommendationCluster" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_04B6A4C9D5B72672EE3DA72F7029244C" FromRole="ToRole_assoc_04B6A4C9D5B72672EE3DA72F7029244C" ToRole="FromRole_assoc_04B6A4C9D5B72672EE3DA72F7029244C"/>
+            </EntityType>
+            <EntityType Name="RecommendationClustersType" sap:label="Marketing: Recommendation Cluster" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="RecommendationClusterUUID"/>
+                </Key>
+                <Property Name="RecommendationClusterUUID" Type="Edm.Guid" Nullable="false" sap:label="Cluster UUID" sap:quickinfo="External Data Set: Cluster UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ExtRecommendationVersionUUID" Type="Edm.Guid" sap:label="Version UUID of External Data Set" sap:quickinfo="External Data Set: Version UUID" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="ExternalRecommendationUUID" Type="Edm.Guid" sap:label="External Data Set UUID" sap:quickinfo="External Data Set: UUID" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="RecommendationCluster" Type="Edm.String" MaxLength="32" sap:display-format="UpperCase" sap:label="Cluster" sap:quickinfo="External Data Set: Cluster"/>
+                <Property Name="IsFallbackRecmdnCluster" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Fallback Cluster" sap:quickinfo="External Recommendation: Indicator for Fallback Cluster"/>
+                <NavigationProperty Name="to_ExternalRecmdnVersion" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_A3FE313B148C0DA5A95EF7A72EAA5986" FromRole="ToRole_assoc_A3FE313B148C0DA5A95EF7A72EAA5986" ToRole="FromRole_assoc_A3FE313B148C0DA5A95EF7A72EAA5986"/>
+                <NavigationProperty Name="to_CntctToRecmdnClstrAssgmt" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7" FromRole="FromRole_assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7" ToRole="ToRole_assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7"/>
+                <NavigationProperty Name="to_ExternalRecommendation" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_6282AB74C9A7AB2850F42852E49CCDAE" FromRole="FromRole_assoc_6282AB74C9A7AB2850F42852E49CCDAE" ToRole="ToRole_assoc_6282AB74C9A7AB2850F42852E49CCDAE"/>
+                <NavigationProperty Name="to_RecmdnClstrItemAssgmt" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_04B6A4C9D5B72672EE3DA72F7029244C" FromRole="FromRole_assoc_04B6A4C9D5B72672EE3DA72F7029244C" ToRole="ToRole_assoc_04B6A4C9D5B72672EE3DA72F7029244C"/>
+                <NavigationProperty Name="to_RecmdnClstrLeadingItm" Relationship="API_MKT_EXTERNAL_RECMDN_SRV.assoc_2E056198749271FF8A957BC978393AB4" FromRole="FromRole_assoc_2E056198749271FF8A957BC978393AB4" ToRole="ToRole_assoc_2E056198749271FF8A957BC978393AB4"/>
+            </EntityType>
+            <Association Name="assoc_3BAA8AACD2158ADF6472B8E6D912312F" sap:content-version="1">
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterItemAssignmentsType" Multiplicity="1" Role="FromRole_assoc_3BAA8AACD2158ADF6472B8E6D912312F"/>
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecommendationsType" Multiplicity="1" Role="ToRole_assoc_3BAA8AACD2158ADF6472B8E6D912312F"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_3BAA8AACD2158ADF6472B8E6D912312F">
+                        <PropertyRef Name="ExternalRecommendationUUID"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_3BAA8AACD2158ADF6472B8E6D912312F">
+                        <PropertyRef Name="ExternalRecommendationUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_EDA9160111E2F27B32C524F4474C615A" sap:content-version="1">
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecommendationsType" Multiplicity="1" Role="FromRole_assoc_EDA9160111E2F27B32C524F4474C615A">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecmdnVersionsType" Multiplicity="*" Role="ToRole_assoc_EDA9160111E2F27B32C524F4474C615A"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_EDA9160111E2F27B32C524F4474C615A">
+                        <PropertyRef Name="ExternalRecommendationUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_EDA9160111E2F27B32C524F4474C615A">
+                        <PropertyRef Name="ExternalRecommendationUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_A3FE313B148C0DA5A95EF7A72EAA5986" sap:content-version="1">
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecmdnVersionsType" Multiplicity="1" Role="FromRole_assoc_A3FE313B148C0DA5A95EF7A72EAA5986">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.RecommendationClustersType" Multiplicity="*" Role="ToRole_assoc_A3FE313B148C0DA5A95EF7A72EAA5986"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_A3FE313B148C0DA5A95EF7A72EAA5986">
+                        <PropertyRef Name="ExtRecommendationVersionUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_A3FE313B148C0DA5A95EF7A72EAA5986">
+                        <PropertyRef Name="ExtRecommendationVersionUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_7747D5A67D57437D983BEBD957B3DA9E" sap:content-version="1">
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterForLeadingItemsType" Multiplicity="1" Role="FromRole_assoc_7747D5A67D57437D983BEBD957B3DA9E"/>
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecommendationsType" Multiplicity="1" Role="ToRole_assoc_7747D5A67D57437D983BEBD957B3DA9E"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_7747D5A67D57437D983BEBD957B3DA9E">
+                        <PropertyRef Name="ExternalRecommendationUUID"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_7747D5A67D57437D983BEBD957B3DA9E">
+                        <PropertyRef Name="ExternalRecommendationUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_8F1436A2584115CC9638B4CD9CF59F07" sap:content-version="1">
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.ContactToRecmdnClstrAssgmtsType" Multiplicity="1" Role="FromRole_assoc_8F1436A2584115CC9638B4CD9CF59F07"/>
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecommendationsType" Multiplicity="1" Role="ToRole_assoc_8F1436A2584115CC9638B4CD9CF59F07"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_8F1436A2584115CC9638B4CD9CF59F07">
+                        <PropertyRef Name="ExternalRecommendationUUID"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_8F1436A2584115CC9638B4CD9CF59F07">
+                        <PropertyRef Name="ExternalRecommendationUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7" sap:content-version="1">
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.RecommendationClustersType" Multiplicity="1" Role="FromRole_assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.ContactToRecmdnClstrAssgmtsType" Multiplicity="*" Role="ToRole_assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7">
+                        <PropertyRef Name="RecommendationClusterUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7">
+                        <PropertyRef Name="RecommendationClusterUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_6282AB74C9A7AB2850F42852E49CCDAE" sap:content-version="1">
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.RecommendationClustersType" Multiplicity="1" Role="FromRole_assoc_6282AB74C9A7AB2850F42852E49CCDAE"/>
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecommendationsType" Multiplicity="1" Role="ToRole_assoc_6282AB74C9A7AB2850F42852E49CCDAE"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_6282AB74C9A7AB2850F42852E49CCDAE">
+                        <PropertyRef Name="ExternalRecommendationUUID"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_6282AB74C9A7AB2850F42852E49CCDAE">
+                        <PropertyRef Name="ExternalRecommendationUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_04B6A4C9D5B72672EE3DA72F7029244C" sap:content-version="1">
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.RecommendationClustersType" Multiplicity="1" Role="FromRole_assoc_04B6A4C9D5B72672EE3DA72F7029244C">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterItemAssignmentsType" Multiplicity="*" Role="ToRole_assoc_04B6A4C9D5B72672EE3DA72F7029244C"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_04B6A4C9D5B72672EE3DA72F7029244C">
+                        <PropertyRef Name="RecommendationClusterUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_04B6A4C9D5B72672EE3DA72F7029244C">
+                        <PropertyRef Name="RecommendationClusterUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_2E056198749271FF8A957BC978393AB4" sap:content-version="1">
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.RecommendationClustersType" Multiplicity="1" Role="FromRole_assoc_2E056198749271FF8A957BC978393AB4">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterForLeadingItemsType" Multiplicity="*" Role="ToRole_assoc_2E056198749271FF8A957BC978393AB4"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_2E056198749271FF8A957BC978393AB4">
+                        <PropertyRef Name="RecommendationClusterUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_2E056198749271FF8A957BC978393AB4">
+                        <PropertyRef Name="RecommendationClusterUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_EXTERNAL_RECMDN_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ContactToRecmdnClstrAssgmts" EntityType="API_MKT_EXTERNAL_RECMDN_SRV.ContactToRecmdnClstrAssgmtsType" sap:updatable="false" sap:content-version="1"/>
+                <EntitySet Name="ExternalRecmdnVersions" EntityType="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecmdnVersionsType" sap:content-version="1"/>
+                <EntitySet Name="ExternalRecommendations" EntityType="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecommendationsType" sap:content-version="1"/>
+                <EntitySet Name="RecmdnClusterForLeadingItems" EntityType="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterForLeadingItemsType" sap:updatable="false" sap:content-version="1"/>
+                <EntitySet Name="RecmdnClusterItemAssignments" EntityType="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterItemAssignmentsType" sap:updatable="false" sap:content-version="1"/>
+                <EntitySet Name="RecommendationClusters" EntityType="API_MKT_EXTERNAL_RECMDN_SRV.RecommendationClustersType" sap:content-version="1"/>
+                <AssociationSet Name="assoc_3BAA8AACD2158ADF6472B8E6D912312F" Association="API_MKT_EXTERNAL_RECMDN_SRV.assoc_3BAA8AACD2158ADF6472B8E6D912312F" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="RecmdnClusterItemAssignments" Role="FromRole_assoc_3BAA8AACD2158ADF6472B8E6D912312F"/>
+                    <End EntitySet="ExternalRecommendations" Role="ToRole_assoc_3BAA8AACD2158ADF6472B8E6D912312F"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_A3FE313B148C0DA5A95EF7A72EAA5986" Association="API_MKT_EXTERNAL_RECMDN_SRV.assoc_A3FE313B148C0DA5A95EF7A72EAA5986" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ExternalRecmdnVersions" Role="FromRole_assoc_A3FE313B148C0DA5A95EF7A72EAA5986"/>
+                    <End EntitySet="RecommendationClusters" Role="ToRole_assoc_A3FE313B148C0DA5A95EF7A72EAA5986"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_8F1436A2584115CC9638B4CD9CF59F07" Association="API_MKT_EXTERNAL_RECMDN_SRV.assoc_8F1436A2584115CC9638B4CD9CF59F07" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ContactToRecmdnClstrAssgmts" Role="FromRole_assoc_8F1436A2584115CC9638B4CD9CF59F07"/>
+                    <End EntitySet="ExternalRecommendations" Role="ToRole_assoc_8F1436A2584115CC9638B4CD9CF59F07"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7" Association="API_MKT_EXTERNAL_RECMDN_SRV.assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="RecommendationClusters" Role="FromRole_assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7"/>
+                    <End EntitySet="ContactToRecmdnClstrAssgmts" Role="ToRole_assoc_44E8B9EA337DCEC6D4B3E859D40F5AC7"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_04B6A4C9D5B72672EE3DA72F7029244C" Association="API_MKT_EXTERNAL_RECMDN_SRV.assoc_04B6A4C9D5B72672EE3DA72F7029244C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="RecommendationClusters" Role="FromRole_assoc_04B6A4C9D5B72672EE3DA72F7029244C"/>
+                    <End EntitySet="RecmdnClusterItemAssignments" Role="ToRole_assoc_04B6A4C9D5B72672EE3DA72F7029244C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_EDA9160111E2F27B32C524F4474C615A" Association="API_MKT_EXTERNAL_RECMDN_SRV.assoc_EDA9160111E2F27B32C524F4474C615A" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ExternalRecommendations" Role="FromRole_assoc_EDA9160111E2F27B32C524F4474C615A"/>
+                    <End EntitySet="ExternalRecmdnVersions" Role="ToRole_assoc_EDA9160111E2F27B32C524F4474C615A"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_2E056198749271FF8A957BC978393AB4" Association="API_MKT_EXTERNAL_RECMDN_SRV.assoc_2E056198749271FF8A957BC978393AB4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="RecommendationClusters" Role="FromRole_assoc_2E056198749271FF8A957BC978393AB4"/>
+                    <End EntitySet="RecmdnClusterForLeadingItems" Role="ToRole_assoc_2E056198749271FF8A957BC978393AB4"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_7747D5A67D57437D983BEBD957B3DA9E" Association="API_MKT_EXTERNAL_RECMDN_SRV.assoc_7747D5A67D57437D983BEBD957B3DA9E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="RecmdnClusterForLeadingItems" Role="FromRole_assoc_7747D5A67D57437D983BEBD957B3DA9E"/>
+                    <End EntitySet="ExternalRecommendations" Role="ToRole_assoc_7747D5A67D57437D983BEBD957B3DA9E"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_6282AB74C9A7AB2850F42852E49CCDAE" Association="API_MKT_EXTERNAL_RECMDN_SRV.assoc_6282AB74C9A7AB2850F42852E49CCDAE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="RecommendationClusters" Role="FromRole_assoc_6282AB74C9A7AB2850F42852E49CCDAE"/>
+                    <End EntitySet="ExternalRecommendations" Role="ToRole_assoc_6282AB74C9A7AB2850F42852E49CCDAE"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ContactToRecmdnClstrAssgmtsType/RecommendationClusterUUID" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Marketing: Recommendation Cluster"/>
+                        <PropertyValue Property="CollectionPath" String="RecommendationClusters"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="RecommendationClusterUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="RecommendationClusterUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ContactToRecmdnClstrAssgmtsType/ExternalRecommendationUUID" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Marketing: External Recommendation"/>
+                        <PropertyValue Property="CollectionPath" String="ExternalRecommendations"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ExternalRecommendationUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ExternalRecommendationUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecmdnVersionsType/ExternalRecommendationUUID" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Marketing: External Recommendation"/>
+                        <PropertyValue Property="CollectionPath" String="ExternalRecommendations"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ExternalRecommendationUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ExternalRecommendationUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterForLeadingItemsType/RecommendationClusterUUID" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Marketing: Recommendation Cluster"/>
+                        <PropertyValue Property="CollectionPath" String="RecommendationClusters"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="RecommendationClusterUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="RecommendationClusterUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterForLeadingItemsType/ExternalRecommendationUUID" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Marketing: External Recommendation"/>
+                        <PropertyValue Property="CollectionPath" String="ExternalRecommendations"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ExternalRecommendationUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ExternalRecommendationUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterItemAssignmentsType/RecommendationClusterUUID" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Marketing: Recommendation Cluster"/>
+                        <PropertyValue Property="CollectionPath" String="RecommendationClusters"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="RecommendationClusterUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="RecommendationClusterUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterItemAssignmentsType/ExternalRecommendationUUID" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Marketing: External Recommendation"/>
+                        <PropertyValue Property="CollectionPath" String="ExternalRecommendations"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ExternalRecommendationUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ExternalRecommendationUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.RecommendationClustersType/ExtRecommendationVersionUUID" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Marketing: External Recommendation Version"/>
+                        <PropertyValue Property="CollectionPath" String="ExternalRecmdnVersions"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ExtRecommendationVersionUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ExtRecommendationVersionUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.RecommendationClustersType/ExternalRecommendationUUID" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Marketing: External Recommendation"/>
+                        <PropertyValue Property="CollectionPath" String="ExternalRecommendations"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ExternalRecommendationUUID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ExternalRecommendationUUID"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.API_MKT_EXTERNAL_RECMDN_SRV_Entities" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ContactToRecmdnClstrAssgmtsType/InteractionContactId" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ContactToRecmdnClstrAssgmtsType/InteractionContactOrigin" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecmdnVersionsType/ExtRecmdnExternalVersion" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecmdnVersionsType/ValidityStartDateTime" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecommendationsType/ExternalRecommendation" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecommendationsType/ExternalRecommendationType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecommendationsType/RecommendationResultItemType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterForLeadingItemsType/RecommendationLeadingItemType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.API_MKT_EXTERNAL_RECMDN_SRV_Entities/ContactToRecmdnClstrAssgmts" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="InteractionContactId"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>InteractionContactId</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.API_MKT_EXTERNAL_RECMDN_SRV_Entities/ExternalRecommendations" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ExternalRecommendationName"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>ExternalRecommendationName</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ContactToRecmdnClstrAssgmtsType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>InteractionContactOrigin</PropertyPath>
+                        <PropertyPath>InteractionContactId</PropertyPath>
+                        <PropertyPath>RecommendationCluster</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecmdnVersionsType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>ExtRecmdnExternalVersion</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.ExternalRecommendationsType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>ExternalRecommendation</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterForLeadingItemsType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>RecommendationResultItemUUID</PropertyPath>
+                        <PropertyPath>RecommendationLeadingItemUUID</PropertyPath>
+                        <PropertyPath>RecommendationCluster</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.RecmdnClusterItemAssignmentsType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>RecommendationResultItemUUID</PropertyPath>
+                        <PropertyPath>RecommendationCluster</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_EXTERNAL_RECMDN_SRV.RecommendationClustersType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>RecommendationCluster</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_EXTERNAL_RECMDN_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_EXTERNAL_RECMDN_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

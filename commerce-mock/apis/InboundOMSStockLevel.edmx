@@ -1,0 +1,52 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:s="http://schemas.sap.com/commerce" Namespace="HybrisCommerceOData" s:schema-version="1">
+            <EntityType Name="Warehouse">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="name" Nullable="true" Type="Edm.String" s:IsLanguageDependent="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Warehouse_code"/>
+                <NavigationProperty FromRole="Warehouse" Name="localizedAttributes" Nullable="true" Relationship="HybrisCommerceOData.FK_Warehouse_localizedAttributes" ToRole="Localized___Warehouse"/>
+            </EntityType>
+            <EntityType Name="Localized___Warehouse">
+                <Key>
+                    <PropertyRef Name="language"/>
+                </Key>
+                <Property Name="name" Nullable="true" Type="Edm.String" s:IsLanguageDependent="true"/>
+                <Property Name="language" Nullable="false" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="StockLevel">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="productCode" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="available" Nullable="true" Type="Edm.Int32"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="StockLevel_productCode|Warehouse_code"/>
+                <NavigationProperty FromRole="StockLevel" Name="warehouse" Nullable="false" Relationship="HybrisCommerceOData.FK_StockLevel_warehouse" ToRole="Warehouse" s:IsUnique="true"/>
+            </EntityType>
+            <Association Name="FK_StockLevel_warehouse">
+                <End Multiplicity="0..1" Role="StockLevel" Type="HybrisCommerceOData.StockLevel"/>
+                <End Multiplicity="0..1" Role="Warehouse" Type="HybrisCommerceOData.Warehouse"/>
+            </Association>
+            <Association Name="FK_Warehouse_localizedAttributes">
+                <End Multiplicity="1" Role="Warehouse" Type="HybrisCommerceOData.Warehouse"/>
+                <End Multiplicity="*" Role="Localized___Warehouse" Type="HybrisCommerceOData.Localized___Warehouse"/>
+            </Association>
+            <EntityContainer Name="Container" m:IsDefaultEntityContainer="true">
+                <EntitySet EntityType="HybrisCommerceOData.Warehouse" Name="Warehouses"/>
+                <EntitySet EntityType="HybrisCommerceOData.Localized___Warehouse" Name="Localized___Warehouses"/>
+                <EntitySet EntityType="HybrisCommerceOData.StockLevel" Name="StockLevels"/>
+                <AssociationSet Association="HybrisCommerceOData.FK_StockLevel_warehouse" Name="StockLevel_Warehouses">
+                    <End EntitySet="StockLevels" Role="StockLevel"/>
+                    <End EntitySet="Warehouses" Role="Warehouse"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_Warehouse_localizedAttributes" Name="Warehouse_Localized___Warehouses">
+                    <End EntitySet="Warehouses" Role="Warehouse"/>
+                    <End EntitySet="Localized___Warehouses" Role="Localized___Warehouse"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

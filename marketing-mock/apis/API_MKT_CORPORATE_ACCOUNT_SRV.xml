@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_CORPORATE_ACCOUNT_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="CorporateAccount" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CorporateAccountUUID"/>
+                </Key>
+                <Property Name="CorporateAccountUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CorpAcctIsRlvtForAcctBasedMktg" Type="Edm.Boolean" sap:unicode="false" sap:label="Acc.-Based Mktg" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ValidationStatus" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Validat. Status" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ValidationStatusName" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Val. Stat. Dc." sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Last Change Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Last Changed By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="WebSiteURL" Type="Edm.String" MaxLength="1000" sap:unicode="false" sap:label="Website URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Creation Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FullName" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Created By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionContactImageURL" Type="Edm.String" MaxLength="1000" sap:unicode="false" sap:label="Image URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Latitude" Type="Edm.Decimal" Precision="20" Scale="10" sap:unicode="false" sap:label="Latitude" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Longitude" Type="Edm.Decimal" Precision="20" Scale="10" sap:unicode="false" sap:label="Longitude" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SpatialReferenceSystem" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Spatial Ref ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Street" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="AddressHouseNumber" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="House Number" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LanguageName" Type="Edm.String" MaxLength="16" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="241" sap:unicode="false" sap:label="Email Address" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Phone" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MobileNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Mobile" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Fax" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HasMktgPermissionForDirectMail" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Postal Opt-In" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Country" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CountryName" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Country Long Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="AddressRegion" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Region" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RegionName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Region" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ContactPostalCode" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Postal Code" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Industry" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Industry" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IndustryName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Industry" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="MarketingPermissions" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountMarketingPermission" FromRole="FromRole_CorporateAccountMarketingPermission" ToRole="ToRole_CorporateAccountMarketingPermission"/>
+                <NavigationProperty Name="MarketingAreas" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountMarketingArea" FromRole="FromRole_CorporateAccountMarketingArea" ToRole="ToRole_CorporateAccountMarketingArea"/>
+                <NavigationProperty Name="AccountTeamMembers" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountAccountTeamMember" FromRole="FromRole_CorporateAccountAccountTeamMember" ToRole="ToRole_CorporateAccountAccountTeamMember"/>
+                <NavigationProperty Name="MarketingAttributes" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountMarketingAttribute" FromRole="FromRole_CorporateAccountMarketingAttribute" ToRole="ToRole_CorporateAccountMarketingAttribute"/>
+                <NavigationProperty Name="CorporateAccountOriginData" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccntCorporateAccountOriginData" FromRole="FromRole_CorporateAccntCorporateAccountOriginData" ToRole="ToRole_CorporateAccntCorporateAccountOriginData"/>
+                <NavigationProperty Name="AdditionalIDs" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountAdditionalID" FromRole="FromRole_CorporateAccountAdditionalID" ToRole="ToRole_CorporateAccountAdditionalID"/>
+            </EntityType>
+            <EntityType Name="CorporateAccountOriginData" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CorporateAccountOrigin"/>
+                    <PropertyRef Name="CorporateAccountID"/>
+                </Key>
+                <Property Name="CorporateAccountOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Contact"/>
+                <Property Name="CorporateAccountID" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="External Contact ID"/>
+                <Property Name="CorpAcctIsRlvtForAcctBasedMktg" Type="Edm.Boolean" sap:unicode="false" sap:label="Acc.-Based Mktg"/>
+                <Property Name="ValidationStatus" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Validat. Status"/>
+                <Property Name="ValidationStatusName" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Val. Stat. Dc." sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsEndOfPurposeBlocked" Type="Edm.Boolean" sap:unicode="false" sap:label="End of Purpose" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TrackingID" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Tracking ID"/>
+                <Property Name="OriginDataLastChgUTCDateTime" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Origin Timestamp"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Last Change Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Last Changed By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="WebSiteURL" Type="Edm.String" MaxLength="1000" sap:unicode="false" sap:label="Website URL" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CorporateAccountUUID" Type="Edm.Guid" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Creation Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Created By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionContactImageURL" Type="Edm.String" MaxLength="1000" sap:unicode="false" sap:label="Image URL" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Latitude" Type="Edm.Decimal" Precision="20" Scale="10" sap:unicode="false" sap:label="Latitude"/>
+                <Property Name="FullName" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Name"/>
+                <Property Name="Longitude" Type="Edm.Decimal" Precision="20" Scale="10" sap:unicode="false" sap:label="Longitude"/>
+                <Property Name="SpatialReferenceSystem" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Spatial Ref ID"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="City"/>
+                <Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Street"/>
+                <Property Name="AddressHouseNumber" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="House Number"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Language"/>
+                <Property Name="LanguageName" Type="Edm.String" MaxLength="16" sap:unicode="false" sap:label="Name"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="241" sap:unicode="false" sap:label="Email Address"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Phone"/>
+                <Property Name="MobileNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Mobile"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Fax"/>
+                <Property Name="HasMktgPermissionForDirectMail" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Postal Opt-In"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Country"/>
+                <Property Name="CountryName" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Country Long Name"/>
+                <Property Name="AddressRegion" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Region"/>
+                <Property Name="RegionName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Region"/>
+                <Property Name="ContactPostalCode" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Postal Code"/>
+                <Property Name="Industry" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Industry"/>
+                <Property Name="IndustryName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Industry"/>
+                <Property Name="IsObsolete" Type="Edm.Boolean" sap:unicode="false" sap:label="Is Obsolete" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="MarketingPermissions" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginDataMktPermission" FromRole="FromRole_CorporateAccountOriginDataMktPermission" ToRole="ToRole_CorporateAccountOriginDataMktPermission"/>
+                <NavigationProperty Name="MarketingAreas" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginDataMarketingArea" FromRole="FromRole_CorporateAccountOriginDataMarketingArea" ToRole="ToRole_CorporateAccountOriginDataMarketingArea"/>
+                <NavigationProperty Name="MarketingAttributes" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccntOriginDataMrktngAttribute" FromRole="FromRole_CorporateAccntOriginDataMrktngAttribute" ToRole="ToRole_CorporateAccntOriginDataMrktngAttribute"/>
+                <NavigationProperty Name="AdditionalIDs" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginDataAdditionalID" FromRole="FromRole_CorporateAccountOriginDataAdditionalID" ToRole="ToRole_CorporateAccountOriginDataAdditionalID"/>
+            </EntityType>
+            <EntityType Name="AdditionalID" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CorporateAccountOrigin"/>
+                    <PropertyRef Name="CorporateAccountID"/>
+                    <PropertyRef Name="InteractionContactAdditionalOrigin"/>
+                    <PropertyRef Name="InteractionContactAdditionalExternalID"/>
+                </Key>
+                <Property Name="CorporateAccountOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Contact"/>
+                <Property Name="CorporateAccountID" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="External Contact ID"/>
+                <Property Name="InteractionContactAdditionalOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Contact"/>
+                <Property Name="InteractionContactAdditionalExternalID" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="External Contact ID"/>
+                <Property Name="InteractionContactAdditionalOriginUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Additional ID UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CorporateAccountUUID" Type="Edm.Guid" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IntactnContactAddlIDIsInvalid" Type="Edm.Boolean" sap:unicode="false" sap:label="Invalid" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="MarketingAreas" Relationship="API_MKT_CORPORATE_ACCOUNT_SRV.AdditionalIDMarketingArea" FromRole="FromRole_AdditionalIDMarketingArea" ToRole="ToRole_AdditionalIDMarketingArea"/>
+            </EntityType>
+            <EntityType Name="MarketingAttribute" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CorporateAccountOrigin"/>
+                    <PropertyRef Name="CorporateAccountID"/>
+                    <PropertyRef Name="MarketingAttributeCategory"/>
+                    <PropertyRef Name="MarketingAttributeValue"/>
+                </Key>
+                <Property Name="CorporateAccountOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Contact"/>
+                <Property Name="CorporateAccountID" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="External Contact ID"/>
+                <Property Name="MarketingAttributeCategory" Type="Edm.String" Nullable="false" MaxLength="75" sap:unicode="false" sap:label="Mkt. Category"/>
+                <Property Name="MarketingAttributeValue" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Mkt. Value"/>
+                <Property Name="MarketingAttributeUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Marketing Attribute" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CorporateAccountUUID" Type="Edm.Guid" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingAttributeCategoryUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Marketing Attr. Cat" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingAttributeCategoryName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Mkt. Category" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="AccountTeamMember" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CorporateAccountOrigin"/>
+                    <PropertyRef Name="CorporateAccountID"/>
+                    <PropertyRef Name="TeamMemberID"/>
+                    <PropertyRef Name="Role"/>
+                </Key>
+                <Property Name="CorporateAccountOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Contact"/>
+                <Property Name="CorporateAccountID" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="External Contact ID"/>
+                <Property Name="TeamMemberID" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Team Member ID"/>
+                <Property Name="Role" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Team Member Role"/>
+                <Property Name="TeamMemberUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Account Team Member" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CorporateAccountUUID" Type="Edm.Guid" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsOwner" Type="Edm.Boolean" sap:unicode="false" sap:label="Is Owner" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="MarketingArea" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CorporateAccountOrigin"/>
+                    <PropertyRef Name="CorporateAccountID"/>
+                    <PropertyRef Name="InteractionContactMktgArea"/>
+                </Key>
+                <Property Name="CorporateAccountOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Contact"/>
+                <Property Name="CorporateAccountID" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="External Contact ID"/>
+                <Property Name="InteractionContactMktgArea" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID"/>
+                <Property Name="InteractionContactMktgAreaName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CorporateAccountUUID" Type="Edm.Guid" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionContactAdditionalOriginUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Additional ID UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionContactMktgAreaUUID" Type="Edm.Guid" sap:unicode="false" sap:label="IC Mktg Area UUID" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="MarketingPermission" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CorporateAccountID"/>
+                    <PropertyRef Name="CorporateAccountOrigin"/>
+                    <PropertyRef Name="CorporateAccountPermissionID"/>
+                    <PropertyRef Name="CorpAcctPermissionOrigin"/>
+                    <PropertyRef Name="MarketingArea"/>
+                    <PropertyRef Name="CommunicationMedium"/>
+                    <PropertyRef Name="CommunicationCategory"/>
+                </Key>
+                <Property Name="CorporateAccountID" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="External Contact ID" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CorporateAccountOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Contact" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CorporateAccountPermissionID" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Cntct Permission ID"/>
+                <Property Name="CorpAcctPermissionOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Cntct Perm Origin"/>
+                <Property Name="CorpAcctPermissionOriginName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingArea" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:sortable="false"/>
+                <Property Name="MarketingAreaName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CommunicationMedium" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Communication Medium"/>
+                <Property Name="CommunicationMediumName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CommunicationCategory" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Comm Category ID"/>
+                <Property Name="ContactUUID" Type="Edm.Guid" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CorporateAccountPermission" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Opt-In"/>
+                <Property Name="PermissionUTCDateTime" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="UTC Timestamp"/>
+                <Property Name="CommunicationDirection" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Comm. Direction"/>
+                <Property Name="CommunicationCategoryName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Comm Category Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PermissionSourceObject" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Object ID"/>
+                <Property Name="PermissionSourceObjectType" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Object Type"/>
+                <Property Name="PermissionSourceSystem" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Source System ID"/>
+                <Property Name="PermissionSourceSystemType" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Source System Type"/>
+                <Property Name="PermissionSourceDataURL" Type="Edm.String" sap:unicode="false" sap:label="URI"/>
+                <Property Name="PermissionSourceCommMedium" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Perm Src Comm Medium"/>
+                <Property Name="PermissionSourceCommMediumName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PermissionIsExplicit" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Explicit" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsConfirmationRequired" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="TRUE" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PermissionLastChangedUserName" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Complete name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PermissionLastChangedDateTime" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="UTC Timestamp" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PermissionUUID" Type="Edm.Guid" sap:unicode="false" sap:label="NodeID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PermissionNoteText" Type="Edm.String" Nullable="false" MaxLength="250" sap:unicode="false" sap:label="Note" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="CorporateAccountOriginDataAdditionalID" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginData" Multiplicity="1" Role="FromRole_CorporateAccountOriginDataAdditionalID"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.AdditionalID" Multiplicity="*" Role="ToRole_CorporateAccountOriginDataAdditionalID"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CorporateAccountOriginDataAdditionalID">
+                        <PropertyRef Name="CorporateAccountID"/>
+                        <PropertyRef Name="CorporateAccountOrigin"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CorporateAccountOriginDataAdditionalID">
+                        <PropertyRef Name="CorporateAccountID"/>
+                        <PropertyRef Name="CorporateAccountOrigin"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CorporateAccntOriginDataMrktngAttribute" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginData" Multiplicity="1" Role="FromRole_CorporateAccntOriginDataMrktngAttribute"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.MarketingAttribute" Multiplicity="*" Role="ToRole_CorporateAccntOriginDataMrktngAttribute"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CorporateAccntOriginDataMrktngAttribute">
+                        <PropertyRef Name="CorporateAccountOrigin"/>
+                        <PropertyRef Name="CorporateAccountID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CorporateAccntOriginDataMrktngAttribute">
+                        <PropertyRef Name="CorporateAccountOrigin"/>
+                        <PropertyRef Name="CorporateAccountID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CorporateAccountOriginDataMarketingArea" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginData" Multiplicity="1" Role="FromRole_CorporateAccountOriginDataMarketingArea"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.MarketingArea" Multiplicity="*" Role="ToRole_CorporateAccountOriginDataMarketingArea"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CorporateAccountOriginDataMarketingArea">
+                        <PropertyRef Name="CorporateAccountOrigin"/>
+                        <PropertyRef Name="CorporateAccountID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CorporateAccountOriginDataMarketingArea">
+                        <PropertyRef Name="CorporateAccountOrigin"/>
+                        <PropertyRef Name="CorporateAccountID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CorporateAccountOriginDataMktPermission" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginData" Multiplicity="1" Role="FromRole_CorporateAccountOriginDataMktPermission"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.MarketingPermission" Multiplicity="*" Role="ToRole_CorporateAccountOriginDataMktPermission"/>
+            </Association>
+            <Association Name="AdditionalIDMarketingArea" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.AdditionalID" Multiplicity="1" Role="FromRole_AdditionalIDMarketingArea"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.MarketingArea" Multiplicity="*" Role="ToRole_AdditionalIDMarketingArea"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_AdditionalIDMarketingArea">
+                        <PropertyRef Name="CorporateAccountOrigin"/>
+                        <PropertyRef Name="CorporateAccountID"/>
+                        <PropertyRef Name="InteractionContactAdditionalOrigin"/>
+                        <PropertyRef Name="InteractionContactAdditionalExternalID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_AdditionalIDMarketingArea">
+                        <PropertyRef Name="CorporateAccountOrigin"/>
+                        <PropertyRef Name="CorporateAccountID"/>
+                        <PropertyRef Name="CorporateAccountOrigin"/>
+                        <PropertyRef Name="CorporateAccountID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CorporateAccntCorporateAccountOriginData" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccount" Multiplicity="1" Role="FromRole_CorporateAccntCorporateAccountOriginData"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginData" Multiplicity="*" Role="ToRole_CorporateAccntCorporateAccountOriginData"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CorporateAccntCorporateAccountOriginData">
+                        <PropertyRef Name="CorporateAccountUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CorporateAccntCorporateAccountOriginData">
+                        <PropertyRef Name="CorporateAccountUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CorporateAccountMarketingAttribute" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccount" Multiplicity="1" Role="FromRole_CorporateAccountMarketingAttribute"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.MarketingAttribute" Multiplicity="*" Role="ToRole_CorporateAccountMarketingAttribute"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CorporateAccountMarketingAttribute">
+                        <PropertyRef Name="CorporateAccountUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CorporateAccountMarketingAttribute">
+                        <PropertyRef Name="CorporateAccountUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CorporateAccountAccountTeamMember" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccount" Multiplicity="1" Role="FromRole_CorporateAccountAccountTeamMember"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.AccountTeamMember" Multiplicity="*" Role="ToRole_CorporateAccountAccountTeamMember"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CorporateAccountAccountTeamMember">
+                        <PropertyRef Name="CorporateAccountUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CorporateAccountAccountTeamMember">
+                        <PropertyRef Name="CorporateAccountUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CorporateAccountMarketingArea" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccount" Multiplicity="1" Role="FromRole_CorporateAccountMarketingArea"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.MarketingArea" Multiplicity="*" Role="ToRole_CorporateAccountMarketingArea"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CorporateAccountMarketingArea">
+                        <PropertyRef Name="CorporateAccountUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CorporateAccountMarketingArea">
+                        <PropertyRef Name="CorporateAccountUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CorporateAccountMarketingPermission" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccount" Multiplicity="1" Role="FromRole_CorporateAccountMarketingPermission"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.MarketingPermission" Multiplicity="*" Role="ToRole_CorporateAccountMarketingPermission"/>
+            </Association>
+            <Association Name="CorporateAccountAdditionalID" sap:content-version="1">
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccount" Multiplicity="1" Role="FromRole_CorporateAccountAdditionalID"/>
+                <End Type="API_MKT_CORPORATE_ACCOUNT_SRV.AdditionalID" Multiplicity="*" Role="ToRole_CorporateAccountAdditionalID"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CorporateAccountAdditionalID">
+                        <PropertyRef Name="CorporateAccountUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CorporateAccountAdditionalID">
+                        <PropertyRef Name="CorporateAccountUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_CORPORATE_ACCOUNT_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="CorporateAccounts" EntityType="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccount" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CorporateAccountOriginData" EntityType="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginData" sap:creatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="AdditionalIDs" EntityType="API_MKT_CORPORATE_ACCOUNT_SRV.AdditionalID" sap:creatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketingAttributes" EntityType="API_MKT_CORPORATE_ACCOUNT_SRV.MarketingAttribute" sap:creatable="false" sap:content-version="1"/>
+                <EntitySet Name="AccountTeamMembers" EntityType="API_MKT_CORPORATE_ACCOUNT_SRV.AccountTeamMember" sap:creatable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketingAreas" EntityType="API_MKT_CORPORATE_ACCOUNT_SRV.MarketingArea" sap:creatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketingPermissions" EntityType="API_MKT_CORPORATE_ACCOUNT_SRV.MarketingPermission" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="CorporateAccountAccountTeamMembers" Association="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountAccountTeamMember" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CorporateAccounts" Role="FromRole_CorporateAccountAccountTeamMember"/>
+                    <End EntitySet="AccountTeamMembers" Role="ToRole_CorporateAccountAccountTeamMember"/>
+                </AssociationSet>
+                <AssociationSet Name="CorporateAccountOriginDataMarketingAreas" Association="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginDataMarketingArea" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CorporateAccountOriginData" Role="FromRole_CorporateAccountOriginDataMarketingArea"/>
+                    <End EntitySet="MarketingAreas" Role="ToRole_CorporateAccountOriginDataMarketingArea"/>
+                </AssociationSet>
+                <AssociationSet Name="CorporateAccountMarketingPermission_Asso" Association="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountMarketingPermission" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CorporateAccounts" Role="FromRole_CorporateAccountMarketingPermission"/>
+                    <End EntitySet="MarketingPermissions" Role="ToRole_CorporateAccountMarketingPermission"/>
+                </AssociationSet>
+                <AssociationSet Name="CorporateAccountMarketingAttributes" Association="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountMarketingAttribute" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CorporateAccounts" Role="FromRole_CorporateAccountMarketingAttribute"/>
+                    <End EntitySet="MarketingAttributes" Role="ToRole_CorporateAccountMarketingAttribute"/>
+                </AssociationSet>
+                <AssociationSet Name="CorporateAccntOriginDataMrktngAttributes" Association="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccntOriginDataMrktngAttribute" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CorporateAccountOriginData" Role="FromRole_CorporateAccntOriginDataMrktngAttribute"/>
+                    <End EntitySet="MarketingAttributes" Role="ToRole_CorporateAccntOriginDataMrktngAttribute"/>
+                </AssociationSet>
+                <AssociationSet Name="AdditionalIDMarketingAreas" Association="API_MKT_CORPORATE_ACCOUNT_SRV.AdditionalIDMarketingArea" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="AdditionalIDs" Role="FromRole_AdditionalIDMarketingArea"/>
+                    <End EntitySet="MarketingAreas" Role="ToRole_AdditionalIDMarketingArea"/>
+                </AssociationSet>
+                <AssociationSet Name="CorporateAccountOriginDataAdditionalIDs" Association="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginDataAdditionalID" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CorporateAccountOriginData" Role="FromRole_CorporateAccountOriginDataAdditionalID"/>
+                    <End EntitySet="AdditionalIDs" Role="ToRole_CorporateAccountOriginDataAdditionalID"/>
+                </AssociationSet>
+                <AssociationSet Name="CorporateAccountMarketingAreas" Association="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountMarketingArea" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CorporateAccounts" Role="FromRole_CorporateAccountMarketingArea"/>
+                    <End EntitySet="MarketingAreas" Role="ToRole_CorporateAccountMarketingArea"/>
+                </AssociationSet>
+                <AssociationSet Name="CorporateAccountOriginDataMktPermission_" Association="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginDataMktPermission" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CorporateAccountOriginData" Role="FromRole_CorporateAccountOriginDataMktPermission"/>
+                    <End EntitySet="MarketingPermissions" Role="ToRole_CorporateAccountOriginDataMktPermission"/>
+                </AssociationSet>
+                <AssociationSet Name="CorporateAccntCorporateAccntOriginData" Association="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccntCorporateAccountOriginData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CorporateAccounts" Role="FromRole_CorporateAccntCorporateAccountOriginData"/>
+                    <End EntitySet="CorporateAccountOriginData" Role="ToRole_CorporateAccntCorporateAccountOriginData"/>
+                </AssociationSet>
+                <AssociationSet Name="CorporateAccountAdditionalIDs" Association="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountAdditionalID" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CorporateAccounts" Role="FromRole_CorporateAccountAdditionalID"/>
+                    <End EntitySet="AdditionalIDs" Role="ToRole_CorporateAccountAdditionalID"/>
+                </AssociationSet>
+                <FunctionImport Name="CorpAcctDeleteAllAccountTeamMembers" ReturnType="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccount" EntitySet="CorporateAccounts" m:HttpMethod="POST">
+                    <Parameter Name="CorporateAccountOrigin" Type="Edm.String" Mode="In" MaxLength="20"/>
+                    <Parameter Name="CorporateAccountID" Type="Edm.String" Mode="In" MaxLength="255"/>
+                </FunctionImport>
+                <FunctionImport Name="CorpAcctOriginDeleteAllMktgAttributes" ReturnType="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginData" EntitySet="CorporateAccountOriginData" m:HttpMethod="POST">
+                    <Parameter Name="CorporateAccountOrigin" Type="Edm.String" Mode="In" MaxLength="20"/>
+                    <Parameter Name="CorporateAccountID" Type="Edm.String" Mode="In" MaxLength="255"/>
+                </FunctionImport>
+                <FunctionImport Name="CorporateAccountDeleteMarketingArea" ReturnType="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccount" EntitySet="CorporateAccounts" m:HttpMethod="POST">
+                    <Parameter Name="InteractionContactMktgArea" Type="Edm.String" Mode="In"/>
+                    <Parameter Name="CorporateAccountOrigin" Type="Edm.String" Mode="In" MaxLength="20"/>
+                    <Parameter Name="CorporateAccountID" Type="Edm.String" Mode="In" MaxLength="255"/>
+                </FunctionImport>
+                <FunctionImport Name="CorpAcctOriginDeleteAdditionalIDs" ReturnType="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginData" EntitySet="CorporateAccountOriginData" m:HttpMethod="POST">
+                    <Parameter Name="CorporateAccountOrigin" Type="Edm.String" Mode="In" MaxLength="20"/>
+                    <Parameter Name="CorporateAccountID" Type="Edm.String" Mode="In" MaxLength="255"/>
+                </FunctionImport>
+                <FunctionImport Name="CorpAcctOriginDeleteAllMktgAreas" ReturnType="API_MKT_CORPORATE_ACCOUNT_SRV.CorporateAccountOriginData" EntitySet="CorporateAccountOriginData" m:HttpMethod="POST">
+                    <Parameter Name="CorporateAccountOrigin" Type="Edm.String" Mode="In" MaxLength="20"/>
+                    <Parameter Name="CorporateAccountID" Type="Edm.String" Mode="In" MaxLength="255"/>
+                </FunctionImport>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_CORPORATE_ACCOUNT_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_CORPORATE_ACCOUNT_SRV;v=2/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

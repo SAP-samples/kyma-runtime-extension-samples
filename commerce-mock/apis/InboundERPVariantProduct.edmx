@@ -1,0 +1,256 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:s="http://schemas.sap.com/commerce" Namespace="HybrisCommerceOData" s:schema-version="1">
+            <EntityType Name="ERPVariantProduct">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="sapBlockedDate" Nullable="true" Type="Edm.DateTime"/>
+                <Property Name="sapEAN" Nullable="true" Type="Edm.String"/>
+                <Property Name="name" Nullable="true" Type="Edm.String" s:IsLanguageDependent="true"/>
+                <Property Name="sapConfigurable" Nullable="true" Type="Edm.Boolean"/>
+                <Property Name="sapBaseUnitConversion" Nullable="true" Type="Edm.Double"/>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="sapBlocked" Nullable="true" Type="Edm.Boolean"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="CatalogVersion_version|Catalog_id|ERPVariantProduct_code"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="features" Nullable="true" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_features" ToRole="ProductFeature" s:IsAutoCreate="true" s:IsPartOf="true"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="catalogVersion" Nullable="false" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_catalogVersion" ToRole="CatalogVersion" s:IsUnique="true"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="variantType" Nullable="true" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_variantType" ToRole="VariantType"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="sapPlant" Nullable="true" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_sapPlant" ToRole="Warehouse"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="baseProduct" Nullable="false" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_baseProduct" ToRole="Product"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="Europe1PriceFactory_PDG" Nullable="true" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_Europe1PriceFactory_PDG" ToRole="ProductDiscountGroup"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="Europe1PriceFactory_PTG" Nullable="true" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_Europe1PriceFactory_PTG" ToRole="ProductTaxGroup"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="unit" Nullable="true" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_unit" ToRole="Unit"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="supercategories" Nullable="true" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_supercategories" ToRole="Category"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="Europe1PriceFactory_PPG" Nullable="true" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_Europe1PriceFactory_PPG" ToRole="ProductPriceGroup"/>
+                <NavigationProperty FromRole="ERPVariantProduct" Name="localizedAttributes" Nullable="true" Relationship="HybrisCommerceOData.FK_ERPVariantProduct_localizedAttributes" ToRole="Localized___ERPVariantProduct"/>
+            </EntityType>
+            <EntityType Name="Warehouse">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Warehouse_code"/>
+            </EntityType>
+            <EntityType Name="Category">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="CatalogVersion_version|Catalog_id|Category_code"/>
+                <NavigationProperty FromRole="Category" Name="catalogVersion" Nullable="false" Relationship="HybrisCommerceOData.FK_Category_catalogVersion" ToRole="CatalogVersion" s:IsUnique="true"/>
+            </EntityType>
+            <EntityType Name="VariantType">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="VariantType_code"/>
+            </EntityType>
+            <EntityType Name="Localized___ERPVariantProduct">
+                <Key>
+                    <PropertyRef Name="language"/>
+                </Key>
+                <Property Name="name" Nullable="true" Type="Edm.String" s:IsLanguageDependent="true"/>
+                <Property Name="language" Nullable="false" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="ProductFeature">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="value" Nullable="false" Type="Edm.String"/>
+                <Property Name="valuePosition" Nullable="true" Type="Edm.Int32" s:IsUnique="true"/>
+                <Property Name="author" Nullable="true" Type="Edm.String"/>
+                <Property Name="qualifier" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="CatalogVersion_version|Catalog_id|ProductFeature_qualifier|ProductFeature_valuePosition|Product_code"/>
+                <NavigationProperty FromRole="ProductFeature" Name="product" Nullable="false" Relationship="HybrisCommerceOData.FK_ProductFeature_product" ToRole="Product" s:IsUnique="true"/>
+            </EntityType>
+            <EntityType Name="Product">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="CatalogVersion_version|Catalog_id|Product_code"/>
+                <NavigationProperty FromRole="Product" Name="catalogVersion" Nullable="false" Relationship="HybrisCommerceOData.FK_Product_catalogVersion" ToRole="CatalogVersion" s:IsUnique="true"/>
+            </EntityType>
+            <EntityType Name="ProductTaxGroup">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="ProductTaxGroup_code"/>
+            </EntityType>
+            <EntityType Name="CatalogVersion">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="version" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="CatalogVersion_version|Catalog_id"/>
+                <NavigationProperty FromRole="CatalogVersion" Name="catalog" Nullable="false" Relationship="HybrisCommerceOData.FK_CatalogVersion_catalog" ToRole="Catalog" s:IsUnique="true"/>
+            </EntityType>
+            <EntityType Name="ProductPriceGroup">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="ProductPriceGroup_code"/>
+            </EntityType>
+            <EntityType Name="ProductDiscountGroup">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="ProductDiscountGroup_code"/>
+            </EntityType>
+            <EntityType Name="Unit">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Unit_code"/>
+            </EntityType>
+            <EntityType Name="Catalog">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="id" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Catalog_id"/>
+            </EntityType>
+            <Association Name="FK_ProductFeature_product">
+                <End Multiplicity="0..1" Role="ProductFeature" Type="HybrisCommerceOData.ProductFeature"/>
+                <End Multiplicity="0..1" Role="Product" Type="HybrisCommerceOData.Product"/>
+            </Association>
+            <Association Name="FK_CatalogVersion_catalog">
+                <End Multiplicity="0..1" Role="CatalogVersion" Type="HybrisCommerceOData.CatalogVersion"/>
+                <End Multiplicity="0..1" Role="Catalog" Type="HybrisCommerceOData.Catalog"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_features">
+                <End Multiplicity="1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="*" Role="ProductFeature" Type="HybrisCommerceOData.ProductFeature"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_catalogVersion">
+                <End Multiplicity="0..1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="0..1" Role="CatalogVersion" Type="HybrisCommerceOData.CatalogVersion"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_variantType">
+                <End Multiplicity="0..1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="0..1" Role="VariantType" Type="HybrisCommerceOData.VariantType"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_sapPlant">
+                <End Multiplicity="0..1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="0..1" Role="Warehouse" Type="HybrisCommerceOData.Warehouse"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_baseProduct">
+                <End Multiplicity="0..1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="0..1" Role="Product" Type="HybrisCommerceOData.Product"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_Europe1PriceFactory_PDG">
+                <End Multiplicity="0..1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="0..1" Role="ProductDiscountGroup" Type="HybrisCommerceOData.ProductDiscountGroup"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_Europe1PriceFactory_PTG">
+                <End Multiplicity="0..1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="0..1" Role="ProductTaxGroup" Type="HybrisCommerceOData.ProductTaxGroup"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_unit">
+                <End Multiplicity="0..1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="0..1" Role="Unit" Type="HybrisCommerceOData.Unit"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_supercategories">
+                <End Multiplicity="0..1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="*" Role="Category" Type="HybrisCommerceOData.Category"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_Europe1PriceFactory_PPG">
+                <End Multiplicity="0..1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="0..1" Role="ProductPriceGroup" Type="HybrisCommerceOData.ProductPriceGroup"/>
+            </Association>
+            <Association Name="FK_Product_catalogVersion">
+                <End Multiplicity="0..1" Role="Product" Type="HybrisCommerceOData.Product"/>
+                <End Multiplicity="0..1" Role="CatalogVersion" Type="HybrisCommerceOData.CatalogVersion"/>
+            </Association>
+            <Association Name="FK_Category_catalogVersion">
+                <End Multiplicity="0..1" Role="Category" Type="HybrisCommerceOData.Category"/>
+                <End Multiplicity="0..1" Role="CatalogVersion" Type="HybrisCommerceOData.CatalogVersion"/>
+            </Association>
+            <Association Name="FK_ERPVariantProduct_localizedAttributes">
+                <End Multiplicity="1" Role="ERPVariantProduct" Type="HybrisCommerceOData.ERPVariantProduct"/>
+                <End Multiplicity="*" Role="Localized___ERPVariantProduct" Type="HybrisCommerceOData.Localized___ERPVariantProduct"/>
+            </Association>
+            <EntityContainer Name="Container" m:IsDefaultEntityContainer="true">
+                <EntitySet EntityType="HybrisCommerceOData.ERPVariantProduct" Name="ERPVariantProducts"/>
+                <EntitySet EntityType="HybrisCommerceOData.Warehouse" Name="Warehouses"/>
+                <EntitySet EntityType="HybrisCommerceOData.Category" Name="Categories"/>
+                <EntitySet EntityType="HybrisCommerceOData.VariantType" Name="VariantTypes"/>
+                <EntitySet EntityType="HybrisCommerceOData.Localized___ERPVariantProduct" Name="Localized___ERPVariantProducts"/>
+                <EntitySet EntityType="HybrisCommerceOData.ProductFeature" Name="ProductFeatures"/>
+                <EntitySet EntityType="HybrisCommerceOData.Product" Name="Products"/>
+                <EntitySet EntityType="HybrisCommerceOData.ProductTaxGroup" Name="ProductTaxGroups"/>
+                <EntitySet EntityType="HybrisCommerceOData.CatalogVersion" Name="CatalogVersions"/>
+                <EntitySet EntityType="HybrisCommerceOData.ProductPriceGroup" Name="ProductPriceGroups"/>
+                <EntitySet EntityType="HybrisCommerceOData.ProductDiscountGroup" Name="ProductDiscountGroups"/>
+                <EntitySet EntityType="HybrisCommerceOData.Unit" Name="Units"/>
+                <EntitySet EntityType="HybrisCommerceOData.Catalog" Name="Catalogs"/>
+                <AssociationSet Association="HybrisCommerceOData.FK_ProductFeature_product" Name="ProductFeature_Products">
+                    <End EntitySet="ProductFeatures" Role="ProductFeature"/>
+                    <End EntitySet="Products" Role="Product"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_CatalogVersion_catalog" Name="CatalogVersion_Catalogs">
+                    <End EntitySet="CatalogVersions" Role="CatalogVersion"/>
+                    <End EntitySet="Catalogs" Role="Catalog"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_features" Name="ERPVariantProduct_ProductFeatures">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="ProductFeatures" Role="ProductFeature"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_catalogVersion" Name="ERPVariantProduct_CatalogVersions">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="CatalogVersions" Role="CatalogVersion"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_variantType" Name="ERPVariantProduct_VariantTypes">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="VariantTypes" Role="VariantType"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_sapPlant" Name="ERPVariantProduct_Warehouses">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="Warehouses" Role="Warehouse"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_baseProduct" Name="ERPVariantProduct_Products">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="Products" Role="Product"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_Europe1PriceFactory_PDG" Name="ERPVariantProduct_ProductDiscountGroups">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="ProductDiscountGroups" Role="ProductDiscountGroup"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_Europe1PriceFactory_PTG" Name="ERPVariantProduct_ProductTaxGroups">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="ProductTaxGroups" Role="ProductTaxGroup"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_unit" Name="ERPVariantProduct_Units">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="Units" Role="Unit"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_supercategories" Name="ERPVariantProduct_Categories">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="Categories" Role="Category"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_Europe1PriceFactory_PPG" Name="ERPVariantProduct_ProductPriceGroups">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="ProductPriceGroups" Role="ProductPriceGroup"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_Product_catalogVersion" Name="Product_CatalogVersions">
+                    <End EntitySet="Products" Role="Product"/>
+                    <End EntitySet="CatalogVersions" Role="CatalogVersion"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_Category_catalogVersion" Name="Category_CatalogVersions">
+                    <End EntitySet="Categories" Role="Category"/>
+                    <End EntitySet="CatalogVersions" Role="CatalogVersion"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_ERPVariantProduct_localizedAttributes" Name="ERPVariantProduct_Localized___ERPVariantProducts">
+                    <End EntitySet="ERPVariantProducts" Role="ERPVariantProduct"/>
+                    <End EntitySet="Localized___ERPVariantProducts" Role="Localized___ERPVariantProduct"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

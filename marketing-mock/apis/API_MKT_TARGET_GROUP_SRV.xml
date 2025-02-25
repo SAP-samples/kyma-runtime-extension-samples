@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_TARGET_GROUP_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="TargetGroupEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TargetGroupUUID"/>
+                </Key>
+                <Property Name="TargetGroupUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroup" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Target Group" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Name" sap:updatable="false"/>
+                <Property Name="TargetGroupDescription" Type="Edm.String" Nullable="false" MaxLength="1000" sap:unicode="false" sap:label="Description" sap:updatable="false"/>
+                <Property Name="TargetGroupLifeCycleStatus" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupMemberCount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Member Count" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ChangedOnDateTime" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Last Change Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Last Changed By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Creation Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Created By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupMainResponsible" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Owner" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupMemberType" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Member Type" sap:updatable="false"/>
+                <Property Name="TargetGroupMemberTypeName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Member Type Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupOrigin" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Origin" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupOriginName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Origin Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsTargetGroupVersioningActive" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Snapshot Tracking" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupVersion" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Version" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupLastRebuildDateTime" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Last Rebuilt At" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupCategory" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Category" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupCategoryName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Category Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupIsControlGroup" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is Control Group" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupControlGroup" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Control Group ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingArea" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:updatable="false"/>
+                <Property Name="MarketingAreaName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SegmentationObject" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Segm. Object" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SegmentationObjectName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Segmentation Object Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupType" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Type" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroupTypeName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Type Name" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="TargetGroupInteractionContacts" Relationship="API_MKT_TARGET_GROUP_SRV.TargetGroupToInteractionContact" FromRole="FromRole_TargetGroupToInteractionContact" ToRole="ToRole_TargetGroupToInteractionContact"/>
+            </EntityType>
+            <EntityType Name="TargetGroupInteractionContactEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TargetGroupMemberUUID"/>
+                </Key>
+                <Property Name="TargetGroupMemberUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionContactUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Contact UUID" sap:updatable="false"/>
+                <Property Name="TargetGroupUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Target Group UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InteractionContactId" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="External Contact ID" sap:updatable="false"/>
+                <Property Name="InteractionContactOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Contact" sap:updatable="false"/>
+            </EntityType>
+            <ComplexType Name="TextCT">
+                <Property Name="LatestVersion" Type="Edm.Int32" Nullable="false" sap:label="Latest Version" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Text" Type="Edm.String" Nullable="false" sap:label="Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </ComplexType>
+            <Association Name="TargetGroupToInteractionContact" sap:content-version="1">
+                <End Type="API_MKT_TARGET_GROUP_SRV.TargetGroupEntityType" Multiplicity="1" Role="FromRole_TargetGroupToInteractionContact"/>
+                <End Type="API_MKT_TARGET_GROUP_SRV.TargetGroupInteractionContactEntityType" Multiplicity="*" Role="ToRole_TargetGroupToInteractionContact"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_TargetGroupToInteractionContact">
+                        <PropertyRef Name="TargetGroupUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_TargetGroupToInteractionContact">
+                        <PropertyRef Name="TargetGroupUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_TARGET_GROUP_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="TargetGroups" EntityType="API_MKT_TARGET_GROUP_SRV.TargetGroupEntityType" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="TargetGroupInteractionContacts" EntityType="API_MKT_TARGET_GROUP_SRV.TargetGroupInteractionContactEntityType" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <AssociationSet Name="TargetGroupToInteractionContactSet" Association="API_MKT_TARGET_GROUP_SRV.TargetGroupToInteractionContact" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="TargetGroups" Role="FromRole_TargetGroupToInteractionContact"/>
+                    <End EntitySet="TargetGroupInteractionContacts" Role="ToRole_TargetGroupToInteractionContact"/>
+                </AssociationSet>
+                <FunctionImport Name="RebuildTargetGroup" ReturnType="API_MKT_TARGET_GROUP_SRV.TextCT" m:HttpMethod="POST">
+                    <Parameter Name="TargetGroupUUID" Type="Edm.Guid" Mode="In"/>
+                </FunctionImport>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_TARGET_GROUP_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_TARGET_GROUP_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

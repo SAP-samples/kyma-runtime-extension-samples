@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="CUAN_BUSINESS_DOCUMENT_IMP_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ImportHeader" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="ID" sap:updatable="false"/>
+                <Property Name="Timestamp" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Timestamp" sap:updatable="false"/>
+                <Property Name="SourceSystemType" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Source System Type" sap:updatable="false"/>
+                <Property Name="SourceSystemId" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Source System ID" sap:updatable="false"/>
+                <NavigationProperty Name="BusinessDocuments" Relationship="CUAN_BUSINESS_DOCUMENT_IMP_SRV.HeaderBusinessDocument" FromRole="FromRole_HeaderBusinessDocument" ToRole="ToRole_HeaderBusinessDocument" sap:label="Business Documents"/>
+            </EntityType>
+            <EntityType Name="BusinessDocument" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Key" sap:updatable="false"/>
+                <Property Name="ContactIdOrigin" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Contact ID Origin" sap:updatable="false"/>
+                <Property Name="ContactId" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Contact ID" sap:updatable="false"/>
+                <Property Name="InternalContactId" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Internal Contact ID" sap:updatable="false"/>
+                <Property Name="InternalObjectType" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Business Document Type" sap:updatable="false"/>
+                <Property Name="ExternalObjectType" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Internal Object Type" sap:updatable="false"/>
+                <Property Name="ExternalId" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="External Id" sap:updatable="false"/>
+                <Property Name="ExternalStatusCode" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Status Code" sap:updatable="false"/>
+                <Property Name="ExternalTimeStamp" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="External Time Stamp" sap:updatable="false"/>
+                <Property Name="Content" Type="Edm.String" sap:unicode="false" sap:label="Business Document Content" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ExpectedRevenue" Type="Edm.Decimal" Precision="31" Scale="2" sap:unicode="false" sap:unit="Currency" sap:label="Expected Revenue" sap:updatable="false"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="Currency" sap:updatable="false"/>
+                <Property Name="PredecessorId" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Predecessor Id" sap:updatable="false"/>
+                <Property Name="ActionCode" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Action Code" sap:updatable="false"/>
+                <Property Name="ContentTitle" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Content Title" sap:updatable="false"/>
+                <Property Name="EndTimeStamp" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="End Timestamp" sap:updatable="false"/>
+                <Property Name="Reason" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Reason" sap:updatable="false"/>
+                <Property Name="ExternalAdditionalId" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="External Additional ID" sap:updatable="false"/>
+                <Property Name="Amount" Type="Edm.Decimal" Precision="31" Scale="2" sap:unicode="false" sap:unit="Currency" sap:label="Expected Revenue" sap:updatable="false"/>
+                <Property Name="StatusCode" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Interaction Status" sap:updatable="false"/>
+                <Property Name="TimeStamp" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Timestamp" sap:updatable="false"/>
+                <Property Name="CampaignId" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Campaign Id" sap:updatable="false"/>
+                <Property Name="MarketingAreaId" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Marketing Area Id" sap:updatable="false"/>
+                <Property Name="MarketingLocation" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Marketing Location ID" sap:updatable="false"/>
+                <Property Name="MarketingLocationOrigin" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Origin of Marketing Location" sap:updatable="false"/>
+                <Property Name="YY1_FITBITAMOUNTOFCALO_MIA" Type="Edm.Decimal" Precision="10" Scale="0" sap:label="Fitbit Amount of Calories" sap:sortable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_FITBITNUMBEROFSTEP_MIA" Type="Edm.Decimal" Precision="10" Scale="0" sap:label="Fitbit Number of Steps" sap:sortable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_INTPERYEAR_MIA" Type="Edm.Decimal" Precision="5" Scale="0" sap:label="Interactions Per Year" sap:sortable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <NavigationProperty Name="Company" Relationship="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentCompany" FromRole="FromRole_BusinessDocumentCompany" ToRole="ToRole_BusinessDocumentCompany"/>
+                <NavigationProperty Name="Person" Relationship="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentPerson" FromRole="FromRole_BusinessDocumentPerson" ToRole="ToRole_BusinessDocumentPerson"/>
+                <NavigationProperty Name="ProductCategories" Relationship="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentProductCategory" FromRole="FromRole_BusinessDocumentProductCategory" ToRole="ToRole_BusinessDocumentProductCategory"/>
+                <NavigationProperty Name="AdditionalObjectReferences" Relationship="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentAdditionalObjectRef" FromRole="FromRole_BusinessDocumentAdditionalObjectRef" ToRole="ToRole_BusinessDocumentAdditionalObjectRef" sap:label="Additional Object References"/>
+                <NavigationProperty Name="Offers" Relationship="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentOffer" FromRole="FromRole_BusinessDocumentOffer" ToRole="ToRole_BusinessDocumentOffer" sap:label="Offers"/>
+                <NavigationProperty Name="ProductItems" Relationship="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentProductItem" FromRole="FromRole_BusinessDocumentProductItem" ToRole="ToRole_BusinessDocumentProductItem"/>
+            </EntityType>
+            <EntityType Name="Company" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                    <PropertyRef Name="IdOrigin"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Company ID"/>
+                <Property Name="IdOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Company ID Origin"/>
+                <Property Name="InternalId" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="yMKT Company ID"/>
+                <Property Name="LastChangeDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Last Change Date"/>
+                <Property Name="CompanyName" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Company Name"/>
+                <Property Name="CountryCode" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Country Code"/>
+                <Property Name="RegionCode" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Region Code"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="City Name"/>
+                <Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Postal Code"/>
+                <Property Name="Street" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Street"/>
+                <Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="House Number"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="241" sap:unicode="false" sap:label="Email Address"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Phone Number"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Fax Number"/>
+                <Property Name="WebSite" Type="Edm.String" MaxLength="1000" sap:unicode="false" sap:label="Web URI"/>
+                <Property Name="IndustryCode" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Industry Code"/>
+                <Property Name="LanguageCode" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Preferred Language Code"/>
+                <Property Name="YY1_ACCBAL_ENH" Type="Edm.Decimal" Precision="10" Scale="0" sap:label="Account Balance" sap:sortable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_CREDITRATING_ENH" Type="Edm.String" MaxLength="3" sap:label="Credit Rating" sap:sortable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_AVERAGEREVENUE_MCP" Type="Edm.Decimal" Precision="30" Scale="2" sap:label="Average Revenue" sap:sortable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_PRESENCE_MCP" Type="Edm.String" MaxLength="40" sap:label="Presence" sap:sortable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_DOORTYPE_MCP" Type="Edm.String" MaxLength="40" sap:label="Door Type" sap:sortable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <NavigationProperty Name="MarketingAreas" Relationship="CUAN_BUSINESS_DOCUMENT_IMP_SRV.CompanyMarketingArea" FromRole="FromRole_CompanyMarketingArea" ToRole="ToRole_CompanyMarketingArea" sap:label="Marketing Areas"/>
+            </EntityType>
+            <EntityType Name="Person" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                    <PropertyRef Name="IdOrigin"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Company ID"/>
+                <Property Name="IdOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Company ID Origin"/>
+                <Property Name="InternalId" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Internal Company Id"/>
+                <Property Name="LastChangeDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Last Change Date"/>
+                <Property Name="FirstName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="First name"/>
+                <Property Name="LastName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Last name"/>
+                <Property Name="FullName" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Full Name"/>
+                <Property Name="DateOfBirth" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:unicode="false" sap:label="Date of Birth"/>
+                <Property Name="GenderCode" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Gender Code"/>
+                <Property Name="MaritalStatusCode" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Marital Status Code"/>
+                <Property Name="TitleCode" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Title Code"/>
+                <Property Name="CountryCode" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Country Code"/>
+                <Property Name="RegionCode" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Region Code"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="City Name"/>
+                <Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Postal Code"/>
+                <Property Name="Street" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Street"/>
+                <Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="House Number"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="241" sap:unicode="false" sap:label="Email Address"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Phone Number"/>
+                <Property Name="MobilePhoneNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Mobile Phone Number"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Fax Number"/>
+                <Property Name="WebSite" Type="Edm.String" MaxLength="1000" sap:unicode="false" sap:label="Web URI"/>
+                <Property Name="IsConsumer" Type="Edm.Boolean" sap:unicode="false" sap:label="Person is Consumer"/>
+                <Property Name="IsContact" Type="Edm.Boolean" sap:unicode="false" sap:label="Person is Contact"/>
+                <Property Name="LanguageCode" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Preferred Language"/>
+                <Property Name="YY1_ACCBAL_ENH" Type="Edm.Decimal" Precision="10" Scale="0" sap:label="Account Balance" sap:sortable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_CREDITRATING_ENH" Type="Edm.String" MaxLength="3" sap:label="Credit Rating" sap:sortable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <NavigationProperty Name="MarketingAreas" Relationship="CUAN_BUSINESS_DOCUMENT_IMP_SRV.PersonMarketingArea" FromRole="FromRole_PersonMarketingArea" ToRole="ToRole_PersonMarketingArea" sap:label="Marketing Areas"/>
+            </EntityType>
+            <EntityType Name="MarketingArea" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingAreaId"/>
+                </Key>
+                <Property Name="MarketingAreaId" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="ProductCategory" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                    <PropertyRef Name="HierarchyId"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Object ID" sap:updatable="false"/>
+                <Property Name="HierarchyId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Object ID" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="ProductItem" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                    <PropertyRef Name="ObjectType"/>
+                </Key>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="ID" sap:updatable="false"/>
+                <Property Name="ObjectType" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Product" sap:updatable="false"/>
+                <Property Name="ObjectId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Product ID" sap:updatable="false"/>
+                <Property Name="ProductName" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Product" sap:updatable="false"/>
+                <Property Name="ProductDesc" Type="Edm.String" MaxLength="512" sap:unicode="false" sap:label="Product Desc." sap:updatable="false"/>
+                <Property Name="Amount" Type="Edm.Decimal" Precision="31" Scale="2" sap:unicode="false" sap:label="Amount" sap:updatable="false"/>
+                <Property Name="Quantity" Type="Edm.Decimal" Precision="22" Scale="5" sap:unicode="false" sap:unit="UnitOfMeasure" sap:label="Quantity" sap:updatable="false"/>
+                <Property Name="UnitOfMeasure" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Unit of Measure" sap:updatable="false"/>
+                <Property Name="StatusCode" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Status Code" sap:updatable="false"/>
+                <Property Name="Reason" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Reason" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="AdditionalObjectReference" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ObjectType"/>
+                    <PropertyRef Name="ObjectId"/>
+                </Key>
+                <Property Name="ObjectType" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Object Type" sap:updatable="false"/>
+                <Property Name="ObjectId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Object ID" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="Offer" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Origin"/>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Origin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Offer Origin ID" sap:updatable="false"/>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID" sap:updatable="false"/>
+                <Property Name="ContentItemId" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="Content Item No." sap:updatable="false"/>
+                <Property Name="RecommendationScenarioId" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Scenario ID" sap:updatable="false"/>
+            </EntityType>
+            <Association Name="PersonMarketingArea" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.Person" Multiplicity="1" Role="FromRole_PersonMarketingArea"/>
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.MarketingArea" Multiplicity="*" Role="ToRole_PersonMarketingArea"/>
+            </Association>
+            <Association Name="BusinessDocumentCompany" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocument" Multiplicity="1" Role="FromRole_BusinessDocumentCompany"/>
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.Company" Multiplicity="0..1" Role="ToRole_BusinessDocumentCompany"/>
+            </Association>
+            <Association Name="BusinessDocumentPerson" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocument" Multiplicity="1" Role="FromRole_BusinessDocumentPerson"/>
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.Person" Multiplicity="0..1" Role="ToRole_BusinessDocumentPerson"/>
+            </Association>
+            <Association Name="BusinessDocumentProductCategory" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocument" Multiplicity="1" Role="FromRole_BusinessDocumentProductCategory"/>
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.ProductCategory" Multiplicity="*" Role="ToRole_BusinessDocumentProductCategory"/>
+            </Association>
+            <Association Name="BusinessDocumentAdditionalObjectRef" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocument" Multiplicity="1" Role="FromRole_BusinessDocumentAdditionalObjectRef"/>
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.AdditionalObjectReference" Multiplicity="*" Role="ToRole_BusinessDocumentAdditionalObjectRef"/>
+            </Association>
+            <Association Name="BusinessDocumentOffer" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocument" Multiplicity="1" Role="FromRole_BusinessDocumentOffer"/>
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.Offer" Multiplicity="*" Role="ToRole_BusinessDocumentOffer"/>
+            </Association>
+            <Association Name="BusinessDocumentProductItem" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocument" Multiplicity="1" Role="FromRole_BusinessDocumentProductItem"/>
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.ProductItem" Multiplicity="*" Role="ToRole_BusinessDocumentProductItem"/>
+            </Association>
+            <Association Name="HeaderBusinessDocument" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.ImportHeader" Multiplicity="1" Role="FromRole_HeaderBusinessDocument"/>
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocument" Multiplicity="*" Role="ToRole_HeaderBusinessDocument"/>
+            </Association>
+            <Association Name="CompanyMarketingArea" sap:content-version="1">
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.Company" Multiplicity="1" Role="FromRole_CompanyMarketingArea"/>
+                <End Type="CUAN_BUSINESS_DOCUMENT_IMP_SRV.MarketingArea" Multiplicity="*" Role="ToRole_CompanyMarketingArea"/>
+            </Association>
+            <EntityContainer Name="CUAN_BUSINESS_DOCUMENT_IMP_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ImportHeaders" EntityType="CUAN_BUSINESS_DOCUMENT_IMP_SRV.ImportHeader" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="BusinessDocuments" EntityType="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocument" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="Companies" EntityType="CUAN_BUSINESS_DOCUMENT_IMP_SRV.Company" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="Persons" EntityType="CUAN_BUSINESS_DOCUMENT_IMP_SRV.Person" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketingAreas" EntityType="CUAN_BUSINESS_DOCUMENT_IMP_SRV.MarketingArea" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductCategories" EntityType="CUAN_BUSINESS_DOCUMENT_IMP_SRV.ProductCategory" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductItems" EntityType="CUAN_BUSINESS_DOCUMENT_IMP_SRV.ProductItem" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="AdditionalObjectReferences" EntityType="CUAN_BUSINESS_DOCUMENT_IMP_SRV.AdditionalObjectReference" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="Offers" EntityType="CUAN_BUSINESS_DOCUMENT_IMP_SRV.Offer" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <AssociationSet Name="PersonMarketingArea_AssocSet" Association="CUAN_BUSINESS_DOCUMENT_IMP_SRV.PersonMarketingArea" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Persons" Role="FromRole_PersonMarketingArea"/>
+                    <End EntitySet="MarketingAreas" Role="ToRole_PersonMarketingArea"/>
+                </AssociationSet>
+                <AssociationSet Name="BusinessDocumentOffer_AssocSet" Association="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentOffer" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="BusinessDocuments" Role="FromRole_BusinessDocumentOffer"/>
+                    <End EntitySet="Offers" Role="ToRole_BusinessDocumentOffer"/>
+                </AssociationSet>
+                <AssociationSet Name="CompanyMarketingArea_AssocSet" Association="CUAN_BUSINESS_DOCUMENT_IMP_SRV.CompanyMarketingArea" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Companies" Role="FromRole_CompanyMarketingArea"/>
+                    <End EntitySet="MarketingAreas" Role="ToRole_CompanyMarketingArea"/>
+                </AssociationSet>
+                <AssociationSet Name="BusinessDocumentProductItems" Association="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentProductItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="BusinessDocuments" Role="FromRole_BusinessDocumentProductItem"/>
+                    <End EntitySet="ProductItems" Role="ToRole_BusinessDocumentProductItem"/>
+                </AssociationSet>
+                <AssociationSet Name="BusinessDocumentProductCategory_AssocSet" Association="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentProductCategory" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="BusinessDocuments" Role="FromRole_BusinessDocumentProductCategory"/>
+                    <End EntitySet="ProductCategories" Role="ToRole_BusinessDocumentProductCategory"/>
+                </AssociationSet>
+                <AssociationSet Name="BusinessDocumentCompany_AssocSet" Association="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentCompany" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="BusinessDocuments" Role="FromRole_BusinessDocumentCompany"/>
+                    <End EntitySet="Companies" Role="ToRole_BusinessDocumentCompany"/>
+                </AssociationSet>
+                <AssociationSet Name="BusinessDocumentAdditionalObjectRef_Asso" Association="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentAdditionalObjectRef" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="BusinessDocuments" Role="FromRole_BusinessDocumentAdditionalObjectRef"/>
+                    <End EntitySet="AdditionalObjectReferences" Role="ToRole_BusinessDocumentAdditionalObjectRef"/>
+                </AssociationSet>
+                <AssociationSet Name="BusinessDocumentPerson_AssocSet" Association="CUAN_BUSINESS_DOCUMENT_IMP_SRV.BusinessDocumentPerson" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="BusinessDocuments" Role="FromRole_BusinessDocumentPerson"/>
+                    <End EntitySet="Persons" Role="ToRole_BusinessDocumentPerson"/>
+                </AssociationSet>
+                <AssociationSet Name="HeaderBusinessDocument_AssocSet" Association="CUAN_BUSINESS_DOCUMENT_IMP_SRV.HeaderBusinessDocument" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ImportHeaders" Role="FromRole_HeaderBusinessDocument"/>
+                    <End EntitySet="BusinessDocuments" Role="ToRole_HeaderBusinessDocument"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/CUAN_BUSINESS_DOCUMENT_IMP_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/CUAN_BUSINESS_DOCUMENT_IMP_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_OFFER_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="OfferEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingOfferUUID"/>
+                </Key>
+                <Property Name="MarketingOfferUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingOffer" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Marketing Offer ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferDescription" Type="Edm.String" Nullable="false" MaxLength="1000" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferIsRecurring" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is Recurring" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferStatus" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferStatusName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Status Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingArea" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingAreaName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Created By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUserName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Created By Username" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Last Changed By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUserName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Last Changed By Username" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDateTme" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Creation Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Last Change Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferStartDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Start Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferEndDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="End Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferIsFundedBySupplier" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Funded By Supplier" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProjectedGrossMarginInPercent" Type="Edm.Decimal" Nullable="false" Precision="8" Scale="1" sap:unicode="false" sap:label="Proj. Gross Marg. %" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="OfferCoupons" Relationship="API_MKT_OFFER_SRV.OfferToCoupon" FromRole="FromRole_OfferToCoupon" ToRole="ToRole_OfferToCoupon"/>
+                <NavigationProperty Name="OfferMarketingLocations" Relationship="API_MKT_OFFER_SRV.OfferToMarketingLocation" FromRole="FromRole_OfferToMarketingLocation" ToRole="ToRole_OfferToMarketingLocation"/>
+                <NavigationProperty Name="OfferProducts" Relationship="API_MKT_OFFER_SRV.OfferToProduct" FromRole="FromRole_OfferToProduct" ToRole="ToRole_OfferToProduct"/>
+                <NavigationProperty Name="OfferProductCategories" Relationship="API_MKT_OFFER_SRV.OfferToProductCategory" FromRole="FromRole_OfferToProductCategory" ToRole="ToRole_OfferToProductCategory"/>
+                <NavigationProperty Name="OfferTargetGroups" Relationship="API_MKT_OFFER_SRV.OfferToTargetGroup" FromRole="FromRole_OfferToTargetGroup" ToRole="ToRole_OfferToTargetGroup"/>
+                <NavigationProperty Name="OfferFeatures" Relationship="API_MKT_OFFER_SRV.OfferToFeature" FromRole="FromRole_OfferToFeature" ToRole="ToRole_OfferToFeature"/>
+                <NavigationProperty Name="OfferFacets" Relationship="API_MKT_OFFER_SRV.OfferToFacet" FromRole="FromRole_OfferToFacet" ToRole="ToRole_OfferToFacet"/>
+                <NavigationProperty Name="OfferContents" Relationship="API_MKT_OFFER_SRV.OfferToContent" FromRole="FromRole_OfferToContent" ToRole="ToRole_OfferToContent"/>
+            </EntityType>
+            <EntityType Name="OfferContentEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingOfferContentUUID"/>
+                </Key>
+                <Property Name="MarketingOfferContentUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingOfferUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Marketing Offer UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingOfferContent" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Content ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferContentType" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Type" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferContentTypeName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Type Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CommunicationMedium" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CommunicationMediumName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LanguageISOCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language Code" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingArea" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Created By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Creation Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Last Change Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Last Changed By User" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferContentPosition" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Position" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferContentSourceURL" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Source" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentSourceURLDesc" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Source Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentTargetURL" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Target" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OfferContentTargetURLDesc" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Target Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Offer" Relationship="API_MKT_OFFER_SRV.OfferToContent" FromRole="ToRole_OfferToContent" ToRole="FromRole_OfferToContent"/>
+            </EntityType>
+            <EntityType Name="OfferCouponEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CouponUUID"/>
+                    <PropertyRef Name="MarketingOfferUUID"/>
+                </Key>
+                <Property Name="CouponUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingOfferUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Marketing Offer UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Coupon" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Coupon" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="OfferMarketingLocationEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingLocationUUID"/>
+                    <PropertyRef Name="MarketingOfferUUID"/>
+                </Key>
+                <Property Name="MarketingLocationUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingOfferUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Marketing Offer UUID" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="OfferFeatureEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingOfferUUID"/>
+                    <PropertyRef Name="OfferFeature"/>
+                </Key>
+                <Property Name="MarketingOfferUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Marketing Offer UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferFeature" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Feature ID" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="OfferFacetEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ExternalOffer"/>
+                    <PropertyRef Name="ExternalOfferOrigin"/>
+                </Key>
+                <Property Name="MarketingOfferUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Marketing Offer UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ExternalOffer" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="External Offer ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ExternalOfferOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin ID of External Offer" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ExternalOfferOriginName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Origin of External Offer" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ExternalOfferStatus" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Status ID of External Offer" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ExternalOfferStatusName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Status of External Offer" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="OfferTargetGroupEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TargetGroupUUID"/>
+                    <PropertyRef Name="MarketingOfferUUID"/>
+                </Key>
+                <Property Name="TargetGroupUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingOfferUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Marketing Offer UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TargetGroup" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="OfferProductEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductUUID"/>
+                    <PropertyRef Name="MarketingOfferUUID"/>
+                </Key>
+                <Property Name="ProductUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingOfferUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Marketing Offer UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Product" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Product ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductOrigin" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Origin of Product" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="OfferProductCategoryEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductCategoryUUID"/>
+                    <PropertyRef Name="MarketingOfferUUID"/>
+                </Key>
+                <Property Name="ProductCategoryUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingOfferUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Marketing Offer UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductCategory" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Category ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductCategoryHierarchy" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Hierarchy ID" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <Association Name="OfferToMarketingLocation" sap:content-version="1">
+                <End Type="API_MKT_OFFER_SRV.OfferEntityType" Multiplicity="1" Role="FromRole_OfferToMarketingLocation"/>
+                <End Type="API_MKT_OFFER_SRV.OfferMarketingLocationEntityType" Multiplicity="*" Role="ToRole_OfferToMarketingLocation"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferToMarketingLocation">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferToMarketingLocation">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferToProduct" sap:content-version="1">
+                <End Type="API_MKT_OFFER_SRV.OfferEntityType" Multiplicity="1" Role="FromRole_OfferToProduct"/>
+                <End Type="API_MKT_OFFER_SRV.OfferProductEntityType" Multiplicity="*" Role="ToRole_OfferToProduct"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferToProduct">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferToProduct">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferToProductCategory" sap:content-version="1">
+                <End Type="API_MKT_OFFER_SRV.OfferEntityType" Multiplicity="1" Role="FromRole_OfferToProductCategory"/>
+                <End Type="API_MKT_OFFER_SRV.OfferProductCategoryEntityType" Multiplicity="*" Role="ToRole_OfferToProductCategory"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferToProductCategory">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferToProductCategory">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferToTargetGroup" sap:content-version="1">
+                <End Type="API_MKT_OFFER_SRV.OfferEntityType" Multiplicity="1" Role="FromRole_OfferToTargetGroup"/>
+                <End Type="API_MKT_OFFER_SRV.OfferTargetGroupEntityType" Multiplicity="*" Role="ToRole_OfferToTargetGroup"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferToTargetGroup">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferToTargetGroup">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferToFeature" sap:content-version="1">
+                <End Type="API_MKT_OFFER_SRV.OfferEntityType" Multiplicity="1" Role="FromRole_OfferToFeature"/>
+                <End Type="API_MKT_OFFER_SRV.OfferFeatureEntityType" Multiplicity="*" Role="ToRole_OfferToFeature"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferToFeature">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferToFeature">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferToFacet" sap:content-version="1">
+                <End Type="API_MKT_OFFER_SRV.OfferEntityType" Multiplicity="1" Role="FromRole_OfferToFacet"/>
+                <End Type="API_MKT_OFFER_SRV.OfferFacetEntityType" Multiplicity="*" Role="ToRole_OfferToFacet"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferToFacet">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferToFacet">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferToContent" sap:content-version="1">
+                <End Type="API_MKT_OFFER_SRV.OfferEntityType" Multiplicity="1" Role="FromRole_OfferToContent"/>
+                <End Type="API_MKT_OFFER_SRV.OfferContentEntityType" Multiplicity="*" Role="ToRole_OfferToContent"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferToContent">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferToContent">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OfferToCoupon" sap:content-version="1">
+                <End Type="API_MKT_OFFER_SRV.OfferEntityType" Multiplicity="1" Role="FromRole_OfferToCoupon"/>
+                <End Type="API_MKT_OFFER_SRV.OfferCouponEntityType" Multiplicity="*" Role="ToRole_OfferToCoupon"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OfferToCoupon">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OfferToCoupon">
+                        <PropertyRef Name="MarketingOfferUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_OFFER_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Offers" EntityType="API_MKT_OFFER_SRV.OfferEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferContents" EntityType="API_MKT_OFFER_SRV.OfferContentEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferCoupons" EntityType="API_MKT_OFFER_SRV.OfferCouponEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferMarketingLocations" EntityType="API_MKT_OFFER_SRV.OfferMarketingLocationEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferFeatures" EntityType="API_MKT_OFFER_SRV.OfferFeatureEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferFacets" EntityType="API_MKT_OFFER_SRV.OfferFacetEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferTargetGroups" EntityType="API_MKT_OFFER_SRV.OfferTargetGroupEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferProducts" EntityType="API_MKT_OFFER_SRV.OfferProductEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferProductCategories" EntityType="API_MKT_OFFER_SRV.OfferProductCategoryEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="OfferToContents" Association="API_MKT_OFFER_SRV.OfferToContent" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferToContent"/>
+                    <End EntitySet="OfferContents" Role="ToRole_OfferToContent"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferToTargetGroups" Association="API_MKT_OFFER_SRV.OfferToTargetGroup" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferToTargetGroup"/>
+                    <End EntitySet="OfferTargetGroups" Role="ToRole_OfferToTargetGroup"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferToProducts" Association="API_MKT_OFFER_SRV.OfferToProduct" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferToProduct"/>
+                    <End EntitySet="OfferProducts" Role="ToRole_OfferToProduct"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferToProductCategories" Association="API_MKT_OFFER_SRV.OfferToProductCategory" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferToProductCategory"/>
+                    <End EntitySet="OfferProductCategories" Role="ToRole_OfferToProductCategory"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferToFeatures" Association="API_MKT_OFFER_SRV.OfferToFeature" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferToFeature"/>
+                    <End EntitySet="OfferFeatures" Role="ToRole_OfferToFeature"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferToFacets" Association="API_MKT_OFFER_SRV.OfferToFacet" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferToFacet"/>
+                    <End EntitySet="OfferFacets" Role="ToRole_OfferToFacet"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferToCoupons" Association="API_MKT_OFFER_SRV.OfferToCoupon" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferToCoupon"/>
+                    <End EntitySet="OfferCoupons" Role="ToRole_OfferToCoupon"/>
+                </AssociationSet>
+                <AssociationSet Name="OfferToMarketingLocations" Association="API_MKT_OFFER_SRV.OfferToMarketingLocation" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Offers" Role="FromRole_OfferToMarketingLocation"/>
+                    <End EntitySet="OfferMarketingLocations" Role="ToRole_OfferToMarketingLocation"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_OFFER_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_OFFER_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

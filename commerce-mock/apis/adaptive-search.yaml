@@ -1,0 +1,167 @@
+---
+swagger: "2.0"
+info:
+  description: These services are used to get search profiles using sort, facet, and
+    boost settings.
+  version: 1.0.0
+  title: Adaptive Search Webservices
+  license:
+    name: Use of this file is subject to the terms of your agreement with SAP SE or
+      its affiliates respecting the use of the SAP product for which this file relates.
+x-sap-api-type: REST
+x-sap-shortText: Enables you to get search profiles using sort, facet and boost configurations.
+x-sap-stateInfo:
+  state: Active
+x-servers:
+- url: https://{url}/adaptivesearchwebservices
+  description: Adaptive Search v2 REST API endpoint
+  templates:
+    url:
+      description: SAP Commerce Cloud server URL where the application is deployed.
+host: hostname
+basePath: /adaptivesearchwebservices
+tags:
+- name: Search Profile
+  description: Search Profile Controller
+produces:
+- application/xml
+- application/json
+security:
+- oauth2_password:
+  - basic
+- oauth2_client_credentials:
+  - extended
+paths:
+  /v1/searchprofiles:
+    get:
+      tags:
+      - Search Profile
+      summary: Get search profiles
+      description: Endpoint to retrieve search profiles
+      operationId: getSearchProfiles
+      parameters:
+      - name: catalogVersions
+        in: query
+        description: Filter for catalog versions
+        required: false
+        type: string
+      - name: code
+        in: query
+        description: Filter for search profile code
+        required: false
+        type: string
+      - name: currentPage
+        in: query
+        description: Current page number
+        required: false
+        type: integer
+        format: int32
+      - name: fields
+        default: DEFAULT
+        in: query
+        description: Response configuration. This is the list of fields that should
+          be returned in the response body. Examples BASIC, DEFAULT, FULL
+        required: false
+        type: string
+      - name: indexTypes
+        in: query
+        description: Filter for index types codes
+        required: false
+        type: string
+      - name: needsTotal
+        in: query
+        description: Request total count
+        required: false
+        type: boolean
+      - name: pageSize
+        in: query
+        description: Page size
+        required: false
+        type: integer
+        format: int32
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/searchProfileList'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+securityDefinitions:
+  oauth2_client_credentials:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: application
+    scopes:
+      extended: ""
+  oauth2_password:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: password
+    scopes:
+      basic: ""
+definitions:
+  AsSearchProfileData:
+    type: object
+    description: Represents a search profile in adaptive search
+    properties:
+      catalogVersion:
+        type: string
+        description: The version of the catalog
+        example: Online, Staged
+      code:
+        type: string
+        description: The search profile code
+      indexType:
+        type: string
+        description: The type of the search profile index
+        example: electronics store product
+      name:
+        type: string
+        description: The name of the search profile
+    title: AsSearchProfileData
+  pagination:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int32
+        description: Number of search profiles displayed on this page
+      hasNext:
+        type: boolean
+        description: Indicates if there is next page
+      hasPrevious:
+        type: boolean
+        description: Indicates if there is previous page
+      page:
+        type: integer
+        format: int32
+        description: Current page number
+      totalCount:
+        type: integer
+        format: int64
+        description: Total number of elements
+      totalPages:
+        type: integer
+        format: int32
+        description: Total number of pages
+    title: pagination
+    description: Pagination info
+  searchProfileList:
+    type: object
+    properties:
+      pagination:
+        $ref: '#/definitions/pagination'
+      searchProfiles:
+        type: array
+        items:
+          $ref: '#/definitions/AsSearchProfileData'
+    title: searchProfileList
+    description: List of search profiles

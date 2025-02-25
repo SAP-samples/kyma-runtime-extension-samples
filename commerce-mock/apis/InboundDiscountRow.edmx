@@ -1,0 +1,147 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:s="http://schemas.sap.com/commerce" Namespace="HybrisCommerceOData" s:schema-version="1">
+            <EntityType Name="Discount">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Discount_code"/>
+            </EntityType>
+            <EntityType Name="DiscountRow">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="value" Nullable="true" Type="Edm.Double"/>
+                <Property Name="startTime" Nullable="true" Type="Edm.DateTime"/>
+                <Property Name="sapConditionId" Nullable="true" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="endTime" Nullable="true" Type="Edm.DateTime"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="CatalogVersion_version|Catalog_id|DiscountRow_sapConditionId"/>
+                <NavigationProperty FromRole="DiscountRow" Name="product" Nullable="true" Relationship="HybrisCommerceOData.FK_DiscountRow_product" ToRole="Product"/>
+                <NavigationProperty FromRole="DiscountRow" Name="currency" Nullable="true" Relationship="HybrisCommerceOData.FK_DiscountRow_currency" ToRole="Currency"/>
+                <NavigationProperty FromRole="DiscountRow" Name="discount" Nullable="false" Relationship="HybrisCommerceOData.FK_DiscountRow_discount" ToRole="Discount"/>
+                <NavigationProperty FromRole="DiscountRow" Name="ug" Nullable="true" Relationship="HybrisCommerceOData.FK_DiscountRow_ug" ToRole="UserPriceGroup"/>
+                <NavigationProperty FromRole="DiscountRow" Name="pg" Nullable="true" Relationship="HybrisCommerceOData.FK_DiscountRow_pg" ToRole="ProductPriceGroup"/>
+                <NavigationProperty FromRole="DiscountRow" Name="catalogVersion" Nullable="true" Relationship="HybrisCommerceOData.FK_DiscountRow_catalogVersion" ToRole="CatalogVersion" s:IsUnique="true"/>
+            </EntityType>
+            <EntityType Name="UserPriceGroup">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="UserPriceGroup_code"/>
+            </EntityType>
+            <EntityType Name="Currency">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="isocode" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Currency_isocode"/>
+            </EntityType>
+            <EntityType Name="Product">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="CatalogVersion_version|Catalog_id|Product_code"/>
+                <NavigationProperty FromRole="Product" Name="catalogVersion" Nullable="false" Relationship="HybrisCommerceOData.FK_Product_catalogVersion" ToRole="CatalogVersion" s:IsUnique="true"/>
+            </EntityType>
+            <EntityType Name="CatalogVersion">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="version" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="CatalogVersion_version|Catalog_id"/>
+                <NavigationProperty FromRole="CatalogVersion" Name="catalog" Nullable="false" Relationship="HybrisCommerceOData.FK_CatalogVersion_catalog" ToRole="Catalog" s:IsUnique="true"/>
+            </EntityType>
+            <EntityType Name="ProductPriceGroup">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="ProductPriceGroup_code"/>
+            </EntityType>
+            <EntityType Name="Catalog">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="id" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Catalog_id"/>
+            </EntityType>
+            <Association Name="FK_CatalogVersion_catalog">
+                <End Multiplicity="0..1" Role="CatalogVersion" Type="HybrisCommerceOData.CatalogVersion"/>
+                <End Multiplicity="0..1" Role="Catalog" Type="HybrisCommerceOData.Catalog"/>
+            </Association>
+            <Association Name="FK_DiscountRow_product">
+                <End Multiplicity="0..1" Role="DiscountRow" Type="HybrisCommerceOData.DiscountRow"/>
+                <End Multiplicity="0..1" Role="Product" Type="HybrisCommerceOData.Product"/>
+            </Association>
+            <Association Name="FK_DiscountRow_currency">
+                <End Multiplicity="0..1" Role="DiscountRow" Type="HybrisCommerceOData.DiscountRow"/>
+                <End Multiplicity="0..1" Role="Currency" Type="HybrisCommerceOData.Currency"/>
+            </Association>
+            <Association Name="FK_DiscountRow_discount">
+                <End Multiplicity="0..1" Role="DiscountRow" Type="HybrisCommerceOData.DiscountRow"/>
+                <End Multiplicity="0..1" Role="Discount" Type="HybrisCommerceOData.Discount"/>
+            </Association>
+            <Association Name="FK_DiscountRow_ug">
+                <End Multiplicity="0..1" Role="DiscountRow" Type="HybrisCommerceOData.DiscountRow"/>
+                <End Multiplicity="0..1" Role="UserPriceGroup" Type="HybrisCommerceOData.UserPriceGroup"/>
+            </Association>
+            <Association Name="FK_DiscountRow_pg">
+                <End Multiplicity="0..1" Role="DiscountRow" Type="HybrisCommerceOData.DiscountRow"/>
+                <End Multiplicity="0..1" Role="ProductPriceGroup" Type="HybrisCommerceOData.ProductPriceGroup"/>
+            </Association>
+            <Association Name="FK_DiscountRow_catalogVersion">
+                <End Multiplicity="0..1" Role="DiscountRow" Type="HybrisCommerceOData.DiscountRow"/>
+                <End Multiplicity="0..1" Role="CatalogVersion" Type="HybrisCommerceOData.CatalogVersion"/>
+            </Association>
+            <Association Name="FK_Product_catalogVersion">
+                <End Multiplicity="0..1" Role="Product" Type="HybrisCommerceOData.Product"/>
+                <End Multiplicity="0..1" Role="CatalogVersion" Type="HybrisCommerceOData.CatalogVersion"/>
+            </Association>
+            <EntityContainer Name="Container" m:IsDefaultEntityContainer="true">
+                <EntitySet EntityType="HybrisCommerceOData.Discount" Name="Discounts"/>
+                <EntitySet EntityType="HybrisCommerceOData.DiscountRow" Name="DiscountRows"/>
+                <EntitySet EntityType="HybrisCommerceOData.UserPriceGroup" Name="UserPriceGroups"/>
+                <EntitySet EntityType="HybrisCommerceOData.Currency" Name="Currencies"/>
+                <EntitySet EntityType="HybrisCommerceOData.Product" Name="Products"/>
+                <EntitySet EntityType="HybrisCommerceOData.CatalogVersion" Name="CatalogVersions"/>
+                <EntitySet EntityType="HybrisCommerceOData.ProductPriceGroup" Name="ProductPriceGroups"/>
+                <EntitySet EntityType="HybrisCommerceOData.Catalog" Name="Catalogs"/>
+                <AssociationSet Association="HybrisCommerceOData.FK_CatalogVersion_catalog" Name="CatalogVersion_Catalogs">
+                    <End EntitySet="CatalogVersions" Role="CatalogVersion"/>
+                    <End EntitySet="Catalogs" Role="Catalog"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_DiscountRow_product" Name="DiscountRow_Products">
+                    <End EntitySet="DiscountRows" Role="DiscountRow"/>
+                    <End EntitySet="Products" Role="Product"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_DiscountRow_currency" Name="DiscountRow_Currencies">
+                    <End EntitySet="DiscountRows" Role="DiscountRow"/>
+                    <End EntitySet="Currencies" Role="Currency"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_DiscountRow_discount" Name="DiscountRow_Discounts">
+                    <End EntitySet="DiscountRows" Role="DiscountRow"/>
+                    <End EntitySet="Discounts" Role="Discount"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_DiscountRow_ug" Name="DiscountRow_UserPriceGroups">
+                    <End EntitySet="DiscountRows" Role="DiscountRow"/>
+                    <End EntitySet="UserPriceGroups" Role="UserPriceGroup"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_DiscountRow_pg" Name="DiscountRow_ProductPriceGroups">
+                    <End EntitySet="DiscountRows" Role="DiscountRow"/>
+                    <End EntitySet="ProductPriceGroups" Role="ProductPriceGroup"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_DiscountRow_catalogVersion" Name="DiscountRow_CatalogVersions">
+                    <End EntitySet="DiscountRows" Role="DiscountRow"/>
+                    <End EntitySet="CatalogVersions" Role="CatalogVersion"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_Product_catalogVersion" Name="Product_CatalogVersions">
+                    <End EntitySet="Products" Role="Product"/>
+                    <End EntitySet="CatalogVersions" Role="CatalogVersion"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,1053 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="CUAN_OFFER_DISCOVERY_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="CommunicationMedium" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CommunicationMediumId"/>
+                </Key>
+                <Property Name="CommunicationMediumId" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="CommunicationMediumName" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CommunicationMediumName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="Language" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="LanguageId"/>
+                </Key>
+                <Property Name="LanguageId" Type="Edm.String" Nullable="false" MaxLength="2" sap:text="LanguageName" sap:unicode="false" sap:label="Lang. (ISO)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LanguageName" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="ContentType" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ContentTypeId"/>
+                    <PropertyRef Name="CommunicationMediumId"/>
+                </Key>
+                <Property Name="ContentTypeId" Type="Edm.String" Nullable="false" MaxLength="2" sap:text="ContentTypeName" sap:unicode="false" sap:label="Content Type ID" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMediumId" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="CommunicationMediumName" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ContentTypeName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Content Type" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMediumName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <NavigationProperty Name="AvailableFields" Relationship="CUAN_OFFER_DISCOVERY_SRV.ContentTypeToContentTypeField" FromRole="FromRole_ContentTypeToContentTypeField" ToRole="ToRole_ContentTypeToContentTypeField"/>
+            </EntityType>
+            <EntityType Name="ContentPosition" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ContentPositionId"/>
+                    <PropertyRef Name="CommunicationMediumId"/>
+                </Key>
+                <Property Name="ContentPositionId" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Position" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CommunicationMediumId" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="CommunicationMediumName" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CommunicationMediumName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="OfferRecommendationScenario" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferRecommendationScenarioId"/>
+                </Key>
+                <Property Name="OfferRecommendationScenarioId" Type="Edm.String" Nullable="false" MaxLength="50" sap:text="OfferRecommendationScenarioName" sap:unicode="false" sap:label="Scenario ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferRecommendationScenarioName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Scenario Description" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="ContentTypeField" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ContentTypeId"/>
+                    <PropertyRef Name="CommunicationMediumId"/>
+                    <PropertyRef Name="PropertyName"/>
+                    <PropertyRef Name="EntityTypeName"/>
+                </Key>
+                <Property Name="ContentTypeId" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Content Type ID" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMediumId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="PropertyName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Property Name" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="EntityTypeName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Entity Type Name" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ItemSourceType" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ItemSourceTypeId"/>
+                </Key>
+                <Property Name="ItemSourceTypeId" Type="Edm.String" Nullable="false" MaxLength="2" sap:text="ItemSourceTypeDescription" sap:unicode="false" sap:label="Data Source Type" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ItemSourceTypeDescription" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="ItemSourceObjectType" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data Source Object Type" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="LeadingObject" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="LeadingObjectType"/>
+                    <PropertyRef Name="LeadingObjectId"/>
+                </Key>
+                <Property Name="LeadingObjectType" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Leading Object Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LeadingObjectId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Leading Object ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="BasketObject" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BasketObjectType"/>
+                    <PropertyRef Name="BasketObjectId"/>
+                </Key>
+                <Property Name="BasketObjectType" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Cart Object Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BasketObjectId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Cart Object ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ContextParam" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ContextId"/>
+                </Key>
+                <Property Name="ContextId" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="INT4" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Parameter Value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Parameter Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="MarketingLocation" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Key"/>
+                </Key>
+                <Property Name="Key" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="GUID 16" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Location Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TypeDescription" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Location Type" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingAreaDescription" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="RegionDescription" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Region" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CountryDescription" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Country" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="City" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PostalCode" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Postal Code" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompanyName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Company Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ValidFromDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:unicode="false" sap:label="Valid-From Date" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ValidToDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:unicode="false" sap:label="Valid-To Date" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="CustomerOrigin" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CustomerOriginId"/>
+                </Key>
+                <Property Name="CustomerOriginId" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="CustomerOriginName" sap:unicode="false" sap:label="Origin of Contact" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="CustomerOriginName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ItemValueHelp" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ValueHelpParameterId"/>
+                    <PropertyRef Name="ValueHelpId"/>
+                </Key>
+                <Property Name="Search" Type="CUAN_OFFER_DISCOVERY_SRV.ItemValueHelpSearch" Nullable="false"/>
+                <Property Name="ValueHelpParameterId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Pre-Filter Param. ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ValueHelpId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Object ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ValueHelpDescription" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Value Help Desc." sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ValueHelpImageUrl" Type="Edm.String" Nullable="false" MaxLength="1333" sap:unicode="false" sap:label="Image URI" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Result" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferId"/>
+                    <PropertyRef Name="ContentId"/>
+                    <PropertyRef Name="CommunicationMediumId"/>
+                    <PropertyRef Name="LanguageId"/>
+                </Key>
+                <Property Name="OfferId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Offer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Offer" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Offer" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="InboundOriginIdExt" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="External Offer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="InboundOriginId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="External Offer Origin ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ContentId" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Content ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMediumId" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="CommunicationMedium" sap:unicode="false" sap:label="Communication Medium ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMedium" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LanguageId" Type="Edm.String" Nullable="false" MaxLength="2" sap:text="Language" sap:unicode="false" sap:label="Language ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Position" Type="Edm.String" Nullable="false" MaxLength="40" sap:field-control="FC_ContentPosition" sap:unicode="false" sap:label="Content Position" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ContentMediumTypeId" Type="Edm.String" Nullable="false" MaxLength="2" sap:field-control="FC_ContentMediumTypeId" sap:text="ContentMediumType" sap:unicode="false" sap:label="Content Type ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ContentMediumType" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Content Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ContentDescription" Type="Edm.String" Nullable="false" MaxLength="60" sap:field-control="FC_ContentDescription" sap:unicode="false" sap:label="Content Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ContentSource" Type="Edm.String" Nullable="false" sap:field-control="FC_ContentSource" sap:unicode="false" sap:label="Content Source" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TargetDescription" Type="Edm.String" Nullable="false" MaxLength="60" sap:field-control="FC_TargetDescription" sap:unicode="false" sap:label="Target Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TargetLink" Type="Edm.String" Nullable="false" sap:field-control="FC_TargetLink" sap:unicode="false" sap:label="Target Link" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_ContentPosition" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_ContentMediumTypeId" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_ContentDescription" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_ContentSource" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_TargetDescription" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_TargetLink" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Score" Type="Edm.Decimal" Nullable="false" Precision="10" Scale="5" sap:unicode="false" sap:label="Recommendation Score" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="YY1_BACKFLD_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_BACKFLD_MOCF" sap:text="YY1_BACKFLD_MOCT" sap:label="Back Field" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODETYP_MOC" Type="Edm.String" MaxLength="8" sap:field-control="YY1_BARCODETYP_MOCF" sap:text="YY1_BARCODETYP_MOCT" sap:label="Barcode Type" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODE_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_BARCODE_MOCF" sap:text="YY1_BARCODE_MOCT" sap:label="Barcode" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_BGCOLOUR_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_BGCOLOUR_MOCF" sap:label="Background Color" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_FGCOLOUR_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_FGCOLOUR_MOCF" sap:label="Foreground Color" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_HEADER_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_HEADER_MOCF" sap:text="YY1_HEADER_MOCT" sap:label="Header Field" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_LBCOLOUR_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_LBCOLOUR_MOCF" sap:label="Label Color" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_LOGOIMGURL_MOC" Type="Edm.String" MaxLength="255" sap:field-control="YY1_LOGOIMGURL_MOCF" sap:label="Logo Image URL" sap:filterable="false" sap:is-extension-field="true" sap:semantics="url"/>
+                <Property Name="YY1_LOGOTEXT_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_LOGOTEXT_MOCF" sap:text="YY1_LOGOTEXT_MOCT" sap:label="Logo Text Field" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_PRIMARY_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_PRIMARY_MOCF" sap:text="YY1_PRIMARY_MOCT" sap:label="Primary Field" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLD2_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_SECFLD2_MOCF" sap:text="YY1_SECFLD2_MOCT" sap:label="Secondary Field 2" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLF1_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_SECFLF1_MOCF" sap:text="YY1_SECFLF1_MOCT" sap:label="Secondary Field 1" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_STRIMGURL_MOC" Type="Edm.String" MaxLength="255" sap:field-control="YY1_STRIMGURL_MOCF" sap:label="Strip Image URL" sap:filterable="false" sap:is-extension-field="true" sap:semantics="url"/>
+                <Property Name="YY1_BACKFLD_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BACKFLD_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_BACKFLD_MOCF" sap:label="Back Field (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODETYP_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODETYP_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_BARCODETYP_MOCF" sap:label="Barcode Type (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODE_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODE_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_BARCODE_MOCF" sap:label="Barcode (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BGCOLOUR_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_FGCOLOUR_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_HEADER_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_HEADER_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_HEADER_MOCF" sap:label="Header Field (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_LBCOLOUR_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_LOGOIMGURL_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_LOGOTEXT_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_LOGOTEXT_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_LOGOTEXT_MOCF" sap:label="Logo Text Field (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_PRIMARY_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_PRIMARY_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_PRIMARY_MOCF" sap:label="Primary Field (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLD2_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLD2_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_SECFLD2_MOCF" sap:label="Secondary Field 2 (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLF1_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLF1_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_SECFLF1_MOCF" sap:label="Secondary Field 1 (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_STRIMGURL_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <NavigationProperty Name="AssignedCoupon" Relationship="CUAN_OFFER_DISCOVERY_SRV.ResultCoupon" FromRole="FromRole_ResultCoupon" ToRole="ToRole_ResultCoupon"/>
+            </EntityType>
+            <EntityType Name="Recommendation" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="UserId"/>
+                    <PropertyRef Name="UserOriginId"/>
+                    <PropertyRef Name="RecommendationScenarioId"/>
+                </Key>
+                <Property Name="UserId" Type="Edm.String" Nullable="false" MaxLength="255" sap:filter-restriction="single-value" sap:unicode="false" sap:label="User ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UserOriginId" Type="Edm.String" Nullable="false" MaxLength="20" sap:filter-restriction="single-value" sap:unicode="false" sap:label="Origin of User ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RecommendationScenarioId" Type="Edm.String" Nullable="false" MaxLength="50" sap:filter-restriction="single-value" sap:unicode="false" sap:label="Recommendation Scenario ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="BasketObjects" Relationship="CUAN_OFFER_DISCOVERY_SRV.RecommendationBasketObjects" FromRole="FromRole_RecommendationBasketObjects" ToRole="ToRole_RecommendationBasketObjects"/>
+                <NavigationProperty Name="ContextParams" Relationship="CUAN_OFFER_DISCOVERY_SRV.RecommendationContextParams" FromRole="FromRole_RecommendationContextParams" ToRole="ToRole_RecommendationContextParams"/>
+                <NavigationProperty Name="LeadingObjects" Relationship="CUAN_OFFER_DISCOVERY_SRV.RecommendationLeadingObjects" FromRole="FromRole_RecommendationLeadingObjects" ToRole="ToRole_RecommendationLeadingObjects"/>
+                <NavigationProperty Name="Results" Relationship="CUAN_OFFER_DISCOVERY_SRV.RecommendationResults" FromRole="FromRole_RecommendationResults" ToRole="ToRole_RecommendationResults"/>
+            </EntityType>
+            <EntityType Name="OfferContent" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OfferId"/>
+                    <PropertyRef Name="ContentId"/>
+                    <PropertyRef Name="CommunicationMediumId"/>
+                    <PropertyRef Name="LanguageId"/>
+                </Key>
+                <Property Name="Search" Type="CUAN_OFFER_DISCOVERY_SRV.OfferContentSearch" Nullable="false"/>
+                <Property Name="OfferId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Offer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Offer" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Offer" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CustomerId" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Customer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ContentId" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Content ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMediumId" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="CommunicationMedium" sap:unicode="false" sap:label="Communication Medium ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationMedium" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Communication Medium" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LanguageId" Type="Edm.String" Nullable="false" MaxLength="2" sap:text="Language" sap:unicode="false" sap:label="Language ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Position" Type="Edm.String" Nullable="false" MaxLength="40" sap:field-control="FC_ContentPosition" sap:unicode="false" sap:label="Content Position" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ContentMediumTypeId" Type="Edm.String" Nullable="false" MaxLength="2" sap:field-control="FC_ContentMediumTypeId" sap:text="ContentMediumType" sap:unicode="false" sap:label="Content Type ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ContentMediumType" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Content Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ContentDescription" Type="Edm.String" Nullable="false" MaxLength="60" sap:field-control="FC_ContentDescription" sap:unicode="false" sap:label="Content Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ContentSource" Type="Edm.String" Nullable="false" sap:field-control="FC_ContentSource" sap:unicode="false" sap:label="Content Source" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TargetDescription" Type="Edm.String" Nullable="false" MaxLength="60" sap:field-control="FC_TargetDescription" sap:unicode="false" sap:label="Target Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TargetLink" Type="Edm.String" Nullable="false" sap:field-control="FC_TargetLink" sap:unicode="false" sap:label="Target Link" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_ContentPosition" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_ContentMediumTypeId" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_ContentDescription" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_ContentSource" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_TargetDescription" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FC_TargetLink" Type="Edm.Byte" Nullable="false" sap:is-annotation="true" sap:unicode="false" sap:visible="false" sap:label="Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="YY1_BACKFLD_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_BACKFLD_MOCF" sap:text="YY1_BACKFLD_MOCT" sap:label="Back Field" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODETYP_MOC" Type="Edm.String" MaxLength="8" sap:field-control="YY1_BARCODETYP_MOCF" sap:text="YY1_BARCODETYP_MOCT" sap:label="Barcode Type" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODE_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_BARCODE_MOCF" sap:text="YY1_BARCODE_MOCT" sap:label="Barcode" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_BGCOLOUR_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_BGCOLOUR_MOCF" sap:label="Background Color" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_FGCOLOUR_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_FGCOLOUR_MOCF" sap:label="Foreground Color" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_HEADER_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_HEADER_MOCF" sap:text="YY1_HEADER_MOCT" sap:label="Header Field" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_LBCOLOUR_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_LBCOLOUR_MOCF" sap:label="Label Color" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_LOGOIMGURL_MOC" Type="Edm.String" MaxLength="255" sap:field-control="YY1_LOGOIMGURL_MOCF" sap:label="Logo Image URL" sap:filterable="false" sap:is-extension-field="true" sap:semantics="url"/>
+                <Property Name="YY1_LOGOTEXT_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_LOGOTEXT_MOCF" sap:text="YY1_LOGOTEXT_MOCT" sap:label="Logo Text Field" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_PRIMARY_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_PRIMARY_MOCF" sap:text="YY1_PRIMARY_MOCT" sap:label="Primary Field" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLD2_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_SECFLD2_MOCF" sap:text="YY1_SECFLD2_MOCT" sap:label="Secondary Field 2" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLF1_MOC" Type="Edm.String" MaxLength="20" sap:field-control="YY1_SECFLF1_MOCF" sap:text="YY1_SECFLF1_MOCT" sap:label="Secondary Field 1" sap:filterable="false" sap:value-list="standard" sap:is-extension-field="true"/>
+                <Property Name="YY1_STRIMGURL_MOC" Type="Edm.String" MaxLength="255" sap:field-control="YY1_STRIMGURL_MOCF" sap:label="Strip Image URL" sap:filterable="false" sap:is-extension-field="true" sap:semantics="url"/>
+                <Property Name="YY1_BACKFLD_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BACKFLD_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_BACKFLD_MOCF" sap:label="Back Field (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODETYP_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODETYP_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_BARCODETYP_MOCF" sap:label="Barcode Type (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODE_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BARCODE_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_BARCODE_MOCF" sap:label="Barcode (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_BGCOLOUR_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_FGCOLOUR_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_HEADER_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_HEADER_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_HEADER_MOCF" sap:label="Header Field (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_LBCOLOUR_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_LOGOIMGURL_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_LOGOTEXT_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_LOGOTEXT_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_LOGOTEXT_MOCF" sap:label="Logo Text Field (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_PRIMARY_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_PRIMARY_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_PRIMARY_MOCF" sap:label="Primary Field (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLD2_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLD2_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_SECFLD2_MOCF" sap:label="Secondary Field 2 (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLF1_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_SECFLF1_MOCT" Type="Edm.String" MaxLength="60" sap:field-control="YY1_SECFLF1_MOCF" sap:label="Secondary Field 1 (Desc.)" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+                <Property Name="YY1_STRIMGURL_MOCF" Type="Edm.Byte" sap:visible="false" sap:label="UI Field Control" sap:creatable="false" sap:updatable="false" sap:filterable="false" sap:is-extension-field="true"/>
+            </EntityType>
+            <EntityType Name="CouponEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Coupon"/>
+                </Key>
+                <Property Name="Coupon" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Coupon" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CouponType" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Coupon Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CouponName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Coupon Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CouponDescription" Type="Edm.String" Nullable="false" MaxLength="512" sap:unicode="false" sap:label="Coupon Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="CouponCodeEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CouponCode"/>
+                </Key>
+                <Property Name="CouponCode" Type="Edm.String" Nullable="false" MaxLength="128" sap:unicode="false" sap:label="Coupon Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EANCodeImageUrl" Type="Edm.String" Nullable="false" MaxLength="1333" sap:unicode="false" sap:label="Barcode Image URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="QRCodeImageURL" Type="Edm.String" Nullable="false" MaxLength="1333" sap:unicode="false" sap:label="QR Code Image URL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ValidityStartDateTime" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Validity Start" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ValidityEndDateTime" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Validity End" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CouponCodeSerialNumber" Type="Edm.String" Nullable="false" MaxLength="128" sap:unicode="false" sap:label="Serial Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="YY1_BACKFLD" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="Description" sap:label="Back Field"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Back Field (Desc.)"/>
+            </EntityType>
+            <EntityType Name="YY1_BARCODETYP" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="8" sap:text="Description" sap:label="Barcode Type"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Barcode Type (Desc.)"/>
+            </EntityType>
+            <EntityType Name="YY1_BARCODE" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="Description" sap:label="Barcode"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Barcode (Desc.)"/>
+            </EntityType>
+            <EntityType Name="YY1_HEADER" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="Description" sap:label="Header Field"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Header Field (Desc.)"/>
+            </EntityType>
+            <EntityType Name="YY1_LOGOTEXT" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="Description" sap:label="Logo Text Field"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Logo Text Field (Desc.)"/>
+            </EntityType>
+            <EntityType Name="YY1_PRIMARY" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="Description" sap:label="Primary Field"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Primary Field (Desc.)"/>
+            </EntityType>
+            <EntityType Name="YY1_SECFLD2" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="Description" sap:label="Secondary Field 2"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Secondary Field 2 (Desc.)"/>
+            </EntityType>
+            <EntityType Name="YY1_SECFLF1" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="20" sap:text="Description" sap:label="Secondary Field 1"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="60" sap:label="Secondary Field 1 (Desc.)"/>
+            </EntityType>
+            <ComplexType Name="ItemValueHelpSearch">
+                <Property Name="SearchTerm" Type="Edm.String" Nullable="false" sap:label="Search Term" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </ComplexType>
+            <ComplexType Name="OfferContentSearch">
+                <Property Name="CustomerId" Type="Edm.String" Nullable="false" MaxLength="255" sap:filter-restriction="single-value" sap:label="Customer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CustomerOriginId" Type="Edm.String" Nullable="false" MaxLength="20" sap:filter-restriction="single-value" sap:label="Customer Origin ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CommunicationMediumId" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Communication Medium ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ContentMediumTypeId" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Content Type ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="LanguageId" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Language ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="RecommendationScenarioId" Type="Edm.String" Nullable="false" MaxLength="50" sap:filter-restriction="single-value" sap:label="Scenario ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Position" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Position" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingLocationKey" Type="Edm.String" Nullable="false" MaxLength="32" sap:filter-restriction="multi-value" sap:label="Marketing Location Key" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </ComplexType>
+            <Association Name="ResultCoupon" sap:content-version="1">
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.Result" Multiplicity="1" Role="FromRole_ResultCoupon"/>
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.CouponEntityType" Multiplicity="0..1" Role="ToRole_ResultCoupon"/>
+            </Association>
+            <Association Name="RecommendationBasketObjects" sap:content-version="1">
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.Recommendation" Multiplicity="1" Role="FromRole_RecommendationBasketObjects"/>
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.BasketObject" Multiplicity="*" Role="ToRole_RecommendationBasketObjects"/>
+            </Association>
+            <Association Name="RecommendationContextParams" sap:content-version="1">
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.Recommendation" Multiplicity="1" Role="FromRole_RecommendationContextParams"/>
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.ContextParam" Multiplicity="*" Role="ToRole_RecommendationContextParams"/>
+            </Association>
+            <Association Name="RecommendationLeadingObjects" sap:content-version="1">
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.Recommendation" Multiplicity="1" Role="FromRole_RecommendationLeadingObjects"/>
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.LeadingObject" Multiplicity="*" Role="ToRole_RecommendationLeadingObjects"/>
+            </Association>
+            <Association Name="RecommendationResults" sap:content-version="1">
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.Recommendation" Multiplicity="1" Role="FromRole_RecommendationResults"/>
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.Result" Multiplicity="*" Role="ToRole_RecommendationResults"/>
+            </Association>
+            <Association Name="ContentTypeToContentTypeField" sap:content-version="1">
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.ContentType" Multiplicity="1" Role="FromRole_ContentTypeToContentTypeField"/>
+                <End Type="CUAN_OFFER_DISCOVERY_SRV.ContentTypeField" Multiplicity="*" Role="ToRole_ContentTypeToContentTypeField"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ContentTypeToContentTypeField">
+                        <PropertyRef Name="ContentTypeId"/>
+                        <PropertyRef Name="CommunicationMediumId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ContentTypeToContentTypeField">
+                        <PropertyRef Name="ContentTypeId"/>
+                        <PropertyRef Name="CommunicationMediumId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="CUAN_OFFER_DISCOVERY_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ItemValueHelps" EntityType="CUAN_OFFER_DISCOVERY_SRV.ItemValueHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="Results" EntityType="CUAN_OFFER_DISCOVERY_SRV.Result" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="Recommendations" EntityType="CUAN_OFFER_DISCOVERY_SRV.Recommendation" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferContents" EntityType="CUAN_OFFER_DISCOVERY_SRV.OfferContent" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="Coupons" EntityType="CUAN_OFFER_DISCOVERY_SRV.CouponEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="CouponCodes" EntityType="CUAN_OFFER_DISCOVERY_SRV.CouponCodeEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="YY1_BACKFLDSet" EntityType="CUAN_OFFER_DISCOVERY_SRV.YY1_BACKFLD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true" sap:searchable="true" sap:semantics="aggregate"/>
+                <EntitySet Name="YY1_BARCODETYPSet" EntityType="CUAN_OFFER_DISCOVERY_SRV.YY1_BARCODETYP" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true" sap:searchable="true" sap:semantics="aggregate"/>
+                <EntitySet Name="YY1_BARCODESet" EntityType="CUAN_OFFER_DISCOVERY_SRV.YY1_BARCODE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true" sap:searchable="true" sap:semantics="aggregate"/>
+                <EntitySet Name="YY1_HEADERSet" EntityType="CUAN_OFFER_DISCOVERY_SRV.YY1_HEADER" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true" sap:searchable="true" sap:semantics="aggregate"/>
+                <EntitySet Name="YY1_LOGOTEXTSet" EntityType="CUAN_OFFER_DISCOVERY_SRV.YY1_LOGOTEXT" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true" sap:searchable="true" sap:semantics="aggregate"/>
+                <EntitySet Name="YY1_PRIMARYSet" EntityType="CUAN_OFFER_DISCOVERY_SRV.YY1_PRIMARY" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true" sap:searchable="true" sap:semantics="aggregate"/>
+                <EntitySet Name="YY1_SECFLD2Set" EntityType="CUAN_OFFER_DISCOVERY_SRV.YY1_SECFLD2" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true" sap:searchable="true" sap:semantics="aggregate"/>
+                <EntitySet Name="YY1_SECFLF1Set" EntityType="CUAN_OFFER_DISCOVERY_SRV.YY1_SECFLF1" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="true" sap:searchable="true" sap:semantics="aggregate"/>
+                <EntitySet Name="CommunicationMediums" EntityType="CUAN_OFFER_DISCOVERY_SRV.CommunicationMedium" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="Languages" EntityType="CUAN_OFFER_DISCOVERY_SRV.Language" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ContentTypes" EntityType="CUAN_OFFER_DISCOVERY_SRV.ContentType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ContentPositions" EntityType="CUAN_OFFER_DISCOVERY_SRV.ContentPosition" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="OfferRecommendationScenarios" EntityType="CUAN_OFFER_DISCOVERY_SRV.OfferRecommendationScenario" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ContentTypeFields" EntityType="CUAN_OFFER_DISCOVERY_SRV.ContentTypeField" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ItemSourceTypes" EntityType="CUAN_OFFER_DISCOVERY_SRV.ItemSourceType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="LeadingObjects" EntityType="CUAN_OFFER_DISCOVERY_SRV.LeadingObject" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="BasketObjects" EntityType="CUAN_OFFER_DISCOVERY_SRV.BasketObject" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ContextParams" EntityType="CUAN_OFFER_DISCOVERY_SRV.ContextParam" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="MarketingLocations" EntityType="CUAN_OFFER_DISCOVERY_SRV.MarketingLocation" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="CustomerOrigins" EntityType="CUAN_OFFER_DISCOVERY_SRV.CustomerOrigin" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="RecommendationBasketObjects" Association="CUAN_OFFER_DISCOVERY_SRV.RecommendationBasketObjects" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Recommendations" Role="FromRole_RecommendationBasketObjects"/>
+                    <End EntitySet="BasketObjects" Role="ToRole_RecommendationBasketObjects"/>
+                </AssociationSet>
+                <AssociationSet Name="RecommendationResults" Association="CUAN_OFFER_DISCOVERY_SRV.RecommendationResults" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Recommendations" Role="FromRole_RecommendationResults"/>
+                    <End EntitySet="Results" Role="ToRole_RecommendationResults"/>
+                </AssociationSet>
+                <AssociationSet Name="ResultCoupons" Association="CUAN_OFFER_DISCOVERY_SRV.ResultCoupon" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Results" Role="FromRole_ResultCoupon"/>
+                    <End EntitySet="Coupons" Role="ToRole_ResultCoupon"/>
+                </AssociationSet>
+                <AssociationSet Name="ContentTypeToContentTypeFields" Association="CUAN_OFFER_DISCOVERY_SRV.ContentTypeToContentTypeField" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ContentTypes" Role="FromRole_ContentTypeToContentTypeField"/>
+                    <End EntitySet="ContentTypeFields" Role="ToRole_ContentTypeToContentTypeField"/>
+                </AssociationSet>
+                <AssociationSet Name="RecommendationLeadingObjects" Association="CUAN_OFFER_DISCOVERY_SRV.RecommendationLeadingObjects" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Recommendations" Role="FromRole_RecommendationLeadingObjects"/>
+                    <End EntitySet="LeadingObjects" Role="ToRole_RecommendationLeadingObjects"/>
+                </AssociationSet>
+                <AssociationSet Name="RecommendationContextParams" Association="CUAN_OFFER_DISCOVERY_SRV.RecommendationContextParams" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Recommendations" Role="FromRole_RecommendationContextParams"/>
+                    <End EntitySet="ContextParams" Role="ToRole_RecommendationContextParams"/>
+                </AssociationSet>
+                <FunctionImport Name="GetCouponCode" ReturnType="CUAN_OFFER_DISCOVERY_SRV.CouponCodeEntityType" EntitySet="CouponCodes" m:HttpMethod="GET" sap:action-for="CUAN_OFFER_DISCOVERY_SRV.CouponEntityType">
+                    <Parameter Name="Coupon" Type="Edm.String" Mode="In" MaxLength="32"/>
+                    <Parameter Name="UserId" Type="Edm.String" Mode="In" MaxLength="255"/>
+                    <Parameter Name="UserOriginId" Type="Edm.String" Mode="In" MaxLength="20"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/YY1_BACKFLD_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_BACKFLDSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BACKFLD_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BACKFLD_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/YY1_BARCODETYP_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_BARCODETYPSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BARCODETYP_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BARCODETYP_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/YY1_BARCODE_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_BARCODESet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BARCODE_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BARCODE_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/YY1_HEADER_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_HEADERSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_HEADER_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_HEADER_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/YY1_LOGOTEXT_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_LOGOTEXTSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_LOGOTEXT_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_LOGOTEXT_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/YY1_PRIMARY_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_PRIMARYSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_PRIMARY_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_PRIMARY_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/YY1_SECFLD2_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_SECFLD2Set"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_SECFLD2_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_SECFLD2_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/YY1_SECFLF1_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_SECFLF1Set"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_SECFLF1_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_SECFLF1_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.Result/YY1_BACKFLD_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_BACKFLDSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BACKFLD_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BACKFLD_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.Result/YY1_BARCODETYP_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_BARCODETYPSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BARCODETYP_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BARCODETYP_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.Result/YY1_BARCODE_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_BARCODESet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BARCODE_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_BARCODE_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.Result/YY1_HEADER_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_HEADERSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_HEADER_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_HEADER_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.Result/YY1_LOGOTEXT_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_LOGOTEXTSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_LOGOTEXT_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_LOGOTEXT_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.Result/YY1_PRIMARY_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_PRIMARYSet"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_PRIMARY_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_PRIMARY_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.Result/YY1_SECFLD2_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_SECFLD2Set"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_SECFLD2_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_SECFLD2_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.Result/YY1_SECFLF1_MOC" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="YY1_SECFLF1Set"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_SECFLF1_MOC"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_SECFLF1_MOCT"/>
+                                    <PropertyValue Property="ValueListProperty" String="Description"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/Search/LanguageId" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="Languages"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Search/LanguageId"/>
+                                    <PropertyValue Property="ValueListProperty" String="LanguageId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LanguageName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/Search/CommunicationMediumId" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="CommunicationMediums"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Search/CommunicationMediumId"/>
+                                    <PropertyValue Property="ValueListProperty" String="CommunicationMediumId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CommunicationMediumName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/Search/RecommendationScenarioId" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="OfferRecommendationScenarios"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Search/RecommendationScenarioId"/>
+                                    <PropertyValue Property="ValueListProperty" String="OfferRecommendationScenarioId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="OfferRecommendationScenarioName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/Search/Position" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="ContentPositions"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Search/Position"/>
+                                    <PropertyValue Property="ValueListProperty" String="ContentPositionId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CommunicationMediumId"/>
+                                    <PropertyValue Property="ValueListProperty" String="CommunicationMediumId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CommunicationMediumName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/Search/MarketingLocationKey" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="MarketingLocations"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Search/MarketingLocationKey"/>
+                                    <PropertyValue Property="ValueListProperty" String="MarketingLocationKey"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/Search/ContentMediumTypeId" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="ContentTypes"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Search/ContentMediumTypeId"/>
+                                    <PropertyValue Property="ValueListProperty" String="ContentTypeId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ContentTypeName"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CommunicationMediumId"/>
+                                    <PropertyValue Property="ValueListProperty" String="CommunicationMediumId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CommunicationMediumName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.OfferContent/Search/CustomerOriginId" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="CustomerOrigins"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Search/CustomerOriginId"/>
+                                    <PropertyValue Property="ValueListProperty" String="CustomerOriginId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CustomerOriginName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.LeadingObject/LeadingObjectType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="ItemSourceTypes"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LeadingObjectType"/>
+                                    <PropertyValue Property="ValueListProperty" String="ItemSourceObjectType"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ItemSourceTypeDescription"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ItemSourceTypeId"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.LeadingObject/LeadingObjectId" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="ItemValueHelps"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LeadingObjectType"/>
+                                    <PropertyValue Property="ValueListProperty" String="ValueHelpParameterId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="LeadingObjectId"/>
+                                    <PropertyValue Property="ValueListProperty" String="ValueHelpId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ValueHelpDescription"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ValueHelpImageUrl"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.BasketObject/BasketObjectType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="ItemSourceTypes"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="BasketObjectType"/>
+                                    <PropertyValue Property="ValueListProperty" String="ItemSourceObjectType"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ItemSourceTypeDescription"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ItemSourceTypeId"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.BasketObject/BasketObjectId" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="ItemValueHelps"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="BasketObjectType"/>
+                                    <PropertyValue Property="ValueListProperty" String="ValueHelpParameterId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="BasketObjectId"/>
+                                    <PropertyValue Property="ValueListProperty" String="ValueHelpId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ValueHelpDescription"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ValueHelpImageUrl"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CUAN_OFFER_DISCOVERY_SRV.Recommendation/RecommendationScenarioId" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="CollectionPath" String="OfferRecommendationScenarios"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="RecommendationScenarioId"/>
+                                    <PropertyValue Property="ValueListProperty" String="OfferRecommendationScenarioId"/>
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="OfferRecommendationScenarioName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/CUAN_OFFER_DISCOVERY_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/CUAN_OFFER_DISCOVERY_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

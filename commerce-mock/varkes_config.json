@@ -1,0 +1,146 @@
+{
+    "application": "SAP Commerce Cloud",
+    "provider": "SAP",
+    "logo": "logo.svg",
+    "package": "SAP Commerce Cloud",
+    "events": [
+        {
+            "specification": "apis/events.yaml"
+        }
+    ],
+    "apis": [
+        {
+            "specification": "apis/adaptive-search.yaml",
+            "auth": "oauth"
+        },
+        {
+            "specification": "apis/cmssmarteditwebservices.yaml",
+            "auth": "oauth"
+        },
+        {
+            "specification": "apis/cmswebservices.yaml",
+            "auth": "oauth"
+        },
+        {
+            "specification": "apis/commerce-services.yaml",
+            "auth": "oauth"
+        },
+        {
+            "specification": "apis/permissions.yaml",
+            "auth": "oauth"
+        },
+        {
+            "specification": "apis/personalization.yaml",
+            "auth": "oauth"
+        },
+        {
+            "specification": "apis/previewwebservices.yaml",
+            "auth": "oauth"
+        },
+        {
+            "specification": "apis/smarteditwebservices.yaml",
+            "auth": "oauth"
+        },
+        {
+            "name": "Assisted Service Webservices",
+            "description": "These services provide the ability for agents to assist customers with their order, and look up the order by name, email, cart, or order number.",
+            "specification": "apis/assistedservicewebservices.yaml",
+            "auth": "oauth"
+        },
+        {
+            "name": "Order Management Webservices",
+            "description": "These services manage order cancellations, returns, fraud, and payment transactions.",
+            "specification": "apis/ordermanagementwebservices.yaml",
+            "auth": "oauth"
+        },
+        {
+            "name": "Coupon Webservices",
+            "description": "These services generate or administer coupons.",
+            "specification": "apis/couponwebservices.yaml",
+            "auth": "oauth"
+        },
+        {
+            "name": "Warehousing Webservices",
+            "description": "These services manage consignments, stock levels, and points of service.",
+            "specification": "apis/warehousingwebservices.yaml",
+            "auth": "oauth"
+        },
+        {
+            "name": "Inbound B2B Customer",
+            "description": "Integration API for replication of B2B Customers belonging to a B2B Unit to SAP Commerce Cloud",
+            "specification": "apis/InboundB2BCustomer.edmx",
+            "basepath": "/odata2webservices/InboundB2BCustomer",
+            "auth":"basic"
+        },
+        {
+            "name": "Inbound B2B Unit",
+            "description": "Integration API to replicate B2B Units to SAP Commerce Cloud for B2B scenarios",
+            "specification": "apis/InboundB2BUnit.edmx",
+            "basepath": "/odata2webservices/InboundB2BUnit",
+            "auth":"basic"
+        },
+        {
+            "name": "Inbound Discount Row",
+            "description": "Integration API to replicate Discount Conditions as Discount Rows to SAP Commerce Cloud",
+            "specification": "apis/InboundDiscountRow.edmx",
+            "basepath": "/odata2webservices/InboundDiscountRow",
+            "auth":"basic"
+        },
+        {
+            "name": "Inbound ERP Product Variant",
+            "description": "Integration API to replicate ERP Product Variant to SAP Commerce Cloud",
+            "specification": "apis/InboundERPVariantProduct.edmx",
+            "basepath": "/odata2webservices/InboundERPVariantProduct",
+            "auth":"basic"
+        },
+        {
+            "name": "Inbound OMM Order",
+            "description": "API to replicate OMM Order to SAP Commerce Cloud",
+            "specification": "apis/InboundOMMOrder.edmx",
+            "basepath": "/odata2webservices/InboundOMMOrder",
+            "auth":"basic"
+        },
+        {
+            "name": "Inbound OMM OrderEntry",
+            "description": "Integration API for replication of Order Entries for cart and checkout scenarios",
+            "specification": "apis/InboundOMMOrderEntry.edmx",
+            "basepath": "/odata2webservices/InboundOMMOrderEntry",
+            "auth":"basic"
+        },
+        {
+            "name": "Inbound OMM StockLevel",
+            "description": "Integration API for replication of Stock Levels for Cart and Checkout Scenarios",
+            "specification": "apis/InboundOMMStockLevel.edmx",
+            "basepath": "/odata2webservices/InboundOMMStockLevel",
+            "auth":"basic"
+        },
+        {
+            "name": "Inbound OMS Order",
+            "description": "API to replicate Orders to SAP Commerce Cloud as part of the OMS scenario when integrating with SAP backends",
+            "specification": "apis/InboundOMSOrder.edmx",
+            "basepath": "/odata2webservices/InboundOMSOrder",
+            "auth":"basic"
+        },
+        {
+            "name": "Inbound OMS StockLevel",
+            "description": "Integration API for replication of Stock Levels for OMS Scenarios",
+            "specification": "apis/InboundOMSStockLevel.edmx",
+            "basepath": "/odata2webservices/InboundOMSStockLevel",
+            "auth":"basic"
+        },
+        {
+            "name": "Inbound Price Row",
+            "description": "Integration API to replicate Price Conditions as Price Rows to SAP Commerce Cloud",
+            "specification": "apis/InboundPriceRow.edmx",
+            "basepath": "/odata2webservices/InboundPriceRow",
+            "auth":"basic"
+        },
+        {
+            "name": "Inbound Product",
+            "description": "Integration API to replicate Base and Sales Area Products to SAP Commerce Cloud",
+            "specification": "apis/InboundProduct.edmx",
+            "basepath": "/odata2webservices/InboundProduct",
+            "auth":"basic"
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:s="http://schemas.sap.com/commerce" Namespace="HybrisCommerceOData" s:schema-version="1">
+            <EntityType Name="Order">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="versionID" Nullable="true" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="code" Nullable="true" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Order_code|Order_versionID"/>
+            </EntityType>
+            <EntityType Name="OrderEntry">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="namedDeliveryDate" Nullable="true" Type="Edm.DateTime"/>
+                <Property Name="entryNumber" Nullable="true" Type="Edm.Int32" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="OrderEntry_entryNumber|Order_code|Order_versionID"/>
+                <NavigationProperty FromRole="OrderEntry" Name="order" Nullable="false" Relationship="HybrisCommerceOData.FK_OrderEntry_order" ToRole="Order" s:IsUnique="true"/>
+            </EntityType>
+            <Association Name="FK_OrderEntry_order">
+                <End Multiplicity="0..1" Role="OrderEntry" Type="HybrisCommerceOData.OrderEntry"/>
+                <End Multiplicity="0..1" Role="Order" Type="HybrisCommerceOData.Order"/>
+            </Association>
+            <EntityContainer Name="Container" m:IsDefaultEntityContainer="true">
+                <EntitySet EntityType="HybrisCommerceOData.Order" Name="Orders"/>
+                <EntitySet EntityType="HybrisCommerceOData.OrderEntry" Name="OrderEntries"/>
+                <AssociationSet Association="HybrisCommerceOData.FK_OrderEntry_order" Name="OrderEntry_Orders">
+                    <End EntitySet="OrderEntries" Role="OrderEntry"/>
+                    <End EntitySet="Orders" Role="Order"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

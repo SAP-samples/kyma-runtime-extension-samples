@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_SCORE_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ScoreEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingScore"/>
+                </Key>
+                <Property Name="MarketingScore" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingScoreName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingScorePurpose" Type="Edm.String" MaxLength="6" sap:unicode="false" sap:label="Purpose" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingScorePurposeName" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Purpose Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgScoreValuesArePersisted" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is Score Enabled For Persistence" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgScoreValuesAreImportable" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Enabled for Import" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ScoreModels" Relationship="API_MKT_SCORE_SRV.ScoreToScoreModel" FromRole="FromRole_ScoreToScoreModel" ToRole="ToRole_ScoreToScoreModel"/>
+            </EntityType>
+            <EntityType Name="ScoreModelEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingScore"/>
+                    <PropertyRef Name="MarketingScoreModel"/>
+                </Key>
+                <Property Name="MarketingScore" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Score ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingScoreModelUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingScoreModel" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingScoreModelName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Name" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingScoreModelOwner" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Owner" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingScoreModelOwnerName" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Owner Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Last Change Date Time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingArea" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingAreaName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgScoreValuesArePersisted" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Model Persisted" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgScoreValuesHistoryNumberOfDays" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Number of Days" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="TargetObjects" Relationship="API_MKT_SCORE_SRV.ScoreModelToScoreTargetObject" FromRole="FromRole_ScoreModelToScoreTargetObject" ToRole="ToRole_ScoreModelToScoreTargetObject"/>
+                <NavigationProperty Name="ScoreValues" Relationship="API_MKT_SCORE_SRV.ScoreModelToScoreValue" FromRole="FromRole_ScoreModelToScoreValue" ToRole="ToRole_ScoreModelToScoreValue"/>
+            </EntityType>
+            <EntityType Name="ScoreTargetObjectEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingScore"/>
+                    <PropertyRef Name="MarketingScoreModel"/>
+                    <PropertyRef Name="MtkgScoreTargetObjectType"/>
+                </Key>
+                <Property Name="MarketingScore" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Score ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingScoreModel" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MtkgScoreTargetObjectType" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Target Object Type" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MtkgScoreTargetObjectTypeName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Object Type Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MtkgScoreTargetObject" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Target Object" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MtkgScoreTargetObjectName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Target Object Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ScoreValueEntityType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MarketingScore"/>
+                    <PropertyRef Name="MarketingScoreModel"/>
+                    <PropertyRef Name="MarketingScoreDateTime"/>
+                    <PropertyRef Name="MarketingScoredObjectUUID"/>
+                </Key>
+                <Property Name="MarketingScore" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Score ID" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingScoreModel" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Model ID" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingScoreDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Changed On" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingScoredObjectUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Scored Object UUID" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingScoredObjectID" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="External ID of Scored Object" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingScoredObjectOrigin" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Origin ID of Scored Object" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingScoreValue" Type="Edm.Decimal" Nullable="false" Precision="34" Scale="14" sap:unicode="false" sap:label="Score Value"/>
+            </EntityType>
+            <Association Name="ScoreToScoreModel" sap:content-version="1">
+                <End Type="API_MKT_SCORE_SRV.ScoreEntityType" Multiplicity="1" Role="FromRole_ScoreToScoreModel"/>
+                <End Type="API_MKT_SCORE_SRV.ScoreModelEntityType" Multiplicity="*" Role="ToRole_ScoreToScoreModel"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ScoreToScoreModel">
+                        <PropertyRef Name="MarketingScore"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ScoreToScoreModel">
+                        <PropertyRef Name="MarketingScore"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ScoreModelToScoreTargetObject" sap:content-version="1">
+                <End Type="API_MKT_SCORE_SRV.ScoreModelEntityType" Multiplicity="1" Role="FromRole_ScoreModelToScoreTargetObject"/>
+                <End Type="API_MKT_SCORE_SRV.ScoreTargetObjectEntityType" Multiplicity="*" Role="ToRole_ScoreModelToScoreTargetObject"/>
+            </Association>
+            <Association Name="ScoreModelToScoreValue" sap:content-version="1">
+                <End Type="API_MKT_SCORE_SRV.ScoreModelEntityType" Multiplicity="1" Role="FromRole_ScoreModelToScoreValue"/>
+                <End Type="API_MKT_SCORE_SRV.ScoreValueEntityType" Multiplicity="*" Role="ToRole_ScoreModelToScoreValue"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ScoreModelToScoreValue">
+                        <PropertyRef Name="MarketingScore"/>
+                        <PropertyRef Name="MarketingScoreModel"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ScoreModelToScoreValue">
+                        <PropertyRef Name="MarketingScore"/>
+                        <PropertyRef Name="MarketingScoreModel"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_SCORE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Scores" EntityType="API_MKT_SCORE_SRV.ScoreEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ScoreModels" EntityType="API_MKT_SCORE_SRV.ScoreModelEntityType" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ScoreTargetObjects" EntityType="API_MKT_SCORE_SRV.ScoreTargetObjectEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ScoreValues" EntityType="API_MKT_SCORE_SRV.ScoreValueEntityType" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="ScoreToScoreModelSet" Association="API_MKT_SCORE_SRV.ScoreToScoreModel" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Scores" Role="FromRole_ScoreToScoreModel"/>
+                    <End EntitySet="ScoreModels" Role="ToRole_ScoreToScoreModel"/>
+                </AssociationSet>
+                <AssociationSet Name="ScoreModelToScoreTargetObjectSet" Association="API_MKT_SCORE_SRV.ScoreModelToScoreTargetObject" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ScoreModels" Role="FromRole_ScoreModelToScoreTargetObject"/>
+                    <End EntitySet="ScoreTargetObjects" Role="ToRole_ScoreModelToScoreTargetObject"/>
+                </AssociationSet>
+                <AssociationSet Name="ScoreModelToScoreValueSet" Association="API_MKT_SCORE_SRV.ScoreModelToScoreValue" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ScoreModels" Role="FromRole_ScoreModelToScoreValue"/>
+                    <End EntitySet="ScoreValues" Role="ToRole_ScoreModelToScoreValue"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_SCORE_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_SCORE_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

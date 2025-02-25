@@ -1,0 +1,280 @@
+{
+  "asyncapi": "1.0.0",
+  "info": {
+    "title": "Events",
+    "version": "v1",
+    "description": "Set of events emitted typically by SAP Cloud for Customer"
+  },
+  "topics": {
+    "Account.Root.Created.v1": {
+      "subscribe": {
+        "summary": "Account.Root.Created.v1",
+        "payload": {
+          "type": "object",
+          "required": [
+            "entity-id",
+            "root-entity-id"
+          ],
+          "properties": {
+            "entity-id": {
+              "type": "string",
+              "example": {
+                "entity-id": "00163E5FA59C1ED8B3B95BE1CB795280"
+              },
+              "description": "Account Root Object ID",
+              "title": "Account Root Object ID"
+            },
+            "root-entity-id": {
+              "type": "string",
+              "example": {
+                "root-entity-id": "00163E5FA59C1ED8B3B9643A4B63D2AF"
+              },
+              "description": "Account Object ID",
+              "title": "Account Object ID"
+            }
+          }
+        }
+      }
+    },
+    "Account.Root.Deleted.v1": {
+      "subscribe": {
+        "summary": "Account.Root.Deleted.v1",
+        "payload": {
+          "type": "object",
+          "required": [
+            "entity-id",
+            "root-entity-id"
+          ],
+          "properties": {
+            "entity-id": {
+              "type": "string",
+              "example": {
+                "entity-id": "00163E5FA59C1ED8B3B95BE1CB795280"
+              },
+              "description": "Account Root Object ID",
+              "title": "Account Root Object ID"
+            },
+            "root-entity-id": {
+              "type": "string",
+              "example": {
+                "root-entity-id": "00163E5FA59C1ED8B3B9643A4B63D2AF"
+              },
+              "description": "Account Object ID",
+              "title": "Account Object ID"
+            }
+          }
+        }
+      }
+    },
+    "Account.Root.Updated.v1": {
+      "subscribe": {
+        "summary": "Account.Root.Updated.v1",
+        "payload": {
+          "type": "object",
+          "required": [
+            "entity-id",
+            "root-entity-id"
+          ],
+          "properties": {
+            "entity-id": {
+              "type": "string",
+              "example": {
+                "entity-id": "00163E5FA59C1ED8B3B95BE1CB795280"
+              },
+              "description": "Account Root Object ID",
+              "title": "Account Root Object ID"
+            },
+            "root-entity-id": {
+              "type": "string",
+              "example": {
+                "root-entity-id": "00163E5FA59C1ED8B3B9643A4B63D2AF"
+              },
+              "description": "Account Object ID",
+              "title": "Account Object ID"
+            }
+          }
+        }
+      }
+    },
+    "Opportunity.Root.Created.v1": {
+      "subscribe": {
+        "summary": "Opportunity.Root.Created.v1",
+        "payload": {
+          "type": "object",
+          "required": [
+            "entity-id",
+            "root-entity-id"
+          ],
+          "properties": {
+            "entity-id": {
+              "type": "string",
+              "example": {
+                "entity-id": "00163E5FA59C1ED8B3B95BE1CB795280"
+              },
+              "description": "Opportunity Root Object ID",
+              "title": "Opportunity Root Object ID"
+            },
+            "root-entity-id": {
+              "type": "string",
+              "example": {
+                "root-entity-id": "00163E5FA59C1ED8B3B9643A4B63D2AF"
+              },
+              "description": "Opportunity Object ID",
+              "title": "Opportunity Object ID"
+            }
+          }
+        }
+      }
+    },
+    "Opportunity.Root.Deleted.v1": {
+      "subscribe": {
+        "summary": "Opportunity.Root.Deleted.v1",
+        "payload": {
+          "type": "object",
+          "required": [
+            "entity-id",
+            "root-entity-id"
+          ],
+          "properties": {
+            "entity-id": {
+              "type": "string",
+              "example": {
+                "entity-id": "00163E5FA59C1ED8B3B95BE1CB795280"
+              },
+              "description": "Opportunity Root Object ID",
+              "title": "Opportunity Root Object ID"
+            },
+            "root-entity-id": {
+              "type": "string",
+              "example": {
+                "root-entity-id": "00163E5FA59C1ED8B3B9643A4B63D2AF"
+              },
+              "description": "Opportunity Object ID",
+              "title": "Opportunity Object ID"
+            }
+          }
+        }
+      }
+    },
+    "Opportunity.Root.Updated.v1": {
+      "subscribe": {
+        "summary": "Opportunity.Root.Updated.v1",
+        "payload": {
+          "type": "object",
+          "required": [
+            "entity-id",
+            "root-entity-id"
+          ],
+          "properties": {
+            "entity-id": {
+              "type": "string",
+              "example": {
+                "entity-id": "00163E5FA59C1ED8B3B95BE1CB795280"
+              },
+              "description": "Opportunity Root Object ID",
+              "title": "Opportunity Root Object ID"
+            },
+            "root-entity-id": {
+              "type": "string",
+              "example": {
+                "root-entity-id": "00163E5FA59C1ED8B3B9643A4B63D2AF"
+              },
+              "description": "Opportunity Object ID",
+              "title": "Opportunity Object ID"
+            }
+          }
+        }
+      }
+    },
+    "Ticket.Root.Created.v1": {
+      "subscribe": {
+        "summary": "Ticket.Root.Created.v1",
+        "payload": {
+          "type": "object",
+          "required": [
+            "entity-id",
+            "root-entity-id"
+          ],
+          "properties": {
+            "entity-id": {
+              "type": "string",
+              "example": {
+                "entity-id": "00163E5FA59C1ED8B3B95BE1CB795280"
+              },
+              "description": "Ticket Root Object ID",
+              "title": "Ticket Root Object ID"
+            },
+            "root-entity-id": {
+              "type": "string",
+              "example": {
+                "root-entity-id": "00163E5FA59C1ED8B3B9643A4B63D2AF"
+              },
+              "description": "Ticket Object ID",
+              "title": "Ticket Object ID"
+            }
+          }
+        }
+      }
+    },
+    "Ticket.Root.Deleted.v1": {
+      "subscribe": {
+        "summary": "Ticket.Root.Deleted.v1",
+        "payload": {
+          "type": "object",
+          "required": [
+            "entity-id",
+            "root-entity-id"
+          ],
+          "properties": {
+            "entity-id": {
+              "type": "string",
+              "example": {
+                "entity-id": "00163E5FA59C1ED8B3B95BE1CB795280"
+              },
+              "description": "Ticket Root Object ID",
+              "title": "Ticket Root Object ID"
+            },
+            "root-entity-id": {
+              "type": "string",
+              "example": {
+                "root-entity-id": "00163E5FA59C1ED8B3B9643A4B63D2AF"
+              },
+              "description": "Ticket Object ID",
+              "title": "Ticket Object ID"
+            }
+          }
+        }
+      }
+    },
+    "Ticket.Root.Updated.v1": {
+      "subscribe": {
+        "summary": "Ticket.Root.Updated.v1",
+        "payload": {
+          "type": "object",
+          "required": [
+            "entity-id",
+            "root-entity-id"
+          ],
+          "properties": {
+            "entity-id": {
+              "type": "string",
+              "example": {
+                "entity-id": "00163E5FA59C1ED8B3B95BE1CB795280"
+              },
+              "description": "Ticket Root Object ID",
+              "title": "Ticket Root Object ID"
+            },
+            "root-entity-id": {
+              "type": "string",
+              "example": {
+                "root-entity-id": "00163E5FA59C1ED8B3B9643A4B63D2AF"
+              },
+              "description": "Ticket Object ID",
+              "title": "Ticket Object ID"
+            }
+          }
+        }
+      }
+    }
+  }
+}

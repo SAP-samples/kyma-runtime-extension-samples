@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_CAMPAIGN_TEMPLATE_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="CampaignTemplatesType" sap:label="Marketing: Campaign Template" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CampaignTemplate"/>
+                </Key>
+                <Property Name="CampaignTemplate" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Campaign ID"/>
+                <Property Name="CampaignTemplateName" Type="Edm.String" MaxLength="40" sap:label="Campaign Name"/>
+                <Property Name="CampaignTemplateDescription" Type="Edm.String" MaxLength="1000" sap:label="Description"/>
+                <Property Name="MediaType" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Media Type ID"/>
+                <Property Name="MediaTypeName" Type="Edm.String" MaxLength="120" sap:label="Media Type"/>
+                <Property Name="MarketingArea" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Marketing Area ID"/>
+                <Property Name="MarketingAreaName" Type="Edm.String" MaxLength="120" sap:label="Marketing Area" sap:quickinfo="Description for Marketing Area"/>
+                <Property Name="CommunicationCategoryName" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Comm Category Name" sap:quickinfo="Communication Category Name"/>
+                <Property Name="CampaignTemplatePriority" Type="Edm.String" MaxLength="1" sap:display-format="NonNegative" sap:label="Priority"/>
+                <Property Name="CampaignTemplatePriorityName" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
+                <Property Name="CampaignCategoryType" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Category ID" sap:quickinfo="Campaign Category ID"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name"/>
+                <NavigationProperty Name="to_AssignedInterests" Relationship="API_MKT_CAMPAIGN_TEMPLATE_SRV.assoc_52D3948940AA9E2D0BAC659FE10CB8AB" FromRole="FromRole_assoc_52D3948940AA9E2D0BAC659FE10CB8AB" ToRole="ToRole_assoc_52D3948940AA9E2D0BAC659FE10CB8AB"/>
+                <NavigationProperty Name="to_AssignedTargetGroups" Relationship="API_MKT_CAMPAIGN_TEMPLATE_SRV.assoc_C533660DBF5F7BCB8D87BA6124C30AA4" FromRole="FromRole_assoc_C533660DBF5F7BCB8D87BA6124C30AA4" ToRole="ToRole_assoc_C533660DBF5F7BCB8D87BA6124C30AA4"/>
+                <NavigationProperty Name="to_AssignedTeamMembers" Relationship="API_MKT_CAMPAIGN_TEMPLATE_SRV.assoc_03E799559F261C8211B921EEE3579DB0" FromRole="FromRole_assoc_03E799559F261C8211B921EEE3579DB0" ToRole="ToRole_assoc_03E799559F261C8211B921EEE3579DB0"/>
+            </EntityType>
+            <EntityType Name="AssignedInterestsType" sap:label="Marketing: Campaign Template-Interest" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ItemOfInterest"/>
+                    <PropertyRef Name="CampaignTemplate"/>
+                </Key>
+                <Property Name="ItemOfInterest" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:label="Item of Interest"/>
+                <Property Name="CampaignTemplate" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Campaign ID"/>
+            </EntityType>
+            <EntityType Name="AssignedTargetGroupsType" sap:label="Marketing:Campaign Template-Target Group" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TargetGroupUUID"/>
+                    <PropertyRef Name="CampaignTemplate"/>
+                </Key>
+                <Property Name="TargetGroupUUID" Type="Edm.Guid" Nullable="false" sap:label="" sap:quickinfo="NodeID"/>
+                <Property Name="CampaignTemplate" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Campaign ID"/>
+                <Property Name="TargetGroup" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase"/>
+            </EntityType>
+            <EntityType Name="TeamMembersType" sap:label="Marketing: Campaign Template-Team Member" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CampaignTemplate"/>
+                    <PropertyRef Name="CampaignTemplateTeamMemberName"/>
+                </Key>
+                <Property Name="CampaignTemplate" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Campaign ID"/>
+                <Property Name="CampaignTemplateTeamMemberName" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="User" sap:quickinfo="User Name in User Master Record"/>
+                <Property Name="IsOwner" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="TRUE" sap:quickinfo="Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"/>
+                <Property Name="FullName" Type="Edm.String" MaxLength="80" sap:label="Full Name" sap:quickinfo="Full Name of Person"/>
+            </EntityType>
+            <Association Name="assoc_C533660DBF5F7BCB8D87BA6124C30AA4" sap:content-version="1">
+                <End Type="API_MKT_CAMPAIGN_TEMPLATE_SRV.CampaignTemplatesType" Multiplicity="1" Role="FromRole_assoc_C533660DBF5F7BCB8D87BA6124C30AA4"/>
+                <End Type="API_MKT_CAMPAIGN_TEMPLATE_SRV.AssignedTargetGroupsType" Multiplicity="*" Role="ToRole_assoc_C533660DBF5F7BCB8D87BA6124C30AA4"/>
+            </Association>
+            <Association Name="assoc_03E799559F261C8211B921EEE3579DB0" sap:content-version="1">
+                <End Type="API_MKT_CAMPAIGN_TEMPLATE_SRV.CampaignTemplatesType" Multiplicity="1" Role="FromRole_assoc_03E799559F261C8211B921EEE3579DB0"/>
+                <End Type="API_MKT_CAMPAIGN_TEMPLATE_SRV.TeamMembersType" Multiplicity="*" Role="ToRole_assoc_03E799559F261C8211B921EEE3579DB0"/>
+            </Association>
+            <Association Name="assoc_52D3948940AA9E2D0BAC659FE10CB8AB" sap:content-version="1">
+                <End Type="API_MKT_CAMPAIGN_TEMPLATE_SRV.CampaignTemplatesType" Multiplicity="1" Role="FromRole_assoc_52D3948940AA9E2D0BAC659FE10CB8AB"/>
+                <End Type="API_MKT_CAMPAIGN_TEMPLATE_SRV.AssignedInterestsType" Multiplicity="*" Role="ToRole_assoc_52D3948940AA9E2D0BAC659FE10CB8AB"/>
+            </Association>
+            <EntityContainer Name="API_MKT_CAMPAIGN_TEMPLATE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="CampaignTemplates" EntityType="API_MKT_CAMPAIGN_TEMPLATE_SRV.CampaignTemplatesType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="AssignedInterests" EntityType="API_MKT_CAMPAIGN_TEMPLATE_SRV.AssignedInterestsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="AssignedTargetGroups" EntityType="API_MKT_CAMPAIGN_TEMPLATE_SRV.AssignedTargetGroupsType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="TeamMembers" EntityType="API_MKT_CAMPAIGN_TEMPLATE_SRV.TeamMembersType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_52D3948940AA9E2D0BAC659FE10CB8AB" Association="API_MKT_CAMPAIGN_TEMPLATE_SRV.assoc_52D3948940AA9E2D0BAC659FE10CB8AB" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CampaignTemplates" Role="FromRole_assoc_52D3948940AA9E2D0BAC659FE10CB8AB"/>
+                    <End EntitySet="AssignedInterests" Role="ToRole_assoc_52D3948940AA9E2D0BAC659FE10CB8AB"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_03E799559F261C8211B921EEE3579DB0" Association="API_MKT_CAMPAIGN_TEMPLATE_SRV.assoc_03E799559F261C8211B921EEE3579DB0" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CampaignTemplates" Role="FromRole_assoc_03E799559F261C8211B921EEE3579DB0"/>
+                    <End EntitySet="TeamMembers" Role="ToRole_assoc_03E799559F261C8211B921EEE3579DB0"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_C533660DBF5F7BCB8D87BA6124C30AA4" Association="API_MKT_CAMPAIGN_TEMPLATE_SRV.assoc_C533660DBF5F7BCB8D87BA6124C30AA4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CampaignTemplates" Role="FromRole_assoc_C533660DBF5F7BCB8D87BA6124C30AA4"/>
+                    <End EntitySet="AssignedTargetGroups" Role="ToRole_assoc_C533660DBF5F7BCB8D87BA6124C30AA4"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="API_MKT_CAMPAIGN_TEMPLATE_SRV.API_MKT_CAMPAIGN_TEMPLATE_SRV_Entities" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_CAMPAIGN_TEMPLATE_SRV.API_MKT_CAMPAIGN_TEMPLATE_SRV_Entities/CampaignTemplates" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CampaignTemplateDescription"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>CampaignTemplateDescription</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_CAMPAIGN_TEMPLATE_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_CAMPAIGN_TEMPLATE_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

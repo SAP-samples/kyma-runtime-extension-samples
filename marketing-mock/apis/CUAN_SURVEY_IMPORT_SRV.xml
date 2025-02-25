@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="CUAN_SURVEY_IMPORT_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="SurveyResponse" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Version"/>
+                    <PropertyRef Name="Provider"/>
+                    <PropertyRef Name="ResponseId"/>
+                    <PropertyRef Name="SurveyId"/>
+                </Key>
+                <Property Name="OutboundKey" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Object ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Version" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Survey Version" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Provider" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Survey Provider" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ResponseId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Survey Respondent ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsResponseAnonymous" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="TRUE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SurveyId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Survey ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IdOrigin" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Origin of Contact" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="External Contact ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RespondedOn" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Responded At" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ResponseUrl" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="URI" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="SurveyResponseSurveyResponseDetailSet" Relationship="CUAN_SURVEY_IMPORT_SRV.SurveyResponseSurveyResponseDetail" FromRole="FromRole_SurveyResponseSurveyResponseDetail" ToRole="ToRole_SurveyResponseSurveyResponseDetail"/>
+            </EntityType>
+            <EntityType Name="SurveyResponseDetail" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="QuestionId"/>
+                </Key>
+                <Property Name="QuestionId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Survey Question ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Version" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Survey Version" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ResponseIdCol" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Survey Answer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ResponseIdRow" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Survey Answer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ResponseText" Type="Edm.String" Nullable="false" MaxLength="1333" sap:unicode="false" sap:label="Free Text Survey" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Survey" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SurveyId"/>
+                    <PropertyRef Name="Version"/>
+                    <PropertyRef Name="Provider"/>
+                </Key>
+                <Property Name="AccountId" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Account ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SurveyId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Survey ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Category" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Survey Category" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingAreaId" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Marketing Area ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Survey Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Version" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Survey Version" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsSurveyAnonymous" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="TRUE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NickName" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Survey Nick Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Provider" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Survey Provider" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Url" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="URI" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ModifiedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ValidFrom" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ValidTo" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsMultipleRespAllowed" Type="Edm.Boolean" sap:unicode="false" sap:label="TRUE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="SurveyQuestionSet" Relationship="CUAN_SURVEY_IMPORT_SRV.SurveyQuestion" FromRole="FromRole_SurveyQuestion" ToRole="ToRole_SurveyQuestion"/>
+                <NavigationProperty Name="SurveySurveyResponseSet" Relationship="CUAN_SURVEY_IMPORT_SRV.SurveySurveyResponse" FromRole="FromRole_SurveySurveyResponse" ToRole="ToRole_SurveySurveyResponse"/>
+            </EntityType>
+            <EntityType Name="Question" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="QuestionId"/>
+                    <PropertyRef Name="Version"/>
+                    <PropertyRef Name="Provider"/>
+                    <PropertyRef Name="SurveyId"/>
+                </Key>
+                <Property Name="QuestionId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Survey Question ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Version" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Survey Version" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PageId" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Survey Page ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Position" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Question Position" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Provider" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Survey Provider" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SurveyId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Survey ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsMandatory" Type="Edm.Boolean" sap:unicode="false" sap:label="TRUE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SubType" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Question Sub Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Text" Type="Edm.String" Nullable="false" MaxLength="1333" sap:unicode="false" sap:label=" Question Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Survey Question Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TypeName" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Survey Type Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="QuestionAnswerSet" Relationship="CUAN_SURVEY_IMPORT_SRV.QuestionAnswer" FromRole="FromRole_QuestionAnswer" ToRole="ToRole_QuestionAnswer"/>
+                <NavigationProperty Name="QuestionChoiceSet" Relationship="CUAN_SURVEY_IMPORT_SRV.QuestionChoice" FromRole="FromRole_QuestionChoice" ToRole="ToRole_QuestionChoice"/>
+            </EntityType>
+            <EntityType Name="Answer" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="RowId"/>
+                </Key>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RowPosition" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Answer Position" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RowId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Survey Answer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RowWeightage" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Answer Weightage" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RowText" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Survey Answer Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Choice" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ChoiceId"/>
+                </Key>
+                <Property Name="ChoiceId" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Survey Answer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChoicePosition" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Answer Position" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChoiceText" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Survey Answer Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChoiceWeightage" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Answer Weightage" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="SurveyResponseSurveyResponseDetail" sap:content-version="1">
+                <End Type="CUAN_SURVEY_IMPORT_SRV.SurveyResponse" Multiplicity="1" Role="FromRole_SurveyResponseSurveyResponseDetail"/>
+                <End Type="CUAN_SURVEY_IMPORT_SRV.SurveyResponseDetail" Multiplicity="*" Role="ToRole_SurveyResponseSurveyResponseDetail"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_SurveyResponseSurveyResponseDetail">
+                        <PropertyRef Name="ResponseId"/>
+                        <PropertyRef Name="SurveyId"/>
+                        <PropertyRef Name="Version"/>
+                        <PropertyRef Name="Provider"/>
+                    </Principal>
+                    <Dependent Role="ToRole_SurveyResponseSurveyResponseDetail">
+                        <PropertyRef Name="ResponseIdCol"/>
+                        <PropertyRef Name="QuestionId"/>
+                        <PropertyRef Name="Version"/>
+                        <PropertyRef Name="ResponseText"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="SurveySurveyResponse" sap:content-version="1">
+                <End Type="CUAN_SURVEY_IMPORT_SRV.Survey" Multiplicity="1" Role="FromRole_SurveySurveyResponse"/>
+                <End Type="CUAN_SURVEY_IMPORT_SRV.SurveyResponse" Multiplicity="*" Role="ToRole_SurveySurveyResponse"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_SurveySurveyResponse">
+                        <PropertyRef Name="SurveyId"/>
+                        <PropertyRef Name="Provider"/>
+                        <PropertyRef Name="Version"/>
+                    </Principal>
+                    <Dependent Role="ToRole_SurveySurveyResponse">
+                        <PropertyRef Name="SurveyId"/>
+                        <PropertyRef Name="Provider"/>
+                        <PropertyRef Name="Version"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="SurveyQuestion" sap:content-version="1">
+                <End Type="CUAN_SURVEY_IMPORT_SRV.Survey" Multiplicity="1" Role="FromRole_SurveyQuestion"/>
+                <End Type="CUAN_SURVEY_IMPORT_SRV.Question" Multiplicity="*" Role="ToRole_SurveyQuestion"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_SurveyQuestion">
+                        <PropertyRef Name="SurveyId"/>
+                        <PropertyRef Name="Version"/>
+                        <PropertyRef Name="Provider"/>
+                    </Principal>
+                    <Dependent Role="ToRole_SurveyQuestion">
+                        <PropertyRef Name="SurveyId"/>
+                        <PropertyRef Name="Version"/>
+                        <PropertyRef Name="Provider"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="QuestionAnswer" sap:content-version="1">
+                <End Type="CUAN_SURVEY_IMPORT_SRV.Question" Multiplicity="1" Role="FromRole_QuestionAnswer"/>
+                <End Type="CUAN_SURVEY_IMPORT_SRV.Answer" Multiplicity="*" Role="ToRole_QuestionAnswer"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_QuestionAnswer">
+                        <PropertyRef Name="Version"/>
+                        <PropertyRef Name="SurveyId"/>
+                        <PropertyRef Name="Provider"/>
+                        <PropertyRef Name="QuestionId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_QuestionAnswer">
+                        <PropertyRef Name="RowWeightage"/>
+                        <PropertyRef Name="RowId"/>
+                        <PropertyRef Name="Language"/>
+                        <PropertyRef Name="RowText"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="QuestionChoice" sap:content-version="1">
+                <End Type="CUAN_SURVEY_IMPORT_SRV.Question" Multiplicity="1" Role="FromRole_QuestionChoice"/>
+                <End Type="CUAN_SURVEY_IMPORT_SRV.Choice" Multiplicity="*" Role="ToRole_QuestionChoice"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_QuestionChoice">
+                        <PropertyRef Name="Provider"/>
+                        <PropertyRef Name="Version"/>
+                        <PropertyRef Name="SurveyId"/>
+                        <PropertyRef Name="QuestionId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_QuestionChoice">
+                        <PropertyRef Name="ChoiceText"/>
+                        <PropertyRef Name="ChoicePosition"/>
+                        <PropertyRef Name="ChoiceId"/>
+                        <PropertyRef Name="Language"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="CUAN_SURVEY_IMPORT_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="SurveyResponseSet" EntityType="CUAN_SURVEY_IMPORT_SRV.SurveyResponse" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="SurveyResponseDetailSet" EntityType="CUAN_SURVEY_IMPORT_SRV.SurveyResponseDetail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="SurveySet" EntityType="CUAN_SURVEY_IMPORT_SRV.Survey" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="QuestionSet" EntityType="CUAN_SURVEY_IMPORT_SRV.Question" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="AnswerSet" EntityType="CUAN_SURVEY_IMPORT_SRV.Answer" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ChoiceSet" EntityType="CUAN_SURVEY_IMPORT_SRV.Choice" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <AssociationSet Name="SurveySurveyResponseSet" Association="CUAN_SURVEY_IMPORT_SRV.SurveySurveyResponse" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SurveySet" Role="FromRole_SurveySurveyResponse"/>
+                    <End EntitySet="SurveyResponseSet" Role="ToRole_SurveySurveyResponse"/>
+                </AssociationSet>
+                <AssociationSet Name="QuestionAnswerSet" Association="CUAN_SURVEY_IMPORT_SRV.QuestionAnswer" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="QuestionSet" Role="FromRole_QuestionAnswer"/>
+                    <End EntitySet="AnswerSet" Role="ToRole_QuestionAnswer"/>
+                </AssociationSet>
+                <AssociationSet Name="SurveyResponseSurveyResponseDetailSet" Association="CUAN_SURVEY_IMPORT_SRV.SurveyResponseSurveyResponseDetail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SurveyResponseSet" Role="FromRole_SurveyResponseSurveyResponseDetail"/>
+                    <End EntitySet="SurveyResponseDetailSet" Role="ToRole_SurveyResponseSurveyResponseDetail"/>
+                </AssociationSet>
+                <AssociationSet Name="QuestionChoiceSet" Association="CUAN_SURVEY_IMPORT_SRV.QuestionChoice" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="QuestionSet" Role="FromRole_QuestionChoice"/>
+                    <End EntitySet="ChoiceSet" Role="ToRole_QuestionChoice"/>
+                </AssociationSet>
+                <AssociationSet Name="SurveyQuestionSet" Association="CUAN_SURVEY_IMPORT_SRV.SurveyQuestion" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SurveySet" Role="FromRole_SurveyQuestion"/>
+                    <End EntitySet="QuestionSet" Role="ToRole_SurveyQuestion"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/CUAN_SURVEY_IMPORT_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/CUAN_SURVEY_IMPORT_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
