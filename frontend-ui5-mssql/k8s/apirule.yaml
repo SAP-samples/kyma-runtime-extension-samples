@@ -1,17 +1,14 @@
-apiVersion: gateway.kyma-project.io/v1beta1
+apiVersion: gateway.kyma-project.io/v2alpha1
 kind: APIRule
 metadata:
   name: fe-ui5-mssql
 spec:
-  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  gateway: kyma-system/kyma-gateway
   host: fe-ui5-mssql
   service:
     name: fe-ui5-mssql
     port: 80
   rules:
-    - path: /.*
-      accessStrategies:
-        - config: {}
-          handler: noop
-      methods:
-        - GET
+    - path: /*
+      methods: ["GET"]
+      noAuth: true
