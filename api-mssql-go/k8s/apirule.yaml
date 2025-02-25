@@ -19,7 +19,7 @@ spec:
       - DELETE
       - OPTIONS
     allowOrigins:
-      - regex: ".*c-6722a34.stage.kyma.ondemand.com"
+      - regex: ".*{YOUR_DOMAIN}"
   rules:
     - path: "/orders"
       methods:
