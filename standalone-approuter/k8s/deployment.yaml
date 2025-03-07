@@ -8,7 +8,7 @@ spec:
     loadBalancer:
       consistentHash:
         httpCookie:
-          name: JSESSIONID
+          name: KYMA_APP_SESSION_ID
           path: /
           ttl: 0s
 ---
@@ -39,7 +39,7 @@ spec:
         secret:
           secretName: my-xsuaa-binding
       containers:
-      - image: sapse/approuter:15.0.0
+      - image: sapse/approuter:19.0.0
         name: my-approuter
         imagePullPolicy: Always
         ports:
@@ -59,6 +59,8 @@ spec:
             configMapKeyRef:
               name: destinations
               key: destinations
+        - name: PLATFORM_COOKIE_NAME
+          value: "KYMA_APP_SESSION_ID"
 status: {}
 ---
 apiVersion: v1
