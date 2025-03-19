@@ -8,8 +8,8 @@ As a next step, it demonstrates restoring the data from a volume snapshot.
 
 ## Prerequisites
 
-* [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
-* [Kubernetes tooling](../prerequisites/#kubernetes)
+* [SAP BTP, Kyma runtime instance](../prerequisites/README.md#kyma)
+* [Kubernetes tooling](../prerequisites/README.md#kubernetes)
 
 ## Set up the app
 

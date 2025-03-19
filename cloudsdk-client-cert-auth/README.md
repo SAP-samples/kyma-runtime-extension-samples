@@ -66,6 +66,7 @@ The certificate for this sample has been retrieved from the [test site](https://
 4. Configure the Destination in SAP Business Technology Platform (SAP BTP) Cockpit.
 ![dest-config](./assets/dest-client-cert-auth.png)
 
+<!-- markdown-link-check-disable -->
     ```shell
     Name: test-client-cert-auth
     Type: HTTP
@@ -75,6 +76,7 @@ The certificate for this sample has been retrieved from the [test site](https://
     Key Store Location: badssl.p12
     Key Store Password: badssl.com
     ```
+<!-- markdown-link-check-enable -->
 
 ### Application
 

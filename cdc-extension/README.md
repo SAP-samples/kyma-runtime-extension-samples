@@ -15,7 +15,7 @@ This example includes a **Kyma serverless function**, *cdc-extension*, that is e
 * All the functionality presented here are subject to change and may be changed by SAP at any time for any reason without notice.
 * For demonstration, this example uses an API Key to authenticate requests to SAP Data Quality Management. In a real-world scenario, either [OAuth 2.0](https://help.sap.com/viewer/d95546360fea44988eb614718ff7e959/Cloud/en-US/1fa6310be4e14ebb86c0411491bcff97.html) or [Client Certificate Authentication](https://help.sap.com/viewer/d95546360fea44988eb614718ff7e959/Cloud/en-US/7e983cce55604a8bb23a137483ea5dca.html) are to be used.
 
-#### Solution Architecture
+### Solution Architecture
 
 ![Solution Architecture](assets/cdc-extension-diagram.png)
 
