@@ -8,7 +8,7 @@ This sample can be used as a reference for achieving the same when using other i
 
 ## Prerequisites
 
-- [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
+- [SAP BTP, Kyma runtime instance](../prerequisites/README.md#kyma)
 - SAP Identity Authentication Service tenant
 
 ## Configuration

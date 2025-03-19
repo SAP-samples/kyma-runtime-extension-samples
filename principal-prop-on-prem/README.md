@@ -14,9 +14,9 @@ Using standalone SAP application router an API `sap/com/onprem/mysales` is hoste
 
 ## Prerequisites
 
-* [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
-* [Kubernetes tooling](../prerequisites/#kubernetes)
-* [Cloud Connector on your laptop or test system](../prerequisites/#sap-cloud-connector)
+* [SAP BTP, Kyma runtime instance](../prerequisites/README.md#kyma)
+* [Kubernetes tooling](../prerequisites/README.md#kubernetes)
+* [Cloud Connector on your laptop or test system](../prerequisites/README.md#sap-cloud-connector)
 * [Node.js](https://nodejs.org/en/download/) | The Node.js runtime including the node package manager NPM. Install an _LTS_ version.
 * [OpenSSL](https://www.openssl.org/) or another similiar tool to generate the certificates
 
@@ -145,4 +145,4 @@ Access the sales data for the logged-in user <https://principal-prop-on-prem.{yo
 
 ## Troubleshooting
 
-* [Issues with connectivity-proxy/on-prem calls](../troubleshooting#on-premise-connectivity)
+* [Issues with connectivity-proxy/on-prem calls](../troubleshooting/README.md#on-premise-connectivity)

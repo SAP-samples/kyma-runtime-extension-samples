@@ -38,8 +38,8 @@ Let's put the cron-based scaler into action and assume we have a **development c
 
 ## Prerequisites
 
-- [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
-- [Kubernetes tooling](../prerequisites/#kubernetes)
+- [SAP BTP, Kyma runtime instance](../prerequisites/README.md#kyma)
+- [Kubernetes tooling](../prerequisites/README.md#kubernetes)
 - [KEDA and Serverless Modules enabled in Kyma](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module)
 
 ## Procedure
