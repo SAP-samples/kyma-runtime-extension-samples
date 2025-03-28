@@ -10,7 +10,7 @@ For the first step, there are three options and you can choose one of them as pe
 
 * **Option 2**: [Transfer your domain to Cloudflare](https://developers.cloudflare.com/registrar/get-started/transfer-domain-to-cloudflare).
 
-* **Option 3**: Register your domain through another domain name registrar and then [add your domain to Cloudflare](https://community.cloudflare.com/t/step-1-adding-your-domain-to-cloudflare/64309).
+* **Option 3**: Register your domain through another domain name registrar and then [add your domain to Cloudflare](https://developers.cloudflare.com/learning-paths/get-started/add-domain-to-cf/).
 
   > **Note:** Cloudflare also offers a [**free plan**](https://www.cloudflare.com/plans/free/) with **CDN** and **Unmetered DDoS Protection for Layers 3-7** for personal or hobby projects that aren’t business-critical.
 

@@ -580,7 +580,7 @@ You can then check the processing via the logs of your Kyma Function `updateorde
 
 You can of course also the the UI5 frontend which should reflect the status update:
 
-![UI5 App changed Status of Order](../pics/step6_UI5%20result.png)
+![UI5 App changed Status of Order](../pics/step6_UI5_result.png)
 
 ## Summary
 
