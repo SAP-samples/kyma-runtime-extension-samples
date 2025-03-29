@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_CAMPAIGN_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Campaign" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="CampaignUUID"/>
+                </Key>
+                <Property Name="CampaignID" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Campaign ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CampaignUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="NodeID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CampaignName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Campaign" sap:quickinfo="Campaign Name"/>
+                <Property Name="CampaignDescription" Type="Edm.String" MaxLength="1000" sap:unicode="false" sap:label="Description" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignScheduleDateTime" Type="Edm.DateTimeOffset" Precision="0" sap:unicode="false" sap:label="Start Date" sap:quickinfo="Start Date of Execution Interval as Timestamp" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignExecutionFrqcyInterval" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Interval Value" sap:quickinfo="Value for Execution Interval" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignExecutionFrqcyUnit" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Interval Unit" sap:quickinfo="Unit for Execution Interval" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MediaType" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Media Type" sap:heading="Media Type Identifier" sap:quickinfo="Media Type Identifier"/>
+                <Property Name="MediaTypeName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Media Type" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CampaignLifecycleStatus" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Status" sap:quickinfo="Life Cycle Status Code" sap:creatable="false"/>
+                <Property Name="CampaignLifecycleStatusName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false" sap:sortable="false">
+                    <Documentation>
+                        <Summary>This text appears when fixed values are displayed in the F4 help. It explains the possible input values.</Summary>
+                        <LongDescription>SeeTask-Oriented InstructionsReference Documentation for Semantic Properties of Domains</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="CommunicationCategoryUUID" Type="Edm.Guid" sap:unicode="false" sap:label="NodeID" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CommunicationCategoryName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Comm Category Name" sap:heading="Communication Category Name" sap:quickinfo="Communication Category Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramUUID" Type="Edm.Guid" sap:unicode="false" sap:label="Program GUID" sap:quickinfo="Marketing Planning: Program Identifier (GUID)" sap:sortable="false"/>
+                <Property Name="MarketingProgramName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Program Name" sap:heading="Marketing Program Name" sap:quickinfo="Marketing Program Name" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="CampaignPriority" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Priority"/>
+                <Property Name="CampaignPriorityName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false" sap:sortable="false">
+                    <Documentation>
+                        <Summary>This text appears when fixed values are displayed in the F4 help. It explains the possible input values.</Summary>
+                        <LongDescription>SeeTask-Oriented InstructionsReference Documentation for Semantic Properties of Domains</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="MarketingArea" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Marketing Area" sap:updatable="false"/>
+                <Property Name="MarketingAreaName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Marketing Area" sap:heading="Marketing Area Description" sap:quickinfo="Description for Marketing Area" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignCategory" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Campaign Category" sap:updatable="false"/>
+                <Property Name="CampaignCategoryName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Category Name" sap:quickinfo="Name of Campaign Category" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CampaignStartDate" Type="Edm.DateTime" Precision="0" sap:unicode="false" sap:label="Start Date" sap:heading="Campaign Start Date" sap:quickinfo="Campaign Start Date"/>
+                <Property Name="CampaignEndDate" Type="Edm.DateTime" Precision="0" sap:unicode="false" sap:label="End Date" sap:heading="Campaign End Date" sap:quickinfo="Campaign End Date"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)" sap:creatable="false" sap:updatable="false">
+                    <Documentation>
+                        <Summary>The UTC timestamp displays date and time according to UTC (Universal Coordinated Time).</Summary>
+                        <LongDescription>In order to convert local time into a UTC time stamp, which makes it easier to compare times, the local time must be converted according to your time zone. The ABAP command convert is available for this purpose.Even if the time zone that the conversion is based on can be redetermined from Customizing or master data, we still recommend that you save the time zone.The internal structure of the high-resolution UTC time stamp is logically organized in date and time sections in a packed decimal format (YYYYMMDDhhmmssmmmuuun), which depicts the year, month, day, hour,second, millisecond, microsecond and the first decimal of the nanoseconds. Please note that the hardware that is normally used does not fully support a resolution of 100 nanoseconds, which is available in the structure.See also GET TIME STAMPA UTC time stamp in short form is also available.</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Nullable="false" Precision="7" sap:unicode="false" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)" sap:creatable="false" sap:updatable="false">
+                    <Documentation>
+                        <Summary>The UTC timestamp displays date and time according to UTC (Universal Coordinated Time).</Summary>
+                        <LongDescription>In order to convert local time into a UTC time stamp, which makes it easier to compare times, the local time must be converted according to your time zone. The ABAP command convert is available for this purpose.Even if the time zone that the conversion is based on can be redetermined from Customizing or master data, we still recommend that you save the time zone.The internal structure of the high-resolution UTC time stamp is logically organized in date and time sections in a packed decimal format (YYYYMMDDhhmmssmmmuuun), which depicts the year, month, day, hour,second, millisecond, microsecond and the first decimal of the nanoseconds. Please note that the hardware that is normally used does not fully support a resolution of 100 nanoseconds, which is available in the structure.See also GET TIME STAMPA UTC time stamp in short form is also available.</LongDescription>
+                    </Documentation>
+                </Property>
+                <Property Name="CampaignOwner" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Campaign Owner" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CampaignOwnerName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Full Name" sap:quickinfo="Full Name of Person" sap:creatable="false" sap:updatable="false" sap:filterable="false">
+                    <Documentation>
+                        <Summary>This field contains the complete personal name. It is usually generated from the various name components (without title).</Summary>
+                        <LongDescription/>
+                    </Documentation>
+                </Property>
+                <Property Name="CreatedByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User Name" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CreatedByUserName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Full Name" sap:quickinfo="Full Name of Person" sap:creatable="false" sap:updatable="false" sap:sortable="false">
+                    <Documentation>
+                        <Summary>This field contains the complete personal name. It is usually generated from the various name components (without title).</Summary>
+                        <LongDescription/>
+                    </Documentation>
+                </Property>
+                <Property Name="LastChangeByUser" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User Name" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="LastChangeByUserName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Full Name" sap:quickinfo="Full Name of Person" sap:creatable="false" sap:updatable="false" sap:sortable="false">
+                    <Documentation>
+                        <Summary>This field contains the complete personal name. It is usually generated from the various name components (without title).</Summary>
+                        <LongDescription/>
+                    </Documentation>
+                </Property>
+                <NavigationProperty Name="CampaignAssignedTargetGroups" Relationship="API_MKT_CAMPAIGN_SRV.CampaignAssignedTargetGroups" FromRole="FromRole_CampaignAssignedTargetGroups" ToRole="ToRole_CampaignAssignedTargetGroups"/>
+                <NavigationProperty Name="CampaignAssignedTeamMembers" Relationship="API_MKT_CAMPAIGN_SRV.CampaignTeamMembers" FromRole="FromRole_CampaignTeamMembers" ToRole="ToRole_CampaignTeamMembers"/>
+                <NavigationProperty Name="CampaignActualSpend" Relationship="API_MKT_CAMPAIGN_SRV.CampaignActualSpend" FromRole="FromRole_CampaignActualSpend" ToRole="ToRole_CampaignActualSpend"/>
+                <NavigationProperty Name="CampaignSpendHeader" Relationship="API_MKT_CAMPAIGN_SRV.CampaignSpendHeader" FromRole="FromRole_CampaignSpendHeader" ToRole="ToRole_CampaignSpendHeader"/>
+                <NavigationProperty Name="AssignedMarketingAgencies" Relationship="API_MKT_CAMPAIGN_SRV.CampaignMarketingAgency" FromRole="FromRole_CampaignMarketingAgency" ToRole="ToRole_CampaignMarketingAgency"/>
+                <NavigationProperty Name="ExternalCampaignReferences" Relationship="API_MKT_CAMPAIGN_SRV.CampaignExternalCampaignReferences" FromRole="FromRole_CampaignExternalCampaignReferences" ToRole="ToRole_CampaignExternalCampaignReferences"/>
+                <NavigationProperty Name="CampaignAssignedInterests" Relationship="API_MKT_CAMPAIGN_SRV.CampaignInterest" FromRole="FromRole_CampaignInterest" ToRole="ToRole_CampaignInterest" sap:label="CampaignAssignedInterests"/>
+            </EntityType>
+            <EntityType Name="AssignedTargetGroupEntityType" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="TargetGroupUUID"/>
+                    <PropertyRef Name="CampaignUUID"/>
+                </Key>
+                <Property Name="TargetGroup" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TargetGroupUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="NodeID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="NodeID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="SpendHeaderTimeSplit" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="MarketingSpendHdrTimeSplitUUID"/>
+                </Key>
+                <Property Name="MarketingSpendHdrTimeSplitUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Time Split Key" sap:heading="Key of Time Split of Marketing Spend Header" sap:quickinfo="Key of Time Split of Marketing Spend Header" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendHeaderUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Mktg Spend Hdr Key" sap:heading="Key of Marketing Spend Header" sap:quickinfo="Key of Marketing Spend Header" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendCalendarYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Calendar Year" sap:heading="Year" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendCalendarQuarter" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Calendar Quarter" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendCalendarMonth" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Calendar Month" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgSpendCalendarMonthName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Calendar Month Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PlannedMktgSpendHeaderAmt" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:unit="PlannedMktgSpendHeaderCrcy" sap:label="Plnd Mktg Spend Hdr" sap:heading="Amount of Planned Marketing Spend Header" sap:quickinfo="Amount of Planned Marketing Spend Header" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PlannedMktgSpendHeaderCrcy" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Plnd Spend Hdr Crcy" sap:heading="Currency of Planned Marketing Spend Header" sap:quickinfo="Currency of Planned Marketing Spend Header" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+            </EntityType>
+            <EntityType Name="SpendItemTimeSplit" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="MarketingSpendItmTimeSplitUUID"/>
+                </Key>
+                <Property Name="MarketingSpendItmTimeSplitUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Time Split Key" sap:heading="Key of Time Split of Marketing Spend Item" sap:quickinfo="Key of Time Split of Marketing Spend Item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendItemUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Spend Item UUID" sap:heading="Marketing Spend Item UUID" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendCalendarYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Calendar Year" sap:heading="Year" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendCalendarQuarter" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Calendar Quarter" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendCalendarMonth" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Calendar Month" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgSpendCalendarMonthName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Calendar Month Name" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PlannedMktgSpendAmt" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:unit="PlannedMktgSpendCrcy" sap:label="Planned Mktg Spend" sap:heading="Planned Marketing Spend" sap:quickinfo="Planned Marketing Spend" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PlannedMktgSpendCrcy" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Plnd Mktg Spend Crcy" sap:heading="Currency of Planned Marketing Spend" sap:quickinfo="Currency of Planned Marketing Spend" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+            </EntityType>
+            <EntityType Name="ActualSpend" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="CampaignUUID"/>
+                </Key>
+                <Property Name="CampaignUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Campaign UUID" sap:heading="Campaign Universally Unique Identifier" sap:quickinfo="Campaign UUID for API-service" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingProgramUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Program Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendItemUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Spend Item UUID" sap:heading="Marketing Spend Item UUID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendItem" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Spend Item" sap:heading="Marketing Spend Item" sap:quickinfo="Marketing Spend Item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendItemName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Spend Item Name" sap:heading="Name of Marketing Spend Item" sap:quickinfo="Name of Marketing Spend Item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendType" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Spend Type" sap:heading="Marketing Spend Type" sap:quickinfo="Marketing Spend Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendCalendarYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Calendar Year" sap:heading="Year" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendCalendarQuarter" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Calendar Quarter" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendCalendarMonth" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Calendar Month" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgSpendCalendarMonthName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Calendar Month Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ActualMktgSpendCrcy" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Actl Mktg Spend Crcy" sap:heading="Actual Marketing Spend Currency" sap:quickinfo="Actual Marketing Spend Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="ActualMktgSpendAmt" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:unit="ActualMktgSpendCrcy" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgCommitmentAmt" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:unit="ActualMktgSpendCrcy" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="SpendItem" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="MarketingSpendItemUUID"/>
+                </Key>
+                <Property Name="MarketingSpendItemUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="NodeID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendHeaderUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Mktg Spend Hdr Key" sap:heading="Key of Marketing Spend Header" sap:quickinfo="Key of Marketing Spend Header" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendItem" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Spend Item" sap:heading="Marketing Spend Item" sap:quickinfo="Marketing Spend Item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendItemName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Spend Item Name" sap:heading="Name of Marketing Spend Item" sap:quickinfo="Name of Marketing Spend Item" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendType" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Spend Type" sap:heading="Marketing Spend Type" sap:quickinfo="Marketing Spend Type" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendTypeName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Spend Type Name" sap:heading="Name of Marketing Spend Type" sap:quickinfo="Name of Marketing Spend Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendPeriodStartYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Start Year" sap:heading="Start Year of Spend Period" sap:quickinfo="Start Year of Spend Period" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendPeriodStartMonth" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Start Month" sap:heading="Start Month of Spend Period" sap:quickinfo="Start Month of Spend Period" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgSpendPeriodStartMonthName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Calendar Month Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendPeriodEndYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="End Year" sap:heading="End Year of Spend Period" sap:quickinfo="End Year of Spend Period" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendPeriodEndMonth" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="End Month" sap:heading="End Month of Spend Period" sap:quickinfo="End Month of Spend Period" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgSpendPeriodEndMonthName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Calendar Month Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ItemTimeSplit" Relationship="API_MKT_CAMPAIGN_SRV.ItemTimeSplit" FromRole="FromRole_ItemTimeSplit" ToRole="ToRole_ItemTimeSplit"/>
+            </EntityType>
+            <EntityType Name="SpendHeader" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="MarketingSpendHeaderUUID"/>
+                </Key>
+                <Property Name="MarketingSpendHeaderUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Mktg Spend Hdr Key" sap:heading="Key of Marketing Spend Header" sap:quickinfo="Key of Marketing Spend Header" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendStatus" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Mktg Spend Status" sap:heading="Marketing Spend Status" sap:quickinfo="Marketing Spend Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CampaignUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="Campaign UUID" sap:heading="Campaign Universally Unique Identifier" sap:quickinfo="Campaign UUID for API-service" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PlannedMktgSpendIsDetailed" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Plnd Mktg Spend Det" sap:heading="Planned Marketing Spend Is Detailed" sap:quickinfo="Planned Marketing Spend Is Detailed" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendPeriodStartYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Start Year" sap:heading="Start Year of Spend Period" sap:quickinfo="Start Year of Spend Period" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendPeriodStartMonth" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Start Month" sap:heading="Start Month of Spend Period" sap:quickinfo="Start Month of Spend Period" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgSpendPeriodStartMonthName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Calendar Month Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendPeriodEndYear" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="End Year" sap:heading="End Year of Spend Period" sap:quickinfo="End Year of Spend Period" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarketingSpendPeriodEndMonth" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="End Month" sap:heading="End Month of Spend Period" sap:quickinfo="End Month of Spend Period" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MktgSpendPeriodEndMonthName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Calendar Month Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PlannedMktgSpendHeaderAmt" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:unit="PlannedMktgSpendHeaderCrcy" sap:label="Plnd Mktg Spend Hdr" sap:heading="Amount of Planned Marketing Spend Header" sap:quickinfo="Amount of Planned Marketing Spend Header" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PlannedMktgSpendHeaderCrcy" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Plnd Spend Hdr Crcy" sap:heading="Currency of Planned Marketing Spend Header" sap:quickinfo="Currency of Planned Marketing Spend Header" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <NavigationProperty Name="Item" Relationship="API_MKT_CAMPAIGN_SRV.Item" FromRole="FromRole_Item" ToRole="ToRole_Item"/>
+                <NavigationProperty Name="HeaderTimeSplit" Relationship="API_MKT_CAMPAIGN_SRV.HeaderTimeSplit" FromRole="FromRole_HeaderTimeSplit" ToRole="ToRole_HeaderTimeSplit"/>
+            </EntityType>
+            <EntityType Name="MarketingAgencyEntityType" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="CampaignUUID"/>
+                    <PropertyRef Name="MarketingAgencyUUID"/>
+                </Key>
+                <Property Name="CampaignUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:heading="Universally Unique Identifier" sap:quickinfo="UUID for API-Service" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingAgencyUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="UUID" sap:heading="Universally Unique Identifier" sap:quickinfo="UUID for API-Service" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingAgency" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Agency ID" sap:heading="Marketing Agency Identifier" sap:quickinfo="Marketing Agency Identifier" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="MarketingAgencyName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Agency Name" sap:heading="Marketing Agency Name" sap:quickinfo="Marketing Agency Name" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="EmailAddress" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:label="Email Address" sap:creatable="false" sap:updatable="false" sap:sortable="false">
+                    <Documentation>
+                        <Summary>Internet mail address, also called e-mail address.</Summary>
+                        <LongDescription>Example: user.name@company.comThe Internet mail address is used to send mail via the Internet world-wide; the protocol used is SMTP (Simple Mail Transfer Protocol).The Internet mail address format is specified in various RFCs (Internet Request for Comment), including RFCs 821 and 822.This is not an IP address (192.56.30.6).</LongDescription>
+                    </Documentation>
+                </Property>
+            </EntityType>
+            <EntityType Name="TeamMemberEntityType" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="CampaignUUID"/>
+                    <PropertyRef Name="TeamMemberName"/>
+                </Key>
+                <Property Name="CampaignUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="NodeID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TeamMemberName" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User" sap:heading="User Name" sap:quickinfo="User Name in User Master Record" sap:updatable="false"/>
+                <Property Name="IsOwner" Type="Edm.Boolean" sap:unicode="false" sap:label="TRUE" sap:quickinfo="Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"/>
+            </EntityType>
+            <EntityType Name="ExternalCampaignReferenceEntityType" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="ExternalCampaignUUID"/>
+                </Key>
+                <Property Name="ExternalCampaignUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="NodeID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ExternalCampaignID" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Ext. Campaign ID" sap:heading="External Campaign ID" sap:quickinfo="External Campaign ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CampaignUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="NodeID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ExternalCampaignName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Ext. Campaign Name" sap:heading="External Campaign Name" sap:quickinfo="External Campaign Name" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ExternalCampaignURL" Type="Edm.String" Nullable="false" MaxLength="1000" sap:unicode="false" sap:label="Ext. Campaign URL" sap:heading="URL of External Campaign" sap:quickinfo="URL of External Campaign" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Advertiser" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Advertiser ID" sap:heading="External Campaign Advertiser ID" sap:quickinfo="The Identifier of an Advertiser" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="AdvertiserName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Advertiser Name" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ExternalCmpgnManagingParty" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Managing Party" sap:heading="External Campaign Managing Party" sap:quickinfo="External Campaign Managing Party" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ExternalCmpgnManagingPartyName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Managing Party Name" sap:heading="External Campaign Managing Party Name" sap:quickinfo="External Campaign Managing Party Name" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="InterestEntityType" sap:content-version="2">
+                <Key>
+                    <PropertyRef Name="CampaignUUID"/>
+                    <PropertyRef Name="InterestItem"/>
+                </Key>
+                <Property Name="CampaignUUID" Type="Edm.Guid" Nullable="false" sap:unicode="false" sap:label="NodeID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="InterestItem" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Item of Interest" sap:updatable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="ItemTimeSplit" sap:content-version="2">
+                <End Type="API_MKT_CAMPAIGN_SRV.SpendItem" Multiplicity="1" Role="FromRole_ItemTimeSplit"/>
+                <End Type="API_MKT_CAMPAIGN_SRV.SpendItemTimeSplit" Multiplicity="*" Role="ToRole_ItemTimeSplit"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ItemTimeSplit">
+                        <PropertyRef Name="MarketingSpendItemUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ItemTimeSplit">
+                        <PropertyRef Name="MarketingSpendItemUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CampaignActualSpend" sap:content-version="2">
+                <End Type="API_MKT_CAMPAIGN_SRV.Campaign" Multiplicity="1" Role="FromRole_CampaignActualSpend"/>
+                <End Type="API_MKT_CAMPAIGN_SRV.ActualSpend" Multiplicity="*" Role="ToRole_CampaignActualSpend"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CampaignActualSpend">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CampaignActualSpend">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CampaignSpendHeader" sap:content-version="2">
+                <End Type="API_MKT_CAMPAIGN_SRV.Campaign" Multiplicity="1" Role="FromRole_CampaignSpendHeader"/>
+                <End Type="API_MKT_CAMPAIGN_SRV.SpendHeader" Multiplicity="*" Role="ToRole_CampaignSpendHeader"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CampaignSpendHeader">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CampaignSpendHeader">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CampaignMarketingAgency" sap:content-version="2">
+                <End Type="API_MKT_CAMPAIGN_SRV.Campaign" Multiplicity="1" Role="FromRole_CampaignMarketingAgency"/>
+                <End Type="API_MKT_CAMPAIGN_SRV.MarketingAgencyEntityType" Multiplicity="*" Role="ToRole_CampaignMarketingAgency"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CampaignMarketingAgency">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CampaignMarketingAgency">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CampaignExternalCampaignReferences" sap:content-version="2">
+                <End Type="API_MKT_CAMPAIGN_SRV.Campaign" Multiplicity="1" Role="FromRole_CampaignExternalCampaignReferences"/>
+                <End Type="API_MKT_CAMPAIGN_SRV.ExternalCampaignReferenceEntityType" Multiplicity="*" Role="ToRole_CampaignExternalCampaignReferences"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CampaignExternalCampaignReferences">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CampaignExternalCampaignReferences">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CampaignInterest" sap:content-version="2">
+                <End Type="API_MKT_CAMPAIGN_SRV.Campaign" Multiplicity="1" Role="FromRole_CampaignInterest"/>
+                <End Type="API_MKT_CAMPAIGN_SRV.InterestEntityType" Multiplicity="*" Role="ToRole_CampaignInterest"/>
+            </Association>
+            <Association Name="CampaignTeamMembers" sap:content-version="2">
+                <End Type="API_MKT_CAMPAIGN_SRV.Campaign" Multiplicity="1" Role="FromRole_CampaignTeamMembers"/>
+                <End Type="API_MKT_CAMPAIGN_SRV.TeamMemberEntityType" Multiplicity="*" Role="ToRole_CampaignTeamMembers"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CampaignTeamMembers">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CampaignTeamMembers">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="CampaignAssignedTargetGroups" sap:content-version="2">
+                <End Type="API_MKT_CAMPAIGN_SRV.Campaign" Multiplicity="1" Role="FromRole_CampaignAssignedTargetGroups"/>
+                <End Type="API_MKT_CAMPAIGN_SRV.AssignedTargetGroupEntityType" Multiplicity="*" Role="ToRole_CampaignAssignedTargetGroups"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CampaignAssignedTargetGroups">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CampaignAssignedTargetGroups">
+                        <PropertyRef Name="CampaignUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Item" sap:content-version="2">
+                <End Type="API_MKT_CAMPAIGN_SRV.SpendHeader" Multiplicity="1" Role="FromRole_Item"/>
+                <End Type="API_MKT_CAMPAIGN_SRV.SpendItem" Multiplicity="*" Role="ToRole_Item"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Item">
+                        <PropertyRef Name="MarketingSpendHeaderUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Item">
+                        <PropertyRef Name="MarketingSpendHeaderUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="HeaderTimeSplit" sap:content-version="2">
+                <End Type="API_MKT_CAMPAIGN_SRV.SpendHeader" Multiplicity="1" Role="FromRole_HeaderTimeSplit"/>
+                <End Type="API_MKT_CAMPAIGN_SRV.SpendHeaderTimeSplit" Multiplicity="*" Role="ToRole_HeaderTimeSplit"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_HeaderTimeSplit">
+                        <PropertyRef Name="MarketingSpendHeaderUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_HeaderTimeSplit">
+                        <PropertyRef Name="MarketingSpendHeaderUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_CAMPAIGN_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Campaigns" EntityType="API_MKT_CAMPAIGN_SRV.Campaign" sap:deletable="false" sap:searchable="true" sap:content-version="2"/>
+                <EntitySet Name="AssignedTargetGroups" EntityType="API_MKT_CAMPAIGN_SRV.AssignedTargetGroupEntityType" sap:updatable="false" sap:pageable="false" sap:content-version="2"/>
+                <EntitySet Name="SpendHeaderTimeSplits" EntityType="API_MKT_CAMPAIGN_SRV.SpendHeaderTimeSplit" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="2"/>
+                <EntitySet Name="SpendItemTimeSplits" EntityType="API_MKT_CAMPAIGN_SRV.SpendItemTimeSplit" sap:pageable="false" sap:content-version="2"/>
+                <EntitySet Name="ActualSpends" EntityType="API_MKT_CAMPAIGN_SRV.ActualSpend" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="2"/>
+                <EntitySet Name="SpendItems" EntityType="API_MKT_CAMPAIGN_SRV.SpendItem" sap:pageable="false" sap:content-version="2"/>
+                <EntitySet Name="SpendHeaders" EntityType="API_MKT_CAMPAIGN_SRV.SpendHeader" sap:deletable="false" sap:pageable="false" sap:content-version="2"/>
+                <EntitySet Name="MarketingAgencies" EntityType="API_MKT_CAMPAIGN_SRV.MarketingAgencyEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2"/>
+                <EntitySet Name="TeamMembers" EntityType="API_MKT_CAMPAIGN_SRV.TeamMemberEntityType" sap:content-version="2"/>
+                <EntitySet Name="ExternalCampaignReferences" EntityType="API_MKT_CAMPAIGN_SRV.ExternalCampaignReferenceEntityType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2"/>
+                <EntitySet Name="Interests" EntityType="API_MKT_CAMPAIGN_SRV.InterestEntityType" sap:updatable="false" sap:content-version="2"/>
+                <AssociationSet Name="CampaignMarketingAgencies" Association="API_MKT_CAMPAIGN_SRV.CampaignMarketingAgency" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="Campaigns" Role="FromRole_CampaignMarketingAgency"/>
+                    <End EntitySet="MarketingAgencies" Role="ToRole_CampaignMarketingAgency"/>
+                </AssociationSet>
+                <AssociationSet Name="CampaignAssignedTargetGroups" Association="API_MKT_CAMPAIGN_SRV.CampaignAssignedTargetGroups" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="Campaigns" Role="FromRole_CampaignAssignedTargetGroups"/>
+                    <End EntitySet="AssignedTargetGroups" Role="ToRole_CampaignAssignedTargetGroups"/>
+                </AssociationSet>
+                <AssociationSet Name="CampaignActualSpends" Association="API_MKT_CAMPAIGN_SRV.CampaignActualSpend" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="Campaigns" Role="FromRole_CampaignActualSpend"/>
+                    <End EntitySet="ActualSpends" Role="ToRole_CampaignActualSpend"/>
+                </AssociationSet>
+                <AssociationSet Name="HeaderTimeSplits" Association="API_MKT_CAMPAIGN_SRV.HeaderTimeSplit" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="SpendHeaders" Role="FromRole_HeaderTimeSplit"/>
+                    <End EntitySet="SpendHeaderTimeSplits" Role="ToRole_HeaderTimeSplit"/>
+                </AssociationSet>
+                <AssociationSet Name="CampaignTeamMembers" Association="API_MKT_CAMPAIGN_SRV.CampaignTeamMembers" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="Campaigns" Role="FromRole_CampaignTeamMembers"/>
+                    <End EntitySet="TeamMembers" Role="ToRole_CampaignTeamMembers"/>
+                </AssociationSet>
+                <AssociationSet Name="CampaignSpendHeaders" Association="API_MKT_CAMPAIGN_SRV.CampaignSpendHeader" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="Campaigns" Role="FromRole_CampaignSpendHeader"/>
+                    <End EntitySet="SpendHeaders" Role="ToRole_CampaignSpendHeader"/>
+                </AssociationSet>
+                <AssociationSet Name="Items" Association="API_MKT_CAMPAIGN_SRV.Item" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="SpendHeaders" Role="FromRole_Item"/>
+                    <End EntitySet="SpendItems" Role="ToRole_Item"/>
+                </AssociationSet>
+                <AssociationSet Name="ItemTimeSplits" Association="API_MKT_CAMPAIGN_SRV.ItemTimeSplit" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="SpendItems" Role="FromRole_ItemTimeSplit"/>
+                    <End EntitySet="SpendItemTimeSplits" Role="ToRole_ItemTimeSplit"/>
+                </AssociationSet>
+                <AssociationSet Name="CampaignExternalCampaignReferences" Association="API_MKT_CAMPAIGN_SRV.CampaignExternalCampaignReferences" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="Campaigns" Role="FromRole_CampaignExternalCampaignReferences"/>
+                    <End EntitySet="ExternalCampaignReferences" Role="ToRole_CampaignExternalCampaignReferences"/>
+                </AssociationSet>
+                <AssociationSet Name="CampaignInterests" Association="API_MKT_CAMPAIGN_SRV.CampaignInterest" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="2">
+                    <End EntitySet="Campaigns" Role="FromRole_CampaignInterest"/>
+                    <End EntitySet="Interests" Role="ToRole_CampaignInterest"/>
+                </AssociationSet>
+                <FunctionImport Name="CreateCampaignFromTemplate" ReturnType="API_MKT_CAMPAIGN_SRV.Campaign" EntitySet="Campaigns" m:HttpMethod="POST">
+                    <Parameter Name="TemplateID" Type="Edm.String" Mode="In" MaxLength="10"/>
+                    <Parameter Name="CampaignName" Type="Edm.String" Mode="In" MaxLength="40"/>
+                </FunctionImport>
+            </EntityContainer>
+            <atom:link rel="self" href="https://host:port/sap/opu/odata/sap/API_MKT_CAMPAIGN_SRV;v=0002/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://host:port/sap/opu/odata/sap/API_MKT_CAMPAIGN_SRV;v=2/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

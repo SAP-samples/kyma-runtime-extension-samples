@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" 
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" 
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" 
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" 
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_MKT_COUPON_SRV" xml:lang="en" sap:schema-version="1" 
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="CouponCodesType" sap:label="Marketing: Coupon Code" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CouponCodeUUID"/>
+                </Key>
+                <Property Name="CouponCodeUUID" Type="Edm.Guid" Nullable="false" sap:label="Coupon Code UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CouponUUID" Type="Edm.Guid" sap:label="Coupon UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CouponCode" Type="Edm.String" MaxLength="128" sap:label="Coupon Code"/>
+                <Property Name="CouponCodeSerialNumber" Type="Edm.String" MaxLength="128" sap:label="Serial Number" sap:quickinfo="Coupon Code Serial Number"/>
+                <Property Name="EANCodeImageURL" Type="Edm.String" MaxLength="1333" sap:label="Barcode Image URL" sap:quickinfo="Image URL for Barcode"/>
+                <Property Name="QRCodeImageURL" Type="Edm.String" MaxLength="1333" sap:label="QR Code Image URL" sap:quickinfo="Image URL for QR Code"/>
+                <NavigationProperty Name="to_CouponCodeUsage" Relationship="API_MKT_COUPON_SRV.assoc_B83F19F10B58ECF33E75B473F9A5A0DA" FromRole="FromRole_assoc_B83F19F10B58ECF33E75B473F9A5A0DA" ToRole="ToRole_assoc_B83F19F10B58ECF33E75B473F9A5A0DA"/>
+            </EntityType>
+            <EntityType Name="CouponCodeUsagesType" sap:label="Marketing: Coupon Code Usage" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CouponCodeUsageUUID"/>
+                </Key>
+                <Property Name="CouponCodeUsageUUID" Type="Edm.Guid" Nullable="false" sap:label="Coupon Code Usage UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CouponUUID" Type="Edm.Guid" sap:label="Coupon UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CouponCodeUUID" Type="Edm.Guid" sap:label="Coupon Code UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CouponCodeUsageType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Code Usage Type" sap:quickinfo="Coupon Code Usage Type"/>
+                <Property Name="InteractionContactUUID" Type="Edm.Guid" sap:label="Interaction Contact UUID" sap:quickinfo="Marketing API: Interaction Contact UUID"/>
+                <Property Name="NumberOfRedemptionPerContact" Type="Edm.Int32" sap:label="Redemptions for each Contact" sap:quickinfo="Number of Redemptions for each Contact"/>
+                <Property Name="ValidityStartDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Validity Start"/>
+                <Property Name="ValidityEndDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Validity End"/>
+            </EntityType>
+            <EntityType Name="CouponTextsType" sap:label="Marketing: Coupon TEXT" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CouponUUID"/>
+                    <PropertyRef Name="Language"/>
+                </Key>
+                <Property Name="CouponUUID" Type="Edm.Guid" Nullable="false" sap:label="Coupon UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Language Key" sap:updatable="false"/>
+                <Property Name="CouponName" Type="Edm.String" MaxLength="120" sap:label="Coupon Name"/>
+                <Property Name="CouponDescription" Type="Edm.String" MaxLength="512" sap:label="Coupon Description"/>
+            </EntityType>
+            <EntityType Name="CouponsType" sap:label="Marketing: Coupon" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CouponUUID"/>
+                </Key>
+                <Property Name="CouponUUID" Type="Edm.Guid" Nullable="false" sap:label="Coupon UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Coupon" Type="Edm.String" MaxLength="32" sap:label="Coupon"/>
+                <Property Name="CouponType" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Coupon Type"/>
+                <Property Name="CouponContactRelationshipType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Relationship Type" sap:quickinfo="Coupon Contact Relationship Type"/>
+                <Property Name="CouponContactRelshpTypeName" Type="Edm.String" MaxLength="60" sap:display-format="UpperCase" sap:label="Relationship Type Name" sap:quickinfo="Coupon Contact Relationship Type Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingArea" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Marketing Area ID" sap:updatable="false"/>
+                <Property Name="MarketingAreaName" Type="Edm.String" MaxLength="120" sap:label="Marketing Area" sap:quickinfo="Description for Marketing Area" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CouponName" Type="Edm.String" MaxLength="120" sap:label="Coupon Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CouponOrigin" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Coupon Origin"/>
+                <Property Name="CouponCanExceedOfferPeriod" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Can Exceed Visible Offer Period" sap:quickinfo="Coupon can Exceed Offer Period" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CouponStatus" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Coupon Status"/>
+                <Property Name="CouponStatusName" Type="Edm.String" MaxLength="60" sap:display-format="UpperCase" sap:label="Coupon Status Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TotalNumberOfRedemption" Type="Edm.Int32" sap:label="Redemption Limit" sap:quickinfo="Total Number of Redemptions"/>
+                <Property Name="TotalNumberOfRdmptnPerContact" Type="Edm.Int32" sap:label="Redemption Limit for Each Contact" sap:quickinfo="Total Number of Redemptions for Each Contact"/>
+                <Property Name="CouponCodeValidityDuration" Type="Edm.Decimal" Precision="15" Scale="0" sap:unit="CouponCodeValidityDurationUnit" sap:label="Code Validity in Days" sap:quickinfo="Coupon Code Validity in Days"/>
+                <Property Name="CouponCodeValidityDurationUnit" Type="Edm.String" MaxLength="3" sap:label="Unit for Coupon Code Validity" sap:creatable="false" sap:updatable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="CouponIntegrationScenario" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Replicate to External Coupon Service" sap:quickinfo="Coupon Integration Scenario"/>
+                <Property Name="CouponIntegrationScenarioName" Type="Edm.String" MaxLength="60" sap:display-format="UpperCase" sap:label="Scenario Name" sap:quickinfo="Coupon Integration Scenario Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CouponIntegrationStatus" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Integration Status" sap:quickinfo="Coupon Integration Status" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CouponIntegrationStatusName" Type="Edm.String" MaxLength="60" sap:display-format="UpperCase" sap:label="Status Name" sap:quickinfo="Coupon Integration Status Name" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="NumberOfRedemption" Type="Edm.Int32" sap:label="Redemptions" sap:quickinfo="Number of Redemptions" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NumberOfCouponCodes" Type="Edm.Int32" sap:label="Number of Codes" sap:quickinfo="Number of Coupon Codes" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TotalNumberOfRequestedCpnCodes" Type="Edm.Int32" sap:label="Total Number of Requested Codes" sap:quickinfo="Total Number of Requested Coupon Codes" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By User" sap:quickinfo="Created By User for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Creation Date Time" sap:quickinfo="Creation Date Time for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Last Changed By User" sap:quickinfo="Last Changed By User for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Last Change Date Time" sap:quickinfo="Last Change Date Time for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUserName" Type="Edm.String" MaxLength="80" sap:label="Created By Username" sap:quickinfo="Created By User Name for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUserName" Type="Edm.String" MaxLength="80" sap:label="Last Changed By Username" sap:quickinfo="Last Changed By User Name for API-Service" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="MarketingOffer" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Marketing Offer ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferStatus" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Offer Status" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferStartDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Start Date Time" sap:quickinfo="API: Start Date Time" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="OfferEndDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="End Date Time" sap:quickinfo="API: End Date Time" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="to_CouponCode" Relationship="API_MKT_COUPON_SRV.assoc_2D5E4510DA45AB2A778C6C56B7595770" FromRole="FromRole_assoc_2D5E4510DA45AB2A778C6C56B7595770" ToRole="ToRole_assoc_2D5E4510DA45AB2A778C6C56B7595770"/>
+                <NavigationProperty Name="to_CouponText" Relationship="API_MKT_COUPON_SRV.assoc_8A4D36414000C37854BFCD2BFB2171F6" FromRole="FromRole_assoc_8A4D36414000C37854BFCD2BFB2171F6" ToRole="ToRole_assoc_8A4D36414000C37854BFCD2BFB2171F6"/>
+            </EntityType>
+            <ComplexType Name="DummyFunctionImportResult">
+                <Property Name="IsInvalid" Type="Edm.Boolean" sap:label="TRUE"/>
+            </ComplexType>
+            <Association Name="assoc_2D5E4510DA45AB2A778C6C56B7595770" sap:content-version="1">
+                <End Type="API_MKT_COUPON_SRV.CouponsType" Multiplicity="1" Role="FromRole_assoc_2D5E4510DA45AB2A778C6C56B7595770">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="API_MKT_COUPON_SRV.CouponCodesType" Multiplicity="*" Role="ToRole_assoc_2D5E4510DA45AB2A778C6C56B7595770"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_2D5E4510DA45AB2A778C6C56B7595770">
+                        <PropertyRef Name="CouponUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_2D5E4510DA45AB2A778C6C56B7595770">
+                        <PropertyRef Name="CouponUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_8A4D36414000C37854BFCD2BFB2171F6" sap:content-version="1">
+                <End Type="API_MKT_COUPON_SRV.CouponsType" Multiplicity="1" Role="FromRole_assoc_8A4D36414000C37854BFCD2BFB2171F6">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="API_MKT_COUPON_SRV.CouponTextsType" Multiplicity="*" Role="ToRole_assoc_8A4D36414000C37854BFCD2BFB2171F6"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_8A4D36414000C37854BFCD2BFB2171F6">
+                        <PropertyRef Name="CouponUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_8A4D36414000C37854BFCD2BFB2171F6">
+                        <PropertyRef Name="CouponUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_B83F19F10B58ECF33E75B473F9A5A0DA" sap:content-version="1">
+                <End Type="API_MKT_COUPON_SRV.CouponCodesType" Multiplicity="1" Role="FromRole_assoc_B83F19F10B58ECF33E75B473F9A5A0DA">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="API_MKT_COUPON_SRV.CouponCodeUsagesType" Multiplicity="*" Role="ToRole_assoc_B83F19F10B58ECF33E75B473F9A5A0DA"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_B83F19F10B58ECF33E75B473F9A5A0DA">
+                        <PropertyRef Name="CouponCodeUUID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_B83F19F10B58ECF33E75B473F9A5A0DA">
+                        <PropertyRef Name="CouponCodeUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="API_MKT_COUPON_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="CouponCodes" EntityType="API_MKT_COUPON_SRV.CouponCodesType" sap:content-version="1"/>
+                <EntitySet Name="CouponCodeUsages" EntityType="API_MKT_COUPON_SRV.CouponCodeUsagesType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="CouponTexts" EntityType="API_MKT_COUPON_SRV.CouponTextsType" sap:content-version="1"/>
+                <EntitySet Name="Coupons" EntityType="API_MKT_COUPON_SRV.CouponsType" sap:content-version="1"/>
+                <AssociationSet Name="assoc_2D5E4510DA45AB2A778C6C56B7595770" Association="API_MKT_COUPON_SRV.assoc_2D5E4510DA45AB2A778C6C56B7595770" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Coupons" Role="FromRole_assoc_2D5E4510DA45AB2A778C6C56B7595770"/>
+                    <End EntitySet="CouponCodes" Role="ToRole_assoc_2D5E4510DA45AB2A778C6C56B7595770"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_B83F19F10B58ECF33E75B473F9A5A0DA" Association="API_MKT_COUPON_SRV.assoc_B83F19F10B58ECF33E75B473F9A5A0DA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CouponCodes" Role="FromRole_assoc_B83F19F10B58ECF33E75B473F9A5A0DA"/>
+                    <End EntitySet="CouponCodeUsages" Role="ToRole_assoc_B83F19F10B58ECF33E75B473F9A5A0DA"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_8A4D36414000C37854BFCD2BFB2171F6" Association="API_MKT_COUPON_SRV.assoc_8A4D36414000C37854BFCD2BFB2171F6" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Coupons" Role="FromRole_assoc_8A4D36414000C37854BFCD2BFB2171F6"/>
+                    <End EntitySet="CouponTexts" Role="ToRole_assoc_8A4D36414000C37854BFCD2BFB2171F6"/>
+                </AssociationSet>
+                <FunctionImport Name="DeleteCodes" ReturnType="API_MKT_COUPON_SRV.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="API_MKT_COUPON_SRV.CouponsType">
+                    <Parameter Name="CouponUUID" Type="Edm.Guid" Mode="In"/>
+                </FunctionImport>
+                <FunctionImport Name="RejectCoupon" ReturnType="API_MKT_COUPON_SRV.CouponsType" EntitySet="Coupons" m:HttpMethod="POST" sap:action-for="API_MKT_COUPON_SRV.CouponsType">
+                    <Parameter Name="CouponUUID" Type="Edm.Guid" Mode="In"/>
+                </FunctionImport>
+                <FunctionImport Name="ReleaseCoupon" ReturnType="API_MKT_COUPON_SRV.CouponsType" EntitySet="Coupons" m:HttpMethod="POST" sap:action-for="API_MKT_COUPON_SRV.CouponsType">
+                    <Parameter Name="CouponUUID" Type="Edm.Guid" Mode="In"/>
+                </FunctionImport>
+                <FunctionImport Name="ReplicateCoupon" ReturnType="API_MKT_COUPON_SRV.CouponsType" EntitySet="Coupons" m:HttpMethod="POST" sap:action-for="API_MKT_COUPON_SRV.CouponsType">
+                    <Parameter Name="CouponUUID" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="NumberOfCouponCodes" Type="Edm.Int32" Mode="In"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations Target="API_MKT_COUPON_SRV.API_MKT_COUPON_SRV_Entities" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.CouponCodesType/CouponCode" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.CouponTextsType/Language" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.CouponsType/Coupon" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.CouponsType/CouponContactRelationshipType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.CouponsType/CouponType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.CouponsType/MarketingArea" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.API_MKT_COUPON_SRV_Entities/CouponCodes" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CouponCode"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CouponCodeSerialNumber"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="EANCodeImageURL"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="QRCodeImageURL"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>CouponCode</PropertyPath>
+                                <PropertyPath>CouponCodeSerialNumber</PropertyPath>
+                                <PropertyPath>EANCodeImageURL</PropertyPath>
+                                <PropertyPath>QRCodeImageURL</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.API_MKT_COUPON_SRV_Entities/CouponTexts" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CouponName"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CouponDescription"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>CouponName</PropertyPath>
+                                <PropertyPath>CouponDescription</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.API_MKT_COUPON_SRV_Entities/Coupons" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CouponName"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>NumberOfRedemption</PropertyPath>
+                                <PropertyPath>NumberOfCouponCodes</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>CouponName</PropertyPath>
+                                <PropertyPath>NumberOfRedemption</PropertyPath>
+                                <PropertyPath>NumberOfCouponCodes</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.CouponCodesType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>CouponCode</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="API_MKT_COUPON_SRV.CouponsType" 
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>Coupon</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_COUPON_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://xf-demo-mkt.demo.hybris.com/sap/opu/odata/sap/API_MKT_COUPON_SRV/$metadata" 
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

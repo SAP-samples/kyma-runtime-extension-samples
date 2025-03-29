@@ -21,11 +21,11 @@ The application used in this sample is described [here](https://docs.microsoft.c
 
 This tutorial requires the following prerequisites:
 
-* [Docker](../prerequisites#docker)
-* [Kubernetes](../prerequisites#kubernetes)
-* [.NET](../prerequisites#net)
-* [REST Client Extension](../prerequisites#rest-clients)
-* [Build Tooling](../prerequisites#build-tooling)
+* [Docker](../prerequisites/README.md#docker)
+* [Kubernetes](../prerequisites/README.md#kubernetes)
+* [.NET](../prerequisites/README.md#net)
+* [REST Client Extension](../prerequisites/README.md#rest-clients)
+* [Build Tooling](../prerequisites/README.md#build-tooling)
 
 ## Steps
 
@@ -116,7 +116,8 @@ A [Helm Chart definition](../helm-charts/sample-extension-dotnet/README.md) is a
 
 The following prerequisites are needed:
 
-* [Docker and Kubernetes](../prerequisites#docker-and-kubernetes)
+* [Docker](../prerequisites/README.md#docker)
+* [Kubernetes](../prerequisites/README.md#kubernetes)
 
 #### Helm install
 

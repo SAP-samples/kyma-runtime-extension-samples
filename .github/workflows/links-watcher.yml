@@ -27,10 +27,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       
-      - name: Create issue when fail
-        uses: peter-evans/create-issue-from-file@v4
-        if: ${{ steps.lychee.outputs.exit_code }} != 0
-        with:
-          title: Link Checker Report
-          content-filepath: ./lychee/out.md
-          labels: broken link, automated issue
+      #- name: Create issue when fail
+      #  uses: peter-evans/create-issue-from-file@v5
+      #  if: ${{ steps.lychee.outputs.exit_code }} != 0
+      #  with:
+      #    title: Link Checker Report
+      #    content-filepath: ./lychee/out.md
+      #    labels: broken link, automated issue
+      #  env:
+      #    GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

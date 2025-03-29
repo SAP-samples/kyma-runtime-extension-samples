@@ -1,0 +1,292 @@
+---
+swagger: "2.0"
+info:
+  description: These services verify if a specific user or user group can access a
+    type or an attribute, and if the user or user group has global or catalog-specific
+    permissions.
+  version: 1.0.0
+  title: Permission Webservices
+  license:
+    name: Use of this file is subject to the terms of your agreement with SAP SE or
+      its affiliates respecting the use of the SAP product for which this file relates.
+x-sap-api-type: REST
+x-sap-shortText: Verify access rights for users and user groups.
+x-sap-stateInfo:
+  state: Active
+x-servers:
+- url: https://{url}/permissionswebservices
+  description: Permissions REST API endpoint.
+  templates:
+    url:
+      description: SAP Commerce Cloud server URL where the application is deployed.
+host: hostname
+basePath: /permissionswebservices
+tags:
+- name: Permissions
+  description: Get permissions for principal
+produces:
+- application/json
+- application/xml
+paths:
+  /v1/permissions/principals/{principalUid}/attributes:
+    get:
+      tags:
+      - permissions
+      summary: Get Attributes Permissions
+      description: Endpoint to retrieve attributes permissions for a principal. This
+        will look in the principal hierarchy
+      operationId: getAttributesPermissions
+      parameters:
+      - name: attributes
+        in: query
+        description: 'Attribute names separated by comma. Attribute name format :
+          ItemTypeName.AttributeName (e.g. User.name)'
+        required: true
+        type: string
+      - name: fields
+        in: query
+        description: Response configuration
+        required: false
+        type: string
+        default: DEFAULT
+        allowEmptyValue: false
+      - name: permissionNames
+        in: query
+        description: Permission names separated by comma
+        required: true
+        type: string
+      - name: principalUid
+        in: path
+        description: Principal identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/PermissionsList'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this enpoint or no access to principal's
+            permissions
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/permissions/principals/{principalUid}/catalogs:
+    get:
+      tags:
+      - permissions
+      summary: Get Catalog Permissions
+      description: Endpoint to retrieve catalog permissions for a principal. This
+        will look in the principal hierarchy.
+      operationId: getCatalogPermissions
+      parameters:
+      - name: catalogId
+        in: query
+        description: Catalog identifiers separated by comma
+        required: true
+        type: string
+      - name: catalogVersion
+        in: query
+        description: Catalog version identifiers separated by comma
+        required: true
+        type: string
+      - name: fields
+        in: query
+        description: Response configuration
+        required: false
+        type: string
+        default: DEFAULT
+        allowEmptyValue: false
+      - name: principalUid
+        in: path
+        description: Principal identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/CatalogPermissionsList'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this enpoint or no access to principal's
+            permissions
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/permissions/principals/{principalUid}/global:
+    get:
+      tags:
+      - permissions
+      summary: Get Global Permissions
+      description: Endpoint to retrieve global permissions for a principal. This will
+        look in the principal hierarchy
+      operationId: getGlobalPermissions
+      parameters:
+      - name: fields
+        in: query
+        description: Response configuration
+        required: false
+        type: string
+        default: DEFAULT
+        allowEmptyValue: false
+      - name: permissionNames
+        in: query
+        description: Permission names separated by comma
+        required: true
+        type: string
+        allowEmptyValue: false
+      - name: principalUid
+        in: path
+        description: Principal identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Permissions'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this enpoint or no access to principal's
+            permissions
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/permissions/principals/{principalUid}/types:
+    get:
+      tags:
+      - permissions
+      summary: Get Types Permissions
+      description: Endpoint to retrieve types permissions for a principal. This will
+        look in the principal hierarchy
+      operationId: getTypesPermissions
+      parameters:
+      - name: fields
+        in: query
+        description: Response configuration
+        required: false
+        type: string
+        default: DEFAULT
+        allowEmptyValue: false
+      - name: permissionNames
+        in: query
+        description: Permission names separated by comma
+        required: true
+        type: string
+        allowEmptyValue: false
+      - name: principalUid
+        in: path
+        description: Principal identifier
+        required: true
+        type: string
+      - name: types
+        in: query
+        description: Type names separated by comma
+        required: true
+        type: string
+        allowEmptyValue: false
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/PermissionsList'
+        400:
+          description: Bad Request e.g. incorrect parameter value
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden. Have no access to this enpoint or no access to principal's
+            permissions
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+securityDefinitions:
+  oauth2_client_credentials:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: application
+  oauth2_password:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: password
+definitions:
+  CatalogPermissions:
+    type: object
+    required:
+    - catalogId
+    - catalogVersion
+    properties:
+      catalogId:
+        type: string
+        description: Catalog identifier
+      catalogVersion:
+        type: string
+        description: Catalog version identifier
+      permissions:
+        type: object
+        description: Permissions map
+        additionalProperties:
+          type: string
+      syncPermissions:
+        type: array
+        description: Sync Permissions list
+        items:
+          $ref: '#/definitions/SyncPermissions'
+    title: CatalogPermissions
+    description: Permissions for catalog
+  CatalogPermissionsList:
+    type: object
+    properties:
+      permissionsList:
+        type: array
+        items:
+          $ref: '#/definitions/CatalogPermissions'
+    title: CatalogPermissionsList
+    description: Catalog permissions list
+  Permissions:
+    type: object
+    required:
+    - id
+    properties:
+      id:
+        type: string
+        description: Principal identifier
+      permissions:
+        type: object
+        description: Permissions map.
+        additionalProperties:
+          type: string
+    title: Permissions
+    description: Permissions for principal
+  PermissionsList:
+    type: object
+    properties:
+      permissionsList:
+        type: array
+        items:
+          $ref: '#/definitions/Permissions'
+    title: PermissionsList
+    description: List of permissions
+  SyncPermissions:
+    type: object
+    properties:
+      canSynchronize:
+        type: boolean
+      targetCatalogVersion:
+        type: string
+    title: SyncPermissions

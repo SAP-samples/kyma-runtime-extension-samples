@@ -1,0 +1,30 @@
+{
+  "name": "c4c-mock",
+  "description": "Mocked SAP Cloud for Customer",
+  "version": "0.1.0",
+  "main": "app.js",
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "start": "node . 10000",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "@varkes/configuration": "0.13.6",
+    "@varkes/api-server": "0.13.6",
+    "@varkes/cockpit": "0.13.6",
+    "@varkes/odata-mock": "0.13.6",
+    "express": "^4.18.0"
+  },
+  "devDependencies": {
+    "mocha": "^9.2.2",
+    "supertest": "^6.2.2"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SAP/xf-application-mocks.git",
+    "directory": "c4c-mock"
+  }
+}

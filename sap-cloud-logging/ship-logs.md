@@ -31,8 +31,8 @@ Now, let's explore how we can leverage SAP Cloud Logging to ingest logs from app
 
 ### Prerequisites
 
-- [SAP BTP, Kyma runtime instance](../prerequisites#kyma)
-- [Kubernetes tooling](../prerequisites#kubernetes)
+- [SAP BTP, Kyma runtime instance](../prerequisites/README.md#kyma)
+- [Kubernetes tooling](../prerequisites/README.md#kubernetes)
 - Entitlement added for SAP Cloud Logging to the subaccount where Kyma is provisioned
 
 ### Procedure
@@ -120,9 +120,19 @@ This is an example of the LogPipeline configuration used for this sample:
 
 ### Create a LogPipeline CR for the Istio access logs
 
-Referred from [kyma-project.io documentation about istio access logs](https://kyma-project.io/#/istio/user/operation-guides/02-30-enable-istio-access-logs?id=enable-istio-access-logs).
+Referred from [kyma-project.io documentation about istio access logs](https://kyma-project.io/#/istio/user/tutorials/01-45-enable-istio-access-logs).
 
 Istio access logs provide fine-grained details about the traffic when accessing the workloads that are part of Istio service mesh. The only prerequisite is to enable Istio sidecar injection for your workloads. The Istio access logs provide useful information relating to 4 golden signals, such as latency, traffic, errors, and saturation as well as any troubleshooting anomalies.
+
+[Configure Istio access logs for the entire mesh](https://kyma-project.io/#/istio/user/tutorials/01-45-enable-istio-access-logs?id=configure-istio-access-logs-for-the-entire-mesh)
+
+It is also possible to have [fine grained configuration](https://kyma-project.io/#/istio/user/tutorials/01-45-enable-istio-access-logs?id=configuration) for Istio access logs.
+
+```shell
+kubectl apply -f ./k8s/tracing/trace-istio-telemetry.yaml
+```
+
+> Note: We use the same Istio telemetry configuration for tracing and logging.
 
 To create the LogPipeline, run:
 

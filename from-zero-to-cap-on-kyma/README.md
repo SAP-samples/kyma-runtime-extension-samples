@@ -12,13 +12,13 @@ In this sample, we will start from scratch / zero to deploying an [CAP](https://
 
 ## Prerequisites
 
-- [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
-- [Docker](../prerequisites/#docker)
+- [SAP BTP, Kyma runtime instance](../prerequisites/README.md#kyma)
+- [Docker](../prerequisites/README.md#docker)
 - [make](https://www.gnu.org/software/make/)
-- [Kubernetes tooling](../prerequisites/#kubernetes)
-- [Pack](../prerequisites/#pack)
+- [Kubernetes tooling](../prerequisites/README.md#kubernetes)
+- [Pack](../prerequisites/README.md#pack)
 - [NodeJS 18 or higher](https://nodejs.org/en/download/)
-- [SAP CAP](../prerequisites/#sap-cap)
+- [SAP CAP](../prerequisites/README.md#sap-cap)
 - SAP Hana Cloud Instance
 - [SAP Hana Cloud Instance mapped to Kyma](https://blogs.sap.com/2022/12/15/consuming-sap-hana-cloud-from-the-kyma-environment/)
 

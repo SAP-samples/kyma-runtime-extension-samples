@@ -17,12 +17,12 @@ This sample demonstrates how to:
 
 ## Prerequisites
 
-* [SAP BTP, Kyma runtime instance](../prerequisites#kyma)
-* [Kubernetes tooling](../prerequisites#kubernetes)
-* [Docker](../prerequisites#docker)
-* [make](../prerequisites#build-tooling)
-* [Gradle](../prerequisites#java)
-* [Pack](../prerequisites/pack) if building images using buildpacks
+* [SAP BTP, Kyma runtime instance](../prerequisites/README.md#kyma)
+* [Kubernetes tooling](../prerequisites/README.md#kubernetes)
+* [Docker](../prerequisites/README.md#docker)
+* [make](../prerequisites/README.md#build-tooling)
+* [Gradle](../prerequisites/README.md#java)
+* [Pack](../prerequisites/README.md#pack) if building images using buildpacks
 
 ## Application
 

@@ -1,0 +1,22 @@
+{
+    "application": "SAP Cloud for Customer",
+    "logo": "logo.svg",
+    "provider": "SAP",
+    "package": "SAP Cloud for Customer",
+    "events": [
+        {
+            "specification": "apis/events.json"
+        }
+    ],
+    "apis": [
+        {
+            "name": "API",
+            "description": "Use this OData API, to query, read, add, update and delete data from and into SAP Cloud for Customer.",
+            "basepath": "/sap/c4c/odata/v1/c4codataapi",
+            "specification": "apis/API_SRV.xml",
+            "auth": "basic",
+            "csrf": true,
+            "registerBasepath": false
+        }
+    ]
+}

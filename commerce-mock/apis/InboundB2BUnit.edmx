@@ -1,0 +1,167 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:s="http://schemas.sap.com/commerce" Namespace="HybrisCommerceOData" s:schema-version="1">
+            <EntityType Name="B2BUnit">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="uid" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="active" Nullable="true" Type="Edm.Boolean"/>
+                <Property Name="description" Nullable="true" Type="Edm.String"/>
+                <Property Name="buyer" Nullable="true" Type="Edm.Boolean"/>
+                <Property Name="name" Nullable="true" Type="Edm.String"/>
+                <Property Name="locName" Nullable="true" Type="Edm.String" s:IsLanguageDependent="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="B2BUnit_uid"/>
+                <NavigationProperty FromRole="B2BUnit" Name="groups" Nullable="true" Relationship="HybrisCommerceOData.FK_B2BUnit_groups" ToRole="UserGroup"/>
+                <NavigationProperty FromRole="B2BUnit" Name="userPriceGroup" Nullable="true" Relationship="HybrisCommerceOData.FK_B2BUnit_userPriceGroup" ToRole="UserPriceGroup"/>
+                <NavigationProperty FromRole="B2BUnit" Name="addresses" Nullable="true" Relationship="HybrisCommerceOData.FK_B2BUnit_addresses" ToRole="Address" s:IsAutoCreate="true" s:IsPartOf="true"/>
+                <NavigationProperty FromRole="B2BUnit" Name="userDiscountGroup" Nullable="true" Relationship="HybrisCommerceOData.FK_B2BUnit_userDiscountGroup" ToRole="UserDiscountGroup"/>
+                <NavigationProperty FromRole="B2BUnit" Name="localizedAttributes" Nullable="true" Relationship="HybrisCommerceOData.FK_B2BUnit_localizedAttributes" ToRole="Localized___B2BUnit"/>
+            </EntityType>
+            <EntityType Name="UserDiscountGroup">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="UserDiscountGroup_code"/>
+            </EntityType>
+            <EntityType Name="Address">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="postalcode" Nullable="true" Type="Edm.String"/>
+                <Property Name="streetnumber" Nullable="true" Type="Edm.String"/>
+                <Property Name="shippingAddress" Nullable="true" Type="Edm.Boolean"/>
+                <Property Name="sapCustomerID" Nullable="true" Type="Edm.String"/>
+                <Property Name="pobox" Nullable="true" Type="Edm.String"/>
+                <Property Name="duplicate" Nullable="true" Type="Edm.Boolean" s:IsUnique="true"/>
+                <Property Name="phone1" Nullable="true" Type="Edm.String"/>
+                <Property Name="cellphone" Nullable="true" Type="Edm.String"/>
+                <Property Name="town" Nullable="true" Type="Edm.String"/>
+                <Property Name="district" Nullable="true" Type="Edm.String"/>
+                <Property Name="publicKey" Nullable="true" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="company" Nullable="true" Type="Edm.String"/>
+                <Property Name="sapMessageFunction" Nullable="true" Type="Edm.String"/>
+                <Property Name="streetname" Nullable="true" Type="Edm.String"/>
+                <Property Name="sapAddressUsage" Nullable="true" Type="Edm.String"/>
+                <Property Name="sapAddressUUID" Nullable="true" Type="Edm.String"/>
+                <Property Name="fax" Nullable="true" Type="Edm.String"/>
+                <Property Name="sapAddressUsageCounter" Nullable="true" Type="Edm.String"/>
+                <Property Name="billingAddress" Nullable="true" Type="Edm.Boolean"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Address_duplicate|Address_publicKey"/>
+                <NavigationProperty FromRole="Address" Name="region" Nullable="true" Relationship="HybrisCommerceOData.FK_Address_region" ToRole="Region"/>
+                <NavigationProperty FromRole="Address" Name="country" Nullable="true" Relationship="HybrisCommerceOData.FK_Address_country" ToRole="Country"/>
+            </EntityType>
+            <EntityType Name="UserPriceGroup">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="code" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="UserPriceGroup_code"/>
+            </EntityType>
+            <EntityType Name="Region">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="isocode" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Country_isocode|Region_isocode"/>
+                <NavigationProperty FromRole="Region" Name="country" Nullable="false" Relationship="HybrisCommerceOData.FK_Region_country" ToRole="Country" s:IsUnique="true"/>
+            </EntityType>
+            <EntityType Name="Country">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="isocode" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="Country_isocode"/>
+            </EntityType>
+            <EntityType Name="Localized___B2BUnit">
+                <Key>
+                    <PropertyRef Name="language"/>
+                </Key>
+                <Property Name="locName" Nullable="true" Type="Edm.String" s:IsLanguageDependent="true"/>
+                <Property Name="language" Nullable="false" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="UserGroup">
+                <Key>
+                    <PropertyRef Name="integrationKey"/>
+                </Key>
+                <Property Name="uid" Nullable="false" Type="Edm.String" s:IsUnique="true"/>
+                <Property Name="integrationKey" Nullable="false" Type="Edm.String" s:Alias="UserGroup_uid"/>
+            </EntityType>
+            <Association Name="FK_B2BUnit_groups">
+                <End Multiplicity="0..1" Role="B2BUnit" Type="HybrisCommerceOData.B2BUnit"/>
+                <End Multiplicity="*" Role="UserGroup" Type="HybrisCommerceOData.UserGroup"/>
+            </Association>
+            <Association Name="FK_B2BUnit_userPriceGroup">
+                <End Multiplicity="0..1" Role="B2BUnit" Type="HybrisCommerceOData.B2BUnit"/>
+                <End Multiplicity="0..1" Role="UserPriceGroup" Type="HybrisCommerceOData.UserPriceGroup"/>
+            </Association>
+            <Association Name="FK_B2BUnit_addresses">
+                <End Multiplicity="0..1" Role="B2BUnit" Type="HybrisCommerceOData.B2BUnit"/>
+                <End Multiplicity="*" Role="Address" Type="HybrisCommerceOData.Address"/>
+            </Association>
+            <Association Name="FK_B2BUnit_userDiscountGroup">
+                <End Multiplicity="0..1" Role="B2BUnit" Type="HybrisCommerceOData.B2BUnit"/>
+                <End Multiplicity="0..1" Role="UserDiscountGroup" Type="HybrisCommerceOData.UserDiscountGroup"/>
+            </Association>
+            <Association Name="FK_Address_region">
+                <End Multiplicity="0..1" Role="Address" Type="HybrisCommerceOData.Address"/>
+                <End Multiplicity="0..1" Role="Region" Type="HybrisCommerceOData.Region"/>
+            </Association>
+            <Association Name="FK_Address_country">
+                <End Multiplicity="0..1" Role="Address" Type="HybrisCommerceOData.Address"/>
+                <End Multiplicity="0..1" Role="Country" Type="HybrisCommerceOData.Country"/>
+            </Association>
+            <Association Name="FK_Region_country">
+                <End Multiplicity="0..1" Role="Region" Type="HybrisCommerceOData.Region"/>
+                <End Multiplicity="0..1" Role="Country" Type="HybrisCommerceOData.Country"/>
+            </Association>
+            <Association Name="FK_B2BUnit_localizedAttributes">
+                <End Multiplicity="1" Role="B2BUnit" Type="HybrisCommerceOData.B2BUnit"/>
+                <End Multiplicity="*" Role="Localized___B2BUnit" Type="HybrisCommerceOData.Localized___B2BUnit"/>
+            </Association>
+            <EntityContainer Name="Container" m:IsDefaultEntityContainer="true">
+                <EntitySet EntityType="HybrisCommerceOData.B2BUnit" Name="B2BUnits"/>
+                <EntitySet EntityType="HybrisCommerceOData.UserDiscountGroup" Name="UserDiscountGroups"/>
+                <EntitySet EntityType="HybrisCommerceOData.Address" Name="Addresses"/>
+                <EntitySet EntityType="HybrisCommerceOData.UserPriceGroup" Name="UserPriceGroups"/>
+                <EntitySet EntityType="HybrisCommerceOData.Region" Name="Regions"/>
+                <EntitySet EntityType="HybrisCommerceOData.Country" Name="Countries"/>
+                <EntitySet EntityType="HybrisCommerceOData.Localized___B2BUnit" Name="Localized___B2BUnits"/>
+                <EntitySet EntityType="HybrisCommerceOData.UserGroup" Name="UserGroups"/>
+                <AssociationSet Association="HybrisCommerceOData.FK_B2BUnit_groups" Name="B2BUnit_UserGroups">
+                    <End EntitySet="B2BUnits" Role="B2BUnit"/>
+                    <End EntitySet="UserGroups" Role="UserGroup"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_B2BUnit_userPriceGroup" Name="B2BUnit_UserPriceGroups">
+                    <End EntitySet="B2BUnits" Role="B2BUnit"/>
+                    <End EntitySet="UserPriceGroups" Role="UserPriceGroup"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_B2BUnit_addresses" Name="B2BUnit_Addresses">
+                    <End EntitySet="B2BUnits" Role="B2BUnit"/>
+                    <End EntitySet="Addresses" Role="Address"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_B2BUnit_userDiscountGroup" Name="B2BUnit_UserDiscountGroups">
+                    <End EntitySet="B2BUnits" Role="B2BUnit"/>
+                    <End EntitySet="UserDiscountGroups" Role="UserDiscountGroup"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_Address_region" Name="Address_Regions">
+                    <End EntitySet="Addresses" Role="Address"/>
+                    <End EntitySet="Regions" Role="Region"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_Address_country" Name="Address_Countries">
+                    <End EntitySet="Addresses" Role="Address"/>
+                    <End EntitySet="Countries" Role="Country"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_Region_country" Name="Region_Countries">
+                    <End EntitySet="Regions" Role="Region"/>
+                    <End EntitySet="Countries" Role="Country"/>
+                </AssociationSet>
+                <AssociationSet Association="HybrisCommerceOData.FK_B2BUnit_localizedAttributes" Name="B2BUnit_Localized___B2BUnits">
+                    <End EntitySet="B2BUnits" Role="B2BUnit"/>
+                    <End EntitySet="Localized___B2BUnits" Role="Localized___B2BUnit"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

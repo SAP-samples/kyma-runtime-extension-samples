@@ -1,0 +1,320 @@
+---
+swagger: "2.0"
+info:
+  description: These core-specific services include those for configuration, internationalization,
+    and language.
+  version: "1.0"
+  title: SmartEdit Webservices
+  license:
+    name: Use of this file is subject to the terms of your agreement with SAP SE or
+      its affiliates respecting the use of the SAP product for which this file relates.
+x-sap-api-type: REST
+x-sap-shortText: Core tooling services designed for SmartEdit.
+x-sap-stateInfo:
+  state: Active
+x-servers:
+- templates:
+    url:
+      description: SAP Commerce Cloud server URL where the application is deployed.
+  description: SmartEdit Webservices REST API endpoint.
+  url: https://{url}/smarteditwebservices
+host: hostname
+basePath: /smarteditwebservices
+tags:
+- name: configurations
+  description: Smartedit Configurations
+- name: languages
+  description: Smartedit Languages
+produces:
+- application/json
+security:
+- oauth2_password:
+  - basic
+- oauth2_client_credentials:
+  - extended
+paths:
+  /v1/configurations:
+    get:
+      tags:
+      - configurations
+      summary: Get All Configurations
+      description: Endpoint to retrieve all cms configuration data
+      operationId: loadAllUsingGET
+      parameters: []
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/ConfigurationDataListWsDto'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    post:
+      tags:
+      - configurations
+      summary: Save a Configuration
+      description: Endpoint to create cms configuration data
+      operationId: saveUsingPOST
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: data
+        description: Configuration data
+        required: true
+        schema:
+          $ref: '#/definitions/configurationData'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/configurationData'
+        201:
+          description: Created
+        401:
+          description: Must be authenticated as an Admin to access this resource
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/configurations/{key}:
+    get:
+      tags:
+      - configurations
+      summary: Find a Configuration by Key
+      description: Endpoint to retrieve cms configuration data that matches the given
+        key value
+      operationId: findByKeyUsingGET
+      parameters:
+      - name: key
+        in: path
+        description: Configuration data identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/configurationData'
+        401:
+          description: Must be authenticated as an Admin or CMS Manager to access
+            this resource
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    put:
+      tags:
+      - configurations
+      summary: Update a Configuration
+      description: Endpoint to update cms configuration data
+      operationId: updateUsingPUT
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: data
+        description: Configuration data
+        required: true
+        schema:
+          $ref: '#/definitions/configurationData'
+      - name: key
+        in: path
+        description: Configuration data identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/configurationData'
+        201:
+          description: Created
+        400:
+          description: Configuration data input is invalid
+        401:
+          description: Must be authenticated as an Admin to access this resource
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+    delete:
+      tags:
+      - configurations
+      summary: Remove a Configuration
+      description: Endpoint to remove cms configuration data that matches the given
+        key
+      operationId: deleteUsingDELETE
+      parameters:
+      - name: key
+        in: path
+        description: Configuration data identifier
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+        204:
+          description: No Content
+        401:
+          description: Must be authenticated as an Admin to access this resource
+        403:
+          description: Forbidden
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/i18n/languages:
+    get:
+      tags:
+      - languages
+      summary: Get Languages
+      description: Endpoint to retrieve list of supported languages
+      operationId: getToolingLanguagesUsingGET
+      parameters: []
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/SmarteditLanguageListData'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+  /v1/i18n/translations/{locale}:
+    get:
+      tags:
+      - languages
+      summary: Get a Translation Map
+      description: Endpoint to retrieve translated data using the specified locale
+        value
+      operationId: getTranslationMapUsingGET
+      parameters:
+      - name: locale
+        in: path
+        description: Locale identifier consisting of a language and region
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/languageMap'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      security:
+      - oauth2_client_credentials: []
+      - oauth2_password: []
+      deprecated: false
+securityDefinitions:
+  oauth2_client_credentials:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: application
+    scopes:
+      extended: ""
+  oauth2_password:
+    type: oauth2
+    tokenUrl: https://{oauth2_url}/authorizationserver/oauth/token
+    flow: password
+    scopes:
+      basic: ""
+definitions:
+  ConfigurationDataListWsDto:
+    type: object
+    required:
+    - configurations
+    properties:
+      configurations:
+        type: array
+        description: The list of configuration data
+        items:
+          $ref: '#/definitions/configurationData'
+    title: ConfigurationDataListWsDto
+    description: List of configurations
+  SmarteditLanguageListData:
+    type: object
+    required:
+    - languages
+    properties:
+      languages:
+        type: array
+        description: The list of language data
+        items:
+          $ref: '#/definitions/languageData'
+    title: SmarteditLanguageListData
+    description: List of languages
+  configurationData:
+    type: object
+    required:
+    - key
+    - value
+    properties:
+      key:
+        type: string
+        example: defaultToolingLanguage
+        description: The configuration data key
+      value:
+        type: string
+        example: en
+        description: The configuration data value
+    title: configurationData
+    description: Configuration data
+  languageData:
+    type: object
+    required:
+    - isoCode
+    - name
+    properties:
+      isoCode:
+        type: string
+        example: en
+        description: The iso code of the language data
+      name:
+        type: string
+        example: English
+        description: The name of the language data
+    title: languageData
+    description: Language data
+  languageMap:
+    type: object
+    required:
+    - value
+    properties:
+      value:
+        type: object
+        description: The map of localized key-value pairs
+        additionalProperties:
+          type: string
+    title: languageMap
+    description: Language map for a given locale

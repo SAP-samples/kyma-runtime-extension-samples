@@ -35,8 +35,8 @@ As a simple backend, we will use an HttpBin application that returns the request
 
 ## Prerequisites
 
-- [SAP BTP, Kyma runtime instance](../prerequisites/#kyma)
-- [Kubernetes tooling](../prerequisites/#kubernetes)
+- [SAP BTP, Kyma runtime instance](../prerequisites/README.md#kyma)
+- [Kubernetes tooling](../prerequisites/README.md#kubernetes)
 
 ## Steps
 

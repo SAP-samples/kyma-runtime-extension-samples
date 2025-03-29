@@ -12,4 +12,3 @@ spec:
   types:
     - order.received.v1
     - order.changed.v1
-    - order.created.v1

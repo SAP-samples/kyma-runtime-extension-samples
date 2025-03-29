@@ -1,0 +1,202 @@
+{
+    "asyncapi": "1.0.0",
+    "info": {
+        "title": "Business Events",
+        "version": "1.0.0",
+        "description": "Set of events emitted typically by SAP Marketing Cloud"
+    },
+    "topics": {
+        "bo.marketingcoupon.changed.v1": {
+            "subscribe": {
+                "summary": "Marketing Coupon Changed",
+                "payload": {
+                    "type": "object",
+                    "required": [
+                        "KEY"
+                    ],
+                    "example": {
+                        "KEY": [
+                            {
+                                "COUPON": "4caad296-e0c5-491e-98ac-0ed118f9474e"
+                            }
+                        ],
+                        "COUPONCODEUUID": "4caad296-e0c5-491e-98ac-0ed118f9474e"
+                    },
+                    "properties": {
+                        "KEY": {
+                            "title": "Key Attributes",
+                            "description": "Key Attributes",
+                            "type": "array"
+                        },
+                        "COUPONCODEUUID": {
+                            "title": "COUPONCODEUUID",
+                            "description": "Coupon Code UUID",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "bo.marketingpermission.changed.v1": {
+            "subscribe": {
+                "summary": "Marketing Permission Changed",
+                "payload": {
+                    "type": "object",
+                    "required": [
+                        "KEY"
+                    ],
+                    "example": {
+                        "KEY": [
+                            {
+                                "MARKETINGPERMISSIONUUID": "4caad296-e0c5-491e-98ac-0ed118f9474e"
+                            }
+                        ],
+                        "CONTACTPERMISSION": "Y"
+                    },
+                    "properties": {
+                        "KEY": {
+                            "title": "Key Attributes",
+                            "description": "Key Attributes",
+                            "type": "array"
+                        },
+                        "CONTACTPERMISSION": {
+                            "title": "CONTACTPERMISSION",
+                            "description": "Contact Permission",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "bo.marketingpermission.created.v1": {
+            "subscribe": {
+                "summary": "Marketing Permission Created",
+                "payload": {
+                    "type": "object",
+                    "required": [
+                        "KEY"
+                    ],
+                    "example": {
+                        "KEY": [
+                            {
+                                "MARKETINGPERMISSIONUUID": "4caad296-e0c5-491e-98ac-0ed118f9474e"
+                            }
+                        ],
+                        "CONTACTPERMISSION": "Y"
+                    },
+                    "properties": {
+                        "KEY": {
+                            "title": "Key Attributes",
+                            "description": "Key Attributes",
+                            "type": "array"
+                        },
+                        "CONTACTPERMISSION": {
+                            "title": "CONTACTPERMISSION",
+                            "description": "Contact Permission",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "bo.interaction.created.v1": {
+            "subscribe": {
+                "summary": "Interaction Created",
+                "payload": {
+                    "type": "object",
+                    "required": [
+                        "KEY"
+                    ],
+                    "example": {
+                        "KEY": [
+                            {
+                                "INTERACTION": "4caad296-e0c5-491e-98ac-0ed118f9474e"
+                            }
+                        ],
+                        "INTERACTIIONTYPE": "EMAIL_COMPAINT"
+                    },
+                    "properties": {
+                        "KEY": {
+                            "title": "Key Attributes",
+                            "description": "Key Attributes",
+                            "type": "array"
+                        },
+                        "INTERNATIONTYPE": {
+                            "title": "INTERNATIONTYPE",
+                            "description": "Interaction Type",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "bo.marketingobjectattachment.created.v1": {
+            "subscribe": {
+                "summary": "Marketing Object Attachement Created",
+                "payload": {
+                    "type": "object",
+                    "required": [
+                        "KEY"
+                    ],
+                    "example": {
+                        "KEY": [
+                            {
+                                "MARKETINGOBJECTUUID": "4caad296-e0c5-491e-98ac-0ed118f9474e"
+                            }
+                        ],
+                        "MARKETINGOBJECT": "00000400002",
+                        "MARKETINGOBJECTTYPE": "CUAN_INITIATIVE",
+                        "MKTGOBJECTATTACHMENTFILENAME": "CC2352CPG-0000040002-1-1-foo-20181212202020"
+                    },
+                    "properties": {
+                        "KEY": {
+                            "title": "Key Attributes",
+                            "description": "Key Attributes",
+                            "type": "array"
+                        },
+                        "MARKETINGOBJECT": {
+                            "title": "MARKETINGOBJECT",
+                            "description": "ID of the Marketing Object",
+                            "type": "string"
+                        },
+                        "MARKETINGOBJECTTYPE": {
+                            "title": "MARKETINGOBJECTTYPE",
+                            "description": "Type of the Marketing Object",
+                            "type": "string"
+                        },
+                        "MKTGOBJECTATTACHMENTFILENAME": {
+                            "title": "MKTGOBJECTATTACHMENTFILENAME",
+                            "description": "Filename of the Object Attachment",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "bo.marketingcampaign.completed.v1": {
+            "subscribe": {
+                "summary": "Marketing Campaign Completed",
+                "payload": {
+                    "type": "object",
+                    "required": [
+                        "KEY"
+                    ],
+                    "example": {
+                        "KEY": [
+                            {
+                                "CAMPAIGN": "4caad296-e0c5-491e-98ac-0ed118f9474e"
+                            }
+                        ]
+                    },
+                    "properties": {
+                        "KEY": {
+                            "title": "Key Attributes",
+                            "description": "Key Attributes",
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

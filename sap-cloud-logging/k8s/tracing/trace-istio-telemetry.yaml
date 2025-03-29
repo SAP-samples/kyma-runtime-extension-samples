@@ -4,6 +4,9 @@ metadata:
   name: tracing-default
   namespace: istio-system
 spec:
+  accessLogging:
+  - providers:
+    - name: stdout-json
   tracing:
   - providers:
     - name: "kyma-traces"
