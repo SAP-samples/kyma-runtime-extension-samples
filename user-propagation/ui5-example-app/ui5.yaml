@@ -1,40 +1,26 @@
-specVersion: "2.1"
+specVersion: "3.1"
 metadata:
-  name: userprop
+  name: com.sample.userprop
 type: application
-resources:
-  configuration:
-    paths:
-      webapp: webapp
-framework:
-  name: OpenUI5
-  version: 1.84.0
-  libraries:
-    - name: sap.ui.core
-    - name: sap.m
-    - name: sap.ui.layout
-    - name: themelib_sap_fiori_3
 server:
   customMiddleware:
-    - name: ui5-middleware-livereload
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertError: false
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://ui5.sap.com
+    - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
         port: 35729
         path: webapp
----
-specVersion: '2.1'
-kind: extension
-type: project-shim
-metadata:
-  name: thirdparty # this can be your project shim name
-shims:
-  configurations:
-    oidc-client: # name as defined in package.json
-      specVersion: '2.1'
-      type: module # Use module type
-      metadata:
-        name: oidc-client
-      resources:
-        configuration:
-          paths:
-            /resources/thirdparty/oidc-client/: ''  # location where modules are stored
+        delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        component: com.sample.userprop
+        ui5Theme: sap_fiori_3
