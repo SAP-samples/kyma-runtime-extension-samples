@@ -2,13 +2,18 @@
 
 ## Context
 
-If you are using a corporate network, you can access a workload located in SAP BTP, Kyma runtime. The access is possible using the SAP BTP, Connectivity. See the following diagram that presents all the involved elements and the high-level flow:
+If you have to access a workload deployed on SAP BTP, Kyma runtime without exposing it to the public Internet, you can use SAP BTP, Connectivity. SAP BTP, Connectivity provides Cloud Connector service channels to connect your on-premises network to specific services on SAP BTP. For more information, see [Using Service Channels](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/using-service-channels?version=Cloud). The following diagram presents all the involved elements and the high-level flow:
 
 ![On Premise to Cloud](./assets/on-prem-to-cloud.drawio.svg)
 
 ## Prerequisites
 
+* SAP BTP, Kyma runtime instance
 * [curl](https://curl.se/)
+* [Docker](https://www.docker.com/)
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* You have the Istio and API Gateway modules added. See [Adding and Deleting a Kyma Module](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module?version=Cloud).
+* You have Cloud Connector set up in the corporate network. See [Configure a Service Channel for a Kubernetes Cluster](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/configure-service-channel-for-kubernetes-cluster?version=Cloud).
 
 ## Procedure
 
