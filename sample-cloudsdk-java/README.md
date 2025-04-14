@@ -30,7 +30,7 @@ The microservice makes API calls to an S/4 System to perform various read/write 
     mvn archetype:generate "-DarchetypeGroupId=com.sap.cloud.sdk.archetypes" "-DarchetypeArtifactId=scp-cf-spring" "-DarchetypeVersion=RELEASE"
     ```
 
-2. [Generate a typed OData client for Java](https://sap.github.io/cloud-sdk/docs/java/features/odata/generate-typed-odata-v2-and-v4-client-for-java). For the purpose of this sample, generate the code for [SAP Marketing Cloud Campaign OData APIs](https://help.sap.com/viewer/0f9408e4921e4ba3bb4a7a1f75f837a7/1911.500/en-US/f2ae5a181b274befbb07183d2c4ac61a.html) using the [metadata file](application/edmx/campaigns.xml).
+2. [Generate a Typed OData Client With the OData Generator](https://sap.github.io/cloud-sdk/docs/java/features/odata/vdm-generator). For the purpose of this sample, generate the code for [SAP Marketing Cloud Campaign OData APIs](https://help.sap.com/viewer/0f9408e4921e4ba3bb4a7a1f75f837a7/1911.500/en-US/f2ae5a181b274befbb07183d2c4ac61a.html) using the [metadata file](application/edmx/campaigns.xml).
 
 3. Implement the code to make API calls using the generated services:
 
