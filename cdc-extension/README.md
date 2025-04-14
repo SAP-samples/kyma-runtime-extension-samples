@@ -35,7 +35,7 @@ This example includes a **Kyma serverless function**, *cdc-extension*, that is e
 
 ## Pre-requisites
 
-* Provision [SAP Customer Data Cloud from Gigya](https://www.sap.com/canada/products/crm/customer-data-management.html) and [setup an SAP Customer Data Cloud site](https://help.sap.com/viewer/8b8d6fffe113457094a17701f63e3d6a/GIGYA/en-US/41720d7370b21014bbc5a10ce4041860.html).
+* Provision [SAP Data Quality Management, microservices for location data](https://www.sap.com/products/technology-platform/data-quality-management.html) and [set up an SAP Customer Data Cloud site](https://help.sap.com/viewer/8b8d6fffe113457094a17701f63e3d6a/GIGYA/en-US/41720d7370b21014bbc5a10ce4041860.html).
 * [Get a Free Account on SAP BTP Trial](https://developers.sap.com/tutorials/hcp-create-trial-account.html)*
 * [Enable SAP BTP, Kyma Runtime](https://developers.sap.com/tutorials/cp-kyma-getting-started.html).
 * [Download and install the Kubernetes Command Line Tool](https://developers.sap.com/tutorials/cp-kyma-download-cli.html#d81e7789-ced4-4df6-b4a0-132d8c637077).

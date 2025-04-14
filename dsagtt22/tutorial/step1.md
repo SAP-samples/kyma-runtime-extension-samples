@@ -139,7 +139,7 @@ We have already prepared the corresponding files in the `k8s` directories of the
 
 For the *database deployment* we create the following artifacts:
 
-- [`secret.yaml`](../ordermicroservice/api-mssql-go/k8s/secret.yaml): containing the default secrets to access the MS SQL database. This secret will also be used by the API.
+- [`secret.yaml`](../ordermicroservice/database-mssql/k8s/secret.yaml): containing the default secrets to access the MS SQL database. This secret will also be used by the API.
 - [`pvc.yaml`](../ordermicroservice/database-mssql/k8s/pvc.yaml): defining the persistent volume claim for the database.
 - [`deployment.yaml`](../ordermicroservice/database-mssql/k8s/deployment.yaml): defining the deployment of the database container including a service.
 
@@ -258,7 +258,7 @@ Now we create the workflow file [`deploy-order-microservice-to-kyma.yml`](../../
   - name: Setup MS SQL Deployment in Kyma
         run: |
           echo "*** Create secret ***"
-          kubectl apply -f dsagtt22/ordermicroservice/api-mssql-go/k8s/secret.yaml -n ${{ env.NAMESPACE }}
+          kubectl apply -f dsagtt22/ordermicroservice/database-mssql/k8s/secret.yaml -n ${{ env.NAMESPACE }}
           echo "*** Create persistent volume claim ***"  
           kubectl apply -f dsagtt22/ordermicroservice/database-mssql/k8s/pvc.yaml -n ${{ env.NAMESPACE }}
           echo "*** Create deployment ***"

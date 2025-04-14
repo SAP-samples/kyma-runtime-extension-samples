@@ -67,15 +67,15 @@ The certificate for this sample has been retrieved from the [test site](https://
 ![dest-config](./assets/dest-client-cert-auth.png)
 
 <!-- markdown-link-check-disable -->
-    ```shell
-    Name: test-client-cert-auth
-    Type: HTTP
-    URL: https://client.badssl.com/
-    Proxy Type: Internet
-    Authentication: ClientCertificateAuthentication
-    Key Store Location: badssl.p12
-    Key Store Password: badssl.com
-    ```
+   ```shell
+   Name: test-client-cert-auth
+   Type: HTTP
+   URL: https://client.badssl.com/
+   Proxy Type: Internet
+   Authentication: ClientCertificateAuthentication
+   Key Store Location: badssl.p12
+   Key Store Password: badssl.com
+   ```
 <!-- markdown-link-check-enable -->
 
 ### Application
