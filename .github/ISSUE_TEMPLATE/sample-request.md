@@ -1,6 +1,6 @@
 ---
-name: Feature request
-about: Suggest an improvement to the project
+name: Sample request
+about: Suggest a sample idea for the SAP BTP, Kyma runtime
 title: ''
 labels: ''
 assignees: ''
@@ -14,11 +14,11 @@ assignees: ''
 
 **Description**
 
-<!-- Provide a clear and concise description of the feature/sample. -->
+<!-- Provide a clear and concise description of the expected sample. -->
 
 **Reasons**
 
-<!-- Explain why we should add this feature/sample. Provide use cases to illustrate its benefits. -->
+<!-- Explain why we should add this sample. Provide use cases to illustrate its benefits. -->
 
 **Attachments**
 
