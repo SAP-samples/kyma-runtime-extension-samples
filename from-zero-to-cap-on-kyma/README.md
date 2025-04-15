@@ -60,8 +60,8 @@ make init
 
 Let's take a minute to inspect our cap application. It is a simple Bookshop sample where you can access Book entries via API calls.
 
-- Data model defined in [./bookshop/db/data-model.cds](./bookshop/db/data-model.cds)
-- Core Data Service defined in [./bookshop/srv/cat-service.cds](./bookshop/srv/cat-service.cds)
+- Data model defined in [./bookshop/db/data-model.cds](./bookshop/db/data-model.cds) <!-- markdown-link-check-disable-line -->
+- Core Data Service defined in [./bookshop/srv/cat-service.cds](./bookshop/srv/cat-service.cds) <!-- markdown-link-check-disable-line -->
 
 Directly from CAP website, *CAP promotes getting started with minimal upfront setup, based on convention over configuration, and a grow-as-you-go approach, adding settings and tools later on, only when you need them.*
 
@@ -151,12 +151,12 @@ We will use [Helm Charts](https://helm.sh/) to define  the required configuratio
 make create-helm-chart
 ```
 
-Now take a moment to understand the generated Helm chart in the [chart](./bookshop/chart) directory.
+Now take a moment to understand the generated Helm chart in the [chart](./bookshop/chart) directory. <!-- markdown-link-check-disable-line -->
 
 ![helm-chart](assets/helm-chart.png)
 
-- [bookshop/chart/Chart.yaml](bookshop/chart/Chart.yaml) contains the details about the chart and all its dependencies.
-- [bookshop/chart/values.yaml](bookshop/chart/values.yaml) contains all the details to configure the chart deployment. You will notice that it has sections for `hana deployer`, `cap application` as well as required `service instances` and `service bindings`
+- [bookshop/chart/Chart.yaml](bookshop/chart/Chart.yaml) contains the details about the chart and all its dependencies. <!-- markdown-link-check-disable-line -->
+- [bookshop/chart/values.yaml](bookshop/chart/values.yaml) contains all the details to configure the chart deployment. You will notice that it has sections for `hana deployer`, `cap application` as well as required `service instances` and `service bindings` <!-- markdown-link-check-disable-line -->
 
 ### Deploy helm chart
 
