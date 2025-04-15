@@ -1,6 +1,6 @@
 ---
 name: Sample request
-about: Suggest a sample idea for the SAP BTP, Kyma runtime
+about: Suggest a sample idea for SAP BTP, Kyma runtime
 title: ''
 labels: ''
 assignees: ''
