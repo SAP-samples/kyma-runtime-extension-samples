@@ -2,7 +2,7 @@
 
 ## Context
 
-If you have to access a workload deployed on SAP BTP, Kyma runtime without exposing it to the public Internet, you can use SAP BTP, Connectivity. SAP BTP, Connectivity provides Cloud Connector service channels to connect your on-premises network to specific services on SAP BTP. For more information, see [Using Service Channels](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/using-service-channels?version=Cloud). The following diagram presents all the involved elements and the high-level flow:
+If you have to access a workload deployed on SAP BTP, Kyma runtime without exposing it to the public Internet, you can use SAP BTP, Connectivity. SAP BTP, Connectivity provides Cloud Connector service channels to connect your on-premises network to specific services on SAP BTP, Kyma runtime. For more information, see [Configure a Service Channel for a Kubernetes Cluster](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/configure-service-channel-for-kubernetes-cluster?version=Cloud). The following diagram presents all the involved elements and the high-level flow:
 
 ![On Premise to Cloud](./assets/on-prem-to-cloud.drawio.svg)
 
@@ -10,10 +10,9 @@ If you have to access a workload deployed on SAP BTP, Kyma runtime without expos
 
 * SAP BTP, Kyma runtime instance
 * [curl](https://curl.se/)
-* [Docker](https://www.docker.com/)
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* You have the Istio and API Gateway modules added. See [Adding and Deleting a Kyma Module](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module?version=Cloud).
-* You have Cloud Connector set up in the corporate network. See [Configure a Service Channel for a Kubernetes Cluster](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/configure-service-channel-for-kubernetes-cluster?version=Cloud).
+* [Kubernetes tooling](../prerequisites/README.md#kubernetes)
+* You have the Istio and Connectivity Proxy modules added. See [Adding and Deleting a Kyma Module](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module?version=Cloud).
+* You have Cloud Connector set up in the corporate network. See [Installation](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/installation?version=Cloud).
 
 ## Procedure
 
