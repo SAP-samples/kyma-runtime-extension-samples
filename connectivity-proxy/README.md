@@ -2,11 +2,11 @@
 
 ## Context
 
-If you want to access a workload in the corporate network from SAP BTP, Kyma runtime, you can use SAP BTP, Connectivity. SAP BTP, Connectivity provides Cloud Connector service channels to connect your on-premises network to specific services on SAP BTP, Kyma runtime.
+If you want to access a workload in the corporate network from SAP BTP, Kyma runtime, you can use Connectivity Proxy from SAP BTP, Connectivity. SAP BTP, Connectivity also provides Cloud Connector service channels to connect your on-premises network to specific services on SAP BTP, Kyma runtime.
 
-The sample demonstrates the use of Cloud Connector from within SAP BTP, Kyma runtime. This includes...
+The sample demonstrates the use of Cloud Connector from within SAP BTP, Kyma runtime and includes:
 
-- Provisioning SAP BTP, Connectivity in the Kyma runtime. See [Connectivity in the Kyma Environment](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/on-premise-connectivity-in-kyma-environment?version=Cloud).
+- Provisioning Connectivity Proxy in the Kyma runtime. See [Connectivity in the Kyma Environment](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/on-premise-connectivity-in-kyma-environment?version=Cloud).
 - Starting the sample Node.js application locally.
 - Configuring Cloud Connector to be exposed to the connected SAP BTP account.
 - Deploying a Serverless Function, which is configured to call the sample Node.js application via the Connectivity Proxy, in the Kyma runtime.
@@ -28,22 +28,29 @@ The sample demonstrates the use of Cloud Connector from within SAP BTP, Kyma run
 
 ## Procedure
 
-### Provisioning SAP BTP, Connectivity in the Kyma Runtime
+### Provisioning Connectivity Proxy in the Kyma Runtime
 
-1. Enable Istio sidecar proxy injection in your namespace.
+1. Export the environment variable.
 
-   ```shell
-   kubectl label namespaces <your namespace> istio-injection=enabled
+   ```bash
+   export NS=<your namespace> # e.g. default
    ```
 
-2. Create a service instance and a service binding of the Connectivity Proxy service. Once the service instance and the service binding are detected by the Kyma Control Plane, the Connectivity Proxy service is provisioned in the **kyma-system** namespace.
+2. Enable Istio sidecar proxy injection in your namespace.
 
    ```shell
-   kubectl apply -f ./k8s/connectivity-proxy-instance.yaml -n <your namespace>
+   kubectl label namespaces ${NS} istio-injection=enabled
    ```
 
-   **Result**
-   The Kyma Control Plane provisioned the Connectivity Proxy service and generated the **connectivity-proxy-0** Pod. You can access the service from within the Kyma runtime using the **connectivity-proxy.kyma-system.svc.cluster.local:20003** URL or check if the Pod exists by running:
+3. Create a service instance and a service binding of the Connectivity Proxy service. Once the service instance and the service binding are detected by the Kyma Control Plane, the Connectivity Proxy service is provisioned in the **kyma-system** namespace.
+
+   ```shell
+   kubectl -n ${NS} apply -f ./k8s/connectivity-proxy-instance.yaml
+   ```
+
+**Result**
+
+The Kyma Control Plane provisioned the Connectivity Proxy service and generated the **connectivity-proxy-0** Pod. You can access the service from within the Kyma runtime using the **connectivity-proxy.kyma-system.svc.cluster.local:20003** URL or check if the Pod exists by running:
 
    ```shell
    kubectl get pods -n kyma-system
@@ -100,8 +107,8 @@ The provided sample Function calls the on-premise sample application by proxying
 1. Deploy the sample Function and APIRule custom resources found in the **k8s** directory:
 
    ```shell
-   kubectl apply -f function.yaml -n <your namespace>
-   kubectl apply -f apirule.yaml -n <your namespace>
+   kubectl -n ${NS} apply -f function.yaml
+   kubectl -n ${NS} apply -f apirule.yaml
    ```
 
 2. Open the APIRule in your namespace. In Kyma dashboard, go to **Discovery and Network -> API Rules** and choose the **host** of the **cc-sample** APIRule. The expected response should be similar to this one:
