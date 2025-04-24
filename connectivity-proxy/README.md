@@ -12,6 +12,8 @@ The sample demonstrates the use of Cloud Connector from within SAP BTP, Kyma run
 - Deploying a Serverless Function, which is configured to call the sample Node.js application via the Connectivity Proxy, in the Kyma runtime.
 - Using a curl Pod to call the sample Node.js application via the Connectivity Proxy.
 
+![Connectivity Proxy for Kubernetes](./assets/connectivity-proxy.drawio.svg)
+
 ## Prerequisites
 
 - SAP BTP, Kyma runtime instance
