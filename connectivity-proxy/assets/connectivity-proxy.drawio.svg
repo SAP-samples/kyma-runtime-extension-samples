@@ -1,92 +1,279 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.2 Chrome/134.0.6998.178 Electron/35.1.2 Safari/537.36" version="26.2.2">
-  <diagram name="Page-1" id="Fr80NgAbkxiQhTb3jskK">
-    <mxGraphModel dx="1188" dy="829" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-13" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
-          <mxGeometry x="80" y="80" width="290" height="250" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-4" value="&lt;font face=&quot;arial&quot; style=&quot;font-size: 16px;&quot;&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Your Kubernetes Cluster&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="90" y="90" width="210" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-10" value="" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_Connectivity_Service" vertex="1" parent="1">
-          <mxGeometry x="570" y="210" width="50" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-11" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=32;absoluteArcSize=1;strokeWidth=1.5;" vertex="1" parent="1">
-          <mxGeometry x="470" y="80" width="290" height="250" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-12" value="BTP" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;part=1;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" vertex="1" parent="_VKRuTq9pZ4df59DciVQ-11">
-          <mxGeometry width="37" height="19" relative="1" as="geometry">
-            <mxPoint x="20" y="20" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#475E75;strokeWidth=1.5;endArrow=none;startFill=0;" edge="1" parent="_VKRuTq9pZ4df59DciVQ-11" source="_VKRuTq9pZ4df59DciVQ-15">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-50" y="180" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-15" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="_VKRuTq9pZ4df59DciVQ-11">
-          <mxGeometry x="62" y="70" width="166" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-16" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="_VKRuTq9pZ4df59DciVQ-11">
-          <mxGeometry x="62" y="150" width="166" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-21" value="" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_Connectivity_Service" vertex="1" parent="_VKRuTq9pZ4df59DciVQ-11">
-          <mxGeometry x="70" y="155" width="50" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-23" value="&lt;b style=&quot;border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;&quot;&gt;&lt;font color=&quot;#1d2d3e&quot;&gt;SAP BTP, Connectivity&lt;/font&gt;&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;align=center;verticalAlign=top;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" vertex="1" parent="_VKRuTq9pZ4df59DciVQ-11">
-          <mxGeometry x="110" y="155" width="130" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-24" value="&lt;b style=&quot;border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;&quot;&gt;&lt;font color=&quot;#1d2d3e&quot;&gt;XSUAA&lt;/font&gt;&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;align=center;verticalAlign=top;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" vertex="1" parent="_VKRuTq9pZ4df59DciVQ-11">
-          <mxGeometry x="80" y="85" width="130" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-14" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
-          <mxGeometry x="269" y="400" width="290" height="250" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-9" value="&lt;font face=&quot;arial&quot; style=&quot;font-size: 16px;&quot;&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Your On-Premise Network&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" vertex="1" parent="1">
-          <mxGeometry x="280" y="410" width="220" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-17" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
-          <mxGeometry x="142" y="150" width="166" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#475E75;endArrow=none;startFill=0;" edge="1" parent="1" source="_VKRuTq9pZ4df59DciVQ-18" target="_VKRuTq9pZ4df59DciVQ-19">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-18" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
-          <mxGeometry x="142" y="230" width="166" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#475E75;strokeWidth=1.5;endArrow=none;startFill=0;" edge="1" parent="1" source="_VKRuTq9pZ4df59DciVQ-19" target="_VKRuTq9pZ4df59DciVQ-16">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-19" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
-          <mxGeometry x="331" y="470" width="166" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-20" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
-          <mxGeometry x="334" y="550" width="166" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#475E75;endArrow=none;startFill=0;" edge="1" parent="1" source="_VKRuTq9pZ4df59DciVQ-25" target="_VKRuTq9pZ4df59DciVQ-18">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-25" value="&lt;b style=&quot;border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;&quot;&gt;&lt;font color=&quot;#1d2d3e&quot;&gt;Kubernetes Workload&lt;/font&gt;&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;align=center;verticalAlign=top;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" vertex="1" parent="1">
-          <mxGeometry x="160" y="155" width="130" height="55" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-26" value="&lt;b style=&quot;border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;&quot;&gt;&lt;font color=&quot;#1d2d3e&quot;&gt;Connectivity Proxy&lt;/font&gt;&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;align=center;verticalAlign=top;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" vertex="1" parent="1">
-          <mxGeometry x="160" y="245" width="130" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-27" value="&lt;b style=&quot;border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;&quot;&gt;&lt;font color=&quot;#1d2d3e&quot;&gt;Cloud Connector&lt;/font&gt;&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;align=center;verticalAlign=top;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" vertex="1" parent="1">
-          <mxGeometry x="349" y="485" width="130" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-28" value="&lt;b style=&quot;border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;&quot;&gt;&lt;font color=&quot;#1d2d3e&quot;&gt;On-Premise System&lt;/font&gt;&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;align=center;verticalAlign=top;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" vertex="1" parent="1">
-          <mxGeometry x="338" y="565" width="158" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="_VKRuTq9pZ4df59DciVQ-30" value="" style="endArrow=none;html=1;strokeColor=#475E75;bendable=1;rounded=0;endFill=0;endSize=4;edgeStyle=entityRelationEdgeStyle;startArrow=none;startFill=0;startSize=4;jumpStyle=none;jumpSize=0;targetPerimeterSpacing=15;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="_VKRuTq9pZ4df59DciVQ-18" target="_VKRuTq9pZ4df59DciVQ-16">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="354" y="259" as="sourcePoint" />
-            <mxPoint x="474" y="259" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-</mxfile>
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" style="background: #FFFFFF; background-color: light-dark(#FFFFFF, #121212);" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="682px" height="572px" viewBox="-0.5 -0.5 682 572" content="&lt;mxfile&gt;&lt;diagram name=&quot;Page-1&quot; id=&quot;Fr80NgAbkxiQhTb3jskK&quot;&gt;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&lt;/diagram&gt;&lt;/mxfile&gt;">
+    <defs>
+        <linearGradient x1="100%" y1="0%" x2="0%" y2="0%" id="drawio-svg-qZ5uh55uhzWiRC0cr4ZB-gradient-light-dark_fcfcfc_141414_-1-light-dark_edeff0_1f2021_-1-e-0">
+            <stop offset="0%" stop-color="#EDEFF0" stop-opacity="1" style="stop-color: light-dark(rgb(237, 239, 240), rgb(31, 32, 33)); stop-opacity: 1;"/>
+            <stop offset="100%" stop-color="#FCFCFC" stop-opacity="1" style="stop-color: light-dark(rgb(252, 252, 252), rgb(20, 20, 20)); stop-opacity: 1;"/>
+        </linearGradient>
+    </defs>
+    <rect fill="#FFFFFF" width="100%" height="100%" x="0" y="0" style="fill: light-dark(rgb(255, 255, 255), rgb(18, 18, 18));"/>
+    <g>
+        <g>
+            <rect x="0" y="0" width="290" height="250" rx="12" ry="12" fill="#ebf8ff" stroke="#0070f2" stroke-width="1.5" pointer-events="all" style="fill: light-dark(rgb(235, 248, 255), rgb(17, 28, 34)); stroke: light-dark(rgb(0, 112, 242), rgb(70, 166, 255));"/>
+        </g>
+        <g>
+            <rect x="10" y="10" width="210" height="30" fill="none" stroke="none" pointer-events="all"/>
+        </g>
+        <g>
+            <g transform="translate(-0.5 -0.5)">
+                <switch>
+                    <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe flex-start; width: 1px; height: 1px; padding-top: 25px; margin-left: 12px;">
+                            <div style="box-sizing: border-box; font-size: 0; text-align: left; color: #1d2d3e; ">
+                                <div style="display: inline-block; font-size: 12px; font-family: &quot;Helvetica&quot;; color: light-dark(#1d2d3e, #bccad8); line-height: 1.2; pointer-events: all; white-space: nowrap; ">
+                                    <font style="font-size: 16px;" face="arial">
+                                        <b style="font-size: 16px;">
+                                            Your Kubernetes Cluster
+                                        </b>
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="12" y="29" fill="#1d2d3e" font-family="&quot;Helvetica&quot;" font-size="12px">
+                        Your Kubernetes Cluster
+                    </text>
+                </switch>
+            </g>
+        </g>
+        <g>
+            <ellipse cx="515" cy="155" rx="25" ry="25" fill="url(#drawio-svg-qZ5uh55uhzWiRC0cr4ZB-gradient-light-dark_fcfcfc_141414_-1-light-dark_edeff0_1f2021_-1-e-0)" stroke="#d5dadd" pointer-events="all" style="fill: url(&quot;#drawio-svg-qZ5uh55uhzWiRC0cr4ZB-gradient-light-dark_fcfcfc_141414_-1-light-dark_edeff0_1f2021_-1-e-0&quot;); stroke: light-dark(rgb(213, 218, 221), rgb(47, 51, 54));"/>
+            <image x="499.5" y="139.5" width="30" height="30" xlink:href="data:image/svg+xml;base64,PHN2ZwoJeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAiIGhlaWdodD0iMTkuNTQ3IiB2aWV3Qm94PSItMC41IC0wLjUgMjAgMTkuNTQ3Ij4KCTxkZWZzPgoJCTxsaW5lYXJHcmFkaWVudCBpZD0iQSIgeDE9IjMuMzY5IiB5MT0iMy4zNTIiIHgyPSIxNS42NDEiIHkyPSIxNS42MTciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KCQkJPHN0b3Agc3RvcC1jb2xvcj0iIzAxOTVmZiIvPgoJCQk8c3RvcCBvZmZzZXQ9Ii45OTEiIHN0b3AtY29sb3I9IiMxMTQ3ZTkiLz4KCQk8L2xpbmVhckdyYWRpZW50PgoJCTxsaW5lYXJHcmFkaWVudCBpZD0iQiIgeDE9IjEwLjEiIHkxPSI5Ljc1MSIgeDI9IjE3Ljc1OCIgeTI9IjE3LjQ4NiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgoJCQk8c3RvcCBzdG9wLWNvbG9yPSIjMGJmIi8+CgkJCTxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAwOGJmZiIvPgoJCTwvbGluZWFyR3JhZGllbnQ+CgkJPGxpbmVhckdyYWRpZW50IGlkPSJDIiB4MT0iMS4yMzUiIHkxPSIxLjIyNSIgeDI9IjkuNDM5IiB5Mj0iOS40NzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KCQkJPHN0b3Agc3RvcC1jb2xvcj0iIzEzNDhmZiIvPgoJCQk8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwNjIzOGQiLz4KCQk8L2xpbmVhckdyYWRpZW50PgoJPC9kZWZzPgoJPGcgZmlsbC1ydWxlPSJldmVub2RkIj4KCQk8cGF0aCBkPSJNMTAuNjY3IDEuNzMxYTEgMSAwIDAgMSAxLTFoMy4wODdhMy41IDMuNSAwIDAgMSAzLjUgMy41VjYuODlhMSAxIDAgMSAxLTIgMFY0LjIzMWExLjUgMS41IDAgMCAwLTEuNS0xLjVoLTMuMDg3YTEgMSAwIDAgMS0xLTF6bS04LjkyMyA4LjgzN2ExIDEgMCAwIDEgMSAxdjMuMTlhMS41IDEuNSAwIDAgMCAxLjUgMS41aDMuMzk1YTEgMSAwIDEgMSAwIDJINC4yNDRhMy41IDMuNSAwIDAgMS0zLjUtMy41di0zLjE5YTEgMSAwIDAgMSAxLTF6IiBmaWxsPSJ1cmwoI0EpIi8+CgkJPHBhdGggZD0iTTE5LjE4NyAxNy4zNjhjLjIwOC4yMDguMzEzLjQzLjMxMy42NjRhLjk3Ljk3IDAgMCAxLS4zMTMuNzAzLjk3Ljk3IDAgMCAxLS43MDMuMzEzYy0uMjM0IDAtLjQ1Ni0uMTA0LS42NjQtLjMxM2wtMi43NzMtMi43NzNjLS44MDcuNzAzLTEuNzE5IDEuMDQyLTIuNzM0IDEuMDE2LTEuMDE2LS4wNTItMS45MDEtLjQ1Ni0yLjY1Ni0xLjIxMWwtLjg5OC0uODk5Yy0uMjA4LS4yMDgtLjMxMi0uNDMtLjMxMi0uNjY0IDAtLjI2LjEwNC0uNDk1LjMxMy0uNzAzbDUuMDc4LTUuMDc4YS45Ny45NyAwIDAgMSAuNzAzLS4zMTJjLjI2IDAgLjQ5NS4xMDQuNzAzLjMxMmwuODk4Ljg5OGMuNzU1Ljc1NSAxLjE0NiAxLjYyOCAxLjE3MiAyLjYxNy4wNTIuOTY0LS4yNDcgMS44MzYtLjg5OCAyLjYxN3oiIGZpbGw9InVybCgjQikiLz4KCTwvZz4KCTxwYXRoIGQ9Ik04LjkzMSAxMC45MWMtLjIwOC4yMDgtLjQ0My4zMTMtLjcwMy4zMTMtLjIzNCAwLS40NTYtLjEwNC0uNjY0LS4zMTJMNS43NjcgOS4xMTNsLS43ODEuNzgxYy0uMjA4LjIwOC0uNDQzLjMxMy0uNzAzLjMxM2EuODkuODkgMCAwIDEtLjcwMy0uMzEybC0uODk4LS44NTlDMS45MjYgOC4yOCAxLjUyMiA3LjQyMSAxLjQ3IDYuNDU3YTQuMDQgNC4wNCAwIDAgMSAuODItMi42OTVMLS4xODcgMS4yMTlDLS4zOTYgMS4wMS0uNS43NzYtLjUuNTE2cy4xMDQtLjQ5NS4zMTMtLjcwM1MuMjQyLS41LjQ3Ny0uNWMuMjYgMCAuNDk1LjEwNC43MDMuMzEzbDIuNDc4IDIuNTQzYy44MDctLjY1MSAxLjcxOS0uOTUxIDIuNzM0LS44OThzMS45MDEuNDU2IDIuNjU2IDEuMjExbC44OTguODk4Yy4xODIuMTgyLjI3My40MTcuMjczLjcwMyAwIC4yNi0uMDkxLjQ4Mi0uMjczLjY2NGwtLjgyLjgyIDEuNzk3IDEuNzU4Yy4yMDguMjA4LjMxMy40NDMuMzEzLjcwM3MtLjEwNC40OTUtLjMxMi43MDMtLjQ0My4zMTMtLjcwMy4zMTMtLjQ5NS0uMTA0LS43MDMtLjMxMkw3Ljc1OSA3LjEyMWwtLjYyNS42MjUuODk4Ljg3OS44OTguODc5Yy4yMDguMjA4LjMxMy40NDMuMzEzLjcwM3MtLjEwNC40OTUtLjMxMi43MDN6IiBmaWxsPSJ1cmwoI0MpIi8+Cjwvc3ZnPg=="/>
+        </g>
+        <g>
+            <rect x="390" y="0" width="290" height="250" rx="16" ry="16" fill="#ebf8ff" stroke="#0070f2" stroke-width="1.5" pointer-events="all" style="fill: light-dark(rgb(235, 248, 255), rgb(17, 28, 34)); stroke: light-dark(rgb(0, 112, 242), rgb(70, 166, 255));"/>
+        </g>
+        <g>
+            <image x="409.5" y="19.5" width="37" height="19" xlink:href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgdmVyc2lvbj0iMS4xIgogICB3aWR0aD0iMzcuNDA4NTAxIgogICBoZWlnaHQ9IjE4LjUwNjA5OCIKICAgdmlld0JveD0iLTAuNSAtMC41IDM3LjQwODUwMSAxOC41MDYwOTgiCiAgIGlkPSJzdmcxMTQiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczIiPgogICAgPGRlZnMKICAgICAgIGlkPSJkZWZzOTEiPgogICAgICA8bGluZWFyR3JhZGllbnQKICAgICAgICAgaWQ9ImIiCiAgICAgICAgIHgxPSI0MC4yNTc5OTkiCiAgICAgICAgIHkxPSIwIgogICAgICAgICB4Mj0iNDAuMjU3OTk5IgogICAgICAgICB5Mj0iMzkuODMyMDAxIgogICAgICAgICBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgICAgPHN0b3AKICAgICAgICAgICBvZmZzZXQ9IjAiCiAgICAgICAgICAgc3RvcC1jb2xvcj0iIzAwYjhmMSIKICAgICAgICAgICBpZD0ic3RvcDc4IiAvPgogICAgICAgIDxzdG9wCiAgICAgICAgICAgb2Zmc2V0PSIuMDE2IgogICAgICAgICAgIHN0b3AtY29sb3I9IiMwMGI1ZWYiCiAgICAgICAgICAgaWQ9InN0b3A4MCIgLz4KICAgICAgICA8c3RvcAogICAgICAgICAgIG9mZnNldD0iLjMwOCIKICAgICAgICAgICBzdG9wLWNvbG9yPSIjMGQ5MGQ4IgogICAgICAgICAgIGlkPSJzdG9wODIiIC8+CiAgICAgICAgPHN0b3AKICAgICAgICAgICBvZmZzZXQ9Ii41NzgiCiAgICAgICAgICAgc3RvcC1jb2xvcj0iIzE2NzVjOCIKICAgICAgICAgICBpZD0ic3RvcDg0IiAvPgogICAgICAgIDxzdG9wCiAgICAgICAgICAgb2Zmc2V0PSIuODE3IgogICAgICAgICAgIHN0b3AtY29sb3I9IiMxYzY0YmUiCiAgICAgICAgICAgaWQ9InN0b3A4NiIgLz4KICAgICAgICA8c3RvcAogICAgICAgICAgIG9mZnNldD0iMSIKICAgICAgICAgICBzdG9wLWNvbG9yPSIjMWU1ZmJiIgogICAgICAgICAgIGlkPSJzdG9wODgiIC8+CiAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8L2RlZnM+CiAgPC9kZWZzPgogIDxwb2x5bGluZQogICAgIHBvaW50cz0iMCAzOS44MzIgNDAuNjkyIDM5LjgzMiA4MC41MTcgMCAwIDAgMCAzOS44MzIiCiAgICAgZmlsbD0idXJsKCNiKSIKICAgICBmaWxsLXJ1bGU9ImV2ZW5vZGQiCiAgICAgaWQ9InBvbHlsaW5lOTMiCiAgICAgc3R5bGU9ImZvbnQtZmFtaWx5OmluaXRpYWw7ZmlsbDp1cmwoI2IpIgogICAgIHRyYW5zZm9ybT0ibWF0cml4KDAuNDY0NjAzNzYsMCwwLDAuNDY0NjAzNzYsLTAuNSwtMC41KSIgLz4KICA8cGF0aAogICAgIGQ9Im0gMjEuNjk5Njk3LDIuOTc5NDE3NiAtMy42ODE5ODUsLTAuMDAyMzIgViAxMS43MzI1NTMgTCAxNC44MDA3OTYsMi45NzcwOTQ1IEggMTEuNjExMjkxIEwgOC44NjQ1NTM0LDEwLjI5ODc4NSBDIDguNTcxODUzLDguNDUyOTE0NSA2LjY2MjMzMTYsNy44MTU0NzgxIDUuMTU5ODAzLDcuMzM3NDAwOCA0LjE2Nzg3NCw3LjAxODY4MjYgMy4xMTUwODE5LDYuNTUwMzYyMSAzLjEyNDgzODUsNi4wMzIzMjg5IGMgMC4wMDc5LC0wLjQyNTExMjUgMC41NjQ0OTM2LC0wLjgyMDAyNTcgMS42Njc0NjI5LC0wLjc2MDU1NjQgMC43NDEwNDMsMC4wMzkwMjcgMS4zOTQyNzU5LDAuMDk4OTYxIDIuNjk0NzAxOCwwLjcyNjE3NTcgTCA4Ljc2NjA1NzQsMy43NzAxNzMyIEMgNy41Nzg5OTQ4LDMuMTY2MTg4MyA1LjkzODQ3ODksMi43ODQ3NDg2IDQuNTk0ODQ0OCwyLjc4MzM1NDggaCAtMC4wMDc5IGMgLTEuNTY3NTczMSwwIC0yLjg3MzU3NDMsMC41MDc4MTE5IC0zLjY4MzM3ODY0LDEuMzQ0NTYzMyBDIDAuMzM5NTM4OTksNC43MTIzODk2IDAuMDM1MjIzNTMsNS40NTQ4MjY0IDAuMDIyNjc5MjMsNi4yNzU3ODEyIDAuMDAyMjM2NjYsNy40MDU2OTc2IDAuNDE2NjYzMjIsOC4yMDcxMzkxIDEuMjg2ODY2MSw4Ljg0NjQzMzggYyAwLjczNTQ2NzcsMC41Mzg5NDA0IDEuNjc1MzYxMSwwLjg4ODMyMjQgMi41MDQyMTQyLDEuMTQ1MjQ4IDEuMDIyNTkyOSwwLjMxNjM5NTIgMS44NTY1NTY3LDAuNTkxOTA1MiAxLjg0NjgsMS4xNzk2MjkyIC0wLjAwNzQzLDAuMjEzMjUzIC0wLjA4ODczOSwwLjQxMjU2OCAtMC4yNDIwNTg2LDAuNTc0MjUxIEMgNS4xNDEyMTg5LDEyLjAwODUyNyA0Ljc0OTU1NzksMTIuMTA3NDg4IDQuMjA4NzU5MSwxMi4xMTY3OCAzLjE2NjE4ODMsMTIuMTM5MDggMi4zOTIxNTg0LDExLjk3NjAwNSAxLjE2MDAyOTIsMTEuMjQ3OTcxIEwgMC4wMjI2NzkyMywxMy41MDY0MSBjIDEuMjI4NDEyMzcsMC42OTk2OTMgMi42ODM1NTEyNywxLjEwOTQ3NCA0LjE2ODQyNDk3LDEuMTA5NDc0IGwgMC4xOTA5NTIxLC0wLjAwMjggQyA1LjY3NDU4NCwxNC41ODk4NTQgNi43MTcxNTQ4LDE0LjIyMTg4OCA3LjU1MDY1NCwxMy41NTEgNy41OTg1MDgsMTMuNTEzMzcgNy42NDE3MTYsMTMuNDczODcgNy42ODU4NTM2LDEzLjQzNDg0OSBsIC0wLjM2OTM1OTksMC45ODYzNTQgaCAzLjM0NTE0NzMgbCAwLjU2MTI0MSwtMS43MDY5NTUgYyAwLjU4NzcyNCwwLjIwMTE3NCAxLjI1NjI4OSwwLjMxMTc0OSAxLjk2NjIwMywwLjMxMTc0OSAwLjY5MDg2NiwwIDEuMzQyMjQsLTAuMTA2Mzk0IDEuOTE5Mjc4LC0wLjI5NTAyMyBsIDAuNTQwNzk5LDEuNjg5NzY0IGggNS40NTUzNzcgdiAtMy41MzQyMjkgaCAxLjE4OTg1MSBjIDIuODc0OTY4LDAgNC41NzY4MTEsLTEuNDY1MzYwMyA0LjU3NjgxMSwtMy45MTkzOTc0IDAsLTIuNzM0MTkzMSAtMS42NTI1OTUsLTMuOTg4NjIzMiAtNS4xNzE5NjksLTMuOTg4NjIzMiB6IE0gMTMuMTg5NTUsMTAuNDcwNjg5IGMgLTAuNDI5NzU5LDAgLTAuODMyNTcsLTAuMDc0MzQgLTEuMTc5NjI5LC0wLjIwNTgyIGwgMS4xNjcwODQsLTMuNjgyNDQ5MyBoIDAuMDIyMyBsIDEuMTQ2NjQzLDMuNjkyNjcxMyBjIC0wLjM0NDczNiwwLjEyMjE5IC0wLjczODI1NiwwLjE5NTU5OCAtMS4xNTU5MzUsMC4xOTU1OTggeiBNIDIxLjkxNjIwMiw4LjM1NTM0NzcgSCAyMS4xMDUwMDQgViA1LjM4ODM4ODEgaCAwLjgxMTE5OCBjIDEuMDgxNTk4LDAgMS45NDQzNjcsMC4zNTkxMzg3IDEuOTQ0MzY3LDEuNDYzOTY2NCAwLDEuMTQzMzg5OSAtMC44NjI3NjksMS41MDM0NTc4IC0xLjk0NDM2NywxLjUwMzQ1NzgiCiAgICAgZmlsbD0iI2ZmZmZmZiIKICAgICBmaWxsLXJ1bGU9ImV2ZW5vZGQiCiAgICAgaWQ9InBhdGg5NSIKICAgICBzdHlsZT0iZm9udC1mYW1pbHk6aW5pdGlhbDtzdHJva2Utd2lkdGg6MC40NjQ2MDQiIC8+Cjwvc3ZnPgo=" preserveAspectRatio="none"/>
+        </g>
+        <g>
+            <g fill="#002A86" font-family="&quot;Helvetica&quot;" font-weight="bold" font-size="16px" style="fill: light-dark(rgb(0, 42, 134), rgb(169, 205, 255));">
+                <text x="446.5" y="36">
+                    BTP
+                </text>
+            </g>
+        </g>
+        <g>
+            <path d="M 452 100 L 340.5 100 L 340 180" fill="none" stroke="#475e75" stroke-width="1.5" stroke-miterlimit="10" pointer-events="stroke" style="stroke: light-dark(rgb(71, 94, 117), rgb(142, 162, 181));"/>
+        </g>
+        <g>
+            <rect x="452" y="70" width="166" height="60" rx="12" ry="12" fill="#ffffff" stroke="#0070f2" stroke-width="1.5" pointer-events="all" style="fill: light-dark(rgb(255, 255, 255), rgb(18, 18, 18)); stroke: light-dark(rgb(0, 112, 242), rgb(70, 166, 255));"/>
+        </g>
+        <g>
+            <rect x="452" y="150" width="166" height="60" rx="12" ry="12" fill="#ffffff" stroke="#0070f2" stroke-width="1.5" pointer-events="all" style="fill: light-dark(rgb(255, 255, 255), rgb(18, 18, 18)); stroke: light-dark(rgb(0, 112, 242), rgb(70, 166, 255));"/>
+        </g>
+        <g>
+            <ellipse cx="485" cy="180" rx="25" ry="25" fill="url(#drawio-svg-qZ5uh55uhzWiRC0cr4ZB-gradient-light-dark_fcfcfc_141414_-1-light-dark_edeff0_1f2021_-1-e-0)" stroke="#d5dadd" pointer-events="all" style="fill: url(&quot;#drawio-svg-qZ5uh55uhzWiRC0cr4ZB-gradient-light-dark_fcfcfc_141414_-1-light-dark_edeff0_1f2021_-1-e-0&quot;); stroke: light-dark(rgb(213, 218, 221), rgb(47, 51, 54));"/>
+            <image x="469.5" y="164.5" width="30" height="30" xlink:href="data:image/svg+xml;base64,PHN2ZwoJeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAiIGhlaWdodD0iMTkuNTQ3IiB2aWV3Qm94PSItMC41IC0wLjUgMjAgMTkuNTQ3Ij4KCTxkZWZzPgoJCTxsaW5lYXJHcmFkaWVudCBpZD0iQSIgeDE9IjMuMzY5IiB5MT0iMy4zNTIiIHgyPSIxNS42NDEiIHkyPSIxNS42MTciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KCQkJPHN0b3Agc3RvcC1jb2xvcj0iIzAxOTVmZiIvPgoJCQk8c3RvcCBvZmZzZXQ9Ii45OTEiIHN0b3AtY29sb3I9IiMxMTQ3ZTkiLz4KCQk8L2xpbmVhckdyYWRpZW50PgoJCTxsaW5lYXJHcmFkaWVudCBpZD0iQiIgeDE9IjEwLjEiIHkxPSI5Ljc1MSIgeDI9IjE3Ljc1OCIgeTI9IjE3LjQ4NiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgoJCQk8c3RvcCBzdG9wLWNvbG9yPSIjMGJmIi8+CgkJCTxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAwOGJmZiIvPgoJCTwvbGluZWFyR3JhZGllbnQ+CgkJPGxpbmVhckdyYWRpZW50IGlkPSJDIiB4MT0iMS4yMzUiIHkxPSIxLjIyNSIgeDI9IjkuNDM5IiB5Mj0iOS40NzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KCQkJPHN0b3Agc3RvcC1jb2xvcj0iIzEzNDhmZiIvPgoJCQk8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwNjIzOGQiLz4KCQk8L2xpbmVhckdyYWRpZW50PgoJPC9kZWZzPgoJPGcgZmlsbC1ydWxlPSJldmVub2RkIj4KCQk8cGF0aCBkPSJNMTAuNjY3IDEuNzMxYTEgMSAwIDAgMSAxLTFoMy4wODdhMy41IDMuNSAwIDAgMSAzLjUgMy41VjYuODlhMSAxIDAgMSAxLTIgMFY0LjIzMWExLjUgMS41IDAgMCAwLTEuNS0xLjVoLTMuMDg3YTEgMSAwIDAgMS0xLTF6bS04LjkyMyA4LjgzN2ExIDEgMCAwIDEgMSAxdjMuMTlhMS41IDEuNSAwIDAgMCAxLjUgMS41aDMuMzk1YTEgMSAwIDEgMSAwIDJINC4yNDRhMy41IDMuNSAwIDAgMS0zLjUtMy41di0zLjE5YTEgMSAwIDAgMSAxLTF6IiBmaWxsPSJ1cmwoI0EpIi8+CgkJPHBhdGggZD0iTTE5LjE4NyAxNy4zNjhjLjIwOC4yMDguMzEzLjQzLjMxMy42NjRhLjk3Ljk3IDAgMCAxLS4zMTMuNzAzLjk3Ljk3IDAgMCAxLS43MDMuMzEzYy0uMjM0IDAtLjQ1Ni0uMTA0LS42NjQtLjMxM2wtMi43NzMtMi43NzNjLS44MDcuNzAzLTEuNzE5IDEuMDQyLTIuNzM0IDEuMDE2LTEuMDE2LS4wNTItMS45MDEtLjQ1Ni0yLjY1Ni0xLjIxMWwtLjg5OC0uODk5Yy0uMjA4LS4yMDgtLjMxMi0uNDMtLjMxMi0uNjY0IDAtLjI2LjEwNC0uNDk1LjMxMy0uNzAzbDUuMDc4LTUuMDc4YS45Ny45NyAwIDAgMSAuNzAzLS4zMTJjLjI2IDAgLjQ5NS4xMDQuNzAzLjMxMmwuODk4Ljg5OGMuNzU1Ljc1NSAxLjE0NiAxLjYyOCAxLjE3MiAyLjYxNy4wNTIuOTY0LS4yNDcgMS44MzYtLjg5OCAyLjYxN3oiIGZpbGw9InVybCgjQikiLz4KCTwvZz4KCTxwYXRoIGQ9Ik04LjkzMSAxMC45MWMtLjIwOC4yMDgtLjQ0My4zMTMtLjcwMy4zMTMtLjIzNCAwLS40NTYtLjEwNC0uNjY0LS4zMTJMNS43NjcgOS4xMTNsLS43ODEuNzgxYy0uMjA4LjIwOC0uNDQzLjMxMy0uNzAzLjMxM2EuODkuODkgMCAwIDEtLjcwMy0uMzEybC0uODk4LS44NTlDMS45MjYgOC4yOCAxLjUyMiA3LjQyMSAxLjQ3IDYuNDU3YTQuMDQgNC4wNCAwIDAgMSAuODItMi42OTVMLS4xODcgMS4yMTlDLS4zOTYgMS4wMS0uNS43NzYtLjUuNTE2cy4xMDQtLjQ5NS4zMTMtLjcwM1MuMjQyLS41LjQ3Ny0uNWMuMjYgMCAuNDk1LjEwNC43MDMuMzEzbDIuNDc4IDIuNTQzYy44MDctLjY1MSAxLjcxOS0uOTUxIDIuNzM0LS44OThzMS45MDEuNDU2IDIuNjU2IDEuMjExbC44OTguODk4Yy4xODIuMTgyLjI3My40MTcuMjczLjcwMyAwIC4yNi0uMDkxLjQ4Mi0uMjczLjY2NGwtLjgyLjgyIDEuNzk3IDEuNzU4Yy4yMDguMjA4LjMxMy40NDMuMzEzLjcwM3MtLjEwNC40OTUtLjMxMi43MDMtLjQ0My4zMTMtLjcwMy4zMTMtLjQ5NS0uMTA0LS43MDMtLjMxMkw3Ljc1OSA3LjEyMWwtLjYyNS42MjUuODk4Ljg3OS44OTguODc5Yy4yMDguMjA4LjMxMy40NDMuMzEzLjcwM3MtLjEwNC40OTUtLjMxMi43MDN6IiBmaWxsPSJ1cmwoI0MpIi8+Cjwvc3ZnPg=="/>
+        </g>
+        <g>
+            <rect x="500" y="155" width="130" height="30" fill="none" stroke="none" pointer-events="all"/>
+        </g>
+        <g>
+            <g transform="translate(-0.5 -0.5)">
+                <switch>
+                    <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 128px; height: 1px; padding-top: 162px; margin-left: 501px;">
+                            <div style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                                <div style="display: inline-block; font-size: 12px; font-family: &quot;Helvetica&quot;; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">
+                                    <b style="border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: light-dark(rgb(251, 251, 251), rgb(21, 21, 21)); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;">
+                                        <font color="#1d2d3e" style="color: light-dark(rgb(29, 45, 62), rgb(188, 202, 216));">
+                                            SAP BTP, Connectivity
+                                        </font>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="565" y="174" fill="light-dark(#000000, #ffffff)" font-family="&quot;Helvetica&quot;" font-size="12px" text-anchor="middle">
+                        SAP BTP, Connectivity
+                    </text>
+                </switch>
+            </g>
+        </g>
+        <g>
+            <rect x="470" y="85" width="130" height="30" fill="none" stroke="none" pointer-events="all"/>
+        </g>
+        <g>
+            <g transform="translate(-0.5 -0.5)">
+                <switch>
+                    <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 128px; height: 1px; padding-top: 92px; margin-left: 471px;">
+                            <div style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                                <div style="display: inline-block; font-size: 12px; font-family: &quot;Helvetica&quot;; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">
+                                    <b style="border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: light-dark(rgb(251, 251, 251), rgb(21, 21, 21)); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;">
+                                        <font color="#1d2d3e" style="color: light-dark(rgb(29, 45, 62), rgb(188, 202, 216));">
+                                            XSUAA
+                                        </font>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="535" y="104" fill="light-dark(#000000, #ffffff)" font-family="&quot;Helvetica&quot;" font-size="12px" text-anchor="middle">
+                        XSUAA
+                    </text>
+                </switch>
+            </g>
+        </g>
+        <g>
+            <rect x="189" y="320" width="290" height="250" rx="12" ry="12" fill="#ebf8ff" stroke="#0070f2" stroke-width="1.5" pointer-events="all" style="fill: light-dark(rgb(235, 248, 255), rgb(17, 28, 34)); stroke: light-dark(rgb(0, 112, 242), rgb(70, 166, 255));"/>
+        </g>
+        <g>
+            <rect x="200" y="330" width="220" height="30" fill="none" stroke="none" pointer-events="all"/>
+        </g>
+        <g>
+            <g transform="translate(-0.5 -0.5)">
+                <switch>
+                    <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe flex-start; width: 1px; height: 1px; padding-top: 345px; margin-left: 202px;">
+                            <div style="box-sizing: border-box; font-size: 0; text-align: left; color: #1d2d3e; ">
+                                <div style="display: inline-block; font-size: 12px; font-family: &quot;Helvetica&quot;; color: light-dark(#1d2d3e, #bccad8); line-height: 1.2; pointer-events: all; white-space: nowrap; ">
+                                    <font style="font-size: 16px;" face="arial">
+                                        <b style="font-size: 16px;">
+                                            Your On-Premise Network
+                                        </b>
+                                    </font>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="202" y="349" fill="#1d2d3e" font-family="&quot;Helvetica&quot;" font-size="12px">
+                        Your On-Premise Network
+                    </text>
+                </switch>
+            </g>
+        </g>
+        <g>
+            <rect x="62" y="70" width="166" height="60" rx="12" ry="12" fill="#ffffff" stroke="#0070f2" stroke-width="1.5" pointer-events="all" style="fill: light-dark(rgb(255, 255, 255), rgb(18, 18, 18)); stroke: light-dark(rgb(0, 112, 242), rgb(70, 166, 255));"/>
+        </g>
+        <g>
+            <path d="M 145 210 L 145 420 L 251 420" fill="none" stroke="#475e75" stroke-width="1.5" stroke-miterlimit="10" pointer-events="stroke" style="stroke: light-dark(rgb(71, 94, 117), rgb(142, 162, 181));"/>
+        </g>
+        <g>
+            <rect x="62" y="150" width="166" height="60" rx="12" ry="12" fill="#ffffff" stroke="#0070f2" stroke-width="1.5" pointer-events="all" style="fill: light-dark(rgb(255, 255, 255), rgb(18, 18, 18)); stroke: light-dark(rgb(0, 112, 242), rgb(70, 166, 255));"/>
+        </g>
+        <g>
+            <path d="M 417 420 L 535 420 L 535 210" fill="none" stroke="#475e75" stroke-width="1.5" stroke-miterlimit="10" pointer-events="stroke" style="stroke: light-dark(rgb(71, 94, 117), rgb(142, 162, 181));"/>
+        </g>
+        <g>
+            <rect x="251" y="390" width="166" height="60" rx="12" ry="12" fill="#ffffff" stroke="#0070f2" stroke-width="1.5" pointer-events="all" style="fill: light-dark(rgb(255, 255, 255), rgb(18, 18, 18)); stroke: light-dark(rgb(0, 112, 242), rgb(70, 166, 255));"/>
+        </g>
+        <g>
+            <rect x="254" y="470" width="166" height="60" rx="12" ry="12" fill="#ffffff" stroke="#0070f2" stroke-width="1.5" pointer-events="all" style="fill: light-dark(rgb(255, 255, 255), rgb(18, 18, 18)); stroke: light-dark(rgb(0, 112, 242), rgb(70, 166, 255));"/>
+        </g>
+        <g>
+            <path d="M 145 130 L 145 150" fill="none" stroke="#475e75" stroke-width="1.5" stroke-miterlimit="10" pointer-events="stroke" style="stroke: light-dark(rgb(71, 94, 117), rgb(142, 162, 181));"/>
+        </g>
+        <g>
+            <rect x="80" y="75" width="130" height="55" fill="none" stroke="none" pointer-events="all"/>
+        </g>
+        <g>
+            <g transform="translate(-0.5 -0.5)">
+                <switch>
+                    <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 128px; height: 1px; padding-top: 82px; margin-left: 81px;">
+                            <div style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                                <div style="display: inline-block; font-size: 12px; font-family: &quot;Helvetica&quot;; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">
+                                    <b style="border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: light-dark(rgb(251, 251, 251), rgb(21, 21, 21)); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;">
+                                        <font color="#1d2d3e" style="color: light-dark(rgb(29, 45, 62), rgb(188, 202, 216));">
+                                            Kubernetes Workload
+                                        </font>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="145" y="94" fill="light-dark(#000000, #ffffff)" font-family="&quot;Helvetica&quot;" font-size="12px" text-anchor="middle">
+                        Kubernetes Workload
+                    </text>
+                </switch>
+            </g>
+        </g>
+        <g>
+            <rect x="80" y="165" width="130" height="30" fill="none" stroke="none" pointer-events="all"/>
+        </g>
+        <g>
+            <g transform="translate(-0.5 -0.5)">
+                <switch>
+                    <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 128px; height: 1px; padding-top: 172px; margin-left: 81px;">
+                            <div style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                                <div style="display: inline-block; font-size: 12px; font-family: &quot;Helvetica&quot;; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">
+                                    <b style="border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: light-dark(rgb(251, 251, 251), rgb(21, 21, 21)); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;">
+                                        <font color="#1d2d3e" style="color: light-dark(rgb(29, 45, 62), rgb(188, 202, 216));">
+                                            Connectivity Proxy
+                                        </font>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="145" y="184" fill="light-dark(#000000, #ffffff)" font-family="&quot;Helvetica&quot;" font-size="12px" text-anchor="middle">
+                        Connectivity Proxy
+                    </text>
+                </switch>
+            </g>
+        </g>
+        <g>
+            <rect x="269" y="405" width="130" height="30" fill="none" stroke="none" pointer-events="all"/>
+        </g>
+        <g>
+            <g transform="translate(-0.5 -0.5)">
+                <switch>
+                    <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 128px; height: 1px; padding-top: 412px; margin-left: 270px;">
+                            <div style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                                <div style="display: inline-block; font-size: 12px; font-family: &quot;Helvetica&quot;; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">
+                                    <b style="border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: light-dark(rgb(251, 251, 251), rgb(21, 21, 21)); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;">
+                                        <font color="#1d2d3e" style="color: light-dark(rgb(29, 45, 62), rgb(188, 202, 216));">
+                                            Cloud Connector
+                                        </font>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="334" y="424" fill="light-dark(#000000, #ffffff)" font-family="&quot;Helvetica&quot;" font-size="12px" text-anchor="middle">
+                        Cloud Connector
+                    </text>
+                </switch>
+            </g>
+        </g>
+        <g>
+            <rect x="258" y="485" width="158" height="30" fill="none" stroke="none" pointer-events="all"/>
+        </g>
+        <g>
+            <g transform="translate(-0.5 -0.5)">
+                <switch>
+                    <foreignObject style="overflow: visible; text-align: left;" pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe flex-start; justify-content: unsafe center; width: 156px; height: 1px; padding-top: 492px; margin-left: 259px;">
+                            <div style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                                <div style="display: inline-block; font-size: 12px; font-family: &quot;Helvetica&quot;; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">
+                                    <b style="border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: light-dark(rgb(251, 251, 251), rgb(21, 21, 21)); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;">
+                                        <font color="#1d2d3e" style="color: light-dark(rgb(29, 45, 62), rgb(188, 202, 216));">
+                                            On-Premise System
+                                        </font>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
+                    </foreignObject>
+                    <text x="337" y="504" fill="light-dark(#000000, #ffffff)" font-family="&quot;Helvetica&quot;" font-size="12px" text-anchor="middle">
+                        On-Premise System
+                    </text>
+                </switch>
+            </g>
+        </g>
+        <g>
+            <path d="M 228 180 L 258 180 L 422 180 L 452 180" fill="none" stroke="#475e75" stroke-width="1.5" stroke-miterlimit="10" pointer-events="stroke" style="stroke: light-dark(rgb(71, 94, 117), rgb(142, 162, 181));"/>
+        </g>
+    </g>
+    <switch>
+        <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/>
+        <a transform="translate(0,-5)" xlink:href="https://www.drawio.com/doc/faq/svg-export-text-problems" target="_blank">
+            <text text-anchor="middle" font-size="10px" x="50%" y="100%">
+                Text is not SVG - cannot display
+            </text>
+        </a>
+    </switch>
+</svg>
