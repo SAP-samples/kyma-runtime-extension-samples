@@ -1,18 +1,18 @@
-# Connectivity: Accessing a Workload in the Corporate Network From SAP BTP, Kyma Runtime
+# Connectivity: Accessing a Workload in the Corporate Network or On-Premise System from SAP BTP, Kyma Runtime
 
 ## Context
 
-If you want to access a workload in the corporate network from SAP BTP, Kyma runtime, you can use Connectivity Proxy from SAP BTP, Connectivity. SAP BTP, Connectivity also provides Cloud Connector service channels to connect your on-premises network to specific services on SAP BTP, Kyma runtime.
+If you want to access a workload in the corporate network or on-premise system from SAP BTP, Kyma runtime, you can use Connectivity Proxy from SAP BTP, Connectivity.
 
-The sample demonstrates the use of Cloud Connector from within SAP BTP, Kyma runtime and includes:
+The sample demonstrates how to access workloads/APIs in the corporate network or on-premise system from SAP BTP, Kyma runtime and includes:
 
-- Provisioning Connectivity Proxy in the Kyma runtime. See [Connectivity in the Kyma Environment](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/on-premise-connectivity-in-kyma-environment?version=Cloud).
+- Adding the Connectivity Proxy module in your Kyma runtime. See [Connectivity in the Kyma Environment](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/on-premise-connectivity-in-kyma-environment?version=Cloud).
 - Starting the sample Node.js application locally.
 - Configuring Cloud Connector to be exposed to the connected SAP BTP account.
 - Deploying a Serverless Function, which is configured to call the sample Node.js application via the Connectivity Proxy, in the Kyma runtime.
 - Using a curl Pod to call the sample Node.js application via the Connectivity Proxy.
 
-![Connectivity Proxy for Kubernetes](./assets/connectivity-proxy.drawio.svg)
+![Cloud to On-Prem](./assets/cloud-to-on-prem.drawio.svg)
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@ The sample demonstrates the use of Cloud Connector from within SAP BTP, Kyma run
 
 ## Procedure
 
-### Provisioning Connectivity Proxy in the Kyma Runtime
+### Starting the Sample Application
 
 1. Export the environment variable.
 
@@ -40,25 +40,8 @@ The sample demonstrates the use of Cloud Connector from within SAP BTP, Kyma run
 
    ```shell
    kubectl label namespaces ${NS} istio-injection=enabled
-   ```
 
-3. Create a service instance and a service binding of the Connectivity Proxy service. Once the service instance and the service binding are detected by the Kyma Control Plane, the Connectivity Proxy service is provisioned in the **kyma-system** namespace.
-
-   ```shell
-   kubectl -n ${NS} apply -f ./k8s/connectivity-proxy-instance.yaml
-   ```
-
-**Result**
-
-The Kyma Control Plane provisioned the Connectivity Proxy service and generated the **connectivity-proxy-0** Pod. You can access the service from within the Kyma runtime using the **connectivity-proxy.kyma-system.svc.cluster.local:20003** URL or check if the Pod exists by running:
-
-   ```shell
-   kubectl get pods -n kyma-system
-   ```
-
-## Starting the Sample Application
-
-1. Start the sample Node.js application included in the repository. Clone the repository and run the following commands in the **localmock** directory:
+3. Start the sample Node.js application included in the repository. Clone the repository and run the following commands in the **localmock** directory:
 
    ```shell
    npm install
@@ -68,7 +51,7 @@ The Kyma Control Plane provisioned the Connectivity Proxy service and generated 
    npm start
    ```
 
-2. Download and install [Cloud Connector](https://tools.hana.ondemand.com/#cloud) and establish a connection to the **localmock** app. See [Installation](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/installation?version=Cloud).
+4. Download and install [Cloud Connector](https://tools.hana.ondemand.com/#cloud) and establish a connection to the **localmock** app. See [Installation](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/installation?version=Cloud).
 
 ### Configuring Cloud Connector
 
@@ -130,7 +113,7 @@ The provided sample Function calls the on-premise sample application by proxying
 1. Create an interactive Pod with curl installed.
 
    ```shell
-   kubectl run curl --image=radial/busyboxplus:curl -i --tty
+   kubectl run curl --image=curlimages/curl -i --tty
    ```
 
 2. Call the on-premise connection.
@@ -138,6 +121,9 @@ The provided sample Function calls the on-premise sample application by proxying
    ```shell
    curl --proxy http://connectivity-proxy.kyma-system.svc.cluster.local:20003 http://localhost:3000/orders?OrderNo=123
    ```
+
+   > [!NOTE]
+   > You can access the Connectivity Proxy service using the **connectivity-proxy.kyma-system.svc.cluster.local:20003** URL.
 
 3. Escape the Pod.
 
