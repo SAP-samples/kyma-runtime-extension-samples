@@ -1,148 +1,142 @@
-## SAP Connectivity Proxy
+# Connectivity: Accessing a Workload in the Corporate Network or On-Premise System from SAP BTP, Kyma Runtime
 
-The sample demostrates the use of the SAP Cloud Connector from within SAP BTP, Kyma runtime. This includes...
+## Context
 
-- The provisioning of the Connectivity Proxy within the Kyma runtime ([SAP Help Portal link](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/0c035010a9d64cc8a02d872829c7fa75.html?locale=en-US)).
-- A sample Nodejs application is ran locally and configured in the SAP Cloud Connector to be exposed to the connected SAP BTP account.
-- A Serverless function is deployed within the Kyma runtime, which is configured to call the sample Nodejs application via the Connectivity Proxy.
-- Using a curl pod to call the sample Nodejs application via the Connectivity Proxy.
+If you want to access a workload in the corporate network or on-premise system from SAP BTP, Kyma runtime, you can use Connectivity Proxy from SAP BTP, Connectivity.
 
-### Enable the Connectivity Service Entitelment
+The sample demonstrates how to access workloads/APIs in the corporate network or on-premise system from SAP BTP, Kyma runtime and includes:
 
-In order to configure the Connectivity Proxy within the Kyma Runtime you must first make sure that the Connectivity Service Entitlement is present within your subaccount. This can be accomplished by
+- Adding the Connectivity Proxy module in your Kyma runtime. See [Connectivity in the Kyma Environment](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/on-premise-connectivity-in-kyma-environment?version=Cloud).
+- Starting the sample Node.js application locally.
+- Configuring Cloud Connector to be exposed to the connected SAP BTP account.
+- Deploying a Serverless Function, which is configured to call the sample Node.js application via the Connectivity Proxy, in the Kyma runtime.
+- Using a curl Pod to call the sample Node.js application via the Connectivity Proxy.
 
-- Within your global account…
-- Choose **Entitlements -> Entity Assignments**
-- Search **for Connectivity Service**
-- Choose **connectivity_proxy** for the plan
-- Choose **Add 1 Service Plan**
-- Choose **Save**
+![Cloud to On-Prem](./assets/cloud-to-on-prem.drawio.svg)
 
-### Provision the Service in the Kyma Runtime
+## Prerequisites
 
-The next step involves creating a service instance of the Connectivity Proxy and a service binding. Once the creation of the sevice binding is detected by the Kyma Control Plane, the Connectivity Proxy will be provisioned in the runtime into the namespace **kyma-system**. From within the Kyma runtime it will be accessible using the URL **connectivity-proxy.kyma-system.svc.cluster.local:20003**
+- SAP BTP, Kyma runtime instance
+- [curl](https://curl.se/)
+- [Kubernetes tooling](../prerequisites/README.md#kubernetes)
+- The service plan **connectivity_proxy** of the **connectivity** service is assigned to your subaccount as an entitlement. For more information, see [Configure Entitlements and Quotas for Subaccounts](https://help.sap.com/docs/btp/sap-business-technology-platform/configure-entitlements-and-quotas-for-subaccounts?version=Cloud).
 
-- Within your desired namespace enable Istio if it is not already enabled.
+   > [!NOTE]
+   > For subaccounts created after February 15, 2024, this entitlement is assigned automatically.
 
-```shell
-kubectl label namespaces <your namespace> istio-injection=enabled
-```
+- You have the Istio, SAP BTP Operator, Serverless, and Connectivity Proxy modules added. For more information, see [Adding and Deleting a Kyma Module](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module?version=Cloud).
 
-- Create the Connectivity Proxy Service Instance
+## Procedure
 
-```shell
-kubectl apply -f ./k8s/connectivity-proxy-instance.yaml -n <your namespace>
-```
+### Starting the Sample Application
 
-The Kyma Control Plane should now provision the Connectivity Proxy. This will generate the pod **connectivity-proxy-0** which can be found by running.
+1. Export the environment variable.
 
-```shell
-kubectl get pods -n kyma-system
-```
+   ```bash
+   export NS=<your namespace> # e.g. default
+   ```
 
-### Configuration of the Sample Application
+2. Enable Istio sidecar proxy injection in your namespace.
 
-To validate the setup, start the sample application included in the repo and configure it within the SAP Cloud Connector.
+   ```shell
+   kubectl label namespaces ${NS} istio-injection=enabled
 
-#### Starting the localmock application
+3. Start the sample Node.js application included in the repository. Clone the repository and run the following commands in the **localmock** directory:
 
-After cloning the repo run the following commands in the directory **localmock**
+   ```shell
+   npm install
+   ```
 
-- Run the command
-  ```
-  npm install
-  ```
-- Start the application
-  ```
-  npm start
-  ```
+   ```shell
+   npm start
+   ```
 
-#### SAP Cloud Connector Configuration
+4. Download and install [Cloud Connector](https://tools.hana.ondemand.com/#cloud) and establish a connection to the **localmock** app. See [Installation](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/installation?version=Cloud).
 
-Download and install the [SAP Cloud Connector](https://tools.hana.ondemand.com/#cloud) and establish a connection to the **localmock** app. Please refer to the [help documentation](https://help.sap.com/viewer/cca91383641e40ffbe03bdc78f00f681/Cloud/en-US/e6c7616abb5710148cfcf3e75d96d596.html) for the installation steps. Make sure to also add your user to the appropiate
+### Configuring Cloud Connector
 
-- Open the [Cloud Connector](https://localhost:8443/)
-- Choose the appropiate Subaccount or add an additional one by...
-  - Choose **Add Subaccount**
-  - Choose your Region
-  - Provide your Subaccount ID
-  - Provide your Subaccount User and Password
-  - Choose Save
-  - Verify that the subaccount is connected. Under the Actions column use the Connect this sub account option
-- Choose **Cloud To On-Premise**
-- Under the tab **ACCESS CONTROL** choose the **plus** button to add a system
-  - Choose the Back-end Type **Non-SAP System**, choose Next
-  - Choose the Protocol **HTTP**, choose Next
-  - Enter the Internal Host **localhost**
-  - Enter the Internal Port **3000**, choose Next
-  - Enter the Virtual Host **localhost**
-  - Enter the Virtual Port **3000**, choose Next
-  - Choose the Principle Type **None**, choose Next
-  - Choose Next
-  - Choose Next
-  - Choose the option to **Check Internal Host**, choose Finish
+1. Open [Cloud Connector](https://localhost:8443/).
+2. Choose the relevant subaccount or add a new one.
+3. Choose **Cloud To On-Premise**.
+4. Under the **ACCESS CONTROL** tab, choose the **+** button to add a system.
+5. Set the following configuration options:
 
-At this point the **Check Result** column should display that the sample is **Reachable**. Next set the URL path policy of the sample.
+   | Parameter | Value |
+   |-----------|-------|
+   | Backend Type | **Non-SAP System** |
+   | Protocol | **HTTP** |
+   | Internal Host | **localhost** |
+   | Internal Port |  **3000** |
+   | Virtual Host | **localhost** |
+   | Virtual Port | **3000** |
+   | Principle Type | **None** |
+  
+6. Choose the option to **Check Internal Host** and choose **Finish**.
 
-- Under **Resources Of localmock:3000** choose the **plus** button to add a resource
-  - Enter the URL Path **/**
-  - Choose the Access Policy **Path And All Sub-Paths**
-  - Choose **Save**
+   **Result**
+   The **Check Result** column should display that the sample is **Reachable**.
 
-#### Deploy the Kyma Function
+7. Set the URL path policy of the sample.
 
-The provided sample function calls the on-premise sample application by proxing the call via the **connectivity-proxy**. Within the function code you will find this in the **proxy** object definition of the axios get call. The **cc_url** defines the url to call as was defined in the virtual host/port defined in the SAP Cloud Connector.
+   Under **Resources Of localmock:3000** choose the **+** button to add a resource.
+   - Enter the URL Path **/**.
+   - Choose the Access Policy **Path And All Sub-Paths**.
+   - Choose **Save**.
 
-- Deploy the sample function and apirule found in the directory **k8s**
+### Deploying the Kyma Function
 
-```shell
-kubectl apply -f function.yaml -n <your namespace>
-kubectl apply -f apirule.yaml -n <your namespace>
-```
+The provided sample Function calls the on-premise sample application by proxying the call via the **connectivity-proxy**. Within the `function.yaml` code you can find this in the **proxy** object definition of the **axios** get call. The **cc_url** defines the URL to call as was defined in the virtual host/port specified in Cloud Connector.
 
-Open the apirule in the choosen namespace by choosing the menu option **Discovery and Network -> API Rules** and choosing the **host** of the
-**cc-sample** API Rule. The expected response should be similar to
+1. Deploy the sample Function and APIRule custom resources found in the **k8s** directory:
 
-```json
-{
-  "OrderNo": "19",
-  "createdBy": "Internal Inc.",
-  "buyer": "The Buyer Co.",
-  "currency": { "code": "EUR" },
-  "Items": [
-    { "product_ID": "943735", "quantity": 6, "title": "familiar", "price": 12 }
-  ]
-}
-```
+   ```shell
+   kubectl -n ${NS} apply -f function.yaml
+   kubectl -n ${NS} apply -f apirule.yaml
+   ```
 
-#### Using Curl to test the connection
+2. Open the APIRule in your namespace. In Kyma dashboard, go to **Discovery and Network -> API Rules** and choose the **host** of the **cc-sample** APIRule. The expected response should be similar to this one:
 
-Using a curl pod to call the sample Nodejs application via the Connectivity Proxy can be accomplished by
+   ```json
+   {
+     "OrderNo": "19",
+     "createdBy": "Internal Inc.",
+     "buyer": "The Buyer Co.",
+     "currency": { "code": "EUR" },
+     "Items": [
+       { "product_ID": "943735", "quantity": 6, "title": "familiar", "price": 12 }
+     ]
+   }
+   ```
 
-- Create an interactive pod with curl installed
+### Using curl to Test the Connection
 
-```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty
-```
+1. Create an interactive Pod with curl installed.
 
-- Call the on premise connection by running
+   ```shell
+   kubectl run curl --image=curlimages/curl -i --tty
+   ```
 
-```
-curl --proxy http://connectivity-proxy.kyma-system.svc.cluster.local:20003 http://localhost:3000/orders?OrderNo=123
-```
+2. Call the on-premise connection.
 
-- To escape the pod
+   ```shell
+   curl --proxy http://connectivity-proxy.kyma-system.svc.cluster.local:20003 http://localhost:3000/orders?OrderNo=123
+   ```
 
-```
-exit
-```
+   > [!NOTE]
+   > You can access the Connectivity Proxy service using the **connectivity-proxy.kyma-system.svc.cluster.local:20003** URL.
 
-- To remove the pod
+3. Escape the Pod.
 
-```
-kubectl delete pod curl
-```
+   ```shell
+   exit
+   ```
 
-### Principal propagation
+4. If you want to remove the Pod, run:
 
-The topic of principal propagation is covered in [this blog](https://blogs.sap.com/2022/04/07/veridisquo.-reaching-sap-lob-destinations-with-connectivity-proxy-and-principal-propagation./) post and [this sample](../principal-prop-on-prem).
+   ```shell
+   kubectl delete pod curl
+   ```
+
+## Related Information
+
+For more information on principal propagation, see the [VeridisQuo. Reaching SAP LOB destinations with connectivity proxy and principal propagation](https://blogs.sap.com/2022/04/07/veridisquo.-reaching-sap-lob-destinations-with-connectivity-proxy-and-principal-propagation./) blog post and [this sample](../principal-prop-on-prem).
