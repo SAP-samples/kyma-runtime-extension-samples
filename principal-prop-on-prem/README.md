@@ -93,7 +93,7 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
   kubectl label namespaces $NS istio-injection=enabled
   ```
 
-* Enable the connectivity-proxy module in Kyma runtime. For more information refer [Kyma Modules](https://help.sap.com/docs/btp/sap-business-technology-platform/kyma-modules)
+* Enable the Connectivity Proxy module in the Kyma runtime. For more information, see [Kyma Modules](https://help.sap.com/docs/btp/sap-business-technology-platform/kyma-modules) and [Adding and Deleting a Kyma Module](https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module).
 
 * Create a destination Configuration in BTP Cockpit.
   ![destination-config](assets/destination-config.png)
