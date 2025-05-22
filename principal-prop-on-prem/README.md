@@ -93,10 +93,7 @@ You can run the on-prem backend on your laptop or a test system. For simplicity,
   kubectl label namespaces $NS istio-injection=enabled
   ```
 
-* Create Connectivity Service Instance in any namespace.
-  >Note: Only one instance is required for the cluster. If you have deployed it previously, simply skip this step.
-  
-  ![connectivity](./assets/connectivity.png)
+* Enable the connectivity-proxy module in Kyma runtime. For more information refer [Kyma Modules](https://help.sap.com/docs/btp/sap-business-technology-platform/kyma-modules)
 
 * Create a destination Configuration in BTP Cockpit.
   ![destination-config](assets/destination-config.png)
