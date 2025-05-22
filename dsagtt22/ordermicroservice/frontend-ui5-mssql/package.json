@@ -1,24 +1,41 @@
 {
-  "name": "frontend-ui5-mssql",
-  "version": "0.1.0",
+  "name": "kyma.sample.app",
+  "version": "0.0.1",
   "description": "Kyma Sample App - frontend-ui5-mssql",
   "private": true,
   "scripts": {
-    "start": "ui5 serve -o index.html",
     "lint": "eslint webapp",
     "karma": "karma start",
     "karma-ci": "karma start karma-ci.conf.js",
     "watch": "npm run karma",
     "test": "npm run lint && rimraf coverage && npm run karma-ci",
-    "build": "rimraf dist && ui5 build --a"
+    "start_old": "ui5 serve -o index.html",
+    "build_old": "rimraf dist && ui5 build --a",
+    "start": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#app-tile\"",
+    "start-noflp": "fiori run --open \"index.html?sap-ui-xx-viewCache=false\"",
+    "start-variants-management": "fiori run --open \"preview.html?sap-ui-xx-viewCache=false&fiori-tools-rta-mode=true&sap-ui-rta-skip-flex-validation=true#preview-app\"",
+    "build": "ui5 build -a --clean-dest --include-task=generateCachebusterInfo",
+    "deploy": "fiori verify",
+    "deploy-config": "fiori add deploy-config",
+    "suite-tests": "fiori run --open 'test/testsuite.qunit.html'",
+    "unit-tests": "fiori run --open 'test/unit/unitTests.qunit.html'",
+    "int-tests": "fiori run --open 'test/integration/opaTests.qunit.html'"
   },
   "devDependencies": {
-    "@ui5/cli": "^2.14.7",
-    "eslint": "^8.12.0",
-    "karma": "^6.3.17",
-    "karma-chrome-launcher": "^3.1.1",
-    "karma-coverage": "^2.2.0",
-    "karma-ui5": "^2.4.0",
-    "rimraf": "^3.0.2"
-  }
+    "eslint": "^9.19.0",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
+    "karma-ui5": "^4.1.0",
+    "@ui5/cli": "^4.0.13",
+    "@sap/ux-ui5-tooling": "1",
+    "rimraf": "^6.0.1"
+  },
+  "sapuxLayer": "CUSTOMER_BASE",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html"
 }
